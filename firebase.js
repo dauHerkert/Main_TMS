@@ -1,7 +1,7 @@
-  // Import the functions you need from the SDKs you need
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import { getFirestore, collection, addDoc, setDoc, updateDoc, getDocs, doc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
+import { getFirestore, collection, addDoc, setDoc, updateDoc, getDoc, doc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
 
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,19 +20,7 @@ const firebaseConfig = {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 	const db = getFirestore(app);
-    const colRef = collection(db, "users")
-
-    getDocs(colRef)
-        .then((snapshot)=>{
-            let users = [];
-            snapshot.docs.forEach((doc) =>{
-            	users.push({ ...doc.data(), id: doc.id })
-            })
-            console.log(users)
-        })
-        .catch(err =>{
-        	console.log(err.message)
-        })
+    const colRef = collection(db, "users");
     
      if (window.location.pathname == "/"){
    //identify auth action forms
@@ -61,7 +49,6 @@ const firebaseConfig = {
         
       const email = document.getElementById('signup-email').value;
       const password = document.getElementById('signup-password').value;
-      const accountType = document.getElementById('account-type').value;
       
       console.log("email is " + email);
       console.log("password is " + password + ". Now sending to firebase.");
@@ -144,8 +131,10 @@ const firebaseConfig = {
       const email = user.email;
       const displayName = user.displayName;
       const uid = user.uid;
+      const userType = user.type
       
       if (window.location.pathname == "/sign-in"){
+      
         document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${email}</span>`;
         if (displayName == null){
         	document.getElementById("username_display").innerHTML = `<span><b>Username:</b> Add your username</span>`;
@@ -153,6 +142,7 @@ const firebaseConfig = {
         	document.getElementById("username_display").innerHTML = `<span><b>Username:</b> ${displayName}</span>`;
         }
         document.getElementById("user_password").innerHTML = `<span><b>Change Password</b></span>`;
+        document.getElementById("account_type_info").innerHTML = ``
       }
       if(update_username_modal !== null){
       	update_username_modal.addEventListener('submit', updateUsername, true);
@@ -231,8 +221,64 @@ const firebaseConfig = {
         
         const userRef = doc(db, 'users', uid);
 		setDoc(userRef, { type: accountType.value, admin: is_admin.value }, { merge: true });
+        
+       	setTimeout(reload, 5000)
       }
       
+      //Depending on account type the page realoads on one or another page and shows the displayName
+      
+      function reload(){
+      	if(accountType.value === 'Press'){
+        	window.location.pathname = '/press';
+        }
+        if(accountType.value === 'Supplier'){
+        	window.location.pathname = '/supplier';
+        }
+      }
+      
+      if (window.location.pathname == "/press"){
+      
+      function getUserName(){
+        const typeRef = doc(db, 'users', uid);
+
+		document.getElementById("client_press").innerHTML = `Hello Press ${user.displayName}`
+        }
+        getUserName()
+      }
+      if (window.location.pathname == "/supplier"){
+      
+      function getUserName(){
+        const typeRef = doc(db, 'users', uid);
+
+		document.getElementById("supplier_user").innerHTML = `Hello Supplier ${user.displayName}`
+        }
+        getUserName()
+      }
+      
+     async function getUserType(){
+        const typeRef = doc(db, 'users', uid);
+        const typeSnap = await getDoc(typeRef);
+
+        if (typeSnap.exists()) {
+        
+         return typeSnap.data().admin
+         
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+          }
+          
+          (async () => {
+          
+          let userIsAdmin = await getUserType();
+
+          if(userIsAdmin === "1" && window.location.pathname !== '/admin'){
+          	window.location.href = "https://firebase-test-a63d06.webflow.io/admin";
+            
+          }
+          
+      	})()
       
       // User is signed in, see docs for a list of available properties
       
@@ -258,7 +304,9 @@ const firebaseConfig = {
       element.style.display = "none";
       });
       // ...
+      return
     }
+    
   });
   
         if (window.location.pathname == "/sign-in"){
