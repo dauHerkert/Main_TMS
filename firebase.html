@@ -86,14 +86,14 @@
             function checkUrlParameter() {
 
                 // First set company text input field to "readonly"
-                $('#signup-company').prop('readonly', 'readonly');
+                $('#sign-up-company').prop('readonly', 'readonly');
 
                 let url = new URL(location.href);
                 let company = url.searchParams.get('company');
 
                 if ( company ) {
                     localStorage.setItem('porsche_company', company);
-                    $('#signup-company').val(company);
+                    $('#sign-up-company').val(company);
                 }
             }
 
