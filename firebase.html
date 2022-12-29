@@ -235,12 +235,15 @@
              console.log(fileName);
            }
 
-           function uploadImage(){
+           function uploadImage() {
              const storageRef = ref(storage, 'press_id/'+fileName);
 
              uploadBytes(storageRef, fileItem).then((snapshot) => {
                console.log('Uploaded a blob or file!');
                window.location = '/sign-in'
+             })
+             .catch(err => {
+                console.log('error uploading file', err);
              });
            }
           }
