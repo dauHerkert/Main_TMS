@@ -18,6 +18,14 @@
         const db = getFirestore(app);
         const storage = getStorage(app);
 
+
+        function dispatchRequest() {
+          let url = window.location.pathname;
+          console.log('url in dispatchRequest()', url);
+        }
+
+        dispatchRequest();
+
         // Home page
         if ( window.location.pathname == "/" ) {
             //identify auth action forms
