@@ -10,13 +10,13 @@ const firebaseConfig = {
   storageBucket: "porsche-tms.appspot.com",
   messagingSenderId: "267742806983",
   appId: "1:267742806983:web:7e8a7ed147f052676b8fe2"
-};  
+};
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
     const storage = getStorage(app);
-    
+
      if (window.location.pathname == "/"){
    //identify auth action forms
     let signUpForm = document.getElementById('wf-form-signup-form');
@@ -25,27 +25,27 @@ const firebaseConfig = {
     //assign event listeners
     if(typeof(signUpForm) !== null) {
       signUpForm.addEventListener('submit', handleSignUp, true)
-      } else {};      
+      } else {};
      if(typeof(signInForm) !== null) {
       signInForm.addEventListener('submit', handleSignIn, true)
-      } else {};      
+      } else {};
       if(typeof signOutButton !== null) {
         signOutButton.addEventListener('click', handleSignOut);
-           } else {}     
+           } else {}
     //handle signUp
     function handleSignUp(e) {
         e.preventDefault();
-        e.stopPropagation();        
+        e.stopPropagation();
       const email = document.getElementById('signup-email').value;
-      const password = document.getElementById('signup-password').value;      
+      const password = document.getElementById('signup-password').value;
       console.log("email is " + email);
-      console.log("password is " + password + ". Now sending to firebase.");      
+      console.log("password is " + password + ". Now sending to firebase.");
       createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      //Signed in 
+      //Signed in
       const user = userCredential.user;
       alert('user successfully created: ' + user.email);
-      window.location = "/sign-in"     
+      window.location = "/sign-in"
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -53,16 +53,16 @@ const firebaseConfig = {
       console.log(errorMessage);
       errorText.innerHTML = errorMessage;
     });
-  }; 
-      //handle signIn     
+  };
+      //handle signIn
     function handleSignIn(e) {
         e.preventDefault();
-        e.stopPropagation();        
+        e.stopPropagation();
       const email = document.getElementById('signin-email').value;
-      const password = document.getElementById('signin-password').value;      
+      const password = document.getElementById('signin-password').value;
       signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      // Signed in 
+      // Signed in
       const user = userCredential.user;
       alert('user logged in: ' + user.email);
        window.location = "/sign-in"
@@ -82,14 +82,14 @@ const firebaseConfig = {
     }).catch((error) => {
     const errorMessage = error.message;
     console.log(errorMessage);
-    });         
-    }  
+    });
+    }
      onAuthStateChanged(auth, (user) => {
       let publicElements = document.querySelectorAll("[data-onlogin='hide']");
       let privateElements = document.querySelectorAll("[data-onlogin='show']");
-      
-      if (user) {      
-      console.log(user);      
+
+      if (user) {
+      console.log(user);
       let update_username_modal = document.getElementById("username_form_modal");
       let update_email_modal = document.getElementById("email_form_modal");
       let update_password_modal = document.getElementById("password_form_modal");
@@ -99,8 +99,8 @@ const firebaseConfig = {
       const email = user.email;
       const displayName = user.displayName;
       const uid = user.uid;
-      
-      if (window.location.pathname == "/sign-in"){      
+
+      if (window.location.pathname == "/sign-in"){
         document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${email}</span>`;
         if (displayName == null){
           document.getElementById("username_display").innerHTML = `<span><b>Username:</b> Add your username</span>`;
@@ -131,22 +131,22 @@ const firebaseConfig = {
       }).catch((error) => {
        console.log("Error happened");
       });
-      }       
-      // Update email       
+      }
+      // Update email
       function updateUserEmail(e){
         e.preventDefault();
-        e.stopPropagation();       
+        e.stopPropagation();
         updateEmail(auth.currentUser, change_email.value).then(() => {
           console.log("Email updated!")
           window.location.reload();
         }).catch((error) => {
-        });      
+        });
       }
       // update password
       function updateUserPassword(e){
          e.preventDefault();
-         e.stopPropagation();        
-        const newPassword = change_password.value;        
+         e.stopPropagation();
+        const newPassword = change_password.value;
         updatePassword(user, newPassword).then(() => {
           alert("Password changed!")
           window.location.reload();
@@ -155,9 +155,9 @@ const firebaseConfig = {
           console.log("An error has ocurred")
           // ...
         });
-      }      
+      }
       //Depending on account type the page realoads
-      if (window.location.pathname == "/press"){       
+      if (window.location.pathname == "/press"){
       function getUserName(){
         const typeRef = doc(db, 'users', uid);
 
@@ -165,14 +165,14 @@ const firebaseConfig = {
         }
         getUserName()
       }
-      if (window.location.pathname == "/supplier"){      
+      if (window.location.pathname == "/supplier"){
       function getUserName(){
         const typeRef = doc(db, 'users', uid);
     document.getElementById("supplier_user").innerHTML = `Hello Supplier ${user.displayName}`
         }
         getUserName()
-      }       
-  // Add press info       
+      }
+  // Add press info
        if(window.location.pathname == "/press"){
          const press_form = document.getElementById('moreInfo_press_form');
          const workspot = document.getElementById('workspot');
@@ -181,18 +181,18 @@ const firebaseConfig = {
          const from_press_date = document.getElementById('from_press_date');
          const to_press_date = document.getElementById('to_press_date');
          const special_press_request = document.getElementById('special_press_request');
- 
+
          press_form.addEventListener('submit', addSupplierInfo)
         function addSupplierInfo(e){
          e.preventDefault();
-         e.stopPropagation();         
+         e.stopPropagation();
          const userRef = doc(db, 'users', uid);
          setDoc(userRef, { From: from_press_date.value, To: to_press_date.value, Special_request: special_press_request.value, Workspot: workspot.value, Publisher: publisher.value, Media_type: media_type.value, press_id: press_id.value}, { merge: true });
 
          setTimeout(function(){
           window.pathname = '/sign-in';
       }, 5000);
-       }         
+       }
          // Upload images
          const press_id = document.getElementById('fileInp');
          const fileText = document.getElementById('fileText');
@@ -202,13 +202,13 @@ const firebaseConfig = {
 
          press_id.addEventListener('change', getFile);
          uploadFile.addEventListener('click', uploadImage);
-         
+
          function getFile(e){
          fileItem = e.target.files[0];
          fileName = e.target.files[0].name;
          console.log(fileName);
        }
-       
+
        function uploadImage(){
          const storageRef = ref(storage, 'press_id/'+fileName);
 
@@ -218,9 +218,9 @@ const firebaseConfig = {
          });
        }
       }
-     // Add suppliers info       
+     // Add suppliers info
      if(window.location.pathname == "/supplier"){
-       
+
        const supplier_form = document.getElementById('supplier_form');
        const from_date = document.getElementById('from_date');
        const to_date = document.getElementById('to_date');
@@ -228,44 +228,44 @@ const firebaseConfig = {
        const access_zone = document.getElementById('zones');
 
        supplier_form.addEventListener('submit', addSupplierInfo)
-     
+
       function addSupplierInfo(e){
        e.preventDefault();
        e.stopPropagation();
-       
+
        const userRef = doc(db, 'users', uid);
        setDoc(userRef, { From: from_date.value, To: to_date.value, Special_request: special_request.value, access_zone: access_zone.value}, { merge: true });
-       
+
         setTimeout(function(){
           window.location = '/sign-in';
       }, 5000);
      }
-    }
-    if(window.location.pathname == "/sign-in"){
+   }
+   if(window.location.pathname == "/sign-in"){
       const from_supplier_form = document.getElementById('from_supplier_form');
       const from_supDate = document.getElementById('from_supplier');
-      from_supplier_form.addEventListener('submit', UpdateupplierFrom)
-    
-     function UpdateupplierFrom(e){
+      from_supplier_form.addEventListener('submit', UpdateSupplierFrom)
+
+     function UpdateSupplierFrom(e){
       e.preventDefault();
       e.stopPropagation();
-      
+
       const userRef = doc(db, 'users', uid);
       setDoc(userRef, { From: from_supDate.value}, { merge: true });
-      
+
        setTimeout(function(){
          window.location.reload();
      }, 2000);
     }
-      const to_supplier_form = document.getElementById('to_supplier_form');
+    const to_supplier_form = document.getElementById('to_supplier_form');
       const to_supDate = document.getElementById('to_supplier');
       to_supplier_form.addEventListener('submit', UpdateSupplierTo)
-    
+
      function UpdateSupplierTo(e){
       e.preventDefault();
-      e.stopPropagation();      
+      e.stopPropagation();
       const userRef = doc(db, 'users', uid);
-      setDoc(userRef, { To: to_supDate.value}, { merge: true });      
+      setDoc(userRef, { To: to_supDate.value}, { merge: true });
        setTimeout(function(){
          window.location.reload();
      }, 2000);
@@ -273,12 +273,12 @@ const firebaseConfig = {
       const require_form_supplier = document.getElementById('require_form_supplier');
       const change_require_supplier = document.getElementById('change_require_supplier');
       require_form_supplier.addEventListener('submit', UpdateSupplierRequire)
-    
+
      function UpdateSupplierRequire(e){
       e.preventDefault();
-      e.stopPropagation();      
+      e.stopPropagation();
       const userRef = doc(db, 'users', uid);
-      setDoc(userRef, { Special_request: change_require_supplier.value}, { merge: true });      
+      setDoc(userRef, { Special_request: change_require_supplier.value}, { merge: true });
        setTimeout(function(){
          window.location.reload();
      }, 2000);
@@ -286,18 +286,17 @@ const firebaseConfig = {
       const zone_form = document.getElementById('zone_form');
       const change_zone = document.getElementById('change_zone');
       zone_form.addEventListener('submit', UpdateSupplierZone)
-    
+
      function UpdateSupplierZone(e){
       e.preventDefault();
-      e.stopPropagation();      
+      e.stopPropagation();
       const userRef = doc(db, 'users', uid);
-      setDoc(userRef, { access_zone: change_zone.value}, { merge: true });      
+      setDoc(userRef, { access_zone: change_zone.value}, { merge: true });
        setTimeout(function(){
          window.location.reload();
      }, 2000);
     }
     }
-    
       //User Admin
       if(window.location.pathname == "/admin"){
 
@@ -318,16 +317,16 @@ const firebaseConfig = {
        }
         async function getUserInfo(){
          const typeRef = doc(db, 'users', uid);
-         const typeSnap = await getDoc(typeRef); 
-         if (typeSnap.exists()) {         
+         const typeSnap = await getDoc(typeRef);
+         if (typeSnap.exists()) {
           return typeSnap.data()
-                          
+
          } else {
            console.log("No such document!");
          }
-           }           
+           }
            (async () => {
-           
+
             let userInfo = await getUserInfo();
             const accountType_button = document.getElementById('account_user_profile');
             const homeButton = document.getElementById('home_button');
@@ -343,7 +342,7 @@ const firebaseConfig = {
             const supplier_zone = document.getElementById('supplier_zone');
             const press_info = document.getElementsByClassName('press_info');
             const supplier_info = document.getElementsByClassName('supplier_info');
- 
+
            if (userInfo.type == "Supplier"){
              if (window.location.pathname == '/sign-in'){
                 document.getElementById('welcome_user').innerHTML = `Hello Supplier ${user.displayName}`;
@@ -389,19 +388,19 @@ const firebaseConfig = {
             accountType_button.setAttribute("href", "/admin");
           }
          })();
-      // User is signed in       
+      // User is signed in
       privateElements.forEach(function(element) {
       element.style.display = "initial";
-      });      
+      });
       publicElements.forEach(function(element) {
       element.style.display = "none";
-      });      
+      });
       console.log(`The current user's UID is equal to ${uid}`);
     } else {
-      // User is signed out      
+      // User is signed out
       publicElements.forEach(function(element) {
       element.style.display = "initial";
-      });      
+      });
       privateElements.forEach(function(element) {
       element.style.display = "none";
       });
@@ -409,7 +408,7 @@ const firebaseConfig = {
     }
   });
         if (window.location.pathname == "/sign-in"){
-        let signOutButton2 = document.getElementById('signout-button2');  
+        let signOutButton2 = document.getElementById('signout-button2');
         if(typeof signOutButton2 !== null) {
           signOutButton2.addEventListener('click', handleSignOut);
            } else {}
