@@ -79,12 +79,22 @@
                 });
             }
 
-            // Check if the company parameter exists in the URL
-            // If it does then set a cookie and pre-populate the text field in the sign up form
+            /* Check if the company parameter exists in the URL
+            /* If it does then set a value in the local storage
+            /* and pre-populate the text field in the sign up form
+            **/
             function checkUrlParameter() {
+
+                // First set company text input field to "readonly"
+                $('#signup-company').prop('readonly', 'readonly');
+
                 let url = new URL(location.href);
                 let company = url.searchParams.get('company');
-                console.log('company', company);
+
+                if ( company ) {
+                    localStorage.setItem('porsche_company', company);
+                    $('#signup-company').val(company);
+                }
             }
 
             checkUrlParameter();
