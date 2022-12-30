@@ -130,7 +130,6 @@
       e.preventDefault();
       e.stopPropagation();
       const userRef = doc(db, 'users', user.uid);
-      const press_form = document.getElementById('moreInfo_press_form');
       const workspot = document.getElementById('workspot');
       const publisher = document.getElementById('publisher');
       const media_type = document.getElementById('media_type');
@@ -163,6 +162,8 @@
       // Show displayName
       document.getElementById("client_press").innerHTML = `Hello Press ${user.displayName}`;
 
+      // Get press form
+      const press_form = document.getElementById('moreInfo_press_form');
       // Add submit event to form
       press_form.addEventListener('submit', function(ev) {
         onPressFormSubmit(ev, user);
