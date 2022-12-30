@@ -205,6 +205,11 @@
       e.stopPropagation();
 
       const userRef = doc(db, 'users', user.uid);
+      const from_date = document.getElementById('from_date');
+      const to_date = document.getElementById('to_date');
+      const special_request = document.getElementById('special_request');
+      const access_zone = document.getElementById('zones');
+
       setDoc(userRef, {
         From: from_date.value,
         To: to_date.value,
@@ -226,11 +231,6 @@
       document.getElementById("supplier_user").innerHTML = `Hello Supplier ${user.displayName}`;
 
       const supplier_form = document.getElementById('supplier_form');
-      const from_date = document.getElementById('from_date');
-      const to_date = document.getElementById('to_date');
-      const special_request = document.getElementById('special_request');
-      const access_zone = document.getElementById('zones');
-
       supplier_form.addEventListener('submit', function(ev) {
         addSupplierInfo(ev, user);
       });
