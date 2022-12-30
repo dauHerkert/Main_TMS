@@ -19,26 +19,27 @@
     const db = getFirestore(app);
     const storage = getStorage(app);
 
+    // Global user id set by firebase onAuthStateChange
+    var g_UID;
+
     // handle signUp
     function handleSignUp(e) {
         e.preventDefault();
         e.stopPropagation();
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
-        console.log("email is " + email);
-        console.log("password is " + password + ". Now sending to firebase.");
         createUserWithEmailAndPassword(auth, email, password)
         .then(userCredential => {
-        //Signed in
-        const user = userCredential.user;
-        alert('user successfully created: ' + user.email);
-        window.location = "/sign-in"
+          //Signed in
+          const user = userCredential.user;
+          alert('user successfully created: ' + user.email);
+          window.location = "/account"
         })
         .catch((error) => {
-        const errorMessage = error.message;
-        var errorText = document.getElementById('signup-error-message');
-        console.log(errorMessage);
-        errorText.innerHTML = errorMessage;
+          const errorMessage = error.message;
+          var errorText = document.getElementById('signup-error-message');
+          console.log(errorMessage);
+          errorText.innerHTML = errorMessage;
         });
     };
 
@@ -50,24 +51,24 @@
         const password = document.getElementById('signin-password').value;
         signInWithEmailAndPassword(auth, email, password)
         .then(userCredential => {
-        // Signed in
-        const user = userCredential.user;
-        alert('user logged in: ' + user.email);
-        window.location = "/sign-in"
+          // Signed in
+          const user = userCredential.user;
+          alert('user logged in: ' + user.email);
+          window.location = "/account"
         })
         .catch((error) => {
-            const errorMessage = error.message;
-            var errorText = document.getElementById('signin-error-message');
-            console.log(errorMessage);
-            errorText.innerHTML = errorMessage;
+          const errorMessage = error.message;
+          var errorText = document.getElementById('signin-error-message');
+          console.log(errorMessage);
+          errorText.innerHTML = errorMessage;
         });
     }
 
     // handle signOut
     function handleSignOut() {
         signOut(auth).then(() => {
-        alert('user signed out')
-        window.location = "/"
+          alert('user signed out');
+          window.location = "/";
         }).catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage);
@@ -127,6 +128,8 @@
           let publicElements = document.querySelectorAll("[data-onlogin='hide']");
           let privateElements = document.querySelectorAll("[data-onlogin='show']");
 
+          console.log('auth currentUser', auth.currentUser);
+
           if (user) {
           console.log(user);
           let update_username_modal = document.getElementById("username_form_modal");
@@ -139,7 +142,7 @@
           const displayName = user.displayName;
           const uid = user.uid;
 
-          if (window.location.pathname == "/sign-in"){
+          if (window.location.pathname == "/account"){
             document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${email}</span>`;
             if (displayName == null){
               document.getElementById("username_display").innerHTML = `<span><b>Username:</b> Add your username</span>`;
@@ -229,7 +232,7 @@
              setDoc(userRef, { From: from_press_date.value, To: to_press_date.value, Special_request: special_press_request.value, Workspot: workspot.value, Publisher: publisher.value, Media_type: media_type.value, press_id: press_id.value}, { merge: true });
 
              setTimeout(function(){
-              window.pathname = '/sign-in';
+              window.pathname = '/account';
           }, 5000);
            }
              // Upload images
@@ -253,7 +256,7 @@
 
              uploadBytes(storageRef, fileItem).then((snapshot) => {
                console.log('Uploaded a blob or file!');
-               window.location = '/sign-in'
+               window.location = '/account'
              })
              .catch(err => {
                 console.log('error uploading file', err);
@@ -279,11 +282,11 @@
            setDoc(userRef, { From: from_date.value, To: to_date.value, Special_request: special_request.value, access_zone: access_zone.value}, { merge: true });
 
             setTimeout(function(){
-              window.location = '/sign-in';
+              window.location = '/account';
           }, 5000);
          }
        }
-       if(window.location.pathname == "/sign-in"){
+       if(window.location.pathname == "/account"){
           const from_supplier_form = document.getElementById('from_supplier_form');
           const from_supDate = document.getElementById('from_supplier');
           from_supplier_form.addEventListener('submit', UpdateSupplierFrom)
@@ -386,7 +389,7 @@
                 const supplier_info = document.getElementsByClassName('supplier_info');
 
                if (userInfo.type == "Supplier"){
-                 if (window.location.pathname == '/sign-in'){
+                 if (window.location.pathname == '/account'){
                     document.getElementById('welcome_user').innerHTML = `Hello Supplier ${user.displayName}`;
                     document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
                     supplier_from.innerHTML = `<b>From:</b> ${userInfo.From}`;
@@ -400,7 +403,7 @@
                  accountType_button.setAttribute("href", "/supplier");
                  homeButton.setAttribute("href", "/supplier");
                }else if(userInfo.type == "Press"){
-                 if(window.location.pathname == '/sign-in'){
+                 if(window.location.pathname == '/account'){
                      document.getElementById('welcome_user').innerHTML = `Hello Press ${user.displayName}`;
                      document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
                      press_workspot.innerHTML = `<b>Workspot:</b> ${userInfo.Workspot}`;
@@ -416,7 +419,7 @@
                  accountType_button.setAttribute("href", "/press");
                  homeButton.setAttribute("href", "/press");
                }else{
-                 if(window.location.pathname == '/sign-in'){
+                 if(window.location.pathname == '/account'){
                    document.getElementById('welcome_user').innerHTML = `Hello Admin ${user.displayName}`;
                  document.getElementById('account_type_info').innerHTML = '';
                  }
@@ -424,7 +427,7 @@
                  homeButton.setAttribute("href", "/admin");
                }
                if(userInfo.admin == "1"){
-                if(window.location.pathname == '/sign-in'){
+                if(window.location.pathname == '/account'){
                   document.getElementById('welcome_user').innerHTML = `Hello Admin ${user.displayName}`;
                 }
                 accountType_button.setAttribute("href", "/admin");
@@ -450,7 +453,7 @@
         }
     });
 
-    if ( window.location.pathname == "/sign-in" ) {
+    if ( window.location.pathname == "/account" ) {
       let signOutButton2 = document.getElementById('signout-button2');
       if ( typeof signOutButton2 !== null ) {
         signOutButton2.addEventListener('click', handleSignOut);
