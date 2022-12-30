@@ -21,113 +21,109 @@
 
     // handle signUp
     function handleSignUp(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          const email = document.getElementById('signup-email').value;
-          const password = document.getElementById('signup-password').value;
-          console.log("email is " + email);
-          console.log("password is " + password + ". Now sending to firebase.");
-          createUserWithEmailAndPassword(auth, email, password)
-          .then(userCredential => {
-          //Signed in
-          const user = userCredential.user;
-          alert('user successfully created: ' + user.email);
-          window.location = "/sign-in"
-          })
-          .catch((error) => {
-          const errorMessage = error.message;
-          var errorText = document.getElementById('signup-error-message');
-          console.log(errorMessage);
-          errorText.innerHTML = errorMessage;
-          });
-      };
+        e.preventDefault();
+        e.stopPropagation();
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        console.log("email is " + email);
+        console.log("password is " + password + ". Now sending to firebase.");
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+        //Signed in
+        const user = userCredential.user;
+        alert('user successfully created: ' + user.email);
+        window.location = "/sign-in"
+        })
+        .catch((error) => {
+        const errorMessage = error.message;
+        var errorText = document.getElementById('signup-error-message');
+        console.log(errorMessage);
+        errorText.innerHTML = errorMessage;
+        });
+    };
 
-      // handle signIn
-      function handleSignIn(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          const email = document.getElementById('signin-email').value;
-          const password = document.getElementById('signin-password').value;
-          signInWithEmailAndPassword(auth, email, password)
-          .then(userCredential => {
-          // Signed in
-          const user = userCredential.user;
-          alert('user logged in: ' + user.email);
-          window.location = "/sign-in"
-          })
-          .catch((error) => {
-              const errorMessage = error.message;
-              var errorText = document.getElementById('signin-error-message');
-              console.log(errorMessage);
-              errorText.innerHTML = errorMessage;
-          });
-      }
+    // handle signIn
+    function handleSignIn(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const email = document.getElementById('signin-email').value;
+        const password = document.getElementById('signin-password').value;
+        signInWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
+        alert('user logged in: ' + user.email);
+        window.location = "/sign-in"
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            var errorText = document.getElementById('signin-error-message');
+            console.log(errorMessage);
+            errorText.innerHTML = errorMessage;
+        });
+    }
 
-      // Handle signOut
-      function handleSignOut() {
-          signOut(auth).then(() => {
-          alert('user signed out')
-          window.location = "/"
-          }).catch((error) => {
-              const errorMessage = error.message;
-              console.log(errorMessage);
-          });
-      }
+    // handle signOut
+    function handleSignOut() {
+        signOut(auth).then(() => {
+        alert('user signed out')
+        window.location = "/"
+        }).catch((error) => {
+            const errorMessage = error.message;
+            console.log(errorMessage);
+        });
+    }
 
-      /* Check if the company parameter exists in the URL
-      /* If it does then set a value in the local storage
-      /* and pre-populate the text field in the sign up form
-      **/
-      function checkUrlParameter() {
+    /* Check if the company parameter exists in the URL
+    /* If it does then set a value in the local storage
+    /* and pre-populate the text field in the sign up form
+    **/
+    function checkUrlParameter() {
 
-          // First set company text input field to "readonly"
-          $('#sign-up-company').prop('readonly', 'readonly');
+        // First set company text input field to "readonly"
+        $('#sign-up-company').prop('readonly', 'readonly');
 
-          let url = new URL(location.href);
-          let company = url.searchParams.get('company');
+        let url = new URL(location.href);
+        let company = url.searchParams.get('company');
 
-          if ( company ) {
-              localStorage.setItem('porsche_company', company);
-              $('#sign-up-company').val(company);
-          }
-      }
-
-      // Homepage
-      function pageHome() {
-          //identify auth action forms
-          let signUpForm = document.getElementById('wf-form-signup-form');
-          let signInForm = document.getElementById('wf-form-signin-form');
-          let signOutButton = document.getElementById('signout-button');
-
-          //assign event listeners
-          if ( typeof(signUpForm) !== null ) {
-            signUpForm.addEventListener('submit', handleSignUp, true)
-          }
-          if(typeof(signInForm) !== null) {
-            signInForm.addEventListener('submit', handleSignIn, true)
-          }
-          if(typeof signOutButton !== null) {
-            signOutButton.addEventListener('click', handleSignOut);
-          }
-      }
-
-      function dispatchRequest() {
-        let url = window.location.pathname;
-        console.log('url in dispatchRequest()', url);
-
-        if ( url == '/' ) {
-          pageHome();
+        if ( company ) {
+            localStorage.setItem('porsche_company', company);
+            $('#sign-up-company').val(company);
         }
+    }
+
+    // Homepage
+    function pageHome() {
+        //identify auth action forms
+        let signUpForm = document.getElementById('wf-form-signup-form');
+        let signInForm = document.getElementById('wf-form-signin-form');
+        let signOutButton = document.getElementById('signout-button');
+
+        //assign event listeners
+        if ( typeof(signUpForm) !== null ) {
+          signUpForm.addEventListener('submit', handleSignUp, true)
+        }
+        if(typeof(signInForm) !== null) {
+          signInForm.addEventListener('submit', handleSignIn, true)
+        }
+        if(typeof signOutButton !== null) {
+          signOutButton.addEventListener('click', handleSignOut);
+        }
+    }
+
+    function dispatchRequest() {
+      let url = window.location.pathname;
+      console.log('url in dispatchRequest()', url);
+
+      if ( url == '/' ) {
+        pageHome();
       }
+    }
 
-      dispatchRequest();
-      checkUrlParameter();
+    dispatchRequest();
+    checkUrlParameter();
 
-
-
-
-
-        onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
           let publicElements = document.querySelectorAll("[data-onlogin='hide']");
           let privateElements = document.querySelectorAll("[data-onlogin='show']");
 
@@ -452,20 +448,23 @@
           });
           return
         }
-      });
-            if (window.location.pathname == "/sign-in"){
-            let signOutButton2 = document.getElementById('signout-button2');
-            if(typeof signOutButton2 !== null) {
-              signOutButton2.addEventListener('click', handleSignOut);
-               } else {}
+    });
+
+    if ( window.location.pathname == "/sign-in" ) {
+      let signOutButton2 = document.getElementById('signout-button2');
+      if ( typeof signOutButton2 !== null ) {
+        signOutButton2.addEventListener('click', handleSignOut);
+      }
     }
+
     $(document).ready(function () {
-            $('[data-toggle="datepicker"]').datepicker({
-                format: 'mm-dd-yyyy'
-            });
-            if (window.innerWidth < 768) {
-                $('[data-toggle="datepicker"]').attr('readonly', 'readonly')
-            }
-        });
-    </script>
-    <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
+      $('[data-toggle="datepicker"]').datepicker({
+        format: 'mm-dd-yyyy'
+      });
+      if (window.innerWidth < 768) {
+        $('[data-toggle="datepicker"]').attr('readonly', 'readonly')
+      }
+    });
+
+</script>
+<script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
