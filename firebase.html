@@ -44,7 +44,7 @@
         });
     };
 
-    // handle signIn
+    // Handle signIn
     function handleSignIn(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -65,7 +65,7 @@
         });
     }
 
-    // handle signOut
+    // Handle signOut
     function handleSignOut() {
         signOut(auth).then(() => {
           alert('user signed out');
@@ -74,24 +74,6 @@
             const errorMessage = error.message;
             console.log(errorMessage);
         });
-    }
-
-    /* Check if the company parameter exists in the URL
-    /* If it does then set a value in the local storage
-    /* and pre-populate the text field in the sign up form
-    **/
-    function checkUrlParameter() {
-
-        // First set company text input field to "readonly"
-        $('#sign-up-company').prop('readonly', 'readonly');
-
-        let url = new URL(location.href);
-        let company = url.searchParams.get('company');
-
-        if ( company ) {
-            localStorage.setItem('porsche_company', company);
-            $('#sign-up-company').val(company);
-        }
     }
 
     /*
@@ -122,6 +104,80 @@
     * Account functions
     * -----------------------------------------------------------------------------------------------------------
     */
+    async function getUserInfo(user) {
+      const typeRef = doc(db, 'users', user.uid);
+      const typeSnap = await getDoc(typeRef);
+      if ( typeSnap.exists() ) {
+        return typeSnap.data();
+      } else {
+        toastr.error('No user found with that ID');
+      }
+    }
+
+    async function populateForms(user) {
+      let userInfo = await getUserInfo(user);
+      const accountType_button = document.getElementById('account_user_profile');
+      const homeButton = document.getElementById('home_button');
+      const press_workspot = document.getElementById('press_workspot');
+      const publisher = document.getElementById('press_publisher');
+      const media = document.getElementById('press_media');
+      const press_from = document.getElementById('press_from');
+      const press_to = document.getElementById('press_to');
+      const press_require = document.getElementById('press_require');
+      const supplier_from = document.getElementById('supplier_from');
+      const supplier_to = document.getElementById('supplier_to');
+      const supplier_request = document.getElementById('supplier_request');
+      const supplier_zone = document.getElementById('supplier_zone');
+      const press_info = document.getElementsByClassName('press_info');
+      const supplier_info = document.getElementsByClassName('supplier_info');
+
+      if ( userInfo.type == "Supplier" ) {
+        if (window.location.pathname == '/account'){
+          document.getElementById('welcome_user').innerHTML = `Hello Supplier ${user.displayName}`;
+          document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
+          supplier_from.innerHTML = `<b>From:</b> ${userInfo.From}`;
+          supplier_to.innerHTML = `<b>To:</b> ${userInfo.To}`;
+          supplier_request.innerHTML = `<b>Request:</b> ${userInfo.Special_request}`;
+          supplier_zone.innerHTML = `<b>Zone:</b> ${userInfo.access_zone}`;
+          for ( var i=0; i < supplier_info.length; i+=1 ){
+            supplier_info[i].style.display = 'flex';
+          }
+        }
+        accountType_button.setAttribute("href", "/supplier");
+        homeButton.setAttribute("href", "/supplier");
+      } else if( userInfo.type == "Press" ) {
+        if(window.location.pathname == '/account'){
+            document.getElementById('welcome_user').innerHTML = `Hello Press ${user.displayName}`;
+            document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
+            press_workspot.innerHTML = `<b>Workspot:</b> ${userInfo.Workspot}`;
+            publisher.innerHTML = `<b>Publisher:</b> ${userInfo.Publisher}`;
+            media.innerHTML = `<b>Media:</b> ${userInfo.Media_type}`;
+            press_from.innerHTML = `<b>From:</b> ${userInfo.From}`;
+            press_to.innerHTML = `<b>To:</b> ${userInfo.To}`;
+            press_require.innerHTML = `<b>Request:</b> ${userInfo.Special_request}`;
+            for (var i=0;i<press_info.length;i+=1){
+            press_info[i].style.display = 'flex';
+          }
+        }
+        accountType_button.setAttribute("href", "/press");
+        homeButton.setAttribute("href", "/press");
+      } else {
+        if(window.location.pathname == '/account'){
+          document.getElementById('welcome_user').innerHTML = `Hello Admin ${user.displayName}`;
+          document.getElementById('account_type_info').innerHTML = '';
+        }
+        accountType_button.setAttribute("href", "/admin");
+        homeButton.setAttribute("href", "/admin");
+      }
+
+      if(userInfo.admin == "1") {
+        if(window.location.pathname == '/account') {
+          document.getElementById('welcome_user').innerHTML = `Hello Admin ${user.displayName}`;
+        }
+      accountType_button.setAttribute("href", "/admin");
+      }
+    }
+
     // Update username
     function updateUsername(e, user, newUsername) {
       e.preventDefault();
@@ -203,6 +259,12 @@
         update_password_modal.addEventListener('submit', function(ev) {
           updateUserPassword(ev, user, change_password.value);
         }, true);
+      }
+
+      // Sign out event
+      let signOutButton2 = document.getElementById('signout-button2');
+      if ( typeof signOutButton2 !== null ) {
+        signOutButton2.addEventListener('click', handleSignOut);
       }
     }
 
@@ -309,6 +371,61 @@
       });
     }
 
+    /*
+    * -----------------------------------------------------------------------------------------------------------
+    * Admin functions
+    * -----------------------------------------------------------------------------------------------------------
+    */
+    function pageAdmin(user) {
+      let update_user_form = document.getElementById('update_user_type');
+      let user_specific_id = document.getElementById('admin_user_id');
+      let userTypeUpdate = document.getElementById('accountType');
+      let admin_cred = document.getElementById('is_admin');
+
+      update_user_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation()
+
+        if ( user_specific_id != null || user_specific_id != 0 ) {
+          const userRef = doc(db, 'users', update_user_form.id.value);
+          setDoc(userRef, {
+            type: userTypeUpdate.value,
+            admin: admin_cred.value
+          }, { merge: true })
+          .then(() => {
+            toastr.success('Account type has been successfully updated');
+          })
+          .catch((err) => {
+            toastr.error('There was an error updating the account type');
+            console.log('error updating account type', err);
+          });
+        }
+      });
+    }
+
+    /*
+    * -----------------------------------------------------------------------------------------------------------
+    * URL functions
+    * -----------------------------------------------------------------------------------------------------------
+    */
+
+    /* Check if the company parameter exists in the URL
+    /* If it does then set a value in the local storage
+    /* and pre-populate the text field in the sign up form
+    **/
+    function checkUrlParameter() {
+      // First set company text input field to "readonly"
+      $('#sign-up-company').prop('readonly', 'readonly');
+
+      let url = new URL(location.href);
+      let company = url.searchParams.get('company');
+
+      if ( company ) {
+          localStorage.setItem('porsche_company', company);
+          $('#sign-up-company').val(company);
+      }
+    }
+
     function dispatchRequest(user) {
       let url = window.location.pathname;
       console.log('url in dispatchRequest()', url);
@@ -330,6 +447,8 @@
           pagePress(user);
         } else if ( url == '/supplier') {
           pageSupplier(user);
+        } else if ( url == '/admin' ) {
+          pageAdmin(user);
         }
       }
     }
@@ -339,187 +458,34 @@
     checkUrlParameter();
 
     onAuthStateChanged(auth, (user) => {
-          let publicElements = document.querySelectorAll("[data-onlogin='hide']");
-          let privateElements = document.querySelectorAll("[data-onlogin='show']");
+      let publicElements = document.querySelectorAll("[data-onlogin='hide']");
+      let privateElements = document.querySelectorAll("[data-onlogin='show']");
 
-          if (user) {
+      if (user) {
 
-            dispatchRequest(user);
-            let uid = user.uid;
+        dispatchRequest(user);
 
-        if(window.location.pathname == "/account"){
-          const from_supplier_form = document.getElementById('from_supplier_form');
-          const from_supDate = document.getElementById('from_supplier');
-          from_supplier_form.addEventListener('submit', UpdateSupplierFrom)
+        populateForms(user);
 
-         function UpdateSupplierFrom(e){
-          e.preventDefault();
-          e.stopPropagation();
-
-          const userRef = doc(db, 'users', uid);
-          setDoc(userRef, { From: from_supDate.value}, { merge: true });
-
-           setTimeout(function(){
-             window.location.reload();
-         }, 2000);
-        }
-        const to_supplier_form = document.getElementById('to_supplier_form');
-          const to_supDate = document.getElementById('to_supplier');
-          to_supplier_form.addEventListener('submit', UpdateSupplierTo)
-
-         function UpdateSupplierTo(e){
-          e.preventDefault();
-          e.stopPropagation();
-          const userRef = doc(db, 'users', uid);
-          setDoc(userRef, { To: to_supDate.value}, { merge: true });
-           setTimeout(function(){
-             window.location.reload();
-         }, 2000);
-        }
-          const require_form_supplier = document.getElementById('require_form_supplier');
-          const change_require_supplier = document.getElementById('change_require_supplier');
-          require_form_supplier.addEventListener('submit', UpdateSupplierRequire)
-
-         function UpdateSupplierRequire(e){
-          e.preventDefault();
-          e.stopPropagation();
-          const userRef = doc(db, 'users', uid);
-          setDoc(userRef, { Special_request: change_require_supplier.value}, { merge: true });
-           setTimeout(function(){
-             window.location.reload();
-         }, 2000);
-        }
-          const zone_form = document.getElementById('zone_form');
-          const change_zone = document.getElementById('change_zone');
-          zone_form.addEventListener('submit', UpdateSupplierZone)
-
-         function UpdateSupplierZone(e){
-          e.preventDefault();
-          e.stopPropagation();
-          const userRef = doc(db, 'users', uid);
-          setDoc(userRef, { access_zone: change_zone.value}, { merge: true });
-           setTimeout(function(){
-             window.location.reload();
-         }, 2000);
-        }
-        }
-          //User Admin
-          if(window.location.pathname == "/admin"){
-
-           let update_user_form = document.getElementById('update_user_type');
-            let user_specific_id = document.getElementById('id');
-            let userTypeUpdate = document.getElementById('accountType');
-            let admin_cred = document.getElementById('is_admin');
-
-            update_user_form.addEventListener('submit', (e) =>{
-              e.preventDefault();
-              e.stopPropagation()
-
-              if(user_specific_id != null || user_specific_id != 0){
-              const userRef = doc(db, 'users', update_user_form.id.value);
-              setDoc(userRef, { type: userTypeUpdate.value, admin: admin_cred.value }, { merge: true });
-              }
-            })
-          }
-            async function getUserInfo(){
-             const typeRef = doc(db, 'users', uid);
-             const typeSnap = await getDoc(typeRef);
-             if (typeSnap.exists()) {
-              return typeSnap.data()
-
-             } else {
-               console.log("No such document!");
-             }
-               }
-               (async () => {
-
-                let userInfo = await getUserInfo();
-                const accountType_button = document.getElementById('account_user_profile');
-                const homeButton = document.getElementById('home_button');
-                const press_workspot = document.getElementById('press_workspot');
-                const publisher = document.getElementById('press_publisher');
-                const media = document.getElementById('press_media');
-                const press_from = document.getElementById('press_from');
-                const press_to = document.getElementById('press_to');
-                const press_require = document.getElementById('press_require');
-                const supplier_from = document.getElementById('supplier_from');
-                const supplier_to = document.getElementById('supplier_to');
-                const supplier_request = document.getElementById('supplier_request');
-                const supplier_zone = document.getElementById('supplier_zone');
-                const press_info = document.getElementsByClassName('press_info');
-                const supplier_info = document.getElementsByClassName('supplier_info');
-
-               if (userInfo.type == "Supplier"){
-                 if (window.location.pathname == '/account'){
-                    document.getElementById('welcome_user').innerHTML = `Hello Supplier ${user.displayName}`;
-                    document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
-                    supplier_from.innerHTML = `<b>From:</b> ${userInfo.From}`;
-                    supplier_to.innerHTML = `<b>To:</b> ${userInfo.To}`;
-                    supplier_request.innerHTML = `<b>Request:</b> ${userInfo.Special_request}`;
-                    supplier_zone.innerHTML = `<b>Zone:</b> ${userInfo.access_zone}`;
-                    for (var i=0;i<supplier_info.length;i+=1){
-                      supplier_info[i].style.display = 'flex';
-                    }
-                 }
-                 accountType_button.setAttribute("href", "/supplier");
-                 homeButton.setAttribute("href", "/supplier");
-               }else if(userInfo.type == "Press"){
-                 if(window.location.pathname == '/account'){
-                     document.getElementById('welcome_user').innerHTML = `Hello Press ${user.displayName}`;
-                     document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
-                     press_workspot.innerHTML = `<b>Workspot:</b> ${userInfo.Workspot}`;
-                     publisher.innerHTML = `<b>Publisher:</b> ${userInfo.Publisher}`;
-                     media.innerHTML = `<b>Media:</b> ${userInfo.Media_type}`;
-                     press_from.innerHTML = `<b>From:</b> ${userInfo.From}`;
-                     press_to.innerHTML = `<b>To:</b> ${userInfo.To}`;
-                     press_require.innerHTML = `<b>Request:</b> ${userInfo.Special_request}`;
-                     for (var i=0;i<press_info.length;i+=1){
-                      press_info[i].style.display = 'flex';
-                    }
-                 }
-                 accountType_button.setAttribute("href", "/press");
-                 homeButton.setAttribute("href", "/press");
-               }else{
-                 if(window.location.pathname == '/account'){
-                   document.getElementById('welcome_user').innerHTML = `Hello Admin ${user.displayName}`;
-                 document.getElementById('account_type_info').innerHTML = '';
-                 }
-                 accountType_button.setAttribute("href", "/admin");
-                 homeButton.setAttribute("href", "/admin");
-               }
-               if(userInfo.admin == "1"){
-                if(window.location.pathname == '/account'){
-                  document.getElementById('welcome_user').innerHTML = `Hello Admin ${user.displayName}`;
-                }
-                accountType_button.setAttribute("href", "/admin");
-              }
-             })();
-          // User is signed in
-          privateElements.forEach(function(element) {
+        // User is signed in
+        privateElements.forEach(function(element) {
           element.style.display = "initial";
-          });
-          publicElements.forEach(function(element) {
+        });
+        publicElements.forEach(function(element) {
           element.style.display = "none";
-          });
-          console.log(`The current user's UID is equal to ${uid}`);
-        } else {
+        });
+        console.log(`The current user's UID is equal to ${uid}`);
+      } else {
           // User is signed out
           publicElements.forEach(function(element) {
-          element.style.display = "initial";
+            element.style.display = "initial";
           });
           privateElements.forEach(function(element) {
-          element.style.display = "none";
+            element.style.display = "none";
           });
-          return
+          return;
         }
     });
-
-    if ( window.location.pathname == "/account" ) {
-      let signOutButton2 = document.getElementById('signout-button2');
-      if ( typeof signOutButton2 !== null ) {
-        signOutButton2.addEventListener('click', handleSignOut);
-      }
-    }
 
     $(document).ready(function () {
       $('[data-toggle="datepicker"]').datepicker({
