@@ -155,6 +155,11 @@
       }, { merge: true })
       .then(() => {
         console.log('press data successfully updated');
+
+        const press_id = document.getElementById('fileInp');
+        console.log('event ', e);
+        console.log('press_id', press_id);
+        //pressUploadImage(e);
       })
       .catch((err) => {
         console.log('there was a problem updating the data', err);
@@ -175,7 +180,8 @@
 
       const storageRef = ref(storage, 'press_id/' + fileName);
 
-      uploadBytes(storageRef, fileItem).then((snapshot) => {
+      uploadBytes(storageRef, fileItem)
+      .then((snapshot) => {
         console.log('Uploaded a blob or file!');
         //window.location = '/account';
       })
@@ -194,11 +200,6 @@
       press_form.addEventListener('submit', function(ev) {
         pressFormSubmit(ev, user);
       });
-
-      // Event get press file
-      const press_id = document.getElementById('fileInp');
-      press_id.addEventListener('change', pressUploadImage);
-
     }
 
     function dispatchRequest(user) {
