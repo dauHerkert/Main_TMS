@@ -122,8 +122,58 @@
     * Account functions
     * -----------------------------------------------------------------------------------------------------------
     */
+    // Update username
+    function updateUsername(e, user, newUsername) {
+      e.preventDefault();
+      e.stopPropagation();
+      updateProfile(user, {
+        displayName: newUsername
+      })
+      .then(() => {
+        toastr.success('Username has been successfully updated');
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      })
+      .catch((error) => {
+        toastr.error('There was a problem updating the username');
+      });
+    }
+
+    // Update email
+    function updateUserEmail(e, user, newEmail) {
+      e.preventDefault();
+      e.stopPropagation();
+      updateEmail(user, newEmail)
+      .then(() => {
+        toastr.success('Email has been successfully updated');
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      }).catch((error) => {
+        toastr.error('There was a problem updating the email');
+      });
+    }
+
+    // Update password
+    function updateUserPassword(e, user, newPassword) {
+      e.preventDefault();
+      e.stopPropagation();
+      updatePassword(user, newPassword)
+      .then(() => {
+        toastr.success('Password has been successfully updated');
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      })
+      .catch((error) => {
+        toastr.error('There was a problem updating the password');
+      });
+    }
+
     function pageAccount(user) {
-      document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${email}</span>`;
+      // Populate form fields with values
+      document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${user.email}</span>`;
       if ( user.displayName == null ){
         document.getElementById("username_display").innerHTML = `<span><b>Username:</b> Add your username</span>`;
       } else {
@@ -131,6 +181,29 @@
       }
       document.getElementById("user_password").innerHTML = `<span><b>Change Password</b></span>`;
       document.getElementById("account_type_info").innerHTML = ``;
+
+      let update_username_modal = document.getElementById("username_form_modal");
+      let update_email_modal = document.getElementById("email_form_modal");
+      let update_password_modal = document.getElementById("password_form_modal");
+      let change_email = document.getElementById("change_email");
+      let change_username = document.getElementById("change_username");
+      let change_password = document.getElementById("change_password");
+
+      if ( update_username_modal !== null ) {
+        update_username_modal.addEventListener('submit', function(ev) {
+          updateUsername(ev, user, change_username.value);
+        }, true);
+      }
+      if ( update_email_modal !== null ) {
+        update_email_modal.addEventListener('submit', function(ev) {
+          updateUserEmail(ev, user, change_email.value);
+        }, true);
+      }
+      if ( update_password_modal !== null ) {
+        update_password_modal.addEventListener('submit', function(ev) {
+          updateUserPassword(ev, user, change_password.value);
+        }, true);
+      }
     }
 
     /*
@@ -272,67 +345,6 @@
           if (user) {
 
             dispatchRequest(user);
-
-            let update_username_modal = document.getElementById("username_form_modal");
-            let update_email_modal = document.getElementById("email_form_modal");
-            let update_password_modal = document.getElementById("password_form_modal");
-            let change_email = document.getElementById("change_email");
-            let change_username = document.getElementById("change_username");
-            let change_password = document.getElementById("change_password");
-            const email = user.email;
-
-            const uid = user.uid;
-
-            if(update_username_modal !== null){
-              update_username_modal.addEventListener('submit', updateUsername, true);
-            }
-            if(update_email_modal !== null){
-              update_email_modal.addEventListener('submit', updateUserEmail, true);
-            }
-            if(update_password_modal !== null){
-              update_password_modal.addEventListener('submit', updateUserPassword, true);
-            }
-            //Update username
-            function updateUsername(e){
-              e.preventDefault();
-              e.stopPropagation();
-              updateProfile(auth.currentUser, {
-              displayName: change_username.value
-            }).then(() => {
-              window.location.reload();
-              console.log("Updated");
-            }).catch((error) => {
-            console.log("Error happened");
-            });
-            }
-            // Update email
-            function updateUserEmail(e){
-              e.preventDefault();
-              e.stopPropagation();
-              updateEmail(auth.currentUser, change_email.value).then(() => {
-                console.log("Email updated!")
-                window.location.reload();
-              }).catch((error) => {
-              });
-            }
-            // update password
-            function updateUserPassword(e){
-              e.preventDefault();
-              e.stopPropagation();
-              const newPassword = change_password.value;
-              updatePassword(user, newPassword).then(() => {
-                alert("Password changed!")
-                window.location.reload();
-                console.log("Updated")
-              }).catch((error) => {
-                console.log("An error has ocurred")
-                // ...
-              });
-            }
-
-
-
-
 
         if(window.location.pathname == "/account"){
           const from_supplier_form = document.getElementById('from_supplier_form');
