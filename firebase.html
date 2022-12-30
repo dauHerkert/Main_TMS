@@ -32,9 +32,11 @@
         createUserWithEmailAndPassword(auth, email, password)
         .then(userCredential => {
           //Signed in
+          console.log('userCredential', userCredential);
+          console.log('userCredential.user', userCredential.user);
           const user = userCredential.user;
-          alert('user successfully created: ' + user.email);
-          window.location = "/account"
+          toastr.success('user successfully created: ' + user.email);
+          //window.location = "/account";
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -432,6 +434,7 @@
 
       const colRef = collection(db, 'users');
       let userList = $('#admin-user-list');
+
       getDocs(colRef)
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
