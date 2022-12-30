@@ -108,6 +108,7 @@
       const typeRef = doc(db, 'users', user.uid);
       console.log('getUserInfo() uid', user.uid);
       const typeSnap = await getDoc(typeRef);
+      console.log('typeSnap', typeSnap);
       if ( typeSnap.exists() ) {
         console.log('typeSnap data()', typeSnap.data());
         return typeSnap.data();
