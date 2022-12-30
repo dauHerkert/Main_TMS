@@ -19,11 +19,6 @@
     const db = getFirestore(app);
     const storage = getStorage(app);
 
-    // Global user object set by firebase onAuthStateChanged
-    var g_user;
-    // Global user id set by firebase onAuthStateChanged
-    var g_uid;
-
     // handle signUp
     function handleSignUp(e) {
         e.preventDefault();
@@ -114,25 +109,91 @@
         }
     }
 
+    /*
+    * Account functions
+    */
     function pageAccount(user) {
-      console.log('pageAccount user', g_user);
-      console.log('pageAccount user ID', g_uid);
-      console.log('------------------------------');
-      console.log('user in pageAccount function ', user);
+      document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${email}</span>`;
+      if ( user.displayName == null ){
+        document.getElementById("username_display").innerHTML = `<span><b>Username:</b> Add your username</span>`;
+      } else {
+        document.getElementById("username_display").innerHTML = `<span><b>Username:</b> ${user.displayName}</span>`;
+      }
+      document.getElementById("user_password").innerHTML = `<span><b>Change Password</b></span>`;
+      document.getElementById("account_type_info").innerHTML = ``;
+    }
+
+    /*
+    * Press functions
+    */
+    function onPressFormSubmit(e, user) {
+      e.preventDefault();
+      e.stopPropagation();
+      const userRef = doc(db, 'users', user.uid);
+      const press_form = document.getElementById('moreInfo_press_form');
+      const workspot = document.getElementById('workspot');
+      const publisher = document.getElementById('publisher');
+      const media_type = document.getElementById('media_type');
+      const from_press_date = document.getElementById('from_press_date');
+      const to_press_date = document.getElementById('to_press_date');
+      const special_press_request = document.getElementById('special_press_request');
+
+      setDoc(userRef, {
+        From: from_press_date.value,
+        To: to_press_date.value,
+        Special_request: special_press_request.value,
+        Workspot: workspot.value,
+        Publisher: publisher.value,
+        Media_type: media_type.value,
+        press_id: press_id.value
+      }, { merge: true })
+      .then(() => {
+        console.log('press data successfully updated');
+      })
+      .catch((err) => {
+        console.log('there was a problem updating the data', err);
+      });
+
+      setTimeout(function() {
+        //window.pathname = '/account';
+      }, 5000);
+    }
+
+    function pagePress(user) {
+      // Show displayName
+      document.getElementById("client_press").innerHTML = `Hello Press ${user.displayName}`;
+
+      // Add submit event to form
+      press_form.addEventListener('submit', function(ev) {
+        onPressFormSubmit(ev, user);
+      });
     }
 
     function dispatchRequest(user) {
       let url = window.location.pathname;
       console.log('url in dispatchRequest()', url);
 
-      if ( url == '/' ) {
-        pageHome();
-      } else if ( url == '/account' ) {
-        pageAccount(user);
+      // User is NOT signed in
+      if ( user == false ) {
+        // Homepage
+        if ( url == '/' ) {
+          pageHome();
+        } else {
+          // User does NOT have access to this page
+          console.log('user does NOT have access to this page');
+        }
+      } else {
+        // User IS signed in
+        if ( url == '/account' ) {
+          pageAccount(user);
+        } else if ( url == '/press' ) {
+          pagePress(user);
+        }
       }
     }
 
-    //dispatchRequest();
+    // first page load
+    dispatchRequest(false);
     checkUrlParameter();
 
     onAuthStateChanged(auth, (user) => {
@@ -140,9 +201,6 @@
           let privateElements = document.querySelectorAll("[data-onlogin='show']");
 
           if (user) {
-            // Set global user variables
-            g_uid = user.uid;
-            g_user = user;
 
             dispatchRequest(user);
 
@@ -154,19 +212,9 @@
           let change_username = document.getElementById("change_username");
           let change_password = document.getElementById("change_password");
           const email = user.email;
-          const displayName = user.displayName;
+
           const uid = user.uid;
 
-          if (window.location.pathname == "/account"){
-            document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${email}</span>`;
-            if (displayName == null){
-              document.getElementById("username_display").innerHTML = `<span><b>Username:</b> Add your username</span>`;
-            }else{
-              document.getElementById("username_display").innerHTML = `<span><b>Username:</b> ${displayName}</span>`;
-            }
-            document.getElementById("user_password").innerHTML = `<span><b>Change Password</b></span>`;
-            document.getElementById("account_type_info").innerHTML = ``
-          }
           if(update_username_modal !== null){
             update_username_modal.addEventListener('submit', updateUsername, true);
           }
@@ -213,15 +261,10 @@
               // ...
             });
           }
-          //Depending on account type the page realoads
-          if (window.location.pathname == "/press"){
-          function getUserName(){
-            const typeRef = doc(db, 'users', uid);
 
-        document.getElementById("client_press").innerHTML = `Hello Press ${user.displayName}`
-            }
-            getUserName()
-          }
+
+
+
           if (window.location.pathname == "/supplier"){
           function getUserName(){
             const typeRef = doc(db, 'users', uid);
@@ -230,26 +273,8 @@
             getUserName()
           }
       // Add press info
-           if(window.location.pathname == "/press"){
-             const press_form = document.getElementById('moreInfo_press_form');
-             const workspot = document.getElementById('workspot');
-             const publisher = document.getElementById('publisher');
-             const media_type = document.getElementById('media_type');
-             const from_press_date = document.getElementById('from_press_date');
-             const to_press_date = document.getElementById('to_press_date');
-             const special_press_request = document.getElementById('special_press_request');
+           if(window.location.pathname == "/press") {
 
-             press_form.addEventListener('submit', addSupplierInfo)
-            function addSupplierInfo(e){
-             e.preventDefault();
-             e.stopPropagation();
-             const userRef = doc(db, 'users', uid);
-             setDoc(userRef, { From: from_press_date.value, To: to_press_date.value, Special_request: special_press_request.value, Workspot: workspot.value, Publisher: publisher.value, Media_type: media_type.value, press_id: press_id.value}, { merge: true });
-
-             setTimeout(function(){
-              window.pathname = '/account';
-          }, 5000);
-           }
              // Upload images
              const press_id = document.getElementById('fileInp');
              const fileText = document.getElementById('fileText');
