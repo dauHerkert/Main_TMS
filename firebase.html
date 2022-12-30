@@ -412,7 +412,7 @@
         e.stopPropagation()
 
         if ( user_specific_id != null || user_specific_id != 0 ) {
-          const userRef = doc(db, 'users', update_user_form.id.value);
+          const userRef = doc(db, 'users', user_specific_id.value);
           setDoc(userRef, {
             type: userTypeUpdate.value,
             admin: admin_cred.value
