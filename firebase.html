@@ -231,11 +231,9 @@
       const special_request = document.getElementById('special_request');
       const access_zone = document.getElementById('zones');
 
-      supplier_form.addEventListener('submit', function(e, user) {
-        addSupplierInfo(e, user);
-      })
-
-
+      supplier_form.addEventListener('submit', function(ev) {
+        addSupplierInfo(ev, user);
+      });
     }
 
     function dispatchRequest(user) {
