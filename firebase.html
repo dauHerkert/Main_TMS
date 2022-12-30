@@ -154,33 +154,23 @@
         Media_type: media_type.value,
       }, { merge: true })
       .then(() => {
-        console.log('press data successfully updated');
+        //console.log('press data successfully updated');
         pressUploadImage(user);
       })
       .catch((err) => {
         console.log('there was a problem updating the data', err);
       });
-
-      setTimeout(function() {
-        //window.pathname = '/account';
-      }, 5000);
     }
 
     function pressUploadImage(user) {
-      const fileText = document.getElementById('fileText');
       const press_id = document.getElementById('fileInp');
-      let fileItem;
-      let fileName;
-      fileItem = press_id.files[0];
-      fileName = press_id.files[0].name;
-      console.log(fileName);
-
+      let fileItem = press_id.files[0];
+      let fileName = press_id.files[0].name;
       const storageRef = ref(storage, 'press_id/' + user.uid);
 
       uploadBytes(storageRef, fileItem)
       .then((snapshot) => {
-        console.log('Upload successful', fileName);
-        //window.location = '/account';
+        toastr.success('You have submitted the form successfully');
       })
       .catch(err => {
         console.log('error uploading file', err);
@@ -513,4 +503,6 @@
     });
 
 </script>
+
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></script>
