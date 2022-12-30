@@ -391,6 +391,7 @@
 
       const supplier_form = document.getElementById('supplier_form');
       supplier_form.addEventListener('submit', function(ev) {
+        ev.preventDefault();
         addSupplierInfo(ev, user);
       });
     }
