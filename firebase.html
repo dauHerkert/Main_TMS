@@ -128,7 +128,7 @@
           let publicElements = document.querySelectorAll("[data-onlogin='hide']");
           let privateElements = document.querySelectorAll("[data-onlogin='show']");
 
-          console.log('auth currentUser', auth.currentUser);
+          console.log('auth currentUser same?', auth.currentUser === user);
 
           if (user) {
           console.log(user);
