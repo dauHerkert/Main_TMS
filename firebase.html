@@ -241,6 +241,8 @@
 
     function showPublicElements() {
       // User is signed out
+      let publicElements = document.querySelectorAll("[data-onlogin='hide']");
+      let privateElements = document.querySelectorAll("[data-onlogin='show']");
       publicElements.forEach(function(element) {
         element.style.display = "initial";
       });
