@@ -90,7 +90,11 @@
         }
     }
 
-    // Homepage
+    /*
+    * -----------------------------------------------------------------------------------------------------------
+    * Homepage functions
+    * -----------------------------------------------------------------------------------------------------------
+    */
     function pageHome() {
         //identify auth action forms
         let signUpForm = document.getElementById('wf-form-signup-form');
@@ -110,7 +114,9 @@
     }
 
     /*
+    * -----------------------------------------------------------------------------------------------------------
     * Account functions
+    * -----------------------------------------------------------------------------------------------------------
     */
     function pageAccount(user) {
       document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${email}</span>`;
@@ -124,9 +130,11 @@
     }
 
     /*
+    * -----------------------------------------------------------------------------------------------------------
     * Press functions
+    * -----------------------------------------------------------------------------------------------------------
     */
-    function onPressFormSubmit(e, user) {
+    function pressFormSubmit(e, user) {
       e.preventDefault();
       e.stopPropagation();
       const userRef = doc(db, 'users', user.uid);
@@ -144,7 +152,6 @@
         Workspot: workspot.value,
         Publisher: publisher.value,
         Media_type: media_type.value,
-        press_id: press_id.value
       }, { merge: true })
       .then(() => {
         console.log('press data successfully updated');
@@ -158,6 +165,25 @@
       }, 5000);
     }
 
+    function pressUploadImage(e) {
+      const fileText = document.getElementById('fileText');
+      let fileItem;
+      let fileName;
+      fileItem = e.target.files[0];
+      fileName = e.target.files[0].name;
+      console.log(fileName);
+
+      const storageRef = ref(storage, 'press_id/' + fileName);
+
+      uploadBytes(storageRef, fileItem).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+        //window.location = '/account';
+      })
+      .catch(err => {
+        console.log('error uploading file', err);
+      });
+    }
+
     function pagePress(user) {
       // Show displayName
       document.getElementById("client_press").innerHTML = `Hello Press ${user.displayName}`;
@@ -166,8 +192,13 @@
       const press_form = document.getElementById('moreInfo_press_form');
       // Add submit event to form
       press_form.addEventListener('submit', function(ev) {
-        onPressFormSubmit(ev, user);
+        pressFormSubmit(ev, user);
       });
+
+      // Event get press file
+      const press_id = document.getElementById('fileInp');
+      press_id.addEventListener('change', pressUploadImage);
+
     }
 
     function dispatchRequest(user) {
@@ -273,37 +304,7 @@
             }
             getUserName()
           }
-      // Add press info
-           if(window.location.pathname == "/press") {
 
-             // Upload images
-             const press_id = document.getElementById('fileInp');
-             const fileText = document.getElementById('fileText');
-             const uploadFile = document.getElementById('uploadFile');
-             var fileItem;
-             var fileName;
-
-             press_id.addEventListener('change', getFile);
-             uploadFile.addEventListener('click', uploadImage);
-
-             function getFile(e){
-             fileItem = e.target.files[0];
-             fileName = e.target.files[0].name;
-             console.log(fileName);
-           }
-
-           function uploadImage() {
-             const storageRef = ref(storage, 'press_id/'+fileName);
-
-             uploadBytes(storageRef, fileItem).then((snapshot) => {
-               console.log('Uploaded a blob or file!');
-               window.location = '/account'
-             })
-             .catch(err => {
-                console.log('error uploading file', err);
-             });
-           }
-          }
          // Add suppliers info
          if(window.location.pathname == "/supplier"){
 
@@ -327,6 +328,9 @@
           }, 5000);
          }
        }
+
+
+
        if(window.location.pathname == "/account"){
           const from_supplier_form = document.getElementById('from_supplier_form');
           const from_supDate = document.getElementById('from_supplier');
