@@ -106,8 +106,10 @@
     */
     async function getUserInfo(user) {
       const typeRef = doc(db, 'users', user.uid);
+      console.log('getUserInfo() uid', user.uid);
       const typeSnap = await getDoc(typeRef);
       if ( typeSnap.exists() ) {
+        console.log('typeSnap data()', typeSnap.data());
         return typeSnap.data();
       } else {
         toastr.error('No user found with that ID');
