@@ -117,6 +117,7 @@
     }
 
     async function populateForms(user) {
+      console.log('populateForms uid', user.uid);
       let userInfo = await getUserInfo(user);
       const accountType_button = document.getElementById('account_user_profile');
       const homeButton = document.getElementById('home_button');
