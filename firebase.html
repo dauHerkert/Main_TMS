@@ -114,23 +114,25 @@
         }
     }
 
-    function pageAccount() {
+    function pageAccount(user) {
       console.log('pageAccount user', g_user);
       console.log('pageAccount user ID', g_uid);
+      console.log('------------------------------');
+      console.log('user in pageAccount function ', user);
     }
 
-    function dispatchRequest() {
+    function dispatchRequest(user) {
       let url = window.location.pathname;
       console.log('url in dispatchRequest()', url);
 
       if ( url == '/' ) {
         pageHome();
       } else if ( url == '/account' ) {
-        pageAccount();
+        pageAccount(user);
       }
     }
 
-    dispatchRequest();
+    //dispatchRequest();
     checkUrlParameter();
 
     onAuthStateChanged(auth, (user) => {
@@ -141,6 +143,8 @@
             // Set global user variables
             g_uid = user.uid;
             g_user = user;
+
+            dispatchRequest(user);
 
 
           let update_username_modal = document.getElementById("username_form_modal");
