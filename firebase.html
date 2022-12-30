@@ -19,8 +19,10 @@
     const db = getFirestore(app);
     const storage = getStorage(app);
 
-    // Global user id set by firebase onAuthStateChange
-    var g_UID;
+    // Global user object set by firebase onAuthStateChanged
+    var g_user;
+    // Global user id set by firebase onAuthStateChanged
+    var g_uid;
 
     // handle signUp
     function handleSignUp(e) {
@@ -112,12 +114,19 @@
         }
     }
 
+    function pageAccount() {
+      console.log('pageAccount user', g_user);
+      console.log('pageAccount user ID', g_uid);
+    }
+
     function dispatchRequest() {
       let url = window.location.pathname;
       console.log('url in dispatchRequest()', url);
 
       if ( url == '/' ) {
         pageHome();
+      } else if ( url == '/account' ) {
+        pageAccount();
       }
     }
 
@@ -128,10 +137,12 @@
           let publicElements = document.querySelectorAll("[data-onlogin='hide']");
           let privateElements = document.querySelectorAll("[data-onlogin='show']");
 
-          console.log('auth currentUser same?', auth.currentUser === user);
-
           if (user) {
-          console.log(user);
+            // Set global user variables
+            g_uid = user.uid;
+            g_user = user;
+
+
           let update_username_modal = document.getElementById("username_form_modal");
           let update_email_modal = document.getElementById("email_form_modal");
           let update_password_modal = document.getElementById("password_form_modal");
