@@ -227,6 +227,28 @@
       });
     }
 
+    function showPrivateElements() {
+      // User is signed in
+      let publicElements = document.querySelectorAll("[data-onlogin='hide']");
+      let privateElements = document.querySelectorAll("[data-onlogin='show']");
+      privateElements.forEach(function(element) {
+        element.style.display = "initial";
+      });
+      publicElements.forEach(function(element) {
+        element.style.display = "none";
+      });
+    }
+
+    function showPublicElements() {
+      // User is signed out
+      publicElements.forEach(function(element) {
+        element.style.display = "initial";
+      });
+      privateElements.forEach(function(element) {
+        element.style.display = "none";
+      });
+    }
+
     function pageAccount(user) {
       // Populate form fields with values
       document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${user.email}</span>`;
@@ -458,36 +480,25 @@
     checkUrlParameter();
 
     onAuthStateChanged(auth, (user) => {
-      let publicElements = document.querySelectorAll("[data-onlogin='hide']");
-      let privateElements = document.querySelectorAll("[data-onlogin='show']");
-
       if (user) {
+        // user is signed in
+        console.log(`The current user's UID is equal to ${user.uid}`);
 
         dispatchRequest(user);
 
         populateForms(user);
 
-        // User is signed in
-        privateElements.forEach(function(element) {
-          element.style.display = "initial";
-        });
-        publicElements.forEach(function(element) {
-          element.style.display = "none";
-        });
-        console.log(`The current user's UID is equal to ${user.uid}`);
+        showPrivateElements();
       } else {
-          // User is signed out
-          publicElements.forEach(function(element) {
-            element.style.display = "initial";
-          });
-          privateElements.forEach(function(element) {
-            element.style.display = "none";
-          });
-          return;
-        }
+        // user is signed out
+        showPublicElements();
+      }
     });
 
     $(document).ready(function () {
+      // TODO: make sure to only call the datepicker function if an element exists
+      // that should be rendered as a datepicker
+      // otherwise a jquery error appears in the browser console
       $('[data-toggle="datepicker"]').datepicker({
         format: 'mm-dd-yyyy'
       });
