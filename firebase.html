@@ -43,9 +43,7 @@
       press_has_form_submitted: '0',
 
       // User fields
-      user_username: '',
       user_email: '',
-      user_uid: '',
       // user_is_admin: 0 | 1
       user_is_admin: '0',
       // user_type: supplier | press
@@ -61,7 +59,8 @@
     */
     function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
-      console.log(user);
+
+      userDefaultValues.user_email = user.email;
 
       setDoc(userRef, userDefaultValues, { merge: true })
       .then(() => {
