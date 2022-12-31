@@ -19,11 +19,52 @@
     const db = getFirestore(app);
     const storage = getStorage(app);
 
+    // This is a list of the default values
+    // as well as of all the possible fields that a user doc can have
+    const userDefaultValues = {
+      // Supplier fields
+      supplier_visit_from: '',
+      supplier_visit_to: '',
+      supplier_special_request: '',
+      supplier_access_zone: '',
+
+      // Press fields
+      press_workspot: '',
+      press_publisher: '',
+      press_media_type: '',
+      press_visit_from: '',
+      press_visit_to: '',
+      press_special_request: '',
+      press_has_uploaded_id: '0',
+
+      // User fields
+      user_username: '',
+      user_email: '',
+      user_uid: '',
+      user_is_admin: '0',
+      user_type: '',
+      user_status: 'pending',
+    };
+
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Auth functions
     * -----------------------------------------------------------------------------------------------------------
     */
+    function setDefaultFields(user) {
+      const userRef = doc(db, 'users', user.uid);
+      console.log(user.displayName);
+
+      setDoc(userRef, userDefaultValues, { merge: true })
+      .then(() => {
+        toastr.success('Default values successfully set');
+      })
+      .catch((err) => {
+        console.log('there was a problem updating the data', err);
+        toastr.error('There was an error updating your info');
+      });
+    }
+
     function handleSignUp(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -32,9 +73,11 @@
         createUserWithEmailAndPassword(auth, email, password)
         .then(userCredential => {
           //Signed in
-          console.log('userCredential', userCredential);
-          console.log('userCredential.user', userCredential.user);
           const user = userCredential.user;
+
+          setDefaultFields(user);
+
+
           toastr.success('user successfully created: ' + user.email);
           //window.location = "/account";
         })
