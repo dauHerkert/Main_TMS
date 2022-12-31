@@ -27,6 +27,8 @@
       supplier_visit_to: '',
       supplier_special_request: '',
       supplier_access_zone: '',
+      // supplier_has_form_submitted: 0 | 1
+      supplier_has_form_submitted: '0',
 
       // Press fields
       press_workspot: '',
@@ -35,14 +37,20 @@
       press_visit_from: '',
       press_visit_to: '',
       press_special_request: '',
+      // press_has_uploaded_id: 0 | 1
       press_has_uploaded_id: '0',
+      // press_has_form_submitted: 0 | 1
+      press_has_form_submitted: '0',
 
       // User fields
       user_username: '',
       user_email: '',
       user_uid: '',
+      // user_is_admin: 0 | 1
       user_is_admin: '0',
+      // user_type: supplier | press
       user_type: '',
+      // user_status: pending | ok
       user_status: 'pending',
     };
 
@@ -53,7 +61,7 @@
     */
     function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
-      console.log(user.displayName);
+      console.log(user);
 
       setDoc(userRef, userDefaultValues, { merge: true })
       .then(() => {
