@@ -65,6 +65,9 @@
       setDoc(userRef, userDefaultValues, { merge: true })
       .then(() => {
         toastr.success('Default values successfully set');
+        setTimeout(function() {
+          window.location = "/account";
+        }, 1000);
       })
       .catch((err) => {
         console.log('there was a problem updating the data', err);
@@ -81,12 +84,8 @@
         .then(userCredential => {
           //Signed in
           const user = userCredential.user;
-
           setDefaultFields(user);
-
-
           toastr.success('user successfully created: ' + user.email);
-          //window.location = "/account";
         })
         .catch((error) => {
           const errorMessage = error.message;
