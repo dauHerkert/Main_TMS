@@ -348,12 +348,12 @@
       const special_press_request = document.getElementById('special_press_request');
 
       setDoc(userRef, {
-        From: from_press_date.value,
-        To: to_press_date.value,
-        Special_request: special_press_request.value,
-        Workspot: workspot.value,
-        Publisher: publisher.value,
-        Media_type: media_type.value,
+        press_visit_from: from_press_date.value,
+        press_visit_to: to_press_date.value,
+        press_special_request: special_press_request.value,
+        press_workspot: workspot.value,
+        press_publisher: publisher.value,
+        press_media_type: media_type.value,
         press_has_form_submitted: "1"
       }, { merge: true })
       .then(() => {
@@ -412,10 +412,10 @@
       const access_zone = document.getElementById('zones');
 
       setDoc(userRef, {
-        From: from_date.value,
-        To: to_date.value,
-        Special_request: special_request.value,
-        access_zone: access_zone.value,
+        supplier_visit_from: from_date.value,
+        supplier_visit_to: to_date.value,
+        supplier_special_request: special_request.value,
+        supplier_access_zone: access_zone.value,
         supplier_has_form_submitted: "1"
       }, { merge: true })
       .then(() => {
@@ -579,6 +579,26 @@
         $('[data-toggle="datepicker"]').attr('readonly', 'readonly')
       }
     });
+
+    const listAllUsers = (nextPageToken) => {
+  // List batch of users, 1000 at a time.
+  getAuth()
+    .listUsers(1000, nextPageToken)
+    .then((listUsersResult) => {
+      listUsersResult.users.forEach((userRecord) => {
+        console.log('user', userRecord.toJSON());
+      });
+      if (listUsersResult.pageToken) {
+        // List next batch of users.
+        listAllUsers(listUsersResult.pageToken);
+      }
+    })
+    .catch((error) => {
+      console.log('Error listing users:', error);
+    });
+};
+// Start listing users from the beginning, 1000 at a time.
+listAllUsers();
 
 </script>
 
