@@ -346,6 +346,7 @@
       const from_press_date = document.getElementById('from_press_date');
       const to_press_date = document.getElementById('to_press_date');
       const special_press_request = document.getElementById('special_press_request');
+      const press_email = user.email;
 
       setDoc(userRef, {
         press_visit_from: from_press_date.value,
@@ -354,7 +355,8 @@
         press_workspot: workspot.value,
         press_publisher: publisher.value,
         press_media_type: media_type.value,
-        press_has_form_submitted: "1"
+        press_has_form_submitted: "1",
+        press_email: press_email
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
