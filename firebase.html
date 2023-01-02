@@ -405,13 +405,17 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        setTimeout(window.location.reload(), 10000);
+        setTimeout(reloadSupplierFormPage, 10000);
       })
       .catch((err) => {
         console.log('error updating supplier info', err);
         toastr.error('There was an error updating your info');
       });
 
+    }
+
+    function reloadSupplierFormPage(){
+      window.location.reload();
     }
 
     function pageSupplier(user) {
