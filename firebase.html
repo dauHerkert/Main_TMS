@@ -386,6 +386,10 @@
     * Supplier functions
     * -----------------------------------------------------------------------------------------------------------
     */
+    if(user.supplier_has_form_submitted == "1"){
+          from_date.setAttribute("disabled");
+        }
+        
     function addSupplierInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
@@ -415,9 +419,6 @@
     }
 
     function reloadSupplierFormPage(){
-      if(user.supplier_has_form_submitted == "1"){
-          from_date.setAttribute("disabled");
-        }
         window.location.reload();
     }
 
@@ -430,12 +431,6 @@
         ev.preventDefault();
         addSupplierInfo(ev, user);
       });
-    }
-
-    function disableSupplierForm(user) {
-      if(user.supplier_has_form_submitted == "1"){
-          from_date.setAttribute("disabled");
-        }
     }
 
     /*
