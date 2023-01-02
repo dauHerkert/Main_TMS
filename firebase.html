@@ -415,7 +415,10 @@
     }
 
     function reloadSupplierFormPage(){
-      window.location.reload();
+      if(user.supplier_has_form_submitted == "1"){
+          from_date.setAttribute("disabled");
+        }
+        window.location.reload();
     }
 
     function pageSupplier(user) {
