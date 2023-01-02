@@ -338,6 +338,7 @@
         Workspot: workspot.value,
         Publisher: publisher.value,
         Media_type: media_type.value,
+        press_has_form_submitted: "1"
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
@@ -396,7 +397,8 @@
         From: from_date.value,
         To: to_date.value,
         Special_request: special_request.value,
-        access_zone: access_zone.value
+        access_zone: access_zone.value,
+        supplier_has_form_submitted: "1"
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
