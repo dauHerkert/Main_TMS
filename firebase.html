@@ -171,10 +171,6 @@
       const homeButton = document.getElementById('home_button');
       const press_info = document.getElementsByClassName('press_info');
       const supplier_info = document.getElementsByClassName('supplier_info');
-      const from_date = document.getElementById('from_date');
-      const to_date = document.getElementById('to_date');
-      const special_request = document.getElementById('special_request');
-      const access_zone = document.getElementById('zones');
 
       if ( userInfo ) {
 
@@ -215,7 +211,7 @@
         }
 
         if(userInfo.supplier_has_form_submitted == "1"){
-          from_date.setAttribute('disabled');
+          document.getElementById("from_date").setAttribute('disabled', "");
         }
       }
     }
