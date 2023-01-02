@@ -169,16 +169,6 @@
       let userInfo = await getUserInfo(user);
       const accountType_button = document.getElementById('account_user_profile');
       const homeButton = document.getElementById('home_button');
-      const press_workspot = document.getElementById('press_workspot');
-      const publisher = document.getElementById('press_publisher');
-      const media = document.getElementById('press_media');
-      const press_from = document.getElementById('press_from');
-      const press_to = document.getElementById('press_to');
-      const press_require = document.getElementById('press_require');
-      const supplier_from = document.getElementById('supplier_from');
-      const supplier_to = document.getElementById('supplier_to');
-      const supplier_request = document.getElementById('supplier_request');
-      const supplier_zone = document.getElementById('supplier_zone');
       const press_info = document.getElementsByClassName('press_info');
       const supplier_info = document.getElementsByClassName('supplier_info');
 
@@ -188,10 +178,6 @@
           if (window.location.pathname == '/account'){
             document.getElementById('welcome_user').innerHTML = `Hello Supplier ${user.displayName}`;
             document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
-            supplier_from.innerHTML = `<b>From:</b> ${userInfo.From}`;
-            supplier_to.innerHTML = `<b>To:</b> ${userInfo.To}`;
-            supplier_request.innerHTML = `<b>Request:</b> ${userInfo.Special_request}`;
-            supplier_zone.innerHTML = `<b>Zone:</b> ${userInfo.access_zone}`;
             for ( var i=0; i < supplier_info.length; i+=1 ){
               supplier_info[i].style.display = 'flex';
             }
@@ -202,12 +188,6 @@
           if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello Press ${user.displayName}`;
               document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
-              press_workspot.innerHTML = `<b>Workspot:</b> ${userInfo.Workspot}`;
-              publisher.innerHTML = `<b>Publisher:</b> ${userInfo.Publisher}`;
-              media.innerHTML = `<b>Media:</b> ${userInfo.Media_type}`;
-              press_from.innerHTML = `<b>From:</b> ${userInfo.From}`;
-              press_to.innerHTML = `<b>To:</b> ${userInfo.To}`;
-              press_require.innerHTML = `<b>Request:</b> ${userInfo.Special_request}`;
               for (var i=0;i<press_info.length;i+=1){
               press_info[i].style.display = 'flex';
             }
@@ -308,26 +288,15 @@
     function pageAccount(user) {
       // Populate form fields with values
       document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${user.email}</span>`;
-      if ( user.displayName == null ){
-        document.getElementById("username_display").innerHTML = `<span><b>Username:</b> Add your username</span>`;
-      } else {
-        document.getElementById("username_display").innerHTML = `<span><b>Username:</b> ${user.displayName}</span>`;
-      }
       document.getElementById("user_password").innerHTML = `<span><b>Change Password</b></span>`;
       document.getElementById("account_type_info").innerHTML = ``;
 
-      let update_username_modal = document.getElementById("username_form_modal");
       let update_email_modal = document.getElementById("email_form_modal");
       let update_password_modal = document.getElementById("password_form_modal");
       let change_email = document.getElementById("change_email");
       let change_username = document.getElementById("change_username");
       let change_password = document.getElementById("change_password");
 
-      if ( update_username_modal !== null ) {
-        update_username_modal.addEventListener('submit', function(ev) {
-          updateUsername(ev, user, change_username.value);
-        }, true);
-      }
       if ( update_email_modal !== null ) {
         update_email_modal.addEventListener('submit', function(ev) {
           updateUserEmail(ev, user, change_email.value);
