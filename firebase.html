@@ -405,9 +405,7 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        if(user.supplier_has_form_submitted == "1"){
-          from_date.setAttribute("disabled");
-        }
+        disableSupplierForm(user);
       })
       .catch((err) => {
         console.log('error updating supplier info', err);
@@ -425,6 +423,12 @@
         ev.preventDefault();
         addSupplierInfo(ev, user);
       });
+    }
+
+    function disableSupplierForm(user) {
+      if(user.supplier_has_form_submitted == "1"){
+          from_date.setAttribute("disabled");
+        }
     }
 
     /*
