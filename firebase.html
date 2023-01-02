@@ -406,7 +406,7 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        console.log(user.supplier_has_form_submitted)
+        console.log(userRef.supplier_has_form_submitted)
         //setTimeout(reloadSupplierFormPage, 3000);
       })
       .catch((err) => {
