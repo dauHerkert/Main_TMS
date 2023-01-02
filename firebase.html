@@ -171,6 +171,10 @@
       const homeButton = document.getElementById('home_button');
       const press_info = document.getElementsByClassName('press_info');
       const supplier_info = document.getElementsByClassName('supplier_info');
+      const from_date = document.getElementById('from_date');
+      const to_date = document.getElementById('to_date');
+      const special_request = document.getElementById('special_request');
+      const access_zone = document.getElementById('zones');
 
       if ( userInfo ) {
 
@@ -208,6 +212,10 @@
             document.getElementById('welcome_user').innerHTML = `Hello Admin ${user.displayName}`;
           }
           accountType_button.setAttribute("href", "/admin");
+        }
+
+        if(userInfo.supplier_has_form_submitted == "1"){
+          from_date.setAttribute('disabled');
         }
       }
     }
@@ -343,9 +351,6 @@
       .then(() => {
         //console.log('press data successfully updated');
         pressUploadImage(user);
-        if(userRef.press_has_form_submitted == '1'){
-          workspot.setAttribute("disabled");
-        }
       })
       .catch((err) => {
         console.log('there was a problem updating the data', err);
@@ -362,6 +367,7 @@
       uploadBytes(storageRef, fileItem)
       .then((snapshot) => {
         toastr.success('You have submitted the form successfully');
+        setTimeout(reloadSupplierFormPage, 3000);
       })
       .catch(err => {
         console.log('error uploading file', err);
@@ -406,14 +412,12 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        console.log(userRef.supplier_has_form_submitted)
-        //setTimeout(reloadSupplierFormPage, 3000);
+        setTimeout(reloadSupplierFormPage, 3000);
       })
       .catch((err) => {
         console.log('error updating supplier info', err);
         toastr.error('There was an error updating your info');
       });
-
     }
 
     function reloadSupplierFormPage(){
