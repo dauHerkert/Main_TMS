@@ -386,13 +386,14 @@
     * Supplier functions
     * -----------------------------------------------------------------------------------------------------------
     */
-    if(user.supplier_has_form_submitted == "1"){
-          from_date.setAttribute("disabled");
-        }
-        
+
     function addSupplierInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
+
+      if(user.supplier_has_form_submitted == "1"){
+          from_date.setAttribute("disabled");
+        }
 
       const userRef = doc(db, 'users', user.uid);
       const from_date = document.getElementById('from_date');
