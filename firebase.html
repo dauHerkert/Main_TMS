@@ -405,7 +405,7 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        setTimeout(reloadSupplierFormPage, 10000);
+        setTimeout(reloadSupplierFormPage, 3000);
       })
       .catch((err) => {
         console.log('error updating supplier info', err);
