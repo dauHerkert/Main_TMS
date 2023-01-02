@@ -405,7 +405,7 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        if(userRef.supplier_has_form_submitted == "1"){
+        if(user.supplier_has_form_submitted == "1"){
           from_date.setAttribute("disabled");
         }
       })
