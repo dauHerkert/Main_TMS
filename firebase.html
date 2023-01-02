@@ -177,7 +177,7 @@
         if ( userInfo.type == "Supplier" ) {
           if (window.location.pathname == '/account'){
             document.getElementById('welcome_user').innerHTML = `Hello Supplier ${user.displayName}`;
-            document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
+            document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
             for ( var i=0; i < supplier_info.length; i+=1 ){
               supplier_info[i].style.display = 'flex';
             }
@@ -187,7 +187,7 @@
         } else if( userInfo.type == "Press" ) {
           if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello Press ${user.displayName}`;
-              document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.type}`;
+              document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
               for (var i=0;i<press_info.length;i+=1){
               press_info[i].style.display = 'flex';
             }
@@ -343,6 +343,9 @@
       .then(() => {
         //console.log('press data successfully updated');
         pressUploadImage(user);
+        if(userRef.press_has_form_submitted == '1'){
+          workspot.setAttribute("disabled");
+        }
       })
       .catch((err) => {
         console.log('there was a problem updating the data', err);
@@ -402,6 +405,9 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
+        if(userRef.supplier_has_form_submitted == "1"){
+          from_date.setAttribute("disabled");
+        }
       })
       .catch((err) => {
         console.log('error updating supplier info', err);
@@ -439,7 +445,7 @@
         if ( user_specific_id != null || user_specific_id != 0 ) {
           const userRef = doc(db, 'users', user_specific_id.value);
           setDoc(userRef, {
-            type: userTypeUpdate.value,
+            user_type: userTypeUpdate.value,
             admin: admin_cred.value
           }, { merge: true })
           .then(() => {
