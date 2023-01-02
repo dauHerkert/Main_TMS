@@ -217,13 +217,11 @@
           document.getElementById("zones").setAttribute('disabled', "");
         }
         if(userInfo.press_has_form_submitted == "1"){
-          document.getElementById("workspot").setAttribute('disabled', "");
-          document.getElementById("publisher").setAttribute('disabled', "");
-          document.getElementById("media_type").setAttribute('disabled', "");
-          document.getElementById("from_press_date").setAttribute('disabled', "");
-          document.getElementById("to_press_date").setAttribute('disabled', "");
-          document.getElementById("special_press_request").setAttribute('disabled', "");
-          document.getElementById("fileInp").setAttribute('disabled', "");
+          var form = document.getElementById("moreInfo_press_form");
+          var elements = form.elements;
+          for (var i = 0, len = elements.length; i < len; ++i) {
+              elements[i].readOnly = true;
+          }
         }
       }
     }
