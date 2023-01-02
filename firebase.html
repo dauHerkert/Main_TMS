@@ -391,10 +391,6 @@
       e.preventDefault();
       e.stopPropagation();
 
-      if(user.supplier_has_form_submitted == "1"){
-          from_date.setAttribute("disabled");
-        }
-
       const userRef = doc(db, 'users', user.uid);
       const from_date = document.getElementById('from_date');
       const to_date = document.getElementById('to_date');
@@ -410,7 +406,8 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        setTimeout(reloadSupplierFormPage, 3000);
+        console.log(user.supplier_has_form_submitted)
+        //setTimeout(reloadSupplierFormPage, 3000);
       })
       .catch((err) => {
         console.log('error updating supplier info', err);
