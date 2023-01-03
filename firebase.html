@@ -552,7 +552,9 @@
         }
       } else {
         // User IS signed in
-        if ( url == '/account' ) {
+        if ( url == '/signin' ) {
+          signInPage();
+        } else if ( url == '/account' ) {
           pageAccount(user);
         } else if ( url == '/press' ) {
           pagePress(user);
@@ -560,8 +562,6 @@
           pageSupplier(user);
         } else if ( url == '/admin' ) {
           pageAdmin(user);
-        }else if ( url == '/signin' ) {
-          signInPage();
         }
       }
     }
