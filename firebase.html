@@ -210,12 +210,15 @@
           accountType_button.setAttribute("href", "/admin");
         }
 
+       if (window.location.pathname == '/press'){
         if(userInfo.supplier_has_form_submitted == "1"){
           document.getElementById("from_date").setAttribute('disabled', "");
           document.getElementById("to_date").setAttribute('disabled', "");
           document.getElementById("special_request").setAttribute('disabled', "");
           document.getElementById("zones").setAttribute('disabled', "");
         }
+      }
+       if (window.location.pathname == '/supplier'){
         if(userInfo.press_has_form_submitted == "1"){
           document.getElementById("workspot").setAttribute('disabled', "");
           document.getElementById("publisher").setAttribute('disabled', "");
@@ -225,6 +228,7 @@
           document.getElementById("special_press_request").setAttribute('disabled', "");
           document.getElementById("fileInp").setAttribute('disabled', "");
         }
+       }
       }
     }
 
