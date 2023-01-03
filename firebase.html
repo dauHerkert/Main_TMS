@@ -481,7 +481,10 @@
 
       getDocs(colRef)
       .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
+
+        console.log(snapshot.docs)
+        
+        /*snapshot.docs.forEach((doc) => {
           let user = doc.data();
           /*
           let row = `<tr>
@@ -491,8 +494,8 @@
             </tr>`;
 
           // Append row to table
-          userList.find('tbody').append(row);*/
-        });
+          userList.find('tbody').append(row);
+        });*/
       })
       .catch(err => {
         console.log('error fetching users', err);
