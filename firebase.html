@@ -458,6 +458,7 @@
       let update_user_form = document.getElementById('update_user_type');
       let user_specific_id = document.getElementById('admin_user_id');
       let userTypeUpdate = document.getElementById('accountType');
+      let user_status_update = document.getElementById('accountStatus');
       let admin_cred = document.getElementById('is_admin');
 
       update_user_form.addEventListener('submit', (e) => {
@@ -468,7 +469,8 @@
           const userRef = doc(db, 'users', user_specific_id.value);
           setDoc(userRef, {
             user_type: userTypeUpdate.value,
-            admin: admin_cred.value
+            admin: admin_cred.value,
+            user_status: user_status_update.value
           }, { merge: true })
           .then(() => {
             toastr.success('Account type has been successfully updated');
