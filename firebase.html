@@ -496,7 +496,7 @@
             </tr>`;
 
           // Append row to table
-          userList.find('tbody').append(row);
+          document.getElementById('user-list-body').append(row);
         });
       })
       .catch(err => {
