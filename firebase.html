@@ -486,6 +486,7 @@
       var cell1 = newRow.insertCell(0);
       var cell2 = newRow.insertCell(1);
       var cell3 = newRow.insertCell(2);
+      var cell4 = newRow.insertCell(3);
 
       getDocs(colRef)
       .then((snapshot) => {
@@ -494,7 +495,8 @@
           let user = doc.data();
           cell1.innerHTML = `${doc.id}`;
           cell2.innerHTML = `${user.user_email}`;
-          cell3.innerHTML = `${user.user_status}`;          
+          cell3.innerHTML = `${user.user_status}`;
+          cell4.innerHTML = `<button>Update</button>`;
          /* let row = `<tr>
             <td>${doc.id}</td>
             <td>${user.user_email}</td>
