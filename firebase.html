@@ -546,15 +546,15 @@
         // Homepage
         if ( url == '/signup' ) {
           pageHome();
+        } else if ( url == '/signin' ) {
+          signInPage();
         } else {
           // User does NOT have access to this page
           console.log('user does NOT have access to this page');
         }
       } else {
         // User IS signed in
-        if ( url == '/signin' ) {
-          signInPage();
-        } else if ( url == '/account' ) {
+         if ( url == '/account' ) {
           pageAccount(user);
         } else if ( url == '/press' ) {
           pagePress(user);
