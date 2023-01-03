@@ -481,25 +481,23 @@
       });
 
       const colRef = collection(db, 'users');
-      let userList = $('#admin-user-list');
+      let userList = document.getElementById('admin-user-list');
 
       getDocs(colRef)
       .then((snapshot) => {
-
-        console.log(snapshot.docs)
         
-        /*snapshot.docs.forEach((doc) => {
+        snapshot.docs.forEach((doc) => {
           let user = doc.data();
-          /*
+          
           let row = `<tr>
-            <td>${user.username}</td>
-            <td>${user.username}</td>
-            <td>${user.username}</td>
+            <td>${doc.id}</td>
+            <td>${user.user_email}</td>
+            <td>${user.user_status}</td>
             </tr>`;
 
           // Append row to table
           userList.find('tbody').append(row);
-        });*/
+        });
       })
       .catch(err => {
         console.log('error fetching users', err);
