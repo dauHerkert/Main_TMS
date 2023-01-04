@@ -110,11 +110,13 @@
       const user_firstname = document.getElementById('first-name');
       const user_lastname = document.getElementById('last-name');
       const user_address = document.getElementById('user_address');
+      const user_company = document.getElementById('sign-up-company');
 
       setDoc(userRef, {
         user_firstname: user_firstname.value,
         user_lastname: user_lastname.value,
         user_address: user_address.value,
+        user_company: user_company.value
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
@@ -567,8 +569,6 @@
     /* and pre-populate the text field in the sign up form
     **/
     function checkUrlParameter() {
-      // First set company text input field to "readonly"
-      $('#sign-up-company').prop('readonly', 'readonly');
 
       let url = new URL(location.href);
       let company = url.searchParams.get('company');
