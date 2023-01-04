@@ -2,7 +2,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
     import { getFirestore, collection, addDoc, setDoc, updateDoc, getDoc, doc, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
-    import { getStorage, ref, uploadBytes } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
+    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyDuWqqoSEfawmsdJNQzIDKk6lfvEKAubmA",
@@ -335,6 +335,18 @@
         toastr.error('There was a problem updating the password');
       });
     }
+    function showProfilePic(){
+      getDownloadURL(ref(storage, 'profiles/' + user.uid))
+        .then((url) => {
+
+          // Or inserted into an <img> element
+          const img = document.getElementById('user_profile_pic');
+          img.setAttribute('src', url);
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
+    }
 
     function showPrivateElements() {
       // User is signed in
@@ -645,6 +657,5 @@
     });
 
 </script>
-
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
