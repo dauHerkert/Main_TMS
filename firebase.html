@@ -75,6 +75,7 @@
       });
     }
 
+    // Sign Up
     function handleSignUp(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -85,6 +86,7 @@
           //Signed in
           const user = userCredential.user;
           setDefaultFields(user);
+          userExtraInfo(e, user)
           toastr.success('user successfully created: ' + user.email);
         })
         .catch((error) => {
@@ -94,6 +96,44 @@
           errorText.innerHTML = errorMessage;
         });
     };
+
+    function userExtraInfo(e, user) {
+      e.preventDefault();
+      e.stopPropagation();
+      const userRef = doc(db, 'users', user.uid);
+      const first_name = document.getElementById('first-name');
+      const last_name = document.getElementById('last-name');
+      const user_address = document.getElementById('user_address');
+
+      setDoc(userRef, {
+        first_name: first_name.value,
+        last_name: last_name.value,
+        user_address: user_address.value,
+      }, { merge: true })
+      .then(() => {
+        //console.log('press data successfully updated');
+        userUploadImage(user);
+      })
+      .catch((err) => {
+        console.log('there was a problem updating the data', err);
+        toastr.error('There was an error updating your info');
+      });
+    }
+    //Upload user's profile image
+    function userUploadImage(user) {
+      const profile_img = document.getElementById('profile_img');
+      let fileItem = profile_img.files[0];
+      const storageRef = ref(storage, 'profiles/' + user.uid);
+
+      uploadBytes(storageRef, fileItem)
+      .then((snapshot) => {
+        toastr.success('You have submitted the form successfully');
+      })
+      .catch(err => {
+        console.log('error uploading file', err);
+        toastr.error('There was an error uploading the file');
+      });
+    }
 
     // Handle signIn
     function handleSignIn(e) {
@@ -380,7 +420,6 @@
     function pressUploadImage(user) {
       const press_id = document.getElementById('fileInp');
       let fileItem = press_id.files[0];
-      let fileName = press_id.files[0].name;
       const storageRef = ref(storage, 'press_id/' + user.uid);
 
       uploadBytes(storageRef, fileItem)
