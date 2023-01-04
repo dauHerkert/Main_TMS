@@ -335,17 +335,35 @@
         toastr.error('There was a problem updating the password');
       });
     }
+
+    //Display profile picture
     function showProfilePic(user){
       getDownloadURL(ref(storage, 'profiles/' + user.uid))
         .then((url) => {
 
-          // Or inserted into an <img> element
+          //insert into an <img> element
           const img = document.getElementById('user_profile_pic');
           img.setAttribute('src', url);
         })
         .catch((error) => {
           // Handle any errors
         });
+    }
+
+    //Update profile picture
+    function updateProfilePic(user) {
+      const updated_picture = document.getElementById('updated_picture');
+      let fileItem = updated_picture.files[0];
+      const storageRef = ref(storage, 'profiles/' + user.uid);
+
+      uploadBytes(storageRef, fileItem)
+      .then((snapshot) => {
+        toastr.success('You have updated the profile picture successfully');
+      })
+      .catch(err => {
+        console.log('error uploading file', err);
+        toastr.error('There was an error uploading the file');
+      });
     }
 
     function showPrivateElements() {
@@ -380,6 +398,7 @@
 
       let update_email_modal = document.getElementById("email_form_modal");
       let update_password_modal = document.getElementById("password_form_modal");
+      let update_picture_modal = document.getElementById("picture_form_modal");
       let change_email = document.getElementById("change_email");
       let change_username = document.getElementById("change_username");
       let change_password = document.getElementById("change_password");
@@ -392,6 +411,11 @@
       if ( update_password_modal !== null ) {
         update_password_modal.addEventListener('submit', function(ev) {
           updateUserPassword(ev, user, change_password.value);
+        }, true);
+      }
+      if ( update_picture_modal !== null ) {
+        update_picture_modal.addEventListener('submit', function(ev) {
+          function updateProfilePic(user);
         }, true);
       }
 
