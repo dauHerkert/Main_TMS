@@ -107,13 +107,13 @@
       e.preventDefault();
       e.stopPropagation();
       const userRef = doc(db, 'users', user.uid);
-      const first_name = document.getElementById('first-name');
-      const last_name = document.getElementById('last-name');
+      const user_firstname = document.getElementById('first-name');
+      const user_lastname = document.getElementById('last-name');
       const user_address = document.getElementById('user_address');
 
       setDoc(userRef, {
-        first_name: first_name.value,
-        last_name: last_name.value,
+        user_firstname: user_firstname.value,
+        user_lastname: user_lastname.value,
         user_address: user_address.value,
       }, { merge: true })
       .then(() => {
@@ -190,16 +190,18 @@
 
     function signInPage(){
         let signInForm = document.getElementById('wf-form-signin-form');
-        let signOutButton = document.getElementById('signout-button');
         
         //assign event listeners
         if(typeof(signInForm) !== null) {
           signInForm.addEventListener('submit', handleSignIn, true)
         }
-        if(typeof signOutButton !== null) {
+    }
+
+    let signOutButton = document.getElementById('signout-button');
+
+    if(typeof signOutButton !== null) {
           signOutButton.addEventListener('click', handleSignOut);
         }
-    }
 
     /*
     * -----------------------------------------------------------------------------------------------------------
@@ -227,7 +229,7 @@
 
         if ( userInfo.type == "Supplier" ) {
           if (window.location.pathname == '/account'){
-            document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.first_name}`;
+            document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
             document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
             for ( var i=0; i < supplier_info.length; i+=1 ){
               supplier_info[i].style.display = 'flex';
@@ -237,7 +239,7 @@
           homeButton.setAttribute("href", "/supplier");
         } else if( userInfo.type == "Press" ) {
           if(window.location.pathname == '/account'){
-              document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.first_name}`;
+              document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
               document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
               for (var i=0;i<press_info.length;i+=1){
               press_info[i].style.display = 'flex';
@@ -247,7 +249,7 @@
           homeButton.setAttribute("href", "/press");
         } else {
           if(window.location.pathname == '/account'){
-            document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.first_name}`;
+            document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
             document.getElementById('account_type_info').innerHTML = '';
           }
           accountType_button.setAttribute("href", "/admin");
@@ -256,7 +258,7 @@
 
         if(userInfo.admin == "1") {
           if(window.location.pathname == '/account') {
-            document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.first_name}`;
+            document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
           }
           accountType_button.setAttribute("href", "/admin");
         }
@@ -441,7 +443,7 @@
 
     function pagePress(user) {
       // Show displayName
-      document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.first_name}`;
+      document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.user_firstname}`;
 
       // Get press form
       const press_form = document.getElementById('moreInfo_press_form');
@@ -490,7 +492,7 @@
 
     function pageSupplier(user) {
       // Show displayName
-      document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.first_name}`;
+      document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
 
       const supplier_form = document.getElementById('supplier_form');
       supplier_form.addEventListener('submit', function(ev) {
