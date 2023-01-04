@@ -166,7 +166,7 @@
     function handleSignOut() {
         signOut(auth).then(() => {
           alert('user signed out');
-          window.location = "/";
+          window.location = "/signin";
         }).catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage);
