@@ -227,7 +227,7 @@
 
       if ( userInfo ) {
 
-        if ( userInfo.type == "Supplier" ) {
+        if ( userInfo.type == "Supplier" && userInfo.user_is_admin == '0') {
           if (window.location.pathname == '/account'){
             document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
             document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
@@ -237,7 +237,7 @@
           }
           accountType_button.setAttribute("href", "/supplier");
           homeButton.setAttribute("href", "/supplier");
-        } else if( userInfo.type == "Press" ) {
+        } else if( userInfo.type == "Press" && userInfo.user_is_admin == '0') {
           if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
               document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
@@ -258,17 +258,10 @@
 
         if(userInfo.admin == "1") {
           if(window.location.pathname == '/account') {
-
-            if(userInfo.user_is_admin == '0' && userInfo.user_type == 'Press'){
-            document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
-            }else if(userInfo.user_is_admin == '0' && userInfo.user_type == 'Supplier'){
-            document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
-            }else if(userInfo.user_is_admin == '1'){
             document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
             }
           }
           accountType_button.setAttribute("href", "/admin");
-        }
 
        if (window.location.pathname == '/supplier'){
         if(userInfo.supplier_has_form_submitted == "1"){
