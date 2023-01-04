@@ -335,7 +335,7 @@
         toastr.error('There was a problem updating the password');
       });
     }
-    function showProfilePic(){
+    function showProfilePic(user){
       getDownloadURL(ref(storage, 'profiles/' + user.uid))
         .then((url) => {
 
@@ -394,6 +394,8 @@
           updateUserPassword(ev, user, change_password.value);
         }, true);
       }
+
+      showProfilePic(user)
 
     }
 
