@@ -566,7 +566,7 @@
           .then(() => {
             try {
                 const docRef = addDoc(collection(db, "mail"), {
-                to: "serfaty.samuel90@gmail.com",
+                to: `${user.user_email}`,
                 message: {
                 subject: 'Hello from Firebase!',
                 html: 'This is an <code>HTML</code> email body.',
@@ -585,6 +585,7 @@
         }
       });
 
+//Print users table
       const colRef = collection(db, 'users');
       let userList = document.getElementById('admin-user-list');
 
