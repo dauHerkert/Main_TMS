@@ -481,7 +481,7 @@
 
     function pagePress(userInfo) {
       // Show displayName
-      document.getElementById("client_press").innerHTML = `Hello Press ${user.user_firstname}`;
+      document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.user_firstname}`;
 
       // Get press form
       const press_form = document.getElementById('moreInfo_press_form');
@@ -530,7 +530,7 @@
 
     function pageSupplier(user) {
       // Show displayName
-      document.getElementById("supplier_user").innerHTML = `Hello Supplier ${user.user_firstname}`;
+      document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
 
       const supplier_form = document.getElementById('supplier_form');
       supplier_form.addEventListener('submit', function(ev) {
@@ -577,7 +577,10 @@
                 } catch (e) {
                 console.error("Error adding document: ", e);
                 }
-            toastr.success('Account type has been successfully updated');
+                toastr.success('Account type has been successfully updated');
+                setTimeout(function() {
+                  window.location = "/account";
+                }, 2000);
           })
           .catch((err) => {
             toastr.error('There was an error updating the account type');
@@ -586,7 +589,7 @@
         }
       });
 
-//Print users table
+      //Print users table
       const colRef = collection(db, 'users');
       let userList = document.getElementById('admin-user-list');
 
@@ -599,7 +602,8 @@
           var cell2 = newRow.insertCell(1);
           var cell3 = newRow.insertCell(2);
           var cell4 = newRow.insertCell(3);
-          var cell5 = newRow.insertCell(4);
+          var cell5 = newRow.insertCell(4)
+          var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
           cell1.innerHTML = `${doc.id}`;
@@ -607,8 +611,12 @@
           cell2.innerHTML = `${user.user_email}`;
           cell2.className = 'userEmail';
           cell3.innerHTML = `${user.user_status}`;
+          cell3.className = 'userStatus'
           cell4.innerHTML = `${user.user_company}`;
-          cell5.innerHTML = `<button id="open_modal_btn" onclick="openModal()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
+          cell4.className = 'user_company';
+          cell5.innerHTML = `${user.user_type}`;
+          cell5.className = 'userType';
+          cell6.innerHTML = `<button id="open_modal_btn" onclick="openModal()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
       })
       .catch(err => {
@@ -693,6 +701,12 @@
           pageAdmin(user);
         }
       }
+    }
+
+    if ( user == false ) {
+      document.getElementById('signout-button').style.display = 'none';
+    }else{
+      document.getElementById('signout-button').style.display = 'block';
     }
 
     // first page load
