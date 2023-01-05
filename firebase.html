@@ -57,13 +57,14 @@
     * Auth functions
     * -----------------------------------------------------------------------------------------------------------
     */
-
+   function showSignOutButton(user){
     if ( user == false ) {
         document.getElementById('signout-button').style.display = 'none';
       }else{
         document.getElementById('signout-button').style.display = 'inline-grid';
       }
-      
+    }
+
     function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
 
@@ -723,6 +724,8 @@
         dispatchRequest(user);
 
         populateForms(user);
+
+        showSignOutButton(user);
 
         showPrivateElements();
       } else {
