@@ -660,11 +660,11 @@
         console.log('error fetching users', err);
       })
 
-        $(document).on( 'click' , '#companyName' , function() {
+        $(document).on( 'click' , '#companyName' ,async function() {
           
           let companyValue = event.target.getAttribute('data-value');
           const query = query(collection(db, "users"), where("user_company", "==", companyValue));
-          const querySnapshot = getDocs(query);
+          const querySnapshot = await getDocs(query);
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
