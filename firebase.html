@@ -702,19 +702,11 @@
         }
       }
     }
-
-    function displaySignOutButton(user){
-      if ( user == false ) {
-        document.getElementById('signout-button').style.display = 'none';
-      }else{
-        document.getElementById('signout-button').style.display = 'block';
-      }
-    }
     
     // first page load
     dispatchRequest(false);
     checkUrlParameter();
-    displaySignOutButton(user);
+    
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -725,6 +717,8 @@
 
         populateForms(user);
 
+        displaySignOutButton(user);
+
         showPrivateElements();
       } else {
         // user is signed out
@@ -732,6 +726,16 @@
         return;
       }
     });
+
+    function displaySignOutButton(user){
+      if ( user == false ) {
+        document.getElementById('signout-button').style.display = 'none';
+      }else{
+        document.getElementById('signout-button').style.display = 'block';
+      }
+    }
+
+    
 
     $(document).ready(function () {
       // TODO: make sure to only call the datepicker function if an element exists
