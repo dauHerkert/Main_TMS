@@ -662,9 +662,9 @@
 
         $(document).on( 'click' , '#companyName' ,async function() {
           
-          let companyValue = event.target.getAttribute('data-value');
-          const query = query(collection(db, "users"), where("user_company", "==", companyValue));
+          let companyValue = event.target.getAttribute('data-value');          
           const querySnapshot = await getDocs(query);
+          const query = query(collection(db, "users"), where("user_company", "==", companyValue));
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
