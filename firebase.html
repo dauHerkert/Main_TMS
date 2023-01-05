@@ -624,9 +624,9 @@
         
         snapshot.docs.forEach((doc) => {
           var company_newRow = document.getElementById('companies-list-body').insertRow(0);
-          var company_cell1 = newRow.insertCell(0);
-          var company_cell2 = newRow.insertCell(1);
-          var company_cell3 = newRow.insertCell(2);
+          var company_cell1 = company_newRow.insertCell(0);
+          var company_cell2 = company_newRow.insertCell(1);
+          var company_cell3 = company_newRow.insertCell(2);
 
           let user = doc.data();
           company_cell1.innerHTML = `${doc.id}`;
