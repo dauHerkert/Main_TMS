@@ -703,15 +703,18 @@
       }
     }
 
-    if ( user == false ) {
-      document.getElementById('signout-button').style.display = 'none';
-    }else{
-      document.getElementById('signout-button').style.display = 'block';
+    function displaySignOutButton(user){
+      if ( user == false ) {
+        document.getElementById('signout-button').style.display = 'none';
+      }else{
+        document.getElementById('signout-button').style.display = 'block';
+      }
     }
-
+    
     // first page load
     dispatchRequest(false);
     checkUrlParameter();
+    displaySignOutButton(user);
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
