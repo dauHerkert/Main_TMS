@@ -587,7 +587,7 @@
                 }
                 toastr.success('Account type has been successfully updated');
                 setTimeout(function() {
-                  window.location = "/account";
+                  window.location.reload();
                 }, 2000);
           })
           .catch((err) => {
@@ -724,8 +724,6 @@
         dispatchRequest(user);
 
         populateForms(user);
-
-        showSignOutButton(user);
 
         showPrivateElements();
       } else {
