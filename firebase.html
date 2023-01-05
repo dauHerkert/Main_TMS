@@ -620,7 +620,7 @@
           cell2.className = 'userEmail';
           cell3.innerHTML = `${user.user_status}`;
           cell3.className = 'userStatus'
-          cell4.innerHTML = `<a href='#'>${user.user_company}</a>`;
+          cell4.innerHTML = `<a href='#' data-value="${user.user_company}">${user.user_company}</a>`;
           cell4.className = 'user_company';
           cell5.innerHTML = `${user.user_type}`;
           cell5.className = 'userType';
@@ -659,6 +659,14 @@
       .catch(err => {
         console.log('error fetching users', err);
       })
+
+        const q = query(collection(db, "users"), where("user_company", "==", ));
+
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
     }
 
     /*
