@@ -57,6 +57,13 @@
     * Auth functions
     * -----------------------------------------------------------------------------------------------------------
     */
+
+    if ( user == false ) {
+        document.getElementById('signout-button').style.display = 'none';
+      }else{
+        document.getElementById('signout-button').style.display = 'inline-grid';
+      }
+      
     function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
 
@@ -717,25 +724,13 @@
 
         populateForms(user);
 
-        displaySignOutButton(user);
-
         showPrivateElements();
       } else {
         // user is signed out
         showPublicElements();
         return;
       }
-    });
-
-    function displaySignOutButton(user){
-      if ( user == false ) {
-        document.getElementById('signout-button').style.display = 'none';
-      }else{
-        document.getElementById('signout-button').style.display = 'inline-grid';
-      }
-    }
-
-    
+    });    
 
     $(document).ready(function () {
       // TODO: make sure to only call the datepicker function if an element exists
