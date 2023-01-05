@@ -547,6 +547,7 @@
     function pageAdmin(user) {
       let update_user_form = document.getElementById('update_user_type');
       let user_specific_id = document.getElementById('admin_user_id');
+      let user_specific_email = document.getElementById('admin_user_email');
       let userTypeUpdate = document.getElementById('accountType');
       let user_status_update = document.getElementById('accountStatus');
       let user_company_update = document.getElementById('userCompany');
@@ -566,7 +567,7 @@
           .then(() => {
             try {
                 const docRef = addDoc(collection(db, "mail"), {
-                to: `${user.user_email}`,
+                to: `${user_specific_email.value}`,
                 message: {
                 subject: 'Hello from Firebase!',
                 html: 'This is an <code>HTML</code> email body.',
