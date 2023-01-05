@@ -605,7 +605,7 @@
       .then((snapshot) => {
         
         snapshot.docs.forEach((doc) => {
-          if(user.user_company == 'Yamaha'){
+          if(user.user_company.value == 'Yamaha'){
           var newRow = document.getElementById('user-list-body').insertRow(0);
           var cell1 = newRow.insertCell(0);
           var cell2 = newRow.insertCell(1);
