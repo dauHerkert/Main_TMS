@@ -627,13 +627,17 @@
           var company_cell1 = company_newRow.insertCell(0);
           var company_cell2 = company_newRow.insertCell(1);
           var company_cell3 = company_newRow.insertCell(2);
+          var company_cell4 = company_newRow.insertCell(3);
+          var company_cell5 = company_newRow.insertCell(4);
 
           let user = doc.data();
           company_cell1.innerHTML = `${doc.id}`;
           company_cell1.className = 'companyID';
           company_cell2.innerHTML = `${user.company_name}`;
           company_cell2.className = 'company_name';
-          company_cell3.innerHTML = `<button id="open_modal_btn" onclick="openModal()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
+          company_cell3.innerHTML = `${user.company_zones}`;
+          company_cell2.innerHTML = `${user.user_head}`;
+          company_cell5.innerHTML = `<button id="open_modal_btn" onclick="openModal()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
       })
       .catch(err => {
