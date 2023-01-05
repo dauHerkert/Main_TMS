@@ -660,13 +660,18 @@
         console.log('error fetching users', err);
       })
 
-        /*const q = query(collection(db, "users"), where("user_company", "==", ));
+        
 
-        const querySnapshot = getDocs(q);
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
-        });*/
+        async function printCompanyUsers(q){
+          
+          let companyValue = event.target.getAttribute('data-value');
+          const q = query(collection(db, "users"), where("user_company", "==", companyValue));
+          const querySnapshot = getDocs(q);
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+          });
+      }
     }
 
     /*
