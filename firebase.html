@@ -471,7 +471,7 @@
       uploadBytes(storageRef, fileItem)
       .then((snapshot) => {
         toastr.success('You have submitted the form successfully');
-        setTimeout(reloadSupplierFormPage, 3000);
+        setTimeout(reloadFormPage, 3000);
       })
       .catch(err => {
         console.log('error uploading file', err);
@@ -516,7 +516,7 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        setTimeout(reloadSupplierFormPage, 3000);
+        setTimeout(reloadFormPage, 3000);
       })
       .catch((err) => {
         console.log('error updating supplier info', err);
@@ -524,7 +524,7 @@
       });
     }
 
-    function reloadSupplierFormPage(){
+    function reloadFormPage(){
         window.location.reload();
     }
 
@@ -577,7 +577,6 @@
                 console.error("Error adding document: ", e);
                 }
             toastr.success('Account type has been successfully updated');
-            location.reload();
           })
           .catch((err) => {
             toastr.error('There was an error updating the account type');
