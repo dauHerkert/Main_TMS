@@ -479,9 +479,9 @@
       });
     }
 
-    function pagePress(user) {
+    function pagePress(userInfo) {
       // Show displayName
-      document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.user_firstname}`;
+      document.getElementById("client_press").innerHTML = `Hello Press ${user.user_firstname}`;
 
       // Get press form
       const press_form = document.getElementById('moreInfo_press_form');
@@ -530,7 +530,7 @@
 
     function pageSupplier(user) {
       // Show displayName
-      document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
+      document.getElementById("supplier_user").innerHTML = `Hello Supplier ${user.user_firstname}`;
 
       const supplier_form = document.getElementById('supplier_form');
       supplier_form.addEventListener('submit', function(ev) {
