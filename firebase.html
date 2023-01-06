@@ -665,23 +665,12 @@
           let companyValue = event.target.getAttribute('data-value'); 
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));         
           const querySnapshot = await getDocs(q);
-          
-          if(window.location.pathname == '/company'){
-          querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            var company_newRow = document.getElementById('company-user-list-body').insertRow(0);
-            var company_cell1 = company_newRow.insertCell(0);
-            var company_cell2 = company_newRow.insertCell(1);
-            var company_cell3 = company_newRow.insertCell(2);
 
-            let user = doc.data();
-            company_cell1.innerHTML = `${doc.id}`;
-            company_cell1.className = 'userID';
-            company_cell2.innerHTML = `${user.user_firstname}`;
-            company_cell2.className = 'user_name';
-            company_cell3.innerHTML = `${user.user_type}`;
-            console.log(companyValue)
-          });
+        console.log(querySnapshot)
+          if(window.location.pathname == '/company'){
+          /*querySnapshot.forEach((doc) => {
+            
+          });*/
 
         }
         setTimeout(function() {
