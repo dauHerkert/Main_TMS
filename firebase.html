@@ -644,7 +644,7 @@
           company_cell2.className = 'company_name';
           company_cell3.innerHTML = `${user.company_zones}`;
           company_cell4.innerHTML = `${user.user_head}`;
-          company_cell5.innerHTML = `<button id="open__companies_modal" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
+          company_cell5.innerHTML = `<button id="open__companies_modal" onclick="openModal2()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
       })
       .catch(err => {
