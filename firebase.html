@@ -729,7 +729,7 @@
     $(document).on( 'click' , '#companyName' ,async function() {
           
           let companyValue = event.target.getAttribute('data-value'); 
-          const q = query(collection(db, "users"), where("user_company", "==", 'undefined'));         
+          const q = query(collection(db, "users"), where("user_company", "==", companyValue));         
           const querySnapshot = await getDocs(q);
           let users = []
 
