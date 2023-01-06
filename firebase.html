@@ -732,15 +732,35 @@
           let users = []
 
           querySnapshot.forEach((doc) => {
-            let user = doc.data();
+            let user = doc.data(q);
             users.push(user)
           });
 
-          console.log(users)
+          localStorage.setItem('users', JSON.stringify(users));
+
+          window.location.replace('/company');
         /*setTimeout(function() {
                   window.location.pathname = '/company';
                 }, 2000);*/
       })
+
+    if (window.location.pathname == '/company'){
+
+      // Retrieve users data from local storage
+      const storedUsers = localStorage.getItem('users');
+      const users = JSON.parse(storedUsers);
+
+    // Add rows and cells to table
+    users.forEach(function(user) {
+      var newRow = document.getElementById('company-user-list').insertRow(0);
+      let idCell = newRow.insertCell(0);
+      let emailCell = newRow.insertCell(1);
+      let userTypeCell = newRow.insertCell(2);
+      idCell.appendChild(document.createTextNode(user.uid));
+      emailCell.appendChild(document.createTextNode(user.email));
+      userTypeCell.appendChild(document.createTextNode(user.user_type));
+    });
+    }
 
     /*
     * -----------------------------------------------------------------------------------------------------------
