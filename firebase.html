@@ -783,9 +783,22 @@
     
     //Location redirect when the user is logged out
     function replaceUrl() {
+        let supplier_button =  document.getElementById('supplier_button');
+        let press_button = document.getElementById('press_button');
+        let account_button = document.getElementById('account_user_profile');
+        let admin_button = document.getElementById('admin_button');
+
       if(window.location.pathname != '/signin'){
-      window.location.href("https://firebase-test-a63d06.webflow.io/signin")
-    }
+        supplier_button.setAttribute('href', '/signin');
+        press_button.setAttribute('href', '/signin');
+        account_button.setAttribute('href', '/signin');
+        admin_button.setAttribute('href', '/signin');
+      }else{
+        supplier_button.setAttribute('href', '/supplier');
+        press_button.setAttribute('href', '/press');
+        account_button.setAttribute('href', '/account');
+        admin_button.setAttribute('href', '/admin');
+      }
     }
     
     // first page load
@@ -803,13 +816,13 @@
         populateForms(user);
 
         showPrivateElements();
+
+        replaceUrl()
       } else {
         // user is signed out
-        document.getElementById('supplier_button').addEventListener('click', replaceUrl());
-        document.getElementById('press_button').addEventListener('click', replaceUrl());
-        document.getElementById('account_user_profile').addEventListener('click', replaceUrl());
-        document.getElementById('admin_button').addEventListener('click', replaceUrl());
         showPublicElements();
+
+        replaceUrl()
         return;
       }
     });    
