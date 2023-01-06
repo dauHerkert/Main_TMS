@@ -767,6 +767,9 @@
         sendPasswordResetEmail(auth, email.value)
         .then(() => {
           toastr.success('Email has been sent!');
+          setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
         })
         .catch((error) => {
           const errorCode = error.code;
