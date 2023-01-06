@@ -728,16 +728,24 @@
     $(document).on( 'click' , '#companyName' ,async function() {
           
           let companyValue = event.target.getAttribute('data-value'); 
-          const q = query(collection(db, "users"), where("user_company", "==", companyValue));         
+          const q = query(collection(db, "users"), where("user_company", "==", companyValue));
+          const company_filter = query(collection(db, "companies"), where("company_name", "==", companyValue));
+          const companySnapshot = await getDocs(company_filter);
           const querySnapshot = await getDocs(q);
-          let users = []
+          let users = [];
+          let company = [];
+          
 
           querySnapshot.forEach((doc) => {
             let user = doc.data(q);
             users.push(user)
           });
+          companySnapshot.forEach((doc) => {
+            let company_name = doc.data(company_filter);
+            company.push(company_name)
+          });
 
-          console.log(users)
+          console.log(company)
           localStorage.setItem('users', JSON.stringify(users));
           localStorage.setItem('company', companyValue);
 
