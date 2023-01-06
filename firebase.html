@@ -729,14 +729,12 @@
           const querySnapshot = await getDocs(q);
           let users = []
 
-          if(window.location.pathname == '/company'){
           querySnapshot.forEach((doc) => {
             let user = doc.data();
             users.push(user)
           });
 
           console.log(users)
-        }
         /*setTimeout(function() {
                   window.location.pathname = '/company';
                 }, 2000);*/
