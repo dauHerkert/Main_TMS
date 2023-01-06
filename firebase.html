@@ -731,10 +731,7 @@
       if ( user == false ) {
         // Homepage
         document.getElementById('signout-button').style.display = 'none';
-        document.getElementById('supplier_button').addEventListener('click', replaceUrl, true);
-        document.getElementById('press_button').addEventListener('click', replaceUrl, true);
-        document.getElementById('account_user_profile').addEventListener('click', replaceUrl, true);
-        document.getElementById('admin_button').addEventListener('click', replaceUrl, true);
+        
    
         if ( url == '/signup' ) {
           pageHome();
@@ -786,7 +783,7 @@
     
     //Location redirect when the user is logged out
     function replaceUrl() {
-      window.location.href("https://firebase-test-a63d06.webflow.io/signin")
+      window.location.replace("https://firebase-test-a63d06.webflow.io/signin")
     }
     
     // first page load
@@ -806,6 +803,10 @@
         showPrivateElements();
       } else {
         // user is signed out
+        document.getElementById('supplier_button').addEventListener('click', replaceUrl, true);
+        document.getElementById('press_button').addEventListener('click', replaceUrl, true);
+        document.getElementById('account_user_profile').addEventListener('click', replaceUrl, true);
+        document.getElementById('admin_button').addEventListener('click', replaceUrl, true);
         showPublicElements();
         return;
       }
