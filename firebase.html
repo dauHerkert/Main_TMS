@@ -723,7 +723,6 @@
           });
         }
       });
-
     }
 
     $(document).on( 'click' , '#companyName' ,async function() {
@@ -740,18 +739,19 @@
 
           console.log(users)
           localStorage.setItem('users', JSON.stringify(users));
+          localStorage.setItem('company', JSON.stringify(companyValue));
 
           window.location.replace('/company');
-        /*setTimeout(function() {
-                  window.location.pathname = '/company';
-                }, 2000);*/
       })
 
     if (window.location.pathname == '/company'){
 
       // Retrieve users data from local storage
       const storedUsers = localStorage.getItem('users');
+      const company_name = localStorage.getItem('company');
       const users = JSON.parse(storedUsers);
+
+      documen.getElementById('company_table_name').innerHTML = `Company ${company_name}`
 
     // Add rows and cells to table
     users.forEach(function(user) {
