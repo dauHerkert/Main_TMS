@@ -638,10 +638,10 @@
           var company_cell5 = company_newRow.insertCell(4);
 
           let user = doc.data();
-          company_cell1.innerHTML = `${doc.id}`;
-          company_cell1.className = 'companyID';
-          company_cell2.innerHTML = `${user.company_name}`;
-          company_cell2.className = 'companyName';
+          company_cell1.innerHTML = `${user.company_name}`;
+          company_cell1.className = 'companyName';
+          company_cell2.innerHTML = `${doc.id}`;
+          company_cell2.className = 'companyID';
           company_cell3.innerHTML = `${user.company_zones}`;
           company_cell3.className = 'companyZone'
           company_cell4.innerHTML = `${user.user_head}`;
