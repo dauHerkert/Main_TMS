@@ -803,10 +803,10 @@
         showPrivateElements();
       } else {
         // user is signed out
-        document.getElementById('supplier_button').addEventListener('click', replaceUrl, true);
-        document.getElementById('press_button').addEventListener('click', replaceUrl, true);
-        document.getElementById('account_user_profile').addEventListener('click', replaceUrl, true);
-        document.getElementById('admin_button').addEventListener('click', replaceUrl, true);
+        document.getElementById('supplier_button').addEventListener('click', replaceUrl());
+        document.getElementById('press_button').addEventListener('click', replaceUrl());
+        document.getElementById('account_user_profile').addEventListener('click', replaceUrl());
+        document.getElementById('admin_button').addEventListener('click', replaceUrl());
         showPublicElements();
         return;
       }
