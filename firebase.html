@@ -731,10 +731,10 @@
       if ( user == false ) {
         // Homepage
         document.getElementById('signout-button').style.display = 'none';
-        document.getElementById('supplier_button').addEventListener('click', replaceUrl);
-        document.getElementById('press_button').addEventListener('click', replaceUrl);
-        document.getElementById('account_user_profile').addEventListener('click', replaceUrl);
-        document.getElementById('admin_button').addEventListener('click', replaceUrl);
+        document.getElementById('supplier_button').addEventListener('click', replaceUrl, true);
+        document.getElementById('press_button').addEventListener('click', replaceUrl, true);
+        document.getElementById('account_user_profile').addEventListener('click', replaceUrl, true);
+        document.getElementById('admin_button').addEventListener('click', replaceUrl, true);
    
         if ( url == '/signup' ) {
           pageHome();
