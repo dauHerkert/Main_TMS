@@ -756,17 +756,25 @@
     }
 
     if(window.location.pathname == '/forgotpassword'){
-      let email = 'serfaty.samuel1111190@gmail.com'
-    sendPasswordResetEmail(auth, email)
-  .then(() => {
-    toastr.success('Email has been sent!');
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    toastr.success('There was an error');
-    // ..
-  });
+
+      let email = document.getElementById('email_address');
+      let resetPasword = document.getElementById('forgot_password');
+      
+      resetPasword.addEventListener('submit', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        sendPasswordResetEmail(auth, email.value)
+        .then(() => {
+          toastr.success('Email has been sent!');
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          toastr.error('There was an error');
+          // ..
+        });
+      })
     }
     
     
