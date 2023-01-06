@@ -756,8 +756,8 @@
       let idCell = newRow.insertCell(0);
       let emailCell = newRow.insertCell(1);
       let userTypeCell = newRow.insertCell(2);
-      idCell.appendChild(document.createTextNode(user.uid));
-      emailCell.appendChild(document.createTextNode(user.email));
+      idCell.appendChild(document.createTextNode(user.id));
+      emailCell.appendChild(document.createTextNode(user.user_email));
       userTypeCell.appendChild(document.createTextNode(user.user_type));
     });
     }
