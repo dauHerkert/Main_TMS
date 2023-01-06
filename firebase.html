@@ -727,12 +727,15 @@
           let companyValue = event.target.getAttribute('data-value'); 
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));         
           const querySnapshot = await getDocs(q);
+          let users = []
 
-        console.log(querySnapshot)
           if(window.location.pathname == '/company'){
           querySnapshot.forEach((doc) => {
-            
+            let user = doc.data();
+            users.push(user)
           });
+
+          console.log(users)
         }
         /*setTimeout(function() {
                   window.location.pathname = '/company';
