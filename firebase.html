@@ -782,13 +782,13 @@
     }
     
     //Location redirect when the user is logged out
-    function replaceUrl() {
+    function replaceUrl(user) {
         let supplier_button =  document.getElementById('supplier_button');
         let press_button = document.getElementById('press_button');
         let account_button = document.getElementById('account_user_profile');
         let admin_button = document.getElementById('admin_button');
 
-      if(window.location.pathname != '/signin'){
+      if(!user){
         supplier_button.setAttribute('href', '/signin');
         press_button.setAttribute('href', '/signin');
         account_button.setAttribute('href', '/signin');
@@ -808,8 +808,8 @@
 
     onAuthStateChanged(auth, (user) => {
 
-      replaceUrl()
-      
+      replaceUrl(user);
+
       if (user) {
         // user is signed in
         console.log(`The current user's UID is equal to ${user.uid}`);
