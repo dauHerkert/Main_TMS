@@ -588,6 +588,44 @@
         }
       });
 
+      let decline_form = document.getElementById('decline_form');
+      let declined_user_id = document.getElementById('declined_user_id');
+      let declined_user_email = document.getElementById('declined_user_email');
+
+      //Decline user registrer
+      decline_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if ( declined_user_id != null || declined_user_id != 0 ) {
+          const userRef = doc(db, 'users', declined_user_id.value);
+          setDoc(userRef, {
+            user_status: 'declined',
+          }, { merge: true })
+          .then(() => {
+            try {
+                const docRef = addDoc(collection(db, "mail"), {
+                to: `${declined_user_email.value}`,
+                message: {
+                subject: 'Sorry you have been declined',
+                html: 'Sorry you have been declined',
+                }
+                });
+                } catch (e) {
+                console.error("Error declining user: ", e);
+                }
+                toastr.success('User registration declined');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+          })
+          .catch((err) => {
+            toastr.error('There was an error');
+            console.log('error declining account', err);
+          });
+        }
+      });
+
       //Print users table
       const colRef = collection(db, 'users');
       let userList = document.getElementById('admin-user-list');
