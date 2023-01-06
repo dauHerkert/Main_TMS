@@ -239,7 +239,6 @@
               supplier_info[i].style.display = 'flex';
             }
           }
-          accountType_button.setAttribute("href", "/supplier");
           homeButton.setAttribute("href", "/supplier");
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           if(window.location.pathname == '/account'){
@@ -249,14 +248,12 @@
               press_info[i].style.display = 'flex';
             }
           }
-          accountType_button.setAttribute("href", "/press");
           homeButton.setAttribute("href", "/press");
         } else {
           if(window.location.pathname == '/account'){
             document.getElementById('welcome_user').innerHTML = `Hello ${userInfo.user_firstname}`;
             document.getElementById('account_type_info').innerHTML = '';
           }
-          accountType_button.setAttribute("href", "/admin");
           homeButton.setAttribute("href", "/admin");
         }
 
@@ -265,7 +262,6 @@
             document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
             }
           }
-          accountType_button.setAttribute("href", "/admin");
 
        if (window.location.pathname == '/supplier'){
         if(userInfo.supplier_has_form_submitted == "1"){
