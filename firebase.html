@@ -58,14 +58,6 @@
     * Auth functions
     * -----------------------------------------------------------------------------------------------------------
     */
-   function showSignOutButton(user){
-    if ( user == false ) {
-        document.getElementById('signout-button').style.display = 'none';
-      }else{
-        document.getElementById('signout-button').style.display = 'inline-grid';
-      }
-    }
-    showSignOutButton(user);
 
     function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
@@ -708,6 +700,8 @@
       // User is NOT signed in
       if ( user == false ) {
         // Homepage
+        document.getElementById('signout-button').style.display = 'none';
+   
         if ( url == '/signup' ) {
           pageHome();
         } else if ( url == '/signin' ) {
@@ -717,6 +711,7 @@
           console.log('user does NOT have access to this page');
         }
       } else {
+        document.getElementById('signout-button').style.display = 'inline-grid';
         // User IS signed in
          if ( url == '/account' ) {
           pageAccount(user);
