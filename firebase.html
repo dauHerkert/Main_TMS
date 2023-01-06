@@ -240,6 +240,7 @@
             }
           }
           homeButton.setAttribute("href", "/supplier");
+
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
@@ -526,7 +527,7 @@
         window.location.reload();
     }
 
-    function pageSupplier(user) {
+    function pageSupplier(userInfo) {
       // Show displayName
       document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
 
@@ -712,9 +713,9 @@
          if ( url == '/account' ) {
           pageAccount(user);
         } else if ( url == '/press' ) {
-          pagePress(user);
+          pagePress(userInfo);
         } else if ( url == '/supplier') {
-          pageSupplier(user);
+          pageSupplier(userInfo);
         } else if ( url == '/admin' ) {
           pageAdmin(user);
         }
