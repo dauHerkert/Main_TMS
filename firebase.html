@@ -576,14 +576,14 @@
                 } catch (e) {
                 console.error("Error adding document: ", e);
                 }
-                toastr.success('Account type has been successfully updated');
+                toastr.success('Account info has been successfully updated');
                 setTimeout(function() {
                   window.location.reload();
                 }, 2000);
           })
           .catch((err) => {
-            toastr.error('There was an error updating the account type');
-            console.log('error updating account type', err);
+            toastr.error('There was an error updating the account info');
+            console.log('error updating account info', err);
           });
         }
       });
@@ -652,6 +652,37 @@
       .catch(err => {
         console.log('error fetching users', err);
       })
+
+      //Update company info
+      let update_company_form = document.getElementById('update_company_info');
+      let company_id = document.getElementById('company_id');
+      let update_company = document.getElementById('update_company');
+      let companyHead = document.getElementById('companyHead');
+      let companyZone = document.getElementById('companyZone');
+
+      update_company_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation()
+
+        if ( company_id != null) {
+          const companyRef = doc(db, 'companies', company_id.value);
+          setDoc(companyRef, {
+            company_name: update_company.value,
+            company_zones: companyZone.value,
+            user_head: companyHead.value
+          }, { merge: true })
+          .then(() => {
+                toastr.success('Company info has been successfully updated');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+          })
+          .catch((err) => {
+            toastr.error('There was an error updating the company info');
+            console.log('error updating company info', err);
+          });
+        }
+      });
 
         $(document).on( 'click' , '#companyName' ,async function() {
           
