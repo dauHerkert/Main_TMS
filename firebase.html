@@ -807,6 +807,9 @@
     
 
     onAuthStateChanged(auth, (user) => {
+
+      replaceUrl()
+      
       if (user) {
         // user is signed in
         console.log(`The current user's UID is equal to ${user.uid}`);
@@ -817,12 +820,9 @@
 
         showPrivateElements();
 
-        replaceUrl()
       } else {
         // user is signed out
         showPublicElements();
-
-        replaceUrl()
         return;
       }
     });    
