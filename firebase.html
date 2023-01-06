@@ -783,7 +783,9 @@
     
     //Location redirect when the user is logged out
     function replaceUrl() {
+      if(window.location.pathname != '/signin'){
       window.location.replace("https://firebase-test-a63d06.webflow.io/signin")
+    }
     }
     
     // first page load
