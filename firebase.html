@@ -45,6 +45,7 @@
 
       // User fields
       user_email: '',
+      user_id: '',
       // user_is_admin: 0 | 1
       user_is_admin: '0',
       // user_type: supplier | press
@@ -63,6 +64,7 @@
       const userRef = doc(db, 'users', user.uid);
 
       userDefaultValues.user_email = user.email;
+      userDefaultValues.user_id = user.uid;
 
       setDoc(userRef, userDefaultValues, { merge: true })
       .then(() => {
