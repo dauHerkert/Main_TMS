@@ -536,14 +536,14 @@
         ev.preventDefault();
         addSupplierInfo(ev, user);
       });
-    }
+     }
 
-    /*
-    * -----------------------------------------------------------------------------------------------------------
-    * Admin functions
-    * -----------------------------------------------------------------------------------------------------------
-    */
-    function pageAdmin(user) {
+      /*
+      * -----------------------------------------------------------------------------------------------------------
+      * Admin functions
+      * -----------------------------------------------------------------------------------------------------------
+      */
+     function pageAdmin(user) {
       let update_user_form = document.getElementById('update_user_type');
       let user_specific_id = document.getElementById('admin_user_id');
       let user_specific_email = document.getElementById('admin_user_email');
@@ -722,7 +722,9 @@
         }
       });
 
-        $(document).on( 'click' , '#companyName' ,async function() {
+    }
+
+    $(document).on( 'click' , '#companyName' ,async function() {
           
           let companyValue = event.target.getAttribute('data-value'); 
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));         
@@ -739,7 +741,6 @@
                   window.location.pathname = '/company';
                 }, 2000);*/
       })
-    }
 
     /*
     * -----------------------------------------------------------------------------------------------------------
