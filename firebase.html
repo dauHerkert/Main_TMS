@@ -223,10 +223,10 @@
       }
     }
 
-    let userInfo = await getUserInfo(user);
     
+
     async function populateForms(user) {
-      
+      let userInfo = await getUserInfo(user);
       const accountType_button = document.getElementById('account_user_profile');
       const homeButton = document.getElementById('home_button');
       const press_info = document.getElementsByClassName('press_info');
@@ -287,6 +287,7 @@
         }
        }
       }
+      return userInfo;
     }
 
     // Update username
