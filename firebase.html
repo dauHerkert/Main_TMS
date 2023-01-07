@@ -533,8 +533,7 @@
       document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
 
       const supplier_form = document.getElementById('supplier_form');
-      supplier_form.addEventListener('submit', function() {
-    
+      supplier_form.addEventListener('submit', function(ev, user) {
         addSupplierInfo(ev, user);
       });
      }
