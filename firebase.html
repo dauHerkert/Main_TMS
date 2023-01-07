@@ -497,11 +497,11 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    function addSupplierInfo(e, user) {
+    function addSupplierInfo(e, userInfo) {
       e.preventDefault();
       e.stopPropagation();
 
-      const userRef = doc(db, 'users', user.uid);
+      const userRef = doc(db, 'users', userInfo.uid);
       const from_date = document.getElementById('from_date');
       const to_date = document.getElementById('to_date');
       const special_request = document.getElementById('special_request');
