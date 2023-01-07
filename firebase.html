@@ -285,7 +285,7 @@
         }
        }
       }
-    }
+    
 
     // Update username
     function updateUsername(e, user, newUsername) {
@@ -486,8 +486,8 @@
       // Get press form
       const press_form = document.getElementById('moreInfo_press_form');
       // Add submit event to form
-      press_form.addEventListener('submit', function() {
-        pressFormSubmit(e, user);
+      press_form.addEventListener('submit', function(ev) {
+        pressFormSubmit(ev, user);
       });
     }
 
@@ -497,11 +497,11 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    function addSupplierInfo(e, userInfo) {
+    function addSupplierInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
 
-      const userRef = doc(db, 'users', userInfo.uid);
+      const userRef = doc(db, 'users', user.uid);
       const from_date = document.getElementById('from_date');
       const to_date = document.getElementById('to_date');
       const special_request = document.getElementById('special_request');
@@ -533,11 +533,12 @@
       document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
 
       const supplier_form = document.getElementById('supplier_form');
-      supplier_form.addEventListener('submit', function(ev, userInfo) {
-        addSupplierInfo(ev,userInfo);
+      supplier_form.addEventListener('submit', function(ev) {
+        ev.preventDefault();
+        addSupplierInfo(ev, user);
       });
      }
-
+    }
       /*
       * -----------------------------------------------------------------------------------------------------------
       * Admin functions
