@@ -740,16 +740,20 @@
             let user = doc.data(q);
             users.push(user)
           });
+           //Get company name from the companies collection
           companySnapshot.forEach((doc) => {
             let company_name = doc.data(company_filter);
             company.push(company_name)
           });
 
-          console.log(companySnapshot)
+          console.log(company)
           localStorage.setItem('users', JSON.stringify(users));
-          localStorage.setItem('company', companyValue);
+          localStorage.setItem('company', companyName);
 
-          //window.location.replace('/company');
+          //Save company name from the companies collection
+          localStorage.setItem('company_collection', JSON.stringify(company));
+
+          window.location.replace('/company');
       })
 
     if (window.location.pathname == '/company'){
@@ -757,6 +761,8 @@
       // Retrieve users data from local storage
       const storedUsers = localStorage.getItem('users');
       const company_name = localStorage.getItem('company');
+      const company_collection = localStorage.getItem('company_collection');
+      const parseCompany = JSON.parse(company_collection);
       const users = JSON.parse(storedUsers);
 
       document.getElementById('company_table_name').innerHTML = `Company: ${company_name}`
@@ -771,6 +777,11 @@
       emailCell.innerHTML = `${user.user_email}`;
       userTypeCell.innerHTML = `${user.user_type}`;
     });
+
+    //Add company head
+    parseCompany.forEach(function(company){
+      document.getElementById('user_head').innerHTML = `User head: ${company.user_head}`
+    })
     }
 
     /*
