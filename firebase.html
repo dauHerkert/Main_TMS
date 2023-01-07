@@ -221,9 +221,7 @@
       } else {
         toastr.error('No user found with that ID');
       }
-    }
-
-    
+    }    
 
     async function populateForms(user) {
       let userInfo = await getUserInfo(user);
@@ -286,18 +284,7 @@
           document.getElementById("fileInp").setAttribute('disabled', "");
         }
        }
-       // User IS signed in
-       if ( url == '/account' ) {
-          pageAccount(userInfo);
-        } else if ( url == '/press' ) {
-          pagePress(userInfo);
-        } else if ( url == '/supplier') {
-          pageSupplier(userInfo);
-        } else if ( url == '/admin' ) {
-          pageAdmin(userInfo);
-        }
       }
-      return await userInfo;
     }
 
     // Update username
@@ -837,7 +824,16 @@
         }
       } else {
         document.getElementById('signout-button').style.display = 'inline-grid';
-        
+        // User IS signed in
+         if ( url == '/account' ) {
+          pageAccount(user);
+        } else if ( url == '/press' ) {
+          pagePress(user);
+        } else if ( url == '/supplier') {
+          pageSupplier(user);
+        } else if ( url == '/admin' ) {
+          pageAdmin(user);
+        }
       }
     }
 
