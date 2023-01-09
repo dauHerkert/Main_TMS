@@ -282,6 +282,7 @@
           document.getElementById("to_press_date").setAttribute('disabled', "");
           document.getElementById("special_press_request").setAttribute('disabled', "");
           document.getElementById("fileInp").setAttribute('disabled', "");
+          document.getElementById("press_submmited_form").style.display = 'block';
         }
        }
       }
@@ -724,6 +725,7 @@
       });
     }
 
+    //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
           
           let companyValue = event.target.getAttribute('data-value'); 
@@ -732,8 +734,7 @@
           const companySnapshot = await getDocs(company_filter);
           const querySnapshot = await getDocs(q);
           let users = [];
-          let company = [];
-          
+          let company = [];          
 
           querySnapshot.forEach((doc) => {
             let user = doc.data(q);
@@ -837,6 +838,7 @@
       }
     }
 
+    // Forgot password functionality
     if(window.location.pathname == '/forgotpassword'){
 
       let email = document.getElementById('email_address');
