@@ -195,7 +195,7 @@
 
     function signInPage(){
         let signInForm = document.getElementById('wf-form-signin-form');
-        
+
         //assign event listeners
         if(typeof(signInForm) !== null) {
           signInForm.addEventListener('submit', handleSignIn, true)
@@ -221,7 +221,7 @@
       } else {
         toastr.error('No user found with that ID');
       }
-    }    
+    }
 
     async function populateForms(user) {
       let userInfo = await getUserInfo(user);
@@ -488,7 +488,7 @@
       const press_form = document.getElementById('moreInfo_press_form');
       // Add submit event to form
       press_form.addEventListener('submit', function(ev) {
-        pressFormSubmit(ev, user);
+        pressFormSubmit(ev, userInfo);
       });
     }
 
@@ -536,7 +536,7 @@
       const supplier_form = document.getElementById('supplier_form');
       supplier_form.addEventListener('submit', function(ev) {
         ev.preventDefault();
-        addSupplierInfo(ev, user);
+        addSupplierInfo(ev, userInfo);
       });
      }
 
@@ -634,7 +634,7 @@
 
       getDocs(colRef)
       .then((snapshot) => {
-        
+
         snapshot.docs.forEach((doc) => {
           var newRow = document.getElementById('user-list-body').insertRow(0);
           var cell1 = newRow.insertCell(0);
@@ -668,7 +668,7 @@
 
       getDocs(company_colRef)
       .then((snapshot) => {
-        
+
         snapshot.docs.forEach((doc) => {
           var company_newRow = document.getElementById('companies-list-body').insertRow(0);
           var company_cell1 = company_newRow.insertCell(0);
@@ -727,14 +727,19 @@
 
     //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
-          
-          let companyValue = event.target.getAttribute('data-value'); 
+
+          let companyValue = event.target.getAttribute('data-value');
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));
           const company_filter = query(collection(db, "companies"), where("company_name", "==", companyValue));
           const companySnapshot = await getDocs(company_filter);
           const querySnapshot = await getDocs(q);
           let users = [];
+<<<<<<< HEAD
           let company = [];          
+=======
+          let company = [];
+
+>>>>>>> f1cd2bf01103359a1e74ddf34a7a7e4c7a284841
 
           querySnapshot.forEach((doc) => {
             let user = doc.data(q);
@@ -813,8 +818,8 @@
       if ( user == false ) {
         // Homepage
         document.getElementById('signout-button').style.display = 'none';
-        
-   
+
+
         if ( url == '/signup' ) {
           pageHome();
         } else if ( url == '/signin' ) {
@@ -843,7 +848,7 @@
 
       let email = document.getElementById('email_address');
       let resetPasword = document.getElementById('forgot_password');
-      
+
       resetPasword.addEventListener('submit', function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -863,7 +868,7 @@
         });
       })
     }
-    
+
     //Location redirect when the user is logged out
     function replaceUrl(user) {
         let supplier_button =  document.getElementById('supplier_button');
@@ -883,11 +888,11 @@
         admin_button.setAttribute('href', '/admin');
       }
     }
-    
+
     // first page load
     dispatchRequest(false);
     checkUrlParameter();
-    
+
 
     onAuthStateChanged(auth, (user) => {
 
@@ -908,7 +913,7 @@
         showPublicElements();
         return;
       }
-    });    
+    });
 
     $(document).ready(function () {
       // TODO: make sure to only call the datepicker function if an element exists
