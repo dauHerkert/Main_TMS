@@ -271,6 +271,7 @@
           document.getElementById("to_date").setAttribute('disabled', "");
           document.getElementById("special_request").setAttribute('disabled', "");
           document.getElementById("zones").setAttribute('disabled', "");
+          document.getElementById("supplier_submmited_form").style.display = 'block';
         }
       }
        if (window.location.pathname == '/press'){
@@ -734,12 +735,7 @@
           const companySnapshot = await getDocs(company_filter);
           const querySnapshot = await getDocs(q);
           let users = [];
-<<<<<<< HEAD
-          let company = [];          
-=======
           let company = [];
-
->>>>>>> f1cd2bf01103359a1e74ddf34a7a7e4c7a284841
 
           querySnapshot.forEach((doc) => {
             let user = doc.data(q);
