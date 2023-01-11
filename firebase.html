@@ -579,6 +579,24 @@
             user_company: user_company_update.value
           }, { merge: true })
           .then(() => {
+
+            if(user_status == 'declined'){
+              try {
+                const docRef = addDoc(collection(db, "mail"), {
+                to: `${declined_user_email.value}`,
+                message: {
+                subject: 'Sorry you have been declined',
+                html: 'Sorry you have been declined',
+                }
+                });
+                } catch (e) {
+                console.error("Error declining user: ", e);
+                }
+                toastr.success('User registration declined');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+            }else{
             try {
                 const docRef = addDoc(collection(db, "mail"), {
                 to: `${user_specific_email.value}`,
@@ -595,15 +613,17 @@
                 setTimeout(function() {
                   window.location.reload();
                 }, 2000);
+              }
           })
           .catch((err) => {
             toastr.error('There was an error updating the account info');
             console.log('error updating account info', err);
           });
+          
         }
       });
 
-      let decline_form = document.getElementById('decline_form');
+      /*let decline_form = document.getElementById('decline_form');
       let declined_user_id = document.getElementById('declined_user_id');
       let declined_user_email = document.getElementById('declined_user_email');
 
@@ -618,28 +638,14 @@
             user_status: 'declined',
           }, { merge: true })
           .then(() => {
-            try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${declined_user_email.value}`,
-                message: {
-                subject: 'Sorry you have been declined',
-                html: 'Sorry you have been declined',
-                }
-                });
-                } catch (e) {
-                console.error("Error declining user: ", e);
-                }
-                toastr.success('User registration declined');
-                setTimeout(function() {
-                  window.location.reload();
-                }, 2000);
+            
           })
           .catch((err) => {
             toastr.error('There was an error');
             console.log('error declining account', err);
           });
         }
-      });
+      });*/
 
       //Print users table
       const colRef = collection(db, 'users');
