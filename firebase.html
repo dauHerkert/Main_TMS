@@ -255,25 +255,20 @@
             }
           }
           homeButton.setAttribute("href", "/press");
-        } else {
-          if(window.location.pathname == '/account'){
-            document.getElementById('welcome_user').innerHTML = `Hello ${userInfo.user_firstname}`;
-            document.getElementById('account_type_info').innerHTML = '';
-          }
-          homeButton.setAttribute("href", "/admin");
-        }
-
-        if(userInfo.user_is_admin == "1") {
-          if(window.location.pathname == '/account') {
-            document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
+        } else if (userInfo.user_is_admin == "1") {          
+            if(window.location.pathname == '/account') {
+              document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
+              }            
+          }else if(userInfo.user_is_admin == "0") {
+              if(window.location.pathname == '/admin'){
+                window.location.replace('/account');
+              }            
+          } else {
+            if(window.location.pathname == '/account'){
+              document.getElementById('welcome_user').innerHTML = `Hello ${userInfo.user_firstname}`;
+              document.getElementById('account_type_info').innerHTML = '';
             }
-            
-          }
-          if(userInfo.user_is_admin == "0") {
-            if(window.location.pathname == '/admin'){
-              window.location.replace('/account');
-            }
-            document.getElementById('admin_button').style.display = 'none';
+            homeButton.setAttribute("href", "/admin");
           }
 
         if (window.location.pathname == '/supplier'){
