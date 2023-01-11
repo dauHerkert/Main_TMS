@@ -485,7 +485,7 @@
     async function pagePress(user) {
       let userInfo = await getUserInfo(user);
       // Show displayName
-      document.getElementById("client_press").innerHTML = `Hello Press ${user.user_firstname}`;
+      document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.user_firstname}`;
 
       // Get press form
       const press_form = document.getElementById('moreInfo_press_form');
