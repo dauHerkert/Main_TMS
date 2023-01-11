@@ -746,17 +746,15 @@
       let new_company_type = document.getElementById('companyType');
       let new_company_zones = document.getElementById('companyType');
 
-      create_company_form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        e.stopPropagation()
+      async function createCompany(){
 
-          const companyRef = doc(db, 'companies');
+        const companyRef = await doc(db, 'companies');
           addDoc(companyRef, {
             company_name: new_company_name.value,
             company_zones: new_company_zones.value,
             company_type: new_company_type.value,
             user_head: ''
-          }, { merge: true })
+          })
           .then(() => {
                 toastr.success('Company has been successfully created');
                 setTimeout(function() {
@@ -767,6 +765,13 @@
             toastr.error('There was an error creating the company');
             console.log('error creating company', err);
           });
+      }
+
+      create_company_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        createCompany();
       });
     }
 
