@@ -581,7 +581,7 @@
           }, { merge: true })
           .then(() => {
 
-            if(userInfo.user_status == 'decline'){
+            if(user_status_update.value == 'decline'){
               try {
                 const docRef = addDoc(collection(db, "mail"), {
                 to: `${declined_user_email.value}`,
