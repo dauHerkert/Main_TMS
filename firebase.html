@@ -560,14 +560,17 @@
 
       //Print companies table
       const company_colRef = collection(db, 'companies');
-      let update_companySelect = document.getElementById('userCompany');
-      let companies_options = document.getElementById('companies_options')
+      let select = document.getElementById('userCompany');
 
       getDocs(company_colRef)
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           let company = doc.data();
-          companies_options.value = `Hello ${company.company_name}`
+          
+          var opt = document.createElement('option');
+          opt.value = company.company_name;
+          opt.textContent = company.company_name;
+          select.appendChild(opt);
         });
       })
       .catch(err => {
