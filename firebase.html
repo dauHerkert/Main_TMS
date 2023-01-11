@@ -236,6 +236,8 @@
           if (window.location.pathname == '/account'){
             document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
             document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
+            document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userInfo.user_company}`;
+            document.getElementById('user_address').innerHTML = `<b>Address:</b> ${userInfo.user_address}`;
             for ( var i=0; i < supplier_info.length; i+=1 ){
               supplier_info[i].style.display = 'flex';
             }
