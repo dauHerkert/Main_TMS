@@ -923,9 +923,15 @@
 
         showPrivateElements();
 
+        document.getElementById('signUp_button').style.display = 'none';
+        
+        document.getElementById('signIn_button').style.display = 'none';
+
       } else {
         // user is signed out
         showPublicElements();
+        document.getElementById('signUp_button').style.display = 'inline-grid';        
+        document.getElementById('signIn_button').style.display = 'inline-grid';
         return;
       }
     });
