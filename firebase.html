@@ -555,7 +555,25 @@
       * -----------------------------------------------------------------------------------------------------------
       */
      async function pageAdmin(user) {
-      let userInfo = await getUserInfo(user);
+
+      let userInfo = await getUserInfo(user);    
+
+      //Print companies table
+      const company_colRef = collection(db, 'companies');
+      let update_companySelect = document.getElementById('userCompany');
+      let companies_options = document.getElementById('companies_options')
+
+      getDocs(company_colRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let company = doc.data();
+          companies_options.value = company.company_name        
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+
       let update_user_form = document.getElementById('update_user_type');
       let user_specific_id = document.getElementById('admin_user_id');
       let user_specific_email = document.getElementById('admin_user_email');
@@ -679,7 +697,6 @@
       })
 
       //Print companies table
-      const company_colRef = collection(db, 'companies');
       let companyList = document.getElementById('admin-companies-list');
 
       getDocs(company_colRef)
