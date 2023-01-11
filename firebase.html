@@ -567,7 +567,7 @@
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           let company = doc.data();
-          companies_options.value = `${company.company_name}`
+          companies_options.value = `Hello ${company.company_name}`
         });
       })
       .catch(err => {
