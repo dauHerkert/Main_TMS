@@ -228,6 +228,7 @@
       const accountType_button = document.getElementById('account_user_profile');
       const press_info = document.getElementsByClassName('press_info');
       const supplier_info = document.getElementsByClassName('supplier_info');
+      let form_button = document.getElementById('form_button');
 
       if ( userInfo ) {
 
@@ -244,6 +245,7 @@
               supplier_info[i].style.display = 'flex';
             }
           }
+          form_button.setAttribute('href', '/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
@@ -251,6 +253,7 @@
               press_info[i].style.display = 'flex';
             }
           }
+          form_button.setAttribute('href', '/press');
         } else if (userInfo.user_is_admin == "1") {          
             if(window.location.pathname == '/account') {
               document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
@@ -879,21 +882,17 @@
 
     //Location redirect when the user is logged out
     function replaceUrl(user) {
-        let supplier_button =  document.getElementById('supplier_button');
-        let press_button = document.getElementById('press_button');
+        let form_button = document.getElementById('form_button');
         let account_button = document.getElementById('account_user_profile');
         let admin_button = document.getElementById('admin_button');
 
       if(!user){
-        supplier_button.setAttribute('href', '/signin');
-        press_button.setAttribute('href', '/signin');
+        form_button.setAttribute('href', '/signin');
         account_button.setAttribute('href', '/signin');
         admin_button.setAttribute('href', '/signin');
         document.getElementById('signIn_button').style.display = 'inline-grid'; 
         document.getElementById('signUp_button').style.display = 'inline-grid';
       }else{
-        supplier_button.setAttribute('href', '/supplier');
-        press_button.setAttribute('href', '/press');
         account_button.setAttribute('href', '/account');
         admin_button.setAttribute('href', '/admin');
         document.getElementById('signIn_button').style.display = 'none'; 
