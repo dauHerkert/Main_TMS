@@ -584,7 +584,7 @@
             if(user_status_update.value == 'decline'){
               try {
                 const docRef = addDoc(collection(db, "mail"), {
-                to: `${declined_user_email.value}`,
+                to: `${user_specific_email.value}`,
                 message: {
                 subject: 'Sorry you have been declined',
                 html: 'Sorry you have been declined',
