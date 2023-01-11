@@ -558,7 +558,8 @@
       * Admin functions
       * -----------------------------------------------------------------------------------------------------------
       */
-     function pageAdmin(user) {
+     async function pageAdmin(user) {
+      let userInfo = await getUserInfo(user);
       let update_user_form = document.getElementById('update_user_type');
       let user_specific_id = document.getElementById('admin_user_id');
       let user_specific_email = document.getElementById('admin_user_email');
@@ -580,7 +581,7 @@
           }, { merge: true })
           .then(() => {
 
-            if(user.user_status == 'decline'){
+            if(userInfo.user_status == 'decline'){
               try {
                 const docRef = addDoc(collection(db, "mail"), {
                 to: `${declined_user_email.value}`,
