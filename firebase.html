@@ -748,8 +748,7 @@
 
       async function createCompany(){
 
-        const companyRef = await doc(db, 'companies');
-          addDoc(companyRef, {
+        const companyRef = await addDoc(collection(db, "cities"), {
             company_name: new_company_name.value,
             company_zones: new_company_zones.value,
             company_type: new_company_type.value,
