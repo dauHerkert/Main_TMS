@@ -232,12 +232,15 @@
 
       if ( userInfo ) {
 
-        if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
-          if (window.location.pathname == '/account'){
-            document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
+        if(window.location.pathname == '/account') {
             document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
             document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userInfo.user_company}`;
             document.getElementById('user_address').innerHTML = `<b>Address:</b> ${userInfo.user_address}`;
+          }
+
+        if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
+          if (window.location.pathname == '/account'){
+            document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
             for ( var i=0; i < supplier_info.length; i+=1 ){
               supplier_info[i].style.display = 'flex';
             }
@@ -247,8 +250,6 @@
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
-              document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
-              document.getElementById('').innerHTML = `<b>Address:</b> ${userInfo.user_type}`;
               for (var i=0;i<press_info.length;i+=1){
               press_info[i].style.display = 'flex';
             }
@@ -274,13 +275,13 @@
             }
           }
 
-       if (window.location.pathname == '/supplier'){
-        if(userInfo.supplier_has_form_submitted == "1"){
-          document.getElementById("from_date").setAttribute('disabled', "");
-          document.getElementById("to_date").setAttribute('disabled', "");
-          document.getElementById("special_request").setAttribute('disabled', "");
-          document.getElementById("zones").setAttribute('disabled', "");
-          document.getElementById("supplier_submmited_form").style.display = 'block';
+        if (window.location.pathname == '/supplier'){
+          if(userInfo.supplier_has_form_submitted == "1"){
+            document.getElementById("from_date").setAttribute('disabled', "");
+            document.getElementById("to_date").setAttribute('disabled', "");
+            document.getElementById("special_request").setAttribute('disabled', "");
+            document.getElementById("zones").setAttribute('disabled', "");
+            document.getElementById("supplier_submmited_form").style.display = 'block';
         }
       }
        if (window.location.pathname == '/press'){
