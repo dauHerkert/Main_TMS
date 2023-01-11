@@ -739,6 +739,35 @@
           });
         }
       });
+
+      //Create new companies
+      let create_company_form = document.getElementById('create_company_form');
+      let new_company_name = document.getElementById('newCompanyName');
+      let new_company_type = document.getElementById('companyType');
+      let new_company_zones = document.getElementById('companyType');
+
+      create_company_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation()
+
+          const companyRef = doc(db, 'companies');
+          addDoc(companyRef, {
+            company_name: new_company_name.value,
+            company_zones: new_company_zones.value,
+            company_type: new_company_type.value,
+            user_head: ''
+          }, { merge: true })
+          .then(() => {
+                toastr.success('Company has been successfully created');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+          })
+          .catch((err) => {
+            toastr.error('There was an error creating the company');
+            console.log('error creating company', err);
+          });
+      });
     }
 
     //Company page
