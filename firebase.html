@@ -889,11 +889,15 @@
         press_button.setAttribute('href', '/signin');
         account_button.setAttribute('href', '/signin');
         admin_button.setAttribute('href', '/signin');
+        document.getElementById('signIn_button').style.display = 'inline-grid'; 
+        document.getElementById('signUp_button').style.display = 'inline-grid';
       }else{
         supplier_button.setAttribute('href', '/supplier');
         press_button.setAttribute('href', '/press');
         account_button.setAttribute('href', '/account');
         admin_button.setAttribute('href', '/admin');
+        document.getElementById('signIn_button').style.display = 'none'; 
+        document.getElementById('signUp_button').style.display = 'none';
       }
     }
 
