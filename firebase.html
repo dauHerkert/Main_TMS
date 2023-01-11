@@ -226,7 +226,6 @@
     async function populateForms(user) {
       let userInfo = await getUserInfo(user);
       const accountType_button = document.getElementById('account_user_profile');
-      const homeButton = document.getElementById('home_button');
       const press_info = document.getElementsByClassName('press_info');
       const supplier_info = document.getElementsByClassName('supplier_info');
 
@@ -245,8 +244,6 @@
               supplier_info[i].style.display = 'flex';
             }
           }
-          homeButton.setAttribute("href", "/supplier");
-
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
@@ -254,21 +251,21 @@
               press_info[i].style.display = 'flex';
             }
           }
-          homeButton.setAttribute("href", "/press");
         } else if (userInfo.user_is_admin == "1") {          
             if(window.location.pathname == '/account') {
               document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
-              }            
+              }
+              document.getElementById('admin_button').style.display = 'inline-grid';        
           }else if(userInfo.user_is_admin == "0") {
               if(window.location.pathname == '/admin'){
                 window.location.replace('/account');
-              }            
+              }
+              document.getElementById('admin_button').style.display = 'none';     
           } else {
             if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello ${userInfo.user_firstname}`;
               document.getElementById('account_type_info').innerHTML = '';
             }
-            homeButton.setAttribute("href", "/admin");
           }
 
         if (window.location.pathname == '/supplier'){
