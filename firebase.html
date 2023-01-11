@@ -246,6 +246,7 @@
           if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
               document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
+              document.getElementById('').innerHTML = `<b>Address:</b> ${userInfo.user_type}`;
               for (var i=0;i<press_info.length;i+=1){
               press_info[i].style.display = 'flex';
             }
@@ -259,10 +260,11 @@
           homeButton.setAttribute("href", "/admin");
         }
 
-        if(userInfo.admin == "1") {
+        if(userInfo.user_is_admin == "1") {
           if(window.location.pathname == '/account') {
             document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
             }
+            document.getElementById('admin_button').style.display = 'inline-grid';
           }
 
        if (window.location.pathname == '/supplier'){
@@ -286,7 +288,6 @@
           document.getElementById("press_submmited_form").style.display = 'block';
         }
        }
-
       }
     }
 
