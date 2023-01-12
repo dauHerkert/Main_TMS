@@ -431,9 +431,7 @@
       }
 
       showProfilePic(user)
-
     }
-
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Press functions
@@ -640,30 +638,6 @@
           
         }
       });
-
-      /*let decline_form = document.getElementById('decline_form');
-      let declined_user_id = document.getElementById('declined_user_id');
-      let declined_user_email = document.getElementById('declined_user_email');
-
-      //Decline user registrer
-      decline_form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if ( declined_user_id != null || declined_user_id != 0 ) {
-          const userRef = doc(db, 'users', declined_user_id.value);
-          setDoc(userRef, {
-            user_status: 'declined',
-          }, { merge: true })
-          .then(() => {
-            
-          })
-          .catch((err) => {
-            toastr.error('There was an error');
-            console.log('error declining account', err);
-          });
-        }
-      });*/
 
       //Print users table
       const colRef = collection(db, 'users');
@@ -906,7 +880,6 @@
         }
       }
     }
-
     // Forgot password functionality
     if(window.location.pathname == '/forgotpassword'){
 
@@ -931,8 +904,7 @@
           // ..
         });
       })
-    }
-
+    };
     //Location redirect when the user is logged out
     function replaceUrl(user) {
         let form_button = document.getElementById('form_button');
@@ -952,24 +924,21 @@
         document.getElementById('signUp_button').style.display = 'none';
       }
     }
-
     // first page load
     dispatchRequest(false);
-    checkUrlParameter();
-    
+    checkUrlParameter();    
 
    async function changeCompanyNameToID(user){
 
       const userCompanyCollection = collection(db, "companies")
-      const userCompanySnapshot = await getDocs(userCompanyCollection, user.user_company);
-
+      const userCompanySnapshot = await getDocs(userCompanyCollection);
       const user_company_array = [];     
 
       userCompanySnapshot.forEach((doc)=>{        
               let usersCompany = doc.data();
               user_company_array.push(usersCompany.company_name);
       })
-
+      console.log(user_company_array)
       let user_company_name = user_company_array[0];
       const company_query = query(collection(db, "companies"), where("company_name", "==",  user_company_name));
       const companySnapshot = await getDocs(company_query);
@@ -978,32 +947,24 @@
       companySnapshot.forEach((doc)=>{        
               let company = doc.data();
               company_id_array.push(doc.id);
-      })
-    
+      })    
       const userRef = doc(db, "users", user.uid);
 
       await updateDoc(userRef, {
         user_company: company_id_array[0]
       });
-
-      
-
       return user_company_name      
     }
 
     onAuthStateChanged(auth, (user) => {
       replaceUrl(user);
-
       if (user) {
         // user is signed in
         console.log(`The current user's UID is equal to ${user.uid}`);
-
+        
         dispatchRequest(user);
-
         populateForms(user);
-
         showPrivateElements();
-
         changeCompanyNameToID(user).then(userCompanyName => {
           console.log(userCompanyName);
           });
