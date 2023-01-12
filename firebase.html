@@ -845,6 +845,8 @@
       if ( company ) {
           localStorage.setItem('company', company);
           $('#sign-up-company').val(company);
+      }else{
+        $('#sign-up-company').val(' ');
       }
     }
 
