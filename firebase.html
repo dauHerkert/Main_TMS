@@ -963,18 +963,25 @@
       const companySnapshot = await getDocs(company_query);
       let company_id_array = []
 
-      companySnapshot.forEach((doc)=>{
-        
+      companySnapshot.forEach((doc)=>{        
               let company = doc.data();
               company_id_array.push(doc.id);
       })
-      
-      console.log()
+    
       const userRef = doc(db, "users", user.uid);
 
       await updateDoc(userRef, {
         user_company: company_id_array[0]
       });
+
+      const userCompanySnapshot = await getDoc(db, 'companies', company_id_array[0]);
+      const user_company_array = [];
+
+      userCompanySnapshot.forEach((doc)=>{        
+              let usersCompany = doc.data();
+              user_company_array.push(usersCompany.company_name);
+      })
+      console.log(user_company_array[0])
     }
 
    
