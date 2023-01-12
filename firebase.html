@@ -938,7 +938,7 @@
               let usersCompany = doc.data();
               user_company_array.push(usersCompany.company_name);
       })
-      console.log(user_company_array)
+      
       let user_company_name = user_company_array[0];
       const company_query = query(collection(db, "companies"), where("company_name", "==",  user_company_name));
       const companySnapshot = await getDocs(company_query);
@@ -947,7 +947,8 @@
       companySnapshot.forEach((doc)=>{        
               let company = doc.data();
               company_id_array.push(doc.id);
-      })    
+      })  
+      console.log(company_id_array)
       const userRef = doc(db, "users", user.uid);
 
       await updateDoc(userRef, {
