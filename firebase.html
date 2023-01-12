@@ -986,10 +986,7 @@
       let user_company_name = user_company_array[0];
 
       return user_company_name      
-    }   
-
-    const userCompanyName = changeCompanyNameToID(user);
-      console.log(userCompanyName);
+    }
 
     onAuthStateChanged(auth, (user) => {
       replaceUrl(user);
@@ -1005,6 +1002,9 @@
         showPrivateElements();
 
         changeCompanyNameToID(user);
+
+        const userCompanyName = changeCompanyNameToID(user);
+        console.log(userCompanyName);
 
       } else {
         // user is signed out
