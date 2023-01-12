@@ -1001,10 +1001,9 @@
 
         showPrivateElements();
 
-        changeCompanyNameToID(user);
-
-        const userCompanyName = changeCompanyNameToID(user);
-        console.log(userCompanyName);
+        changeCompanyNameToID(user).then(userCompanyName => {
+          console.log(userCompanyName);
+          });
 
       } else {
         // user is signed out
