@@ -657,7 +657,7 @@
           var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
-          const companyRef = doc(db, "companies", user.user_company);
+          const companyRef = collection(db, "companies", user.user_company);
           getDocs(companyRef).then((companySnap) =>{
             let companyName = companySnap.company_name 
 
