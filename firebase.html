@@ -254,16 +254,16 @@
             }
           }
           form_button.setAttribute('href', '/press');
-        } else if (userInfo.user_is_admin == "1") {          
-            if(window.location.pathname == '/account') {
-              document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
-              }
-              document.getElementById('admin_button').style.display = 'inline-grid';        
-          }else if(userInfo.user_is_admin == "0") {
+        } else if(userInfo.user_is_admin == "0") {
               if(window.location.pathname == '/admin'){
                 location.replace('/account');
               }
               document.getElementById('admin_button').style.display = 'none';     
+          }else if (userInfo.user_is_admin == "1") {          
+            if(window.location.pathname == '/account') {
+              document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
+              }
+              document.getElementById('admin_button').style.display = 'inline-grid';        
           } else {
             if(window.location.pathname == '/account'){
               document.getElementById('welcome_user').innerHTML = `Hello ${userInfo.user_firstname}`;
