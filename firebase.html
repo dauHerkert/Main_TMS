@@ -566,7 +566,7 @@
           let company = doc.data();
           
           var opt = document.createElement('option');
-          opt.value = company.company_name;
+          opt.value = doc.id;
           opt.textContent = company.company_name;
           select.appendChild(opt);
         });
