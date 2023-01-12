@@ -976,15 +976,22 @@
 
       const userCompanyCollection = collection(db, "companies")
       const userCompanySnapshot = await getDocs(userCompanyCollection, user.user_company);
+
       const user_company_array = [];
+
+      async function getCompanyName(){      
 
       userCompanySnapshot.forEach((doc)=>{        
               let usersCompany = doc.data();
               user_company_array.push(usersCompany.company_name);
       })
-      let user_company_name = await user_company_array[0];
+      let user_company_name = user_company_array[0];
 
       return user_company_name
+    }
+
+    name_company = await getCompanyName()
+      console.log(name_company)
     }
     
 
@@ -1003,7 +1010,7 @@
 
         showPrivateElements();
 
-        changeCompanyNameToID(user).then(console.log(user_company_name));
+        changeCompanyNameToID(user);
 
       } else {
         // user is signed out
