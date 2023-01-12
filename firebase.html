@@ -952,7 +952,7 @@
       const userRef = doc(db, "users", user.uid);
 
       await updateDoc(userRef, {
-        user_company: company_id_array[0]
+        user_company: company_id_array[2]
       });
       return user_company_name      
     }
