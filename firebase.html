@@ -641,6 +641,7 @@
 
       //Print users table
       const colRef = collection(db, 'users');
+      
       let userList = document.getElementById('admin-user-list');
 
       getDocs(colRef)
@@ -656,6 +657,8 @@
           var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
+          getCompanyName(user)
+
           cell1.innerHTML = `${doc.id}`;
           cell1.className = 'userID';
           cell2.innerHTML = `${user.user_email}`;
@@ -672,6 +675,14 @@
       .catch(err => {
         console.log('error fetching users', err);
       })
+
+      async function getCompanyName(user){
+          const companyRef = doc(db, "companies", user.user_company);
+          const companySnap = await getDoc(companyRef);
+          let companyName = companySnap.company_name
+
+          console.log(companyName)
+      }
 
       //Print companies table
       let companyList = document.getElementById('admin-companies-list');
@@ -958,13 +969,6 @@
       });
       return user_company_name      
     }*/
-
-    async function changeCompanyNameToID(user){
-
-    const companiesRef = collection(db, "companies");
-    const companiesQuery = query(companiesRef, where("company_name", "==", userCompanyName));
-
-    }
 
 
     onAuthStateChanged(auth, (user) => {
