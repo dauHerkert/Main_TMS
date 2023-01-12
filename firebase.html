@@ -961,14 +961,14 @@
    async function changeCompanyNameToID(){
       const company_query = query(collection(db, "companies"), where("company_name", "==", 'Porsche'));
       const companySnapshot = await getDocs(company_query);
+      let company_id = []
 
       let companyId = companySnapshot.forEach((doc)=>{
         
               let company = doc.data();
-              let company_id = doc.id;
+              company_id.push(doc.id);
       })
-
-
+      console.log(company_id)
     }
 
     changeCompanyNameToID();
