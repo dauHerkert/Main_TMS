@@ -957,9 +957,20 @@
     dispatchRequest(false);
     checkUrlParameter();
 
+    const company_query = query(collection(db, "companies"), where("company_name", "==", userCompanyName));
+    const companySnapshot = await getDocs(company_query);
+
+    companySnapshot.forEach((doc) => {
+            let company = doc.data(company_query);
+            let company_id = company.id
+
+            return company_id
+          
+          });
+
+          console.log('companyID', company_id)
 
     onAuthStateChanged(auth, (user) => {
-
       replaceUrl(user);
 
       if (user) {
