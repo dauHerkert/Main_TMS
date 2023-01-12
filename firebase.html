@@ -641,8 +641,8 @@
 
       //Print users table
       const colRef = collection(db, 'users');
-      
-      let userList = document.getElementById('admin-user-list');
+      const companyRef = collection(db, "companies", user.user_company);
+      let userList = document.getElementById('admin-user-list');      
 
       getDocs(colRef)
       .then((snapshot) => {
@@ -657,7 +657,7 @@
           var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
-          const companyRef = collection(db, "companies", user.user_company);
+          
           getDocs(companyRef).then((companySnap) =>{
             let companyName = companySnap.company_name 
 
