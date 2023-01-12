@@ -982,11 +982,12 @@
               let usersCompany = doc.data();
               user_company_array.push(usersCompany.company_name);
       })
-      let user_company_name = user_company_array[0];
+      let user_company_name = await user_company_array[0];
 
       return user_company_name
     }
     console.log(user_company_name)
+
    
 
     onAuthStateChanged(auth, (user) => {
