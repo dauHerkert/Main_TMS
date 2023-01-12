@@ -962,10 +962,13 @@
       const company_query = query(collection(db, "companies"), where("company_name", "==", 'Porsche'));
       const companySnapshot = await getDocs(company_query);
 
-              let company = companySnapshot.data();
+      companySnapshot.forEach((doc)=>{
+        
+        let company = doc.data();
               let company_id = `${company.id}`
 
           console.log('companyID', company_id);
+      })
 
 
     }
