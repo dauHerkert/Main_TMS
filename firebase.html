@@ -936,10 +936,10 @@
 
       userCompanySnapshot.forEach((doc)=>{        
               let usersCompany = doc.data();
-              user_company_array.push(usersCompany.company_name);
+              user_company_array.push(usersCompany.company_name, doc.id);
       })
-      
-      let user_company_name = user_company_array[0];
+      console.log(user_company_array)
+      let user_company_name = user_company_array;
       const company_query = query(collection(db, "companies"), where("company_name", "==",  user_company_name));
       const companySnapshot = await getDocs(company_query);
       let company_id_array = []
