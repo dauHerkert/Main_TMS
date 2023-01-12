@@ -657,7 +657,13 @@
           var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
-          getCompanyName(doc)
+          const companyRef = doc(db, "companies", user.user_company);
+          getDocs(companyRef).then((companySnap) =>{
+            let companyName = companySnap.company_name 
+
+            console.log(companyName)
+          });
+            
 
           cell1.innerHTML = `${doc.id}`;
           cell1.className = 'userID';
@@ -674,15 +680,7 @@
       })
       .catch(err => {
         console.log('error fetching users', err);
-      })
-
-      async function getCompanyName(user){
-          const companyRef = doc(db, "companies", user.user_company);
-          const companySnap = await getDoc(companyRef);
-          let companyName = companySnap.company_name
-
-          console.log(companyName)
-      }
+      })   
 
       //Print companies table
       let companyList = document.getElementById('admin-companies-list');
