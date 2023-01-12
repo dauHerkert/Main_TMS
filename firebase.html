@@ -977,9 +977,7 @@
       const userCompanyCollection = collection(db, "companies")
       const userCompanySnapshot = await getDocs(userCompanyCollection, user.user_company);
 
-      const user_company_array = [];
-
-      async function getCompanyName(){      
+      const user_company_array = [];     
 
       userCompanySnapshot.forEach((doc)=>{        
               let usersCompany = doc.data();
@@ -987,15 +985,11 @@
       })
       let user_company_name = user_company_array[0];
 
-      return user_company_name
-    }
+      return user_company_name      
+    }   
 
-    name_company = await getCompanyName()
-      console.log(name_company)
-    }
-    
-
-   
+    const userCompanyName = changeCompanyNameToID(user);
+      console.log(userCompanyName);
 
     onAuthStateChanged(auth, (user) => {
       replaceUrl(user);
