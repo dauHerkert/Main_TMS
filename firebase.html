@@ -839,11 +839,11 @@
     **/
     function checkUrlParameter() {
 
-      let url = new URL(location.href);
+      let url = new URL(window.location.href);
       let company = url.searchParams.get('company');
 
       if ( company ) {
-          sessionStorage.setItem('company', company);
+          localStorage.setItem('company', company);
           $('#sign-up-company').val(company);
       }
     }
