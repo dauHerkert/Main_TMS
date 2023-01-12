@@ -960,7 +960,8 @@
     
 
    async function changeCompanyNameToID(user){
-      const company_query = query(collection(db, "companies"), where("company_name", "==", 'Porsche'));
+      const nameOfCompany = await changeCompanyNameToID(user)
+      const company_query = query(collection(db, "companies"), where("company_name", "==",  nameOfCompany));
       const companySnapshot = await getDocs(company_query);
       let company_id_array = []
 
