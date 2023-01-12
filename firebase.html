@@ -963,7 +963,7 @@
       const companySnapshot = await getDoc(company_query);
 
               let company = companySnapshot.data();
-              let company_id = company.id
+              let company_id = `${company.id}`
 
           console.log('companyID', company_id);
 
