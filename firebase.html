@@ -974,7 +974,7 @@
         user_company: company_id_array[0]
       });
 
-      const userCompanySnapshot = await getDocs(db, 'companies', company_id_array[0].value);
+      const userCompanySnapshot = await getDocs(db, 'companies', user.user_company);
       const user_company_array = [];
 
       userCompanySnapshot.forEach((doc)=>{        
