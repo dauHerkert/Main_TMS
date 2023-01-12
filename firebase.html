@@ -965,7 +965,7 @@
       companySnapshot.forEach((doc)=>{
         
         let company = doc.data();
-              let company_id = `${company.id}`
+              let company_id = doc.id
 
           console.log('companyID', company_id);
       })
