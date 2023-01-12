@@ -958,7 +958,7 @@
     checkUrlParameter();
     
 
-   async function changeCompanyNameToID(){
+   async function changeCompanyNameToID(user){
       const company_query = query(collection(db, "companies"), where("company_name", "==", 'Porsche'));
       const companySnapshot = await getDocs(company_query);
       let company_id_array = []
@@ -969,10 +969,15 @@
               company_id_array.push(doc.id);
       })
       
-      console.log(company_id_array[0])
+      console.log()
+      const userRef = doc(db, "users", user.uid);
+
+      await updateDoc(userRef, {
+        user_company: company_id_array[0]
+      });
     }
 
-    changeCompanyNameToID();
+   
 
     onAuthStateChanged(auth, (user) => {
       replaceUrl(user);
@@ -986,6 +991,8 @@
         populateForms(user);
 
         showPrivateElements();
+
+        changeCompanyNameToID(user);
 
       } else {
         // user is signed out
