@@ -644,7 +644,7 @@
       const companiesRef = await getDocs(collection(db, "companies"))
       companiesRef.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        if (doc.id == '2IcPPeWG7qnko8trfbUC'){
+        if (doc.id == user.user_company){
         console.log(doc.id, " => ", doc.data());
       }
       });
