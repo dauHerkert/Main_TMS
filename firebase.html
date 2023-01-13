@@ -642,7 +642,10 @@
       //Print users table
       const colRef = collection(db, 'users');
       const companiesRef = await getDocs(collection(db, "companies"))
-      console.log(companiesRef.company_name)
+      companiesRef.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
       let userList = document.getElementById('admin-user-list');
 
       getDocs(colRef)
