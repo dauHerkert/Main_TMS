@@ -556,7 +556,8 @@
       * -----------------------------------------------------------------------------------------------------------
       */
 
-      let clipboard = new ClipboardJS('[id^=copy-button-]');
+      if(window.location.pathname == '/admin'){
+        let clipboard = new ClipboardJS('[id^=copy-button-]');
 
         clipboard.on('success', function(e) {
           toastr.success('Text copied to clipboard: ' + e.text);
@@ -565,6 +566,7 @@
         clipboard.on('error', function(e) {
           toastr.error('Failed to copy text: ', e);
         });
+      }
 
      async function pageAdmin(user) {
 
@@ -837,7 +839,7 @@
       const parseCompany = JSON.parse(company_collection);
       const users = JSON.parse(storedUsers);
 
-     
+     console.log(parseCompany)
 
     // Add rows and cells to table
     users.forEach(function(user) {
