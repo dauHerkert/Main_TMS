@@ -665,6 +665,9 @@
             companyName = 'Yamaha'
           }
 
+          changeCompanyNameToID(user).then(companyName => 
+           console.log(companyName))
+
           cell1.innerHTML = `${doc.id}`;
           cell1.className = 'userID';
           cell2.innerHTML = `${user.user_email}`;
@@ -979,8 +982,7 @@
         dispatchRequest(user);
         populateForms(user);
         showPrivateElements();
-        changeCompanyNameToID(user).then(companyName => 
-        console.log(companyName))
+        
       } else {
         // user is signed out
         showPublicElements();
