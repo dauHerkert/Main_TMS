@@ -939,7 +939,7 @@
     dispatchRequest(false);
     checkUrlParameter();    
 
-   /*async function changeCompanyNameToID(user){
+   async function changeCompanyNameToID(user){
 
       const userCompanyCollection = collection(db, "companies")
       const userCompanySnapshot = await getDocs(userCompanyCollection);
@@ -950,6 +950,7 @@
               user_company_array.push(usersCompany.company_name, doc.id);
       })
       console.log(user_company_array)
+
       let user_company_name = user_company_array;
       const company_query = query(collection(db, "companies"), where("company_name", "==",  user_company_name));
       const companySnapshot = await getDocs(company_query);
@@ -966,7 +967,7 @@
         user_company: company_id_array
       });
       return user_company_name      
-    }*/
+    }
 
 
     onAuthStateChanged(auth, (user) => {
@@ -978,6 +979,8 @@
         dispatchRequest(user);
         populateForms(user);
         showPrivateElements();
+        changeCompanyNameToID(user).then(companyName => 
+        console.log(companyName))
       } else {
         // user is signed out
         showPublicElements();
