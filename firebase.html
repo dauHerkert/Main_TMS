@@ -951,7 +951,7 @@
       })
       console.log(user_company_array[0])
 
-      const company_query = query(collection(db, "companies"), where("company_name", "==",  user_company_name));
+      const company_query = query(collection(db, "companies"), where("company_name", "==",  user_company_array[0]));
       const companySnapshot = await getDocs(company_query);
       let company_id_array = []
 
