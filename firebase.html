@@ -642,7 +642,7 @@
       //Print users table
       const colRef = collection(db, 'users');
       const companiesRef = await getDocs(collection(db, "companies"))
-      console.log(companiesRef)
+      console.log(companiesRef.company_name)
       let userList = document.getElementById('admin-user-list');
 
       getDocs(colRef)
