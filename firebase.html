@@ -722,10 +722,8 @@ getDocs(colRef)
           company_cell3.innerHTML = `${user.company_zones}`;
           company_cell3.className = 'companyZone';
           company_cell4.innerHTML = `${user.user_head}`;
-          company_cell4.className = 'companyUserHead'
-          company_cell4.innerHTML = `${user.user_head}`;
           company_cell4.className = 'companyUserHead';
-          company_cell4.innerHTML = `https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}`
+          company_cell5.innerHTML = `https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}`
           company_cell6.innerHTML = `<button onclick="copyCellText(this)" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Copy</button></td>`
           company_cell7.innerHTML = `<button id="open_companies_modal" onclick="openModal2()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
