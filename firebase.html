@@ -62,6 +62,10 @@
     async function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
 
+      // Use the changeCompanyNameToID(user) function to get the company name
+        const companyType = await getCompanyType(user);
+        userDefaultValues.user_type = companyType;
+
       userDefaultValues.user_email = user.email;
       userDefaultValues.user_id = user.uid;
 
