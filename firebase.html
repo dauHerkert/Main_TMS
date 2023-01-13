@@ -705,19 +705,14 @@ getDocs(colRef)
           let company_cell7 = company_newRow.insertCell(6);
 
           //Copy company link
-          function copyCellText(event) {
-            var btn = event.target;
-            if (btn.className !== 'copyButton') return;
-            var cellText = btn.parentNode.previousSibling.innerText;
+          function copyCellText() {
+            var cellText = this.parentNode.previousSibling.innerText;
             navigator.clipboard.writeText(cellText).then(function() {
-              console.log('Text copied to clipboard: ' + cellText);
+                console.log('Text copied to clipboard: ' + cellText);
             }, function(err) {
-              console.error('Failed to copy text: ', err);
+                console.error('Failed to copy text: ', err);
             });
-          }
-          
-          let copyLinkButton = querySelector('.copyButton');
-          copyLinkButton.addEventListener('click', copyCellText);
+        }
 
           let user = doc.data();
           company_cell1.innerHTML = `${doc.id}`;
@@ -729,7 +724,7 @@ getDocs(colRef)
           company_cell4.innerHTML = `${user.user_head}`;
           company_cell4.className = 'companyUserHead';
           company_cell5.innerHTML = `https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}`
-          company_cell6.innerHTML = `<button class="copyButton" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Copy</button></td>`
+          company_cell6.innerHTML = `<button onclick="copyCellText()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Copy</button></td>`
           company_cell6.className = 'copyButton';
           company_cell7.innerHTML = `<button id="open_companies_modal" onclick="openModal2()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
