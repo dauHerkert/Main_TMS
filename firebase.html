@@ -839,8 +839,6 @@
       const parseCompany = JSON.parse(company_collection);
       const users = JSON.parse(storedUsers);
 
-      document.getElementById('company_table_name').innerHTML = `Company: ${company_name}`
-
     // Add rows and cells to table
     users.forEach(function(user) {
       var newRow = document.getElementById('company-user-list-body').insertRow(0);
