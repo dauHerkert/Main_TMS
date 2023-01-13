@@ -115,17 +115,11 @@
       const user_address = document.getElementById('user_address');
       const user_company = document.getElementById('sign-up-company');
 
-      // Use the changeCompanyNameToID(user) function to get the company name
-      const companyType = await getCompanyType(user);
-      const user_type = companyType;
-
-
       setDoc(userRef, {
         user_firstname: user_firstname.value,
         user_lastname: user_lastname.value,
         user_address: user_address.value,
         user_company: user_company.value,
-        user_type: companyType
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
