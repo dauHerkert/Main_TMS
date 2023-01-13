@@ -640,15 +640,6 @@
       });
 
       //Print users table
-      const colRef = collection(db, 'users');
-      getDocs(company_colRef)
-      .then((companySnap)=>{
-        companySnap.docs.forEach((doc) =>{
-          let company = doc.data();
-
-          console.log(company.company_name)
-        })
-      })
       
       let userList = document.getElementById('admin-user-list');
 
@@ -665,6 +656,15 @@
           var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
+          const colRef = collection(db, 'users', user.user_company);
+      getDocs(company_colRef)
+      .then((companySnap)=>{
+        companySnap.docs.forEach((doc) =>{
+          let company = doc.data();
+
+          console.log(company.company_name)
+        })
+      })
 
           cell1.innerHTML = `${doc.id}`;
           cell1.className = 'userID';
