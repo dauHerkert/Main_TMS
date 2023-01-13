@@ -641,7 +641,7 @@
 
       //Print users table
       const colRef = collection(db, 'users');
-      const companiesRef = await getDocs(collection(db, "companies"))
+      const companiesRef = await getDocs(collection(db, "companies", '2IcPPeWG7qnko8trfbUC'))
       companiesRef.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
