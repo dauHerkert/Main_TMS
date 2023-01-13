@@ -642,6 +642,11 @@
       //Print users table
       const colRef = collection(db, 'users');
       const companyRef = doc(db, "companies", '2IcPPeWG7qnko8trfbUC');
+      getDocs(companyRef).then((companySnap) =>{
+            let companyName = companySnap.company_name 
+
+            console.log(companyName)
+          });
 
       let userList = document.getElementById('admin-user-list');      
 
@@ -657,14 +662,7 @@
           var cell5 = newRow.insertCell(4)
           var cell6 = newRow.insertCell(5);
 
-          let user = doc.data();
-          
-          getDocs(companyRef).then((companySnap) =>{
-            let companyName = companySnap.company_name 
-
-            console.log(companyName)
-          });
-            
+          let user = doc.data();          
 
           cell1.innerHTML = `${doc.id}`;
           cell1.className = 'userID';
