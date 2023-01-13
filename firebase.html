@@ -556,7 +556,6 @@
       * -----------------------------------------------------------------------------------------------------------
       */
 
-      if(window.location.pathname == '/admin'){
       let clipboard = new ClipboardJS('[id^=copy-button-]');
 
         clipboard.on('success', function(e) {
@@ -566,7 +565,6 @@
         clipboard.on('error', function(e) {
           toastr.error('Failed to copy text: ', e);
         });
-      }
 
      async function pageAdmin(user) {
 
