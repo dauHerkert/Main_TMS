@@ -641,13 +641,6 @@
 
       //Print users table
       const colRef = collection(db, 'users');
-      const companiesRef = await getDocs(collection(db, "companies"))
-      companiesRef.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        if (doc.id == user.user_company){
-        console.log(doc.id, " => ", doc.data());
-      }
-      });
       let userList = document.getElementById('admin-user-list');
 
       getDocs(colRef)
@@ -663,8 +656,6 @@
           var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
-          let companyId = user.user_company;
-          console.log(user.user_company)
 
           cell1.innerHTML = `${doc.id}`;
           cell1.className = 'userID';
@@ -681,12 +672,7 @@
       })
       .catch(err => {
         console.log('error fetching users', err);
-      })
-
-     
-          const companyRef = doc(db, "companies", user.user_company);
-          const companySnap = await getDoc(companyRef);
-          let companyName = companySnap.company_name      
+      });     
 
       //Print companies table
       let companyList = document.getElementById('admin-companies-list');
