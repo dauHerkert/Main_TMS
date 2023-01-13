@@ -939,6 +939,10 @@
     dispatchRequest(false);
     checkUrlParameter();    
 
+    const userRef = doc(db, "users", userId);
+    const userSnapshot = await getDoc(userRef);
+    const user = userSnapshot.data();
+
     async function changeCompanyNameToID(user){
     if (user.user_company) {
         const userCompanyCollection = collection(db, "companies")
