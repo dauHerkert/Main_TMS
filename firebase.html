@@ -952,7 +952,7 @@
               user_company_array.push(usersCompany.company_name);
             }
       })
-      console.log(user_company_array)
+      console.log(user_company_array[0])
 
       const company_query = query(collection(db, "companies"), where("company_name", "==",  user_company_name));
       const companySnapshot = await getDocs(company_query);
@@ -967,7 +967,7 @@
       await updateDoc(userRef, {
         user_company: company_id_array
       });
-      return user_company_array    
+      return user_company_array[0]
     }
 
 
