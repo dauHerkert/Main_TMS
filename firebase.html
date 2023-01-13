@@ -657,12 +657,12 @@
 
           let user = doc.data();
           let companyId = user.user_company;
-          let companyName = ''
+          let userCompanyName = ''
 
           changeCompanyNameToID(user).then(companyName => {
 
             if(companyName){
-              return companyName = companyName.value
+              return userCompanyName = companyName
             }            
           })          
 
