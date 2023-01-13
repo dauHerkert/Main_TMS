@@ -641,12 +641,6 @@
 
       //Print users table
       const colRef = collection(db, 'users');
-      const companyRef = doc(db, "companies", '2IcPPeWG7qnko8trfbUC');
-      getDocs(companyRef).then((companySnap) =>{
-            let companyName = companySnap.company_name 
-
-            console.log(companyName)
-          });
 
       let userList = document.getElementById('admin-user-list');      
 
