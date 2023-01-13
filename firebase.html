@@ -950,7 +950,9 @@
 
       userCompanySnapshot.forEach((doc)=>{        
               let usersCompany = doc.data();
+              if(doc.id == user.user_company){
               user_company_array.push(usersCompany.company_name);
+            }
       })
       console.log(user_company_array)
 
