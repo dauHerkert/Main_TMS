@@ -558,6 +558,16 @@
       * -----------------------------------------------------------------------------------------------------------
       */
 
+      //Copy company link
+      function copyCellText(event) {
+          var cellText = event.target.parentNode.previousSibling.children[0].innerText;
+          navigator.clipboard.writeText(cellText).then(function() {
+              console.log('Text copied to clipboard: ' + cellText);
+          }, function(err) {
+              console.error('Failed to copy text: ', err);
+          });
+      }
+
      async function pageAdmin(user) {
 
       let userInfo = await getUserInfo(user);    
@@ -1001,16 +1011,6 @@
         $('[data-toggle="datepicker"]').attr('readonly', 'readonly')
       }
     });
-
-    //Copy company link
-    function copyCellText(event) {
-          var cellText = event.target.parentNode.previousSibling.children[0].innerText;
-          navigator.clipboard.writeText(cellText).then(function() {
-              console.log('Text copied to clipboard: ' + cellText);
-          }, function(err) {
-              console.error('Failed to copy text: ', err);
-          });
-      }
 
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
