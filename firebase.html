@@ -640,7 +640,8 @@
       });
 
       //Print users table
-      const colRef = collection(db, 'users', user.user_company);
+      const colRef = collection(db, 'users');
+      const companiesRef = await getDocs(collection(db, "companies"))
       let userList = document.getElementById('admin-user-list');
 
       getDocs(colRef)
@@ -657,7 +658,7 @@
 
           let user = doc.data();
           
-      getDocs(company_colRef)
+      getDocs(companiesRef)
       .then((companySnap)=>{
         companySnap.docs.forEach((doc) =>{
           let company = doc.data();
