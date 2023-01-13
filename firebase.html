@@ -641,7 +641,8 @@
 
       //Print users table
       const colRef = collection(db, 'users');
-      const companyRef = collection(db, "companies", user.user_company);
+      const companyRef = doc(db, "companies", user.user_company);
+
       let userList = document.getElementById('admin-user-list');      
 
       getDocs(colRef)
