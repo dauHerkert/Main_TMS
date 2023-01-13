@@ -657,6 +657,11 @@
             let user = doc.data();
             let userCompanyName;
 
+            if (!user.user_company) {
+                console.log(`User ${user.uid} does not have a user_company field defined`);
+                return;
+            }
+
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
                 cell4.innerHTML = `<a href='#' id="companyName" data-value="${user.user_company}">${userCompanyName}</a>`;
