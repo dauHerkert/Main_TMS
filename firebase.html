@@ -695,12 +695,14 @@ getDocs(colRef)
       .then((snapshot) => {
 
         snapshot.docs.forEach((doc) => {
-          var company_newRow = document.getElementById('companies-list-body').insertRow(0);
-          var company_cell1 = company_newRow.insertCell(0);
-          var company_cell2 = company_newRow.insertCell(1);
-          var company_cell3 = company_newRow.insertCell(2);
-          var company_cell4 = company_newRow.insertCell(3);
-          var company_cell5 = company_newRow.insertCell(4);
+          let company_newRow = document.getElementById('companies-list-body').insertRow(0);
+          let company_cell1 = company_newRow.insertCell(0);
+          let company_cell2 = company_newRow.insertCell(1);
+          let company_cell3 = company_newRow.insertCell(2);
+          let company_cell4 = company_newRow.insertCell(3);
+          let company_cell5 = company_newRow.insertCell(4);
+          let company_cell6 = company_newRow.insertCell(5);
+          let company_cell7 = company_newRow.insertCell(6);
 
           let user = doc.data();
           company_cell1.innerHTML = `${doc.id}`;
@@ -708,10 +710,14 @@ getDocs(colRef)
           company_cell2.innerHTML = `${user.company_name}`;
           company_cell2.className = 'companyName';
           company_cell3.innerHTML = `${user.company_zones}`;
-          company_cell3.className = 'companyZone'
+          company_cell3.className = 'companyZone';
           company_cell4.innerHTML = `${user.user_head}`;
           company_cell4.className = 'companyUserHead'
-          company_cell5.innerHTML = `<button id="open_companies_modal" onclick="openModal2()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
+          company_cell4.innerHTML = `${user.user_head}`;
+          company_cell4.className = 'companyUserHead';
+          company_cell4.innerHTML = `https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}`
+          company_cell6.innerHTML = `<button onclick="copyCellText(this)" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Copy</button></td>`
+          company_cell7.innerHTML = `<button id="open_companies_modal" onclick="openModal2()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
       })
       .catch(err => {
@@ -749,7 +755,15 @@ getDocs(colRef)
         }
       });
       
-
+      //Copy company link
+      function copyCellText(btn) {
+        var cellText = btn.parentNode.previousSibling.innerText;
+        navigator.clipboard.writeText(cellText).then(function() {
+          toastr.success('Text copied to clipboard: ' + cellText);
+        }, function(err) {
+          toastr.error('Failed to copy text: ', err);
+        });
+      }
       //Create new companies
       let create_company_form = document.getElementById('create_company_form');
       let new_company_name = document.getElementById('newCompanyName');
