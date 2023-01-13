@@ -680,7 +680,7 @@
 
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
-                cell4.innerHTML = `<a href='#' id="companyName" data-value="${user.user_company}">${userCompanyName}</a>`;
+                cell4.innerHTML = `<a href='#' id="companyName" data-value="${userCompanyName}">${userCompanyName}</a>`;
             });
 
             cell1.innerHTML = `${doc.id}`;
@@ -804,7 +804,7 @@
 
           let companyValue = event.target.getAttribute('data-value');
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));
-          const company_filter = query(collection(db, "companies"), where("company_name", "==", companyValue), {fields: ['user_head', 'company_name']});
+          const company_filter = query(collection(db, "companies"), where("company_name", "==", companyValue));
           const companySnapshot = await getDocs(company_filter);
           const querySnapshot = await getDocs(q);
           let users = [];
