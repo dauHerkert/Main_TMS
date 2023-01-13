@@ -59,12 +59,8 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    async function setDefaultFields(user) {
+    function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
-
-      // Use the changeCompanyNameToID(user) function to get the company name
-        const companyType = await getCompanyType(user);
-        userDefaultValues.user_type = companyType;
 
       userDefaultValues.user_email = user.email;
       userDefaultValues.user_id = user.uid;
@@ -110,7 +106,7 @@
       }
    };
     //Add user's extra info to Firestore
-    function userExtraInfo(e, user) {
+    async function userExtraInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
       const userRef = doc(db, 'users', user.uid);
@@ -119,11 +115,17 @@
       const user_address = document.getElementById('user_address');
       const user_company = document.getElementById('sign-up-company');
 
+      // Use the changeCompanyNameToID(user) function to get the company name
+      const companyType = await getCompanyType(user);
+      const user_type = companyType;
+
+
       setDoc(userRef, {
         user_firstname: user_firstname.value,
         user_lastname: user_lastname.value,
         user_address: user_address.value,
-        user_company: user_company.value
+        user_company: user_company.value,
+        user_type: companyType
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
