@@ -678,7 +678,7 @@
 
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
-                cell4.innerHTML = `<a href='#' id="companyName" data-value="${userCompanyName}">${userCompanyName}</a>`;
+                cell4.innerHTML = `<a href='#' id="companyName" data-value="${user.user_company}" data-company-name='${userCompanyName}'>${userCompanyName}</a>`;
             });
 
             cell1.innerHTML = `${doc.id}`;
@@ -801,8 +801,9 @@
     $(document).on( 'click' , '#companyName' ,async function() {
 
           let companyValue = event.target.getAttribute('data-value');
+          let companyNameValue = event.target.getAttribute('data-company-name');
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));
-          const company_filter = query(collection(db, "companies"), where("company_name", "==", companyValue));
+          const company_filter = query(collection(db, "companies"), where("company_name", "==", companyNameValue));
           const companySnapshot = await getDocs(company_filter);
           const querySnapshot = await getDocs(q);
           let users = [];
@@ -821,6 +822,7 @@
           console.log(company)
           localStorage.setItem('users', JSON.stringify(users));
           localStorage.setItem('company', companyValue);
+          
 
           //Save company name from the companies collection
           localStorage.setItem('company_collection', JSON.stringify(company));
