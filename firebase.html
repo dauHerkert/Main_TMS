@@ -224,16 +224,16 @@
     }
 
     async function populateForms(user) {
-  let userInfo = await getUserInfo(user);
-  const accountType_button = document.getElementById('account_user_profile');
-  const press_info = document.getElementsByClassName('press_info');
-  const supplier_info = document.getElementsByClassName('supplier_info');
-  let form_button = document.getElementById('form_button');
+      let userInfo = await getUserInfo(user);
+      const accountType_button = document.getElementById('account_user_profile');
+      const press_info = document.getElementsByClassName('press_info');
+      const supplier_info = document.getElementsByClassName('supplier_info');
+      let form_button = document.getElementById('form_button');
 
-  if ( userInfo ) {
+      if ( userInfo ) {
 
         // Use the changeCompanyNameToID(user) function to get the company name
-        const companyName = await changeCompanyNameToID(user);
+        const companyName = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyName;
 
         if (window.location.pathname === '/account') {
