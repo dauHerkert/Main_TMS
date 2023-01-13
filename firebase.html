@@ -644,43 +644,39 @@
       let userList = document.getElementById('admin-user-list');
 
       getDocs(colRef)
-      .then((snapshot) => {
-
+    .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
-          var newRow = document.getElementById('user-list-body').insertRow(0);
-          var cell1 = newRow.insertCell(0);
-          var cell2 = newRow.insertCell(1);
-          var cell3 = newRow.insertCell(2);
-          var cell4 = newRow.insertCell(3);
-          var cell5 = newRow.insertCell(4)
-          var cell6 = newRow.insertCell(5);
+            var newRow = document.getElementById('user-list-body').insertRow(0);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+            var cell6 = newRow.insertCell(5);
 
-          let user = doc.data();
-          let companyId = user.user_company;
-          let userCompanyName
+            let user = doc.data();
+            let userCompanyName;
 
-          changeCompanyNameToID(companyId).then(companyName => {
-            console.log(companyName)
-            userCompanyName = companyName
+            changeCompanyNameToID(user).then(companyName => {
+                userCompanyName = companyName;
+                cell4.innerHTML = `<a href='#' id="companyName" data-value="${user.user_company}">${userCompanyName}</a>`;
+            });
 
-            cell4.innerHTML = `<a href='#' id="companyName" data-value="${companyId}">${userCompanyName}</a>`;
-          })   
-
-          cell1.innerHTML = `${doc.id}`;
-          cell1.className = 'userID';
-          cell2.innerHTML = `${user.user_email}`;
-          cell2.className = 'userEmail';
-          cell3.innerHTML = `${user.user_status}`;
-          cell3.className = 'userStatus'
-          cell4.className = 'user_company';
-          cell5.innerHTML = `${user.user_type}`;
-          cell5.className = 'userType';
-          cell6.innerHTML = `<button id="open_modal_btn" onclick="openModal()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
+            cell1.innerHTML = `${doc.id}`;
+            cell1.className = 'userID';
+            cell2.innerHTML = `${user.user_email}`;
+            cell2.className = 'userEmail';
+            cell3.innerHTML = `${user.user_status}`;
+            cell3.className = 'userStatus';
+            cell4.className = 'user_company';
+            cell5.innerHTML = `${user.user_type}`;
+            cell5.className = 'userType';
+            cell6.innerHTML = `<button id="open_modal_btn" onclick="openModal()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
-      })
-      .catch(err => {
+    })
+    .catch(err => {
         console.log('error fetching users', err);
-      });     
+    });
 
       //Print companies table
       let companyList = document.getElementById('admin-companies-list');
@@ -939,30 +935,30 @@
     dispatchRequest(false);
     checkUrlParameter();    
 
-    const userRef = doc(db, "users", userId);
-    const userSnapshot = await getDoc(userRef);
-    const user = userSnapshot.data();
-
-    async function changeCompanyNameToID(user){
-    if (user.user_company) {
-        const userCompanyCollection = collection(db, "companies")
-        const userCompanySnapshot = await getDocs(userCompanyCollection);
-        const user_company_array = [];     
-        console.log("Company ID in user's doc: ", user.user_company);
-        userCompanySnapshot.forEach((doc)=>{        
-            let usersCompany = doc.data();
-            console.log("Company ID in companies collection: ", doc.id);
-            if(doc.id == user.user_company){
-                user_company_array.push(usersCompany.company_name);
-            }
-        });
-        if (user_company_array.length > 0) {
-            // other code 
-        } else {
-            console.log("No company found with that ID");
+    async function changeCompanyNameToID(user) {
+    // Get the collection of companies
+    const companiesRef = collection(db, "companies");
+    // Get all the company documents
+    const companiesSnapshot = await getDocs(companiesRef);
+    let companyName;
+    // Iterate over the companies and find the one with the matching ID
+    for (const company of companiesSnapshot.docs) {
+        if (company.id === user.user_company) {
+            companyName = company.data().company_name;
+            break;
         }
+    }
+    // If a company with the matching ID is found
+    if (companyName) {
+        // Update the user document with the company ID
+        const userRef = doc(db, "users", user.uid);
+        await updateDoc(userRef, {
+            user_company: user.user_company
+        });
+        // Return the company name
+        return companyName;
     } else {
-        console.log("user_company field is not defined in the user's document");
+        console.log("No company found with that ID");
     }
 }
 
