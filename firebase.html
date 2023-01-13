@@ -106,7 +106,7 @@
       }
    };
     //Add user's extra info to Firestore
-    async function userExtraInfo(e, user) {
+    function userExtraInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
       const userRef = doc(db, 'users', user.uid);
@@ -119,7 +119,7 @@
         user_firstname: user_firstname.value,
         user_lastname: user_lastname.value,
         user_address: user_address.value,
-        user_company: user_company.value,
+        user_company: user_company.value
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
