@@ -804,7 +804,7 @@
 
           let companyValue = event.target.getAttribute('data-value');
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));
-          const company_filter = query(collection(db, "companies"), where("company_name", "==", companyValue));
+          const company_filter = query(collection(db, "companies"), where("company_name", "==", companyValue), {fields: ['user_head', 'company_name']});
           const companySnapshot = await getDocs(company_filter);
           const querySnapshot = await getDocs(q);
           let users = [];
@@ -853,10 +853,15 @@
     });
 
     //Add company head
-    parseCompany.forEach(function(company){
-      document.getElementById('user_head').innerHTML = `User head: ${company.user_head}`
+        parseCompany.forEach(function(company){
+      if(company.hasOwnProperty('user_head')){
+        document.getElementById('user_head').innerHTML = `User head: ${company.user_head}`
+      }
+      if(company.hasOwnProperty('company_name')){
+        document.getElementById('company_table_name').innerHTML = `Company: ${company.company_name}`
+      }
     })
-    }
+  }
 
     /*
     * -----------------------------------------------------------------------------------------------------------
