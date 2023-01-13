@@ -558,16 +558,6 @@
       * -----------------------------------------------------------------------------------------------------------
       */
 
-      function copyCellText(event) {
-        var btn = event.target;
-        var cellText = btn.parentNode.parentNode.cells[4].innerText;
-        navigator.clipboard.writeText(cellText).then(function() {
-            console.log('Text copied to clipboard: ' + cellText);
-        }, function(err) {
-            console.error('Failed to copy text: ', err);
-        });
-    }
-
      async function pageAdmin(user) {
 
       let userInfo = await getUserInfo(user);    
@@ -659,7 +649,7 @@
       const colRef = collection(db, 'users');
       let userList = document.getElementById('admin-user-list');
 
-getDocs(colRef)
+  getDocs(colRef)
     .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
             let newRow = document.getElementById('user-list-body').insertRow(0);
@@ -983,6 +973,15 @@ getDocs(colRef)
     }
 }
 
+function copyCellText(event) {
+        var btn = event.target;
+        var cellText = btn.parentNode.parentNode.cells[4].innerText;
+        navigator.clipboard.writeText(cellText).then(function() {
+            console.log('Text copied to clipboard: ' + cellText);
+        }, function(err) {
+            console.error('Failed to copy text: ', err);
+        });
+    }
 
 
     onAuthStateChanged(auth, (user) => {
