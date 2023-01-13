@@ -663,6 +663,8 @@
           var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
+          let companyId = user.user_company;
+          console.log(user.user_company)
 
           cell1.innerHTML = `${doc.id}`;
           cell1.className = 'userID';
