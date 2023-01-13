@@ -662,7 +662,7 @@
           changeCompanyNameToID(user).then(companyName => {
 
             if(companyName){
-              return userCompanyName = companyName[0]
+              return userCompanyName = companyName
             }            
           })          
 
@@ -952,7 +952,7 @@
               user_company_array.push(usersCompany.company_name);
             }
       })
-      console.log(user_company_array)
+      console.log(user_company_name)
 
       let user_company_name = user_company_array[0];
       const company_query = query(collection(db, "companies"), where("company_name", "==",  user_company_name));
