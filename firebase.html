@@ -233,10 +233,11 @@
       if ( userInfo ) {
 
         changeCompanyNameToID(user).then(companyName => {
-            const userCompanyName = companyName;
-            
+          const userCompanyName = companyName;
+          userInfo.user_company_name = userCompanyName
+
             if(window.location.pathname == '/account') {
-                document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userCompanyName}`;
+                document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userInfo.user_company_name}`;
                 document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
                 document.getElementById('user_address').innerHTML = `<b>Address:</b> ${userInfo.user_address}`;
             }
