@@ -724,15 +724,6 @@
         console.log('error fetching users', err);
       })
 
-      function copyCellText(event) {
-          var cellText = event.target.parentNode.previousSibling.children[0].innerText;
-          navigator.clipboard.writeText(cellText).then(function() {
-              console.log('Text copied to clipboard: ' + cellText);
-          }, function(err) {
-              console.error('Failed to copy text: ', err);
-          });
-      }
-
       //Update company info
       let update_company_form = document.getElementById('update_company_info');
       let company_id = document.getElementById('company_id');
@@ -797,6 +788,17 @@
         createCompany();
       });
     }
+
+    //Copy company link
+    function copyCellText(event) {
+          var cellText = event.target.parentNode.previousSibling.children[0].innerText;
+          navigator.clipboard.writeText(cellText).then(function() {
+              console.log('Text copied to clipboard: ' + cellText);
+          }, function(err) {
+              console.error('Failed to copy text: ', err);
+          });
+      }
+
 
     //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
