@@ -660,7 +660,10 @@
           let companyName = ''
 
           changeCompanyNameToID(user).then(companyName => {
-            return companyName = companyName.value
+
+            if(companyName){
+              return companyName = companyName.value
+            }            
           })          
 
           cell1.innerHTML = `${doc.id}`;
