@@ -224,25 +224,23 @@
     }
 
     async function populateForms(user) {
-      let userInfo = await getUserInfo(user);
-      const accountType_button = document.getElementById('account_user_profile');
-      const press_info = document.getElementsByClassName('press_info');
-      const supplier_info = document.getElementsByClassName('supplier_info');
-      let form_button = document.getElementById('form_button');
+  let userInfo = await getUserInfo(user);
+  const accountType_button = document.getElementById('account_user_profile');
+  const press_info = document.getElementsByClassName('press_info');
+  const supplier_info = document.getElementsByClassName('supplier_info');
+  let form_button = document.getElementById('form_button');
 
-      if ( userInfo ) {
+  if ( userInfo ) {
 
-        changeCompanyNameToID(user).then(companyName => {
-          const userCompanyName = companyName;
-          userInfo.user_company_name = userCompanyName
+        // Use the changeCompanyNameToID(user) function to get the company name
+        const companyName = await changeCompanyNameToID(user);
+        userInfo.user_company_name = companyName;
 
-            if(window.location.pathname == '/account') {
-                document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userInfo.user_company_name}`;
-                document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
-                document.getElementById('user_address').innerHTML = `<b>Address:</b> ${userInfo.user_address}`;
-            }
-        });
-
+        if (window.location.pathname === '/account') {
+          document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userInfo.user_company_name}`;
+          document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
+          document.getElementById('user_address').innerHTML = `<b>Address:</b> ${userInfo.user_address}`;
+        }
         if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
           if (window.location.pathname == '/account'){
             document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
