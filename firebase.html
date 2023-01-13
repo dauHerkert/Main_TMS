@@ -659,14 +659,8 @@
           let companyId = user.user_company;
           let companyName = ''
 
-          if(companyId == '2IcPPeWG7qnko8trfbUC'){
-            companyName = 'Porsche'
-          }else if (companyId == 'UXJa7cvq8PaYliOeYWGo'){
-            companyName = 'Yamaha'
-          }
-
           changeCompanyNameToID(user).then(companyName => 
-           console.log(companyName))
+          companyName = companyName)
 
           cell1.innerHTML = `${doc.id}`;
           cell1.className = 'userID';
@@ -964,8 +958,7 @@
       companySnapshot.forEach((doc)=>{        
               let company = doc.data();
               company_id_array.push(doc.id);
-      })  
-      console.log(company_id_array)
+      })
       const userRef = doc(db, "users", user.uid);
 
       await updateDoc(userRef, {
