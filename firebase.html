@@ -557,7 +557,7 @@
       */
 
       if(window.location.pathname == '/admin'){
-        let clipboard = new ClipboardJS('[id^=copy-button-]');
+      let clipboard = new ClipboardJS('[id^=copy-button-]');
 
         clipboard.on('success', function(e) {
           toastr.success('Text copied to clipboard: ' + e.text);
@@ -839,7 +839,7 @@
       const parseCompany = JSON.parse(company_collection);
       const users = JSON.parse(storedUsers);
 
-     console.log(parseCompany)
+      document.getElementById('company_table_name').innerHTML = `Company: ${company_name}`
 
     // Add rows and cells to table
     users.forEach(function(user) {
@@ -855,7 +855,6 @@
     //Add company head
     parseCompany.forEach(function(company){
       document.getElementById('user_head').innerHTML = `User head: ${company.user_head}`
-      document.getElementById('company_table_name').innerHTML = `Company: ${company.company_name}`
     })
     }
 
