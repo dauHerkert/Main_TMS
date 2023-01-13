@@ -59,7 +59,7 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    function setDefaultFields(user) {
+    async function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
 
       userDefaultValues.user_email = user.email;
@@ -981,6 +981,28 @@
     if (companyName) {
         // Return the company name
         return companyName;
+    } else {
+        console.log("No company found with that ID");
+    }
+}
+
+async function getCompanyType(user) {
+    // Get the collection of companies
+    const companiesRef = collection(db, "companies");
+    // Get all the company documents
+    const companiesSnapshot = await getDocs(companiesRef);
+    let companyType;
+    // Iterate over the companies and find the one with the matching ID
+    for (const company of companiesSnapshot.docs) {
+        if (company.id === user.user_company) {
+            companyType = company.data().company_type;
+            break;
+        }
+    }
+    // If a company with the matching ID is found
+    if (companyType) {
+        // Return the company name
+        return companyType;
     } else {
         console.log("No company found with that ID");
     }
