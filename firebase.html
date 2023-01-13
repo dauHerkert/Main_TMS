@@ -704,6 +704,16 @@ getDocs(colRef)
           let company_cell6 = company_newRow.insertCell(5);
           let company_cell7 = company_newRow.insertCell(6);
 
+          //Copy company link
+          function copyCellText(btn) {
+            var cellText = btn.parentNode.previousSibling.innerText;
+            navigator.clipboard.writeText(cellText).then(function() {
+              toastr.success('Text copied to clipboard: ' + cellText);
+            }, function(err) {
+              toastr.error('Failed to copy text: ', err);
+            });
+          }
+
           let user = doc.data();
           company_cell1.innerHTML = `${doc.id}`;
           company_cell1.className = 'companyID';
@@ -755,15 +765,7 @@ getDocs(colRef)
         }
       });
       
-      //Copy company link
-      function copyCellText(btn) {
-        var cellText = btn.parentNode.previousSibling.innerText;
-        navigator.clipboard.writeText(cellText).then(function() {
-          toastr.success('Text copied to clipboard: ' + cellText);
-        }, function(err) {
-          toastr.error('Failed to copy text: ', err);
-        });
-      }
+      
       //Create new companies
       let create_company_form = document.getElementById('create_company_form');
       let new_company_name = document.getElementById('newCompanyName');
