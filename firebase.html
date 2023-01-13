@@ -704,16 +704,6 @@ getDocs(colRef)
           let company_cell6 = company_newRow.insertCell(5);
           let company_cell7 = company_newRow.insertCell(6);
 
-          //Copy company link
-          function copyCellText(btn) {
-            var cellText = btn.parentNode.previousSibling.innerText;
-            navigator.clipboard.writeText(cellText).then(function() {
-              toastr.success('Text copied to clipboard: ' + cellText);
-            }, function(err) {
-              toastr.error('Failed to copy text: ', err);
-            });
-          }
-
           let user = doc.data();
           company_cell1.innerHTML = `${doc.id}`;
           company_cell1.className = 'companyID';
@@ -725,6 +715,7 @@ getDocs(colRef)
           company_cell4.className = 'companyUserHead';
           company_cell5.innerHTML = `https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}`
           company_cell6.innerHTML = `<button onclick="copyCellText(this)" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Copy</button></td>`
+          company_cell6.className = 'copyButton';
           company_cell7.innerHTML = `<button id="open_companies_modal" onclick="openModal2()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
       })
@@ -762,7 +753,17 @@ getDocs(colRef)
           });
         }
       });
-      
+      //Copy company link
+      function copyCellText(event) {
+        var btn = event.target;
+        if (btn.className !== 'copyButton') return;
+        var cellText = btn.parentNode.previousSibling.innerText;
+        navigator.clipboard.writeText(cellText).then(function() {
+          console.log('Text copied to clipboard: ' + cellText);
+        }, function(err) {
+          console.error('Failed to copy text: ', err);
+        });
+      }
       
       //Create new companies
       let create_company_form = document.getElementById('create_company_form');
