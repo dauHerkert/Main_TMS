@@ -558,15 +558,15 @@
       * -----------------------------------------------------------------------------------------------------------
       */
 
-      //Copy company link
-      function copyCellText(event) {
-          var cellText = event.target.parentNode.previousSibling.children[0].innerText;
-          navigator.clipboard.writeText(cellText).then(function() {
-              console.log('Text copied to clipboard: ' + cellText);
-          }, function(err) {
-              console.error('Failed to copy text: ', err);
-          });
-      }
+      let clipboard = new ClipboardJS('[id^=copy-button-]');
+
+        clipboard.on('success', function(e) {
+            console.log('Text copied to clipboard: ' + e.text);
+        });
+
+        clipboard.on('error', function(e) {
+            console.error('Failed to copy text: ', e);
+        });
 
      async function pageAdmin(user) {
 
@@ -724,8 +724,8 @@
           company_cell3.className = 'companyZone';
           company_cell4.innerHTML = `${user.user_head}`;
           company_cell4.className = 'companyUserHead';
-          company_cell5.innerHTML = `<a href='#' id="company_link" style="color:#fff;text-decoration:none;cursor:default" data-value="${doc.id}">https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}</a>`
-          company_cell6.innerHTML = `<button onclick="copyCellText(event)" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Copy</button></td>`
+          company_cell5.innerHTML = `<a href='#' id="company_link" data-clipboard-text="https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}">https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}</a>`
+          company_cell6.innerHTML = `<button id="copy-button-${doc.id}" class="copy-button" data-clipboard-target="#company_link">Copy</button>`;
           company_cell6.className = 'copyButton';
           company_cell7.innerHTML = `<button id="open_companies_modal" onclick="openModal2()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
@@ -1015,3 +1015,4 @@
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
