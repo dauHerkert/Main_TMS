@@ -233,8 +233,13 @@
       if ( userInfo ) {
 
         if(window.location.pathname == '/account') {
+
+          changeCompanyNameToID(user).then(companyName => {
+                userCompanyName = companyName;
+                document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userCompanyName}`;
+            });
             document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
-            document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userInfo.user_company}`;
+            
             document.getElementById('user_address').innerHTML = `<b>Address:</b> ${userInfo.user_address}`;
           }
 
@@ -743,6 +748,7 @@ getDocs(colRef)
           });
         }
       });
+      
 
       //Create new companies
       let create_company_form = document.getElementById('create_company_form');
