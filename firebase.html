@@ -232,15 +232,15 @@
 
       if ( userInfo ) {
 
-        if(window.location.pathname == '/account') {
-
-          changeCompanyNameToID(user).then(companyName => {
-                const userCompanyName = companyName;
+        changeCompanyNameToID(user).then(companyName => {
+            const userCompanyName = companyName;
+            
+            if(window.location.pathname == '/account') {
                 document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userCompanyName}`;
                 document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
                 document.getElementById('user_address').innerHTML = `<b>Address:</b> ${userInfo.user_address}`;
-          });
-          }
+            }
+        });
 
         if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
           if (window.location.pathname == '/account'){
