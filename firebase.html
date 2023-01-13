@@ -557,6 +557,17 @@
       * Admin functions
       * -----------------------------------------------------------------------------------------------------------
       */
+
+      function copyCellText(event) {
+        var btn = event.target;
+        var cellText = btn.parentNode.parentNode.cells[4].innerText;
+        navigator.clipboard.writeText(cellText).then(function() {
+            console.log('Text copied to clipboard: ' + cellText);
+        }, function(err) {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+
      async function pageAdmin(user) {
 
       let userInfo = await getUserInfo(user);    
@@ -703,16 +714,6 @@ getDocs(colRef)
           let company_cell5 = company_newRow.insertCell(4);
           let company_cell6 = company_newRow.insertCell(5);
           let company_cell7 = company_newRow.insertCell(6);
-
-          //Copy company link
-          function copyCellText() {
-            var cellText = this.parentNode.previousSibling.innerText;
-            navigator.clipboard.writeText(cellText).then(function() {
-                console.log('Text copied to clipboard: ' + cellText);
-            }, function(err) {
-                console.error('Failed to copy text: ', err);
-            });
-        }
 
           let user = doc.data();
           company_cell1.innerHTML = `${doc.id}`;
