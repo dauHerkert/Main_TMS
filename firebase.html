@@ -641,6 +641,14 @@
 
       //Print users table
       const colRef = collection(db, 'users');
+      getDocs(company_colRef)
+      .then((companySnap)=>{
+        companySnap.docs.forEach((doc) =>{
+          let company = doc.data();
+
+          console.log(company.company_name)
+        })
+      })
       
       let userList = document.getElementById('admin-user-list');
 
@@ -673,7 +681,12 @@
       })
       .catch(err => {
         console.log('error fetching users', err);
-      })    
+      })
+
+     
+          const companyRef = doc(db, "companies", user.user_company);
+          const companySnap = await getDoc(companyRef);
+          let companyName = companySnap.company_name      
 
       //Print companies table
       let companyList = document.getElementById('admin-companies-list');
