@@ -640,7 +640,7 @@
       });
 
       //Print users table
-      
+      const colRef = collection(db, 'users', user.user_company);
       let userList = document.getElementById('admin-user-list');
 
       getDocs(colRef)
@@ -656,7 +656,7 @@
           var cell6 = newRow.insertCell(5);
 
           let user = doc.data();
-          const colRef = collection(db, 'users', user.user_company);
+          
       getDocs(company_colRef)
       .then((companySnap)=>{
         companySnap.docs.forEach((doc) =>{
