@@ -70,6 +70,7 @@
       // Use the setDoc function to set the userDefaultValues object
       setDoc(userRef, userDefaultValues, { merge: true })
       .then(() => {
+          userUploadImage(user);
           toastr.success('Default values successfully set');
           setTimeout(function() {
               window.location = "/account";
@@ -126,7 +127,6 @@
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
-        userUploadImage(user);
       })
       .catch((err) => {
         console.log('there was a problem updating the data', err);
