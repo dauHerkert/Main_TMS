@@ -990,6 +990,7 @@
 }
 
 async function getCompanyType(user) {
+  let userInfo = await getUserInfo(user);
     // Get the collection of companies
     const companiesRef = collection(db, "companies");
     // Get all the company documents
@@ -997,7 +998,7 @@ async function getCompanyType(user) {
     let companyType;
     // Iterate over the companies and find the one with the matching ID
     for (const company of companiesSnapshot.docs) {
-        if (company.id === user.user_company) {
+        if (company.id === userInfo.user_company) {
             companyType = company.data().company_type;
             break;
         }
