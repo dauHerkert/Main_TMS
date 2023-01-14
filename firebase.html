@@ -1001,7 +1001,7 @@ async function getCompanyType(user) {
     // Iterate over the companies and find the one with the matching ID
     for (const company_doc of companiesSnapshot.docs) {
         if (company_doc.id === user.user_company) {
-            company = company_doc.data();
+            company = company_doc.data().company_type;
             break;
         }
     }
