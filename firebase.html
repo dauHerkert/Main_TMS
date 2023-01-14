@@ -60,29 +60,26 @@
     */
 
     async function setDefaultFields(user) {
-  const userRef = doc(db, 'users', user.uid);
-
-  // Use the getCompanyType(user) function to get the company type
-  const companyType = await getCompanyType(user);
-  if (companyType) {
-    userDefaultValues.user_type = companyType;
-  }
-
-  userDefaultValues.user_email = user.email;
-  userDefaultValues.user_id = user.uid;
-
-  setDoc(userRef, userDefaultValues, { merge: true })
-    .then(() => {
-      toastr.success('Default values successfully set');
-      setTimeout(function() {
-        window.location = "/account";
-      }, 1000);
-    })
-    .catch((err) => {
-      console.log('there was a problem updating the data', err);
-      toastr.error('There was an error updating your info');
-    });
-};
+      const userRef = doc(db, 'users', user.uid);
+      // Use the `getCompanyType` function to get the company type
+      const companyType = await getCompanyType(user);
+      // Use the companyType variable to set the user_type field
+      userDefaultValues.user_type = companyType;
+      userDefaultValues.user_email = user.email;
+      userDefaultValues.user_id = user.uid;
+      // Use the setDoc function to set the userDefaultValues object
+      setDoc(userRef, userDefaultValues, { merge: true })
+      .then(() => {
+          toastr.success('Default values successfully set');
+          setTimeout(function() {
+              window.location = "/account";
+          }, 1000);
+      })
+      .catch((err) => {
+          console.log('there was a problem updating the data', err);
+          toastr.error('There was an error updating your info');
+      });
+    };
 
     // Sign Up
     function handleSignUp(e) {
@@ -997,18 +994,18 @@ async function getCompanyType(user) {
     const companiesRef = collection(db, "companies");
     // Get all the company documents
     const companiesSnapshot = await getDocs(companiesRef);
-    let company;
+    let companyType;
     // Iterate over the companies and find the one with the matching ID
-    for (const company_doc of companiesSnapshot.docs) {
-        if (company_doc.id === user.user_company) {
-            company = company_doc.data().company_type;
+    for (const company of companiesSnapshot.docs) {
+        if (company.id === user.user_company) {
+            companyType = company.data().company_type;
             break;
         }
     }
     // If a company with the matching ID is found
-    if (company) {
-        // Return the company name
-        return company;
+    if (companyType) {
+        // Return the company type
+        return companyType;
     } else {
         console.log("No company found with that ID");
     }
