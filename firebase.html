@@ -62,26 +62,26 @@
     async function setDefaultFields(user) {
   const userRef = doc(db, 'users', user.uid);
 
-  // Use the getCompanyType(user) function to get the company name and type
-  const companyInfo = await getCompanyType(user);
-  const userData = {
-    user_company: companyInfo.company_name,
-    user_type: companyInfo.company_type,
-    user_email: user.email,
-    user_id: user.uid,
-  };
+  // Use the getCompanyType(user) function to get the company type
+  const companyType = await getCompanyType(user);
+  if (companyType) {
+    userDefaultValues.user_type = companyType;
+  }
 
-  setDoc(userRef, userData, { merge: true })
-  .then(() => {
-    toastr.success('Default values successfully set');
-    setTimeout(function() {
-      window.location = "/account";
-    }, 1000);
-  })
-  .catch((err) => {
-    console.log('there was a problem updating the data', err);
-    toastr.error('There was an error updating your info');
-  });
+  userDefaultValues.user_email = user.email;
+  userDefaultValues.user_id = user.uid;
+
+  setDoc(userRef, userDefaultValues, { merge: true })
+    .then(() => {
+      toastr.success('Default values successfully set');
+      setTimeout(function() {
+        window.location = "/account";
+      }, 1000);
+    })
+    .catch((err) => {
+      console.log('there was a problem updating the data', err);
+      toastr.error('There was an error updating your info');
+    });
 };
 
     // Sign Up
@@ -997,18 +997,18 @@ async function getCompanyType(user) {
     const companiesRef = collection(db, "companies");
     // Get all the company documents
     const companiesSnapshot = await getDocs(companiesRef);
-    let companyType;
+    let company;
     // Iterate over the companies and find the one with the matching ID
-    for (const company of companiesSnapshot.docs) {
-        if (company.id === user.user_company) {
-            companyType = company.data().company_type;
+    for (const company_doc of companiesSnapshot.docs) {
+        if (company_doc.id === user.user_company) {
+            company = company_doc.data();
             break;
         }
     }
     // If a company with the matching ID is found
-    if (companyType) {
+    if (company) {
         // Return the company name
-        return companyType;
+        return company;
     } else {
         console.log("No company found with that ID");
     }
