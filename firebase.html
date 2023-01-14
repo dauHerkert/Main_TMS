@@ -59,24 +59,30 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    function setDefaultFields(user) {
-      const userRef = doc(db, 'users', user.uid);
+    async function setDefaultFields(user) {
+  const userRef = doc(db, 'users', user.uid);
 
-      userDefaultValues.user_email = user.email;
-      userDefaultValues.user_id = user.uid;
+  // Use the getCompanyType(user) function to get the company name and type
+  const companyInfo = await getCompanyType(user);
+  const userData = {
+    user_company: companyInfo.company_name,
+    user_type: companyInfo.company_type,
+    user_email: user.email,
+    user_id: user.uid,
+  };
 
-      setDoc(userRef, userDefaultValues, { merge: true })
-      .then(() => {
-        toastr.success('Default values successfully set');
-        setTimeout(function() {
-          window.location = "/account";
-        }, 1000);
-      })
-      .catch((err) => {
-        console.log('there was a problem updating the data', err);
-        toastr.error('There was an error updating your info');
-      });
-    };
+  setDoc(userRef, userData, { merge: true })
+  .then(() => {
+    toastr.success('Default values successfully set');
+    setTimeout(function() {
+      window.location = "/account";
+    }, 1000);
+  })
+  .catch((err) => {
+    console.log('there was a problem updating the data', err);
+    toastr.error('There was an error updating your info');
+  });
+};
 
     // Sign Up
     function handleSignUp(e) {
@@ -92,7 +98,7 @@
           //Signed in
           const user = userCredential.user;
           setDefaultFields(user);
-          userExtraInfo(e, user)
+          userExtraInfo(e, user);
           toastr.success('user successfully created: ' + user.email);
         })
         .catch((error) => {
