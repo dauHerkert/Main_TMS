@@ -205,15 +205,12 @@
         }
     }
 
-    if(window.location.pathname != '/signin' || window.location.pathname != '/signup'){
-
       let signOutButton = document.getElementById('signout-button');
       
-      if(typeof signOutButton !== null) {
+      if(signOutButton) {
           signOutButton.addEventListener('click', handleSignOut);
         }
 
-      }
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Account functions
