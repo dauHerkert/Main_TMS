@@ -205,11 +205,11 @@
         }
     }
 
-    let signOutButton = document.getElementById('signout-button');
-
     if(window.location.pathname != '/signin' || window.location.pathname != '/signup'){
 
-    if(typeof signOutButton !== null) {
+      let signOutButton = document.getElementById('signout-button');
+      
+      if(typeof signOutButton !== null) {
           signOutButton.addEventListener('click', handleSignOut);
         }
 
