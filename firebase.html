@@ -162,7 +162,7 @@
           toastr.success('user logged in: ' + user.email);
           setTimeout(() => {
             window.location = "/account";
-        }, 2000);
+        }, 1000);
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -178,7 +178,7 @@
           toastr.error('user signed out');
           setTimeout(() => {
             window.location = "/signin";
-        }, 2000);
+        }, 1000);
         }).catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage);
