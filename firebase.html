@@ -894,8 +894,11 @@
       // User is NOT signed in
       if ( user == false ) {
         // Homepage
-        document.getElementById('signout-button').style.display = 'none';
 
+        let signOutbutton = document.getElementById('signout-button');
+         if(signOutbutton){
+          signOutbutton.style.display = 'none';
+         }
 
         if ( url == '/signup' ) {
           pageHome();
