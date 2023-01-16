@@ -159,7 +159,7 @@
         .then(userCredential => {
           // Signed in
           const user = userCredential.user;
-          alert('user logged in: ' + user.email);
+          toastr.success('user logged in: ' + user.email);
           window.location = "/account"
         })
         .catch((error) => {
@@ -173,7 +173,7 @@
     // Handle signOut
     function handleSignOut() {
         signOut(auth).then(() => {
-          alert('user signed out');
+          toastr.error('user signed out');
           window.location = "/signin";
         }).catch((error) => {
             const errorMessage = error.message;
