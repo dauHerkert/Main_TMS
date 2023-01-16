@@ -160,7 +160,9 @@
           // Signed in
           const user = userCredential.user;
           toastr.success('user logged in: ' + user.email);
-          window.location = "/account"
+          setTimeout(() => {
+            window.location = "/account";
+        }, 2000);
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -174,7 +176,9 @@
     function handleSignOut() {
         signOut(auth).then(() => {
           toastr.error('user signed out');
-          window.location = "/signin";
+          setTimeout(() => {
+            window.location = "/signin";
+        }, 2000);
         }).catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage);
