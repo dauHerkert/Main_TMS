@@ -207,10 +207,13 @@
 
     let signOutButton = document.getElementById('signout-button');
 
+    if(window.location.pathname != '/signin' || window.location.pathname == '/signup'){
+
     if(typeof signOutButton !== null) {
           signOutButton.addEventListener('click', handleSignOut);
         }
 
+      }
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Account functions
