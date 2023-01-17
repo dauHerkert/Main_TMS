@@ -58,7 +58,6 @@
     * Auth functions
     * -----------------------------------------------------------------------------------------------------------
     */
-
     async function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
       // Use the `getCompanyType` function to get the company type
@@ -70,10 +69,10 @@
       // Use the setDoc function to set the userDefaultValues object
       setDoc(userRef, userDefaultValues, { merge: true })
       .then(() => {
-          userUploadImage(user);
+        userUploadImage(user)
           toastr.success('Default values successfully set');
           setTimeout(function() {
-              window.location = "/account";
+              window.location = "/profile_pic";
           }, 1000);
       })
       .catch((err) => {
