@@ -498,6 +498,7 @@
       let userInfo = await getUserInfo(user);
       // Show displayName
       document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.user_firstname}`;
+      showProfilePic(user);
 
       // Get press form
       const press_form = document.getElementById('moreInfo_press_form');
