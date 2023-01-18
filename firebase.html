@@ -677,6 +677,7 @@
       });
 
       const colRef = collection(db, 'users');
+      let searchInput = document.getElementById("search-input");
       let table = new Tabulator("#admin-user-list", {
     //options here
     layout:"fitColumns",      //fit columns to width of table
@@ -688,6 +689,16 @@
         {title:"Company", field:"company", sorter:"string", width:150},
         {title:"Type", field:"type", sorter:"string", width:150},
     ],
+    search: function (searchTerm, row) {
+        // your search logic here
+        // you can access the value entered by user as 
+        let term = searchInput.value;
+        //and then use it in your search logic
+        if (row.getData().id.includes(term)) {
+            return true;
+        }
+        return false;
+    },
 });
 
 getDocs(colRef)
