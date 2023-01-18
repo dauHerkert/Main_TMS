@@ -676,21 +676,21 @@
         }
       });
 
-      //Print users table
       const colRef = collection(db, 'users');
-      var table = new Tabulator("#admin-user-list", {
+      let table = new Tabulator("#admin-user-list", {
     //options here
     layout:"fitColumns",      //fit columns to width of table
     responsiveLayout:"hide",  //hide columns that dont fit on the table
-    addRowPos:"top",          //when adding a new row, add it to the top of the table
-    history:true,             //allow undo and redo actions on the table
-    pagination:"local",       //paginate the data
-    paginationSize:10,         //allow 7 rows per page of data
-    paginationCounter:"rows", //display count of paginated rows in footer
-    movableColumns:true,
-  });
+    columns:[
+        {title:"ID", field:"id", sorter:"string", width:150},
+        {title:"Email", field:"email", sorter:"string", width:150},
+        {title:"Status", field:"status", sorter:"string", width:150},
+        {title:"Company", field:"company", sorter:"string", width:150},
+        {title:"Type", field:"type", sorter:"string", width:150},
+    ],
+});
 
-  getDocs(colRef)
+getDocs(colRef)
     .then((snapshot) => {
         let data = [];
         snapshot.docs.forEach((doc) => {
@@ -705,49 +705,13 @@
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
                 data.push({id: doc.id, email: user.user_email, status: user.user_status, company: userCompanyName, type: user.user_type});
-                table.addData(data);
-                data.length = 0; //clear the data array
+                table.setData(data);
             });
         });
     })
     .catch(err => {
         console.log('error fetching users', err);
     });
-      //Print companies table
-      let companyList = document.getElementById('admin-companies-list');
-      
-
-      getDocs(company_colRef)
-      .then((snapshot) => {
-
-        snapshot.docs.forEach((doc) => {
-          let company_newRow = document.getElementById('companies-list-body').insertRow(0);
-          let company_cell1 = company_newRow.insertCell(0);
-          let company_cell2 = company_newRow.insertCell(1);
-          let company_cell3 = company_newRow.insertCell(2);
-          let company_cell4 = company_newRow.insertCell(3);
-          let company_cell5 = company_newRow.insertCell(4);
-          let company_cell6 = company_newRow.insertCell(5);
-          let company_cell7 = company_newRow.insertCell(6);
-
-          let user = doc.data();
-          company_cell1.innerHTML = `${doc.id}`;
-          company_cell1.className = 'companyID';
-          company_cell2.innerHTML = `${user.company_name}`;
-          company_cell2.className = 'companyName';
-          company_cell3.innerHTML = `${user.company_zones}`;
-          company_cell3.className = 'companyZone';
-          company_cell4.innerHTML = `${user.user_head}`;
-          company_cell4.className = 'companyUserHead';
-          company_cell5.innerHTML = `<a href='#' style="color:#fff;text-decoration:none;cursor:default;" id="company_link_${doc.id}" data-clipboard-text="https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}">https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}</a>`
-          company_cell6.innerHTML = `<button id="copy-button-${doc.id}" class="copy-button" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px" data-clipboard-target="#company_link_${doc.id}">Copy</button>`;
-          company_cell6.className = 'copyButton';
-          company_cell7.innerHTML = `<button id="open_companies_modal" onclick="openModal2()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
-        });
-      })
-      .catch(err => {
-        console.log('error fetching users', err);
-      })
 
       //Update company info
       let update_company_form = document.getElementById('update_company_info');
