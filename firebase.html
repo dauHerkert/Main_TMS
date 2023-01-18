@@ -608,8 +608,10 @@
         paginationCounter:"rows", //display count of paginated rows in footer
         movableColumns:true,      //fit columns to width of table
         responsiveLayout:"hide",  //hide columns that dont fit on the table
-        paginationPrev: "<",
-        paginationNext:">",
+        paginationButtonContent: {
+        prev: "<",
+        next: ">",
+    },
         columns:[
             {title:"Name", field:"name", sorter:"string", width:150},
             {title:"Email", field:"email", sorter:"string", width:150},
