@@ -608,7 +608,7 @@
         movableColumns:true,      //fit columns to width of table
         responsiveLayout:"hide",  //hide columns that dont fit on the table
         columns:[
-            {title:"Name", field:"id", sorter:"string", width:150},
+            {title:"Name", field:"name", sorter:"string", width:150},
             {title:"Email", field:"email", sorter:"string", width:150},
             {title:"Company", field:"company", sorter:"string", width:150, headerFilter:true},
             {title:"Type", field:"type", sorter:"string", width:150, headerFilter:true},
@@ -643,7 +643,7 @@ getDocs(colRef)
 
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
-                data.push({Name: user.user_firstname, email: user.user_email, status: user.user_status, company: userCompanyName, type: user.user_type});
+                data.push({name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
                 table.setData(data);
             });
         });
