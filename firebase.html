@@ -608,11 +608,12 @@
         movableColumns:true,      //fit columns to width of table
         responsiveLayout:"hide",  //hide columns that dont fit on the table
         columns:[
-            {title:"ID", field:"id", sorter:"string", width:150},
+            {title:"Name", field:"id", sorter:"string", width:150},
             {title:"Email", field:"email", sorter:"string", width:150},
-            {title:"Status", field:"status", sorter:"string", width:150},
-            {title:"Company", field:"company", sorter:"string", width:150},
-            {title:"Type", field:"type", sorter:"string", width:150},
+            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:true},
+            {title:"Type", field:"type", sorter:"string", width:150, headerFilter:true},
+            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:true},            
+            
         ],
     search: function (searchTerm, row) {
         let term = searchTerm.toLowerCase();
@@ -642,7 +643,7 @@ getDocs(colRef)
 
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
-                data.push({id: doc.id, email: user.user_email, status: user.user_status, company: userCompanyName, type: user.user_type});
+                data.push({Name: user.user_firstname, email: user.user_email, status: user.user_status, company: userCompanyName, type: user.user_type});
                 table.setData(data);
             });
         });
