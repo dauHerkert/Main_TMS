@@ -611,9 +611,9 @@
         columns:[
             {title:"Name", field:"name", sorter:"string", width:150},
             {title:"Email", field:"email", sorter:"string", width:150},
-            {title:"Company", field:"company", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}},
-            {title:"Type", field:"type", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}},
-            {title:"Status", field:"status", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}},            
+            {title:"Company", field:"company", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
+            {title:"Type", field:"type", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Type"},
+            {title:"Status", field:"status", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},            
             
         ],
     search: function (searchTerm, row) {
