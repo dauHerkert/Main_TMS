@@ -604,6 +604,7 @@
         history:true,             //allow undo and redo actions on the table
         pagination:"local",       //paginate the data
         paginationSize:7,         //allow 7 rows per page of data
+        paginationSizeSelector:[7, 10, 15, 21],
         paginationCounter:"rows", //display count of paginated rows in footer
         movableColumns:true,      //fit columns to width of table
         responsiveLayout:"hide",  //hide columns that dont fit on the table
@@ -611,8 +612,8 @@
             {title:"Name", field:"name", sorter:"string", width:150},
             {title:"Email", field:"email", sorter:"string", width:150},
             {title:"Company", field:"company", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}},
-            {title:"Type", field:"type", sorter:"string", width:150, editor:"input", headerFilter:"select", headerFilterParams:{values:true}},
-            {title:"Status", field:"status", sorter:"string", editor:"input", headerFilter:"select", headerFilterParams:{values:true}},            
+            {title:"Type", field:"type", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}},
+            {title:"Status", field:"status", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}},            
             
         ],
     search: function (searchTerm, row) {
