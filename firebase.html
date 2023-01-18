@@ -617,7 +617,16 @@
             {title:"Email", field:"email", sorter:"string", width:150},
             {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
             {title:"Type", field:"type", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Type"},
-            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},            
+            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
+            {title:"Actions", formatter:function(cell, formatterParams){
+            let value = cell.getValue();
+            let button = document.createElement("button");
+            button.innerHTML = "Update";
+            button.addEventListener("click", function(){
+                alert("Update button clicked for " + value);
+            });
+            return button;
+        }},           
             
         ],
         search: true,
