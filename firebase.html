@@ -616,18 +616,7 @@
             {title:"Status", field:"status", sorter:"string", width:150, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},            
             
         ],
-    search: function (searchTerm, row) {
-        let term = searchTerm.toLowerCase();
-        let rowData = row.getData();
-        if (rowData.id.toLowerCase().indexOf(term) !== -1 ||
-           rowData.email.toLowerCase().indexOf(term) !== -1 ||
-           rowData.status.toLowerCase().indexOf(term) !== -1 ||
-           rowData.company.toLowerCase().indexOf(term) !== -1 ||
-           rowData.type.toLowerCase().indexOf(term) !== -1 ) {
-            return true;
-        }
-        return false;
-    },
+        search: true,
 });
 
 const input = document.getElementById("fSearch");
