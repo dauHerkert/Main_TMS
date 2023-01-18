@@ -610,9 +610,9 @@
         columns:[
             {title:"Name", field:"name", sorter:"string", width:150},
             {title:"Email", field:"email", sorter:"string", width:150},
-            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"select"},
-            {title:"Type", field:"type", sorter:"string", width:150, headerFilter:"select"},
-            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"select"},            
+            {title:"Company", field:"company", sorter:"string", width:150, editor:"input", headerFilter:"select", headerFilterParams:{values:true}},
+            {title:"Type", field:"type", sorter:"string", width:150, editor:"input", headerFilter:"select", headerFilterParams:{values:true}},
+            {title:"Status", field:"status", sorter:"string", editor:"input", headerFilter:"select", headerFilterParams:{values:true}},            
             
         ],
     search: function (searchTerm, row) {
