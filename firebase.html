@@ -496,6 +496,7 @@
 
     async function pagePress(user) {
       let userInfo = await getUserInfo(user);
+      let update_picture_modal = document.getElementById("picture_form_modal");
       // Show displayName
       document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.user_firstname}`;
       showProfilePic(user);
@@ -506,6 +507,11 @@
       press_form.addEventListener('submit', function(ev) {
         pressFormSubmit(ev, user);
       });
+      if ( update_picture_modal !== null ) {
+        update_picture_modal.addEventListener('submit', function(ev) {
+          updateProfilePic(ev, user);
+        }, true);
+      }
     }
 
     /*
@@ -556,6 +562,12 @@
         ev.preventDefault();
         addSupplierInfo(ev, user);
       });
+      let update_picture_modal = document.getElementById("picture_form_modal");
+      if ( update_picture_modal !== null ) {
+        update_picture_modal.addEventListener('submit', function(ev) {
+          updateProfilePic(ev, user);
+        }, true);
+      }
      }
 
       /*
