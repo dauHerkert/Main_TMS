@@ -379,6 +379,7 @@
       uploadBytes(storageRef, fileItem)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
+        setTimeout(reloadFormPage, 3000);
       })
       .catch(err => {
         console.log('error uploading file', err);
