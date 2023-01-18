@@ -678,19 +678,14 @@
 
       //Print users table
       const colRef = collection(db, 'users');
-      let userList = document.getElementById('admin-user-list');
+      var table = new Tabulator("#admin-user-list", {
+    //options here
+  });
 
-  getDocs(colRef)
+      getDocs(colRef)
     .then((snapshot) => {
+        let data = [];
         snapshot.docs.forEach((doc) => {
-            let newRow = document.getElementById('user-list-body').insertRow(0);
-            let cell1 = newRow.insertCell(0);
-            let cell2 = newRow.insertCell(1);
-            let cell3 = newRow.insertCell(2);
-            let cell4 = newRow.insertCell(3);
-            let cell5 = newRow.insertCell(4);
-            let cell6 = newRow.insertCell(5);
-
             let user = doc.data();
             let userCompanyName;
 
@@ -701,19 +696,9 @@
 
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
-                cell4.innerHTML = `<a href='#' id="companyName" data-value="${user.user_company}" data-company-name='${userCompanyName}'>${userCompanyName}</a>`;
+                data.push({id: doc.id, email: user.user_email, status: user.user_status, company: userCompanyName, type: user.user_type});
+                table.addData(data);
             });
-
-            cell1.innerHTML = `${doc.id}`;
-            cell1.className = 'userID';
-            cell2.innerHTML = `${user.user_email}`;
-            cell2.className = 'userEmail';
-            cell3.innerHTML = `${user.user_status}`;
-            cell3.className = 'userStatus';
-            cell4.className = 'user_company';
-            cell5.innerHTML = `${user.user_type}`;
-            cell5.className = 'userType';
-            cell6.innerHTML = `<button id="open_modal_btn" onclick="openModal()" style="color:#fff;background-color:blue;border:none;border-radius:4px;padding:4px">Update</button>`;
         });
     })
     .catch(err => {
@@ -722,6 +707,7 @@
 
       //Print companies table
       let companyList = document.getElementById('admin-companies-list');
+      
 
       getDocs(company_colRef)
       .then((snapshot) => {
