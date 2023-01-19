@@ -706,7 +706,7 @@ getDocs(colRef)
                 return companyLink;
             }},
             {title:"Copy Link", field:"copy", sorter:"string", width:150, formatter: function(cell, formatterParams, onRendered){
-                let button = `<button id="copy-button-${cell.getRow().getData().id}" class="copy-button" data-clipboard-target="#companyLink${cell.getRow().getData().id}">Copy</button>`;
+                let button = `<button id="copy-button-${cell.getRow().getData().id}" class="copy-button" data-clipboard-text="${cell.getRow().getCell("companyLink").getValue()}">Copy</button>`;
                 return button;
             }},
             {title:"Update", formatter:function(cell, formatterParams){
