@@ -721,9 +721,9 @@ getDocs(colRef)
 
 const company_input = document.getElementById("company_search");
 input.addEventListener("keyup", function() {
-    table.setFilter(matchAny, { value: input.value });
-    if (input.value == " ") {
-        table.clearFilter()
+  companies_table.setFilter(matchAny, { value: company_input.value });
+    if (company_input.value == " ") {
+      companies_table.clearFilter()
     }
 });
 
