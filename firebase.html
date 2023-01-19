@@ -612,8 +612,6 @@
         paginationSize:7,         //allow 7 rows per page of data
         paginationSizeSelector:[7, 10, 15, 21],
         paginationCounter:"rows", //display count of paginated rows in footer
-        movableColumns:true,      //fit columns to width of table
-        responsiveLayout:"hide",  //hide columns that dont fit on the table
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Name", field:"name", sorter:"string", width:150},
@@ -693,8 +691,6 @@ getDocs(colRef)
         paginationSize:7,         //allow 7 rows per page of data
         paginationSizeSelector:[7, 10, 15, 21],
         paginationCounter:"rows", //display count of paginated rows in footer
-        movableColumns:true,      //fit columns to width of table
-        responsiveLayout:"hide",  //hide columns that dont fit on the table
         columns:[
         {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column", formatter: function(cell, formatterParams, onRendered){
                 let companyLink = cell.getValue();
