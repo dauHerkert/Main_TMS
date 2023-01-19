@@ -621,10 +621,9 @@
             {title:"Actions", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
-            button.innerHTML = "Update";
-            button.addEventListener("click", function(){
-                alert("Update button clicked for " + value);
-            });
+            button.innerHTML = "Edit";
+            button.setAttribute("onclick","openModal()");
+            button.setAttribute("id","open_modal_btn");
             return button;
         }},           
             
