@@ -69,8 +69,12 @@
       // Use the setDoc function to set the userDefaultValues object
       setDoc(userRef, userDefaultValues, { merge: true })
       .then(() => {
-        userUploadImage(user)
+        userUploadImage(user);
+        if (companyType == 'No Company'){
+          toastr.success('You are signing up with no company set');
+        }else{
           toastr.success('Default values successfully set');
+      }
           setTimeout(function() {
               window.location = "/account";
           }, 1000);
@@ -1033,7 +1037,7 @@ async function getCompanyType(user) {
             companyType = company.data().company_type;
             break;
         }else{
-          companyType = ' ';
+          companyType = 'No company';
           break;
         }
     }
