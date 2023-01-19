@@ -180,10 +180,10 @@
         signOut(auth).then(() => {          
           setTimeout(() => {
             toastr.error('user signed out');
-        }, 500);
+        }, 1000);
         setTimeout(() => {
             window.location = "/signin";
-        }, 1000);
+        }, 1500);
         }).catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage);
