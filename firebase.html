@@ -751,7 +751,7 @@ getDocs(company_colRef)
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
             let company_link = `https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}`
-                data.push({id:doc.id, company: company.company_name, zone: company.company_zones, userHead: company.user_head, companyLink: company_link});
+                data.push({companyLink: company_link, id:doc.id, company: company.company_name, zone: company.company_zones, userHead: company.user_head});
                 companies_table.setData(data);
         });
     })
