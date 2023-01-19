@@ -700,7 +700,7 @@ getDocs(colRef)
             {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cellClass:"companyName"},
             {title:"Company Zone", field:"zone", sorter:"string", width:150, cellClass:"userEmail"},
             {title:"User Head", field:"userHead", sorter:"string", width:150},
-            {title:"Company Link", field:"companyLink", sorter:"string", width:150, formatter: function(cell, formatterParams, onRendered){
+            {title:"Company Link", field:"companyLink", sorter:"string", width:150, visible:false, formatter: function(cell, formatterParams, onRendered){
                 let companyLink = cell.getValue();
                 cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
                 return companyLink;
