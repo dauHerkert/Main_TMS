@@ -584,7 +584,7 @@
       */
 
       if(window.location.pathname == '/admin'){
-      let clipboard = new ClipboardJS('[id^=copy-button-]');
+        let clipboard = new ClipboardJS('.copy-button');
 
         clipboard.on('success', function(e) {
           toastr.success('Text copied to clipboard: ' + e.text);
