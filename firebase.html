@@ -70,7 +70,7 @@
       setDoc(userRef, userDefaultValues, { merge: true })
       .then(() => {
         userUploadImage(user);
-        if (companyType == 'No Company'){
+        if (companyType == 'No company'){
           toastr.success('You are signing up with no company set');
         }else{
           toastr.success('Default values successfully set');
