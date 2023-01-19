@@ -177,9 +177,11 @@
 
     // Handle signOut
     function handleSignOut() {
-        signOut(auth).then(() => {
-          toastr.error('user signed out');
+        signOut(auth).then(() => {          
           setTimeout(() => {
+            toastr.error('user signed out');
+        }, 500);
+        setTimeout(() => {
             window.location = "/signin";
         }, 1000);
         }).catch((error) => {
