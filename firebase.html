@@ -745,12 +745,8 @@ getDocs(company_colRef)
         let data = [];
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
-
-            if (!user.user_company) {
-                console.log(`User ${user.uid} does not have a user_company field defined`);
-                return;
-            }
-                data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
+            let company_link = `https://firebase-test-a63d06.webflow.io/signup?company=${doc.id}`
+                data.push({id:doc.id, company: company.company_name, zone: company.company_zones, userHead: company.user_head, companyLink: company_link});
                 table.setData(data);
         });
     })
