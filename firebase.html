@@ -696,15 +696,15 @@ getDocs(colRef)
         movableColumns:true,      //fit columns to width of table
         responsiveLayout:"hide",  //hide columns that dont fit on the table
         columns:[
-            {title:"ID", field:"id", sorter:"string", width:150, cssClass:"companyID"},
-            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
-            {title:"Company Zone", field:"zone", sorter:"string", width:150},
-            {title:"User Head", field:"userHead", sorter:"string", width:150},
-            {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column", formatter: function(cell, formatterParams, onRendered){
+        {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column", formatter: function(cell, formatterParams, onRendered){
                 let companyLink = cell.getValue();
                 cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
                 return companyLink;
             }},
+            {title:"ID", field:"id", sorter:"string", width:150, cssClass:"companyID"},
+            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
+            {title:"Company Zone", field:"zone", sorter:"string", width:150},
+            {title:"User Head", field:"userHead", sorter:"string", width:150},
             {title:"Copy Link", field:"copy", sorter:"string", width:150, cssClass:'copyButton', formatter: function(cell, formatterParams, onRendered){
                 let button = `<button id="copy-button-${cell.getRow().getData().id}" class="copy-button" data-clipboard-text="${cell.getRow().getCell("companyLink").getValue()}">Copy</button>`;
                 return button;
