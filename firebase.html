@@ -589,22 +589,6 @@
         });
       }
 
-      function userEmail(cell){
-        return 'userEmail'
-      }
-      function user_company(cell){
-        return 'user_company'
-      }
-      function userStatus(cell){
-        return 'userStatus'
-      }
-      function userType(cell){
-        return 'userType'
-      }
-      function userID(cell){
-        return 'userID'
-      }
-
      async function pageAdmin(user) {
 
       let userInfo = await getUserInfo(user);
@@ -629,12 +613,12 @@
         next: ">",
     },
         columns:[
-            {title:"ID", field:"id", sorter:"string", width:150},
+            {title:"ID", field:"id", sorter:"string", width:150, cellClass:"userID"},
             {title:"Name", field:"name", sorter:"string", width:150},
-            {title:"Email", field:"email", sorter:"string", width:150, cellClass:userEmail},
-            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cellClass:user_company},
-            {title:"Type", field:"type", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Type"},
-            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
+            {title:"Email", field:"email", sorter:"string", width:150, cellClass:"userEmail"},
+            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cellClass:"user_company"},
+            {title:"Type", field:"type", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Type", cellClass:"userType"},
+            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status", cellClass:"userStatus"},
             {title:"Actions", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
