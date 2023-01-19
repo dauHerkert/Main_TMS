@@ -604,8 +604,7 @@
       let searchInput = document.getElementById("search-input");
       let table = new Tabulator("#admin-user-list", {
         //options here
-        layout:"fitDataFill",
-        overflow:"x",      //fit columns to width of table
+        layout:"fitDataTable",
         responsiveLayout:"scroll",  //hide columns that dont fit on the table
         addRowPos:"top",          //when adding a new row, add it to the top of the table
         history:true,             //allow undo and redo actions on the table
@@ -684,8 +683,7 @@ getDocs(colRef)
       let searchCompanyInput = document.getElementById("search-input");
       let companies_table = new Tabulator("#admin-companies-list", {
         //options here
-        layout:"fitDataFill",
-        overflow:"x",               //fit columns to width of table
+        layout:"fitDataTable",
         responsiveLayout:"scroll",  //hide columns that dont fit on the table
         addRowPos:"top",            //when adding a new row, add it to the top of the table
         history:true,               //allow undo and redo actions on the table
