@@ -911,7 +911,7 @@ getDocs(colRef)
           localStorage.setItem('company', company);
           $('#sign-up-company').val(company);
       }else{
-        $('#sign-up-company').val('select company');
+        $('#sign-up-company').val(' ');
       }
     }
 
@@ -1032,6 +1032,9 @@ async function getCompanyType(user) {
         if (company.id === userInfo.user_company) {
             companyType = company.data().company_type;
             break;
+        }else{
+          companyType = ' ';
+          break;
         }
     }
     // If a company with the matching ID is found
