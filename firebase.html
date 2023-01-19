@@ -700,9 +700,9 @@ getDocs(colRef)
             {title:"ID", field:"id", sorter:"string", width:150, cellClass:"companyID"},
             {title:"Company", field:"company", sorter:"string", width:150, headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cellClass:"companyName"},
             {title:"Company Zone", field:"zone", sorter:"string", width:150, cellClass:"userEmail"},
-            {title:"User Head", field:"userHead", sorter:"string", width:150, headerFilter:"list"},
-            {title:"Company Link", field:"companyLink", sorter:"string", width:150, headerFilter:"list"},
-            {title:"Copy Link", field:"copy", sorter:"string", width:150, headerFilter:"list"},
+            {title:"User Head", field:"userHead", sorter:"string", width:150},
+            {title:"Company Link", field:"companyLink", sorter:"string", width:150},
+            {title:"Copy Link", field:"copy", sorter:"string", width:150},
             {title:"Update", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
