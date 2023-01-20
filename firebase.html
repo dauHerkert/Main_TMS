@@ -169,9 +169,9 @@
         })
         .catch((error) => {
           const errorMessage = error.message;
-          var errorText = document.getElementById('signin-error-message');
-          console.log(errorMessage);
+          var errorText = document.getElementById('signin-error-message');          
           errorText.innerHTML = errorMessage;
+          errorText.style.display = 'block';
         });
     }
 
