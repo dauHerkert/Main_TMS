@@ -1154,9 +1154,10 @@ async function getCompanyType(user) {
 
 
     //Language selection
-if(window.location.pathname != '/signup' || window.location.pathname != '/signin' || window.location.pathname != '/forgotpassword'){
-    // Get the dropdown element by its id
-let dropdown = document.getElementById("change_language");
+
+    let dropdown = document.getElementById("change_language"); 
+    
+if(dropdown){
 
 // Get the selected option element
 let selectedOption = dropdown.options[dropdown.selectedIndex];
