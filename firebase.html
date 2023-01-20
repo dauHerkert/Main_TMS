@@ -258,7 +258,6 @@
         if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
-
           form_button.setAttribute('href', '/press');
         } else if(userInfo.user_is_admin == "0") {
               if(window.location.pathname == '/admin'){
@@ -401,10 +400,11 @@
       });
     }
 
-    function pageAccount(user) {
+    async function pageAccount(user) {
+      let userInfo = await getUserInfo(user);
       // Populate form fields with values
       document.getElementById("user_email").innerHTML = `${user.email}`;
-      document.getElementById("user_name").innerHTML = `${user.user_firstname}`;
+      document.getElementById("user_name").innerHTML = `${userInfo.user_firstname}`;
       document.getElementById("account_type_info").innerHTML = ``;
 
       let update_email_modal = document.getElementById("email_form_modal");
