@@ -1152,6 +1152,41 @@ async function getCompanyType(user) {
       }
     });
 
+    //Language selection
+
+    // Get the dropdown element by its id
+let dropdown = document.getElementById("change_language");
+
+// Get the selected option element
+let selectedOption = dropdown.options[dropdown.selectedIndex];
+
+// Get the abbreviation for the selected language
+let abbreviation = getLanguageAbbreviation(selectedOption.value);
+
+// Update the dropdown title
+dropdown.title = abbreviation;
+
+// Function to get the language abbreviation
+function getLanguageAbbreviation(language) {
+    switch (language) {
+        case "English":
+            return "EN";
+        case "German":
+            return "GER";
+        case "Spanish":
+            return "SPA"
+        // Add more cases for other languages
+        default:
+            return "";
+    }
+}
+
+dropdown.addEventListener("change", function() {
+    let selectedOption = dropdown.options[dropdown.selectedIndex];
+    let abbreviation = getLanguageAbbreviation(selectedOption.value);
+    dropdown.title = abbreviation;
+});
+
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
