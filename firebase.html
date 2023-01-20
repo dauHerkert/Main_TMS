@@ -1187,6 +1187,39 @@ dropdown.addEventListener("change", function() {
     dropdown.title = abbreviation;
 });
 
+   // Get the dropdown element by its id
+   let signDropdown = document.getElementById("sign_language");
+
+// Get the selected option element
+let selectedSignOption = signDropdown.options[dropdown.selectedIndex];
+
+// Get the abbreviation for the selected language
+let signAbbreviation = getLanguageAbbreviation(selectedSignOption.value);
+
+// Update the dropdown title
+signDropdown.title = abbreviation;
+
+// Function to get the language abbreviation in the sign pages
+function getSignLanguageAbbreviation(language) {
+    switch (language) {
+        case "English":
+            return "EN";
+        case "German":
+            return "GER";
+        case "Spanish":
+            return "SPA"
+        // Add more cases for other languages
+        default:
+            return "";
+    }
+}
+
+signDropdown.addEventListener("change", function() {
+    let selectedOption = signDropdown.options[dropdown.selectedIndex];
+    let abbreviation = getSignLanguageAbbreviation(selectedSignOption.value);
+    signDropdown.title = abbreviation;
+});
+
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
