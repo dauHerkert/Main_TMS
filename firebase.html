@@ -311,8 +311,6 @@
 
     // Update email
     function updateUserEmail(e, user, newEmail) {
-      e.preventDefault();
-      e.stopPropagation();
       updateEmail(user, newEmail)
       .then(() => {
         toastr.success('Email has been successfully updated');
@@ -326,8 +324,6 @@
 
     // Update password
     function updateUserPassword(e, user, newPassword) {
-      e.preventDefault();
-      e.stopPropagation();
       updatePassword(user, newPassword)
       .then(() => {
         toastr.success('Password has been successfully updated');
@@ -416,11 +412,15 @@
 
       if ( update_email_modal !== null ) {
         update_email_modal.addEventListener('submit', function(ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
           updateUserEmail(ev, user, change_email.value);
         }, true);
       }
       if ( update_password_modal !== null ) {
         update_password_modal.addEventListener('submit', function(ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
 
           if(change_password.value == confirm_password.value){
             updateUserPassword(ev, user, change_password.value);
