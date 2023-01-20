@@ -1152,8 +1152,9 @@ async function getCompanyType(user) {
       }
     });
 
-    //Language selection
 
+    //Language selection
+if(window.location.pathname != '/signup' || window.location.pathname != '/signin' || window.location.pathname != '/forgotpassword'){
     // Get the dropdown element by its id
 let dropdown = document.getElementById("change_language");
 
@@ -1186,6 +1187,7 @@ dropdown.addEventListener("change", function() {
     let abbreviation = getLanguageAbbreviation(selectedOption.value);
     dropdown.title = abbreviation;
 });
+}
 
    // Get the dropdown element by its id
    let signDropdown = document.getElementById("sign_language");
