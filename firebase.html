@@ -412,6 +412,7 @@
       let change_email = document.getElementById("change_email");
       let change_username = document.getElementById("change_username");
       let change_password = document.getElementById("change_password");
+      let confirm_password = document.getElementById("confirm_password");
 
       if ( update_email_modal !== null ) {
         update_email_modal.addEventListener('submit', function(ev) {
@@ -420,7 +421,13 @@
       }
       if ( update_password_modal !== null ) {
         update_password_modal.addEventListener('submit', function(ev) {
-          updateUserPassword(ev, user, change_password.value);
+
+          if(change_password.value == confirm_password.value){
+            updateUserPassword(ev, user, change_password.value);
+          }else{
+            toastr.error('Password confirmation does not match');
+          }
+          
         }, true);
       }
       if ( update_picture_modal !== null ) {
