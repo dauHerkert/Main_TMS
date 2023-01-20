@@ -249,25 +249,16 @@
         userInfo.user_company_name = companyName;
 
         if (window.location.pathname === '/account') {
-          document.getElementById('user_company_name').innerHTML = `<b>Company:</b> ${userInfo.user_company_name}`;
-          document.getElementById('account_type_info').innerHTML = `<b>Account type:</b> ${userInfo.user_type}`;
-          document.getElementById('user_address').innerHTML = `<b>Address:</b> ${userInfo.user_address}`;
+          document.getElementById('user_company_name').innerHTML = `${userInfo.user_company_name}`;
+          document.getElementById('account_type_info').innerHTML = `${userInfo.user_type}`;
+          document.getElementById('user_address').innerHTML = `${userInfo.user_address}`;
+          document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
+          document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
         }
         if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
-          if (window.location.pathname == '/account'){
-            document.getElementById('welcome_user').innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
-            for ( var i=0; i < supplier_info.length; i+=1 ){
-              supplier_info[i].style.display = 'flex';
-            }
-          }
           form_button.setAttribute('href', '/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
-          if(window.location.pathname == '/account'){
-              document.getElementById('welcome_user').innerHTML = `Hello Press ${userInfo.user_firstname}`;
-              for (var i=0;i<press_info.length;i+=1){
-              press_info[i].style.display = 'flex';
-            }
-          }
+
           form_button.setAttribute('href', '/press');
         } else if(userInfo.user_is_admin == "0") {
               if(window.location.pathname == '/admin'){
@@ -275,15 +266,8 @@
               }
               document.getElementById('admin_button').style.display = 'none';     
           }else if (userInfo.user_is_admin == "1") {          
-            if(window.location.pathname == '/account') {
-              document.getElementById('welcome_user').innerHTML = `Hello Admin ${userInfo.user_firstname}`;
-              }
               document.getElementById('admin_button').style.display = 'inline-grid';        
           } else {
-            if(window.location.pathname == '/account'){
-              document.getElementById('welcome_user').innerHTML = `Hello ${userInfo.user_firstname}`;
-              document.getElementById('account_type_info').innerHTML = '';
-            }
           }
 
         if (window.location.pathname == '/supplier'){
@@ -419,8 +403,8 @@
 
     function pageAccount(user) {
       // Populate form fields with values
-      document.getElementById("user_email").innerHTML = `<span><b>Email:</b> ${user.email}</span>`;
-      document.getElementById("user_password").innerHTML = `<span><b>Change Password</b></span>`;
+      document.getElementById("user_email").innerHTML = `${user.email}`;
+      document.getElementById("user_password").innerHTML = `<span><b>Password</b></span>`;
       document.getElementById("account_type_info").innerHTML = ``;
 
       let update_email_modal = document.getElementById("email_form_modal");
