@@ -404,6 +404,7 @@
     function pageAccount(user) {
       // Populate form fields with values
       document.getElementById("user_email").innerHTML = `${user.email}`;
+      document.getElementById("user_name").innerHTML = `${user.user_firstname}`;
       document.getElementById("account_type_info").innerHTML = ``;
 
       let update_email_modal = document.getElementById("email_form_modal");
