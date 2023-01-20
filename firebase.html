@@ -249,8 +249,6 @@
         userInfo.user_company_name = companyName;
 
         if (window.location.pathname === '/account') {
-          document.getElementById('user_company_name').innerHTML = `${userInfo.user_company_name}`;
-          document.getElementById('account_type_info').innerHTML = `${userInfo.user_type}`;
           document.getElementById('user_address').innerHTML = `${userInfo.user_address}`;
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
@@ -405,7 +403,6 @@
       // Populate form fields with values
       document.getElementById("user_email").innerHTML = `${user.email}`;
       document.getElementById("user_name").innerHTML = `${userInfo.user_firstname}`;
-      document.getElementById("account_type_info").innerHTML = ``;
 
       let update_email_modal = document.getElementById("email_form_modal");
       let update_password_modal = document.getElementById("password_form_modal");
