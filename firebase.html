@@ -1191,7 +1191,7 @@ dropdown.addEventListener("change", function() {
    let signDropdown = document.getElementById("sign_language");
 
 // Get the selected option element
-let selectedSignOption = signDropdown.options[dropdown.selectedIndex];
+let selectedSignOption = signDropdown.options[signDropdown.selectedIndex];
 
 // Get the abbreviation for the selected language
 let signAbbreviation = getLanguageAbbreviation(selectedSignOption.value);
@@ -1215,9 +1215,9 @@ function getSignLanguageAbbreviation(language) {
 }
 
 signDropdown.addEventListener("change", function() {
-    let selectedOption = signDropdown.options[dropdown.selectedIndex];
+    let selectedOption = signDropdown.options[signDropdown.selectedIndex];
     let abbreviation = getSignLanguageAbbreviation(selectedSignOption.value);
-    signDropdown.title = abbreviation;
+    signDropdown.title = signAbbreviation;
 });
 
 </script>
