@@ -397,7 +397,7 @@
     async function pageAccount(user) {
       let userInfo = await getUserInfo(user);
       const companyName = await changeCompanyNameToID(userInfo);
-        userInfo.user_company_name = companyName;
+      userInfo.user_company_name = companyName;
       // Populate form fields with values
       document.getElementById("user_email").innerHTML = `${user.email}`;
       document.getElementById("user_name").innerHTML = `${userInfo.user_firstname}`;
@@ -497,8 +497,11 @@
     async function pagePress(user) {
       let userInfo = await getUserInfo(user);
       let update_picture_modal = document.getElementById("picture_form_modal");
+      const companyName = await changeCompanyNameToID(userInfo);
+        userInfo.user_company_name = companyName;
       // Show displayName
       document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.user_firstname}`;
+      document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       showProfilePic(user);
 
       // Get press form
@@ -553,8 +556,11 @@
 
     async function pageSupplier(user) {
       let userInfo = await getUserInfo(user);
+      const companyName = await changeCompanyNameToID(userInfo);
+        userInfo.user_company_name = companyName;
       // Show displayName
       document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
+      document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       showProfilePic(user);
 
       const supplier_form = document.getElementById('supplier_form');
@@ -591,7 +597,9 @@
      async function pageAdmin(user) {
 
       let userInfo = await getUserInfo(user);
-      
+      const companyName = await changeCompanyNameToID(userInfo);
+      userInfo.user_company_name = companyName;
+      document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;      
       // Print users table
       const colRef = collection(db, 'users');
       let searchInput = document.getElementById("search-input");
