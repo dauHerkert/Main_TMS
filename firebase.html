@@ -59,10 +59,16 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    if(window.location.pathname == '/'){
+    if(user){
+      if(window.location.pathname == '/'){
+      window.location.replace('https://firebase-test-a63d06.webflow.io/account');
+    }
+    }else{
+      if(window.location.pathname == '/'){
       window.location.replace('https://firebase-test-a63d06.webflow.io/signin');
     }
-    
+    }
+
     async function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
       // Use the `getCompanyType` function to get the company type
