@@ -403,7 +403,11 @@
       document.getElementById("user_name").innerHTML = `${userInfo.user_firstname}`;
       document.getElementById("user_lastname").innerHTML = `${userInfo.user_lastname}`;
       document.getElementById("user_address").innerHTML = `${userInfo.user_address}`;
-      document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
+      if(userInfo.user_company_name == undefined){
+        document.getElementById("company_name").innerHTML = 'No company';
+      }else{
+        document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
+      }  
 
       let update_email_modal = document.getElementById("email_form_modal");
       let update_password_modal = document.getElementById("password_form_modal");
