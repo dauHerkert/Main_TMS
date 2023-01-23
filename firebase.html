@@ -1044,11 +1044,14 @@ getDocs(company_colRef)
         e.preventDefault();
         e.stopPropagation();
 
+        localStorage.setItem('email', JSON.stringify(email.value));
+
+
         sendPasswordResetEmail(auth, email.value)
         .then(() => {
           toastr.success('Email has been sent!');
           setTimeout(function() {
-                  window.location.reload();
+                  window.location.pathname = '/success-email-sent';
                 }, 2000);
         })
         .catch((error) => {
@@ -1059,6 +1062,13 @@ getDocs(company_colRef)
         });
       })
     };
+
+    if(window.location.pathname == '/success-email-sent'){
+      let forgot_password_email = localStorage.getItem('email');
+
+      document.getElementById('email_confirmation_text').innerHTML = `We sent a password reset link to ${forgot_password_emai}`;
+    }
+    
     //Location redirect when the user is logged out
     function replaceUrl(user) {
         let form_button = document.getElementById('form_button');
