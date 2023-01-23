@@ -256,13 +256,14 @@
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
         }
-        if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
+        
+        if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
+            form_button.setAttribute('href', '/supplier');
+          }else if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/press');
-        } else if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
-            form_button.setAttribute('href', '/supplier');
-          }else if(userInfo.user_is_admin == "0") {
+        } else if(userInfo.user_is_admin == "0") {
               if(window.location.pathname == '/admin'){
                 location.replace('/account');
               }
