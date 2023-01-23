@@ -267,7 +267,7 @@
               document.getElementById('admin_button').style.display = 'none';     
           }else if (userInfo.user_is_admin == "1") {          
               document.getElementById('admin_button').style.display = 'block';        
-          } else {
+          } else if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
             form_button.setAttribute('href', '/supplier');
           }
 
