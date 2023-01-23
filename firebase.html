@@ -260,16 +260,16 @@
           form_button.setAttribute('href', '/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/press');
-        } else if(userInfo.user_is_admin == "0") {
+        } else if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
+            form_button.setAttribute('href', '/supplier');
+          }else if(userInfo.user_is_admin == "0") {
               if(window.location.pathname == '/admin'){
                 location.replace('/account');
               }
               document.getElementById('admin_button').style.display = 'none';     
           }else if (userInfo.user_is_admin == "1") {          
               document.getElementById('admin_button').style.display = 'block';        
-          } else if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
-            form_button.setAttribute('href', '/supplier');
-          }
+          }else{}
 
         if (window.location.pathname == '/supplier'){
           if(userInfo.supplier_has_form_submitted == "1"){
