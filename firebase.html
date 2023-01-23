@@ -58,6 +58,11 @@
     * Auth functions
     * -----------------------------------------------------------------------------------------------------------
     */
+
+    if(window.location.pathname == '/'){
+      window.location.replace('https://firebase-test-a63d06.webflow.io/signin');
+    }
+    
     async function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
       // Use the `getCompanyType` function to get the company type
@@ -1062,7 +1067,7 @@ getDocs(company_colRef)
         });
       })
     };
-    
+
 
     if(window.location.pathname == '/success-email-sent'){
       let forgot_password_email = localStorage.getItem('email');
