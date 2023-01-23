@@ -278,6 +278,7 @@
           }else if (userInfo.user_is_admin == "1") {          
               document.getElementById('admin_button').style.display = 'block';        
           } else {
+            form_button.setAttribute('href', '/supplier');
           }
 
         if (window.location.pathname == '/supplier'){
