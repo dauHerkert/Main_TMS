@@ -412,7 +412,7 @@
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
-      }  
+      }
 
       let update_email_modal = document.getElementById("email_form_modal");
       let update_password_modal = document.getElementById("password_form_modal");
@@ -510,7 +510,11 @@
         userInfo.user_company_name = companyName;
       // Show displayName
       document.getElementById("client_press").innerHTML = `Hello Press ${userInfo.user_firstname}`;
-      document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
+      if(userInfo.user_company_name == undefined){
+        document.getElementById("company_name").innerHTML = 'No company';
+      }else{
+        document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
+      }
       showProfilePic(user);
 
       // Get press form
@@ -569,7 +573,11 @@
         userInfo.user_company_name = companyName;
       // Show displayName
       document.getElementById("supplier_user").innerHTML = `Hello Supplier ${userInfo.user_firstname}`;
-      document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
+      if(userInfo.user_company_name == undefined){
+        document.getElementById("company_name").innerHTML = 'No company';
+      }else{
+        document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
+      }
       showProfilePic(user);
 
       const supplier_form = document.getElementById('supplier_form');
@@ -608,7 +616,11 @@
       let userInfo = await getUserInfo(user);
       const companyName = await changeCompanyNameToID(userInfo);
       userInfo.user_company_name = companyName;
-      document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;      
+      if(userInfo.user_company_name == undefined){
+        document.getElementById("company_name").innerHTML = 'No company';
+      }else{
+        document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
+      }      
       // Print users table
       const colRef = collection(db, 'users');
       let searchInput = document.getElementById("search-input");
