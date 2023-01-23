@@ -59,16 +59,6 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    if(!user){
-    if(window.location.pathname == '/'){
-      window.location.replace('https://firebase-test-a63d06.webflow.io/signin');
-    }
-    }else{
-      if(window.location.pathname == '/'){
-      window.location.replace('https://firebase-test-a63d06.webflow.io/account');
-    }
-    }
-
     async function setDefaultFields(user) {
       const userRef = doc(db, 'users', user.uid);
       // Use the `getCompanyType` function to get the company type
@@ -1094,11 +1084,17 @@ getDocs(company_colRef)
         admin_button.setAttribute('href', '/signin');
         document.getElementById('signIn_button').style.display = 'block'; 
         document.getElementById('signUp_button').style.display = 'block';
+        if(window.location.pathname == '/'){
+          window.location.replace('https://firebase-test-a63d06.webflow.io/signin');
+          }
       }else{
         account_button.setAttribute('href', '/account');
         admin_button.setAttribute('href', '/admin');
         document.getElementById('signIn_button').style.display = 'none'; 
         document.getElementById('signUp_button').style.display = 'none';
+        if(window.location.pathname == '/'){
+          window.location.replace('https://firebase-test-a63d06.webflow.io/account');
+        }
       }
     }
     // first page load
