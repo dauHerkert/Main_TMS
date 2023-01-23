@@ -268,9 +268,9 @@
                 location.replace('/account');
               }
               document.getElementById('admin_button').style.display = 'none';     
-          }else if (userInfo.user_is_admin == "1") {          
+          }else if (userInfo.user_is_admin == "1") {
+              form_button.setAttribute('href', '/supplier');
               document.getElementById('admin_button').style.display = 'block';
-              form_button.setAttribute('href', '/supplier');  
           }else{}
 
         if (window.location.pathname == '/supplier'){
