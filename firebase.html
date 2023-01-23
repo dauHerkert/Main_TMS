@@ -144,12 +144,26 @@
 
       uploadBytes(storageRef, fileItem)
       .then((snapshot) => {
+        updateFileLabel();
         toastr.success('You have submitted the form successfully');
       })
       .catch(err => {
         console.log('error uploading file', err);
         toastr.error('There was an error uploading the file');
       });
+    }
+
+    function updateFileLabel(user) {
+        let fileInput = document.getElementById("profile_img");
+        let fileLabel = document.getElementById("profile_pic_label");
+
+        if (fileInput.files.length > 0) {
+            fileLabel.innerHTML = `File uploaded: ${fileInput.files[0].name}`;
+            fileLabel.style.backgroundColor = '#F2A100';
+            fileLabel.style.color = '#fff'
+        } else {
+            fileLabel.innerHTML = "Load Image";
+        }
     }
 
     // Handle signIn
