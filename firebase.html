@@ -137,21 +137,6 @@
       });
     }
     //Upload user's profile image
-    function userUploadImage(user) {
-      const profile_img = document.getElementById('profile_img');
-      let fileItem = profile_img.files[0];
-      const storageRef = ref(storage, 'profiles/' + user.uid);
-
-      uploadBytes(storageRef, fileItem)
-      .then((snapshot) => {
-        toastr.success('You have submitted the form successfully');
-      })
-      .catch(err => {
-        console.log('error uploading file', err);
-        toastr.error('There was an error uploading the file');
-      });
-    }
-
     function updateFileLabel(user) {
         let fileInput = document.getElementById("profile_img");
         let fileLabel = document.getElementById("profile_pic_label");
@@ -160,10 +145,25 @@
             fileLabel.innerHTML = `File uploaded: ${fileInput.files[0].name}`;
             fileLabel.style.backgroundColor = '#F2A100';
             fileLabel.style.color = '#fff'
-            userUploadImage(user); 
         } else {
             fileLabel.innerHTML = "Load Image";
         }
+    }
+
+    function userUploadImage(user) {
+      const profile_img = document.getElementById('profile_img');
+      let fileItem = profile_img.files[0];
+      const storageRef = ref(storage, 'profiles/' + user.uid);
+
+      uploadBytes(storageRef, fileItem)
+      .then((snapshot) => {
+        updateFileLabel();
+        toastr.success('You have submitted the form successfully');
+      })
+      .catch(err => {
+        console.log('error uploading file', err);
+        toastr.error('There was an error uploading the file');
+      });
     }
 
     // Handle signIn
