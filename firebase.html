@@ -137,18 +137,6 @@
       });
     }
     //Upload user's profile image
-    function updateFileLabel(user) {
-        let fileInput = document.getElementById("profile_img");
-        let fileLabel = document.getElementById("profile_pic_label");
-
-        if (fileInput.files.length > 0) {
-            fileLabel.innerHTML = `File uploaded: ${fileInput.files[0].name}`;
-            fileLabel.style.backgroundColor = '#F2A100';
-            fileLabel.style.color = '#fff'
-        } else {
-            fileLabel.innerHTML = "Load Image";
-        }
-    }
 
     function userUploadImage(user) {
       const profile_img = document.getElementById('profile_img');
@@ -277,7 +265,7 @@
               }
               document.getElementById('admin_button').style.display = 'none';     
           }else if (userInfo.user_is_admin == "1") {          
-              document.getElementById('admin_button').style.display = 'inline-grid';        
+              document.getElementById('admin_button').style.display = 'block';        
           } else {
           }
 
@@ -1033,7 +1021,7 @@ getDocs(company_colRef)
           console.log('user does NOT have access to this page');
         }
       } else {
-        document.getElementById('signout-button').style.display = 'inline-grid';
+        document.getElementById('signout-button').style.display = 'block';
         // User IS signed in
          if ( url == '/account' ) {
           pageAccount(user);
@@ -1081,8 +1069,8 @@ getDocs(company_colRef)
         form_button.setAttribute('href', '/signin');
         account_button.setAttribute('href', '/signin');
         admin_button.setAttribute('href', '/signin');
-        document.getElementById('signIn_button').style.display = 'inline-grid'; 
-        document.getElementById('signUp_button').style.display = 'inline-grid';
+        document.getElementById('signIn_button').style.display = 'block'; 
+        document.getElementById('signUp_button').style.display = 'block';
       }else{
         account_button.setAttribute('href', '/account');
         admin_button.setAttribute('href', '/admin');
