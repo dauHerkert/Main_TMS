@@ -651,9 +651,7 @@
             button.setAttribute("id","open_modal_btn");
             return button;
         }},
-        {title: "Select", formatter: "checkbox", align: "center", width: 60, cellClick: function(e, cell) {
-              cell.getRow().toggleSelect();
-             }},
+        {title:"Select", field:"select", hozAlign:"center", formatter:"tickCross", sorter:"boolean", width:60, editor:true},
         ],
 });
 
