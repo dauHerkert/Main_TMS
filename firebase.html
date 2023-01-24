@@ -786,72 +786,75 @@ getDocs(colRef)
         }
       });
 
-      //Bulk users update
-      function bulkUserUpdate(rowId) {
+     //Bulk users update
+function bulkUserUpdate(rowId) {
     let bulk_user_form = document.getElementById('bulk_user_form');
     let bulk_status_update = document.getElementById('bulk_status');
 
-    bulk_user_form.addEventListener('submit', (e) => {
+    bulk_user_form.addEventListener('submit', async (e) => {
         e.preventDefault();
         e.stopPropagation();
 
         if (rowId != null || rowId != 0) {
             const userRef = doc(db, 'users', rowId);
-            setDoc(userRef, {
-                user_status: bulk_status_update.value,
-            }, { merge: true })
-                .then(() => {
-                  if(bulk_status_update.value == 'decline'){
-              try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${userRef.user_email}`,
-                message: {
-                subject: 'Sorry you have been declined',
-                html: 'Sorry you have been declined',
-                }
-                });
-                } catch (e) {
-                console.error("Error declining user: ", e);
-                }
-                toastr.success('User registration declined');
-                setTimeout(function() {
-                  window.location.reload();
-                }, 2000);
-            }else{
-            try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${userRef.user_email}`,
-                message: {
-                subject: 'Hello from Firebase!',
-                html: 'This is an <code>HTML</code> email body.',
-                }
-                });
-                console.log("Document written with ID: ", docRef.id);
-                } catch (e) {
-                console.error("Error adding document: ", e);
-                }
-                toastr.success('Account info has been successfully updated');
-                setTimeout(function() {
-                  window.location.reload();
-                }, 2000);
+            const userData = await getDoc(userRef);
+            if(userData.exists){
+                setDoc(userRef, {
+                    user_status: bulk_status_update.value,
+                }, { merge: true })
+                    .then(() => {
+                      if(bulk_status_update.value == 'decline'){
+                  try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                    to: `${userData.data().user_email}`,
+                    message: {
+                    subject: 'Sorry you have been declined',
+                    html: 'Sorry you have been declined',
+                    }
+                    });
+                    } catch (e) {
+                    console.error("Error declining user: ", e);
+                    }
+                    toastr.success('User registration declined');
+                    setTimeout(function() {
+                      window.location.reload();
+                    }, 2000);
+                }else{
+                try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                    to: `${userData.data().user_email}`,
+                    message: {
+                    subject: 'Hello from Firebase!',
+                    html: 'This is an <code>HTML</code> email body.',
+                    }
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                    } catch (e) {
+                    console.error("Error adding document: ", e);
+                    }
+                    toastr.success('Account info has been successfully updated');
+                    setTimeout(function() {
+                      window.location.reload();
+                    }, 2000);
+                  }
+              })
+                    .catch((err) => {
+                        toastr.error('There was an error updating the users info');
+                        console.log('error updating users info', err);
+                    });
               }
-          })
-                .catch((err) => {
-                    toastr.error('There was an error updating the users info');
-                    console.log('error updating users info', err);
-                });
             }
-        });
-    }     
-    /*document.getElementById("bulk_user_form").addEventListener("submit", function(){
-        e.preventDefault();
-        e.stopPropagation();
+          });
+        }     
+      document.getElementById("bulk_user_form").addEventListener("submit", function(){
+          e.preventDefault();
+          e.stopPropagation();
 
-        let status = document.getElementById("bulk_status").value;
-        selectedData.forEach(function(rowId){
-          bulkUserUpdate(rowId);
+          let status = document.getElementById("bulk_status").value;
+          selectedData.forEach(function(rowId){
+            bulkUserUpdate(rowId);
+        });
       });
-    });*/
 
     // ========== COMPANIES TABLE FUNCTIONS ============== //
 
