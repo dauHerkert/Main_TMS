@@ -617,7 +617,6 @@
       let userInfo = await getUserInfo(user);
       const companyName = await changeCompanyNameToID(userInfo);
       userInfo.user_company_name = companyName;
-      let selectedData = [];
       if(userInfo.user_company_name == undefined){
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
@@ -653,24 +652,26 @@
             return button;
         }},
         {title: "Select", formatter:function(cell, formatterParams){
-              let checkbox = document.createElement("input");
+          let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
               checkbox.addEventListener("click", function(){
                   let row = cell.getRow();
                   let rowData = row.getData();
                   let rowId = rowData.id;
-                  console.log(rowId);
                   if(checkbox.checked){
-                      selectedData.push(rowData);
+                      selectedData.push(rowId);
                   }else{
-                      selectedData.splice(selectedData.indexOf(rowData), 1);
+                      selectedData = selectedData.filter(function(value){
+                          return value != rowId;
+                      });
                   }
+                  console.log(selectedData);
               });
               return checkbox;
           }, align: "center", width: 60},
         ],
 });
-
+let selectedData = [];
 console.log(selectedData)
 const input = document.getElementById("fSearch");
 input.addEventListener("keyup", function() {
