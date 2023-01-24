@@ -654,6 +654,8 @@
         {title:"Select", field:"select", hozAlign:"center", formatter:"tickCross", sorter:"boolean", width:60, editor:true, cellClick: function(e, cell) {
             let row = cell.getRow();
             let rowId = row.getData().id;
+            let selectedData = table.getSelectedData();
+            console.log(selectedData);
             if(cell.getValue()){
                 console.log(`Row id: ${rowId} is selected`);
             }else{
