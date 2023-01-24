@@ -783,12 +783,16 @@ getDocs(colRef)
       });
 
      //Bulk users update
-async function bulkUserUpdate(rowId) {
+     async function bulkUserUpdate() {
     let bulk_user_form = document.getElementById('bulk_user_form');
     let bulk_status_update = document.getElementById('bulk_status');
 
-        if (rowId != null || rowId != 0) {
-            const userRef = doc(db, 'users', rowId);
+    bulk_user_form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        for (let i = 0; i < selectedData.length; i++) {
+            const userRef = doc(db, 'users', selectedData[i]);
             const userData = await getDoc(userRef);
             if(userData.exists){
                 setDoc(userRef, {
@@ -836,7 +840,8 @@ async function bulkUserUpdate(rowId) {
                     });
               }
             }
-        }     
+          });
+        }
       document.getElementById("bulk_user_form").addEventListener("submit", function(){
           e.preventDefault();
           e.stopPropagation();
