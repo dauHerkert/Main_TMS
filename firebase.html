@@ -621,7 +621,10 @@
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
-      }      
+      }  
+
+      // =========== USERS TABLE FUNCTIONS ============ //
+
       // Print users table
       const colRef = collection(db, 'users');
       let searchInput = document.getElementById("search-input");
@@ -634,7 +637,7 @@
         history:true,             //allow undo and redo actions on the table
         pagination:"local",       //paginate the data
         paginationSize:7,         //allow 7 rows per page of data
-        paginationSizeSelector:[7, 10, 15, 21],
+        paginationSizeSelector:[7, 10, 25, 50],
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -658,8 +661,10 @@
                   let row = cell.getRow();
                   let rowData = row.getData();
                   let rowId = rowData.id;
+                  let rowEmail = rowData.email;
                   if(checkbox.checked){
                       selectedData.push(rowId);
+                      selectedDataEmail.push(rowEmail)
                   }else{
                       selectedData = selectedData.filter(function(value){
                           return value != rowId;
@@ -672,7 +677,10 @@
         ],
 });
 let selectedData = [];
-console.log(selectedData)
+let selectedDataEmail = [];
+console.log(selectedData);
+console.log(selectedDataEmail);
+
 const input = document.getElementById("fSearch");
 input.addEventListener("keyup", function() {
     table.setFilter(matchAny, { value: input.value });
@@ -682,10 +690,6 @@ input.addEventListener("keyup", function() {
 });
 
 function matchAny(data, filterParams) {
-      //data - the data for the row being filtered
-      //filterParams - params object passed to the filter
-      //RegExp - modifier "i" - case insensitve
-
     var match = false;
     const regex = RegExp(filterParams.value, 'i');
 
@@ -708,7 +712,6 @@ getDocs(colRef)
                 console.log(`User ${user.uid} does not have a user_company field defined`);
                 return;
             }
-
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
                 data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
@@ -719,6 +722,135 @@ getDocs(colRef)
     .catch(err => {
         console.log('error fetching users', err);
     });
+
+    // Update single user Info
+    let update_user_form = document.getElementById('update_user_type');
+      let user_specific_id = document.getElementById('admin_user_id');
+      let user_specific_email = document.getElementById('admin_user_email');
+      let userTypeUpdate = document.getElementById('accountType');
+      let user_status_update = document.getElementById('accountStatus');
+      let user_company_update = document.getElementById('userCompany');
+      let admin_cred = document.getElementById('is_admin');
+
+      update_user_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation()
+
+        if ( user_specific_id != null || user_specific_id != 0 ) {
+          const userRef = doc(db, 'users', user_specific_id.value);
+          setDoc(userRef, {
+            user_type: userTypeUpdate.value,
+            user_status: user_status_update.value,
+            user_company: user_company_update.value
+          }, { merge: true })
+          .then(() => {
+            if(user_status_update.value == 'decline'){
+              try {
+                const docRef = addDoc(collection(db, "mail"), {
+                to: `${user_specific_email.value}`,
+                message: {
+                subject: 'Sorry you have been declined',
+                html: 'Sorry you have been declined',
+                }
+                });
+                } catch (e) {
+                console.error("Error declining user: ", e);
+                }
+                toastr.success('User registration declined');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+            }else{
+            try {
+                const docRef = addDoc(collection(db, "mail"), {
+                to: `${user_specific_email.value}`,
+                message: {
+                subject: 'Hello from Firebase!',
+                html: 'This is an <code>HTML</code> email body.',
+                }
+                });
+                console.log("Document written with ID: ", docRef.id);
+                } catch (e) {
+                console.error("Error adding document: ", e);
+                }
+                toastr.success('Account info has been successfully updated');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+              }
+          })
+          .catch((err) => {
+            toastr.error('There was an error updating the account info');
+            console.log('error updating account info', err);
+          });
+        }
+      });
+
+      //Bulk users update
+      function bulkUserUpdate(rowId) {
+    let bulk_user_form = document.getElementById('bulk_user_form');
+    let bulk_status_update = document.getElementById('bulk_status');
+
+    bulk_user_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation()
+
+        if (rowId != null || rowId != 0) {
+            const userRef = doc(db, 'users', rowId);
+            setDoc(userRef, {
+                user_status: bulk_status_update.value,
+            }, { merge: true })
+                .then(() => {
+                  if(bulk_status_update.value == 'decline'){
+              try {
+                const docRef = addDoc(collection(db, "mail"), {
+                to: `${userRef.user_email}`,
+                message: {
+                subject: 'Sorry you have been declined',
+                html: 'Sorry you have been declined',
+                }
+                });
+                } catch (e) {
+                console.error("Error declining user: ", e);
+                }
+                toastr.success('User registration declined');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+            }else{
+            try {
+                const docRef = addDoc(collection(db, "mail"), {
+                to: `${userRef.user_email}`,
+                message: {
+                subject: 'Hello from Firebase!',
+                html: 'This is an <code>HTML</code> email body.',
+                }
+                });
+                console.log("Document written with ID: ", docRef.id);
+                } catch (e) {
+                console.error("Error adding document: ", e);
+                }
+                toastr.success('Account info has been successfully updated');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+              }
+          })
+                .catch((err) => {
+                    toastr.error('There was an error updating the users info');
+                    console.log('error updating users info', err);
+                });
+            }
+        });
+    }     
+    document.getElementById("submitForm").addEventListener("submit", function(){
+        let status = document.getElementById("status").value;
+        selectedData.forEach(function(rowId){
+          bulkUserUpdate(rowId);
+      });
+    });
+
+    // ========== COMPANIES TABLE FUNCTIONS ============== //
 
     // Print companies table
     const company_colRef = collection(db, 'companies');
@@ -732,7 +864,7 @@ getDocs(colRef)
         history:true,               //allow undo and redo actions on the table
         pagination:"local",         //paginate the data
         paginationSize:7,           //allow 7 rows per page of data
-        paginationSizeSelector:[7, 10, 15, 21],
+        paginationSizeSelector:[7, 10, 25, 50],
         paginationCounter:"rows",   //display count of paginated rows in footer
         columns:[
         {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column", formatter: function(cell, formatterParams, onRendered){
@@ -816,72 +948,6 @@ getDocs(company_colRef)
         console.log('error fetching companies', err);
       })
 
-      // Update user Info
-      let update_user_form = document.getElementById('update_user_type');
-      let user_specific_id = document.getElementById('admin_user_id');
-      let user_specific_email = document.getElementById('admin_user_email');
-      let userTypeUpdate = document.getElementById('accountType');
-      let user_status_update = document.getElementById('accountStatus');
-      let user_company_update = document.getElementById('userCompany');
-      let admin_cred = document.getElementById('is_admin');
-
-      update_user_form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        e.stopPropagation()
-
-        if ( user_specific_id != null || user_specific_id != 0 ) {
-          const userRef = doc(db, 'users', user_specific_id.value);
-          setDoc(userRef, {
-            user_type: userTypeUpdate.value,
-            user_status: user_status_update.value,
-            user_company: user_company_update.value
-          }, { merge: true })
-          .then(() => {
-
-            if(user_status_update.value == 'decline'){
-              try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${user_specific_email.value}`,
-                message: {
-                subject: 'Sorry you have been declined',
-                html: 'Sorry you have been declined',
-                }
-                });
-                } catch (e) {
-                console.error("Error declining user: ", e);
-                }
-                toastr.success('User registration declined');
-                setTimeout(function() {
-                  window.location.reload();
-                }, 2000);
-            }else{
-            try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${user_specific_email.value}`,
-                message: {
-                subject: 'Hello from Firebase!',
-                html: 'This is an <code>HTML</code> email body.',
-                }
-                });
-                console.log("Document written with ID: ", docRef.id);
-                } catch (e) {
-                console.error("Error adding document: ", e);
-                }
-                toastr.success('Account info has been successfully updated');
-                setTimeout(function() {
-                  window.location.reload();
-                }, 2000);
-              }
-          })
-          .catch((err) => {
-            toastr.error('There was an error updating the account info');
-            console.log('error updating account info', err);
-          });
-          
-        }
-      });
-
-     
       //Update company info
       let update_company_form = document.getElementById('update_company_info');
       let company_id = document.getElementById('company_id');
