@@ -843,8 +843,8 @@ getDocs(colRef)
             }
         });
     }     
-    document.getElementById("submitForm").addEventListener("submit", function(){
-        let status = document.getElementById("status").value;
+    document.getElementById("bulk_user_form").addEventListener("submit", function(){
+        let status = document.getElementById("bulk_status").value;
         selectedData.forEach(function(rowId){
           bulkUserUpdate(rowId);
       });
