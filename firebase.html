@@ -651,7 +651,15 @@
             button.setAttribute("id","open_modal_btn");
             return button;
         }},
-        {title:"Select", field:"select", hozAlign:"center", formatter:"tickCross", sorter:"boolean", width:60, editor:true},
+        {title:"Select", field:"select", hozAlign:"center", formatter:"tickCross", sorter:"boolean", width:60, editor:true, cellClick: function(e, cell) {
+            let row = cell.getRow();
+            let rowId = row.getData().id;
+            if(cell.getValue()){
+                console.log(`Row id: ${rowId} is selected`);
+            }else{
+                console.log(`Row id: ${rowId} is deselected`);
+            }
+        }},
         ],
 });
 
