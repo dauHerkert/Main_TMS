@@ -637,10 +637,10 @@
         paginationSizeSelector:[7, 10, 15, 21],
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
+            {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title: "Select", formatter: "tickCross", align: "center", width: 60, cellClick: function(e, cell) {
               cell.getRow().toggleSelect();
              }},
-            {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Name", field:"name", sorter:"string", width:150},
             {title:"Email", field:"email", sorter:"string", width:150},
             {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
