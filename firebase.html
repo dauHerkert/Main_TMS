@@ -617,6 +617,7 @@
       let userInfo = await getUserInfo(user);
       const companyName = await changeCompanyNameToID(userInfo);
       userInfo.user_company_name = companyName;
+      let selectedData = [];
       if(userInfo.user_company_name == undefined){
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
@@ -659,12 +660,18 @@
                   let rowData = row.getData();
                   let rowId = rowData.id;
                   console.log(rowId);
+                  if(checkbox.checked){
+                      selectedData.push(rowData);
+                  }else{
+                      selectedData.splice(selectedData.indexOf(rowData), 1);
+                  }
               });
               return checkbox;
           }, align: "center", width: 60},
         ],
 });
 
+console.log(selectedData)
 const input = document.getElementById("fSearch");
 input.addEventListener("keyup", function() {
     table.setFilter(matchAny, { value: input.value });
