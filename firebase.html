@@ -637,7 +637,7 @@
         history:true,             //allow undo and redo actions on the table
         pagination:"local",       //paginate the data
         paginationSize:7,         //allow 7 rows per page of data
-        paginationSizeSelector:[7, 10, 25, 50],
+        paginationSizeSelector:[10, 25, 50],
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -860,7 +860,7 @@ async function bulkUserUpdate(rowId) {
         history:true,               //allow undo and redo actions on the table
         pagination:"local",         //paginate the data
         paginationSize:7,           //allow 7 rows per page of data
-        paginationSizeSelector:[7, 10, 25, 50],
+        paginationSizeSelector:[10, 25, 50],
         paginationCounter:"rows",   //display count of paginated rows in footer
         columns:[
         {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column", formatter: function(cell, formatterParams, onRendered){
