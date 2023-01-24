@@ -792,6 +792,8 @@ getDocs(colRef)
     let bulk_status_update = document.getElementById('bulk_status');
 
     bulk_user_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
         if (rowId != null || rowId != 0) {
             const userRef = doc(db, 'users', rowId);
@@ -841,7 +843,7 @@ getDocs(colRef)
             }
         });
     }     
-    document.getElementById("bulk_user_form").addEventListener("submit", function(){
+    /*document.getElementById("bulk_user_form").addEventListener("submit", function(){
         e.preventDefault();
         e.stopPropagation();
 
@@ -849,7 +851,7 @@ getDocs(colRef)
         selectedData.forEach(function(rowId){
           bulkUserUpdate(rowId);
       });
-    });
+    });*/
 
     // ========== COMPANIES TABLE FUNCTIONS ============== //
 
