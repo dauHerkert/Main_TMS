@@ -783,19 +783,19 @@ getDocs(colRef)
       });
 
      //Bulk users update
-async function bulkUserUpdate() {
+     async function bulkUserUpdate(selectedData) {
     let bulk_user_form = document.getElementById('bulk_user_form');
     let bulk_status_update = document.getElementById('bulk_status');
 
-        for (let i = 0; i < selectedData.length; i++) {
-            const userRef = doc(db, 'users', selectedData[i]);
-            const userData = await getDoc(userRef);
-            if(userData.exists){
-                setDoc(userRef, {
-                    user_status: bulk_status_update.value,
-                }, { merge: true })
-                    .then(() => {
-                      if(bulk_status_update.value == 'decline'){
+    for (let i = 0; i < selectedData.length; i++) {
+        const userRef = doc(db, 'users', selectedData[i]);
+        const userData = await getDoc(userRef);
+        if(userData.exists){
+            setDoc(userRef, {
+                user_status: bulk_status_update.value,
+            }, { merge: true })
+                .then(() => {
+                  if(bulk_status_update.value == 'decline'){
                   try {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
@@ -830,21 +830,20 @@ async function bulkUserUpdate() {
                     }, 2000);
                   }
               })
-                    .catch((err) => {
-                        toastr.error('There was an error updating the users info');
-                        console.log('error updating users info', err);
-                    });
-              }
-            }
+                .catch((err) => {
+                    toastr.error('There was an error updating the users info');
+                    console.log('error updating users info', err);
+                });
+          }
         }
-      document.getElementById("bulk_user_form").addEventListener("submit", function(e){
-          e.preventDefault();
-          e.stopPropagation();
+    }
 
-          selectedData.forEach(function(){
-            bulkUserUpdate();
-        });
-      });
+    document.getElementById("bulk_user_form").addEventListener("submit", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      bulkUserUpdate(selectedData);
+    });
+
 
     // ========== COMPANIES TABLE FUNCTIONS ============== //
 
