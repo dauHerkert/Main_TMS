@@ -1277,12 +1277,17 @@ async function getCompanyType(user) {
     var currentLang = "en";  // default language is English
 
     function changeLanguage(lang) {
-      console.log("Changing language to " + lang);
-      localStorage.setItem("language", lang);
-      var currentPath = window.location.pathname;
-      var newPath = currentPath.replace(/\/[a-z]{2}\//, '/' + lang + '/');
-      window.history.pushState({}, null, newPath);
-    }
+        localStorage.setItem("language", lang);
+        var currentPath = window.location.pathname;
+        var pathArray = currentPath.split("/");
+        if(pathArray.length < 3 || (pathArray.length >= 3 && !/^[a-z]{2}$/.test(pathArray[1]))){
+          currentPath = '/'+lang+currentPath;
+        }else{
+          currentPath = currentPath.replace(/\/[a-z]{2}\//, '/' + lang + '/');
+        }
+        window.history.pushState({}, null, currentPath);
+        location.reload();
+      }
 
     window.addEventListener('load', function(){
       var storedLang = localStorage.getItem("language");
