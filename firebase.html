@@ -1375,6 +1375,21 @@ getDocs(company_colRef)
       }
     });
 
+    // Error page
+
+    let return_error_btn = document.getElementById('error_return_btn');
+    var storedLang = localStorage.getItem("language");
+
+    if(storedLang){
+      if(storedLang == "de"){
+        return_error_btn.setAttribute("href", "/de/signin")
+      }else{
+        return_error_btn.setAttribute("href", "/en/signin")
+      }
+    }else{
+      return_error_btn.setAttribute("href", "/en/signin")
+    }
+
 
     //Language selection
 
