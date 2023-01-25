@@ -1376,10 +1376,9 @@ getDocs(company_colRef)
     });
 
     // Error page
-    if(window.location.pathname == "/en/success-email-sent" || window.location.pathname == "/de/success-email-sent"){
-            let return_error_btn = document.getElementById('error_return_btn');
+    let return_error_btn = document.getElementById('error_return_btn');
+    if(return_error_btn){            
             var storedLang = localStorage.getItem("language");
-
             if(storedLang){
               if(storedLang == "de"){
                 return_error_btn.setAttribute("href", "/de/signin")
