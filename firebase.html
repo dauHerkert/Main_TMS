@@ -787,9 +787,6 @@ async function bulkUserUpdate() {
     let bulk_user_form = document.getElementById('bulk_user_form');
     let bulk_status_update = document.getElementById('bulk_status');
 
-        e.preventDefault();
-        e.stopPropagation();
-
         for (let i = 0; i < selectedData.length; i++) {
             const userRef = doc(db, 'users', selectedData[i]);
             const userData = await getDoc(userRef);
