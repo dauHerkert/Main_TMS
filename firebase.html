@@ -180,12 +180,22 @@
 
     // Handle signOut
     function handleSignOut() {
+      var storedLang = localStorage.getItem("language");
         signOut(auth).then(() => {          
           setTimeout(() => {
             toastr.error('user signed out');
         }, 1000);
         setTimeout(() => {
+          if(storedLang){
+            if(storedLang == "de"){
+              window.location = "/de/signin";
+            }else{
+              window.location = "/en/signin";
+            }
+          }else{
             window.location = "/en/signin";
+          }
+            
         }, 1500);
         }).catch((error) => {
             const errorMessage = error.message;
@@ -244,36 +254,70 @@
       const press_info = document.getElementsByClassName('press_info');
       const supplier_info = document.getElementsByClassName('supplier_info');
       let form_button = document.getElementById('form_button');
+      var storedLang = localStorage.getItem("language");
 
       if ( userInfo ) {
-
         // Use the changeCompanyNameToID(user) function to get the company name
         const companyName = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyName;
 
-        if (window.location.pathname === '/account') {
+        if (window.location.pathname === '/en/account' || window.location.pathname === '/de/account') {
           document.getElementById('user_address').innerHTML = `${userInfo.user_address}`;
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
         }
-        
-        if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
-            form_button.setAttribute('href', '/supplier');
+        if(storedLang){
+          if(storedLang == "de"){
+            if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
+            form_button.setAttribute('href', '/de/supplier');
           }else if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
-          form_button.setAttribute('href', '/supplier');
+          form_button.setAttribute('href', '/de/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
-          form_button.setAttribute('href', '/press');
+          form_button.setAttribute('href', '/de/press');
         } else if(userInfo.user_is_admin == "0") {
-              if(window.location.pathname == '/admin'){
-                location.replace('/account');
+              if(window.location.pathname == '/de/admin'){
+                location.replace('/de/account');
               }
               document.getElementById('admin_button').style.display = 'none';     
           }else if (userInfo.user_is_admin == "1") {
-              form_button.setAttribute('href', '/supplier');
+              form_button.setAttribute('href', '/de/supplier');
               document.getElementById('admin_button').style.display = 'block';
           }else{}
-
-        if (window.location.pathname == '/supplier'){
+          }else{
+              if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
+              form_button.setAttribute('href', '/en/supplier');
+              }else if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
+              form_button.setAttribute('href', '/en/supplier');
+              } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
+              form_button.setAttribute('href', '/en/press');
+              } else if(userInfo.user_is_admin == "0") {
+                  if(window.location.pathname == '/en/admin'){
+                    location.replace('/account');
+                  }
+                  document.getElementById('admin_button').style.display = 'none';     
+              }else if (userInfo.user_is_admin == "1") {
+                  form_button.setAttribute('href', '/en/supplier');
+                  document.getElementById('admin_button').style.display = 'block';
+              }else{}
+              }
+        }else{
+          if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
+              form_button.setAttribute('href', '/en/supplier');
+              }else if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
+              form_button.setAttribute('href', '/en/supplier');
+              } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
+              form_button.setAttribute('href', '/en/press');
+              } else if(userInfo.user_is_admin == "0") {
+                  if(window.location.pathname == '/en/admin'){
+                    location.replace('/account');
+                  }
+                  document.getElementById('admin_button').style.display = 'none';     
+              }else if (userInfo.user_is_admin == "1") {
+                  form_button.setAttribute('href', '/en/supplier');
+                  document.getElementById('admin_button').style.display = 'block';
+              }else{}
+          }
+        if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
           if(userInfo.supplier_has_form_submitted == "1"){
             document.getElementById("from_date").setAttribute('disabled', "");
             document.getElementById("to_date").setAttribute('disabled', "");
@@ -281,8 +325,8 @@
             document.getElementById("zones").setAttribute('disabled', "");
             document.getElementById("supplier_submmited_form").style.display = 'block';
         }
-      }
-       if (window.location.pathname == '/press'){
+        }
+       if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press'){
         if(userInfo.press_has_form_submitted == "1"){
           document.getElementById("workspot").setAttribute('disabled', "");
           document.getElementById("publisher").setAttribute('disabled', "");
@@ -600,7 +644,7 @@
       * -----------------------------------------------------------------------------------------------------------
       */
 
-      if(window.location.pathname == '/admin'){
+      if(window.location.pathname == '/de/admin' || window.location.pathname == '/en/admin'){
         let clipboard = new ClipboardJS('.copy-button');
 
         clipboard.on('success', function(e) {
@@ -1010,7 +1054,7 @@ getDocs(company_colRef)
 
     //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
-
+          let storedLang = localStorage.getItem("language");
           let companyValue = event.target.getAttribute('data-value');
           let companyNameValue = event.target.getAttribute('data-company-name');
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));
@@ -1038,10 +1082,19 @@ getDocs(company_colRef)
           //Save company name from the companies collection
           localStorage.setItem('company_collection', JSON.stringify(company));
 
-          window.location.replace('/company');
+          if(storedLang){
+            if(storedLang == "de"){
+              window.location.replace('/de/company');
+            }else{
+              window.location.replace('/en/company');
+            }
+          }else{
+            window.location.replace('/en/company');
+          }
+         
       })
 
-    if (window.location.pathname == '/company'){
+    if (window.location.pathname == '/de/company'){
 
       // Retrieve users data from local storage
       const storedUsers = localStorage.getItem('users');
@@ -1108,9 +1161,9 @@ getDocs(company_colRef)
           signOutbutton.style.display = 'none';
          }
 
-        if ( url == '/en/signup' ) {
+        if ( url == '/en/signup' || url == '/de/signup' ) {
           pageHome();
-        } else if ( url == '/en/signin' ) {
+        } else if ( url == '/en/signin' || url == '/de/signin' ) {
           signInPage();
         } else {
           // User does NOT have access to this page
@@ -1119,20 +1172,20 @@ getDocs(company_colRef)
       } else {
         document.getElementById('signout-button').style.display = 'block';
         // User IS signed in
-         if ( url == '/account' ) {
+         if ( url == '/en/account' || url == '/de/account' ) {
           pageAccount(user);
-        } else if ( url == '/press' ) {
+        } else if ( url == '/en/press' || url == '/de/press' ) {
           pagePress(user);
-        } else if ( url == '/supplier') {
+        } else if ( url == '/en/supplier' || url == '/de/supplier' ) {
           pageSupplier(user);
-        } else if ( url == '/admin' ) {
+        } else if ( url == '/en/admin' || url == '/de/admin' ) {
           pageAdmin(user);
         }
       }
     }
     // Forgot password functionality
     if(window.location.pathname == '/forgotpassword'){
-
+      var storedLang = localStorage.getItem("language");
       let email = document.getElementById('email_address');
       let resetPasword = document.getElementById('forgot_password');
 
@@ -1147,7 +1200,16 @@ getDocs(company_colRef)
         .then(() => {
           toastr.success('Email has been sent!');
           setTimeout(function() {
-                  window.location.pathname = '/success-email-sent';
+
+            if(storedLang){
+              if(storedLang == "de"){
+                window.location.pathname = '/de/success-email-sent';
+              }else{
+                window.location.pathname = '/en/success-email-sent';
+              }
+            }else{
+              window.location.pathname = '/en/success-email-sent';
+            }
                 }, 2000);
         })
         .catch((error) => {
@@ -1171,26 +1233,69 @@ getDocs(company_colRef)
         let form_button = document.getElementById('form_button');
         let account_button = document.getElementById('account_user_profile');
         let admin_button = document.getElementById('admin_button');
+        var storedLang = localStorage.getItem("language");
 
       if(!user){
-        form_button.setAttribute('href', '/en/signin');
-        account_button.setAttribute('href', '/en/signin');
-        admin_button.setAttribute('href', '/en/signin');
-        document.getElementById('signIn_button').style.display = 'block'; 
-        document.getElementById('signUp_button').style.display = 'block';
-        if(window.location.pathname == '/'){
-          window.location.replace('https://porsche-tms.webflow.io/en/signin');
+        if(storedLang){
+          if(storedLang == "de"){
+            form_button.setAttribute('href', '/de/signin');
+            account_button.setAttribute('href', '/de/signin');
+            admin_button.setAttribute('href', '/de/signin');
+            document.getElementById('signIn_button').style.display = 'block'; 
+            document.getElementById('signUp_button').style.display = 'block';
+            if(window.location.pathname == '/'){
+              window.location.replace('https://porsche-tms.webflow.io/de/signin');
+              }
+          }else{
+            form_button.setAttribute('href', '/en/signin');
+            account_button.setAttribute('href', '/en/signin');
+            admin_button.setAttribute('href', '/en/signin');
+            document.getElementById('signIn_button').style.display = 'block'; 
+            document.getElementById('signUp_button').style.display = 'block';
+            if(window.location.pathname == '/'){
+              window.location.replace('https://porsche-tms.webflow.io/en/signin');
+              }
           }
+        }else{
+          form_button.setAttribute('href', '/en/signin');
+          account_button.setAttribute('href', '/en/signin');
+          admin_button.setAttribute('href', '/en/signin');
+          document.getElementById('signIn_button').style.display = 'block'; 
+          document.getElementById('signUp_button').style.display = 'block';
+          if(window.location.pathname == '/'){
+            window.location.replace('https://porsche-tms.webflow.io/en/signin');
+            }
+        }        
       }else{
-        account_button.setAttribute('href', '/en/account');
-        admin_button.setAttribute('href', '/en/admin');
-        document.getElementById('signIn_button').style.display = 'none'; 
-        document.getElementById('signUp_button').style.display = 'none';
-        if(window.location.pathname == '/'){
-          window.location.replace('https://porsche-tms.webflow.io/en/account');
+        if(storedLang){
+          if(storedLang == "de"){
+            account_button.setAttribute('href', '/de/account');
+            admin_button.setAttribute('href', '/de/admin');
+            document.getElementById('signIn_button').style.display = 'none'; 
+            document.getElementById('signUp_button').style.display = 'none';
+            if(window.location.pathname == '/'){
+              window.location.replace('https://porsche-tms.webflow.io/de/account');
+            }
+          }else{
+            account_button.setAttribute('href', '/en/account');
+            admin_button.setAttribute('href', '/en/admin');
+            document.getElementById('signIn_button').style.display = 'none'; 
+            document.getElementById('signUp_button').style.display = 'none';
+            if(window.location.pathname == '/'){
+              window.location.replace('https://porsche-tms.webflow.io/en/account');
+            }
+          }
+        }else{
+              account_button.setAttribute('href', '/en/account');
+              admin_button.setAttribute('href', '/en/admin');
+              document.getElementById('signIn_button').style.display = 'none'; 
+              document.getElementById('signUp_button').style.display = 'none';
+              if(window.location.pathname == '/'){
+                window.location.replace('https://porsche-tms.webflow.io/en/account');
+              }
+            }        
         }
       }
-    }
     // first page load
     dispatchRequest(false);
     checkUrlParameter();    
@@ -1215,10 +1320,9 @@ getDocs(company_colRef)
     } else {
         console.log("No company found with that ID");
     }
-}
-
-async function getCompanyType(user) {
-  let userInfo = await getUserInfo(user);
+  }
+  async function getCompanyType(user) {
+    let userInfo = await getUserInfo(user);
     // Get the collection of companies
     const companiesRef = collection(db, "companies");
     // Get all the company documents
@@ -1322,74 +1426,6 @@ async function getCompanyType(user) {
         changeLanguage("de");
         updateLinks();
     });
-
-   /* let dropdown = document.getElementById("change_language"); 
-    
-if(dropdown){
-
-// Get the selected option element
-let selectedOption = dropdown.options[dropdown.selectedIndex];
-
-// Get the abbreviation for the selected language
-let abbreviation = getLanguageAbbreviation(selectedOption.value);
-
-// Update the dropdown title
-dropdown.title = abbreviation;
-
-// Function to get the language abbreviation
-function getLanguageAbbreviation(language) {
-    switch (language) {
-        case "English":
-            return "EN";
-        case "German":
-            return "GER";
-        case "Spanish":
-            return "SPA"
-        // Add more cases for other languages
-        default:
-            return "";
-    }
-}
-
-dropdown.addEventListener("change", function() {
-    let selectedOption = dropdown.options[dropdown.selectedIndex];
-    let abbreviation = getLanguageAbbreviation(selectedOption.value);
-    dropdown.title = abbreviation;
-});
-}
-
-   // Get the dropdown element by its id
-   let signDropdown = document.getElementById("sign_language");
-
-// Get the selected option element
-let selectedSignOption = signDropdown.options[signDropdown.selectedIndex];
-
-// Get the abbreviation for the selected language
-let signAbbreviation = getLanguageAbbreviation(selectedSignOption.value);
-
-// Update the dropdown title
-signDropdown.title = abbreviation;
-
-// Function to get the language abbreviation in the sign pages
-function getSignLanguageAbbreviation(language) {
-    switch (language) {
-        case "English":
-            return "EN";
-        case "German":
-            return "GER";
-        case "Spanish":
-            return "SPA"
-        // Add more cases for other languages
-        default:
-            return "";
-    }
-}
-
-signDropdown.addEventListener("change", function() {
-    let selectedOption = signDropdown.options[signDropdown.selectedIndex];
-    let abbreviation = getSignLanguageAbbreviation(selectedSignOption.value);
-    signDropdown.title = signAbbreviation;
-});*/
 
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
