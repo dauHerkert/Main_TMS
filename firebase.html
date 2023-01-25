@@ -1283,6 +1283,13 @@ async function getCompanyType(user) {
       window.history.pushState({}, null, newPath);
     }
 
+    window.addEventListener('load', function(){
+      var storedLang = localStorage.getItem("language");
+      if(storedLang){
+          currentLang = storedLang;
+      }
+      updateLinks();
+    });
 
     function updateLinks() {
     var baseUrl = window.location.origin;
@@ -1294,9 +1301,6 @@ async function getCompanyType(user) {
         }
      }
     }
-
-    // you can call this function when the page loads to set the correct links
-    updateLinks();
     
     // add event listeners to buttons or links that the user can click to change the language
     document.getElementById("englishBtn").addEventListener("click", function() {
