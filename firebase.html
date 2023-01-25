@@ -1277,6 +1277,7 @@ async function getCompanyType(user) {
     var currentLang = "en";  // default language is English
 
     function changeLanguage(lang) {
+      console.log("Changing language to " + lang);
       localStorage.setItem("language", lang);
       var currentPath = window.location.pathname;
       var newPath = currentPath.replace(/\/[a-z]{2}\//, '/' + lang + '/');
@@ -1308,12 +1309,13 @@ async function getCompanyType(user) {
       }
     }
     
-    // add event listeners to buttons or links that the user can click to change the language
     document.getElementById("englishBtn").addEventListener("click", function() {
         changeLanguage("en");
+        updateLinks();
     });
     document.getElementById("germanBtn").addEventListener("click", function() {
         changeLanguage("de");
+        updateLinks();
     });
 
    /* let dropdown = document.getElementById("change_language"); 
