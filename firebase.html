@@ -1277,19 +1277,19 @@ async function getCompanyType(user) {
     var currentLang = "en";  // default language is English
 
     function changeLanguage(lang) {
-        currentLang = lang;
-        updateLinks();
+      currentLang = lang;
+      updateLinks();
     }
 
     function updateLinks() {
-      var baseUrl = window.location.origin;
-      var links = document.querySelectorAll("nav[role='navigation'] a");
-      for (var i = 0; i < links.length; i++) {
-          var link = links[i];
-          if(!link.href.startsWith(baseUrl)){
-              link.href = baseUrl + "/" + currentLang + link.getAttribute("href");
-          }
-      }
+    var baseUrl = window.location.origin;
+    var links = document.querySelectorAll("nav[role='navigation'] a");
+    for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        if(!link.href.startsWith(baseUrl)){
+            link.href = baseUrl + "/" + currentLang + link.getAttribute("href");
+        }
+     }
     }
 
     // you can call this function when the page loads to set the correct links
