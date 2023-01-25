@@ -1292,13 +1292,14 @@ async function getCompanyType(user) {
     });
 
     function updateLinks() {
+      console.log("Updating links");
       var baseUrl = window.location.origin;
       var currentPath = window.location.pathname;
       var pathArray = currentPath.split("/");
       if(pathArray.length < 3 || (pathArray.length >= 3 && !/^[a-z]{2}$/.test(pathArray[1]))){
           currentPath = '/'+currentLang+currentPath;
       }
-      var links = document.querySelectorAll("nav[role='navigation'] a");
+      var links = document.querySelectorAll(".nav-link");
       for (var i = 0; i < links.length; i++) {
           var link = links[i];
           if(!link.href.startsWith(baseUrl)){
