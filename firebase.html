@@ -841,8 +841,8 @@ async function bulkUserUpdate() {
           e.preventDefault();
           e.stopPropagation();
 
-          selectedData.forEach(function(rowId){
-            bulkUserUpdate(rowId);
+          selectedData.forEach(function(){
+            bulkUserUpdate();
         });
       });
 
