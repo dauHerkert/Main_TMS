@@ -1182,12 +1182,12 @@ getDocs(company_colRef)
           window.location.replace('https://porsche-tms.webflow.io/en/signin');
           }
       }else{
-        account_button.setAttribute('href', '/account');
-        admin_button.setAttribute('href', '/admin');
+        account_button.setAttribute('href', '/en/account');
+        admin_button.setAttribute('href', '/en/admin');
         document.getElementById('signIn_button').style.display = 'none'; 
         document.getElementById('signUp_button').style.display = 'none';
         if(window.location.pathname == '/'){
-          window.location.replace('https://porsche-tms.webflow.io/account');
+          window.location.replace('https://porsche-tms.webflow.io/en/account');
         }
       }
     }
