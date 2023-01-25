@@ -783,11 +783,10 @@ getDocs(colRef)
       });
 
      //Bulk users update
-     async function bulkUserUpdate() {
+async function bulkUserUpdate() {
     let bulk_user_form = document.getElementById('bulk_user_form');
     let bulk_status_update = document.getElementById('bulk_status');
 
-    bulk_user_form.addEventListener('submit', async (e) => {
         e.preventDefault();
         e.stopPropagation();
 
@@ -827,7 +826,6 @@ getDocs(colRef)
                     console.log("Document written with ID: ", docRef.id);
                     } catch (e) {
                     console.error("Error adding document: ", e);
-                    
                     }
                     toastr.success('Account info has been successfully updated');
                     setTimeout(function() {
@@ -841,12 +839,11 @@ getDocs(colRef)
                     });
               }
             }
-          });
         }
       document.getElementById("bulk_user_form").addEventListener("submit", function(){
           e.preventDefault();
           e.stopPropagation();
-          alert("Error updating user: " + err);
+
           selectedData.forEach(function(rowId){
             bulkUserUpdate(rowId);
         });
