@@ -157,6 +157,7 @@
 
     // Handle signIn
     function handleSignIn(e) {
+      var storedLang = localStorage.getItem("language");
         e.preventDefault();
         e.stopPropagation();
         const email = document.getElementById('signin-email').value;
@@ -167,7 +168,15 @@
           const user = userCredential.user;
           toastr.success('user logged in: ' + user.email);
           setTimeout(() => {
-            window.location = "/account";
+            if(storedLang){
+              if(storedLang == "de"){
+                window.location = "/de/account";
+              }else{
+                window.location = "/en/account";
+              }
+            }else{
+              window.location = "/en/account";
+            }
         }, 1000);
         })
         .catch((error) => {
