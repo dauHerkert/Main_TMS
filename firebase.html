@@ -1282,11 +1282,14 @@ async function getCompanyType(user) {
     }
 
     function updateLinks() {
-        var links = document.querySelectorAll("nav[role='navigation'] a");
-        for (var i = 0; i < links.length; i++) {
-          links[i].href = links[i].href.replace("/"+currentLang, "")
-            links[i].href = "/" + currentLang + links[i].getAttribute("href");
-        }
+      var baseUrl = window.location.origin;
+      var links = document.querySelectorAll("nav[role='navigation'] a");
+      for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+          if(!link.href.startsWith(baseUrl)){
+              link.href = baseUrl + "/" + currentLang + link.getAttribute("href");
+          }
+      }
     }
 
     // you can call this function when the page loads to set the correct links
