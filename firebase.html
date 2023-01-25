@@ -1282,7 +1282,7 @@ async function getCompanyType(user) {
     }
 
     function updateLinks() {
-        var links = document.querySelectorAll("#navbar a");
+        var links = document.querySelectorAll("#main_navbar a");
         for (var i = 0; i < links.length; i++) {
             links[i].href = "/" + currentLang + links[i].getAttribute("href");
         }
