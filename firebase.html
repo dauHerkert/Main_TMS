@@ -1274,6 +1274,31 @@ async function getCompanyType(user) {
 
     //Language selection
 
+    var currentLang = "en";  // default language is English
+
+    function changeLanguage(lang) {
+        currentLang = lang;
+        updateLinks();
+    }
+
+    function updateLinks() {
+        var links = document.querySelectorAll("#navbar a");
+        for (var i = 0; i < links.length; i++) {
+            links[i].href = "/" + currentLang + links[i].getAttribute("href");
+        }
+    }
+
+    // you can call this function when the page loads to set the correct links
+    updateLinks();
+    
+    // add event listeners to buttons or links that the user can click to change the language
+    document.getElementById("englishBtn").addEventListener("click", function() {
+        changeLanguage("en");
+    });
+    document.getElementById("germanBtn").addEventListener("click", function() {
+        changeLanguage("de");
+    });
+
    /* let dropdown = document.getElementById("change_language"); 
     
 if(dropdown){
