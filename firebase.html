@@ -827,7 +827,7 @@ getDocs(colRef)
                     console.log("Document written with ID: ", docRef.id);
                     } catch (e) {
                     console.error("Error adding document: ", e);
-                    alert("Error updating user: " + err);
+                    
                     }
                     toastr.success('Account info has been successfully updated');
                     setTimeout(function() {
@@ -846,7 +846,7 @@ getDocs(colRef)
       document.getElementById("bulk_user_form").addEventListener("submit", function(){
           e.preventDefault();
           e.stopPropagation();
-
+          alert("Error updating user: " + err);
           selectedData.forEach(function(rowId){
             bulkUserUpdate(rowId);
         });
