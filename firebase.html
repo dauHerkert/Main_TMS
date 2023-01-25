@@ -185,7 +185,7 @@
             toastr.error('user signed out');
         }, 1000);
         setTimeout(() => {
-            window.location = "/signin";
+            window.location = "/en/signin";
         }, 1500);
         }).catch((error) => {
             const errorMessage = error.message;
@@ -1108,9 +1108,9 @@ getDocs(company_colRef)
           signOutbutton.style.display = 'none';
          }
 
-        if ( url == '/signup' ) {
+        if ( url == '/en/signup' ) {
           pageHome();
-        } else if ( url == '/signin' ) {
+        } else if ( url == '/en/signin' ) {
           signInPage();
         } else {
           // User does NOT have access to this page
@@ -1173,13 +1173,13 @@ getDocs(company_colRef)
         let admin_button = document.getElementById('admin_button');
 
       if(!user){
-        form_button.setAttribute('href', '/signin');
-        account_button.setAttribute('href', '/signin');
-        admin_button.setAttribute('href', '/signin');
+        form_button.setAttribute('href', '/en/signin');
+        account_button.setAttribute('href', '/en/signin');
+        admin_button.setAttribute('href', '/en/signin');
         document.getElementById('signIn_button').style.display = 'block'; 
         document.getElementById('signUp_button').style.display = 'block';
         if(window.location.pathname == '/'){
-          window.location.replace('https://porsche-tms.webflow.io/signin');
+          window.location.replace('https://porsche-tms.webflow.io/en/signin');
           }
       }else{
         account_button.setAttribute('href', '/account');
