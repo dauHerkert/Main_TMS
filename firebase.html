@@ -1277,9 +1277,12 @@ async function getCompanyType(user) {
     var currentLang = "en";  // default language is English
 
     function changeLanguage(lang) {
-      currentLang = lang;
-      updateLinks();
+      localStorage.setItem("language", lang);
+      var currentPath = window.location.pathname;
+      var newPath = currentPath.replace(/\/[a-z]{2}\//, '/' + lang + '/');
+      window.history.pushState({}, null, newPath);
     }
+
 
     function updateLinks() {
     var baseUrl = window.location.origin;
