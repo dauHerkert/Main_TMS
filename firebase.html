@@ -474,12 +474,12 @@
       var storedLang = sessionStorage.getItem("language"); 
 
       if(deleteButton){
-      deleteButton.addEventListener("click", async function(user){
+      deleteButton.addEventListener("click", function(user){
         
         deleteUser(user).then(() => {
-          console.log('User deleted')
+          toastr.success('User deleted')
         }).catch((error) => {
-          console.log('An error ocurred')
+          toastr.error('An error ocurred', error)
         });
       })
     }
