@@ -473,7 +473,6 @@
       let deleteButton = document.getElementById('delete_user');
       var storedLang = sessionStorage.getItem("language"); 
 
-      function deleteCurrentUser(user){
       if(deleteButton){
       deleteButton.addEventListener("click", function(user){
         
@@ -496,7 +495,7 @@
         });
       })
     }
-  }
+
     async function pageAccount(user) {
       let userInfo = await getUserInfo(user);
       const companyName = await changeCompanyNameToID(userInfo);
@@ -546,7 +545,6 @@
         }, true);
       }
       showProfilePic(user);
-      deleteCurrentUser(user);
     }
     /*
     * -----------------------------------------------------------------------------------------------------------
