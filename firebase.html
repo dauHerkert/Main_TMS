@@ -1449,6 +1449,22 @@ getDocs(company_colRef)
         updateLinks();
     });
 
+    let signEnBtn = document.getElementById("englishBtn2")
+    if(signLangBtn){
+      signLangBtn.addEventListener("click", function() {
+        changeLanguage("en");
+        updateLinks();
+    });
+    }
+    let signDeBtn = document.getElementById("germanBtn2")
+    if(signDeBtn){
+      signDeBtn.addEventListener("click", function() {
+        changeLanguage("de");
+        updateLinks();
+    });
+    }
+    
+
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
