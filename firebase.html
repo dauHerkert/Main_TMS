@@ -1165,6 +1165,33 @@ getDocs(company_colRef)
     })
   }
 
+  // Send email with the user's registration link
+
+    let company_link_form = document.getElementById('company_link_form');
+
+    if(company_link_form){
+
+      company_link_form.addEventListener('submit', ()=>{
+
+        try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                    to: `${email_to_send.value}`,
+                    message: {
+                    subject: 'Hello! Heres is the registration link',
+                    html:  `${company_link.value}`,
+                    }
+                    });
+                    console.log("Document written with ID: ");
+                    } catch (e) {
+                    console.error("Error sending email: ", e);
+                    }
+                    toastr.success('Email has been successfully sent');
+                    setTimeout(function() {
+                      window.location.reload();
+                    }, 2000);
+      })
+    }
+
     /*
     * -----------------------------------------------------------------------------------------------------------
     * URL functions
