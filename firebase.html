@@ -473,9 +473,8 @@
       var storedLang = sessionStorage.getItem("language"); 
 
       if(deleteButton){
-      deleteButton.addEventListener("click", async function(user){
-        const userRef = doc(db, 'users', user.uid);
-        await deleteDoc(userRef);
+      deleteButton.addEventListener("click", function(user){
+        
         deleteUser(user).then(() => {
           toastr.success('You have deleted your account successfully');
           setTimeout(function() {
