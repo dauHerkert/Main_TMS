@@ -234,7 +234,6 @@
           signUpForm.addEventListener('submit', handleSignUp, true)
         }
     }
-
     function signInPage(){
         let signInForm = document.getElementById('wf-form-signin-form');
 
@@ -1212,7 +1211,6 @@ getDocs(company_colRef)
 
         localStorage.setItem('email', JSON.stringify(email.value));
 
-
         sendPasswordResetEmail(auth, email.value)
         .then(() => {
           toastr.success('Email has been sent!');
@@ -1459,12 +1457,11 @@ getDocs(company_colRef)
         updateLinks();
     });
 
-    let signEnBtn = document.getElementById("englishBtn2")
+    /*let signEnBtn = document.getElementById("englishBtn2")
     if(signEnBtn){
       signEnBtn.addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
-        console.log('sffaassads')
     });
     }
     let signDeBtn = document.getElementById("germanBtn2")
@@ -1473,7 +1470,7 @@ getDocs(company_colRef)
         changeLanguage("de");
         updateLinks();
     });
-    }
+    }*/
     
 
 </script>
