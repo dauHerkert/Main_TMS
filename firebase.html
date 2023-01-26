@@ -1432,11 +1432,13 @@ getDocs(company_colRef)
           currentPath = '/'+currentLang+currentPath;
       }
       var links = document.querySelectorAll(".nav-link");
-      for (var i = 0; i < links.length; i++) {
+      if(links){
+        for (var i = 0; i < links.length; i++) {
           var link = links[i];
           if(!link.href.startsWith(baseUrl)){
               link.href = baseUrl + currentPath + link.getAttribute("href");
           }
+      }
       }
     }
     
