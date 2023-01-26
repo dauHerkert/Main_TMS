@@ -953,15 +953,19 @@ getDocs(colRef)
             {title:"Company", field:"company", sorter:"string", width:150, cssClass:"companyName", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
             {title:"Company Zone", field:"zone", sorter:"string", width:150, cssClass:"companyZone"},
             {title:"User Head", field:"userHead", sorter:"string", width:150, cssClass:"userHead"},
-            {title:"Copy Link", field:"copy", sorter:"string", width:150, cssClass:'copyButton', formatter: function(cell, formatterParams, onRendered){
-                let button = `<button id="copy-button-${cell.getRow().getData().id}" class="copy-button" data-clipboard-text="${cell.getRow().getCell("companyLink").getValue()}">Copy</button>`;
-                return button;
+            {title:"Send Link", formatter:function(cell, formatterParams){
+            let value = cell.getValue();
+            let button = document.createElement("button");
+            button.innerHTML = "Send Link";
+            button.setAttribute("onclick","openModal5()");
+            button.setAttribute("id","open_link_modal");
+            return button;
             }},
             {title:"Update", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = "Edit";
-            button.setAttribute("onclick","openModal2()");
+            button.setAttribute("onclick","openModal5()");
             button.setAttribute("id","open_companies_modal");
             return button;
         }},           
