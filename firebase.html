@@ -478,7 +478,7 @@
       if(deleteButton){
       deleteButton.addEventListener("click", function(user){
         
-        auth.deleteUser(user).then(() => {
+        deleteUser(user).then(() => {
           toastr.success('User deleted')
         }).catch((error) => {
           toastr.error('An error ocurred', error)
