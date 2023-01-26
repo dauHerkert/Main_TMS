@@ -471,10 +471,11 @@
     // Delete user    
       let deleteButton = document.getElementById('delete_user');
       var storedLang = sessionStorage.getItem("language");
+      const userRef = doc(db, 'users', user.uid);
 
       if(deleteButton){
       deleteButton.addEventListener("click", async function(user){
-        await deleteDoc(doc(db, "users", user.uid));
+        await deleteDoc(userRef);
         deleteUser(user).then(() => {
           toastr.success('You have deleted your account successfully');
           setTimeout(function() {
