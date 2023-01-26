@@ -1307,7 +1307,12 @@ getDocs(company_colRef)
       }
     // first page load
     dispatchRequest(false);
-    checkUrlParameter();    
+    checkUrlParameter();
+    var storedLang = sessionStorage.getItem("language");
+    
+    if(storedLang){
+      document.getElementById('selected_lang').innerHTML = storedLang;
+    }
 
     async function changeCompanyNameToID(user) {
     // Get the collection of companies
@@ -1384,22 +1389,7 @@ getDocs(company_colRef)
       }
     });
 
-    // Error page
-    /*let return_error_btn = document.getElementById('error_return_btn');
-    if(return_error_btn){            
-            var storedLang = localStorage.getItem("language");
-            if(storedLang){
-              if(storedLang == "de"){
-                return_error_btn.setAttribute("href", "/de/signin")
-              }else{
-                return_error_btn.setAttribute("href", "/en/signin")
-              }
-            }else{
-              return_error_btn.setAttribute("href", "/en/signin")
-            }
-    }*/
     //Language selection
-
     var currentLang = "en";  // default language is English
     let reloaded = false;
 
@@ -1449,12 +1439,12 @@ getDocs(company_colRef)
     document.getElementById("englishBtn").addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
-        document.getElementById('selected_lang').textContent = "EN";
+        document.getElementById('selected_lang').innerHTML = "EN";
     });
     document.getElementById("germanBtn").addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
-        document.getElementById('selected_lang').textContent = "DE";
+        document.getElementById('selected_lang').innerHTML = "DE";
     });
 
     let signEnBtn = document.getElementById("englishBtn2")
@@ -1462,7 +1452,7 @@ getDocs(company_colRef)
       signEnBtn.addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
-        document.getElementById('selected_lang2').textContent = "EN";
+        document.getElementById('selected_lang2').innerHTML = "EN";
     });
     }
     let signDeBtn = document.getElementById("germanBtn2")
@@ -1470,7 +1460,7 @@ getDocs(company_colRef)
       signDeBtn.addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
-        document.getElementById('selected_lang2').textContent = "DE";
+        document.getElementById('selected_lang2').innerHTML = "DE";
     });
     }
 </script>
