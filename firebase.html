@@ -1308,11 +1308,6 @@ getDocs(company_colRef)
     // first page load
     dispatchRequest(false);
     checkUrlParameter();
-    var storedLang = sessionStorage.getItem("language");
-    
-    if(storedLang){
-      document.getElementById('selected_lang').innerHTML = storedLang;
-    }
 
     async function changeCompanyNameToID(user) {
     // Get the collection of companies
@@ -1435,6 +1430,20 @@ getDocs(company_colRef)
       }
       }
     }
+    //Update the language select name
+    var storedLang = sessionStorage.getItem("language");
+      if(storedLang){
+        if(storedLang == "de"){
+        document.getElementById('selected_lang').innerHTML = "DE";
+        document.getElementById('selected_lang2').innerHTML = "DE";
+      }else{
+        document.getElementById('selected_lang').innerHTML = "EN";
+        document.getElementById('selected_lang2').innerHTML = "EN";
+      }
+      }else{
+        document.getElementById('selected_lang').innerHTML = "EN";
+        document.getElementById('selected_lang2').innerHTML = "EN";
+      }
     
     document.getElementById("englishBtn").addEventListener("click", function() {
         changeLanguage("en");
@@ -1452,7 +1461,6 @@ getDocs(company_colRef)
       signEnBtn.addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
-        document.getElementById('selected_lang2').innerHTML = "EN";
     });
     }
     let signDeBtn = document.getElementById("germanBtn2")
@@ -1460,7 +1468,6 @@ getDocs(company_colRef)
       signDeBtn.addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
-        document.getElementById('selected_lang2').innerHTML = "DE";
     });
     }
 </script>
