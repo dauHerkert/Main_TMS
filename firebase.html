@@ -473,7 +473,7 @@
       let deleteButton = document.getElementById('delete_user');
 
       deleteButton.addEventListener("click", async function(user){
-        await deleteDoc(doc(db, "cities", user.uid));
+        await deleteDoc(doc(db, "users", user.uid));
         deleteUser(user).then(() => {
           toastr.success('You have deleted your account successfully');
           setTimeout(function() {
