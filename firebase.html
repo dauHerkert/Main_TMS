@@ -9,7 +9,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, updateEmail, updatePassword, sendPasswordResetEmail, deleteUser } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-    import { getFirestore, collection, addDoc, setDoc, updateDoc, getDoc, doc, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
+    import { getFirestore, collection, addDoc, setDoc, updateDoc, getDoc, doc, query, where, getDocs, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
     import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
 
     const firebaseConfig = {
@@ -897,7 +897,6 @@ getDocs(colRef)
           }
         }
     }
-
     document.getElementById("bulk_user_form").addEventListener("submit", function(e){
       e.preventDefault();
       e.stopPropagation();
@@ -1449,11 +1448,13 @@ getDocs(company_colRef)
         changeLanguage("en");
         updateLinks();
         document.getElementById('selected_lang').innerHTML = "EN";
+        console.log('hellooo')
     });
     document.getElementById("germanBtn").addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
         document.getElementById('selected_lang').innerHTML = "DE";
+        console.log('hellooo')
     });
 
     let signEnBtn = document.getElementById("englishBtn2")
