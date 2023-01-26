@@ -477,21 +477,10 @@
       deleteButton.addEventListener("click", function(user){
         
         deleteUser(user).then(() => {
-          toastr.success('You have deleted your account successfully');
-          setTimeout(function() {
-              if(storedLang){
-                if(storedLang == "de"){
-                  window.location.pathname = '/de/signin-porsche';
-                }else{
-                  window.location.pathname = '/en/signin-porsche';
-                }
-              }else{
-                window.location.pathname = '/en/signin-porsche';
-              }
-            }, 2000);
+          // User deleted.
         }).catch((error) => {
-          toastr.error('There was a problem deleting your account');
-          console.log(`"error:" ${error}`)
+          // An error ocurred
+          // ...
         });
       })
     }
