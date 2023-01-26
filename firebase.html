@@ -1449,10 +1449,12 @@ getDocs(company_colRef)
     document.getElementById("englishBtn").addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
+        document.getElementById('selected_lang').textContent = "EN";
     });
     document.getElementById("germanBtn").addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
+        document.getElementById('selected_lang').textContent = "DE";
     });
 
     let signEnBtn = document.getElementById("englishBtn2")
@@ -1460,6 +1462,7 @@ getDocs(company_colRef)
       signEnBtn.addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
+        document.getElementById('selected_lang2').textContent = "EN";
     });
     }
     let signDeBtn = document.getElementById("germanBtn2")
@@ -1467,6 +1470,7 @@ getDocs(company_colRef)
       signDeBtn.addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
+        document.getElementById('selected_lang2').textContent = "DE";
     });
     }
 </script>
