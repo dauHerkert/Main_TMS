@@ -1171,9 +1171,11 @@ getDocs(company_colRef)
 
     if(company_link_form){
 
-      company_link_form.addEventListener('submit', ()=>{
+      company_link_form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
 
-        try {
+              try {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${email_to_send.value}`,
                     message: {
@@ -1181,16 +1183,15 @@ getDocs(company_colRef)
                     html:  `${company_link.value}`,
                     }
                     });
-                    console.log("Document written with ID: ");
-                    } catch (e) {
-                    console.error("Error sending email: ", e);
-                    }
                     toastr.success('Email has been successfully sent');
                     setTimeout(function() {
                       window.location.reload();
                     }, 2000);
-      })
-    }
+                    } catch (e) {
+                      toastr.error("Error sending email: ", e);
+                    }
+                })
+              }
 
     /*
     * -----------------------------------------------------------------------------------------------------------
