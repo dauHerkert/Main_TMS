@@ -477,10 +477,9 @@
       deleteButton.addEventListener("click", function(user){
         
         deleteUser(user).then(() => {
-          // User deleted.
+          console.log('User deleted')
         }).catch((error) => {
-          // An error ocurred
-          // ...
+          console.log('An error ocurred')
         });
       })
     }
