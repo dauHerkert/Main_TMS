@@ -1431,30 +1431,35 @@ getDocs(company_colRef)
     }
     //Update the language select name
     var storedLang = sessionStorage.getItem("language");
+    let sign_lang = document.getElementById('selected_lang2');
       if(storedLang){
         if(storedLang == "de"){
         document.getElementById('selected_lang').innerHTML = "DE";
-        document.getElementById('selected_lang2').innerHTML = "DE";
+        if(sign_lang){
+          sign_lang.innerHTML = "DE";
+        }
       }else{
         document.getElementById('selected_lang').innerHTML = "EN";
-        document.getElementById('selected_lang2').innerHTML = "EN";
+        if(sign_lang){
+          sign_lang.innerHTML = "EN";
+        }
       }
       }else{
         document.getElementById('selected_lang').innerHTML = "EN";
-        document.getElementById('selected_lang2').innerHTML = "EN";
+        if(sign_lang){
+          sign_lang.innerHTML = "EN";
+        }
       }
     
     document.getElementById("englishBtn").addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
         document.getElementById('selected_lang').innerHTML = "EN";
-        console.log('hellooo')
     });
     document.getElementById("germanBtn").addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
         document.getElementById('selected_lang').innerHTML = "DE";
-        console.log('hellooo')
     });
 
     let signEnBtn = document.getElementById("englishBtn2")
