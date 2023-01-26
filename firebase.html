@@ -165,7 +165,7 @@
 
     // Handle signIn
     function handleSignIn(e) {
-      var storedLang = localStorage.getItem("language");
+      var storedLang = sessionStorage.getItem("language");
         e.preventDefault();
         e.stopPropagation();
         const email = document.getElementById('signin-email').value;
@@ -197,14 +197,14 @@
 
     // Handle signOut
     function handleSignOut() {
-      var storedLang = localStorage.getItem("language");
+      var storedLang = sessionStorage.getItem("language");
         signOut(auth).then(() => {          
           setTimeout(() => {
             toastr.error('user signed out');
         }, 1000);
         setTimeout(() => {
           if(storedLang){
-            if(storedLang == "de"){
+            if(storedLang == "de" && window.location != "/de/signin"){
               window.location = "/de/signin";
             }else{
               window.location = "/en/signin";
@@ -270,7 +270,7 @@
       const press_info = document.getElementsByClassName('press_info');
       const supplier_info = document.getElementsByClassName('supplier_info');
       let form_button = document.getElementById('form_button');
-      var storedLang = localStorage.getItem("language");
+      var storedLang = sessionStorage.getItem("language");
 
       if ( userInfo ) {
         // Use the changeCompanyNameToID(user) function to get the company name
@@ -904,7 +904,6 @@ getDocs(colRef)
       bulkUserUpdate(selectedData);
     });
 
-
     // ========== COMPANIES TABLE FUNCTIONS ============== //
 
     // Print companies table
@@ -1070,7 +1069,7 @@ getDocs(company_colRef)
 
     //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
-          let storedLang = localStorage.getItem("language");
+          let storedLang = sessionStorage.getItem("language");
           let companyValue = event.target.getAttribute('data-value');
           let companyNameValue = event.target.getAttribute('data-company-name');
           const q = query(collection(db, "users"), where("user_company", "==", companyValue));
@@ -1092,8 +1091,7 @@ getDocs(company_colRef)
 
           console.log(company)
           localStorage.setItem('users', JSON.stringify(users));
-          localStorage.setItem('company', companyValue);
-          
+          localStorage.setItem('company', companyValue);          
 
           //Save company name from the companies collection
           localStorage.setItem('company_collection', JSON.stringify(company));
@@ -1106,8 +1104,7 @@ getDocs(company_colRef)
             }
           }else{
             window.location.replace('/en/company');
-          }
-         
+          }         
       })
 
     if (window.location.pathname == '/de/company'){
@@ -1176,7 +1173,6 @@ getDocs(company_colRef)
          if(signOutbutton){
           signOutbutton.style.display = 'none';
          }
-
         if ( url == '/en/signup' || url == '/de/signup' ) {
           pageHome();
         } else if ( url == '/en/signin' || url == '/de/signin' ) {
@@ -1201,7 +1197,7 @@ getDocs(company_colRef)
     }
     // Forgot password functionality
     if(window.location.pathname == '/forgotpassword'){
-      var storedLang = localStorage.getItem("language");
+      var storedLang = sessionStorage.getItem("language");
       let email = document.getElementById('email_address');
       let resetPasword = document.getElementById('forgot_password');
 
@@ -1236,10 +1232,8 @@ getDocs(company_colRef)
       })
     };
 
-
     if(window.location.pathname == '/success-email-sent'){
       let forgot_password_email = localStorage.getItem('email');
-
       document.getElementById('email_confirmation_text').innerHTML = `We sent a password reset link to ${forgot_password_email}`;
     }
     
@@ -1248,7 +1242,7 @@ getDocs(company_colRef)
         let form_button = document.getElementById('form_button');
         let account_button = document.getElementById('account_user_profile');
         let admin_button = document.getElementById('admin_button');
-        var storedLang = localStorage.getItem("language");
+        var storedLang = sessionStorage.getItem("language");
 
       if(!user){
         if(storedLang){
@@ -1409,7 +1403,7 @@ getDocs(company_colRef)
     var currentLang = "en";  // default language is English
 
     function changeLanguage(lang) {
-        localStorage.setItem("language", lang);
+      sessionStorage.setItem("language", lang);
         var currentPath = window.location.pathname;
         var pathArray = currentPath.split("/");
         if(pathArray.length < 3 || (pathArray.length >= 3 && !/^[a-z]{2}$/.test(pathArray[1]))){
@@ -1422,7 +1416,7 @@ getDocs(company_colRef)
       }
 
     window.addEventListener('load', function(){
-      var storedLang = localStorage.getItem("language");
+      var storedLang = sessionStorage.getItem("language");
       if(storedLang){
           currentLang = storedLang;
       }
@@ -1457,7 +1451,7 @@ getDocs(company_colRef)
         updateLinks();
     });
 
-    /*let signEnBtn = document.getElementById("englishBtn2")
+    let signEnBtn = document.getElementById("englishBtn2")
     if(signEnBtn){
       signEnBtn.addEventListener("click", function() {
         changeLanguage("en");
@@ -1470,9 +1464,7 @@ getDocs(company_colRef)
         changeLanguage("de");
         updateLinks();
     });
-    }*/
-    
-
+    }
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
