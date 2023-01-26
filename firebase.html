@@ -944,7 +944,7 @@ getDocs(colRef)
         paginationSizeSelector:[10, 25, 50],
         paginationCounter:"rows",   //display count of paginated rows in footer
         columns:[
-        {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column", formatter: function(cell, formatterParams, onRendered){
+        {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy", formatter: function(cell, formatterParams, onRendered){
                 let companyLink = cell.getValue();
                 cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
                 return companyLink;
