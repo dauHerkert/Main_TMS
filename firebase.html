@@ -953,7 +953,7 @@ getDocs(colRef)
             {title:"Company", field:"company", sorter:"string", width:150, cssClass:"companyName", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
             {title:"Company Zone", field:"zone", sorter:"string", width:150, cssClass:"companyZone"},
             {title:"User Head", field:"userHead", sorter:"string", width:150, cssClass:"userHead"},
-            {title:"Send Link", formatter:function(cell, formatterParams){
+            {title:"Send Link", width:150, formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = "Send Link";
@@ -961,7 +961,7 @@ getDocs(colRef)
             button.setAttribute("id","open_link_modal");
             return button;
             }},
-            {title:"Update", formatter:function(cell, formatterParams){
+            {title:"Update", width:150, formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = "Edit";
