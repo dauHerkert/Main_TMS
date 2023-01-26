@@ -26,6 +26,7 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     const storage = getStorage(app);
+    const user = auth.currentUser;
 
     // This is a list of the default values
     // as well as of all the possible fields that a user doc can have
