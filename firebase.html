@@ -469,6 +469,7 @@
         element.style.display = "none";
       });
     }
+
     // Delete user    
       let deleteButton = document.getElementById('delete_user');
       var storedLang = sessionStorage.getItem("language"); 
@@ -533,7 +534,7 @@
         }, true);
       }
       showProfilePic(user);
-      console.log(`Your: ${user.uid}`);
+      console.log(`Your ID: ${user.uid}`);
     }
     /*
     * -----------------------------------------------------------------------------------------------------------
