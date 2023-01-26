@@ -1401,19 +1401,23 @@ getDocs(company_colRef)
     //Language selection
 
     var currentLang = "en";  // default language is English
+    let reloaded = false;
 
     function changeLanguage(lang) {
-      sessionStorage.setItem("language", lang);
+        sessionStorage.setItem("language", lang);
         var currentPath = window.location.pathname;
         var pathArray = currentPath.split("/");
         if(pathArray.length < 3 || (pathArray.length >= 3 && !/^[a-z]{2}$/.test(pathArray[1]))){
-          currentPath = '/'+lang+currentPath;
+            currentPath = '/'+lang+currentPath;
         }else{
-          currentPath = currentPath.replace(/\/[a-z]{2}\//, '/' + lang + '/');
+            currentPath = currentPath.replace(/\/[a-z]{2}\//, '/' + lang + '/');
         }
         window.history.pushState({}, null, currentPath);
-        location.reload();
-      }
+        if (!reloaded) {
+            reloaded = true;
+            location.reload();
+        }
+    }
 
     window.addEventListener('load', function(){
       var storedLang = sessionStorage.getItem("language");
