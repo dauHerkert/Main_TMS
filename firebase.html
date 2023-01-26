@@ -439,7 +439,7 @@
       uploadBytes(storageRef, fileItem)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
-        setTimeout(reloadFormPage, 3000);
+        setTimeout(reloadPage, 3000);
       })
       .catch(err => {
         console.log('error uploading file', err);
@@ -539,8 +539,17 @@
     }
 
     // Prompt the user to re-provide their sign-in credentials
-      prompt("Please enter your email:");
+      const email = prompt("Please enter your email:");
       const password = prompt("Please enter your password:");
+
+      const credential = promptForCredentials(email, password);
+
+        reauthenticateWithCredential(user, credential).then(() => {
+          toastr.success('You were reauthenticated');
+          setTimeout(reloadPage, 3000);
+        }).catch((error) => {
+          toastr.error('An error ocurred', error);
+        });
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Press functions
@@ -586,7 +595,7 @@
       uploadBytes(storageRef, fileItem)
       .then((snapshot) => {
         toastr.success('You have submitted the form successfully');
-        setTimeout(reloadFormPage, 3000);
+        setTimeout(reloadPage, 3000);
       })
       .catch(err => {
         console.log('error uploading file', err);
@@ -646,7 +655,7 @@
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
-        setTimeout(reloadFormPage, 3000);
+        setTimeout(reloadPage, 3000);
       })
       .catch((err) => {
         console.log('error updating supplier info', err);
@@ -654,7 +663,7 @@
       });
     }
 
-    function reloadFormPage(){
+    function reloadPage(){
         window.location.reload();
     }
 
