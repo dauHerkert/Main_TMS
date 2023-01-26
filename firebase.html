@@ -468,10 +468,11 @@
         element.style.display = "none";
       });
     }
-    // Delete user
+    // Delete user    
       let deleteButton = document.getElementById('delete_user');
       var storedLang = sessionStorage.getItem("language");
 
+      if(deleteButton){
       deleteButton.addEventListener("click", async function(user){
         await deleteDoc(doc(db, "users", user.uid));
         deleteUser(user).then(() => {
@@ -491,6 +492,7 @@
           toastr.error('There was a problem deleting your account');
         });
       })
+    }
 
 
     async function pageAccount(user) {
