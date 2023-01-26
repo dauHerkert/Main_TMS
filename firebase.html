@@ -474,9 +474,9 @@
       var storedLang = sessionStorage.getItem("language"); 
 
       if(deleteButton){
-      deleteButton.addEventListener("click", function(user){
+      deleteButton.addEventListener("click", async function(user){
         
-        deleteUser(user.uid).then(() => {
+        deleteUser(user).then(() => {
           console.log('User deleted')
         }).catch((error) => {
           console.log('An error ocurred')
@@ -533,7 +533,7 @@
         }, true);
       }
       showProfilePic(user);
-      console.log(`Your: ${user.uid}`);
+      console.log(`Your: ${user}`);
     }
     /*
     * -----------------------------------------------------------------------------------------------------------
