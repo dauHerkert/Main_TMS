@@ -106,7 +106,7 @@
     };
 
     // Sign Up
-    function handleSignUp() {
+    function handleSignUp(e) {
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
         var confirm_password = document.getElementById("password-confirm").value;
@@ -240,7 +240,7 @@
 
         //assign event listeners
         if ( typeof(signUpForm) !== null ) {
-          signUpForm.addEventListener('submit', (e) => {
+          signUpForm.addEventListener('submit', () => {
               e.preventDefault();
               e.stopPropagation();
               const profile_img = document.getElementById('profile_img');
