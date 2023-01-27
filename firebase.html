@@ -436,6 +436,10 @@
       let fileItem = updated_picture.files[0];
       const storageRef = ref(storage, 'profiles/' + user.uid);
 
+          if (updated_picture.files.length === 0) {
+              toastr.error('Please upload your profile image')
+            }
+
       uploadBytes(storageRef, fileItem)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
