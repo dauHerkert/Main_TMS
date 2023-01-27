@@ -537,19 +537,6 @@
       showProfilePic(user);
       console.log(`Your ID: ${user.uid}`);
     }
-
-    // Prompt the user to re-provide their sign-in credentials
-      const email = prompt("Please enter your email:");
-      const password = prompt("Please enter your password:");
-
-      const credential = promptForCredentials(email, password);
-
-        reauthenticateWithCredential(user, credential).then(() => {
-          toastr.success('You were reauthenticated');
-          setTimeout(reloadPage, 3000);
-        }).catch((error) => {
-          toastr.error('An error ocurred', error);
-        });
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Press functions
