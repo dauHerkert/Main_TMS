@@ -26,7 +26,7 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     const storage = getStorage(app);
-    //const user = auth.currentUser;
+    const user = auth.currentUser;
 
 
     // This is a list of the default values
@@ -107,6 +107,8 @@
 
     // Sign Up
     function handleSignUp(e) {
+        e.preventDefault();
+        e.stopPropagation();
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
         var confirm_password = document.getElementById("password-confirm").value;
@@ -240,18 +242,8 @@
 
         //assign event listeners
         if ( typeof(signUpForm) !== null ) {
-          signUpForm.addEventListener('submit', (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const profile_img = document.getElementById('profile_img');
-
-              if (profile_img.files.length === 0) {
-               toastr.error('Please upload your profile picture')
-              }else{
-                handleSignUp();
-              }
-          })
-         }
+          signUpForm.addEventListener('submit', handleSignUp, true)
+        }
     }
     function signInPage(){
         let signInForm = document.getElementById('wf-form-signin-form');
