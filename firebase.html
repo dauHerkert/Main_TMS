@@ -557,26 +557,31 @@
       const to_press_date = document.getElementById('to_press_date');
       const special_press_request = document.getElementById('special_press_request');
       const press_email = user.email;
+      const press_id = document.getElementById('fileInp');
 
-      setDoc(userRef, {
-        press_visit_from: from_press_date.value,
-        press_visit_to: to_press_date.value,
-        press_special_request: special_press_request.value,
-        press_workspot: workspot.value,
-        press_publisher: publisher.value,
-        press_media_type: media_type.value,
-        press_has_form_submitted: "1",
-        press_email: press_email
-      }, { merge: true })
-      .then(() => {
-        //console.log('press data successfully updated');
-        pressUploadImage(user);
-      })
-      .catch((err) => {
-        console.log('there was a problem updating the data', err);
-        toastr.error('There was an error updating your info');
-      });
-    }
+      if (press_id.files.length === 0) {
+              toastr.error('Please upload your profile picture')
+            }else{
+            setDoc(userRef, {
+              press_visit_from: from_press_date.value,
+              press_visit_to: to_press_date.value,
+              press_special_request: special_press_request.value,
+              press_workspot: workspot.value,
+              press_publisher: publisher.value,
+              press_media_type: media_type.value,
+              press_has_form_submitted: "1",
+              press_email: press_email
+            }, { merge: true })
+            .then(() => {
+              //console.log('press data successfully updated');
+              pressUploadImage(user);
+            })
+            .catch((err) => {
+              console.log('there was a problem updating the data', err);
+              toastr.error('There was an error updating your info');
+            });
+          }
+        }
 
     function pressUploadImage(user) {
       const press_id = document.getElementById('fileInp');
