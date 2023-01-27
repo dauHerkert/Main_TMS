@@ -114,7 +114,7 @@
         var confirm_password = document.getElementById("password-confirm").value;
         const profile_img = document.getElementById('profile_img');
 
-        if (updated_picture.files.length === 0) {
+        if (profile_img.files.length === 0) {
               toastr.error('Please upload your profile picture')
             }else{
               if(password == confirm_password){
