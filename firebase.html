@@ -242,8 +242,16 @@
 
         //assign event listeners
         if ( typeof(signUpForm) !== null ) {
-          signUpForm.addEventListener('submit', handleSignUp, true)
-        }
+          signUpForm.addEventListener('submit', () => {
+              const profile_img = document.getElementById('profile_img');
+
+              if (profile_img.files.length === 0) {
+               toastr.error('Please upload your profile picture')
+              }else{
+                handleSignUp();
+              }
+          })
+         }
     }
     function signInPage(){
         let signInForm = document.getElementById('wf-form-signin-form');
