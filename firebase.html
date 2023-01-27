@@ -437,7 +437,7 @@
       const storageRef = ref(storage, 'profiles/' + user.uid);
 
           if (updated_picture.files.length === 0) {
-              toastr.error('Please upload your profile image')
+              toastr.error('Please upload your profile picture')
             }else{
               uploadBytes(storageRef, fileItem)
               .then((snapshot) => {
