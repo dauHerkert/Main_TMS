@@ -240,7 +240,7 @@
 
         //assign event listeners
         if ( typeof(signUpForm) !== null ) {
-          signUpForm.addEventListener('submit', () => {
+          signUpForm.addEventListener('submit', (e) => {
               e.preventDefault();
               e.stopPropagation();
               const profile_img = document.getElementById('profile_img');
