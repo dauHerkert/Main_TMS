@@ -438,17 +438,17 @@
 
           if (updated_picture.files.length === 0) {
               toastr.error('Please upload your profile image')
+            }else{
+              uploadBytes(storageRef, fileItem)
+              .then((snapshot) => {
+                toastr.success('You have updated the profile picture successfully');
+                setTimeout(reloadPage, 3000);
+              })
+              .catch(err => {
+                console.log('error uploading file', err);
+                toastr.error('There was an error uploading the file');
+              });
             }
-
-      uploadBytes(storageRef, fileItem)
-      .then((snapshot) => {
-        toastr.success('You have updated the profile picture successfully');
-        setTimeout(reloadPage, 3000);
-      })
-      .catch(err => {
-        console.log('error uploading file', err);
-        toastr.error('There was an error uploading the file');
-      });
     }
 
     function showPrivateElements() {
