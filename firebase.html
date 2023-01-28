@@ -489,9 +489,12 @@
           // Get the currently signed-in user
           var user = firebase.auth().currentUser;
           // Delete the user's account
-          await firebase.auth().currentUser.delete();
-          console.log('User account deleted');
+          deleteUser(user).then(() => {
+            console.log('User account deleted');
           // Delete user's data from Firestore
+          }).catch((error) => {
+            toastr.error('An error occurred while deleting the user shitty account', error);
+          });
           await deleteDoc(doc(db, "users", user.uid));
           console.log("User's data deleted from Firestore");
           toastr.success('User deleted');
