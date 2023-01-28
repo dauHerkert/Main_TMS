@@ -490,7 +490,6 @@
           var user = auth.currentUser;
           // Delete the user's account
           deleteUser(user).then(() => {
-            return deleteDoc(doc(db, "users", user.uid));
             if(storedLang == "de"){
               setTimeout(function() {
                   window.location.pathname = "/de/signin-porsche";                
@@ -500,6 +499,8 @@
                   window.location.pathname = "/en/signin-porsche";
                 }, 3000);
             }
+            
+            return deleteDoc(doc(db, "users", user.uid));
           }).catch((error) => {
             console.error('An error occurred while deleting the user shitty account', error);
           });
