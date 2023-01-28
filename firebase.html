@@ -490,16 +490,14 @@
           var user = auth.currentUser;
           // Delete the user's account
           deleteUser(user).then(() => {
-            console.log('User account deleted');
-          // Delete user's data from Firestore
+            toastr.success('User account deleted');
+            return doc(db, "users", user.uid).delete();
           }).catch((error) => {
             toastr.error('An error occurred while deleting the user shitty account', error);
           });
-          await deleteDoc(doc(db, "users", user.uid));
           console.log("User's data deleted from Firestore");
           toastr.success('User deleted');
         } catch (error) {
-          console.error("Error deleting user account: ");
           toastr.error('An error occurred while deleting the user account', error);
         }
       });
