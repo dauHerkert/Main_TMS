@@ -490,13 +490,21 @@
           var user = auth.currentUser;
           // Delete the user's account
           deleteUser(user).then(() => {
-            toastr.success('User account deleted');
             return deleteDoc(doc(db, "users", user.uid));
+            if(storedLang == "de"){
+              setTimeout(function() {
+                  window.location.pathname == "/de/signin-porsche";                
+                }, 2000);
+            }else{
+              setTimeout(function() {
+                  window.location.pathname == "/en/signin-porsche";
+                }, 2000);
+            }
           }).catch((error) => {
             console.error('An error occurred while deleting the user shitty account', error);
           });
           console.log("User's data deleted from Firestore");
-          toastr.success('User deleted');
+          toastr.success('User account deleted');
         } catch (error) {
           toastr.error('An error occurred while deleting the user account', error);
         }
