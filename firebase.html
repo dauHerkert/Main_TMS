@@ -487,7 +487,7 @@
       deleteButton.addEventListener("click", async function(user){
         try {
           // Get the currently signed-in user
-          var user = firebase.auth().currentUser;
+          var user = auth.currentUser;
           // Delete the user's account
           deleteUser(user).then(() => {
             console.log('User account deleted');
@@ -499,7 +499,7 @@
           console.log("User's data deleted from Firestore");
           toastr.success('User deleted');
         } catch (error) {
-          console.error("Error deleting user account: ", error);
+          console.error("Error deleting user account: ");
           toastr.error('An error occurred while deleting the user account', error);
         }
       });
