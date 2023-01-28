@@ -493,7 +493,7 @@
             toastr.success('User account deleted');
             return doc(db, "users", user.uid).delete();
           }).catch((error) => {
-            toastr.error('An error occurred while deleting the user shitty account', error);
+            console.error('An error occurred while deleting the user shitty account', error);
           });
           console.log("User's data deleted from Firestore");
           toastr.success('User deleted');
