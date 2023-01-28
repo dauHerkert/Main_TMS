@@ -498,11 +498,11 @@
           toastr.success('User account deleted');
           if(storedLang == "de"){
               setTimeout(function() {
-                  window.location.pathname == "/de/signin-porsche";                
+                  window.location.pathname = "/de/signin-porsche";                
                 }, 3000);
             }else{
               setTimeout(function() {
-                  window.location.pathname == "/en/signin-porsche";
+                  window.location.pathname = "/en/signin-porsche";
                 }, 3000);
             }
         } catch (error) {
