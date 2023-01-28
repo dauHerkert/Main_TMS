@@ -499,14 +499,12 @@
                   window.location.pathname = "/en/signin-porsche";
                 }, 3000);
             }
-            
+            toastr.success('User account deleted');       
             return deleteDoc(doc(db, "users", user.uid));
           }).catch((error) => {
             console.error('An error occurred while deleting the user shitty account', error);
           });
-          console.log("User's data deleted from Firestore");
-          toastr.success('User account deleted');
-          
+          console.log("User's data deleted from Firestore");          
         } catch (error) {
           toastr.error('An error occurred while deleting the user account', error);
         }
