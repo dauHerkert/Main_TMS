@@ -1152,6 +1152,27 @@ getDocs(company_colRef)
         createZone()
       });
 
+      //Print zones select
+      let create_company_zone = document.getElementById('companyZone');
+      let update_company_zone = document.getElementById('newCompanyZone');
+      const zonesRef = collection(db, 'zones');
+
+      getDocs(zonesRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let zone = doc.data();
+          
+          var opt = document.createElement('option');
+          opt.value = doc.id;
+          opt.textContent = zone.zone;
+          create_company_zone.appendChild(opt);
+          update_company_zone.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+
     //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
           let storedLang = sessionStorage.getItem("language");
