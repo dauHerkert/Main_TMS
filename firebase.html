@@ -979,10 +979,10 @@ getDocs(colRef)
                 cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
                 return companyLink;
             }},
-            {title:"ID", field:"id", sorter:"string", width:150, cssClass:"companyID", cssClass:"hidden-column"},
+            {title:"ID", field:"id", sorter:"string", width:150, cssClass:"companyID hidden-column"},
             {title:"Company", field:"company", sorter:"string", width:150, cssClass:"companyName", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
             {title:"Company Zone", field:"zone", sorter:"string", width:150, cssClass:"companyZone"},
-            {title:"User Head", field:"userHead", sorter:"string", width:150, cssClass:"userHead", cssClass:"hidden-column"},
+            {title:"User Head", field:"userHead", sorter:"string", width:150, cssClass:"userHead hidden-column"},
             {title:"Send Link", width:150, formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
