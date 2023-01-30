@@ -979,10 +979,10 @@ getDocs(colRef)
                 cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
                 return companyLink;
             }},
-            {title:"ID", field:"id", sorter:"string", width:150, cssClass:"companyID"},
+            {title:"ID", field:"id", sorter:"string", width:150, cssClass:"companyID", cssClass:"hidden-column"},
             {title:"Company", field:"company", sorter:"string", width:150, cssClass:"companyName", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
             {title:"Company Zone", field:"zone", sorter:"string", width:150, cssClass:"companyZone"},
-            {title:"User Head", field:"userHead", sorter:"string", width:150, cssClass:"userHead"},
+            {title:"User Head", field:"userHead", sorter:"string", width:150, cssClass:"userHead", cssClass:"hidden-column"},
             {title:"Send Link", width:150, formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
@@ -1033,7 +1033,7 @@ getDocs(company_colRef)
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
             let company_link = `https://porsche-tms.webflow.io/en/signup-porsche?company=${doc.id}`
-                data.push({companyLink: company_link, id:doc.id, company: company.company_name, zone: company.company_zones, userHead: company.user_head});
+                data.push({companyLink: company_link, id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
                 companies_table.setData(data);
         });
     })
