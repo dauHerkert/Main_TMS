@@ -1125,6 +1125,32 @@ getDocs(company_colRef)
         createCompany();
       });
     }
+    //Create new zones
+      let create_zone_form = document.getElementById('create_zone_form');
+      let new_zone_name = document.getElementById('newZoneName');
+
+      async function createZone(){
+        const zoneRef = await addDoc(collection(db, "zones"), {
+            zone: new_zone_name.value,
+          })
+          .then(() => {
+                toastr.success('Zone has been successfully created');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);
+          })
+          .catch((err) => {
+            toastr.error('There was an error creating the zone');
+            console.log('error creating zone', err);
+          });
+      }
+
+      create_zone_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        createZone()
+      });
 
     //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
