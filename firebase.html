@@ -1126,6 +1126,8 @@ getDocs(company_colRef)
       });
     }
     //Create new zones
+
+    if (window.location.pathname == '/en/admin' || window.location.pathname == '/de/admin'){
       let create_zone_form = document.getElementById('create_zone_form');
       let new_zone_name = document.getElementById('newZoneName');
 
@@ -1186,7 +1188,7 @@ getDocs(company_colRef)
       .catch(err => {
         console.log('error fetching companies', err);
       })
-
+    }
     //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
           let storedLang = sessionStorage.getItem("language");
@@ -1344,7 +1346,7 @@ getDocs(company_colRef)
       }
     }
     // Forgot password functionality
-    if(window.location.pathname == '/forgotpassword'){
+    if(window.location.pathname == '/en/forgotpassword' || window.location.pathname == '/de/forgotpassword'){
       var storedLang = sessionStorage.getItem("language");
       let email = document.getElementById('email_address');
       let resetPasword = document.getElementById('forgot_password');
