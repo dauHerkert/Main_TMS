@@ -1165,8 +1165,22 @@ getDocs(company_colRef)
           var opt = document.createElement('option');
           opt.value = doc.id;
           opt.textContent = zone.zone;
-          create_company_zone.appendChild(opt);
           update_company_zone.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+
+      getDocs(zonesRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let zone = doc.data();
+          
+          var opt = document.createElement('option');
+          opt.value = doc.id;
+          opt.textContent = zone.zone;
+          create_company_zone.appendChild(opt);
         });
       })
       .catch(err => {
