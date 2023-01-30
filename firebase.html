@@ -1066,7 +1066,7 @@ getDocs(company_colRef)
       let company_id = document.getElementById('company_id');
       let update_company = document.getElementById('update_company');
       let companyHead = document.getElementById('companyHead');
-      let companyZone = document.getElementById('companyZone');
+      let newCompanyZone = document.getElementById('newCompanyZone');
 
       update_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -1076,7 +1076,7 @@ getDocs(company_colRef)
           const companyRef = doc(db, 'companies', company_id.value);
           setDoc(companyRef, {
             company_name: update_company.value,
-            company_zones: companyZone.value,
+            company_zones: newCompanyZone.value,
             user_head: companyHead.value
           }, { merge: true })
           .then(() => {
@@ -1096,13 +1096,13 @@ getDocs(company_colRef)
       let create_company_form = document.getElementById('create_company_form');
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
-      let new_company_zones = document.getElementById('newCompanyZones');
+      let companyZone = document.getElementById('companyZone');
 
       async function createCompany(){
 
         const companyRef = await addDoc(collection(db, "companies"), {
             company_name: new_company_name.value,
-            company_zones: new_company_zones.value,
+            company_zones: companyZone.value,
             company_type: new_company_type.value,
             user_head: ''
           })
@@ -1163,7 +1163,7 @@ getDocs(company_colRef)
           let zone = doc.data();
           
           var opt = document.createElement('option');
-          opt.value = doc.id;
+          opt.value = zone.zone;
           opt.textContent = zone.zone;
           update_company_zone.appendChild(opt);
         });
@@ -1178,7 +1178,7 @@ getDocs(company_colRef)
           let zone = doc.data();
           
           var opt = document.createElement('option');
-          opt.value = doc.id;
+          opt.value = zone.zone;
           opt.textContent = zone.zone;
           create_company_zone.appendChild(opt);
         });
