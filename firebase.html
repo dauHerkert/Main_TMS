@@ -757,7 +757,7 @@
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Name", field:"name", sorter:"string", width:150},
             {title:"Email", field:"email", sorter:"string", width:150},
-            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", headerFilterValue: "Porsche"},
+            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
             {title:"Type", field:"type", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Type"},
             {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
             {title:"Actions", formatter:function(cell, formatterParams){
@@ -813,11 +813,11 @@ function matchAny(data, filterParams) {
 let clearFilterButton = document.getElementById('clear_button');
 if (clearFilterButton) {
   clearFilterButton.addEventListener("click", function() {
-    document.querySelector('input[placeholder="Company"]').value = "";
-    document.querySelector('input[placeholder="Type"]').value = "";
-    document.querySelector('input[placeholder="Status"]').value = "";
-    table.clearFilter();
-    console.log("eliminaooo");
+    document.querySelector('input[placeholder="Company"]').setHeaderFilterValue(" ");
+    document.querySelector('input[placeholder="Type"]').setHeaderFilterValue(" ");
+    document.querySelector('input[placeholder="Status"]').setHeaderFilterValue(" ");
+    
+    console.log("eliminiuuuoo");
   });
 }
 
