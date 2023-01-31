@@ -810,6 +810,13 @@ function matchAny(data, filterParams) {
     }
     return match;
 }
+//Clear filters functionality
+let clearFilterButton = document.getElementById('clear_button');
+if(clearFilterButton){
+    clearFilterButton.addEventListener("click", function(){
+    table.clearFilter();
+  });
+};
 
 getDocs(colRef)
     .then((snapshot) => {
