@@ -821,8 +821,9 @@ if (clearFilterButton) {
     console.log("eliminisimooo");
   });
 }
-   const userType = userInfo.user_type;
-   console.log(userType, userInfo.user_company);
+
+    const adminType = userInfo.user_type;
+    const adminCompany = userInfo.user_company;
 
 getDocs(colRef)
     .then((snapshot) => {
@@ -838,7 +839,12 @@ getDocs(colRef)
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
                 data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
-                table.setData(data);
+                if(adminType == "Company admin"){
+                  let filteredData = data.filter(user => user.userCompanyName === adminCompany);
+                  table.setData(filteredData);
+                }else{
+                  table.setData(data);
+                }                
             });
         });
     })
