@@ -810,14 +810,14 @@ function matchAny(data, filterParams) {
     }
     return match;
 }
-//Clear filters functionality
 let clearFilterButton = document.getElementById('clear_button');
-if(clearFilterButton){
-    clearFilterButton.addEventListener("click", function(){
-    document.querySelectorAll('input[type="search"]').value == "";
-    console.log("borrao")
+if (clearFilterButton) {
+  clearFilterButton.addEventListener("click", function() {
+    document.querySelector('input[type="search"]').value = "";
+    table.clearFilter();
+    console.log("eliminao");
   });
-};
+}
 
 getDocs(colRef)
     .then((snapshot) => {
