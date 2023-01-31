@@ -821,7 +821,9 @@ if (clearFilterButton) {
     console.log("eliminisimooo");
   });
 }
-
+   const userType = user.user_type;
+   console.log(userType);
+   
 getDocs(colRef)
     .then((snapshot) => {
         let data = [];
@@ -836,8 +838,6 @@ getDocs(colRef)
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
                 data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
-                const userType = user.user_type;
-                console.log(userType);
                 table.setData(data);
             });
         });
