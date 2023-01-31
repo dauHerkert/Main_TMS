@@ -840,7 +840,7 @@ getDocs(colRef)
                 userCompanyName = companyName;
                 data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
                 if(adminType == "Company admin"){
-                  let filteredData = data.filter(user => userCompanyName === adminCompany);
+                  let filteredData = data.filter(user => userCompanyName == adminCompany);
                   table.setData(filteredData);
                 }else{
                   table.setData(data);
