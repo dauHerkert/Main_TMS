@@ -304,7 +304,7 @@
           form_button.setAttribute('href', '/de/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/press');
-        } else if(userInfo.user_is_admin == "0") {
+        } else if(userInfo.user_is_admin == "0" && userInfo.user_type != "Company admin") {
               if(window.location.pathname == '/de/admin'){
                 location.replace('/de/account');
               }
@@ -320,7 +320,7 @@
               form_button.setAttribute('href', '/en/supplier');
               } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/press');
-              } else if(userInfo.user_is_admin == "0") {
+              } else if(userInfo.user_is_admin == "0" && userInfo.user_type != "Company admin") {
                   if(window.location.pathname == '/en/admin'){
                     location.replace('/en/account');
                   }
@@ -338,7 +338,7 @@
               } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/press');
               } else if(userInfo.user_is_admin == "0") {
-                  if(window.location.pathname == '/en/admin'){
+                  if(window.location.pathname == '/en/admin' && userInfo.user_type != "Company admin"){
                     location.replace('/en/account');
                   }
                   document.getElementById('admin_button').style.display = 'none';     
