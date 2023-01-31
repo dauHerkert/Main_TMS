@@ -822,8 +822,8 @@ if (clearFilterButton) {
   });
 }
    const userType = user.user_type;
-   console.log(userType);
-   
+   console.log(userType, user.user_company);
+
 getDocs(colRef)
     .then((snapshot) => {
         let data = [];
