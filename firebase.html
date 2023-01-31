@@ -814,7 +814,7 @@ function matchAny(data, filterParams) {
 let clearFilterButton = document.getElementById('clear_button');
 if(clearFilterButton){
     clearFilterButton.addEventListener("click", function(){
-    table.clearFilter();
+    document.querySelectorAll('input[type="search"]').value == ""
   });
 };
 
