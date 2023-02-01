@@ -761,6 +761,7 @@
             {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
             {title:"Type", field:"type", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Type"},
             {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
+            {title:"Admin", field:"admin", sorter:"string", width:150},
             {title:"Actions", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
@@ -980,7 +981,43 @@ getDocs(colRef)
       bulkUserUpdate(selectedData);
     });
 
-    // ========== COMPANIES TABLE FUNCTIONS ============== //
+      getDocs(zonesRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let zone = doc.data();
+          
+          var opt = document.createElement('option');
+          opt.value = zone.zone;
+          opt.textContent = zone.zone;
+          update_company_zone.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+
+      getDocs(zonesRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let zone = doc.data();
+          
+          var opt = document.createElement('option');
+          opt.value = zone.zone;
+          opt.textContent = zone.zone;
+          create_company_zone.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+    }
+
+    /*
+    * --------------------------------------------------------------------------------------------
+    *  Companies table page functions
+    * --------------------------------------------------------------------------------------------
+    */
+    async function pageCompaniesTable(user){
 
     // Print companies table
     const company_colRef = collection(db, 'companies');
@@ -1179,36 +1216,6 @@ getDocs(company_colRef)
       let create_company_zone = document.getElementById('companyZone');
       let update_company_zone = document.getElementById('newCompanyZone');
       const zonesRef = collection(db, 'zones');
-
-      getDocs(zonesRef)
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          let zone = doc.data();
-          
-          var opt = document.createElement('option');
-          opt.value = zone.zone;
-          opt.textContent = zone.zone;
-          update_company_zone.appendChild(opt);
-        });
-      })
-      .catch(err => {
-        console.log('error fetching companies', err);
-      })
-
-      getDocs(zonesRef)
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          let zone = doc.data();
-          
-          var opt = document.createElement('option');
-          opt.value = zone.zone;
-          opt.textContent = zone.zone;
-          create_company_zone.appendChild(opt);
-        });
-      })
-      .catch(err => {
-        console.log('error fetching companies', err);
-      })
     }
     
     //Company page
@@ -1362,8 +1369,10 @@ getDocs(company_colRef)
           pagePress(user);
         } else if ( url == '/en/supplier' || url == '/de/supplier' ) {
           pageSupplier(user);
-        } else if ( url == '/en/admin' || url == '/de/admin' ) {
+        } else if ( url == '/en/admin/users-table' || url == '/de/admin/users-table' ) {
           pageAdmin(user);
+        }else if ( url == '/en/admin/companies-table' || url == '/de/admin/companies-table' ) {
+          pageCompaniesTable(user);
         }
       }
     }
