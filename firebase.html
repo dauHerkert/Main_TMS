@@ -842,9 +842,11 @@ getDocs(colRef)
                   data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
                   let filteredData = data.filter(user => userCompanyName == adminCompany);
                   table.setData(filteredData);
+                  console.log('here')
                 }else{
                   data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
                   table.setData(data);
+                  console.log('not here')
                 } 
             });
         });
