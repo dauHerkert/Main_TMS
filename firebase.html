@@ -830,7 +830,7 @@ getDocs(colRef)
     let data = [];
     snapshot.docs.forEach((doc) => {
       let user = doc.data();
-
+      console.log('cachete')
       if (!user.user_company) {
         console.log(`User ${user.uid} does not have a user_company field defined`);
         return;
@@ -840,7 +840,7 @@ getDocs(colRef)
           data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: companyName, type: user.user_type, status: user.user_status});
         });
     });
-console.log('cachete')
+    
     if (adminType === 'Company admin') {
       let filteredData = data.filter(user => user.company === adminCompany);
       table.setData(filteredData);
