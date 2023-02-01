@@ -306,7 +306,7 @@
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/press');
         } else if(userInfo.user_is_admin == "0" && userInfo.company_admin != "1") {
-              if(window.location.pathname == '/de/admin'){
+              if(window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table'){
                 location.replace('/de/account');
               }
               document.getElementById('admin_button').style.display = 'none';     
@@ -322,7 +322,7 @@
               } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/press');
               } else if(userInfo.user_is_admin == "0" && userInfo.company_admin != "1") {
-                  if(window.location.pathname == '/en/admin'){
+                  if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table'){
                     location.replace('/en/account');
                   }
                   document.getElementById('admin_button').style.display = 'none';     
@@ -339,7 +339,7 @@
               } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/press');
               } else if(userInfo.user_is_admin == "0") {
-                  if(window.location.pathname == '/en/admin' && userInfo.company_admin != "1"){
+                  if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.company_admin != "1"){
                     location.replace('/en/account');
                   }
                   document.getElementById('admin_button').style.display = 'none';     
@@ -1185,7 +1185,7 @@ getDocs(company_colRef)
     }
     //Create new zones
 
-    if (window.location.pathname == '/en/admin' || window.location.pathname == '/de/admin'){
+    if (window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table' || window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table'){
       let create_zone_form = document.getElementById('create_zone_form');
       let new_zone_name = document.getElementById('newZoneName');
 
@@ -1422,7 +1422,8 @@ getDocs(company_colRef)
     function replaceUrl(user) {
         let form_button = document.getElementById('form_button');
         let account_button = document.getElementById('account_user_profile');
-        let admin_button = document.getElementById('admin_button');
+        let users_button = document.getElementById('users_table');
+        let companies_button = document.getElementById('companies_table');
         var storedLang = sessionStorage.getItem("language");
 
       if(!user){
@@ -1430,7 +1431,8 @@ getDocs(company_colRef)
           if(storedLang == "de"){
             form_button.setAttribute('href', '/de/signin-porsche');
             account_button.setAttribute('href', '/de/signin-porsche');
-            admin_button.setAttribute('href', '/de/signin-porsche');
+            users_button.setAttribute('href', '/de/signin-porsche');
+            companies_button.setAttribute('href', '/de/signin-porsche');
             document.getElementById('signIn_button').style.display = 'block'; 
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
@@ -1439,7 +1441,8 @@ getDocs(company_colRef)
           }else{
             form_button.setAttribute('href', '/en/signin-porsche');
             account_button.setAttribute('href', '/en/signin-porsche');
-            admin_button.setAttribute('href', '/en/signin-porsche');
+            users_button.setAttribute('href', '/de/signin-porsche');
+            companies_button.setAttribute('href', '/de/signin-porsche');
             document.getElementById('signIn_button').style.display = 'block'; 
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
@@ -1449,7 +1452,8 @@ getDocs(company_colRef)
         }else{
           form_button.setAttribute('href', '/en/signin-porsche');
           account_button.setAttribute('href', '/en/signin-porsche');
-          admin_button.setAttribute('href', '/en/signin-porsche');
+          users_button.setAttribute('href', '/de/signin-porsche');
+          companies_button.setAttribute('href', '/de/signin-porsche');
           document.getElementById('signIn_button').style.display = 'block'; 
           document.getElementById('signUp_button').style.display = 'block';
           if(window.location.pathname == '/'){
@@ -1460,7 +1464,8 @@ getDocs(company_colRef)
         if(storedLang){
           if(storedLang == "de"){
             account_button.setAttribute('href', '/de/account');
-            admin_button.setAttribute('href', '/de/admin');
+            users_button.setAttribute('href', '/de/admin/users-table');
+            companies_button.setAttribute('href', '/de/admin/companies-table');
             document.getElementById('signIn_button').style.display = 'none'; 
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/'){
@@ -1468,7 +1473,8 @@ getDocs(company_colRef)
             }
           }else{
             account_button.setAttribute('href', '/en/account');
-            admin_button.setAttribute('href', '/en/admin');
+            users_button.setAttribute('href', '/en/admin/users-table');
+            companies_button.setAttribute('href', '/en/admin/companies-table');
             document.getElementById('signIn_button').style.display = 'none'; 
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/'){
@@ -1477,7 +1483,8 @@ getDocs(company_colRef)
           }
         }else{
               account_button.setAttribute('href', '/en/account');
-              admin_button.setAttribute('href', '/en/admin');
+              users_button.setAttribute('href', '/en/admin/users-table');
+              companies_button.setAttribute('href', '/en/admin/companies-table');
               document.getElementById('signIn_button').style.display = 'none'; 
               document.getElementById('signUp_button').style.display = 'none';
               if(window.location.pathname == '/'){
