@@ -838,11 +838,12 @@ getDocs(colRef)
             }
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
-                data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
-                if(adminType == "Company admin"){
+                if(adminType == 'Company admin'){
+                  data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
                   let filteredData = data.filter(user => userCompanyName == adminCompany);
                   table.setData(filteredData);
                 }else{
+                  data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
                   table.setData(data);
                 } 
             });
