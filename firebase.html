@@ -828,29 +828,32 @@ const adminCompany = userInfo.user_company;
 getDocs(colRef)
   .then((snapshot) => {
     let data = [];
+    let promises = [];
     snapshot.docs.forEach((doc) => {
-      let user = doc.data();
-      console.log('cachete')
-      if (!user.user_company) {
-        console.log(`User ${user.uid} does not have a user_company field defined`);
-        return;
-      }
-      changeCompanyNameToID(user)
-        .then(companyName => {
-          data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: companyName, type: user.user_type, status: user.user_status});
-        });
+        let user = doc.data();
+
+        if (!user.user_company) {
+            console.log(`User ${user.uid} does not have a user_company field defined`);
+            return;
+        }
+        promises.push(changeCompanyNameToID(user).then(userCompanyName => {
+            data.push({id: doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
+        }));
     });
-    
-    if (adminType === 'Company admin') {
-      let filteredData = data.filter(user => user.company === adminCompany);
-      table.setData(filteredData);
-    } else {
-      table.setData(data);
-    } 
+    return Promise.all(promises).then(() => data);
+  })
+  .then(data => {
+    if(adminType == 'Company admin'){
+        let filteredData = data.filter(user => user.user_company == adminCompany);
+        table.setData(filteredData);
+    }else{
+        table.setData(data);
+    }
   })
   .catch(err => {
     console.log('error fetching users', err);
   });
+
 
     // Update single user Info
     let update_user_form = document.getElementById('update_user_type');
