@@ -825,7 +825,7 @@ if (clearFilterButton) {
     const adminType = userInfo.user_type;
     const adminCompany = userInfo.user_company;
 
-getDocs(colRef)
+    getDocs(colRef)
     .then((snapshot) => {
         let data = [];
         snapshot.docs.forEach((doc) => {
@@ -838,18 +838,15 @@ getDocs(colRef)
             }
             changeCompanyNameToID(user).then(companyName => {
                 userCompanyName = companyName;
-                if(adminType == 'Company admin'){
-                  data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
-                  let filteredData = data.filter(user => userCompanyName == adminCompany);
-                  table.setData(filteredData);
-                  console.log('here')
-                }else{
-                  data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
-                  table.setData(data);
-                  console.log('not here')
-                } 
+                data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
             });
         });
+        if(adminType == 'Company admin'){
+            let filteredData = data.filter(user => user.company == adminCompany);
+            table.setData(filteredData);
+        }else{
+            table.setData(data);
+        }
     })
     .catch(err => {
         console.log('error fetching users', err);
