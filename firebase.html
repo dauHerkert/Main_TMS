@@ -57,6 +57,7 @@
       user_id: '',
       // user_is_admin: 0 | 1
       user_is_admin: '0',
+      company_admin: '0',
       // user_type: supplier | press
       user_type: '',
       // user_status: pending | ok
@@ -304,7 +305,7 @@
           form_button.setAttribute('href', '/de/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/press');
-        } else if(userInfo.user_is_admin == "0" && userInfo.user_type != "Company admin") {
+        } else if(userInfo.user_is_admin == "0" && userInfo.company_admin != "1") {
               if(window.location.pathname == '/de/admin'){
                 location.replace('/de/account');
               }
@@ -320,7 +321,7 @@
               form_button.setAttribute('href', '/en/supplier');
               } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/press');
-              } else if(userInfo.user_is_admin == "0" && userInfo.user_type != "Company admin") {
+              } else if(userInfo.user_is_admin == "0" && userInfo.company_admin != "1") {
                   if(window.location.pathname == '/en/admin'){
                     location.replace('/en/account');
                   }
@@ -338,7 +339,7 @@
               } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/press');
               } else if(userInfo.user_is_admin == "0") {
-                  if(window.location.pathname == '/en/admin' && userInfo.user_type != "Company admin"){
+                  if(window.location.pathname == '/en/admin' && userInfo.company_admin != "1"){
                     location.replace('/en/account');
                   }
                   document.getElementById('admin_button').style.display = 'none';     
@@ -822,8 +823,8 @@ if (clearFilterButton) {
   });
 }
 
-const adminType = userInfo.user_type;
-const adminCompany = userInfo.user_company;
+const companyAdmin = userInfo.company_admin;
+const adminCompanyName = userInfo.user_company;
 
 getDocs(colRef)
   .then((snapshot) => {
@@ -843,9 +844,8 @@ getDocs(colRef)
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
-    if(adminType == 'Company admin'){
-        let filteredData = data.filter(user => user.company == adminCompany);
-        console.log(adminCompany, 'coococ', user.company)
+    if(companyAdmin == '1'){
+        let filteredData = data.filter(user => user.company == adminCompanyName);
         table.setData(filteredData);
     }else{
         table.setData(data);
