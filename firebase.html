@@ -845,7 +845,7 @@ getDocs(colRef)
   .then(data => {
     if(adminType == 'Company admin'){
         let filteredData = data.filter(user => user.company == adminCompany);
-        console.log(adminCompany, user.company)
+        console.log(adminCompany, 'coococ', user.company)
         table.setData(filteredData);
     }else{
         table.setData(data);
