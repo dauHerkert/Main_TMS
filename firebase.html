@@ -841,12 +841,13 @@ if (clearFilterButton) {
                 data.push({id:doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
             });
         });
+
         if(adminType == 'Company admin'){
-            let filteredData = data.filter(user => user.company == adminCompany);
+            let filteredData = data.filter(user => user.user_company == adminCompany);
             table.setData(filteredData);
         }else{
             table.setData(data);
-        }
+        } 
     })
     .catch(err => {
         console.log('error fetching users', err);
