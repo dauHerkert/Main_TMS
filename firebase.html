@@ -58,10 +58,13 @@
       // user_is_admin: 0 | 1
       user_is_admin: '0',
       company_admin: '0',
+      admin_companies: '',
       // user_type: supplier | press
       user_type: '',
       // user_status: pending | ok
       user_status: 'pending',
+      //user first sign
+      first_sign: "0"
     };
 
     /*
@@ -182,7 +185,7 @@
 
     // Handle signIn
     function handleSignIn(e) {
-      var storedLang = sessionStorage.getItem("language");
+      let storedLang = sessionStorage.getItem("language");
         e.preventDefault();
         e.stopPropagation();
         const email = document.getElementById('signin-email').value;
@@ -296,7 +299,26 @@
           document.getElementById('user_address').innerHTML = `${userInfo.user_address}`;
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
-        }
+
+          if(userInfo.first_sign == "1"){
+            document.getElementById('instructions_modal').style.display = "none";
+            }else{
+              document.getElementById('instructions_modal').style.display = "block";
+            }
+          window.onload = function() {
+            const userRef = doc(db, 'users', user.uid);
+            setDoc(userRef, {              
+                first_sign: "1",
+              }, { merge: true })
+              .then(() => {
+                console.log('press data successfully updated');
+              })
+              .catch((err) => {
+                console.log('there was a problem signin user', err);
+                toastr.error('There was an error signin user');
+              })
+            }
+          }
         if(storedLang){
           if(storedLang == "de"){
             if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
@@ -757,10 +779,9 @@
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"Name", field:"name", sorter:"string", width:150},
-            {title:"Email", field:"email", sorter:"string", width:150},
+            {title:"First name", field:"name", sorter:"string", width:150},
+            {title:"Last name", field:"lastname", sorter:"string", width:150},
             {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
-            {title:"Type", field:"type", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Type"},
             {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
             {title:"Admin", field:"user_admin", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
@@ -841,7 +862,7 @@ getDocs(colRef)
             return;
         }
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-            data.push({id: doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status, user_admin: user.user_is_admin});
+            data.push({id: doc.id, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
         }));
     });
     return Promise.all(promises).then(() => data);
