@@ -1565,11 +1565,14 @@ getDocs(company_colRef)
     });
 
     $(document).ready(function () {
-      // TODO: make sure to only call the datepicker function if an element exists
-      // that should be rendered as a datepicker
-      // otherwise a jquery error appears in the browser console
+      
+      var today = new Date();
+      var minDate = new Date(today.getFullYear(), 3, 15);
+      var maxDate = new Date(today.getFullYear(), 3, 23);
       $('[data-toggle="datepicker"]').datepicker({
-        format: 'mm-dd-yyyy'
+        format: 'mm-dd-yyyy',
+        minDate: minDate,
+        maxDate: maxDate
       });
       if (window.innerWidth < 768) {
         $('[data-toggle="datepicker"]').attr('readonly', 'readonly')
