@@ -296,7 +296,7 @@
         userInfo.user_company_name = companyName;
 
         if (window.location.pathname === '/en/account' || window.location.pathname === '/de/account') {
-          document.getElementById('user_address').innerHTML = `${userInfo.user_address} culo`;
+          document.getElementById('user_address').innerHTML = `${userInfo.user_address}`;
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
             }
@@ -1020,7 +1020,6 @@ getDocs(colRef)
       .catch(err => {
         console.log('error fetching companies', err);
       })
-
     }
 
     /*
@@ -1029,6 +1028,10 @@ getDocs(colRef)
     * --------------------------------------------------------------------------------------------
     */
     async function pageCompaniesTable(user){
+
+      $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+      }); 
 
     // Print companies table
     const company_colRef = collection(db, 'companies');
