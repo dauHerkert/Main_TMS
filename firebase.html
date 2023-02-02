@@ -300,24 +300,6 @@
           document.getElementById('user_address').innerHTML = `${userInfo.user_address} culo`;
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
-           
-              if(userInfo.first_sign == "0"){
-                  document.getElementById('instructions_modal').style.display = "block";
-                 
-                }else{
-                  document.getElementById('instructions_modal').style.display = "none";
-                }
-
-                setDoc(userRef, {              
-                    first_sign: "1",
-                  }, { merge: true })
-                  .then(() => {
-                    console.log('press data successfully updated');
-                  })
-                  .catch((err) => {
-                    console.log('there was a problem signin user', err);
-                    toastr.error('There was an error signin user');
-                  })
             }
         if(storedLang){
           if(storedLang == "de"){
@@ -546,6 +528,23 @@
       }else{
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }
+      // Display instruction modal
+      if(userInfo.first_sign == "0"){
+        document.getElementById('instructions_modal').style.display = "block";                 
+      }else{
+        document.getElementById('instructions_modal').style.display = "none";
+      }
+      //Add first_sign = 1 to stop displaying the modal after second load
+     setDoc(userRef, {              
+      first_sign: "1",
+     }, { merge: true })
+     .then(() => {
+        console.log('press data successfully updated');
+     })
+     .catch((err) => {
+        console.log('there was a problem signin user', err);
+        toastr.error('There was an error signin user');
+     })
 
       let update_email_modal = document.getElementById("email_form_modal");
       let update_password_modal = document.getElementById("password_form_modal");
