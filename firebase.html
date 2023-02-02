@@ -289,7 +289,6 @@
       const supplier_info = document.getElementsByClassName('supplier_info');
       let form_button = document.getElementById('form_button');
       var storedLang = sessionStorage.getItem("language");
-      const userRef = doc(db, 'users', user.uid);
 
       if ( userInfo ) {
         // Use the changeCompanyNameToID(user) function to get the company name
@@ -518,6 +517,7 @@
       let userInfo = await getUserInfo(user);
       const companyName = await changeCompanyNameToID(userInfo);
       userInfo.user_company_name = companyName;
+      const userRef = doc(db, 'users', user.uid);
       // Populate form fields with values
       document.getElementById("user_email").innerHTML = `${user.email}`;
       document.getElementById("user_name").innerHTML = `${userInfo.user_firstname}`;
