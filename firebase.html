@@ -742,6 +742,7 @@
 
       // Print users table
       const colRef = collection(db, 'users');
+      const company_colRef = collection(db, 'companies');
       let searchInput = document.getElementById("search-input");
       let table = new Tabulator("#admin-user-list", {
         //options here
@@ -981,6 +982,24 @@ getDocs(colRef)
       bulkUserUpdate(selectedData);
     });
 
+    //Print companies select
+    let select = document.getElementById('userCompany');
+
+      getDocs(company_colRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let company = doc.data();
+          
+          var opt = document.createElement('option');
+          opt.value = doc.id;
+          opt.textContent = company.company_name;
+          select.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+
     }
 
     /*
@@ -1071,24 +1090,6 @@ getDocs(company_colRef)
     .catch(err => {
         console.log('error fetching users', err);
     });
-
-      //Print companies select
-      let select = document.getElementById('userCompany');
-
-      getDocs(company_colRef)
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          let company = doc.data();
-          
-          var opt = document.createElement('option');
-          opt.value = doc.id;
-          opt.textContent = company.company_name;
-          select.appendChild(opt);
-        });
-      })
-      .catch(err => {
-        console.log('error fetching companies', err);
-      })
 
       //Update company info
       let update_company_form = document.getElementById('update_company_info');
