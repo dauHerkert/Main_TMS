@@ -762,7 +762,9 @@
             {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
             {title:"Type", field:"type", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Type"},
             {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
-            {title:"Admin", field:"admin", sorter:"string", width:150},
+            {title:"Admin", field:"user_admin", formatter:function(cell, formatterParams, onRendered){
+                return cell.getValue() == 1 ? "Admin" : "";
+            }},
             {title:"Actions", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
@@ -821,7 +823,6 @@ if (clearFilterButton) {
     document.querySelector('input[placeholder="Status"]').value = "";
 
     table.clearHeaderFilter();
-    console.log("eliminisimooo");
   });
 }
 
@@ -840,7 +841,7 @@ getDocs(colRef)
             return;
         }
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-            data.push({id: doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status});
+            data.push({id: doc.id, name: user.user_firstname, email: user.user_email, company: userCompanyName, type: user.user_type, status: user.user_status, user_admin: user.user_is_admin});
         }));
     });
     return Promise.all(promises).then(() => data);
