@@ -305,7 +305,7 @@
             }else{
               document.getElementById('instructions_modal').style.display = "block";
             }
-          window.onload = function() {
+          window.onload = function(user) {
             const userRef = doc(db, 'users', user.uid);
             setDoc(userRef, {              
                 first_sign: "1",
