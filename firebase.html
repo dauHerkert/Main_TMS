@@ -981,35 +981,6 @@ getDocs(colRef)
       bulkUserUpdate(selectedData);
     });
 
-      getDocs(zonesRef)
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          let zone = doc.data();
-          
-          var opt = document.createElement('option');
-          opt.value = zone.zone;
-          opt.textContent = zone.zone;
-          update_company_zone.appendChild(opt);
-        });
-      })
-      .catch(err => {
-        console.log('error fetching companies', err);
-      })
-
-      getDocs(zonesRef)
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          let zone = doc.data();
-          
-          var opt = document.createElement('option');
-          opt.value = zone.zone;
-          opt.textContent = zone.zone;
-          create_company_zone.appendChild(opt);
-        });
-      })
-      .catch(err => {
-        console.log('error fetching companies', err);
-      })
     }
 
     /*
@@ -1216,6 +1187,36 @@ getDocs(company_colRef)
       let create_company_zone = document.getElementById('companyZone');
       let update_company_zone = document.getElementById('newCompanyZone');
       const zonesRef = collection(db, 'zones');
+
+      getDocs(zonesRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let zone = doc.data();
+          
+          var opt = document.createElement('option');
+          opt.value = zone.zone;
+          opt.textContent = zone.zone;
+          update_company_zone.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+
+      getDocs(zonesRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let zone = doc.data();
+          
+          var opt = document.createElement('option');
+          opt.value = zone.zone;
+          opt.textContent = zone.zone;
+          create_company_zone.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
     }
     
     //Company page
