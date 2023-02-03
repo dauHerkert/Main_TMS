@@ -1157,7 +1157,7 @@ getDocs(company_colRef)
 
         const companyRef = await addDoc(collection(db, "companies"), {
             company_name: new_company_name.value,
-            company_zones: selectedValuesString,
+            company_zones: selectedText,
             company_type: new_company_type.value,
             user_head: ''
           })
