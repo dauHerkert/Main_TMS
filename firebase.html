@@ -1153,9 +1153,7 @@ getDocs(company_colRef)
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
       let companyZone = document.getElementById('companyZone');
-      var selectedValues = $('#companyZone').select2('data').map(function(item) {
-                             return item.text;
-                            });
+      let selectedValues = $('#companyZone').val();
       let selectedValuesString = selectedValues.join(",");
         console.log('hello')                    
       async function createCompany(){
