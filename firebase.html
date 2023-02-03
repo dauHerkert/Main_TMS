@@ -1150,7 +1150,7 @@ getDocs(company_colRef)
       let new_company_type = document.getElementById('companyType');
       let $companyZone = $(companyZone);
       let selectedText = $companyZone.find(':selected').text();
-      var selectedTexts = $.map(selectedOptionElements, function(el, i) {
+      var selectedTexts = $.map(selectedText, function(el, i) {
             return $(el).text();
         });
         console.log(selectedText)
