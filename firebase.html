@@ -1121,7 +1121,7 @@ getDocs(company_colRef)
       let update_company = document.getElementById('update_company');
       let companyHead = document.getElementById('companyHead');
       let newCompanyZone = document.getElementById('newCompanyZone');
-      let selectedOptions = [].slice.call(selectElement.selectedOptions).map(option => option.value);
+      let selectedOptions = [].slice.call(newCompanyZone.selectedOptions).map(option => option.value);
       let selectedOptionsString = selectedOptions.join(",");
 
       update_company_form.addEventListener('submit', (e) => {
