@@ -1158,7 +1158,7 @@ companyZone.addEventListener('change', (e) => {
 async function createCompany() {
   const companyRef = await addDoc(collection(db, "companies"), {
       company_name: new_company_name.value,
-      company_zones: selectedZones,
+      company_zones: selectedZones.join(','),
       company_type: new_company_type.value,
       user_head: ''
     })
