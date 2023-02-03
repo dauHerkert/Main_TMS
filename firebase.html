@@ -1121,10 +1121,8 @@ getDocs(company_colRef)
       let update_company = document.getElementById('update_company');
       let companyHead = document.getElementById('companyHead');
       let newCompanyZone = document.getElementById('newCompanyZone');
-      var selectedValues = $('#newCompanyZone').select2('data').map(function(item) {
-                             return item.text;
-                            });
-      let selectedValuesString = selectedValues.join(",");
+      let selectedOptions = [].slice.call(newCompanyZone.selectedOptions).map(option => option.value);
+      let selectedOptionsString = selectedOptions.join(",");
 
       update_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -1155,14 +1153,16 @@ getDocs(company_colRef)
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
       let companyZone = document.getElementById('companyZone');
-      const selectedZones = [].slice.call(companyZone.selectedOptions).map(option => option.value);
-      let selectedZonesString = selectedOptions.join(",");
+      var selectedValues = $('#newCompanyZone').select2('data').map(function(item) {
+                             return item.text;
+                            });
+      let selectedValuesString = selectedValues.join(",");
 
       async function createCompany(){
 
         const companyRef = await addDoc(collection(db, "companies"), {
             company_name: new_company_name.value,
-            company_zones: selectedZonesString,
+            company_zones: selectedValuesString,
             company_type: new_company_type.value,
             user_head: ''
           })
