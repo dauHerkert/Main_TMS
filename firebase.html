@@ -1149,9 +1149,10 @@ getDocs(company_colRef)
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
       let companyZone = document.getElementById('companyZone');
-      let selectedOptions = companyZone.select2('data');
-      let selectedValuesString = selectedOptions.join(",");
-        console.log(selectedOptions)                    
+      let selectedText = companyZone.find(':selected').text();
+      let selectedValuesString = selectedText.join(",");
+        console.log(selectedValuesString)  
+        console.log(selectedText)                   
       async function createCompany(){
 
         const companyRef = await addDoc(collection(db, "companies"), {
