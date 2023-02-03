@@ -1148,8 +1148,8 @@ getDocs(company_colRef)
       let create_company_form = document.getElementById('create_company_form');
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
-      let companyZone = document.getElementById('companyZone');
-      let selectedText = companyZone.find(':selected').text();
+      let $companyZone = $(companyZone);
+      let selectedText = $companyZone.find(':selected').text();
       let selectedValuesString = selectedText.join(",");
         console.log(selectedValuesString)  
         console.log(selectedText)                   
