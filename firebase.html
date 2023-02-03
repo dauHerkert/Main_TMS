@@ -1150,9 +1150,12 @@ getDocs(company_colRef)
       let new_company_type = document.getElementById('companyType');
       let $companyZone = $(companyZone);
       let selectedText = $companyZone.find(':selected').text();
-      //let selectedValuesString = selectedText.join(",");
-        //console.log(selectedValuesString)  
-        console.log(selectedText)                   
+      var selectedTexts = $.map(selectedOptionElements, function(el, i) {
+            return $(el).text();
+        });
+        console.log(selectedText)
+        var selectedValuesString = selectedTexts.join(',');
+        console.log(selectedValuesString);
       async function createCompany(){
 
         const companyRef = await addDoc(collection(db, "companies"), {
