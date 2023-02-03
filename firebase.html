@@ -1117,8 +1117,8 @@ getDocs(company_colRef)
       let update_company = document.getElementById('update_company');
       let companyHead = document.getElementById('companyHead');
       let newCompanyZone = document.getElementById('newCompanyZone');
-      //let selectedOptions = [].slice.call(newCompanyZone.selectedOptions).map(option => option.value);
-      //let selectedOptionsString = selectedOptions.join(",");
+      let selectedOptions = [].slice.call(newCompanyZone.selectedOptions).map(option => option.value);
+      let selectedOptionsString = selectedOptions.join(",");
 
       update_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -1128,7 +1128,7 @@ getDocs(company_colRef)
           const companyRef = doc(db, 'companies', company_id.value);
           setDoc(companyRef, {
             company_name: update_company.value,
-            company_zones: newCompanyZone.value,
+            company_zones: selectedOptionsString,
             user_head: companyHead.value
           }, { merge: true })
           .then(() => {
@@ -1149,16 +1149,16 @@ getDocs(company_colRef)
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
       let companyZone = document.getElementById('companyZone');
-      //var selectedValues = $('#companyZone').select2('data').map(function(item) {
-        //                    return item.text;
-         //                 });
-     // let selectedValuesString = selectedValues.join(",");
-        console.log('helluusaasdu')                    
+      var selectedValues = $('#companyZone').select2('data').map(function(item) {
+                            return item.text;
+                          });
+      let selectedValuesString = selectedValues.join(",");
+        console.log('hellooooaaa')                    
       async function createCompany(){
 
         const companyRef = await addDoc(collection(db, "companies"), {
             company_name: new_company_name.value,
-            company_zones: companyZone.value,
+            company_zones: selectedValuesString,
             company_type: new_company_type.value,
             user_head: ''
           })
