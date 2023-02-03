@@ -1157,7 +1157,7 @@ getDocs(company_colRef)
                              return item.text;
                             });
       let selectedValuesString = selectedValues.join(",");
-
+        console.log('hello')                    
       async function createCompany(){
 
         const companyRef = await addDoc(collection(db, "companies"), {
