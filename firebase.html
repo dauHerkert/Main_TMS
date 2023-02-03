@@ -1027,11 +1027,7 @@ getDocs(colRef)
     *  Companies table page functions
     * --------------------------------------------------------------------------------------------
     */
-    async function pageCompaniesTable(user){
-
-      $(document).ready(function() {
-        $('.js-example-basic-multiple').select2();
-      }); 
+    async function pageCompaniesTable(user){ 
 
     // Print companies table
     const company_colRef = collection(db, 'companies');
@@ -1077,29 +1073,29 @@ getDocs(colRef)
         ],
 });
 
-const company_input = document.getElementById("company_search");
-company_input.addEventListener("keyup", function() {
-  companies_table.setFilter(matchAny, { value: company_input.value });
-    if (company_input.value == " ") {
-      companies_table.clearFilter()
-    }
-});
+    const company_input = document.getElementById("company_search");
+    company_input.addEventListener("keyup", function() {
+      companies_table.setFilter(matchAny, { value: company_input.value });
+        if (company_input.value == " ") {
+          companies_table.clearFilter()
+        }
+    });
 
-function matchAny(data, filterParams) {
+    function matchAny(data, filterParams) {
       //data - the data for the row being filtered
       //filterParams - params object passed to the filter
       //RegExp - modifier "i" - case insensitve
 
-    var match = false;
-    const regex = RegExp(filterParams.value, 'i');
+        var match = false;
+        const regex = RegExp(filterParams.value, 'i');
 
-    for (var key in data) {
-        if (regex.test(data[key]) == true) {
-            match = true;
+        for (var key in data) {
+            if (regex.test(data[key]) == true) {
+                match = true;
+            }
         }
+        return match;
     }
-    return match;
-}
 
 getDocs(company_colRef)
     .then((snapshot) => {
@@ -1121,8 +1117,8 @@ getDocs(company_colRef)
       let update_company = document.getElementById('update_company');
       let companyHead = document.getElementById('companyHead');
       let newCompanyZone = document.getElementById('newCompanyZone');
-      let selectedOptions = [].slice.call(newCompanyZone.selectedOptions).map(option => option.value);
-      let selectedOptionsString = selectedOptions.join(",");
+      //let selectedOptions = [].slice.call(newCompanyZone.selectedOptions).map(option => option.value);
+      //let selectedOptionsString = selectedOptions.join(",");
 
       update_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -1132,7 +1128,7 @@ getDocs(company_colRef)
           const companyRef = doc(db, 'companies', company_id.value);
           setDoc(companyRef, {
             company_name: update_company.value,
-            company_zones: selectedOptionsString,
+            company_zones: newCompanyZone.value,
             user_head: companyHead.value
           }, { merge: true })
           .then(() => {
@@ -1153,16 +1149,16 @@ getDocs(company_colRef)
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
       let companyZone = document.getElementById('companyZone');
-      var selectedValues = $('#companyZone').select2('data').map(function(item) {
-                            return item.text;
-                          });
-let selectedValuesString = selectedValues.join(",");
-        console.log('hellooooaaa')                    
+      //var selectedValues = $('#companyZone').select2('data').map(function(item) {
+        //                    return item.text;
+         //                 });
+     // let selectedValuesString = selectedValues.join(",");
+        console.log('helluusaasdu')                    
       async function createCompany(){
 
         const companyRef = await addDoc(collection(db, "companies"), {
             company_name: new_company_name.value,
-            company_zones: selectedValuesString,
+            company_zones: companyZone.value,
             company_type: new_company_type.value,
             user_head: ''
           })
