@@ -1150,6 +1150,7 @@ let new_company_type = document.getElementById('companyType');
 let companyZone = document.getElementById('companyZone');
 let selectedZones = [];
 
+// Get selected values on change
 companyZone.addEventListener('change', (e) => {
   selectedZones = Array.from(e.target.selectedOptions, option => option.value);
 });
@@ -1157,7 +1158,7 @@ companyZone.addEventListener('change', (e) => {
 async function createCompany() {
   const companyRef = await addDoc(collection(db, "companies"), {
       company_name: new_company_name.value,
-      company_zones: selectedZones.join(','),
+      company_zones: selectedZones,
       company_type: new_company_type.value,
       user_head: ''
     })
