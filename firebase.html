@@ -434,14 +434,14 @@
         });
     }
 
-  //Update profile picture
+  // Update profile picture
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
 
   const updatedPicture = document.getElementById('updated_picture');
   let fileItem = updatedPicture.files[0];
-  const storageRef = ref(storage, 'profiles/' + user.uid);
+  const storageRef = firebase.storage().ref('profiles/' + user.uid);
 
   if (updatedPicture.files.length === 0) {
     toastr.error('Please upload your profile picture');
@@ -457,7 +457,7 @@ function updateProfilePic(e, user) {
         crop(event) {
           const canvas = cropper.getCroppedCanvas();
           canvas.toBlob((blob) => {
-            uploadBytes(storageRef, blob)
+            storageRef.put(blob)
               .then((snapshot) => {
                 toastr.success('You have updated the profile picture successfully');
                 setTimeout(reloadPage, 3000);
