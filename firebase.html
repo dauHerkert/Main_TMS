@@ -443,7 +443,7 @@ updatedPicture.addEventListener("change", function handlePictureChange(e) {
   updateFileLabel();
 
   let fileItem = updatedPicture.files[0];
-  const storageRef = ref(storage, 'profiles/' + user.uid);
+  //const storageRef = ref(storage, 'profiles/' + user.uid);
 
   if (updatedPicture.files.length === 0) {
     toastr.error('Please upload your profile picture');
