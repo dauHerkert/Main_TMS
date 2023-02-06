@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Firebase</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.7/dist/cropper.min.css" integrity="sha384-bH6Uvj6JxODAZOgL1LlKj+Fv0MiZrJfmdzDj9YWdhiQ+N/yPyxO1Np8WOoM0v60M" crossorigin="anonymous">
 </head>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
@@ -434,19 +435,29 @@
         });
     }
 
-    //Update profile picture
-    function updateProfilePic(e, user) {
-      e.preventDefault();
-      e.stopPropagation();
+   //Update profile picture
+function updateProfilePic(e, user) {
+  e.preventDefault();
+  e.stopPropagation();
 
-      const updated_picture = document.getElementById('updated_picture');
-      let fileItem = updated_picture.files[0];
-      const storageRef = ref(storage, 'profiles/' + user.uid);
+  const updated_picture = document.getElementById('updated_picture');
+  let fileItem = updated_picture.files[0];
+  const storageRef = ref(storage, 'profiles/' + user.uid);
 
-          if (updated_picture.files.length === 0) {
-              toastr.error('Please upload your profile picture')
-            }else{
-              uploadBytes(storageRef, fileItem)
+  if (updated_picture.files.length === 0) {
+    toastr.error('Please upload your profile picture')
+  } else {
+    // Check if the file is an image
+    if (/^image\/\w+/.test(fileItem.type)) {
+      // Initialize the cropper
+      const image = document.createElement('img');
+      image.src = URL.createObjectURL(fileItem);
+      const cropper = new Cropper(image, {
+        aspectRatio: 1 / 1,
+        crop(event) {
+          const canvas = cropper.getCroppedCanvas();
+          const file = canvas.toBlob((blob) => {
+            uploadBytes(storageRef, blob)
               .then((snapshot) => {
                 toastr.success('You have updated the profile picture successfully');
                 setTimeout(reloadPage, 3000);
@@ -455,8 +466,15 @@
                 console.log('error uploading file', err);
                 toastr.error('There was an error uploading the file');
               });
-            }
+          });
+        },
+      });
+    } else {
+      toastr.error('Please choose an image file.');
     }
+  }
+}
+
 
     function showPrivateElements() {
       // User is signed in
@@ -1145,41 +1163,41 @@ getDocs(company_colRef)
       
       //Create companies
       let create_company_form = document.getElementById('create_company_form');
-let new_company_name = document.getElementById('newCompanyName');
-let new_company_type = document.getElementById('companyType');
-let companyZone = document.getElementById('companyZone');
-let selectedZones = [];
+      let new_company_name = document.getElementById('newCompanyName');
+      let new_company_type = document.getElementById('companyType');
+      let companyZone = document.getElementById('companyZone');
+      let selectedZones = [];
 
-// Get selected values on change
-companyZone.addEventListener('change', (e) => {
-  selectedZones = Array.from(e.target.selectedOptions, option => option.value);
-});
+      // Get selected values on change
+      companyZone.addEventListener('change', (e) => {
+        selectedZones = Array.from(e.target.selectedOptions, option => option.value);
+      });
 
-async function createCompany() {
-  const companyRef = await addDoc(collection(db, "companies"), {
-      company_name: new_company_name.value,
-      company_zones: selectedZones.join(','),
-      company_type: new_company_type.value,
-      user_head: ''
-    })
-    .then(() => {
-      toastr.success('Company has been successfully created');
-      setTimeout(function() {
-        window.location.reload();
-      }, 2000);
-    })
-    .catch((err) => {
-      toastr.error('There was an error creating the company');
-      console.log('error creating company', err);
-    });
-}
+      async function createCompany() {
+        const companyRef = await addDoc(collection(db, "companies"), {
+            company_name: new_company_name.value,
+            company_zones: selectedZones.join(','),
+            company_type: new_company_type.value,
+            user_head: ''
+          })
+          .then(() => {
+            toastr.success('Company has been successfully created');
+            setTimeout(function() {
+              window.location.reload();
+            }, 2000);
+          })
+          .catch((err) => {
+            toastr.error('There was an error creating the company');
+            console.log('error creating company', err);
+          });
+      }
 
-create_company_form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+      create_company_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-  createCompany();
-});
+        createCompany();
+      });
 
     //Create new zones
     if (window.location.pathname == '/de/admin/users-table' || window.location.pathname == '/de/admin/companies-table' || window.location.pathname == '/en/admin/users-table' || window.location.pathname == '/en/admin/companies-table'){
@@ -1230,7 +1248,6 @@ create_company_form.addEventListener('submit', (e) => {
             console.log('error fetching companies', err);
           });
       }
-
           createOptions(create_company_zone);
           createOptions(update_company_zone);
         }
@@ -1689,5 +1706,6 @@ create_company_form.addEventListener('submit', (e) => {
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.7/dist/cropper.min.js" integrity="sha384-RjKV7hGduMeBvZ7q3KjfQkXeYhAJHjxz/4b4+idCr1EiGo2QTZz93TtT94VtWkm" crossorigin="anonymous"></script>
 <!--<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>-->
 </html>
