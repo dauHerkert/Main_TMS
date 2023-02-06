@@ -435,19 +435,19 @@
     }
 
   //Update profile picture
-function updateProfilePic(e, user) {
+
+  const updatedPicture = document.getElementById('updated_picture');
+  updatedPicture.addEventListener("change", function updateProfilePic(e, user) {
+
   e.preventDefault();
   e.stopPropagation();
 
-  const updatedPicture = document.getElementById('updated_picture');
   let fileItem = updatedPicture.files[0];
   const storageRef = ref(storage, 'profiles/' + user.uid);
 
   if (updatedPicture.files.length === 0) {
     toastr.error('Please upload your profile picture');
   } else {
-    // Check if the file is an image
-    if (/^image\/\w+/.test(fileItem.type)) {
       // Initialize the cropper
       const image = document.createElement('img');
       image.src = URL.createObjectURL(fileItem);
@@ -469,11 +469,8 @@ function updateProfilePic(e, user) {
           });
         },
       });
-    } else {
-      toastr.error('Please choose an image file.');
-    }
   }
-}
+})
 
     function showPrivateElements() {
       // User is signed in
