@@ -439,12 +439,12 @@ function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
 
-  const updated_picture = document.getElementById('updated_picture');
-  let fileItem = updated_picture.files[0];
+  const updatedPicture = document.getElementById('updated_picture');
+  let fileItem = updatedPicture.files[0];
   const storageRef = ref(storage, 'profiles/' + user.uid);
 
-  if (updated_picture.files.length === 0) {
-    toastr.error('Please upload your profile picture')
+  if (updatedPicture.files.length === 0) {
+    toastr.error('Please upload your profile picture');
   } else {
     // Check if the file is an image
     if (/^image\/\w+/.test(fileItem.type)) {
@@ -456,7 +456,7 @@ function updateProfilePic(e, user) {
         aspectRatio: 1 / 1,
         crop(event) {
           const canvas = cropper.getCroppedCanvas();
-          const file = canvas.toBlob((blob) => {
+          canvas.toBlob((blob) => {
             uploadBytes(storageRef, blob)
               .then((snapshot) => {
                 toastr.success('You have updated the profile picture successfully');
@@ -474,8 +474,6 @@ function updateProfilePic(e, user) {
     }
   }
 }
-
-
 
     function showPrivateElements() {
       // User is signed in
