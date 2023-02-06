@@ -437,13 +437,13 @@
   //Update profile picture
 
   const updatedPicture = document.getElementById('updated_picture');
+  const storageRef = ref(storage, 'profiles/' + user.uid);
   updatedPicture.addEventListener("change", function updateProfilePic(e, user) {
 
   e.preventDefault();
   e.stopPropagation();
 
   let fileItem = updatedPicture.files[0];
-  const storageRef = ref(storage, 'profiles/' + user.uid);
 
   if (updatedPicture.files.length === 0) {
     toastr.error('Please upload your profile picture');
