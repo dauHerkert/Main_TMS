@@ -434,7 +434,7 @@
         });
     }
 
-  // Update profile picture
+  //Update profile picture
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
@@ -457,7 +457,7 @@ function updateProfilePic(e, user) {
         crop(event) {
           const canvas = cropper.getCroppedCanvas();
           canvas.toBlob((blob) => {
-            storageRef.put(blob)
+            uploadBytes(storageRef, blob)
               .then((snapshot) => {
                 toastr.success('You have updated the profile picture successfully');
                 setTimeout(reloadPage, 3000);
