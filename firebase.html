@@ -434,7 +434,7 @@
         });
     }
 
-   //Update profile picture
+  //Update profile picture
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
@@ -451,6 +451,7 @@ function updateProfilePic(e, user) {
       // Initialize the cropper
       const image = document.createElement('img');
       image.src = URL.createObjectURL(fileItem);
+      document.body.appendChild(image);
       const cropper = new Cropper(image, {
         aspectRatio: 1 / 1,
         crop(event) {
@@ -473,6 +474,7 @@ function updateProfilePic(e, user) {
     }
   }
 }
+
 
 
     function showPrivateElements() {
