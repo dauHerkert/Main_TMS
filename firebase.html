@@ -434,29 +434,48 @@
         });
     }
 
- //Update profile picture
- function updateProfilePic(e, user) {
-      e.preventDefault();
-      e.stopPropagation();
+    const updatedPicture = document.getElementById('updated_picture');
 
-      const updated_picture = document.getElementById('updated_picture');
-      let fileItem = updated_picture.files[0];
-      const storageRef = ref(storage, 'profiles/' + user.uid);
+updatedPicture.addEventListener("change", function handlePictureChange(e) {
+  e.preventDefault();
+  e.stopPropagation();
 
-          if (updated_picture.files.length === 0) {
-              toastr.error('Please upload your profile picture')
-            }else{
-              uploadBytes(storageRef, fileItem)
-              .then((snapshot) => {
-                toastr.success('You have updated the profile picture successfully');
-                setTimeout(reloadPage, 3000);
-              })
-              .catch(err => {
-                console.log('error uploading file', err);
-                toastr.error('There was an error uploading the file');
-              });
-            }
+  updateFileLabel();
+
+  let fileItem = updatedPicture.files[0];
+  const storageRef = ref(storage, 'profiles/' + user.uid);
+
+  if (updatedPicture.files.length === 0) {
+    toastr.error('Please upload your profile picture');
+  } else {
+    // Check if the file is an image
+    if (/^image\/\w+/.test(fileItem.type)) {
+      // Initialize the cropper
+      const image = document.getElementById('image_cropper');
+      image.src = URL.createObjectURL(fileItem);
+      const cropper = new Cropper(image, {
+      aspectRatio: 16 / 9,
+      crop(event) {
+        console.log(event.detail.x);
+        console.log(event.detail.y);
+        console.log(event.detail.width);
+        console.log(event.detail.height);
+        console.log(event.detail.rotate);
+        console.log(event.detail.scaleX);
+        console.log(event.detail.scaleY);
+      },
+    });
+    } else {
+      toastr.error('Please choose an image file.');
     }
+  }
+});
+
+function updateFileLabel() {
+  const fileName = document.getElementById("fileName");
+  fileName.innerHTML = updatedPicture.files[0].name;
+}
+
 
     function showPrivateElements() {
       // User is signed in
