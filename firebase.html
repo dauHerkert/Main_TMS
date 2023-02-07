@@ -1223,7 +1223,8 @@ getDocs(company_colRef)
       let selectedValues = $('companyZone').val();
       $('#companyZone').on('change', function () {
           var selectedValues = $(this).val();
-          console.log(selectedValues);
+          var selectedValuesString = selectedValues.join(',');
+          console.log(selectedValuesString);
         });
 
       // Get selected values on change
