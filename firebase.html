@@ -183,7 +183,7 @@ profile_img.addEventListener("change", function handleProfilePic(e) {
     toastr.error('Please upload your profile picture');
   } else {
     // Check if the file is an image
-    modal4.style.display = "block";
+    //modal4.style.display = "block";
     if (/^image\/\w+/.test(fileItem.type)) {
       // Initialize the cropper
       const image = document.getElementById('profile_image_cropper');
