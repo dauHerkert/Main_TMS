@@ -169,6 +169,8 @@
     //Upload user's profile image
 const profile_img = document.getElementById('profile_img');
 const hiddenProfileInput = document.getElementById('hidden_profile_img');
+let profile_cropper;
+
 profile_img.addEventListener("change", function handleProfilePic(e) {
   e.preventDefault();
   e.stopPropagation();
@@ -183,26 +185,25 @@ profile_img.addEventListener("change", function handleProfilePic(e) {
       // Initialize the cropper
       const image = document.getElementById('profile_image_cropper');
       image.src = URL.createObjectURL(fileItem);
-      const cropper = new Cropper(image, {
+      profile_cropper = new Cropper(image, {
         aspectRatio: 1 / 1,
         crop(event) {
           // Get the cropped canvas data as a data URL
-          const canvas = cropper.getCroppedCanvas();
+          const canvas = profile_cropper.getCroppedCanvas();
           const dataURL = canvas.toDataURL();
-
+          
           // Set the data URL as the value of the hidden input field
           hiddenInput.value = dataURL;
         },
       });
-      userUploadImage(user, cropper);
     } else {
       toastr.error('Please choose an image file.');
     }
   }
 });
 
-function userUploadImage(user, cropper) {
-  const canvas = cropper.getCroppedCanvas();
+function userUploadImage(user) {
+  const canvas = profile_cropper.getCroppedCanvas();
   canvas.toBlob((blob) => {
     const storageRef = ref(storage, 'profiles/' + user.uid);
     uploadBytes(storageRef, blob)
