@@ -191,6 +191,9 @@ if (profile_img) {
         image.src = URL.createObjectURL(fileItem);
         profile_cropper = new Cropper(image, {
           aspectRatio: 1 / 1,
+          viewMode: 2,
+          autoCropArea: 1,
+          responsive: true,
           crop(event) {
             // Get the cropped canvas data as a data URL
             const canvas = profile_cropper.getCroppedCanvas();
