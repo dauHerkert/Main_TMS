@@ -165,39 +165,40 @@
         toastr.error('There was an error updating your info');
       });
     }
+
+    //Upload user's profile image
     const profile_img = document.getElementById('profile_img');
     const hiddenProfileInput = document.getElementById('hidden_profile_img');
-    //Upload user's profile image
-    profileImg.addEventListener("change", function handleProfilePic(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    profile_img.addEventListener("change", function handleProfilePic(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-    let fileItem = profileImg.files[0];
-    
-    if (profileImg.files.length === 0) {
-      toastr.error('Please upload your profile picture');
-    } else {
-      // Check if the file is an image
-      if (/^image\/\w+/.test(fileItem.type)) {
-        // Initialize the cropper
-        const image = document.getElementById('image_cropper');
-        image.src = URL.createObjectURL(fileItem);
-        const cropper = new Cropper(image, {
-          aspectRatio: 1 / 1,
-          crop(event) {
-            // Get the cropped canvas data as a data URL
-            const canvas = cropper.getCroppedCanvas();
-            const dataURL = canvas.toDataURL();
-            
-            // Set the data URL as the value of the hidden input field
-            hiddenInput.value = dataURL;
-          },
-        });
+      let fileItem = profile_img.files[0];
+      
+      if (profile_img.files.length === 0) {
+        toastr.error('Please upload your profile picture');
       } else {
-        toastr.error('Please choose an image file.');
+        // Check if the file is an image
+        if (/^image\/\w+/.test(fileItem.type)) {
+          // Initialize the cropper
+          const image = document.getElementById('image_cropper');
+          image.src = URL.createObjectURL(fileItem);
+          const cropper = new Cropper(image, {
+            aspectRatio: 1 / 1,
+            crop(event) {
+              // Get the cropped canvas data as a data URL
+              const canvas = cropper.getCroppedCanvas();
+              const dataURL = canvas.toDataURL();
+              
+              // Set the data URL as the value of the hidden input field
+              hiddenProfileInput.value = dataURL;
+            },
+          });
+        } else {
+          toastr.error('Please choose an image file.');
+        }
       }
-    }
-  });
+    });
 
     function userUploadImage(user) {      
       const canvas = cropper.getCroppedCanvas();
@@ -206,14 +207,18 @@
       uploadBytes(storageRef, blob)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
-        setTimeout(reloadPage, 3000);
+        profile_img.value = '';
       })
       .catch(err => {
         console.log('error uploading file', err);
         toastr.error('There was an error uploading the file');
       });
-  });
+    });
     }
+
+
+
+
 
     // Handle signIn
     function handleSignIn(e) {
