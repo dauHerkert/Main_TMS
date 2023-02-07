@@ -1220,12 +1220,10 @@ getDocs(company_colRef)
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
       let companyZone = document.getElementById('companyZone');
-      let selectedValues = $('companyZone').val();
-      $('#companyZone').on('change', function () {
-          var selectedValues = $(this).val();
-          var selectedValuesString = selectedValues.join(',');
-          console.log(selectedValuesString);
-        });
+      var selectedValues = $('#companyZone').val();
+      var selectedValuesString = selectedValues.join(',');
+      console.log(selectedValuesString);
+  
 
       // Get selected values on change
       companyZone.addEventListener('change', (e) => {
