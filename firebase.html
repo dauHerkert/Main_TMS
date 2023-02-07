@@ -1220,20 +1220,17 @@ getDocs(company_colRef)
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
       let companyZone = document.getElementById('companyZone');
-      var selectedValues = $('#companyZone').val();
-      var selectedValuesString = selectedValues.join(',');
-      console.log('Zones: ',selectedValuesString);
-  
+      let selectedValuesString;
 
-      // Get selected values on change
-      companyZone.addEventListener('change', (e) => {
-        selectedZones = Array.from(e.target.selectedOptions, option => option.value);
+      $('#companyZone').on('change', function () {
+        var selectedValues = $(this).val();
+        selectedValuesString = selectedValues.join(',');
       });
 
       async function createCompany() {
         const companyRef = await addDoc(collection(db, "companies"), {
             company_name: new_company_name.value,
-            company_zones: selectedZones.join(','),
+            company_zones: selectedValuesString,
             company_type: new_company_type.value,
             user_head: ''
           })
