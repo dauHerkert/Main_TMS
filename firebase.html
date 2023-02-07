@@ -305,8 +305,7 @@ if (profile_img) {
         }
     }
 
-      let signOutButton = document.getElementById('signout-button');
-      
+      let signOutButton = document.getElementById('signout-button');      
       if(signOutButton) {
           signOutButton.addEventListener('click', handleSignOut);
         }
@@ -532,11 +531,10 @@ function updateProfilePic(e, user) {
   });
 }
 
-
 function updateFileLabel() {
   const fileName = document.getElementById("fileName");
   fileName.innerHTML = updatedPicture.files[0].name;
-}
+}[]
 
     function showPrivateElements() {
       // User is signed in
@@ -1161,10 +1159,6 @@ getDocs(colRef)
     });
 
     function matchAny(data, filterParams) {
-      //data - the data for the row being filtered
-      //filterParams - params object passed to the filter
-      //RegExp - modifier "i" - case insensitve
-
         var match = false;
         const regex = RegExp(filterParams.value, 'i');
 
@@ -1195,10 +1189,15 @@ getDocs(company_colRef)
       let company_id = document.getElementById('company_id');
       let update_company = document.getElementById('update_company');
       let companyHead = document.getElementById('companyHead');
-      let newCompanyZone = document.getElementById('newCompanyZone');
-      //let selectedOptions = [].slice.call(newCompanyZone.selectedOptions).map(option => option.value);
+      //let newCompanyZone = document.getElementById('newCompanyZone');
+      let selectedValues = $('companyZone').val();
+      $('#newCompanyZone').on('change', function () {
+          var selectedValues = $(this).val();
+          console.log(selectedValues);
+        });
       //let selectedOptionsString = selectedOptions.join(",");
 
+      console.log(selectedValues)
       update_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation()
