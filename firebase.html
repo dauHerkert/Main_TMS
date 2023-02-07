@@ -434,10 +434,10 @@
         });
     }
 
-    const updatedPicture = document.getElementById('updated_picture');
-const hiddenInput = document.getElementById('hidden_input');
-let cropper;
-
+  const updatedPicture = document.getElementById('updated_picture');
+  const hiddenInput = document.getElementById('hidden_input');
+  let cropper;
+if(updatedPicture){
 updatedPicture.addEventListener("change", function handleProfilePic(e) {
   e.preventDefault();
   e.stopPropagation();
@@ -468,7 +468,7 @@ updatedPicture.addEventListener("change", function handleProfilePic(e) {
     }
   }
 });
-
+}
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
