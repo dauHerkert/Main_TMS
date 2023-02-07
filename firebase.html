@@ -1190,11 +1190,6 @@ getDocs(company_colRef)
       let update_company = document.getElementById('update_company');
       let companyHead = document.getElementById('companyHead');
       //let newCompanyZone = document.getElementById('newCompanyZone');
-      let selectedValues = $('companyZone').val();
-      $('#newCompanyZone').on('change', function () {
-          var selectedValues = $(this).val();
-          console.log(selectedValues);
-        });
       //let selectedOptionsString = selectedOptions.join(",");
       update_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -1225,7 +1220,11 @@ getDocs(company_colRef)
       let new_company_name = document.getElementById('newCompanyName');
       let new_company_type = document.getElementById('companyType');
       let companyZone = document.getElementById('companyZone');
-      let selectedZones = [];
+      let selectedValues = $('companyZone').val();
+      $('#companyZone').on('change', function () {
+          var selectedValues = $(this).val();
+          console.log(selectedValues);
+        });
 
       // Get selected values on change
       companyZone.addEventListener('change', (e) => {
