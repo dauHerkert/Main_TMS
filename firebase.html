@@ -1287,7 +1287,7 @@ getDocs(company_colRef)
 
       //Print zones select
       let create_company_zone = document.getElementById('companyZone');
-      let update_company_zone = document.getElementById('newCompanyZone');
+      let update_company_zone = document.getElementById('newCompanyZones');
       const zonesRef = collection(db, 'zones');
 
       function createOptions(select) {
@@ -1383,11 +1383,9 @@ getDocs(company_colRef)
   }
 
   // Send email with the user's registration link
-
     let company_link_form = document.getElementById('company_link_form');
 
     if(company_link_form){
-
       company_link_form.addEventListener('submit', (e)=>{
         e.preventDefault();
         e.stopPropagation();
