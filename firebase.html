@@ -169,13 +169,13 @@
     //Upload user's profile image
 const profile_img = document.getElementById('profile_img');
 const hiddenProfileInput = document.getElementById('hidden_profile_img');
-profileImg.addEventListener("change", function handleProfilePic(e) {
+profile_img.addEventListener("change", function handleProfilePic(e) {
   e.preventDefault();
   e.stopPropagation();
 
-  let fileItem = profileImg.files[0];
+  let fileItem = profile_img.files[0];
 
-  if (profileImg.files.length === 0) {
+  if (profile_img.files.length === 0) {
     toastr.error('Please upload your profile picture');
   } else {
     // Check if the file is an image
@@ -216,7 +216,6 @@ function userUploadImage(user, cropper) {
     });
   });
 }
-
 
     // Handle signIn
     function handleSignIn(e) {
