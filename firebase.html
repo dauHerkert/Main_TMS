@@ -440,8 +440,6 @@ updatedPicture.addEventListener("change", function handlePictureChange(e) {
   e.preventDefault();
   e.stopPropagation();
 
-  updateFileLabel();
-
   let fileItem = updatedPicture.files[0];
   //const storageRef = ref(storage, 'profiles/' + user.uid);
 
@@ -449,11 +447,11 @@ updatedPicture.addEventListener("change", function handlePictureChange(e) {
     toastr.error('Please upload your profile picture');
   } else {
     // Check if the file is an image
-    if (/^image\/\w+/.test(fileItem.type)) {
-      // Initialize the cropper
-      const image = document.getElementById('image_cropper');
-      image.src = URL.createObjectURL(fileItem);
-      const cropper = new Cropper(image, {
+  if (/^image\/\w+/.test(fileItem.type)) {
+    // Initialize the cropper
+    const image = document.getElementById('image_cropper');
+    image.src = URL.createObjectURL(fileItem);
+    const cropper = new Cropper(image, {
       aspectRatio: 1 / 1,
       crop(event) {
         console.log(event.detail.x);
@@ -463,11 +461,25 @@ updatedPicture.addEventListener("change", function handlePictureChange(e) {
         console.log(event.detail.rotate);
         console.log(event.detail.scaleX);
         console.log(event.detail.scaleY);
+
+        // Perform the upload
+        const canvas = cropper.getCroppedCanvas();
+        canvas.toBlob((blob) => {
+          uploadBytes(storageRef, blob)
+            .then((snapshot) => {
+              toastr.success('You have updated the profile picture successfully');
+              setTimeout(reloadPage, 3000);
+            })
+            .catch(err => {
+              console.log('error uploading file', err);
+              toastr.error('There was an error uploading the file');
+            });
+        });
       },
     });
-    } else {
-      toastr.error('Please choose an image file.');
-    }
+  } else {
+    toastr.error('Please choose an image file.');
+  }
   }
 });
 
