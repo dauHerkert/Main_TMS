@@ -1203,7 +1203,7 @@ getDocs(company_colRef)
           const companyRef = doc(db, 'companies', company_id.value);
           setDoc(companyRef, {
             company_name: update_company.value,
-            company_zones: selectedOptionsString,
+            company_zones: selectedNewZonesString,
             user_head: companyHead.value
           }, { merge: true })
           .then(() => {
