@@ -1224,7 +1224,7 @@ getDocs(company_colRef)
 
       $('#companyZone').on('change', function () {
         var selectedValues = $(this).val();
-        selectedValuesString = selectedValues.join(',');
+        selectedValuesString = selectedValues.join(', ');
       });
 
       async function createCompany() {
