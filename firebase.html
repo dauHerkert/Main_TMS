@@ -205,7 +205,7 @@ if (profile_img) {
       }
     }
   });
-
+}
   function userUploadImage(user) {
     const canvas = profile_cropper.getCroppedCanvas();
     canvas.toBlob((blob) => {
@@ -221,7 +221,6 @@ if (profile_img) {
         });
     });
   }
-}
 
     // Handle signIn
     function handleSignIn(e) {
