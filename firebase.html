@@ -1189,8 +1189,12 @@ getDocs(company_colRef)
       let company_id = document.getElementById('company_id');
       let update_company = document.getElementById('update_company');
       let companyHead = document.getElementById('companyHead');
-      //let newCompanyZone = document.getElementById('newCompanyZone');
-      //let selectedOptionsString = selectedOptions.join(",");
+      let selectedNewZonesString;
+
+      $('#newCompanyZones').on('change', function () {
+        var selectedNewZones = $(this).val();
+        selectedNewZonesString = selectedNewZones.join(', ');
+      });
       update_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation()
