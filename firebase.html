@@ -165,22 +165,54 @@
         toastr.error('There was an error updating your info');
       });
     }
+    const profile_img = document.getElementById('profile_img');
+    const hiddenProfileInput = document.getElementById('hidden_profile_img');
     //Upload user's profile image
+    profileImg.addEventListener("change", function handleProfilePic(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
-    function userUploadImage(user) {
-      const profile_img = document.getElementById('profile_img');
-      let fileItem = profile_img.files[0];
+    let fileItem = profileImg.files[0];
+    
+    if (profileImg.files.length === 0) {
+      toastr.error('Please upload your profile picture');
+    } else {
+      // Check if the file is an image
+      if (/^image\/\w+/.test(fileItem.type)) {
+        // Initialize the cropper
+        const image = document.getElementById('image_cropper');
+        image.src = URL.createObjectURL(fileItem);
+        const cropper = new Cropper(image, {
+          aspectRatio: 1 / 1,
+          crop(event) {
+            // Get the cropped canvas data as a data URL
+            const canvas = cropper.getCroppedCanvas();
+            const dataURL = canvas.toDataURL();
+            
+            // Set the data URL as the value of the hidden input field
+            hiddenInput.value = dataURL;
+          },
+        });
+      } else {
+        toastr.error('Please choose an image file.');
+      }
+    }
+  });
+
+    function userUploadImage(user) {      
+      const canvas = cropper.getCroppedCanvas();
+      canvas.toBlob((blob) => {
       const storageRef = ref(storage, 'profiles/' + user.uid);
-
-      uploadBytes(storageRef, fileItem)
+      uploadBytes(storageRef, blob)
       .then((snapshot) => {
-        updateFileLabel();
-        toastr.success('You have submitted the form successfully');
+        toastr.success('You have updated the profile picture successfully');
+        setTimeout(reloadPage, 3000);
       })
       .catch(err => {
         console.log('error uploading file', err);
         toastr.error('There was an error uploading the file');
       });
+  });
     }
 
     // Handle signIn
