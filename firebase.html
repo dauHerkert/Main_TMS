@@ -169,6 +169,8 @@
     //Upload user's profile image
 const profile_img = document.getElementById('profile_img');
 const hiddenProfileInput = document.getElementById('hidden_profile_img');
+var modal4 = document.getElementById("cropper_modal");
+
 let profile_cropper;
 if(profile_img){
 profile_img.addEventListener("change", function handleProfilePic(e) {
@@ -181,6 +183,7 @@ profile_img.addEventListener("change", function handleProfilePic(e) {
     toastr.error('Please upload your profile picture');
   } else {
     // Check if the file is an image
+    modal4.style.display = "block";
     if (/^image\/\w+/.test(fileItem.type)) {
       // Initialize the cropper
       const image = document.getElementById('profile_image_cropper');
