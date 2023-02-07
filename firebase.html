@@ -191,6 +191,8 @@ if (profile_img) {
         image.src = URL.createObjectURL(fileItem);
         profile_cropper = new Cropper(image, {
           aspectRatio: 1 / 1,
+          width: 300,
+          height: 300,
           viewMode: 2,
           autoCropArea: 1,
           responsive: true,
