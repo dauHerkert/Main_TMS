@@ -170,7 +170,7 @@
 const profile_img = document.getElementById('profile_img');
 const hiddenProfileInput = document.getElementById('hidden_profile_img');
 let profile_cropper;
-
+if(profile_img){
 profile_img.addEventListener("change", function handleProfilePic(e) {
   e.preventDefault();
   e.stopPropagation();
@@ -217,7 +217,7 @@ function userUploadImage(user) {
     });
   });
 }
-
+}
     // Handle signIn
     function handleSignIn(e) {
       let storedLang = sessionStorage.getItem("language");
