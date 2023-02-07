@@ -181,7 +181,7 @@ profileImg.addEventListener("change", function handleProfilePic(e) {
     // Check if the file is an image
     if (/^image\/\w+/.test(fileItem.type)) {
       // Initialize the cropper
-      const image = document.getElementById('image_cropper');
+      const image = document.getElementById('profile_image_cropper');
       image.src = URL.createObjectURL(fileItem);
       const cropper = new Cropper(image, {
         aspectRatio: 1 / 1,
