@@ -1297,15 +1297,6 @@ getDocs(company_colRef)
         createCompany();
       });
 
-      let selectedValuesDisplay = document.getElementById('select2-selection__rendered');
-
-      function displaySelectedValues(selectedValues) {
-        selectedValuesDisplay.innerText = selectedValues.join(', ');
-      }
-
-      // Assuming you have code to fetch the data from Firebase and store it in a variable called "data"
-      displaySelectedValues(data.company_zones.split(', '));
-
     //Create new zones
     if (window.location.pathname == '/de/admin/users-table' || window.location.pathname == '/de/admin/companies-table' || window.location.pathname == '/en/admin/users-table' || window.location.pathname == '/en/admin/companies-table'){
       let create_zone_form = document.getElementById('create_zone_form');
