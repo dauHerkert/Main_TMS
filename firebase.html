@@ -1617,10 +1617,10 @@ getDocs(company_colRef)
         }
       }
     // first page load
-    document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
       const loadingOverlay = document.querySelector(".loading-overlay");
       loadingOverlay.style.display = "none";
-    });
+    }, 3500);
     dispatchRequest(false);
     checkUrlParameter();
 
