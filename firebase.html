@@ -1288,6 +1288,7 @@ getDocs(company_colRef)
       //Print zones select
       let create_company_zone = document.getElementById('companyZone');
       let update_company_zone = document.getElementById('newCompanyZones');
+      let update_user_zone = document.getElementById('userZones');
       const zonesRef = collection(db, 'zones');
 
       function createOptions(select) {
@@ -1308,6 +1309,7 @@ getDocs(company_colRef)
       }
           createOptions(create_company_zone);
           createOptions(update_company_zone);
+          createOptions(update_user_zone);
         }
       }
     
