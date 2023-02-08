@@ -1097,6 +1097,28 @@ getDocs(colRef)
       .catch(err => {
         console.log('error fetching companies', err);
       })
+
+      //Print zones select
+      let update_user_zone = document.getElementById('userZones');
+      const zonesRef = collection(db, 'zones');
+
+      function createOptions(select) {
+        getDocs(zonesRef)
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              let zone = doc.data();
+
+              var opt = document.createElement('option');
+              opt.value = zone.zone;
+              opt.textContent = zone.zone;
+              select.appendChild(opt);
+            });
+          })
+          .catch(err => {
+            console.log('error fetching companies', err);
+          });
+      }
+          createOptions(update_user_zone);
     }
 
     /*
@@ -1354,7 +1376,6 @@ getDocs(company_colRef)
       })
 
     if (window.location.pathname == '/de/company'){
-
       // Retrieve users data from local storage
       const storedUsers = localStorage.getItem('users');
       const company_name = localStorage.getItem('company');
