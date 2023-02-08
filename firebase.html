@@ -970,6 +970,7 @@ getDocs(colRef)
       $('#userZones').on('change', function () {
         var selectedUserZones = $(this).val();
         selectedUserZonesString = selectedUserZones.join(', ');
+        console.log(selectedUserZonesString)
       });
 
       update_user_form.addEventListener('submit', (e) => {
