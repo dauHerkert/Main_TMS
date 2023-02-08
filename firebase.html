@@ -1617,6 +1617,10 @@ getDocs(company_colRef)
         }
       }
     // first page load
+    document.addEventListener("DOMContentLoaded", function() {
+      const loadingOverlay = document.querySelector(".loading-overlay");
+      loadingOverlay.style.display = "none";
+    });
     dispatchRequest(false);
     checkUrlParameter();
 
