@@ -857,6 +857,7 @@ function updateFileLabel() {
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"First name", field:"name", sorter:"string", width:150},
             {title:"Last name", field:"lastname", sorter:"string", width:150},
             {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
@@ -939,7 +940,7 @@ getDocs(colRef)
             return;
         }
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-            data.push({id: doc.id, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+            data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
         }));
     });
     return Promise.all(promises).then(() => data);
@@ -1127,18 +1128,6 @@ getDocs(colRef)
       }
           createOptions(update_user_zone);
     }
-      /*let selectedValuesDisplay = document.getElementById('select2-userZones-container');
-      const userRef = doc(db, 'users', user.uid);
-      function displaySelectedValues(userId) {
-      // Fetch the data for the user with the given ID from Firebase
-      getDocs("users")
-        .then(function(userRef) {
-          selectedValuesDisplay.innerText = userRef.data().user_zones.join(', ');
-        })
-    .catch(function(error) {
-      console.error("Error fetching user data:", error);
-    });
-}*/
     /*
     * --------------------------------------------------------------------------------------------
     *  Companies table page functions
@@ -1352,7 +1341,7 @@ getDocs(company_colRef)
           createOptions(update_user_zone);
         }
       }
-    
+
     //Company page
     $(document).on( 'click' , '#companyName' ,async function() {
           let storedLang = sessionStorage.getItem("language");
