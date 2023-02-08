@@ -1127,13 +1127,18 @@ getDocs(colRef)
       }
           createOptions(update_user_zone);
     }
-      let selectedValuesDisplay = document.getElementById('select2-userZones-container');
-
-      function displaySelectedValues(selectedValues) {
-        selectedValuesDisplay.innerText = selectedValues.join(', ');
-      }
-      const userRef = doc(db, 'users', document.getElementById('admin_user_id').value);
-      displaySelectedValues(userRef.user_zones.split(', '));
+      /*let selectedValuesDisplay = document.getElementById('select2-userZones-container');
+      const userRef = doc(db, 'users', user.uid);
+      function displaySelectedValues(userId) {
+      // Fetch the data for the user with the given ID from Firebase
+      getDocs("users")
+        .then(function(userRef) {
+          selectedValuesDisplay.innerText = userRef.data().user_zones.join(', ');
+        })
+    .catch(function(error) {
+      console.error("Error fetching user data:", error);
+    });
+}*/
     /*
     * --------------------------------------------------------------------------------------------
     *  Companies table page functions
