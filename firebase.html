@@ -983,7 +983,7 @@ getDocs(colRef)
             user_type: userTypeUpdate.value,
             user_status: user_status_update.value,
             user_company: user_company_update.value,
-            user_zones: selectedUserZonesString.value,
+            user_zones: selectedUserZonesString,
           }, { merge: true })
           .then(() => {
             if(user_status_update.value == 'decline'){
