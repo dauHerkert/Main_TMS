@@ -59,6 +59,7 @@
       user_is_admin: '0',
       company_admin: '0',
       admin_companies: '',
+      user_zones: '',
       // user_type: supplier | press
       user_type: '',
       // user_status: pending | ok
@@ -964,6 +965,12 @@ getDocs(colRef)
       let user_status_update = document.getElementById('accountStatus');
       let user_company_update = document.getElementById('userCompany');
       let admin_cred = document.getElementById('is_admin');
+      let selectedUserZonesString;
+
+      $('#userZones').on('change', function () {
+        var selectedUserZones = $(this).val();
+        selectedUserZonesString = selectedUserZones.join(', ');
+      });
 
       update_user_form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -974,7 +981,8 @@ getDocs(colRef)
           setDoc(userRef, {
             user_type: userTypeUpdate.value,
             user_status: user_status_update.value,
-            user_company: user_company_update.value
+            user_company: user_company_update.value,
+            user_zones: selectedUserZonesString.value,
           }, { merge: true })
           .then(() => {
             if(user_status_update.value == 'decline'){
