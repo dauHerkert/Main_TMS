@@ -845,7 +845,7 @@ function updateFileLabel() {
       const company_colRef = collection(db, 'companies');
       let searchInput = document.getElementById("search-input");
       let table = new Tabulator("#admin-user-list", {
-        //options here
+       //options here
         layout:"fitData",
         overflow: 'x',
         responsiveLayout:"scroll",  //hide columns that dont fit on the table
@@ -892,9 +892,9 @@ function updateFileLabel() {
           }, align: "center", width: 100},
         ],
 });
+
 let selectedData = [];
 console.log(selectedData);
-
 const input = document.getElementById("fSearch");
 input.addEventListener("keyup", function() {
     table.setFilter(matchAny, { value: input.value });
@@ -927,7 +927,6 @@ if (clearFilterButton) {
 
 const companyAdmin = userInfo.company_admin;
 const adminCompanyName = userInfo.admin_companies;
-
 getDocs(colRef)
   .then((snapshot) => {
     let data = [];
@@ -1091,7 +1090,6 @@ getDocs(colRef)
 
     //Print companies select
     let select = document.getElementById('userCompany');
-
       getDocs(company_colRef)
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
@@ -1110,6 +1108,7 @@ getDocs(colRef)
       //Print zones select
       let update_user_zone = document.getElementById('userZones');
       const zonesRef = collection(db, 'zones');
+      const userRef = doc(db, 'users', document.getElementById('admin_user_id').value);
 
       function createOptions(select) {
         getDocs(zonesRef)
@@ -1129,7 +1128,14 @@ getDocs(colRef)
       }
           createOptions(update_user_zone);
     }
+      let selectedValuesDisplay = document.getElementById('select2-userZones-container');
 
+      function displaySelectedValues(selectedValues) {
+        selectedValuesDisplay.innerText = selectedValues.join(', ');
+      }
+
+      // Assuming you have code to fetch the data from Firebase and store it in a variable called "data"
+      displaySelectedValues(userRef.user_zones.split(', '));
     /*
     * --------------------------------------------------------------------------------------------
     *  Companies table page functions
@@ -1287,6 +1293,15 @@ getDocs(company_colRef)
 
         createCompany();
       });
+
+      let selectedValuesDisplay = document.getElementById('select2-selection__rendered');
+
+      function displaySelectedValues(selectedValues) {
+        selectedValuesDisplay.innerText = selectedValues.join(', ');
+      }
+
+      // Assuming you have code to fetch the data from Firebase and store it in a variable called "data"
+      displaySelectedValues(data.company_zones.split(', '));
 
     //Create new zones
     if (window.location.pathname == '/de/admin/users-table' || window.location.pathname == '/de/admin/companies-table' || window.location.pathname == '/en/admin/users-table' || window.location.pathname == '/en/admin/companies-table'){
