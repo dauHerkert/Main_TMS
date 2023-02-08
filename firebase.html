@@ -1133,8 +1133,6 @@ getDocs(colRef)
       function displaySelectedValues(selectedValues) {
         selectedValuesDisplay.innerText = selectedValues.join(', ');
       }
-
-      // Assuming you have code to fetch the data from Firebase and store it in a variable called "data"
       displaySelectedValues(userRef.user_zones.split(', '));
     /*
     * --------------------------------------------------------------------------------------------
@@ -1638,8 +1636,7 @@ getDocs(company_colRef)
     }, 3500);
     dispatchRequest(false);
     checkUrlParameter();
-    console.log('cualquier verga')
-
+    
     async function changeCompanyNameToID(user) {
     // Get the collection of companies
     const companiesRef = collection(db, "companies");
