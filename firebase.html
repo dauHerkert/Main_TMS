@@ -1108,7 +1108,6 @@ getDocs(colRef)
       //Print zones select
       let update_user_zone = document.getElementById('userZones');
       const zonesRef = collection(db, 'zones');
-      const userRef = doc(db, 'users', document.getElementById('admin_user_id').value);
 
       function createOptions(select) {
         getDocs(zonesRef)
@@ -1133,6 +1132,7 @@ getDocs(colRef)
       function displaySelectedValues(selectedValues) {
         selectedValuesDisplay.innerText = selectedValues.join(', ');
       }
+      const userRef = doc(db, 'users', document.getElementById('admin_user_id').value);
       displaySelectedValues(userRef.user_zones.split(', '));
     /*
     * --------------------------------------------------------------------------------------------
@@ -1636,7 +1636,7 @@ getDocs(company_colRef)
     }, 3500);
     dispatchRequest(false);
     checkUrlParameter();
-    
+
     async function changeCompanyNameToID(user) {
     // Get the collection of companies
     const companiesRef = collection(db, "companies");
