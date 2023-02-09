@@ -244,12 +244,31 @@ if (profile_img) {
           setTimeout(() => {
             if(storedLang){
               if(storedLang == "de"){
-                window.location = "/de/account";
+                if(userRef.user_is_admin == "0" && userRef.user_type == "Press"){
+                  window.location = "/de/press";
+                }else if(userRef.user_is_admin == "0" && userRef.user_type == "Supplier"){
+                  window.location = "/de/supplier";
+                }else if(userRef.user_is_admin == "1"){
+                  window.location = "/de/admin/users-table";
+                }
+                
               }else{
-                window.location = "/en/account";
-              }
+                if(userRef.user_is_admin == "0" && userRef.user_type == "Press"){
+                  window.location = "/en/press";
+                }else if(userRef.user_is_admin == "0" && userRef.user_type == "Supplier"){
+                  window.location = "/en/supplier";
+                }else if(userRef.user_is_admin == "1"){
+                  window.location = "/en/admin/users-table";
+                }
+            }
             }else{
-              window.location = "/en/account";
+              if(userRef.user_is_admin == "0" && userRef.user_type == "Press"){
+                  window.location = "/en/press";
+                }else if(userRef.user_is_admin == "0" && userRef.user_type == "Supplier"){
+                  window.location = "/en/supplier";
+                }else if(userRef.user_is_admin == "1"){
+                  window.location = "/en/admin/users-table";
+                }
             }
         }, 1000);
         })
@@ -746,6 +765,24 @@ function updateFileLabel() {
           updateProfilePic(ev, user);
         }, true);
       }
+      // Display instruction modal
+      if(userInfo.first_sign == "0"){
+        document.getElementById('instructions_modal').style.display = "block";                 
+      }else{
+        document.getElementById('instructions_modal').style.display = "none";
+      }
+          //Add first_sign = 1 to stop displaying the modal after second load
+          setDoc(userRef, {              
+            first_sign: "1",
+            last_signin_date: new Date()
+          }, { merge: true })
+          .then(() => {
+              console.log('press data successfully updated');
+          })
+          .catch((err) => {
+              console.log('there was a problem signin user', err);
+              toastr.error('There was an error signin user');
+          })
     }
 
     /*
@@ -809,6 +846,25 @@ function updateFileLabel() {
           updateProfilePic(ev, user);
         }, true);
       }
+
+      // Display instruction modal
+      if(userInfo.first_sign == "0"){
+        document.getElementById('instructions_modal').style.display = "block";                 
+      }else{
+        document.getElementById('instructions_modal').style.display = "none";
+      }
+      //Add first_sign = 1 to stop displaying the modal after second load
+     setDoc(userRef, {              
+      first_sign: "1",
+      last_signin_date: new Date()
+     }, { merge: true })
+     .then(() => {
+        console.log('press data successfully updated');
+     })
+     .catch((err) => {
+        console.log('there was a problem signin user', err);
+        toastr.error('There was an error signin user');
+     })
      }
 
       /*
@@ -816,18 +872,6 @@ function updateFileLabel() {
       * Admin functions
       * -----------------------------------------------------------------------------------------------------------
       */
-
-      /*if(window.location.pathname == '/de/admin' || window.location.pathname == '/en/admin'){
-        let clipboard = new ClipboardJS('.copy-button');
-
-        clipboard.on('success', function(e) {
-          toastr.success('Text copied to clipboard: ' + e.text);
-        });
-
-        clipboard.on('error', function(e) {
-          toastr.error('Failed to copy text: ', e);
-        });
-      }*/
 
      async function pageAdmin(user) {
 
@@ -1128,6 +1172,25 @@ getDocs(colRef)
           });
       }
           createOptions(update_user_zone);
+
+          // Display instruction modal
+      if(userInfo.first_sign == "0"){
+        document.getElementById('instructions_modal').style.display = "block";                 
+      }else{
+        document.getElementById('instructions_modal').style.display = "none";
+      }
+          //Add first_sign = 1 to stop displaying the modal after second load
+        setDoc(userRef, {              
+          first_sign: "1",
+          last_signin_date: new Date()
+        }, { merge: true })
+        .then(() => {
+            console.log('press data successfully updated');
+        })
+        .catch((err) => {
+            console.log('there was a problem signin user', err);
+            toastr.error('There was an error signin user');
+        })
     }
     /*
     * --------------------------------------------------------------------------------------------
