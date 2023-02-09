@@ -742,6 +742,7 @@ function updateFileLabel() {
 
     async function pagePress(user) {
       let userInfo = await getUserInfo(user);
+      const userRef = doc(db, 'users', user.uid);
       let update_picture_modal = document.getElementById("picture_form_modal");
       const companyName = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyName;
@@ -824,6 +825,7 @@ function updateFileLabel() {
 
     async function pageSupplier(user) {
       let userInfo = await getUserInfo(user);
+      const userRef = doc(db, 'users', user.uid);
       const companyName = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyName;
       // Show displayName
@@ -876,6 +878,7 @@ function updateFileLabel() {
      async function pageAdmin(user) {
 
       let userInfo = await getUserInfo(user);
+      const userRef = doc(db, 'users', user.uid);
       const companyName = await changeCompanyNameToID(userInfo);
       userInfo.user_company_name = companyName;
       if(userInfo.user_company_name == undefined){
