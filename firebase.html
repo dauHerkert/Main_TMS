@@ -921,7 +921,6 @@ let clearFilterButton = document.getElementById('clear_button');
 if (clearFilterButton) {
   clearFilterButton.addEventListener("click", function() {
     document.querySelector('input[placeholder="Company"]').value = "";
-    document.querySelector('input[placeholder="Type"]').value = "";
     document.querySelector('input[placeholder="Status"]').value = "";
 
     table.clearHeaderFilter();
