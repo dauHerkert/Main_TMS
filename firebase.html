@@ -156,7 +156,8 @@
         user_firstname: user_firstname.value,
         user_lastname: user_lastname.value,
         user_address: user_address.value,
-        user_company: user_company.value
+        user_company: user_company.value,
+        last_signin_date: new Date()
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
@@ -191,7 +192,7 @@ if (profile_img) {
         const image = document.getElementById('profile_image_cropper');
         image.src = URL.createObjectURL(fileItem);
         profile_cropper = new Cropper(image, {
-          aspectRatio: 1 / 1,
+          aspectRatio: 3 / 4,
           width: 300,
           height: 300,
           viewMode: 2,
@@ -616,6 +617,7 @@ function updateFileLabel() {
       //Add first_sign = 1 to stop displaying the modal after second load
      setDoc(userRef, {              
       first_sign: "1",
+      last_signin_date: new Date()
      }, { merge: true })
      .then(() => {
         console.log('press data successfully updated');
