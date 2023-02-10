@@ -240,7 +240,7 @@ if (profile_img) {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const userRef = doc(db, 'users', user.uid);
-    const docSnap = await userRef.get();
+    const docSnap = await getDoc(userRef);
 
     if (docSnap.exists) {
       const userData = docSnap.data();
