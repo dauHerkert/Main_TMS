@@ -232,6 +232,7 @@ if (profile_img) {
     // Handle signIn
     function handleSignIn(e) {
       let storedLang = sessionStorage.getItem("language");
+      const userRef = doc(db, 'users', user.uid);
         e.preventDefault();
         e.stopPropagation();
         const email = document.getElementById('signin-email').value;
@@ -1682,10 +1683,12 @@ getDocs(company_colRef)
         }
       }
     // first page load
-    setTimeout(function() {
-      const loadingOverlay = document.querySelector(".loading-overlay");
+    const loadingOverlay = document.querySelector(".loading-overlay");
+    if(loadingOverlay){
+    setTimeout(function() {      
       loadingOverlay.style.display = "none";
     }, 3500);
+  }
     dispatchRequest(false);
     checkUrlParameter();
 
