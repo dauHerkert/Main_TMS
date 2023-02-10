@@ -1646,12 +1646,18 @@ getDocs(company_colRef)
             companies_button.setAttribute('href', '/de/admin/companies-table');
             document.getElementById('signIn_button').style.display = 'none'; 
             document.getElementById('signUp_button').style.display = 'none';
+            if(window.location.pathname == '/'){
+              window.location.replace('https://porsche-tms.webflow.io/de/account');
+            }
           }else{
             account_button.setAttribute('href', '/en/account');
             users_button.setAttribute('href', '/en/admin/users-table');
             companies_button.setAttribute('href', '/en/admin/companies-table');
             document.getElementById('signIn_button').style.display = 'none'; 
             document.getElementById('signUp_button').style.display = 'none';
+            if(window.location.pathname == '/'){
+              window.location.replace('https://porsche-tms.webflow.io/en/account');
+            }
           }
         }else{
               account_button.setAttribute('href', '/en/account');
@@ -1659,6 +1665,9 @@ getDocs(company_colRef)
               companies_button.setAttribute('href', '/en/admin/companies-table');
               document.getElementById('signIn_button').style.display = 'none'; 
               document.getElementById('signUp_button').style.display = 'none';
+              if(window.location.pathname == '/'){
+                window.location.replace('https://porsche-tms.webflow.io/en/account');
+              }
             }        
         }
       }
