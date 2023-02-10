@@ -633,12 +633,6 @@ function updateFileLabel() {
       }else{
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }
-      // Display instruction modal
-      if(userInfo.first_sign == "0"){
-        document.getElementById('instructions_modal').style.display = "block";                 
-      }else{
-        document.getElementById('instructions_modal').style.display = "none";
-      }
       //Add first_sign = 1 to stop displaying the modal after second load
      setDoc(userRef, {              
       first_sign: "1",
