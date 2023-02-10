@@ -922,7 +922,7 @@ function updateFileLabel() {
             button.setAttribute("id","open_modal_btn");
             return button;
         }, align: "center", cssClass:"center_col", width: 170},
-        {title: "Select", formatter:function(cell, formatterParams){
+        {title: "Select", cssClass:"center_col", formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
               checkbox.addEventListener("click", function(){
@@ -939,7 +939,7 @@ function updateFileLabel() {
                   console.log(selectedData);
               });
               return checkbox;
-          }, align: "center", width: 170},
+          }, align: "center", width: 90},
         ],
 });
 
