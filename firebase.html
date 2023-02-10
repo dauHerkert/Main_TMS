@@ -910,8 +910,8 @@ function updateFileLabel() {
             {title:"First name", field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title:"Last name", field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
             {title:"Company", field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
-            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status", cssClass:"other_columns"},
-            {title:"Admin", field:"user_admin", width: 150, formatter:function(cell, formatterParams, onRendered){
+            {title:"Status", field:"status", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status", cssClass:"other_columns"},
+            {title:"Admin", field:"user_admin", cssClass:"center_col", width: 120, formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
             {title:"Actions", cssClass:"center_col other_columns", formatter:function(cell, formatterParams){
