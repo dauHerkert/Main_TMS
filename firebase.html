@@ -1860,6 +1860,28 @@ getDocs(company_colRef)
         updateLinks();
     });
     }
+
+    //Delete users when past 12 months withous signin
+    admin.initializeApp();
+
+    const ONE_YEAR_IN_MILLISECONDS = 365 * 24 * 60 * 60 * 1000;
+
+    exports.deleteInactiveUsers = functions.pubsub.schedule('every 24 hours').onRun(async () => {
+      const firestore = admin.firestore();
+      const now = Date.now();
+
+      const inactiveUsers = await firestore.collection('users')
+        .where('lastSignIn', '<', now - ONE_YEAR_IN_MILLISECONDS)
+        .get();
+
+      const deletePromises = [];
+      inactiveUsers.forEach((user) => {
+        deletePromises.push(user.ref.delete());
+      });
+
+      return Promise.all(deletePromises);
+    });
+
 </script>
 <script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
