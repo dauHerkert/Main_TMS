@@ -907,10 +907,10 @@ function updateFileLabel() {
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"First name", field:"name", sorter:"string", width:150},
-            {title:"Last name", field:"lastname", sorter:"string", width:150},
-            {title:"Company", field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
-            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
+            {title:"First name", field:"name", sorter:"string", width:200},
+            {title:"Last name", field:"lastname", sorter:"string", width:200},
+            {title:"Company", field:"company", sorter:"string", width:200, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
+            {title:"Status", field:"status", sorter:"string", width:200, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
             {title:"Admin", field:"user_admin", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
@@ -921,7 +921,7 @@ function updateFileLabel() {
             button.setAttribute("onclick","openModal()");
             button.setAttribute("id","open_modal_btn");
             return button;
-        }},
+        }, align: "center", width: 200},
         {title: "Select", formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
@@ -939,7 +939,7 @@ function updateFileLabel() {
                   console.log(selectedData);
               });
               return checkbox;
-          }, align: "center", width: 100},
+          }, align: "center", width: 200},
         ],
 });
 
@@ -1222,11 +1222,11 @@ getDocs(colRef)
                 cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
                 return companyLink;
             }},
-            {title:"ID", field:"id", sorter:"string", width:150, cssClass:"companyID hidden-column"},
-            {title:"Company", field:"company", sorter:"string", width:150, cssClass:"companyName"},
-            {title:"Company Zone", field:"zone", sorter:"string", width:150, cssClass:"companyZone"},
-            {title:"User Head", field:"userHead", sorter:"string", width:150, cssClass:"userHead hidden-column"},
-            {title:"Send Link", width:150, formatter:function(cell, formatterParams){
+            {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
+            {title:"Company", field:"company", sorter:"string", width:200, cssClass:"companyName"},
+            {title:"Company Zone", field:"zone", sorter:"string", width:300, cssClass:"companyZone"},
+            {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
+            {title:"Send Link", width:200, formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = "Send Link";
