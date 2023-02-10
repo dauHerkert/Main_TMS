@@ -230,9 +230,8 @@ if (profile_img) {
   }
 
     // Handle signIn
-    function handleSignIn(e) {
+    function handleSignIn(e, user) {
       let storedLang = sessionStorage.getItem("language");
-      const userRef = doc(db, 'users', user.uid);
         e.preventDefault();
         e.stopPropagation();
         const email = document.getElementById('signin-email').value;
@@ -241,6 +240,7 @@ if (profile_img) {
         .then(userCredential => {
           // Signed in
           const user = userCredential.user;
+          const userRef = doc(db, 'users', user.uid);
           toastr.success('user logged in: ' + user.email);
           setTimeout(() => {
             if(storedLang){
