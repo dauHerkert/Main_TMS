@@ -331,7 +331,6 @@ if (profile_img) {
           signInForm.addEventListener('submit', handleSignIn, true)
         }
     }
-
       let signOutButton = document.getElementById('signout-button');      
       if(signOutButton) {
           signOutButton.addEventListener('click', handleSignOut);
@@ -1638,9 +1637,6 @@ getDocs(company_colRef)
           companies_button.setAttribute('href', '/de/signin-porsche');
           document.getElementById('signIn_button').style.display = 'block'; 
           document.getElementById('signUp_button').style.display = 'block';
-          if(window.location.pathname == '/'){
-            window.location.replace('https://porsche-tms.webflow.io/en/signin-porsche');
-            }
         }        
       }else{
         if(storedLang){
@@ -1650,18 +1646,12 @@ getDocs(company_colRef)
             companies_button.setAttribute('href', '/de/admin/companies-table');
             document.getElementById('signIn_button').style.display = 'none'; 
             document.getElementById('signUp_button').style.display = 'none';
-            if(window.location.pathname == '/'){
-              window.location.replace('https://porsche-tms.webflow.io/de/account');
-            }
           }else{
             account_button.setAttribute('href', '/en/account');
             users_button.setAttribute('href', '/en/admin/users-table');
             companies_button.setAttribute('href', '/en/admin/companies-table');
             document.getElementById('signIn_button').style.display = 'none'; 
             document.getElementById('signUp_button').style.display = 'none';
-            if(window.location.pathname == '/'){
-              window.location.replace('https://porsche-tms.webflow.io/en/account');
-            }
           }
         }else{
               account_button.setAttribute('href', '/en/account');
@@ -1669,9 +1659,6 @@ getDocs(company_colRef)
               companies_button.setAttribute('href', '/en/admin/companies-table');
               document.getElementById('signIn_button').style.display = 'none'; 
               document.getElementById('signUp_button').style.display = 'none';
-              if(window.location.pathname == '/'){
-                window.location.replace('https://porsche-tms.webflow.io/en/account');
-              }
             }        
         }
       }
@@ -1749,7 +1736,6 @@ getDocs(company_colRef)
     });
 
     $(document).ready(function () {
-
       var today = new Date();
       var minDate = new Date(today.getFullYear(), 3, 15);
       var maxDate = new Date(today.getFullYear(), 3, 23);
