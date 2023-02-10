@@ -1223,10 +1223,10 @@ getDocs(colRef)
                 return companyLink;
             }},
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
-            {title:"Company", field:"company", sorter:"string", width:200, cssClass:"companyName"},
+            {title:"Company", field:"company", sorter:"string", width:200, cssClass:"companyName first_column"},
             {title:"Company Zone", field:"zone", sorter:"string", width:300, cssClass:"companyZone"},
             {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
-            {title:"Send Link", width:200, formatter:function(cell, formatterParams){
+            {title:"Send Link", width:150, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = "Send Link";
@@ -1234,7 +1234,7 @@ getDocs(colRef)
             button.setAttribute("id","open_link_modal");
             return button;
             }},
-            {title:"Update", width:150, formatter:function(cell, formatterParams){
+            {title:"Update", width:150, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = "Edit";
