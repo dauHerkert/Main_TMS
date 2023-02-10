@@ -908,20 +908,20 @@ function updateFileLabel() {
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"First name", field:"name", sorter:"string", width:170, cssClass:"first_column"},
-            {title:"Last name", field:"lastname", sorter:"string", width:170},
-            {title:"Company", field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company"},
-            {title:"Status", field:"status", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status"},
-            {title:"Admin", field:"user_admin", formatter:function(cell, formatterParams, onRendered){
+            {title:"Last name", field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
+            {title:"Company", field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
+            {title:"Status", field:"status", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status", cssClass:"other_columns"},
+            {title:"Admin", field:"user_admin", width: "170px", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
-            {title:"Actions", cssClass:"center_col", formatter:function(cell, formatterParams){
+            {title:"Actions", cssClass:"center_col other_columns", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = "Edit";
             button.setAttribute("onclick","openModal()");
             button.setAttribute("id","open_modal_btn");
             return button;
-        }, align: "center", cssClass:"center_col", width: 170},
+        }, align: "center", cssClass:"center_col other_columns", width: 170},
         {title: "Select", cssClass:"center_col", formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
