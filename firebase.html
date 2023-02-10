@@ -910,8 +910,8 @@ function updateFileLabel() {
             {title:"First name", field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title:"Last name", field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
             {title:"Company", field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
-            {title:"Status", field:"status", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status", cssClass:"other_columns"},
-            {title:"Admin", field:"user_admin", width: "170px", formatter:function(cell, formatterParams, onRendered){
+            {title:"Status", field:"status", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Status", cssClass:"other_columns"},
+            {title:"Admin", field:"user_admin", width: "150px", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
             {title:"Actions", cssClass:"center_col other_columns", formatter:function(cell, formatterParams){
@@ -921,7 +921,7 @@ function updateFileLabel() {
             button.setAttribute("onclick","openModal()");
             button.setAttribute("id","open_modal_btn");
             return button;
-        }, align: "center", cssClass:"center_col other_columns", width: 170},
+        }, align: "center", cssClass:"center_col other_columns", width: 120},
         {title: "Select", cssClass:"center_col", formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
@@ -939,7 +939,7 @@ function updateFileLabel() {
                   console.log(selectedData);
               });
               return checkbox;
-          }, align: "center", width: 90},
+          }, align: "center", width: 80},
         ],
 });
 
