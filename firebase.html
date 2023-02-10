@@ -237,46 +237,50 @@ if (profile_img) {
         const email = document.getElementById('signin-email').value;
         const password = document.getElementById('signin-password').value;
         signInWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-          // Signed in
-          const user = userCredential.user;
-          const userRef = doc(db, 'users', user.uid);
-          toastr.success('user logged in: ' + user.email);
-          setTimeout(() => {
-            if(storedLang){
-              if(storedLang == "de"){
-                if(userRef.user_is_admin == "0" && userRef.user_type == "Press"){
-                  window.location = "/de/press";
-                }else if(userRef.user_is_admin == "0" && userRef.user_type == "Supplier"){
-                  window.location = "/de/supplier";
-                }else if(userRef.user_is_admin == "1"){
-                  window.location = "/de/admin/users-table";
-                }
-                
-              }else{
-                if(userRef.user_is_admin == "0" && userRef.user_type == "Press"){
-                  window.location = "/en/press";
-                }else if(userRef.user_is_admin == "0" && userRef.user_type == "Supplier"){
-                  window.location = "/en/supplier";
-                }else if(userRef.user_is_admin == "1"){
-                  window.location = "/en/admin/users-table";
-                }
-            }
-            }else{
-              if(userRef.user_is_admin == "0" && userRef.user_type == "Press"){
-                  window.location = "/en/press";
-                }else if(userRef.user_is_admin == "0" && userRef.user_type == "Supplier"){
-                  window.location = "/en/supplier";
-                }else if(userRef.user_is_admin == "1"){
-                  window.location = "/en/admin/users-table";
-                }
-            }
-        }, 1000);
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          toastr.error(errorMessage);
-        });
+.then(userCredential => {
+  // Signed in
+  const user = userCredential.user;
+  const userRef = doc(db, 'users', user.uid);
+  toastr.success('user logged in: ' + user.email);
+  return userRef.get();
+})
+.then(doc => {
+  const userData = doc.data();
+  let storedLang = sessionStorage.getItem("language");
+  setTimeout(() => {
+    if (storedLang) {
+      if (storedLang == "de") {
+        if (userData.user_is_admin == "0" && userData.user_type == "Press") {
+          window.location = "/de/press";
+        } else if (userData.user_is_admin == "0" && userData.user_type == "Supplier") {
+          window.location = "/de/supplier";
+        } else if (userData.user_is_admin == "1") {
+          window.location = "/de/admin/users-table";
+        }
+      } else {
+        if (userData.user_is_admin == "0" && userData.user_type == "Press") {
+          window.location = "/en/press";
+        } else if (userData.user_is_admin == "0" && userData.user_type == "Supplier") {
+          window.location = "/en/supplier";
+        } else if (userData.user_is_admin == "1") {
+          window.location = "/en/admin/users-table";
+        }
+      }
+    } else {
+      if (userData.user_is_admin == "0" && userData.user_type == "Press") {
+        window.location = "/en/press";
+      } else if (userData.user_is_admin == "0" && userData.user_type == "Supplier") {
+        window.location = "/en/supplier";
+      } else if (userData.user_is_admin == "1") {
+        window.location = "/en/admin/users-table";
+      }
+    }
+  }, 1000);
+})
+.catch((error) => {
+  const errorMessage = error.message;
+  toastr.error(errorMessage);
+});
     }
 
     // Handle signOut
