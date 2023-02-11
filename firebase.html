@@ -1277,7 +1277,6 @@ getDocs(company_colRef)
       let update_company_form = document.getElementById('update_company_info');
       let company_id = document.getElementById('company_id');
       let update_company = document.getElementById('update_company');
-      let companyHead = document.getElementById('companyHead');
       let selectedNewZonesString;
 
       $('#newCompanyZones').on('change', function () {
@@ -1293,7 +1292,6 @@ getDocs(company_colRef)
           setDoc(companyRef, {
             company_name: update_company.value,
             company_zones: selectedNewZonesString,
-            user_head: companyHead.value
           }, { merge: true })
           .then(() => {
                 toastr.success('Company info has been successfully updated');
