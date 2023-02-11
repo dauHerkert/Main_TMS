@@ -905,6 +905,7 @@ function updateFileLabel() {
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"First name", field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title:"Last name", field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
@@ -987,7 +988,7 @@ getDocs(colRef)
             return;
         }
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-            data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+            data.push({id: doc.id, company_admin: user.company_admin, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
         }));
     });
     return Promise.all(promises).then(() => data);
@@ -1012,6 +1013,7 @@ getDocs(colRef)
       let user_status_update = document.getElementById('accountStatus');
       let user_company_update = document.getElementById('userCompany');
       let admin_cred = document.getElementById('is_admin');
+      let company_admin = document.getElementById('headUser');
       let selectedUserZonesString;
 
       $('#userZones').on('change', function () {
@@ -1031,6 +1033,7 @@ getDocs(colRef)
             user_status: user_status_update.value,
             user_company: user_company_update.value,
             user_zones: selectedUserZonesString,
+            company_admin: headUser.value,
           }, { merge: true })
           .then(() => {
             if(user_status_update.value == 'decline'){
@@ -1287,7 +1290,7 @@ getDocs(company_colRef)
         e.preventDefault();
         e.stopPropagation()
 
-        
+
         if ( company_id != null) {
           const companyRef = doc(db, 'companies', company_id.value);
           setDoc(companyRef, {
