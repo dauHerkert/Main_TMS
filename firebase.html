@@ -999,7 +999,7 @@ getDocs(colRef)
     let companyIDs = userInfo.admin_companies.split(', ');
     console.log('companyIDs', companyIDs)
     for (const companyID of companyIDs) {
-      if (adminCompanyName.includes(companyID)) {
+      if (companyIDs.includes(companyID)) {
         return true;
       }
     }
