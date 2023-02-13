@@ -1070,6 +1070,7 @@ getDocs(colRef)
                 }
                 toastr.success('Account info has been successfully updated');
               }
+              document.getElementById('update_user_modal').style.display = 'none';
           })
           .catch((err) => {
             toastr.error('There was an error updating the account info');
