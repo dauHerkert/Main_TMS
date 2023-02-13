@@ -984,10 +984,10 @@ getDocs(colRef)
     snapshot.docs.forEach((doc) => {
         let user = doc.data();
 
-        if (!user.user_company) {
+        /*if (!user.user_company) {
             console.log(`User ${user.uid} does not have a user_company field defined`);
             return;
-        }
+        }*/
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
             data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
         }));
