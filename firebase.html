@@ -987,33 +987,24 @@ getDocs(colRef)
             console.log(`User ${user.uid} does not have a user_company field defined`);
             return;
         }
-        promises.push(changeCompanyNameToID(user).then(userCompanyNames => {
-            data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyNames, status: user.user_status, user_admin: user.user_is_admin});
+        promises.push(changeCompanyNameToID(user).then(userCompanyName => {
+            data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
         }));
     });
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
-    if (companyAdmin == '1') {
-  let filteredData = data.filter(user => {
-    let companyIDs = user.user_company.split(', '); // split the string into an array
-    for (const companyID of companyIDs) {
-      if (adminCompanyName.includes(companyID)) {
-        return true;
-      }
+    if(companyAdmin == '1'){
+      let filteredData = data.filter(user => adminCompanyName.includes(user.company));
+        table.setData(filteredData);
+    }else{
+        table.setData(data);
     }
-    return false;
-  });
-  table.setData(filteredData);
-} else {
-  table.setData(data);
-}
   })
   .catch(err => {
     console.log('error fetching users', err);
   });
 
-  console.log('trddding')
     // Update single user Info
     let update_user_form = document.getElementById('update_user_type');
       let user_specific_id = document.getElementById('admin_user_id');
@@ -1699,31 +1690,25 @@ getDocs(company_colRef)
     checkUrlParameter();
 
     async function changeCompanyNameToID(user) {
-  return new Promise(async (resolve, reject) => {
     // Get the collection of companies
     const companiesRef = collection(db, "companies");
     // Get all the company documents
     const companiesSnapshot = await getDocs(companiesRef);
-    let companyName;
-    // Iterate over the companies and find the one with the matching ID
+    let companyNames = [];
+    // Iterate over the companies and find the ones with the matching IDs
     for (const company of companiesSnapshot.docs) {
-      if (company.id === user.user_company) {
-        companyName = company.data().company_name;
-        break;
-      }
+        if (user.user_company.includes(company.id)) {
+            companyNames.push(company.data().company_name);
+        }
     }
-    // If a company with the matching ID is found
-    if (companyName) {
-      // Return the company name
-      resolve(companyName);
-      console.log('sddsadsa',companyName)
+    // If one or more companies with the matching IDs are found
+    if (companyNames.length > 0) {
+        // Return the company names
+        return companyNames.join(", ");
     } else {
-      console.log("No company found with that ID");
-      reject("No company found with that ID");
+        console.log("No company found with that ID");
     }
-  });
 }
-
 
   async function getCompanyType(user) {
     let userInfo = await getUserInfo(user);
