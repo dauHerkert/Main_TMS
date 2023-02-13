@@ -1699,6 +1699,7 @@ getDocs(company_colRef)
     checkUrlParameter();
 
     async function changeCompanyNameToID(user) {
+  return new Promise(async (resolve, reject) => {
     // Get the collection of companies
     const companiesRef = collection(db, "companies");
     // Get all the company documents
@@ -1706,19 +1707,22 @@ getDocs(company_colRef)
     let companyName;
     // Iterate over the companies and find the one with the matching ID
     for (const company of companiesSnapshot.docs) {
-        if (company.id === user.user_company) {
-            companyName = company.data().company_name;
-            break;
-        }
+      if (company.id === user.user_company) {
+        companyName = company.data().company_name;
+        break;
+      }
     }
     // If a company with the matching ID is found
     if (companyName) {
-        // Return the company name
-        return companyName;
+      // Return the company name
+      resolve(companyName);
     } else {
-        console.log("No company found with that ID");
+      console.log("No company found with that ID");
+      reject("No company found with that ID");
     }
-  }
+  });
+}
+
 
   async function getCompanyType(user) {
     let userInfo = await getUserInfo(user);
