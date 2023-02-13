@@ -994,12 +994,20 @@ getDocs(colRef)
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
-    if(companyAdmin == '1'){
-      let filteredData = data.filter(user => adminCompanyName.includes(user.user_company));
-        table.setData(filteredData);
-    }else{
-        table.setData(data);
+    if (companyAdmin == '1') {
+  let filteredData = data.filter(user => {
+    let companyIDs = user.user_company.split(', '); // split the string into an array
+    for (const companyID of companyIDs) {
+      if (adminCompanyName.includes(companyID)) {
+        return true;
+      }
     }
+    return false;
+  });
+  table.setData(filteredData);
+} else {
+  table.setData(data);
+}
   })
   .catch(err => {
     console.log('error fetching users', err);
