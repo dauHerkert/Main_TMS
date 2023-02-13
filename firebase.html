@@ -990,7 +990,8 @@ getDocs(colRef)
             return;
         }*/
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-            data.push({id: doc.id, companyID: user.user_company, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+          data.push({id: doc.id, companyID: [user.user_company], user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+
         }));
     });
     return Promise.all(promises).then(() => data);
