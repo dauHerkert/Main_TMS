@@ -905,7 +905,6 @@ function updateFileLabel() {
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"First name", field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title:"Last name", field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
@@ -973,10 +972,7 @@ if (clearFilterButton) {
     table.clearHeaderFilter();
   });
 }
-if (!userInfo) {
-    console.error("userInfo is undefined");
-    return;
-}
+
 const companyAdmin = userInfo.company_admin;
 const adminCompanyName = userInfo.admin_companies;
 getDocs(colRef)
@@ -985,21 +981,20 @@ getDocs(colRef)
     let promises = [];
     snapshot.docs.forEach((doc) => {
         let user = doc.data();
-        console.log("user:", user);
 
         if (!user.user_company) {
             console.log(`User ${user.uid} does not have a user_company field defined`);
             return;
         }
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-            data.push({id: doc.id, company_admin: user.company_admin, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+            data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
         }));
     });
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
     if(companyAdmin == '1'){
-      let filteredData = data.filter(user => adminCompanyName.includes(user.user_company));
+      let filteredData = data.filter(user => adminCompanyName.includes(user.company));
         table.setData(filteredData);
     }else{
         table.setData(data);
@@ -1033,10 +1028,11 @@ getDocs(colRef)
         if ( user_specific_id != null || user_specific_id != 0 ) {
           const userRef = doc(db, 'users', user_specific_id.value);
           setDoc(userRef, {
+            user_type: userTypeUpdate.value,
             user_status: user_status_update.value,
             user_company: user_company_update.value,
             user_zones: selectedUserZonesString,
-            company_admin: headUser.value,
+            company_admin: company_admin.value,
           }, { merge: true })
           .then(() => {
             if(user_status_update.value == 'decline'){
@@ -1066,7 +1062,6 @@ getDocs(colRef)
                 console.error("Error adding document: ", e);
                 }
                 toastr.success('Account info has been successfully updated');
-                document.getElementById('update_user_modal').style.display = 'none';
               }
           })
           .catch((err) => {
