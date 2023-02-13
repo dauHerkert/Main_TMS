@@ -997,7 +997,8 @@ getDocs(colRef)
   })
   .then(data => {
     console.log(data, 'admiin', adminCompanyName);
-    table.setData(companyAdmin == '1' ? data.filter(user => adminCompanyName.includes(user.companyID)) : data);
+    //table.setData(companyAdmin == '1' ? data.filter(user => adminCompanyName.includes(user.companyID)) : data);
+    table.setData(companyAdmin == '1' ? data.filter(user => user.companyID.some(x => adminCompanyName.includes(x))) : data);
   })
   .catch(err => {
     console.log('error fetching users', err);
