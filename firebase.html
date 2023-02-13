@@ -995,7 +995,7 @@ getDocs(colRef)
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
-    console.log(data, adminCompanyName);
+    console.log(data, 'admiin', adminCompanyName);
     table.setData(companyAdmin == '1' ? data.filter(user => adminCompanyName.includes(user.company)) : data);
   })
   .catch(err => {
