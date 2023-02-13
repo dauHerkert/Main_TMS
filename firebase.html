@@ -1021,6 +1021,11 @@ getDocs(colRef)
         selectedUserZonesString = selectedUserZones.join(', ');
         console.log(selectedUserZonesString);
       });
+      $('#userCompany').on('change', function () {
+        var selectedUserCompanies = $(this).val();
+        selectedUserCompaniesString = selectedUserCompanies.join(', ');
+        console.log(selectedUserCompaniesString);
+      });
 
       update_user_form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -1031,7 +1036,7 @@ getDocs(colRef)
           setDoc(userRef, {
             user_type: userTypeUpdate.value,
             user_status: user_status_update.value,
-            user_company: user_company_update.value,
+            user_company: selectedUserCompaniesString,
             user_zones: selectedUserZonesString,
             company_admin: company_admin.value,
           }, { merge: true })
