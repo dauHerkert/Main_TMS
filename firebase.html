@@ -905,7 +905,7 @@ function updateFileLabel() {
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"companyID", field:"company_id", sorter:"string", width:200, cssClass:"other_columns"},
+            {title:"companyID", field:"companyID", sorter:"string", width:200, cssClass:"other_columns"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"First name", field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title:"Last name", field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
@@ -990,14 +990,14 @@ getDocs(colRef)
             return;
         }*/
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-            data.push({id: doc.id, company_id: user.user_company, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+            data.push({id: doc.id, companyID: user.user_company, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
         }));
     });
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
     console.log(data, 'admiin', adminCompanyName);
-    table.setData(companyAdmin == '1' ? data.filter(user => adminCompanyName.includes(user.company)) : data);
+    table.setData(companyAdmin == '1' ? data.filter(user => adminCompanyName.includes(user.companyID)) : data);
   })
   .catch(err => {
     console.log('error fetching users', err);
