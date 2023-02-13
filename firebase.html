@@ -975,6 +975,10 @@ if (clearFilterButton) {
 
 const companyAdmin = userInfo.company_admin;
 const adminCompanyName = userInfo.admin_companies;
+if (!adminCompanyName) {
+    console.error("adminCompanyName is undefined");
+    return;
+}
 getDocs(colRef)
   .then((snapshot) => {
     let data = [];
