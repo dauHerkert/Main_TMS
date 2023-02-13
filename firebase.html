@@ -975,6 +975,7 @@ if (clearFilterButton) {
 
 const companyAdmin = userInfo.company_admin;
 const adminCompanyName = userInfo.user_company;
+console.log('admin:', adminCompanyName)
 
 getDocs(colRef)
   .then((snapshot) => {
