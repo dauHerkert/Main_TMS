@@ -996,7 +996,7 @@ getDocs(colRef)
   .then(data => {
     if (companyAdmin == '1') {
   let filteredData = data.filter(user => {
-    let companyIDs = user.user_company.split(', '); // split the string into an array
+    let companyIDs = userInfo.admin_companies.split(', '); // split the string into an array
     for (const companyID of companyIDs) {
       if (adminCompanyName.includes(companyID)) {
         return true;
