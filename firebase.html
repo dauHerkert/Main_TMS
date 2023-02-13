@@ -254,6 +254,8 @@ if (profile_img) {
               window.location = "/de/supplier";
             } else if (userData.user_is_admin === "1") {
               window.location = "/de/admin/users-table";
+            } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
+              window.location = "/de/admin/users-table";
             }
           } else {
             if (userData.user_is_admin === "0" && userData.user_type === "Press") {
