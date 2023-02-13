@@ -58,7 +58,6 @@
       // user_is_admin: 0 | 1
       user_is_admin: '0',
       company_admin: '0',
-      admin_companies: '',
       user_zones: '',
       // user_type: supplier | press
       user_type: '',
@@ -379,7 +378,7 @@ if (profile_img) {
           form_button.setAttribute('href', '/de/supplier');
         } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/press');
-        } else if(userInfo.user_is_admin == "0" && userInfo.company_admin != "1") {
+        } else if(userInfo.user_is_admin == "0" && userInfo.company_admin == "0") {
               if(window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table'){
                 location.replace('/de/account');
               }
