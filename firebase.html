@@ -973,7 +973,10 @@ if (clearFilterButton) {
     table.clearHeaderFilter();
   });
 }
-
+if (!userInfo) {
+    console.error("userInfo is undefined");
+    return;
+}
 const companyAdmin = userInfo.company_admin;
 const adminCompanyName = userInfo.admin_companies;
 getDocs(colRef)
@@ -1029,7 +1032,6 @@ getDocs(colRef)
         if ( user_specific_id != null || user_specific_id != 0 ) {
           const userRef = doc(db, 'users', user_specific_id.value);
           setDoc(userRef, {
-            user_type: userTypeUpdate.value,
             user_status: user_status_update.value,
             user_company: user_company_update.value,
             user_zones: selectedUserZonesString,
