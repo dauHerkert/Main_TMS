@@ -985,6 +985,7 @@ getDocs(colRef)
     let promises = [];
     snapshot.docs.forEach((doc) => {
         let user = doc.data();
+        console.log("user:", user);
 
         if (!user.user_company) {
             console.log(`User ${user.uid} does not have a user_company field defined`);
