@@ -988,7 +988,7 @@ getDocs(colRef)
         return;
       }
       promises.push(changeCompanyNameToID(user).then(userCompanyID => {
-        data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyID, status: user.user_status, user_admin: user.user_is_admin});
+        data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: user.user_company, status: user.user_status, user_admin: user.user_is_admin});
       }));
     });
     return Promise.all(promises).then(() => data);
@@ -996,7 +996,7 @@ getDocs(colRef)
   .then(data => {
     if (companyAdmin == '1') {
       let filteredData = data.filter(user => {
-        return adminCompanyIDs.includes(user.company);
+        return user.user_company.some(company => adminCompanyIDs.includes(company));
       });
       table.setData(filteredData);
     } else {
@@ -1706,7 +1706,7 @@ getDocs(company_colRef)
     // If one or more companies with the matching IDs are found
     if (companyNames.length > 0) {
         // Return the company names
-        return companyNames.join(", ");
+        return companyNames;
     } else {
         console.log("No company found with that ID");
     }
