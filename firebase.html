@@ -995,13 +995,7 @@ getDocs(colRef)
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
-    if(companyAdmin == '1'){
-      let filteredData = data.filter(user => adminCompanyName.includes(user.user_company));
-      console.log('user:', filteredData)
-        table.setData(filteredData);
-    }else{
-        table.setData(data);
-    }
+    table.setData(companyAdmin == '1' ? data.filter(user => adminCompanyName.includes(user.user_company)) : data);
   })
   .catch(err => {
     console.log('error fetching users', err);
