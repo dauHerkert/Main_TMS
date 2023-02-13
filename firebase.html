@@ -974,7 +974,7 @@ if (clearFilterButton) {
 }
 
 const companyAdmin = userInfo.company_admin;
-const adminCompanyName = userInfo.admin_companies;
+const adminCompanyIDs = userInfo.admin_companies;
 
 getDocs(colRef)
   .then((snapshot) => {
@@ -987,28 +987,21 @@ getDocs(colRef)
             console.log(`User ${user.uid} does not have a user_company field defined`);
             return;
         }
-        promises.push(changeCompanyNameToID(user).then(userCompanyNames => {
-            data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyNames, status: user.user_status, user_admin: user.user_is_admin});
+        promises.push(changeCompanyNameToID(user).then(userCompanyID => {
+            data.push({id: doc.id, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyID, status: user.user_status, user_admin: user.user_is_admin});
         }));
     });
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
     if (companyAdmin == '1') {
-  let filteredData = data.filter(user => {
-    let companyIDs = userInfo.admin_companies.split(', ');
-    console.log('companyIDs', companyIDs)
-    for (const companyID of companyIDs) {
-      if (companyIDs.includes(companyID)) {
-        return true;
-      }
+      let filteredData = data.filter(user => {
+        return adminCompanyIDs.includes(user.company);
+      });
+      table.setData(filteredData);
+    } else {
+      table.setData(data);
     }
-    return false;
-  });
-  table.setData(filteredData);
-} else {
-  table.setData(data);
-}
   })
   .catch(err => {
     console.log('error fetching users', err);
