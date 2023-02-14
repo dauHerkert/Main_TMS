@@ -1058,7 +1058,8 @@ getDocs(colRef)
 
         if (user_specific_id != null || user_specific_id != 0) {
           const userRef = doc(db, 'users', user_specific_id.value);
-          const userType = userTypeUpdate.value;
+          const userTypeSelect = document.getElementById('accountType');
+          const userType = userTypeSelect.selectedOptions[0].textContent;
           const userStatus = user_status_update.value;
           const companyAdmin = company_admin.value;
 
