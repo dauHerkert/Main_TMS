@@ -1765,7 +1765,7 @@ getDocs(company_colRef)
 async function changeUserTypeToID(user) {
   const userType = user.user_type;
   const profilesRef = collection(db, "profiles");
-  const profilesQuery = query(profilesRef, where("user_type", "==", userType));
+  const profilesQuery = query(profilesRef, where("profile_name", "==", userType));
   const profilesSnapshot = await getDocs(profilesQuery);
   if (profilesSnapshot.empty) {
     console.log("No user type found with that name");
