@@ -1031,56 +1031,46 @@ getDocs(colRef)
         console.log(selectedUserCompaniesString);
       });
 
-      update_user_form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        e.stopPropagation()
+      update_user_form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
-        if ( user_specific_id != null || user_specific_id != 0 ) {
-          const userRef = doc(db, 'users', user_specific_id.value);
-          setDoc(userRef, {
-            user_type: userTypeUpdate.value,
-            user_status: user_status_update.value,
-            user_company: selectedUserCompaniesString,
-            user_zones: selectedUserZonesString,
-            company_admin: company_admin.value,
-          }, { merge: true })
-          .then(() => {
-            if(user_status_update.value == 'decline'){
-              try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${user_specific_email.value}`,
-                message: {
-                subject: 'Sorry you have been declined',
-                html: 'Sorry you have been declined',
-                }
-                });
-                } catch (e) {
-                console.error("Error declining user: ", e);
-                }
-                toastr.success('User registration declined');
-            }else{
-            try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${user_specific_email.value}`,
-                message: {
-                subject: 'Hello from Firebase!',
-                html: 'This is an <code>HTML</code> email body.',
-                }
-                });
-                console.log("Document written with ID: ", docRef.id);
-                } catch (e) {
-                console.error("Error adding document: ", e);
-                }
-                toastr.success('Account info has been successfully updated');
-                document.getElementById('update_user_modal').style.display = 'none';
-              }             
-          })
-          .catch((err) => {
-            toastr.error('There was an error updating the account info');
-            console.log('error updating account info', err);
-          });
-        }
+  if (user_specific_id != null || user_specific_id != 0) {
+    const userRef = doc(db, 'users', user_specific_id.value);
+    const userType = userTypeUpdate.value;
+    const userStatus = user_status_update.value;
+    const companyAdmin = company_admin.value;
+
+    // Retrieve user zones from the profiles collection based on the selected user type
+    const profilesRef = collection(db, 'profiles');
+    const profilesQuery = query(
+      profilesRef,
+      where('user_type', '==', userType)
+    );
+    const profilesSnapshot = await getDocs(profilesQuery);
+    const userZones = profilesSnapshot.docs[0]?.data().user_zones || [];
+
+    setDoc(
+      userRef,
+      {
+        user_type: userType,
+        user_status: userStatus,
+        user_company: selectedUserCompaniesString,
+        user_zones: selectedUserZonesString,
+        company_admin: companyAdmin,
+      },
+      { merge: true }
+    )
+      .then(() => {
+        // ...rest of the code
+      })
+      .catch((err) => {
+        toastr.error('There was an error updating the account info');
+        console.log('error updating account info', err);
       });
+  }
+});
+
 
      //Bulk users update
      async function bulkUserUpdate(selectedData) {
