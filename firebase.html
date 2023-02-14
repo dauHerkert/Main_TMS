@@ -1009,7 +1009,7 @@ getDocs(colRef)
   });
 
     // Update single user Info
-    let update_user_form = document.getElementById('update_user_type');
+      let update_user_form = document.getElementById('update_user_type');
       let user_specific_id = document.getElementById('admin_user_id');
       let user_specific_email = document.getElementById('admin_user_email');
       let userTypeUpdate = document.getElementById('accountType');
@@ -1083,7 +1083,7 @@ getDocs(colRef)
       { merge: true }
     )
       .then(() => {
-        // ...rest of the code
+        toastr.success('The user was updated succesfully')
       })
       .catch((err) => {
         toastr.error('There was an error updating the account info');
