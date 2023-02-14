@@ -141,7 +141,7 @@
             }
           }
     };
-    //Add user's extra info to Firestore
+    // Add user's extra info to Firestore
     function userExtraInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
@@ -150,21 +150,29 @@
       const user_lastname = document.getElementById('last-name');
       const user_address = document.getElementById('user_address');
       const user_company = document.getElementById('sign-up-company');
+      const user_profile_type = document.getElementById('user_profile_type');
 
-      setDoc(userRef, {
-        user_firstname: user_firstname.value,
-        user_lastname: user_lastname.value,
-        user_address: user_address.value,
-        user_company: user_company.value,
-        last_signin_date: new Date()
-      }, { merge: true })
-      .then(() => {
-        //console.log('press data successfully updated');
-      })
-      .catch((err) => {
-        console.log('there was a problem updating the data', err);
-        toastr.error('There was an error updating your info');
-      });
+      // Get the zones for the chosen profile type
+      getProfileTypeZones(user_profile_type.value)
+        .then(zones => {
+          // Add the zones to the user document in Firestore
+          setDoc(userRef, {
+            user_firstname: user_firstname.value,
+            user_lastname: user_lastname.value,
+            user_address: user_address.value,
+            user_company: user_company.value,
+            user_profile_type: user_profile_type.value,
+            user_zones: zones,
+            last_signin_date: new Date()
+          }, { merge: true })
+            .then(() => {
+              //console.log('press data successfully updated');
+            })
+            .catch((err) => {
+              console.log('there was a problem updating the data', err);
+              toastr.error('There was an error updating your info');
+            });
+        });
     }
 
     //Upload user's profile image
@@ -1736,6 +1744,19 @@ getDocs(company_colRef)
     } else {
         console.log("No company found with that ID");
     }
+}
+
+const profileTypesRef = collection(db, "profiles");
+async function getProfileTypeZones(profileType) {
+  // Query the profile types collection for a document with a matching profile type name
+  const profileTypeDoc = await profileTypesRef.where("name", "==", profileType).get();
+  if (!profileTypeDoc.empty) {
+    // If a matching document is found, return the "zones" field
+    return profileTypeDoc.docs[0].data().zones;
+  } else {
+    // If no matching document is found, return an empty array
+    return [];
+  }
 }
     onAuthStateChanged(auth, (user) => {
       replaceUrl(user);
