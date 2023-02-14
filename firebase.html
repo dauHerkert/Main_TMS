@@ -1031,6 +1031,27 @@ getDocs(colRef)
         console.log(selectedUserCompaniesString);
       });
 
+      // Get the zones based on the selected user type
+      userTypeUpdate.addEventListener('change', async () => {
+        const userType = userTypeUpdate.value;
+        if (userType !== '') {
+          const profilesRef = doc(db, 'profiles', userType);
+          const profilesSnapshot = await getDoc(profilesRef);
+          if (profilesSnapshot.exists()) {
+            const zones = profilesSnapshot.data().user_zones;
+            // Update the options for the zones select
+            const zonesSelect = document.getElementById('user_zones_update');
+            zonesSelect.innerHTML = '';
+            zones.forEach((zone) => {
+              const option = document.createElement('option');
+              option.value = zone;
+              option.text = zone;
+              zonesSelect.add(option);
+            });
+          }
+        }
+      });
+
       update_user_form.addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -1070,7 +1091,6 @@ getDocs(colRef)
       });
   }
 });
-
 
      //Bulk users update
      async function bulkUserUpdate(selectedData) {
