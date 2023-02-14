@@ -1160,6 +1160,24 @@ getDocs(colRef)
         console.log('error fetching companies', err);
       })
 
+      //Print profiles select
+    let user_type_select = document.getElementById('new_user_type');
+    const profilesRef = collection(db, 'profiles');
+      getDocs(profilesRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let profile = doc.data();
+          
+          var opt = document.createElement('option');
+          opt.value = doc.id;
+          opt.textContent = profile.profile_name;
+          user_type_select.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+
       //Print zones select
       let update_user_zone = document.getElementById('userZones');
       const zonesRef = collection(db, 'zones');
