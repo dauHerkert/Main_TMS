@@ -376,19 +376,16 @@ if (profile_img) {
             form_button.setAttribute('href', '/de/supplier');
           }else if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/supplier');
-          } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
+        } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/press');
-          } else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1") {
-              form_button.setAttribute('href', '/de/supplier');
-              document.getElementById('admin_button').style.display = 'block';
-          } else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1") {
-              form_button.setAttribute('href', '/de/supplier');
-              document.getElementById('admin_button').style.display = 'block';
-          } else if(userInfo.user_is_admin == "0" && userInfo.company_admin == "0") {
+        } else if(userInfo.user_is_admin == "0" && userInfo.company_admin == "1") {
               if(window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table'){
                 location.replace('/de/account');
               }
-              document.getElementById('admin_button').style.display = 'none';     
+              document.getElementById('admin_button').style.display = 'block';   
+          }else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1") {
+              form_button.setAttribute('href', '/de/supplier');
+              document.getElementById('admin_button').style.display = 'block';
           }else{}
           }else{
               if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
