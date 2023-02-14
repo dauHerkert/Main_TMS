@@ -909,6 +909,7 @@ function updateFileLabel() {
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"user type", field:"user_type", sorter:"string", width:0, cssClass:"other_columns"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"First name", field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title:"Last name", field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
@@ -993,7 +994,7 @@ getDocs(colRef)
             return;
         }*/
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id, companyID: [user.user_company], user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+          data.push({id: doc.id, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
 
         }));
     });
@@ -1058,8 +1059,7 @@ getDocs(colRef)
 
         if (user_specific_id != null || user_specific_id != 0) {
           const userRef = doc(db, 'users', user_specific_id.value);
-          const userTypeSelect = document.getElementById('accountType');
-          const userType = userTypeSelect.selectedOptions[0].textContent;
+          const userType = userTypeUpdate.value;
           const userStatus = user_status_update.value;
           const companyAdmin = company_admin.value;
 
