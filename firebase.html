@@ -1339,7 +1339,7 @@ getDocs(company_colRef)
   })
   .then(async (docRef) => {
     // Create a new profile document with the same ID as the new company
-    const profileRef = doc(docRef.parent, "profiles", docRef.id);
+    const profileRef = doc(collection(db, "profiles"), docRef.id);
     await setDoc(profileRef, {
       company_zones: selectedValuesString,
       company_type: new_company_type.value
@@ -1354,6 +1354,7 @@ getDocs(company_colRef)
     console.log('error creating company', err);
   });
 }
+
 
       create_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
