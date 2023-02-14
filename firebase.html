@@ -891,6 +891,14 @@ function updateFileLabel() {
 
       // =========== USERS TABLE FUNCTIONS ============ //
 
+      Tabulator.extendModule("format", {
+        formatters:{
+          changeUserTypeToID: function(cell, formatterParams, onRendered){
+            // implementation of formatter function goes here
+          }
+        }
+      });
+
       // Print users table
       const colRef = collection(db, 'users');
       const company_colRef = collection(db, 'companies');
