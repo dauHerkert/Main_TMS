@@ -909,21 +909,7 @@ function updateFileLabel() {
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title: "user type", field: "user_type", sorter: "string", width: 0, cssClass: "other_columns", formatter:async function(user){ 
-              const userType = user.user_type;
-              const profilesRef = collection(db, "profiles");
-              const profilesQuery = query(profilesRef, where("profile_name", "==", userType));
-              const profilesSnapshot = await getDocs(profilesQuery);
-              if (profilesSnapshot.empty) {
-                console.log("No user type found with that name");
-                return userType;
-              } else {
-                const profileDoc = profilesSnapshot.docs[0];
-                const userTypeID = profileDoc.id;
-                return userTypeID;
-              }
-
-            }},
+            { title: "user type", field: "user_type", sorter: "string", width: 0, cssClass: "other_columns"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"First name", field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title:"Last name", field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
@@ -1194,7 +1180,7 @@ getDocs(colRef)
           let profile = doc.data();
           
           var opt = document.createElement('option');
-          opt.value = doc.id;
+          opt.value = profile.profile_name;
           opt.textContent = profile.profile_name;
           user_type_select.appendChild(opt);
         });
@@ -1773,22 +1759,6 @@ getDocs(company_colRef)
     } else {
         console.log("No company found with that ID");
     }
-}
-
-// Change user type to type ID
-async function changeUserTypeToID(user) {
-  const userType = user.user_type;
-  const profilesRef = collection(db, "profiles");
-  const profilesQuery = query(profilesRef, where("profile_name", "==", userType));
-  const profilesSnapshot = await getDocs(profilesQuery);
-  if (profilesSnapshot.empty) {
-    console.log("No user type found with that name");
-    return userType;
-  } else {
-    const profileDoc = profilesSnapshot.docs[0];
-    const userTypeID = profileDoc.id;
-    return userTypeID;
-  }
 }
 
 async function getCompanyType(user) {
