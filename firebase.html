@@ -1084,7 +1084,8 @@ getDocs(colRef)
             { merge: true }
           )
             .then(() => {
-              toastr.success('The user was updated succesfully')
+              toastr.success('The user was updated succesfully');
+              document.getElementById('update_user_modal').style.display = 'none'
             })
             .catch((err) => {
               toastr.error('There was an error updating the account info');
