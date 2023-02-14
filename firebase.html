@@ -74,39 +74,41 @@
     */
 
     async function setDefaultFields(user) {
-      const userRef = doc(db, 'users', user.uid);
-      // Use the `getCompanyType` function to get the company type
-      const companyType = await getCompanyType(user);
-      // Use the companyType variable to set the user_type field
-      userDefaultValues.user_type = companyType;
-      userDefaultValues.user_email = user.email;
-      userDefaultValues.user_id = user.uid;
-      var storedLang = sessionStorage.getItem("language");
-      // Use the setDoc function to set the userDefaultValues object
-      setDoc(userRef, userDefaultValues, { merge: true })
-      .then(() => {
-        userUploadImage(user);
-        if (companyType == 'No company'){
-          toastr.success('You are signing up with no company set');
-        }else{
-          toastr.success('Default values successfully set');
-      }
-          setTimeout(function() {
-              if(storedLang){
-                if(storedLang == "de"){
-                  window.location = "/de/account";
-                }else{
-                  window.location = "/en/account";
+    const userRef = doc(db, 'users', user.uid);
+    // Use the `getCompanyType` function to get the company type and zones
+    const { companyType, companyZones } = await getCompanyType(user);
+    // Use the companyType variable to set the user_type field
+    userDefaultValues.user_type = companyType;
+    userDefaultValues.user_email = user.email;
+    userDefaultValues.user_id = user.uid;
+    // Use the companyZones variable to set the user_zones field
+    userDefaultValues.user_zones = companyZones;
+    var storedLang = sessionStorage.getItem("language");
+    // Use the setDoc function to set the userDefaultValues object
+    setDoc(userRef, userDefaultValues, { merge: true })
+        .then(() => {
+            userUploadImage(user);
+            if (companyType == 'No company'){
+                toastr.success('You are signing up with no company set');
+            } else {
+                toastr.success('Default values successfully set');
+            }
+            setTimeout(function() {
+                if (storedLang) {
+                    if (storedLang == "de") {
+                        window.location = "/de/account";
+                    } else {
+                        window.location = "/en/account";
+                    }
+                } else {
+                    window.location = "/en/account";
                 }
-              }else{
-                window.location = "/en/account";
-              }
-          }, 1000);
-      })
-      .catch((err) => {
-          console.log('there was a problem updating the data', err);
-          toastr.error('There was an error updating your info');
-      });
+            }, 1000);
+        })
+        .catch((err) => {
+            console.log('there was a problem updating the data', err);
+            toastr.error('There was an error updating your info');
+        });
     };
 
     // Sign Up
@@ -1730,27 +1732,26 @@ getDocs(company_colRef)
     }
 }
 
-  async function getCompanyType(user) {
+async function getCompanyType(user) {
     let userInfo = await getUserInfo(user);
     // Get the collection of companies
     const companiesRef = collection(db, "companies");
     // Get all the company documents
     const companiesSnapshot = await getDocs(companiesRef);
-    let companyType;
+    let companyType = 'No company';
+    let companyZones = [];
     // Iterate over the companies and find the one with the matching ID
     for (const company of companiesSnapshot.docs) {
         if (company.id === userInfo.user_company) {
             companyType = company.data().company_type;
+            companyZones = company.data().company_zones || [];
             break;
-        }else{
-          companyType = 'No company';
-          break;
         }
     }
     // If a company with the matching ID is found
     if (companyType) {
-        // Return the company type
-        return companyType;
+        // Return an object with the company type and zones
+        return { companyType, companyZones };
     } else {
         console.log("No company found with that ID");
     }
