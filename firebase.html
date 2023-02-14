@@ -1336,30 +1336,29 @@ getDocs(company_colRef)
   const profileRef = collection(db, "profiles");
 
   // Check if a document with the same company_type exists in the profiles collection
-  const profileQuery = query(profileRef, where("profile_name", "==", companyType));
+  const profileQuery = query(profileRef, where("company_type", "==", companyType));
   const profileSnapshot = await getDocs(profileQuery);
   if (!profileSnapshot.empty) {
     // If a document exists, update its company_zones value
     const profileDocRef = profileSnapshot.docs[0].ref;
     await updateDoc(profileDocRef, {
-      zones: selectedValuesString,
+      company_zones: selectedValuesString,
     });
   } else {
     // If no document exists, create a new one
     await addDoc(profileRef, {
-      profile_name: companyType,
-      zones: selectedValuesString,
+      company_type: companyType,
+      company_zones: selectedValuesString,
     });
   }
 
-  // Update all the documents in the companies collection with the same company_type
-  const companyQuery = query(companyRef, where("company_type", "==", companyType));
-  const companySnapshot = await getDocs(companyQuery);
-  const batch = writeBatch(db);
-  companySnapshot.docs.forEach((doc) => {
-    batch.update(doc.ref, { company_zones: selectedValuesString });
+  // Create a new company document
+  const newCompanyRef = await addDoc(companyRef, {
+    company_name: new_company_name.value,
+    company_zones: selectedValuesString,
+    company_type: companyType,
+    user_head: ''
   });
-  await batch.commit();
 
   // Show success message and reload page
   toastr.success("Company has been successfully created");
@@ -1367,8 +1366,6 @@ getDocs(company_colRef)
     window.location.reload();
   }, 2000);
 }
-
-
 
       create_company_form.addEventListener('submit', (e) => {
         e.preventDefault();
