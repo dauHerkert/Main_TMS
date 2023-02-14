@@ -1520,8 +1520,8 @@ getDocs(company_colRef)
                     });
                     toastr.success('Email has been successfully sent');
                     setTimeout(function() {
-                      window.location.reload();
-                    }, 2000);
+                      document.getElementById('company_link_modal').style.display = 'none'
+                    }, 500);
                     } catch (e) {
                       toastr.error("Error sending email: ", e);
                     }
