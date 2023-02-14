@@ -1732,10 +1732,7 @@ getDocs(company_colRef)
         if (company.id === userInfo.user_company) {
             companyType = company.data().company_type;
             break;
-        }else{
-          companyType = 'No company';
-          break;
-        }
+        }else{}
     }
     // If a company with the matching ID is found
     if (companyType) {
