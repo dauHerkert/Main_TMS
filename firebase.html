@@ -1342,7 +1342,7 @@ getDocs(company_colRef)
     // If a document exists, update its company_zones value
     const profileDocRef = profileSnapshot.docs[0].ref;
     await updateDoc(profileDocRef, {
-      company_zones: selectedValuesString,
+      zones: selectedValuesString,
     });
   } else {
     // If no document exists, create a new one
