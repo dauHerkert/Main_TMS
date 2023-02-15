@@ -1034,7 +1034,7 @@ getDocs(colRef)
 
     // Get the zones based on the selected user type
 userTypeUpdate.addEventListener('change', async () => {
-  const userType = userTypeUpdate.value.replace(/"/g, '');
+  const userType = userTypeUpdate.value;
   if (userType !== '') {
     const profilesRef = doc(db, 'profiles', userType);
     try {
@@ -1042,7 +1042,7 @@ userTypeUpdate.addEventListener('change', async () => {
       if (profilesSnapshot.exists()) {
         const zones = profilesSnapshot.data().user_zones;
         // Update the options for the zones select
-        const zonesSelect = document.getElementById('user_zones_update');
+        const zonesSelect = document.getElementById('userZones');
         zonesSelect.innerHTML = '';
         zones.forEach((zone) => {
           const option = document.createElement('option');
@@ -1112,8 +1112,6 @@ update_user_form.addEventListener('submit', async (e) => {
     console.log('Error: "user_specific_id" is null or 0.');
   }
 });
-
-
 
      //Bulk users update
      async function bulkUserUpdate(selectedData) {
