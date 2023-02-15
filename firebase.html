@@ -1032,17 +1032,15 @@ getDocs(colRef)
         console.log(selectedUserCompaniesString);
       });
 
-      userTypeUpdate.addEventListener('change', async () => {
-  const userType = userTypeUpdate.value;
-  console.log(`User type selected: ${userType}`);
+    // Get the zones based on the selected user type
+userTypeUpdate.addEventListener('change', async () => {
+  const userType = userTypeUpdate.value.replace(/"/g, '');
   if (userType !== '') {
     const profilesRef = doc(db, 'profiles', userType);
-    console.log(`Getting document for user type "${userType}"...`);
     try {
       const profilesSnapshot = await getDoc(profilesRef);
       if (profilesSnapshot.exists()) {
         const zones = profilesSnapshot.data().user_zones;
-        console.log(`User zones for user type "${userType}":`, zones);
         // Update the options for the zones select
         const zonesSelect = document.getElementById('user_zones_update');
         zonesSelect.innerHTML = '';
@@ -1053,7 +1051,7 @@ getDocs(colRef)
           zonesSelect.add(option);
         });
       } else {
-        console.log(`Error: No matching document in "profiles" collection for user type "${userType}".`);
+        console.log('Error: No matching document in "profiles" collection.');
       }
     } catch (error) {
       console.log('Error getting document:', error);
