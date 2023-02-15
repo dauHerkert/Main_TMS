@@ -1400,8 +1400,8 @@ getDocs(company_colRef)
   const companyRef = collection(db, "companies");
   const profileRef = collection(db, "profiles");
 
-  // Check if a document with the same company_type exists in the profiles collection
-  const profileQuery = query(profileRef, where("company_type", "==", companyProfile));
+  // Check if a document with the same company_profile exists in the profiles collection
+  const profileQuery = query(profileRef, where("company_profile", "==", companyProfile));
   const profileSnapshot = await getDocs(profileQuery);
   if (!profileSnapshot.empty) {
     // If a document exists, update its company_zones value
