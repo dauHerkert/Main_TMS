@@ -1079,7 +1079,7 @@ update_user_form.addEventListener('submit', async (e) => {
     );
     try {
       const profilesSnapshot = await getDocs(profilesQuery);
-      const userZones = profilesSnapshot.docs[0]?.data().user_zones || [];
+      const userZones = profilesSnapshot.docs.length > 0 ? profilesSnapshot.docs[0].data().user_zones || [] : [];
       if (userZones.length === 0) {
         console.log('Error: No matching document(s) in "profiles" collection.');
         return;
