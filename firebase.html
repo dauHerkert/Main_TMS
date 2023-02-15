@@ -1042,7 +1042,7 @@ userTypeUpdate.addEventListener('change', async () => {
       if (profilesSnapshot.exists()) {
         const zones = profilesSnapshot.data().user_zones;
         // Update the options for the zones select
-        const zonesSelect = document.getElementById('new_user_type');
+        const zonesSelect = document.getElementById('userZones');
         zonesSelect.innerHTML = '';
         const allOptions = zonesSelect.options;
         for (let i = 0; i < allOptions.length; i++) {
