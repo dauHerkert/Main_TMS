@@ -1031,7 +1031,7 @@ getDocs(colRef)
       });
 
     // Get the zones based on the selected user type
-userTypeUpdate.addEventListener('change', async () => {
+    userTypeUpdate.addEventListener('change', async () => {
   const userType = userTypeUpdate.value;
   if (userType !== '') {
     const profilesRef = doc(db, 'profiles', userType);
@@ -1042,15 +1042,16 @@ userTypeUpdate.addEventListener('change', async () => {
         const printedZones = document.getElementById('select2-userZones-container');
         // Update the options for the zones select
         const zonesSelect = document.getElementById('userZones');
-        printedZones.innerHTML = '';
         const allOptions = zonesSelect.options;
         for (let i = 0; i < allOptions.length; i++) {
           const option = allOptions[i];
           if (zones.includes(option.value)) {
             option.selected = true;
+          } else if (option.selected) {
+            option.selected = false;
           }
-          zonesSelect.add(option);
         }
+        $(zonesSelect).trigger('change.select2');
       } else {
         console.log('Error getting document(s):', error);
       }
@@ -1061,6 +1062,7 @@ userTypeUpdate.addEventListener('change', async () => {
     console.log('Error: "userType" is empty.');
   }
 });
+
 
 
 
