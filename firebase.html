@@ -1053,7 +1053,7 @@ userTypeUpdate.addEventListener('change', async () => {
           zonesSelect.add(option);
         }
       } else {
-        console.log('Error: No matching document in "profiles" collection.');
+        console.log('Error getting document(s):', error);
       }
     } catch (error) {
       console.log('Error getting document:', error);
