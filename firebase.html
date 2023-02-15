@@ -1088,33 +1088,13 @@ update_user_form.addEventListener('submit', async (e) => {
         console.log('Error: No matching document(s) in "profiles" collection.');
         return;
       }
-      setDoc(
-        userRef,
-        {
-          user_type: userType,
-          user_status: userStatus,
-          user_company: selectedUserCompaniesString,
-          user_zones: selectedUserZonesString,
-          company_admin: companyAdmin,
-          user_zones: userZones, // Add user zones to the document
-        },
-        { merge: true }
-      )
-        .then(() => {
-          toastr.success('The user was updated succesfully');
-          document.getElementById('update_user_modal').style.display = 'none'
-        })
-        .catch((err) => {
-          toastr.error('There was an error updating the account info');
-          console.log('Error updating account info:', err);
-        });
     } catch (error) {
       console.log('Error getting document(s):', error);
     }
-  } else {
-    console.log('Error: "user_specific_id" is null or 0.');
-  }
-});
+      } else {
+        console.log('Error: "user_specific_id" is null or 0.');
+      }
+    });
 
      //Bulk users update
      async function bulkUserUpdate(selectedData) {
