@@ -1071,6 +1071,8 @@ zonesSelect.addEventListener('change', () => {
   selectedUserZonesString = selectedOptions.join(',');
 });
 
+console.log('Zones: ', selectedUserZonesString)
+
 update_user_form.addEventListener('submit', (e) => {
   e.preventDefault();
   e.stopPropagation()
