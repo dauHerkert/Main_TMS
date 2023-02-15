@@ -1069,9 +1069,8 @@ zonesSelect.addEventListener('change', () => {
   // Get the selected options and update the selectedUserZonesString variable
   const selectedOptions = Array.from(zonesSelect.selectedOptions).map(option => option.value);
   selectedUserZonesString = selectedOptions.join(',');
+  console.log('Zones: ', selectedUserZonesString)
 });
-
-console.log('Zones: ', selectedUserZonesString)
 
 update_user_form.addEventListener('submit', (e) => {
   e.preventDefault();
