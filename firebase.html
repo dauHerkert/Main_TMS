@@ -908,6 +908,10 @@ function updateFileLabel() {
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column", formatter: function(cell, formatterParams, onRendered) {
+              var value = cell.getValue();
+              return value == 1 ? "Yes" : "No";
+            }},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
             { title: "user type", field: "user_type", sorter: "string", width: 0, cssClass: "hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -994,7 +998,7 @@ getDocs(colRef)
             return;
         }*/
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+          data.push({id: doc.id, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
 
         }));
     });
