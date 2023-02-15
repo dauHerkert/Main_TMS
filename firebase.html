@@ -1202,7 +1202,7 @@ update_user_form.addEventListener('submit', async (e) => {
           let profile = doc.data();
           
           var opt = document.createElement('option');
-          opt.value = profile.profile_name;
+          opt.value = doc.id;
           opt.textContent = profile.profile_name;
           user_type_select.appendChild(opt);
         });
