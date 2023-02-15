@@ -1031,7 +1031,7 @@ getDocs(colRef)
       });
 
     // Get the zones based on the selected user type
-userTypeUpdate.addEventListener('change', async () => {
+    userTypeUpdate.addEventListener('change', async () => {
   const userType = userTypeUpdate.value;
   if (userType !== '') {
     const profilesRef = doc(db, 'profiles', userType);
@@ -1039,19 +1039,20 @@ userTypeUpdate.addEventListener('change', async () => {
       const profilesSnapshot = await getDoc(profilesRef);
       if (profilesSnapshot.exists()) {
         const zones = profilesSnapshot.data().zones;
-        // Update the options for the zones select
         const zonesSelect = document.getElementById('userZones');
-        zonesSelect.innerHTML = '';
-        const allOptions = zonesSelect.options;
-        for (let i = 0; i < allOptions.length; i++) {
-          const option = allOptions[i];
-          if (zones.includes(option.value)) {
+        const zonesPrint = document.getElementById('select2-userZones-container')
+        //zonesPrint.innerHTML = '';
+        for (let i = 0; i < zones.length; i++) {
+          const option = document.createElement('option');
+          option.value = zones[i];
+          option.text = zones[i];
+          if (zonesSelect.options.namedItem(zones[i])) {
             option.selected = true;
           }
           zonesSelect.add(option);
         }
       } else {
-        console.log('Error getting document(s):', error);
+        console.log('Error: No matching document(s) in "profiles" collection.');
       }
     } catch (error) {
       console.log('Error getting document:', error);
@@ -1060,6 +1061,7 @@ userTypeUpdate.addEventListener('change', async () => {
     console.log('Error: "userType" is empty.');
   }
 });
+
 
 
 
