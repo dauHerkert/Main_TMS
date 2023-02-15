@@ -1020,6 +1020,7 @@ getDocs(colRef)
       let company_admin = document.getElementById('headUser');
       let selectedUserZonesString = '';
       let selectedUserCompaniesString = '';
+      const zonesSelect = document.getElementById('userZones');
 
       /*$('#userZones').on('change', function () {
         var selectedUserZones = $(this).val();
@@ -1032,7 +1033,6 @@ getDocs(colRef)
 
    // Update the selectedUserZonesString variable based on the current selection
 function updateSelectedUserZonesString() {
-  const zonesSelect = document.getElementById('userZones');
   const selectedOptions = Array.from(zonesSelect.selectedOptions).map(option => option.value);
   selectedUserZonesString = selectedOptions.join(',');
 }
@@ -1047,7 +1047,6 @@ userTypeUpdate.addEventListener('change', async () => {
       if (profilesSnapshot.exists()) {
         const zones = profilesSnapshot.data().zones;
         // Update the options for the zones select
-        const zonesSelect = document.getElementById('userZones');
         const allOptions = zonesSelect.options;
         for (let i = 0; i < allOptions.length; i++) {
           const option = allOptions[i];
