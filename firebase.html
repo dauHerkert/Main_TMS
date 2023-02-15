@@ -1032,15 +1032,17 @@ getDocs(colRef)
         console.log(selectedUserCompaniesString);
       });
 
-      // Get the zones based on the selected user type
-userTypeUpdate.addEventListener('change', async () => {
+      userTypeUpdate.addEventListener('change', async () => {
   const userType = userTypeUpdate.value;
+  console.log(`User type selected: ${userType}`);
   if (userType !== '') {
     const profilesRef = doc(db, 'profiles', userType);
+    console.log(`Getting document for user type "${userType}"...`);
     try {
       const profilesSnapshot = await getDoc(profilesRef);
       if (profilesSnapshot.exists()) {
-        const zones = profilesSnapshot.data().profile_name;
+        const zones = profilesSnapshot.data().user_zones;
+        console.log(`User zones for user type "${userType}":`, zones);
         // Update the options for the zones select
         const zonesSelect = document.getElementById('user_zones_update');
         zonesSelect.innerHTML = '';
@@ -1051,7 +1053,7 @@ userTypeUpdate.addEventListener('change', async () => {
           zonesSelect.add(option);
         });
       } else {
-        console.log('Error: No matching document in "profiles" collection.');
+        console.log(`Error: No matching document in "profiles" collection for user type "${userType}".`);
       }
     } catch (error) {
       console.log('Error getting document:', error);
@@ -1060,6 +1062,7 @@ userTypeUpdate.addEventListener('change', async () => {
     console.log('Error: "userType" is empty.');
   }
 });
+
 
 update_user_form.addEventListener('submit', async (e) => {
   e.preventDefault();
