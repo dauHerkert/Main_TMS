@@ -1044,12 +1044,14 @@ userTypeUpdate.addEventListener('change', async () => {
         // Update the options for the zones select
         const zonesSelect = document.getElementById('userZones');
         zonesSelect.innerHTML = '';
-        zones.forEach((zone) => {
-          const option = document.createElement('option');
-          option.value = zone;
-          option.text = zone;
+        const allOptions = zonesSelect.options;
+        for (let i = 0; i < allOptions.length; i++) {
+          const option = allOptions[i];
+          if (zones.includes(option.value)) {
+            option.selected = true;
+          }
           zonesSelect.add(option);
-        });
+        }
       } else {
         console.log('Error: No matching document in "profiles" collection.');
       }
@@ -1060,6 +1062,7 @@ userTypeUpdate.addEventListener('change', async () => {
     console.log('Error: "userType" is empty.');
   }
 });
+
 
 
 update_user_form.addEventListener('submit', async (e) => {
