@@ -1033,27 +1033,35 @@ getDocs(colRef)
       });
 
       // Get the zones based on the selected user type
-      userTypeUpdate.addEventListener('change', async () => {
-        const userType = userTypeUpdate.value;
-        if (userType !== '') {
-          const profilesRef = doc(db, 'profiles', userType);
-          const profilesSnapshot = await getDoc(profilesRef);
-          if (profilesSnapshot.exists()) {
-            const zones = profilesSnapshot.data().user_zones;
-            // Update the options for the zones select
-            const zonesSelect = document.getElementById('user_zones_update');
-            zonesSelect.innerHTML = '';
-            zones.forEach((zone) => {
-              const option = document.createElement('option');
-              option.value = zone;
-              option.text = zone;
-              zonesSelect.add(option);
-            });
-          }
-        }
-      });
+userTypeUpdate.addEventListener('change', async () => {
+  const userType = userTypeUpdate.value;
+  if (userType !== '') {
+    const profilesRef = doc(db, 'profiles', userType);
+    try {
+      const profilesSnapshot = await getDoc(profilesRef);
+      if (profilesSnapshot.exists()) {
+        const zones = profilesSnapshot.data().user_zones;
+        // Update the options for the zones select
+        const zonesSelect = document.getElementById('user_zones_update');
+        zonesSelect.innerHTML = '';
+        zones.forEach((zone) => {
+          const option = document.createElement('option');
+          option.value = zone;
+          option.text = zone;
+          zonesSelect.add(option);
+        });
+      } else {
+        console.log('Error: No matching document in "profiles" collection.');
+      }
+    } catch (error) {
+      console.log('Error getting document:', error);
+    }
+  } else {
+    console.log('Error: "userType" is empty.');
+  }
+});
 
-      update_user_form.addEventListener('submit', async (e) => {
+update_user_form.addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopPropagation();
 
@@ -1069,31 +1077,41 @@ getDocs(colRef)
       profilesRef,
       where('profile_name', '==', userType)
     );
-    const profilesSnapshot = await getDocs(profilesQuery);
-    const userZones = profilesSnapshot.docs[0]?.data().user_zones || [];
-
-    setDoc(
-      userRef,
-      {
-        user_type: userType,
-        user_status: userStatus,
-        user_company: selectedUserCompaniesString,
-        user_zones: selectedUserZonesString,
-        company_admin: companyAdmin,
-        user_zones: userZones, // Add user zones to the document
-      },
-      { merge: true }
-    )
-      .then(() => {
-        toastr.success('The user was updated succesfully');
-        document.getElementById('update_user_modal').style.display = 'none'
-      })
-      .catch((err) => {
-        toastr.error('There was an error updating the account info');
-        console.log('error updating account info', err);
-      });
+    try {
+      const profilesSnapshot = await getDocs(profilesQuery);
+      const userZones = profilesSnapshot.docs[0]?.data().user_zones || [];
+      if (userZones.length === 0) {
+        console.log('Error: No matching document(s) in "profiles" collection.');
+        return;
+      }
+      setDoc(
+        userRef,
+        {
+          user_type: userType,
+          user_status: userStatus,
+          user_company: selectedUserCompaniesString,
+          user_zones: selectedUserZonesString,
+          company_admin: companyAdmin,
+          user_zones: userZones, // Add user zones to the document
+        },
+        { merge: true }
+      )
+        .then(() => {
+          toastr.success('The user was updated succesfully');
+          document.getElementById('update_user_modal').style.display = 'none'
+        })
+        .catch((err) => {
+          toastr.error('There was an error updating the account info');
+          console.log('Error updating account info:', err);
+        });
+    } catch (error) {
+      console.log('Error getting document(s):', error);
+    }
+  } else {
+    console.log('Error: "user_specific_id" is null or 0.');
   }
 });
+
 
 
      //Bulk users update
