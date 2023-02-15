@@ -1021,17 +1021,24 @@ getDocs(colRef)
       let selectedUserZonesString = '';
       let selectedUserCompaniesString = '';
 
-      $('#userZones').on('change', function () {
+      /*$('#userZones').on('change', function () {
         var selectedUserZones = $(this).val();
         selectedUserZonesString = selectedUserZones.join(', ');
-      });
+      });*/
       $('#userCompany').on('change', function () {
         var selectedUserCompanies = $(this).val();
         selectedUserCompaniesString = selectedUserCompanies.join(', ');
       });
 
-    // Get the zones based on the selected user type
-    userTypeUpdate.addEventListener('change', async () => {
+   // Update the selectedUserZonesString variable based on the current selection
+function updateSelectedUserZonesString() {
+  const zonesSelect = document.getElementById('userZones');
+  const selectedOptions = Array.from(zonesSelect.selectedOptions).map(option => option.value);
+  selectedUserZonesString = selectedOptions.join(',');
+}
+
+// Update the zones based on the selected user type
+userTypeUpdate.addEventListener('change', async () => {
   const userType = userTypeUpdate.value;
   if (userType !== '') {
     const profilesRef = doc(db, 'profiles', userType);
@@ -1051,6 +1058,8 @@ getDocs(colRef)
           }
         }
         $(zonesSelect).trigger('change.select2');
+        // Update the selectedUserZonesString variable based on the current selection
+        updateSelectedUserZonesString();
       } else {
         console.log('Error getting document(s):', error);
       }
@@ -1061,16 +1070,12 @@ getDocs(colRef)
     console.log('Error: "userType" is empty.');
   }
 });
-// Get the zones select element
-const zonesSelect = document.getElementById('userZones');
 
-// Add event listener to listen for changes
+// Update the selectedUserZonesString variable whenever the zones select element changes
 zonesSelect.addEventListener('change', () => {
-  // Get the selected options and update the selectedUserZonesString variable
-  const selectedOptions = Array.from(zonesSelect.selectedOptions).map(option => option.value);
-  selectedUserZonesString = selectedOptions.join(',');
-  console.log('Zones: ', selectedUserZonesString)
+  updateSelectedUserZonesString();
 });
+
 
 update_user_form.addEventListener('submit', (e) => {
   e.preventDefault();
