@@ -1192,7 +1192,7 @@ update_user_form.addEventListener('submit', async (e) => {
       .catch(err => {
         console.log('error fetching companies', err);
       })
-
+console.log('try')
       //Print profiles select
     let user_type_select = document.getElementById('new_user_type');
     const profilesRef = collection(db, 'profiles');
