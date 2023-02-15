@@ -1039,9 +1039,10 @@ userTypeUpdate.addEventListener('change', async () => {
       const profilesSnapshot = await getDoc(profilesRef);
       if (profilesSnapshot.exists()) {
         const zones = profilesSnapshot.data().zones;
+        const printedZones = document.getElementById('select2-userZones-container');
         // Update the options for the zones select
         const zonesSelect = document.getElementById('userZones');
-       // zonesSelect.innerHTML = '';
+        printedZones.innerHTML = '';
         const allOptions = zonesSelect.options;
         for (let i = 0; i < allOptions.length; i++) {
           const option = allOptions[i];
