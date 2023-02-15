@@ -908,10 +908,7 @@ function updateFileLabel() {
         paginationCounter:"rows", //display count of paginated rows in footer
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column companyAdmin", formatter: function(cell, formatterParams, onRendered) {
-              var value = cell.getValue();
-              return value == 1 ? "Yes" : "No";
-            }},
+            {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
             { title: "user type", field: "user_type", sorter: "string", width: 0, cssClass: "hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
