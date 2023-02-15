@@ -1061,6 +1061,15 @@ getDocs(colRef)
     console.log('Error: "userType" is empty.');
   }
 });
+// Get the zones select element
+const zonesSelect = document.getElementById('userZones');
+
+// Add event listener to listen for changes
+zonesSelect.addEventListener('change', () => {
+  // Get the selected options and update the selectedUserZonesString variable
+  const selectedOptions = Array.from(zonesSelect.selectedOptions).map(option => option.value);
+  selectedUserZonesString = selectedOptions.join(',');
+});
 
 update_user_form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -1112,8 +1121,6 @@ update_user_form.addEventListener('submit', (e) => {
       });
   }
 });
-
-
      //Bulk users update
      async function bulkUserUpdate(selectedData) {
     let bulk_user_form = document.getElementById('bulk_user_form');
