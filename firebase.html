@@ -1024,12 +1024,10 @@ getDocs(colRef)
       $('#userZones').on('change', function () {
         var selectedUserZones = $(this).val();
         selectedUserZonesString = selectedUserZones.join(', ');
-        console.log(selectedUserZonesString);
       });
       $('#userCompany').on('change', function () {
         var selectedUserCompanies = $(this).val();
         selectedUserCompaniesString = selectedUserCompanies.join(', ');
-        console.log(selectedUserCompaniesString);
       });
 
     // Get the zones based on the selected user type
@@ -1043,7 +1041,7 @@ userTypeUpdate.addEventListener('change', async () => {
         const zones = profilesSnapshot.data().user_zones;
         // Update the options for the zones select
         const zonesSelect = document.getElementById('userZones');
-        zonesSelect.innerHTML = '';
+       // zonesSelect.innerHTML = '';
         const allOptions = zonesSelect.options;
         for (let i = 0; i < allOptions.length; i++) {
           const option = allOptions[i];
