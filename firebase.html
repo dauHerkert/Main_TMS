@@ -1054,45 +1054,47 @@ getDocs(colRef)
       });
 
       update_user_form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
 
-        if (user_specific_id != null || user_specific_id != 0) {
-          const userRef = doc(db, 'users', user_specific_id.value);
-          const userType = userTypeUpdate.value;
-          const userStatus = user_status_update.value;
-          const companyAdmin = company_admin.value;
+  if (user_specific_id != null || user_specific_id != 0) {
+    const userRef = doc(db, 'users', user_specific_id.value);
+    const userType = userTypeUpdate.value;
+    const userStatus = user_status_update.value;
+    const companyAdmin = company_admin.value;
 
-          // Retrieve user zones from the profiles collection based on the selected user type
-          const profilesRef = collection(db, 'profiles');
-          const profilesQuery = query(
-            profilesRef,
-            where('profile_name', '==', userType)
-          );
-          const profilesSnapshot = await getDocs(profilesQuery);
-          const userZones = profilesSnapshot.docs[0]?.data().user_zones || [];
+    // Retrieve user zones from the profiles collection based on the selected user type
+    const profilesRef = collection(db, 'profiles');
+    const profilesQuery = query(
+      profilesRef,
+      where('profile_name', '==', userType)
+    );
+    const profilesSnapshot = await getDocs(profilesQuery);
+    const userZones = profilesSnapshot.docs[0]?.data().user_zones || [];
 
-          setDoc(
-            userRef,
-            {
-              user_type: userType,
-              user_status: userStatus,
-              user_company: selectedUserCompaniesString,
-              user_zones: selectedUserZonesString,
-              company_admin: companyAdmin,
-            },
-            { merge: true }
-          )
-            .then(() => {
-              toastr.success('The user was updated succesfully');
-              document.getElementById('update_user_modal').style.display = 'none'
-            })
-            .catch((err) => {
-              toastr.error('There was an error updating the account info');
-              console.log('error updating account info', err);
-            });
-        }
+    setDoc(
+      userRef,
+      {
+        user_type: userType,
+        user_status: userStatus,
+        user_company: selectedUserCompaniesString,
+        user_zones: selectedUserZonesString,
+        company_admin: companyAdmin,
+        user_zones: userZones, // Add user zones to the document
+      },
+      { merge: true }
+    )
+      .then(() => {
+        toastr.success('The user was updated succesfully');
+        document.getElementById('update_user_modal').style.display = 'none'
+      })
+      .catch((err) => {
+        toastr.error('There was an error updating the account info');
+        console.log('error updating account info', err);
       });
+  }
+});
+
 
      //Bulk users update
      async function bulkUserUpdate(selectedData) {
