@@ -1063,55 +1063,56 @@ getDocs(colRef)
 });
 
 update_user_form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        e.stopPropagation()
+  e.preventDefault();
+  e.stopPropagation()
 
-        if ( user_specific_id != null || user_specific_id != 0 ) {
-          const userRef = doc(db, 'users', user_specific_id.value);
-          setDoc(userRef, {
-            user_type: userTypeUpdate.value,
-            user_status: user_status_update.value,
-            user_company: selectedUserCompaniesString,
-            user_zones: selectedUserZonesString,
-            company_admin: company_admin.value,
-          }, { merge: true })
-          .then(() => {
-            if(user_status_update.value == 'decline'){
-              try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${user_specific_email.value}`,
-                message: {
+  if (user_specific_id != null || user_specific_id != 0) {
+    const userRef = doc(db, 'users', user_specific_id.value);
+    setDoc(userRef, {
+      user_type: userTypeUpdate.value,
+      user_status: user_status_update.value,
+      user_company: selectedUserCompaniesString,
+      user_zones: selectedUserZonesString,
+      company_admin: company_admin.value,
+    }, { merge: true })
+      .then(() => {
+        if (user_status_update.value == 'decline') {
+          try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: `${user_specific_email.value}`,
+              message: {
                 subject: 'Sorry you have been declined',
                 html: 'Sorry you have been declined',
-                }
-                });
-                } catch (e) {
-                console.error("Error declining user: ", e);
-                }
-                toastr.success('User registration declined');
-            }else{
-            try {
-                const docRef = addDoc(collection(db, "mail"), {
-                to: `${user_specific_email.value}`,
-                message: {
+              }
+            });
+          } catch (e) {
+            console.error("Error declining user: ", e);
+          }
+          toastr.success('User registration declined');
+        } else {
+          try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: `${user_specific_email.value}`,
+              message: {
                 subject: 'Hello from Firebase!',
                 html: 'This is an <code>HTML</code> email body.',
-                }
-                });
-                console.log("Document written with ID: ", docRef.id);
-                } catch (e) {
-                console.error("Error adding document: ", e);
-                }
-                toastr.success('Account info has been successfully updated');
-                document.getElementById('update_user_modal').style.display = 'none';
-              }             
-          })
-          .catch((err) => {
-            toastr.error('There was an error updating the account info');
-            console.log('error updating account info', err);
-          });
+              }
+            });
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+          toastr.success('Account info has been successfully updated');
+          document.getElementById('update_user_modal').style.display = 'none';
         }
+      })
+      .catch((err) => {
+        toastr.error('There was an error updating the account info');
+        console.log('error updating account info', err);
       });
+  }
+});
+
 
      //Bulk users update
      async function bulkUserUpdate(selectedData) {
