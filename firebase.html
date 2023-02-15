@@ -1379,7 +1379,7 @@ getDocs(company_colRef)
   } else {
     // If no document exists, create a new one
     await addDoc(profileRef, {
-      company_type: companyType,
+      profile_name: companyType,
       zones: selectedValuesString,
     });
   }
