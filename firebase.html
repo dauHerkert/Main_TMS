@@ -895,8 +895,6 @@ function updateFileLabel() {
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }  
 
-      $(".tabulator-paginator").find($(".tabulator-page[title='Prev Page']")).text('<');
-      $(".tabulator-paginator").find($(".tabulator-page[title='Next Page']")).text('>');
       // =========== USERS TABLE FUNCTIONS ============ //
       // Print users table
       const colRef = collection(db, 'users');
@@ -954,6 +952,8 @@ function updateFileLabel() {
           }, align: "center", width: 120},
         ],
 });
+$(".tabulator-paginator").find($(".tabulator-page[title='Prev Page']")).text('<');
+$(".tabulator-paginator").find($(".tabulator-page[title='Next Page']")).text('>');
 
 let selectedData = [];
 console.log(selectedData);
