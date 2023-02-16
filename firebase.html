@@ -808,15 +808,15 @@ function updateFileLabel() {
               to: 'serfaty.samuel90@gmail.com',
               message: {
                 subject: `Press form changes`,
-                html: `Hi! The user ${notifier_email.value} wants to make these changes ${notifier_text.value}.<br><br> user ID: ${user.uid}`,
+                html: `Hi! The user ${notifier_email.value} wants to make these changes ${notifier_text.value}.`,
               }
             });
             console.log("Email has been sent!");
           } catch (e) {
             console.error("Error adding document: ", e);
           }
-          toastr.success('Account info has been successfully updated');
-          document.getElementById('update_user_modal').style.display = 'none';
+          toastr.success('Email has been sent!');
+          document.getElementById('notify_admin_modal').style.display = 'none';
     })
   }
     /*
