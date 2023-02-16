@@ -652,6 +652,7 @@ function updateFileLabel() {
       let update_password_modal = document.getElementById("password_form_modal");
       let update_picture_modal = document.getElementById("picture_form_modal");
       let change_email = document.getElementById("change_email");
+      let confirm_email = document.getElementById('confirm_email');
       let change_username = document.getElementById("change_username");
       let change_password = document.getElementById("change_password");
       let confirm_password = document.getElementById("confirm_password");
@@ -660,7 +661,12 @@ function updateFileLabel() {
         update_email_modal.addEventListener('submit', function(ev) {
           ev.preventDefault();
           ev.stopPropagation();
-          updateUserEmail(ev, user, change_email.value);
+          
+          if(change_email.value == confirm_email.value){
+            updateUserEmail(ev, user, change_email.value);
+          }else{
+            toastr.error('Email confirmation does not match');
+          }
         }, true);
       }
       if ( update_password_modal) {
