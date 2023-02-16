@@ -798,6 +798,7 @@ function updateFileLabel() {
     let notifier_email = document.getElementById('notifier_email');
     let notifier_text = document.getElementById('notifier_text');
 
+    if(press_notify_form){
     press_notify_form.addEventListener('submit', function (e, user){
       e.preventDefault();
       e.stopPropagation();
@@ -817,7 +818,7 @@ function updateFileLabel() {
           toastr.success('Account info has been successfully updated');
           document.getElementById('update_user_modal').style.display = 'none';
     })
-
+  }
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Supplier functions
