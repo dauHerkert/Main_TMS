@@ -1864,7 +1864,7 @@ async function getCompanyType(user) {
   });
 
   // Set the start date as the minimum date for the end datepicker
-  startDatePicker.on('changeDate', function(selected) {
+  startDatePicker.on('change', function(selected) {
     var startDate = new Date(selected.date.valueOf());
     endDatePicker.datepicker('setStartDate', startDate);
     if (selected.date > endDatePicker.datepicker('getDate')) {
