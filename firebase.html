@@ -1972,15 +1972,11 @@ async function getCompanyType(user) {
     }
 
     let form_button = document.getElementById('form_button');
-    let admin_dropdown = document.getElementById("w-dropdown-toggle-0");
     let admin_users_table = document.getElementById("users_table");
     let admin_companies_table = document.getElementById("companies_table");
 
     if(window.location.pathname == '/de/press' || window.location.pathname == '/en/press' || window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
       form_button.style.borderBottom = "2px solid #f2a100";
-    }
-    if(window.location.pathname == '/en/admin/users-table' || window.location.pathname == '/de/admin/users-table' || window.location.pathname == '/en/admin/companies-table' || window.location.pathname == '/de/admin/companies-table'){
-      admin_dropdown.style.borderBottom = "2px solid #f2a100";
     }
     if(window.location.pathname == '/en/admin/users-table' || window.location.pathname == '/de/admin/users-table'){
       admin_users_table.style.borderBottom = "2px solid #f2a100";
