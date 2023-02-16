@@ -952,8 +952,8 @@ function updateFileLabel() {
           }, align: "center", width: 120},
         ],
 });
-$(".tabulator-paginator").find($(".tabulator-page[title='Prev Page']")).text('<');
-$(".tabulator-paginator").find($(".tabulator-page[title='Next Page']")).text('>');
+$(".tabulator-paginator").find($(".tabulator-page[data-page='prev']")).text('<');
+$(".tabulator-paginator").find($(".tabulator-page[data-page='next']")).text('>');
 
 let selectedData = [];
 console.log(selectedData);
