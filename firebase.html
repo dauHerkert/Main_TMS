@@ -895,8 +895,9 @@ function updateFileLabel() {
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }  
 
+      $(".tabulator-paginator").find($(".tabulator-page[title='Prev Page']")).text('<');
+      $(".tabulator-paginator").find($(".tabulator-page[title='Next Page']")).text('>');
       // =========== USERS TABLE FUNCTIONS ============ //
-      console.log('culo')
       // Print users table
       const colRef = collection(db, 'users');
       const company_colRef = collection(db, 'companies');
@@ -909,8 +910,6 @@ function updateFileLabel() {
         addRowPos:"top",          //when adding a new row, add it to the top of the table
         history:true,             //allow undo and redo actions on the table
         pagination:"local",     //paginate the data
-        paginationButtonPrev: "<",
-        paginationButtonNext: ">",
         paginationSize:10,         //allow 10 rows per page of data.
         paginationSizeSelector:[10, 25, 50],
         paginationCounter:"rows", //display count of paginated rows in footer
