@@ -1846,8 +1846,8 @@ async function getCompanyType(user) {
   var today = new Date();
   var minDate = new Date(today.getFullYear(), 3, 15);
   var maxDate = new Date(today.getFullYear(), 3, 23);
-  var startDatePicker = $('[data-toggle="start-datepicker"]');
-  var endDatePicker = $('[data-toggle="end-datepicker"]');
+  var startDatePicker = $('[data-date-picker="datepicker-start"]');
+  var endDatePicker = $('[data-date-picker="datepicker-end"]');
 
   startDatePicker.datepicker({
     format: 'mm-dd-yyyy',
@@ -1873,10 +1873,9 @@ async function getCompanyType(user) {
   });
 
   if (window.innerWidth < 768) {
-    $('[data-toggle="datepicker"]').attr('readonly', 'readonly');
+    $('[data-date-picker]').attr('readonly', 'readonly');
   }
 });
-
 
     //Language selection
     var currentLang = "en";  // default language is English
