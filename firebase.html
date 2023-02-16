@@ -1843,18 +1843,40 @@ async function getCompanyType(user) {
     });
 
     $(document).ready(function () {
-      var today = new Date();
-      var minDate = new Date(today.getFullYear(), 3, 15);
-      var maxDate = new Date(today.getFullYear(), 3, 23);
-      $('[data-toggle="datepicker"]').datepicker({
-        format: 'mm-dd-yyyy',
-        startDate: minDate,
-        endDate: maxDate
-      });
-      if (window.innerWidth < 768) {
-        $('[data-toggle="datepicker"]').attr('readonly', 'readonly')
-      }
-    });
+  var today = new Date();
+  var minDate = new Date(today.getFullYear(), 3, 15);
+  var maxDate = new Date(today.getFullYear(), 3, 23);
+  var startDatePicker = $('[data-toggle="start-datepicker"]');
+  var endDatePicker = $('[data-toggle="end-datepicker"]');
+
+  startDatePicker.datepicker({
+    format: 'mm-dd-yyyy',
+    startDate: minDate,
+    endDate: maxDate,
+    autoHide: true // hide the datepicker when a date is selected
+  });
+
+  endDatePicker.datepicker({
+    format: 'mm-dd-yyyy',
+    startDate: minDate,
+    endDate: maxDate,
+    autoHide: true // hide the datepicker when a date is selected
+  });
+
+  // Set the start date as the minimum date for the end datepicker
+  startDatePicker.on('changeDate', function(selected) {
+    var startDate = new Date(selected.date.valueOf());
+    endDatePicker.datepicker('setStartDate', startDate);
+    if (selected.date > endDatePicker.datepicker('getDate')) {
+      endDatePicker.datepicker('setDate', startDate);
+    }
+  });
+
+  if (window.innerWidth < 768) {
+    $('[data-toggle="datepicker"]').attr('readonly', 'readonly');
+  }
+});
+
 
     //Language selection
     var currentLang = "en";  // default language is English
