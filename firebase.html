@@ -488,7 +488,7 @@ if (profile_img) {
         }, 2000);
       })
       .catch((error) => {
-        toastr.error('There was a problem updating the password');
+        toastr.error('There was a problem updating the password', error);
       });
     }
 
@@ -675,6 +675,7 @@ function updateFileLabel() {
           }
         }, true);
       }
+
       if ( update_picture_modal !== null ) {
         update_picture_modal.addEventListener('submit', function(ev) {
           updateProfilePic(ev, user);
