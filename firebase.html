@@ -1849,14 +1849,14 @@ async function getCompanyType(user) {
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
   var endDatePicker = $('[data-date-picker="datepicker-end"]');
 
-  $('input[type="date"]').datepicker({
+  startDatePicker.datepicker({
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
     autoHide: true // hide the datepicker when a date is selected
   });
 
-  $('input[type="date"]').datepicker({
+  endDatePicker.datepicker({
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
