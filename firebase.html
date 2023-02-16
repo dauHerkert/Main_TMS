@@ -808,7 +808,7 @@ function updateFileLabel() {
               to: 'serfaty.samuel90@gmail.com',
               message: {
                 subject: `Press form changes`,
-                html: `Hi! The user ${notifier_email.value} wants to make the following changes: ${notifier_text.value}.`,
+                html: `Hi! The user ${notifier_email.value} wants to make the following changes:<br><br> ${notifier_text.value}.`,
               }
             });
             console.log("Email has been sent!");
