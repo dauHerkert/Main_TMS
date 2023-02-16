@@ -471,8 +471,8 @@ if (profile_img) {
       .then(() => {
         toastr.success('Email has been successfully updated');
         setTimeout(() => {
-          location.reload();
-        }, 2000);
+          document.getElementById('update_info_modal').style.display = 'none';
+        }, 500);
       }).catch((error) => {
         toastr.error('There was a problem updating the email');
       });
@@ -484,8 +484,8 @@ if (profile_img) {
       .then(() => {
         toastr.success('Password has been successfully updated');
         setTimeout(() => {
-          location.reload();
-        }, 2000);
+          document.getElementById('update_info_modal').style.display = 'none';
+        }, 500);
       })
       .catch((error) => {
         toastr.error('There was a problem updating the password', error);
