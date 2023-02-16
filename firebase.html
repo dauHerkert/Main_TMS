@@ -663,17 +663,16 @@ function updateFileLabel() {
           updateUserEmail(ev, user, change_email.value);
         }, true);
       }
-      if ( update_password_modal !== null ) {
-        update_password_modal.addEventListener('submit', function(ev) {
-          ev.preventDefault();
-          ev.stopPropagation();
+      if ( update_password_modal) {
+        update_password_modal.addEventListener('submit', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
 
           if(change_password.value == confirm_password.value){
-            updateUserPassword(ev, user, change_password.value);
+            updateUserPassword(e, user, change_password.value);
           }else{
             toastr.error('Password confirmation does not match');
           }
-          
         }, true);
       }
       if ( update_picture_modal !== null ) {
