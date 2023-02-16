@@ -816,7 +816,10 @@ function updateFileLabel() {
             console.error("Error adding document: ", e);
           }
           toastr.success('Email has been sent!');
-          document.getElementById('notify_modal').style.display = 'none';
+          setTimeout(function() {
+            document.getElementById('notify_modal').style.display = 'none';
+                }, 500);
+          
     })
   }
     /*
