@@ -1971,6 +1971,12 @@ async function getCompanyType(user) {
     });
     }
 
+    let form_button = document.getElementById('form_button');
+
+    if(window.location.pathname == '/de/press' || window.location.pathname == '/en/press' || window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
+      form_button.style.borderBottom = "1px solid #f2a100";
+    }
+
     //Delete users when past 12 months withous signin
     /*admin.initializeApp();
 
