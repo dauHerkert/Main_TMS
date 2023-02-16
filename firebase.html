@@ -794,6 +794,30 @@ function updateFileLabel() {
           })
     }
 
+    let press_notify_form = document.getElementById('notify_admin_modal');
+    let notifier_email = document.getElementById('notifier_email');
+    let notifier_text = document.getElementById('notifier_text');
+
+    press_notify_form.addEventListener('submit', function (e, user){
+      e.preventDefault();
+      e.stopPropagation();
+
+      try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: 'serfaty.samuel90@gmail.com',
+              message: {
+                subject: `Press form changes`,
+                html: `Hi! The user ${notifier_email.value} wants to make these changes ${notifier_text.value}.<br><br> user ID: ${user.uid}`,
+              }
+            });
+            console.log("Email has been sent!");
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+          toastr.success('Account info has been successfully updated');
+          document.getElementById('update_user_modal').style.display = 'none';
+    })
+
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Supplier functions
