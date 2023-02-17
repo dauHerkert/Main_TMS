@@ -1910,33 +1910,31 @@ async function getCompanyType(user) {
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
-    autohide: true // hide the datepicker when a date is selected
+    autoHide: true // hide the datepicker when a date is selected
   });
 
   endDatePicker.datepicker({
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
-    autohide: true // hide the datepicker when a date is selected
+    autoHide: true // hide the datepicker when a date is selected
   });
 
-  // Set the start date as the minimum date for the end datepicker
-  startDatePicker.on('changeDate', function(e) {
-    var startDate = e.date;
-    endDatePicker.setStartDate(startDate);
-    if (startDate.getTime() > endDatePicker.getDate().getTime()) {
-      endDatePicker.setDate(startDate);
-      toastr.error('End date cannot be before start date');
+  startDatePicker.on('change', function() {
+    var startDate = startDatePicker.datepicker('getDate');
+    var endDate = endDatePicker.datepicker('getDate');
+    if (endDate < startDate) {
+      endDatePicker.datepicker('setDate', startDate);
+      alert('End date cannot be before start date');
     }
   });
 
-  // Check end date is not before start date
-  endDatePicker.on('changeDate', function(e) {
-    var startDate = startDatePicker.getDate();
-    var endDate = e.date;
-    if (endDate.getTime() < startDate.getTime()) {
-      endDatePicker.setDate(startDate);
-      toastr.error('End date cannot be before start date');
+  endDatePicker.on('change', function() {
+    var startDate = startDatePicker.datepicker('getDate');
+    var endDate = endDatePicker.datepicker('getDate');
+    if (endDate < startDate) {
+      endDatePicker.datepicker('setDate', startDate);
+      alert('End date cannot be before start date');
     }
   });
 
@@ -1945,7 +1943,7 @@ async function getCompanyType(user) {
   }
 });
 
-console.log('chichaaaaa')
+console.log('chichsdfdaa')
 
     //Language selection
     var currentLang = "en";  // default language is English
