@@ -1926,6 +1926,17 @@ async function getCompanyType(user) {
     endDatePicker.datepicker('setStartDate', startDate);
     if (selected.date > endDatePicker.datepicker('getDate')) {
       endDatePicker.datepicker('setDate', startDate);
+      toastr.error('End date cannot be before start date');
+    }
+  });
+
+  // Check end date is not before start date
+  endDatePicker.on('changeDate', function(selected) {
+    var startDate = startDatePicker.datepicker('getDate');
+    var endDate = selected.date;
+    if (endDate < startDate) {
+      endDatePicker.datepicker('setDate', startDate);
+      toastr.error('End date cannot be before start date');
     }
   });
 
@@ -1933,6 +1944,7 @@ async function getCompanyType(user) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
 });
+
 
     //Language selection
     var currentLang = "en";  // default language is English
