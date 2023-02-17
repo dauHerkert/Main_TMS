@@ -2034,10 +2034,11 @@ async function getCompanyType(user) {
       admin_companies_table.style.borderBottom = "2px solid #f2a100";
     }
 
+    let welcomeBanner = document.getElementById('welcomeBanner');
     if (location.search.indexOf('?company=') !== -1) {
-      console.log('Si tieneeeee ')
+      welcomeBanner.style.display = 'flex';
       } else {
-        console.log('No tieneeeee ')
+        welcomeBanner.style.display = 'none';
       }
 
     //Delete users when past 12 months withous signin
