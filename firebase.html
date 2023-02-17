@@ -2034,6 +2034,12 @@ async function getCompanyType(user) {
       admin_companies_table.style.borderBottom = "2px solid #f2a100";
     }
 
+    if (location.search.indexOf('?company=') !== -1) {
+      console.log('Si tieneeeee ')
+      } else {
+        console.log('No tieneeeee ')
+      }
+
     //Delete users when past 12 months withous signin
     /*admin.initializeApp();
 
