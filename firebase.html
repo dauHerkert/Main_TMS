@@ -1910,31 +1910,32 @@ async function getCompanyType(user) {
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
-    autoHide: true // hide the datepicker when a date is selected
+    autohide: true // hide the datepicker when a date is selected
   });
 
   endDatePicker.datepicker({
     format: 'mm-dd-yyyy',
-    startDate: startDatePicker.value,
+    startDate: minDate,
     endDate: maxDate,
-    autoHide: true // hide the datepicker when a date is selected
+    autohide: true // hide the datepicker when a date is selected
   });
 
   // Set the start date as the minimum date for the end datepicker
-  startDatePicker.on('changeDate', function(selected) {
-    var startDate = selected.date;
-    endDatePicker.datepicker('setStartDate', startDate);
-    if (selected.date > endDatePicker.datepicker('getDate')) {
-      endDatePicker.datepicker('setDate', startDate);
+  startDatePicker.on('changeDate', function(e) {
+    var startDate = e.date;
+    endDatePicker.setStartDate(startDate);
+    if (startDate.getTime() > endDatePicker.getDate().getTime()) {
+      endDatePicker.setDate(startDate);
       toastr.error('End date cannot be before start date');
     }
   });
+
   // Check end date is not before start date
-  endDatePicker.on('changeDate', function(selected) {
-    var startDate = startDatePicker.datepicker('getDate');
-    var endDate = selected.date;
-    if (endDate < startDate) {
-      endDatePicker.datepicker('setDate', startDate);
+  endDatePicker.on('changeDate', function(e) {
+    var startDate = startDatePicker.getDate();
+    var endDate = e.date;
+    if (endDate.getTime() < startDate.getTime()) {
+      endDatePicker.setDate(startDate);
       toastr.error('End date cannot be before start date');
     }
   });
@@ -1943,7 +1944,8 @@ async function getCompanyType(user) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
 });
-console.log('chicha')
+
+console.log('chichaaaaa')
 
     //Language selection
     var currentLang = "en";  // default language is English
