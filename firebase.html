@@ -1869,7 +1869,7 @@ async function getCompanyType(user) {
     // Iterate over the companies and find the one with the matching ID
     for (const company of companiesSnapshot.docs) {
         if (company.id === userInfo.user_company) {
-          companyProfile = company.data().company_profile;
+          companyProfile = company.data().company_type;
             companyZones = company.data().company_zones || [];
             break;
         }
