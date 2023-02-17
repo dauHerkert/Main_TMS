@@ -1920,13 +1920,10 @@ async function getCompanyType(user) {
     autoHide: true // hide the datepicker when a date is selected
   });
 
+  // Set the start date as the minimum date for the end datepicker
   startDatePicker.on('change', function() {
     var startDate = startDatePicker.datepicker('getDate');
-    var endDate = endDatePicker.datepicker('getDate');
-    if (endDate < startDate) {
-      endDatePicker.datepicker('setDate', startDate);
-      alert('End date cannot be before start date');
-    }
+    endDatePicker.datepicker('setStartDate', startDate);
   });
 
   endDatePicker.on('change', function() {
@@ -1934,7 +1931,7 @@ async function getCompanyType(user) {
     var endDate = endDatePicker.datepicker('getDate');
     if (endDate < startDate) {
       endDatePicker.datepicker('setDate', startDate);
-      alert('End date cannot be before start date');
+      toastr.error('End date cannot be before start date');
     }
   });
 
@@ -1943,7 +1940,8 @@ async function getCompanyType(user) {
   }
 });
 
-console.log('chichsdfdaa')
+
+console.log('chichsdsdssdsdsddsdfdaa')
 
     //Language selection
     var currentLang = "en";  // default language is English
