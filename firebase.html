@@ -805,7 +805,7 @@ function updateFileLabel() {
 
       try {
             const docRef = addDoc(collection(db, "mail"), {
-              to: 'serfaty.samuel90@gmail.com',
+              to: 'dev@porschetennis.com',
               message: {
                 subject: `Press form changes`,
                 html: `Hi! The user ${notifier_email.value} wants to make the following changes:<br><br> ${notifier_text.value}.`,
@@ -836,13 +836,11 @@ function updateFileLabel() {
       const from_date = document.getElementById('from_date');
       const to_date = document.getElementById('to_date');
       const special_request = document.getElementById('special_request');
-      const access_zone = document.getElementById('zones');
 
       setDoc(userRef, {
         supplier_visit_from: from_date.value,
         supplier_visit_to: to_date.value,
         supplier_special_request: special_request.value,
-        supplier_access_zone: access_zone.value,
         supplier_has_form_submitted: "1"
       }, { merge: true })
       .then(() => {
@@ -917,7 +915,7 @@ function updateFileLabel() {
 
       try {
             const docRef = addDoc(collection(db, "mail"), {
-              to: 'serfaty.samuel90@gmail.com',
+              to: 'dev@porschetennis.com',
               message: {
                 subject: `Supplier form changes`,
                 html: `Hi! The user ${supplier_email.value} wants to make the following changes:<br><br> ${supplier_text.value}.`,
