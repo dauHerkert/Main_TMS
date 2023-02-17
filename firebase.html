@@ -967,6 +967,11 @@ function updateFileLabel() {
         paginationSize:10,         //allow 10 rows per page of data.
         paginationSizeSelector:[10, 25, 50],
         paginationCounter:"rows", //display count of paginated rows in footer
+        tableBuilt: function(){
+        // update the paginator HTML
+          $(".tabulator-paginator").find($(".tabulator-page[data-page='prev']")).text('<');
+          $(".tabulator-paginator").find($(".tabulator-page[data-page='next']")).text('>');
+          },
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -1008,8 +1013,6 @@ function updateFileLabel() {
           }, align: "center", width: 120},
         ],
 });
-$(".tabulator-paginator").find($(".tabulator-page[data-page='prev']")).text('<');
-$(".tabulator-paginator").find($(".tabulator-page[data-page='next']")).text('>');
 
 let selectedData = [];
 console.log(selectedData);
