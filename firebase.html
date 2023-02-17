@@ -1915,7 +1915,7 @@ async function getCompanyType(user) {
 
   endDatePicker.datepicker({
     format: 'mm-dd-yyyy',
-    startDate: minDate,
+    startDate: startDatePicker.value,
     endDate: maxDate,
     autoHide: true // hide the datepicker when a date is selected
   });
