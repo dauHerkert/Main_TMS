@@ -1909,35 +1909,16 @@ async function getCompanyType(user) {
   var minDate = new Date(today.getFullYear(), 3, 15);
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
-  var endDatePicker = $('[data-date-picker="datepicker-end"]');
 
   startDatePicker.datepicker({
+    multipleDates: true,
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
-    autoHide: true // hide the datepicker when a date is selected
-  });
+    onSelect: function(instance, selectedDates) {
+    console.log(selectedDates); // log the selected dates
+  },
 
-  endDatePicker.datepicker({
-    format: 'mm-dd-yyyy',
-    startDate: minDate,
-    endDate: maxDate,
-    autoHide: true // hide the datepicker when a date is selected
-  });
-
-  // Set the start date as the minimum date for the end datepicker
-  startDatePicker.on('change', function() {
-    var startDate = startDatePicker.datepicker('getDate');
-    endDatePicker.datepicker('setStartDate', startDate);
-  });
-
-  endDatePicker.on('change', function() {
-    var startDate = startDatePicker.datepicker('getDate');
-    var endDate = endDatePicker.datepicker('getDate');
-    if (endDate < startDate) {
-      endDatePicker.datepicker('setDate', startDate);
-      toastr.error('End date cannot be before start date');
-    }
   });
 
   if (window.innerWidth < 768) {
