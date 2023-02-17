@@ -1929,7 +1929,7 @@ async function getCompanyType(user) {
       toastr.error('End date cannot be before start date');
     }
   });
-
+console.log('chicha')
   // Check end date is not before start date
   endDatePicker.on('changeDate', function(selected) {
     var startDate = startDatePicker.datepicker('getDate');
