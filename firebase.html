@@ -969,8 +969,10 @@ function updateFileLabel() {
         paginationCounter:"rows", //display count of paginated rows in footer
         tableBuilt: function(){
         // update the paginator HTML
-          $(".tabulator-paginator").find($(".tabulator-page[data-page='prev']")).text('<');
-          $(".tabulator-paginator").find($(".tabulator-page[data-page='next']")).text('>');
+        $(document).ready(function() {
+          $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
+          $(".tabulator-paginator").find(".tabulator-page[data-page='next']").html("&gt;");
+        });
           },
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -1944,7 +1946,7 @@ async function getCompanyType(user) {
 });
 
 
-console.log('chicaa')
+console.log('chicaaaaaaaaaaaaaa')
 
     //Language selection
     var currentLang = "en";  // default language is English
