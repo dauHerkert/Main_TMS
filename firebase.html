@@ -1381,6 +1381,11 @@ console.log('try')
         ],
 });
 
+$(document).ready(function() {
+          $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
+          $(".tabulator-paginator").find(".tabulator-page[data-page='next']").html("&gt;");
+        });
+
     const company_input = document.getElementById("company_search");
     company_input.addEventListener("keyup", function() {
       companies_table.setFilter(matchAny, { value: company_input.value });
