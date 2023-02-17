@@ -1929,7 +1929,6 @@ async function getCompanyType(user) {
       toastr.error('End date cannot be before start date');
     }
   });
-console.log('chicha')
   // Check end date is not before start date
   endDatePicker.on('changeDate', function(selected) {
     var startDate = startDatePicker.datepicker('getDate');
@@ -1944,7 +1943,7 @@ console.log('chicha')
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
 });
-
+console.log('chicha')
 
     //Language selection
     var currentLang = "en";  // default language is English
