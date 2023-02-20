@@ -1912,16 +1912,12 @@ async function getCompanyType(user) {
 
   startDatePicker.datepicker({
     multipleDates: true,
-    onShow: function(inst, animationCompleted) {
-    console.log('datepicker shown');
-  },
-  onRender: function(date) {
-    console.log('datepicker rendered');
-  },
+    range: true,
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
-    onSelect: function(selectedDates) {
+    onHide: function(inst, animationCompleted) {
+      var selectedDates = inst.getDates();
       console.log(selectedDates); // log the selected dates
     }
   });
@@ -1930,6 +1926,7 @@ async function getCompanyType(user) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
 });
+
 
     //Language selection
     var currentLang = "en";  // default language is English
