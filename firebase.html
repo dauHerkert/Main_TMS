@@ -44,7 +44,6 @@
       press_publisher: '',
       press_media_type: '',
       press_visit_dates: '',
-      press_visit_to: '',
       press_special_request: '',
       // press_has_uploaded_id: 0 | 1
       press_has_uploaded_id: '0',
@@ -709,7 +708,6 @@ function updateFileLabel() {
             }else{
             setDoc(userRef, {
               press_visit_dates: from_press_date.value,
-              press_visit_to: to_press_date.value,
               press_special_request: special_press_request.value,
               press_workspot: workspot.value,
               press_publisher: publisher.value,
