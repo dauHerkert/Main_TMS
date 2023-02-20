@@ -1912,6 +1912,12 @@ async function getCompanyType(user) {
 
   startDatePicker.datepicker({
     multipleDates: true,
+    onShow: function(inst, animationCompleted) {
+    console.log('datepicker shown');
+  },
+  onRender: function(date) {
+    console.log('datepicker rendered');
+  },
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
