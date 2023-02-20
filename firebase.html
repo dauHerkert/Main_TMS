@@ -423,8 +423,7 @@ if (profile_img) {
           }
         if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
           if(userInfo.supplier_has_form_submitted == "1"){
-            document.getElementById("from_date").setAttribute('disabled', "");
-            document.getElementById("to_date").setAttribute('disabled', "");
+            document.getElementById("Select-dates").setAttribute('disabled', "");
             document.getElementById("Special-request-2").setAttribute('disabled', "");
             document.getElementById("supplier_submmited_form").style.display = 'flex';
         }
