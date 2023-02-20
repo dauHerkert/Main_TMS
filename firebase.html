@@ -1904,28 +1904,21 @@ async function getCompanyType(user) {
       }
     });
 
-    $(document).ready(function () {
+  $(document).ready(function() {
   var today = new Date();
   var minDate = new Date(today.getFullYear(), 3, 15);
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
-
   startDatePicker.datepicker({
     multipleDates: true,
     range: true,
-    multipleDatesSeparator: ' - ',
-    format: 'mm-dd-yyyy',
-    startDate: minDate,
-    endDate: maxDate,
-    onSelect: function(inst, animationCompleted) {
-      var selectedDates = inst.getDates();
-      console.log('cucuuu', selectedDates); // log the selected dates
+    minDate: minDate,
+    maxDate: maxDate,
+    onSelect: function(formattedDate, date, inst) {
+      var selectedDates = inst.selectedDates;
+      console.log(selectedDates);
     }
   });
-
-  if (window.innerWidth < 768) {
-    $('[data-date-picker]').attr('readonly', 'readonly');
-  }
 });
 
 console.log('Try4321')
@@ -2046,6 +2039,5 @@ console.log('Try4321')
       }
     }
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
