@@ -2034,11 +2034,13 @@ async function getCompanyType(user) {
     }
 
     let welcomeBanner = document.getElementById('welcomeBanner');
-    if (location.search.indexOf('?company=') !== -1) {
+    if(welcomeBanner){
+      if (location.search.indexOf('?company=') !== -1) {
       welcomeBanner.style.display = 'flex';
       } else {
         welcomeBanner.style.display = 'none';
       }
+    }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
