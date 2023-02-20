@@ -1917,7 +1917,7 @@ async function getCompanyType(user) {
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
-    onHide: function(inst, animationCompleted) {
+    onSelect: function(inst, animationCompleted) {
       var selectedDates = inst.getDates();
       console.log(selectedDates); // log the selected dates
     }
