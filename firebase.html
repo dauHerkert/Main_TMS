@@ -425,7 +425,7 @@ if (profile_img) {
           if(userInfo.supplier_has_form_submitted == "1"){
             document.getElementById("from_date").setAttribute('disabled', "");
             document.getElementById("to_date").setAttribute('disabled', "");
-            document.getElementById("special_request").setAttribute('disabled', "");
+            document.getElementById("Special-request-2").setAttribute('disabled', "");
             document.getElementById("supplier_submmited_form").style.display = 'flex';
         }
         }
@@ -828,7 +828,7 @@ function updateFileLabel() {
 
       const userRef = doc(db, 'users', user.uid);
       const from_date = document.getElementById('from_date');
-      const special_request = document.getElementById('special_request');
+      const special_request = document.getElementById('Special-request-2');
 
       setDoc(userRef, {
         supplier_visit_dates: from_date.value,
