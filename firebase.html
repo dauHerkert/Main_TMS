@@ -1913,6 +1913,7 @@ async function getCompanyType(user) {
   startDatePicker.datepicker({
     multipleDates: true,
     range: true,
+    multipleDatesSeparator: ' - ',
     format: 'mm-dd-yyyy',
     startDate: minDate,
     endDate: maxDate,
@@ -1926,7 +1927,8 @@ async function getCompanyType(user) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
 });
-console.log('Try')
+
+console.log('Try1234')
     //Language selection
     var currentLang = "en";  // default language is English
     let reloaded = false;
