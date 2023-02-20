@@ -33,8 +33,7 @@
     // as well as of all the possible fields that a user doc can have
     const userDefaultValues = {
       // Supplier fields
-      supplier_visit_from: '',
-      supplier_visit_to: '',
+      supplier_visit_dates: '',
       supplier_special_request: '',
       supplier_access_zone: '',
       // supplier_has_form_submitted: 0 | 1
@@ -44,7 +43,7 @@
       press_workspot: '',
       press_publisher: '',
       press_media_type: '',
-      press_visit_from: '',
+      press_visit_dates: '',
       press_visit_to: '',
       press_special_request: '',
       // press_has_uploaded_id: 0 | 1
@@ -702,7 +701,6 @@ function updateFileLabel() {
       const publisher = document.getElementById('publisher');
       const media_type = document.getElementById('media_type');
       const from_press_date = document.getElementById('from_press_date');
-      const to_press_date = document.getElementById('to_press_date');
       const special_press_request = document.getElementById('special_press_request');
       const press_email = user.email;
       const press_id = document.getElementById('fileInp');
@@ -711,7 +709,7 @@ function updateFileLabel() {
               toastr.error('Please upload your profile picture')
             }else{
             setDoc(userRef, {
-              press_visit_from: from_press_date.value,
+              press_visit_dates: from_press_date.value,
               press_visit_to: to_press_date.value,
               press_special_request: special_press_request.value,
               press_workspot: workspot.value,
@@ -833,12 +831,10 @@ function updateFileLabel() {
 
       const userRef = doc(db, 'users', user.uid);
       const from_date = document.getElementById('from_date');
-      const to_date = document.getElementById('to_date');
       const special_request = document.getElementById('special_request');
 
       setDoc(userRef, {
-        supplier_visit_from: from_date.value,
-        supplier_visit_to: to_date.value,
+        supplier_visit_dates: from_date.value,
         supplier_special_request: special_request.value,
         supplier_has_form_submitted: "1"
       }, { merge: true })
