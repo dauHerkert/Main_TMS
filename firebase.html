@@ -1514,8 +1514,9 @@ getDocs(company_colRef)
           .then(() => {
                 toastr.success('Zone has been successfully created');
                 setTimeout(function() {
-                  window.location.reload();
-                }, 2000);
+                  document.getElementById('#zone_modal').style.display = 'none';
+                  $('body').addClass('modal-open');
+                }, 500);
           })
           .catch((err) => {
             toastr.error('There was an error creating the zone');
