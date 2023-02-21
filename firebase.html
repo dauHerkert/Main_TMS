@@ -1350,6 +1350,7 @@ console.log('try')
                 return companyLink;
             }},
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
+            {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
             {title:"Company", field:"company", sorter:"string", width:300, cssClass:"companyName first_column"},
             {title:"Company Zone", field:"zone", sorter:"string", width:400, cssClass:"companyZone other_columns"},
             {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
@@ -1404,7 +1405,7 @@ getDocs(company_colRef)
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
             let company_link = `https://porsche-tms.webflow.io/en/signup-porsche?company=${doc.id}`
-                data.push({companyLink: company_link, id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
+                data.push({companyLink: company_link, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
                 companies_table.setData(data);
         });
     })
@@ -1576,7 +1577,31 @@ getDocs(company_colRef)
           createOptions(update_company_zone);
           createOptions(update_user_zone);
           createOptions(profileZones);
+
+        //Print zones select
+      let companyProfile = document.getElementById('companyProfile');
+      let newCompanyProfile = document.getElementById('newCompanyProfile')
+      const profilesRef = collection(db, 'profiles');
+
+        function createProfileOptions(select) {
+          getDocs(profilesRef)
+            .then((snapshot) => {
+              snapshot.docs.forEach((doc) => {
+                let profile = doc.data();
+
+                var opt = document.createElement('option');
+                opt.value = profile.profile_name;
+                opt.textContent = profile.profile_name;
+                select.appendChild(opt);
+              });
+            })
+            .catch(err => {
+              console.log('error fetching companies', err);
+            });
         }
+            createProfileOptions(companyProfile);
+            createProfileOptions(newCompanyProfile);
+          }
       }
 
     //Company page
