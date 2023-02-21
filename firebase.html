@@ -1176,6 +1176,7 @@ update_user_form.addEventListener('submit', (e) => {
           }
           toastr.success('Account info has been successfully updated');
           document.getElementById('update_user_modal').style.display = 'none';
+          $('body').removeClass('modal-open');
         }
       })
       .catch((err) => {
