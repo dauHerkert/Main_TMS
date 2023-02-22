@@ -263,6 +263,8 @@ if (profile_img) {
               window.location = "/en/supplier";
             } else if (userData.user_is_admin === "1") {
               window.location = "/en/admin/users-table";
+            } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
+              window.location = "/en/admin/users-table";
             }
           }
         } else {
@@ -599,11 +601,11 @@ function updateFileLabel() {
             if(storedLang == "de"){
               setTimeout(function() {
                   window.location.pathname = "/de/signin-porsche";                
-                }, 3000);
+                }, 1500);
             }else{
               setTimeout(function() {
                   window.location.pathname = "/en/signin-porsche";
-                }, 3000);
+                }, 1500);
             }
             toastr.success('User account deleted');       
             return deleteDoc(doc(db, "users", user.uid));
