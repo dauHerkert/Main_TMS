@@ -1603,6 +1603,12 @@ getDocs(company_colRef)
             createProfileOptions(newCompanyProfile);
             console.log('Trysssss')
 
+             // Update the selectedUserZonesString variable based on the current selection
+            function updateSelectedCompanyZonesString() {
+              const selectedOptions = Array.from(newCompanyZones.selectedOptions).map(option => option.value);
+              selectedNewZonesString = selectedOptions.join(',');
+            }
+
             let newCompanyZones = document.getElementById('newCompanyZones');
             // Update the zones based on the selected company profile
             newCompanyProfile.addEventListener('change', async () => {
