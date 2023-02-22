@@ -931,6 +931,8 @@ function updateFileLabel() {
       */
 
      async function pageAdmin(user) {
+      
+      changeAdminTypeTitle(user);
 
       let userInfo = await getUserInfo(user);
       const userRef = doc(db, 'users', user.uid);
@@ -1326,13 +1328,8 @@ update_user_form.addEventListener('submit', (e) => {
     * --------------------------------------------------------------------------------------------
     */
     async function pageCompaniesTable(user){ 
-      let userInfo = await getUserInfo(user);
 
-      if(userInfo.user_is_admin === '0' && userInfo.company_admin === '1') {
-          document.getElementById('user_admin_type').innerHTML = 'Company Admin';
-      }else if(userInfo.user_is_admin === '1') {
-        document.getElementById('user_admin_type').innerHTML = 'Super Admin';
-      }
+      changeAdminTypeTitle(user)
 
     // Print companies table
     const company_colRef = collection(db, 'companies');
@@ -2179,6 +2176,25 @@ async function getCompanyType(user) {
       welcomeBanner.style.display = 'flex';
       } else {
         welcomeBanner.style.display = 'none';
+      }
+    }
+
+    async function changeAdminTypeTitle(user){
+      let userInfo = await getUserInfo(user);
+      let storedLang = localStorage.getItem("language");
+
+      if(storedLang == 'en'){
+        if(userInfo.user_is_admin === '0' && userInfo.company_admin === '1') {
+          document.getElementById('user_admin_type').innerHTML = 'Company Admin';
+        }else if(userInfo.user_is_admin === '1') {
+          document.getElementById('user_admin_type').innerHTML = 'Super Admin';
+        }
+      }else{
+        if(userInfo.user_is_admin === '0' && userInfo.company_admin === '1') {
+          document.getElementById('user_admin_type').innerHTML = 'Firmenadministrator';
+          }else if(userInfo.user_is_admin === '1') {
+            document.getElementById('user_admin_type').innerHTML = 'Superadministrator';
+          }
       }
     }
 
