@@ -1059,8 +1059,7 @@ getDocs(colRef)
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
-    console.log(data, 'admiin', adminCompanyName);
-    //table.setData(companyAdmin == '1' ? data.filter(user => adminCompanyName.includes(user.companyID)) : data);
+    console.log(data, 'admin', adminCompanyName);
     table.setData(companyAdmin == '1' ? data.filter(user => user.companyID.some(x => adminCompanyName.includes(x))) : data);
   })
   .catch(err => {
@@ -1327,6 +1326,12 @@ update_user_form.addEventListener('submit', (e) => {
     * --------------------------------------------------------------------------------------------
     */
     async function pageCompaniesTable(user){ 
+
+      if(user.user_is_admin == '0' && user.company_admin == '1') {
+          document.getElementById('user_admin_type').innerHTML = 'Company Admin'
+      }else if(user.user_is_admin == '1') {
+        document.getElementById('user_admin_type').innerHTML = 'Super Admin'
+      }
 
     // Print companies table
     const company_colRef = collection(db, 'companies');
