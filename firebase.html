@@ -1601,7 +1601,7 @@ getDocs(company_colRef)
         }
             createProfileOptions(companyProfile);
             createProfileOptions(newCompanyProfile);
-            console.log('Trysssss')
+            console.log('Lluviaa')
 
              // Update the selectedUserZonesString variable based on the current selection
             function updateSelectedCompanyZonesString() {
@@ -1641,12 +1641,58 @@ getDocs(company_colRef)
               } else {
                 console.log('Error: "userType" is empty.');
               }
-            });
+             });
 
-// Update the selectedUserZonesString variable whenever the zones select element changes
-newCompanyZones.addEventListener('change', () => {
-  updateSelectedCompanyZonesString();
-});
+              // Update the selectedUserZonesString variable whenever the zones select element changes
+              newCompanyZones.addEventListener('change', () => {
+                updateSelectedCompanyZonesString();
+              });
+
+              // Update the selectedUserZonesString variable based on the current selection
+            function updateCompanyZonesString() {
+              const selectedOptions = Array.from(companyZones.selectedOptions).map(option => option.value);
+              selectedValuesString = selectedOptions.join(',');
+            }
+
+            let companyZones = document.getElementById('companyZone');
+            let createCompanyProfile = document.getElementById('companyProfile');
+            // Update the zones based on the selected company profile
+            newCompanyProfile.addEventListener('change', async () => {
+              const companyProfile = createCompanyProfile.value;
+              if (companyProfile !== '') {
+                const profilesRef = doc(db, 'profiles', companyProfile);
+                try {
+                  const profilesSnapshot = await getDoc(profilesRef);
+                  if (profilesSnapshot.exists()) {
+                    const zones = profilesSnapshot.data().zones;
+                    // Update the options for the zones select
+                    const allOptions = companyZones.options;
+                    for (let i = 0; i < allOptions.length; i++) {
+                      const option = allOptions[i];
+                      if (zones.includes(option.value)) {
+                        option.selected = true;
+                      } else if (option.selected) {
+                        option.selected = false;
+                      }
+                    }
+                    $(companyZones).trigger('change.select2');
+                    // Update the selectedUserZonesString variable based on the current selection
+                    updateCompanyZonesString();
+                  } else {
+                    console.log('Error getting document(s):', error);
+                  }
+                } catch (error) {
+                  console.log('Error getting document:', error);
+                }
+              } else {
+                console.log('Error: "userType" is empty.');
+              }
+             });
+
+              // Update the selectedUserZonesString variable whenever the zones select element changes
+              newCompanyZones.addEventListener('change', () => {
+                updateCompanyZonesString();
+              });
           }
       }
 
