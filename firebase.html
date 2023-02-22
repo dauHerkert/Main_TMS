@@ -828,11 +828,11 @@ function updateFileLabel() {
       e.stopPropagation();
 
       const userRef = doc(db, 'users', user.uid);
-      const from_date = document.getElementById('from_date');
+      const select_dates = document.getElementById('Select-dates');
       const special_request = document.getElementById('Special-request-2');
 
       setDoc(userRef, {
-        supplier_visit_dates: from_date.value,
+        supplier_visit_dates: select_dates.value,
         supplier_special_request: special_request.value,
         supplier_has_form_submitted: "1"
       }, { merge: true })
