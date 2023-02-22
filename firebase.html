@@ -1657,7 +1657,7 @@ getDocs(company_colRef)
             let companyZones = document.getElementById('companyZone');
             let createCompanyProfile = document.getElementById('companyProfile');
             // Update the zones based on the selected company profile
-            newCompanyProfile.addEventListener('change', async () => {
+            createCompanyProfile.addEventListener('change', async () => {
               const companyProfile = createCompanyProfile.value;
               if (companyProfile !== '') {
                 const profilesRef = doc(db, 'profiles', companyProfile);
