@@ -924,6 +924,7 @@ function updateFileLabel() {
           toastr.success('Email has been sent!');
           setTimeout(function() {
             document.getElementById('supplier_notify_modal').style.display = 'none';
+            $('body').removeClass('modal-open');
                 }, 500);
     })
   }
