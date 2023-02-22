@@ -1427,7 +1427,6 @@ getDocs(company_colRef)
         e.preventDefault();
         e.stopPropagation()
 
-
         if ( company_id != null) {
           const companyRef = doc(db, 'companies', company_id.value);
           setDoc(companyRef, {
