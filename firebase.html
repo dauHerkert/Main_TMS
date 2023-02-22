@@ -815,6 +815,7 @@ function updateFileLabel() {
           toastr.success('Email has been sent!');
           setTimeout(function() {
             document.getElementById('notify_modal').style.display = 'none';
+            $('body').removeClass('modal-open');
                 }, 500);
           
     })
@@ -1307,9 +1308,11 @@ update_user_form.addEventListener('submit', (e) => {
 
           // Display instruction modal
       if(userInfo.first_sign == "0"){
-        document.getElementById('instructions_modal').style.display = "block";                 
+        document.getElementById('instructions_modal').style.display = "block";
+        $('body').addClass('modal-open');               
       }else{
         document.getElementById('instructions_modal').style.display = "none";
+        $('body').removeClass('modal-open');
       }
           //Add first_sign = 1 to stop displaying the modal after second load
         setDoc(userRef, {              
