@@ -1326,11 +1326,12 @@ update_user_form.addEventListener('submit', (e) => {
     * --------------------------------------------------------------------------------------------
     */
     async function pageCompaniesTable(user){ 
+      let userInfo = await getUserInfo(user);
 
-      if(user.user_is_admin === '0' && user.company_admin === '1') {
-          document.getElementById('user_admin_type').innerHTML = 'Company Admin'
-      }else if(user.user_is_admin === '1') {
-        document.getElementById('user_admin_type').innerHTML = 'Super Admin'
+      if(userInfo.user_is_admin === '0' && userInfo.company_admin === '1') {
+          document.getElementById('user_admin_type').innerHTML = 'Company Admin';
+      }else if(userInfo.user_is_admin === '1') {
+        document.getElementById('user_admin_type').innerHTML = 'Super Admin';
       }
 
     // Print companies table
