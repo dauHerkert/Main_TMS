@@ -909,15 +909,15 @@ function updateFileLabel() {
       e.preventDefault();
       e.stopPropagation();
 
-      try {
+      if (storedLang == 'en'){
+        try {
             const docRef = addDoc(collection(db, "mail"), {
               to: 'dev@porschetennis.com',
               message: {
-                subject: `Supplier form changes`,
-                html: `Hi! The user ${supplier_email.value} wants to make the following changes:<br><br> ${supplier_text.value}.`,
+                subject: `EN: Supplier form changes`,
+                html: `EN: Hi! The user ${supplier_email.value} wants to make the following changes:<br><br> ${supplier_text.value}.`,
               }
             });
-            console.log("Email has been sent!");
           } catch (e) {
             console.error("Error adding document: ", e);
           }
@@ -926,6 +926,24 @@ function updateFileLabel() {
             document.getElementById('supplier_notify_modal').style.display = 'none';
             $('body').removeClass('modal-open');
                 }, 500);
+      }else{
+        try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: 'dev@porschetennis.com',
+              message: {
+                subject: `DE: Supplier form changes`,
+                html: `DE: Hi! The user ${supplier_email.value} wants to make the following changes:<br><br> ${supplier_text.value}.`,
+              }
+            });
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+          toastr.success('Email has been sent!');
+          setTimeout(function() {
+            document.getElementById('supplier_notify_modal').style.display = 'none';
+            $('body').removeClass('modal-open');
+                }, 500);
+      }
     })
   }
       /*
@@ -1154,35 +1172,67 @@ update_user_form.addEventListener('submit', (e) => {
     }, { merge: true })
       .then(() => {
         if (user_status_update.value == 'decline') {
-          try {
+          if(storedLang == 'en'){
+            try {
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
-                subject: 'Sorry you have been declined',
-                html: 'Sorry you have been declined',
+                subject: 'EN: Sorry you have been declined',
+                html: 'EN: Sorry you have been declined',
               }
-            });
-          } catch (e) {
-            console.error("Error declining user: ", e);
-          }
-          toastr.success('User registration declined');
-        } else {
-          try {
+              });
+            } catch (e) {
+              console.error("Error declining user: ", e);
+            }
+            toastr.success('User registration declined');
+            document.getElementById('update_user_modal').style.display = 'none';
+            }else {
+              try {
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
-                subject: 'Hello from Firebase!',
-                html: 'This is an <code>HTML</code> email body.',
+                subject: 'DE: Sorry you have been declined',
+                html: 'DE: Sorry you have been declined',
               }
-            });
-            console.log("Document written with ID: ", docRef.id);
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-          toastr.success('Account info has been successfully updated');
-          document.getElementById('update_user_modal').style.display = 'none';
-          $('body').removeClass('modal-open');
-        }
+              });
+            } catch (e) {
+              console.error("Error declining user: ", e);
+            }
+            toastr.success('User registration declined');
+            document.getElementById('update_user_modal').style.display = 'none';
+            }
+          } else {
+              if(storedLang == 'en'){
+                try {
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${user_specific_email.value}`,
+                  message: {
+                    subject: 'EN: Hello from Firebase!',
+                    html: 'EN: This is an <code>HTML</code> email body.',
+                  }
+                });
+                    console.log("Document written with ID: ", docRef.id);
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
+                }else {
+                  try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                      to: `${user_specific_email.value}`,
+                      message: {
+                        subject: 'DE: Hello from Firebase!',
+                        html: 'DE: This is an <code>HTML</code> email body.',
+                      }
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
+                }
+              toastr.success('Account info has been successfully updated');
+              document.getElementById('update_user_modal').style.display = 'none';
+              $('body').removeClass('modal-open');
+            }
       })
       .catch((err) => {
         toastr.error('There was an error updating the account info');
