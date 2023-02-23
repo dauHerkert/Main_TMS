@@ -1870,12 +1870,13 @@ update_user_form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation();
 
-              try {
+              if(storedLang == 'de'){
+                try {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${email_to_send.value}`,
                     message: {
-                    subject: 'Hello! Heres is the registration link',
-                    html:  `${company_link.value}`,
+                    subject: 'DE: Hello! Here is the registration link',
+                    html:  `DE: ${company_link.value}`,
                     }
                     });
                     toastr.success('Email has been successfully sent');
@@ -1885,6 +1886,23 @@ update_user_form.addEventListener('submit', (e) => {
                     } catch (e) {
                       toastr.error("Error sending email: ", e);
                     }
+              }else {
+                try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                    to: `${email_to_send.value}`,
+                    message: {
+                    subject: 'EN: Hello! Here is the registration link',
+                    html:  `EN: ${company_link.value}`,
+                    }
+                    });
+                    toastr.success('Email has been successfully sent');
+                    setTimeout(function() {
+                      document.getElementById('company_link_modal').style.display = 'none'
+                    }, 500);
+                    } catch (e) {
+                      toastr.error("Error sending email: ", e);
+                    }
+              }
                 })
               }
 
