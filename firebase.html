@@ -95,15 +95,15 @@
             setTimeout(function(user) {
                 if (storedLang) {
                     if (storedLang == "de") {
-                      if(user.user_type == 'Press'){
+                      if(userDefaultValues.user_type == 'Press'){
                         window.location = "/de/press";
-                      }else if (user.user_type == 'Supplier'){
+                      }else if (userDefaultValues.user_type == 'Supplier'){
                         window.location = "/de/supplier";
                       }
                     } else {
-                      if(user.user_type == 'Press'){
+                      if(userDefaultValues.user_type == 'Press'){
                         window.location = "/en/press";
-                      }else if (user.user_type == 'Supplier'){
+                      }else if (userDefaultValues.user_type == 'Supplier'){
                         window.location = "/en/supplier";
                       }
                     }
