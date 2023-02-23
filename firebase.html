@@ -95,9 +95,17 @@
             setTimeout(function() {
                 if (storedLang) {
                     if (storedLang == "de") {
-                        window.location = "/de/account";
+                      if(user.user_type == 'Press'){
+                        window.location = "/de/press";
+                      }else if (user.user_type == 'Supplier'){
+                        window.location = "/de/supplier";
+                      }
                     } else {
-                        window.location = "/en/account";
+                      if(user.user_type == 'Press'){
+                        window.location = "/en/press";
+                      }else if (user.user_type == 'Supplier'){
+                        window.location = "/en/supplier";
+                      }
                     }
                 } else {
                     window.location = "/en/account";
@@ -220,7 +228,7 @@ if (profile_img) {
       uploadBytes(storageRef, blob)
         .then((snapshot) => {
           toastr.success('You have updated the profile picture successfully');
-          setTimeout(reloadPage, 3000);
+          setTimeout(reloadPage, 1500);
         })
         .catch(err => {
           console.log('error uploading file', err);
