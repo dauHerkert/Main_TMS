@@ -2183,8 +2183,8 @@ async function getCompanyType(user) {
     function changeLanguage(lang) {
   // Check if the current page is a welcome or signup page
   const currentPath = window.location.pathname;
-  const isWelcomePage = currentPath.startsWith("/en/welcome") || currentPath.startsWith("/fr/bienvenue");
-  const isSignupPage = currentPath.startsWith("/signup");
+  const isWelcomePage = currentPath.startsWith("/en/welcome") || currentPath.startsWith("/de/welcome");
+  const isSignupPage = currentPath.startsWith("/en/signup") || currentPath.startsWith("/de/signup");
   
   // Get the current URL parameters
   const urlParams = new URLSearchParams(window.location.search);
