@@ -550,7 +550,7 @@ function updateProfilePic(e, user) {
     uploadBytes(storageRef, blob)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
-        setTimeout(reloadPage, 3000);
+        setTimeout(reloadPage, 1500);
       })
       .catch(err => {
         console.log('error uploading file', err);
@@ -1204,12 +1204,13 @@ update_user_form.addEventListener('submit', (e) => {
             }, { merge: true })
                 .then(() => {
                   if(bulk_status_update.value == 'decline'){
-                  try {
+                    if(storedLang == 'en'){
+                      try {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
                     message: {
-                    subject: 'Sorry you have been declined',
-                    html: 'Sorry you have been declined',
+                    subject: 'EN: Sorry you have been declined',
+                    html: 'EN: Sorry you have been declined',
                     }
                     });
                     } catch (e) {
@@ -1218,14 +1219,32 @@ update_user_form.addEventListener('submit', (e) => {
                     toastr.success('User registration declined');
                     setTimeout(function() {
                       window.location.reload();
-                    }, 2000);
-                }else{
-                try {
+                    }, 1500);
+                    }else{
+                      try {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
                     message: {
-                    subject: 'Hello from Firebase!',
-                    html: 'This is an <code>HTML</code> email body.',
+                    subject: 'DE: Sorry you have been declined',
+                    html: 'DE: Sorry you have been declined',
+                    }
+                    });
+                    } catch (e) {
+                    console.error("Error declining user: ", e);
+                    }
+                    toastr.success('User registration declined');
+                    setTimeout(function() {
+                      window.location.reload();
+                    }, 1500);
+                    }
+                }else{
+                    if(storedLang == 'en'){
+                      try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                    to: `${userData.data().user_email}`,
+                    message: {
+                    subject: 'EN: Hello from Firebase!',
+                    html: 'EN: This is an <code>HTML</code> email body.',
                     }
                     });
                     console.log("Document written with ID: ", docRef.id);
@@ -1236,8 +1255,26 @@ update_user_form.addEventListener('submit', (e) => {
                     setTimeout(function() {
                       window.location.reload();
                     }, 2000);
+                    }else{
+                      try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                    to: `${userData.data().user_email}`,
+                    message: {
+                    subject: 'DE: Hello from Firebase!',
+                    html: 'DE: This is an <code>HTML</code> email body.',
+                    }
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                    } catch (e) {
+                    console.error("Error adding document: ", e);
+                    }
+                    toastr.success('Account info has been successfully updated');
+                    setTimeout(function() {
+                      window.location.reload();
+                    }, 2000);
+                    }
                   }
-              })
+                })
                 .catch((err) => {
                     toastr.error('There was an error updating the users info');
                     console.log('error updating users info', err);
@@ -1344,13 +1381,13 @@ update_user_form.addEventListener('submit', (e) => {
         //options here
         layout:"fitData",
         overflow:'x',
-        responsiveLayout:"scroll",  //hide columns that dont fit on the table
-        addRowPos:"top",            //when adding a new row, add it to the top of the table
-        history:true,               //allow undo and redo actions on the table
-        pagination:"local",         //paginate the data
-        paginationSize:10,           //allow 10 rows per page of data
+        responsiveLayout:"scroll",
+        addRowPos:"top",
+        history:true,
+        pagination:"local",
+        paginationSize:10,
         paginationSizeSelector:[10, 25, 50],
-        paginationCounter:"rows",   //display count of paginated rows in footer
+        paginationCounter:"rows",
         columns:[
         {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy", formatter: function(cell, formatterParams, onRendered){
                 let companyLink = cell.getValue();
@@ -1380,9 +1417,9 @@ update_user_form.addEventListener('submit', (e) => {
         }},           
             
         ],
-});
+    });
 
-$(document).ready(function() {
+  $(document).ready(function() {
           $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
           $(".tabulator-paginator").find(".tabulator-page[data-page='next']").html("&gt;");
         });
@@ -1407,7 +1444,7 @@ $(document).ready(function() {
         return match;
     }
 
-getDocs(company_colRef)
+  getDocs(company_colRef)
     .then((snapshot) => {
         let data = [];
         snapshot.docs.forEach((doc) => {
@@ -2204,14 +2241,6 @@ async function getCompanyType(user) {
       }
     }
 
-    /*if(storedLang){
-      if (storedLang == "de"){
-        document.getElementById('users_table').innerHTML = 'Benutzerliste';
-        document.getElementById('companies_table').innerHTML = 'Firmenliste';
-      }
-    }*/
-
-    
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
