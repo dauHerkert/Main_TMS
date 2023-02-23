@@ -92,7 +92,7 @@
             } else {
                 toastr.success('Default values successfully set');
             }
-            setTimeout(function() {
+            setTimeout(function(user) {
                 if (storedLang) {
                     if (storedLang == "de") {
                       if(user.user_type == 'Press'){
