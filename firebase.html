@@ -2181,22 +2181,6 @@ async function getCompanyType(user) {
     let reloaded = false;
 
     function changeLanguage(lang) {
-        localStorage.setItem("language", lang);
-        var currentPath = window.location.pathname;
-        var pathArray = currentPath.split("/");
-        if(pathArray.length < 3 || (pathArray.length >= 3 && !/^[a-z]{2}$/.test(pathArray[1]))){
-            currentPath = '/'+lang+currentPath;
-        }else{
-            currentPath = currentPath.replace(/\/[a-z]{2}\//, '/' + lang + '/');
-        }
-        window.history.pushState({}, null, currentPath);
-        if (!reloaded) {
-            reloaded = true;
-            location.reload();
-        }
-    }
-
-    function changeLanguage(lang) {
   // Check if the current page is a welcome or signup page
   const currentPath = window.location.pathname;
   const isWelcomePage = currentPath.startsWith("/en/welcome") || currentPath.startsWith("/fr/bienvenue");
