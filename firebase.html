@@ -1881,7 +1881,8 @@ update_user_form.addEventListener('submit', (e) => {
                     });
                     toastr.success('Email has been successfully sent');
                     setTimeout(function() {
-                      document.getElementById('company_link_modal').style.display = 'none'
+                      document.getElementById('company_link_modal').style.display = 'none';
+                      $('body').removeClass('modal-open');
                     }, 500);
                     } catch (e) {
                       toastr.error("Error sending email: ", e);
