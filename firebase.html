@@ -2177,28 +2177,52 @@ async function getCompanyType(user) {
 });
 
 //Change language
-function changeLanguage(lang) {
+//Language selection
+    let reloaded = false;
+
+    function changeLanguage(lang) {
+        localStorage.setItem("language", lang);
+        var currentPath = window.location.pathname;
+        var pathArray = currentPath.split("/");
+        if(pathArray.length < 3 || (pathArray.length >= 3 && !/^[a-z]{2}$/.test(pathArray[1]))){
+            currentPath = '/'+lang+currentPath;
+        }else{
+            currentPath = currentPath.replace(/\/[a-z]{2}\//, '/' + lang + '/');
+        }
+        window.history.pushState({}, null, currentPath);
+        if (!reloaded) {
+            reloaded = true;
+            location.reload();
+        }
+    }
+
+    function changeLanguage(lang) {
   // Check if the current page is a welcome or signup page
   const currentPath = window.location.pathname;
-  if (currentPath.startsWith("/en/welcome") || currentPath.startsWith("/de/welcome") || currentPath.startsWith("/en/signup-porsche") || currentPath.startsWith("/de/signup-porsche")) {
-    // Get the current URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const companyId = urlParams.get("company");
+  const isWelcomePage = currentPath.startsWith("/en/welcome") || currentPath.startsWith("/fr/bienvenue");
+  const isSignupPage = currentPath.startsWith("/signup");
+  
+  // Get the current URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const companyId = urlParams.get("company");
 
-    // Set the new language and update the URL
-    localStorage.setItem("language", lang);
-    let newPath = currentPath.replace(/^\/[a-z]{2}/, `/${lang}`);
+  // Set the new language and update the URL
+  localStorage.setItem("language", lang);
+  let newPath = currentPath.replace(/^\/[a-z]{2}/, `/${lang}`);
 
-    // Add the company parameter if it is present in the current URL
-    if (companyId) {
-      newPath += `?company=${companyId}`;
-    }
-    window.history.pushState({}, null, newPath);
-    // Reload the page with the new URL
-    location.reload();
+  // Add the company parameter if it is present in the current URL and we're on the welcome or signup page
+  if (companyId && (isWelcomePage || isSignupPage)) {
+    newPath += `?company=${companyId}`;
   }
-}
 
+  window.history.pushState({}, null, newPath);
+
+  // Reload the page with the new URL
+  if (!reloaded) {
+            reloaded = true;
+            location.reload();
+        }
+}
     window.addEventListener('load', function(){
       var storedLang = localStorage.getItem("language");
       if(storedLang){
