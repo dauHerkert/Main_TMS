@@ -2179,7 +2179,7 @@ async function getCompanyType(user) {
 function changeLanguage(lang) {
   // Check if the current page is a welcome or signup page
   const currentPath = window.location.pathname;
-  if (currentPath.startsWith("/en/welcome") || currentPath.startsWith("/fr/bienvenue") || currentPath.startsWith("/signup")) {
+  if (currentPath.startsWith("/en/welcome") || currentPath.startsWith("/de/welcome") || currentPath.startsWith("/en/signup-porsche") || currentPath.startsWith("/de/signup-porsche")) {
     // Get the current URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const companyId = urlParams.get("company");
