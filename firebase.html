@@ -1499,7 +1499,7 @@ update_user_form.addEventListener('submit', (e) => {
         let data = [];
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
-            let company_link = `https://porsche-tms.webflow.io/en/signup-porsche?company=${doc.id}`
+            let company_link = `https://porsche-tms.webflow.io/en/welcome?company=${doc.id}`
                 data.push({companyLink: company_link, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
                 companies_table.setData(data);
         });
@@ -1906,7 +1906,6 @@ update_user_form.addEventListener('submit', (e) => {
               }
                 })
               }
-
     /*
     * -----------------------------------------------------------------------------------------------------------
     * URL functions
