@@ -62,8 +62,6 @@
       user_type: '',
       // user_status: pending | ok
       user_status: 'pending',
-      //user first sign
-      first_sign: "0"
     };
 
     /*
@@ -685,9 +683,7 @@ function updateFileLabel() {
       }else{
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }
-      //Add first_sign = 1 to stop displaying the modal after second load
      setDoc(userRef, {
-      first_sign: "1",
       last_signin_date: new Date()
      }, { merge: true })
      .then(() => {
@@ -828,15 +824,7 @@ function updateFileLabel() {
           updateProfilePic(ev, user);
         }, true);
       }
-      // Display instruction modal
-      if(userInfo.first_sign == "0"){
-        document.getElementById('instructions_modal').style.display = "block";
-      }else{
-        document.getElementById('instructions_modal').style.display = "none";
-      }
-          //Add first_sign = 1 to stop displaying the modal after second load
           setDoc(userRef, {
-            first_sign: "1",
             last_signin_date: new Date()
           }, { merge: true })
           .then(() => {
@@ -940,16 +928,7 @@ function updateFileLabel() {
           updateProfilePic(ev, user);
         }, true);
       }
-
-      // Display instruction modal
-      if(userInfo.first_sign == "0"){
-        document.getElementById('instructions_modal').style.display = "block";
-      }else{
-        document.getElementById('instructions_modal').style.display = "none";
-      }
-      //Add first_sign = 1 to stop displaying the modal after second load
      setDoc(userRef, {
-      first_sign: "1",
       last_signin_date: new Date()
      }, { merge: true })
      .then(() => {
@@ -1454,18 +1433,7 @@ update_user_form.addEventListener('submit', (e) => {
       let update_user_zone = document.getElementById('userZones');
 
           createOptions(update_user_zone);
-
-          // Display instruction modal
-      if(userInfo.first_sign == "0"){
-        document.getElementById('instructions_modal').style.display = "block";
-        $('body').addClass('modal-open');
-      }else{
-        document.getElementById('instructions_modal').style.display = "none";
-        $('body').removeClass('modal-open');
-      }
-          //Add first_sign = 1 to stop displaying the modal after second load
         setDoc(userRef, {
-          first_sign: "1",
           last_signin_date: new Date()
         }, { merge: true })
         .then(() => {
