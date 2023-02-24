@@ -195,7 +195,7 @@ if (profile_img) {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
         // Open the modal
-        modal4.style.display = "block";        
+        modal4.style.display = "block";
         // Initialize the cropper
         const image = document.getElementById('profile_image_cropper');
         image.src = URL.createObjectURL(fileItem);
@@ -299,7 +299,7 @@ if (profile_img) {
     // Handle signOut
     function handleSignOut() {
       var storedLang = localStorage.getItem("language");
-        signOut(auth).then(() => {          
+        signOut(auth).then(() => {
           setTimeout(() => {
             toastr.error('user signed out');
         }, 1000);
@@ -313,7 +313,7 @@ if (profile_img) {
           }else{
             window.location = "/en/signin-porsche";
           }
-            
+
         }, 1500);
         }).catch((error) => {
             const errorMessage = error.message;
@@ -343,7 +343,7 @@ if (profile_img) {
           signInForm.addEventListener('submit', handleSignIn, true)
         }
     }
-      let signOutButton = document.getElementById('signout-button');      
+      let signOutButton = document.getElementById('signout-button');
       if(signOutButton) {
           signOutButton.addEventListener('click', handleSignOut);
         }
@@ -393,7 +393,7 @@ if (profile_img) {
               if(window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table'){
                 location.replace('/de/account');
               }
-              document.getElementById('admin_button').style.display = 'block';   
+              document.getElementById('admin_button').style.display = 'block';
           }else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1") {
               form_button.setAttribute('href', '/de/supplier');
               document.getElementById('admin_button').style.display = 'block';
@@ -409,7 +409,7 @@ if (profile_img) {
                   if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table'){
                     location.replace('/en/account');
                   }
-                  document.getElementById('admin_button').style.display = 'none';     
+                  document.getElementById('admin_button').style.display = 'none';
               }else if (userInfo.user_is_admin == "1") {
                   form_button.setAttribute('href', '/en/supplier');
                   document.getElementById('admin_button').style.display = 'block';
@@ -426,7 +426,7 @@ if (profile_img) {
                   if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.company_admin != "1"){
                     location.replace('/en/account');
                   }
-                  document.getElementById('admin_button').style.display = 'none';     
+                  document.getElementById('admin_button').style.display = 'none';
               }else if (userInfo.user_is_admin == "1") {
                   form_button.setAttribute('href', '/en/supplier');
                   document.getElementById('admin_button').style.display = 'block';
@@ -538,7 +538,7 @@ updatedPicture.addEventListener("change", function handleProfilePic(e) {
           // Get the cropped canvas data as a data URL
           const canvas = cropper.getCroppedCanvas();
           const dataURL = canvas.toDataURL();
-          
+
           // Set the data URL as the value of the hidden input field
           hiddenInput.value = dataURL;
         },
@@ -598,7 +598,7 @@ function updateFileLabel() {
     }
 
     let deleteButton = document.getElementById('delete_user');
-    var storedLang = localStorage.getItem("language"); 
+    var storedLang = localStorage.getItem("language");
 
     if(deleteButton){
       deleteButton.addEventListener("click", async function(user){
@@ -609,19 +609,19 @@ function updateFileLabel() {
           deleteUser(user).then(() => {
             if(storedLang == "de"){
               setTimeout(function() {
-                  window.location.pathname = "/de/signin-porsche";                
+                  window.location.pathname = "/de/signin-porsche";
                 }, 1500);
             }else{
               setTimeout(function() {
                   window.location.pathname = "/en/signin-porsche";
                 }, 1500);
             }
-            toastr.success('User account deleted');       
+            toastr.success('User account deleted');
             return deleteDoc(doc(db, "users", user.uid));
           }).catch((error) => {
             console.error('An error occurred while deleting the user account', error);
           });
-          console.log("User's data deleted from Firestore");          
+          console.log("User's data deleted from Firestore");
         } catch (error) {
           toastr.error('An error occurred while deleting the user account', error);
         }
@@ -644,7 +644,7 @@ function updateFileLabel() {
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }
       //Add first_sign = 1 to stop displaying the modal after second load
-     setDoc(userRef, {              
+     setDoc(userRef, {
       first_sign: "1",
       last_signin_date: new Date()
      }, { merge: true })
@@ -669,7 +669,7 @@ function updateFileLabel() {
         update_email_modal.addEventListener('submit', function(ev) {
           ev.preventDefault();
           ev.stopPropagation();
-          
+
           if(change_email.value == confirm_email.value){
             updateUserEmail(ev, user, change_email.value);
           }else{
@@ -772,7 +772,7 @@ function updateFileLabel() {
       }else{
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }
-      
+
       showProfilePic(user);
 
       // Get press form
@@ -788,12 +788,12 @@ function updateFileLabel() {
       }
       // Display instruction modal
       if(userInfo.first_sign == "0"){
-        document.getElementById('instructions_modal').style.display = "block";                 
+        document.getElementById('instructions_modal').style.display = "block";
       }else{
         document.getElementById('instructions_modal').style.display = "none";
       }
           //Add first_sign = 1 to stop displaying the modal after second load
-          setDoc(userRef, {              
+          setDoc(userRef, {
             first_sign: "1",
             last_signin_date: new Date()
           }, { merge: true })
@@ -832,7 +832,7 @@ function updateFileLabel() {
             document.getElementById('notify_modal').style.display = 'none';
             $('body').removeClass('modal-open');
                 }, 500);
-          
+
     })
   }
     /*
@@ -901,12 +901,12 @@ function updateFileLabel() {
 
       // Display instruction modal
       if(userInfo.first_sign == "0"){
-        document.getElementById('instructions_modal').style.display = "block";                 
+        document.getElementById('instructions_modal').style.display = "block";
       }else{
         document.getElementById('instructions_modal').style.display = "none";
       }
       //Add first_sign = 1 to stop displaying the modal after second load
-     setDoc(userRef, {              
+     setDoc(userRef, {
       first_sign: "1",
       last_signin_date: new Date()
      }, { merge: true })
@@ -973,7 +973,7 @@ function updateFileLabel() {
       */
 
      async function pageAdmin(user) {
-      
+
       changeAdminTypeTitle(user);
 
       let userInfo = await getUserInfo(user);
@@ -984,7 +984,7 @@ function updateFileLabel() {
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
-      }  
+      }
 
       // =========== USERS TABLE FUNCTIONS ============ //
       // Print users table
@@ -1364,7 +1364,7 @@ update_user_form.addEventListener('submit', (e) => {
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           let company = doc.data();
-          
+
           var opt = document.createElement('option');
           opt.value = doc.id;
           opt.textContent = company.company_name;
@@ -1381,7 +1381,7 @@ update_user_form.addEventListener('submit', (e) => {
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           let profile = doc.data();
-          
+
           var opt = document.createElement('option');
           opt.value = doc.id;
           opt.textContent = profile.profile_name;
@@ -1417,13 +1417,13 @@ update_user_form.addEventListener('submit', (e) => {
           // Display instruction modal
       if(userInfo.first_sign == "0"){
         document.getElementById('instructions_modal').style.display = "block";
-        $('body').addClass('modal-open');               
+        $('body').addClass('modal-open');
       }else{
         document.getElementById('instructions_modal').style.display = "none";
         $('body').removeClass('modal-open');
       }
           //Add first_sign = 1 to stop displaying the modal after second load
-        setDoc(userRef, {              
+        setDoc(userRef, {
           first_sign: "1",
           last_signin_date: new Date()
         }, { merge: true })
@@ -1440,7 +1440,7 @@ update_user_form.addEventListener('submit', (e) => {
     *  Companies table page functions
     * --------------------------------------------------------------------------------------------
     */
-    async function pageCompaniesTable(user){ 
+    async function pageCompaniesTable(user){
 
       changeAdminTypeTitle(user)
 
@@ -1484,8 +1484,8 @@ update_user_form.addEventListener('submit', (e) => {
             button.setAttribute("onclick","openModal2()");
             button.setAttribute("id","open_companies_modal");
             return button;
-        }},           
-            
+        }},
+
         ],
     });
 
@@ -1562,7 +1562,7 @@ update_user_form.addEventListener('submit', (e) => {
           });
         }
       });
-      
+
       //Create companies
       let create_company_form = document.getElementById('create_company_form');
       let new_company_name = document.getElementById('newCompanyName');
@@ -1662,7 +1662,7 @@ update_user_form.addEventListener('submit', (e) => {
       create_zone_form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         createZone()
       });
 
@@ -1836,7 +1836,7 @@ update_user_form.addEventListener('submit', (e) => {
 
           console.log(company)
           localStorage.setItem('users', JSON.stringify(users));
-          localStorage.setItem('company', companyValue);          
+          localStorage.setItem('company', companyValue);
 
           //Save company name from the companies collection
           localStorage.setItem('company_collection', JSON.stringify(company));
@@ -1849,7 +1849,7 @@ update_user_form.addEventListener('submit', (e) => {
             }
           }else{
             window.location.replace('/en/company');
-          }         
+          }
       })
 
     if (window.location.pathname == '/de/company'){
@@ -2027,7 +2027,7 @@ update_user_form.addEventListener('submit', (e) => {
       let forgot_password_email = localStorage.getItem('email');
       document.getElementById('email_confirmation_text').innerHTML = `We sent a password reset link to ${forgot_password_email}`;
     }
-    
+
     //Location redirect when the user is logged out
     function replaceUrl(user) {
         let form_button = document.getElementById('form_button');
@@ -2043,7 +2043,7 @@ update_user_form.addEventListener('submit', (e) => {
             account_button.setAttribute('href', '/de/signin-porsche');
             users_button.setAttribute('href', '/de/signin-porsche');
             companies_button.setAttribute('href', '/de/signin-porsche');
-            document.getElementById('signIn_button').style.display = 'block'; 
+            document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
               window.location.replace('https://porsche-tms.webflow.io/de/signin-porsche');
@@ -2053,7 +2053,7 @@ update_user_form.addEventListener('submit', (e) => {
             account_button.setAttribute('href', '/en/signin-porsche');
             users_button.setAttribute('href', '/de/signin-porsche');
             companies_button.setAttribute('href', '/de/signin-porsche');
-            document.getElementById('signIn_button').style.display = 'block'; 
+            document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
               window.location.replace('https://porsche-tms.webflow.io/en/signin-porsche');
@@ -2064,16 +2064,16 @@ update_user_form.addEventListener('submit', (e) => {
           account_button.setAttribute('href', '/en/signin-porsche');
           users_button.setAttribute('href', '/de/signin-porsche');
           companies_button.setAttribute('href', '/de/signin-porsche');
-          document.getElementById('signIn_button').style.display = 'block'; 
+          document.getElementById('signIn_button').style.display = 'block';
           document.getElementById('signUp_button').style.display = 'block';
-        }        
+        }
       }else{
         if(storedLang){
           if(storedLang == "de"){
             account_button.setAttribute('href', '/de/account');
             users_button.setAttribute('href', '/de/admin/users-table');
             companies_button.setAttribute('href', '/de/admin/companies-table');
-            document.getElementById('signIn_button').style.display = 'none'; 
+            document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/'){
               window.location.replace('https://porsche-tms.webflow.io/de/account');
@@ -2082,7 +2082,7 @@ update_user_form.addEventListener('submit', (e) => {
             account_button.setAttribute('href', '/en/account');
             users_button.setAttribute('href', '/en/admin/users-table');
             companies_button.setAttribute('href', '/en/admin/companies-table');
-            document.getElementById('signIn_button').style.display = 'none'; 
+            document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/'){
               window.location.replace('https://porsche-tms.webflow.io/en/account');
@@ -2092,18 +2092,18 @@ update_user_form.addEventListener('submit', (e) => {
               account_button.setAttribute('href', '/en/account');
               users_button.setAttribute('href', '/en/admin/users-table');
               companies_button.setAttribute('href', '/en/admin/companies-table');
-              document.getElementById('signIn_button').style.display = 'none'; 
+              document.getElementById('signIn_button').style.display = 'none';
               document.getElementById('signUp_button').style.display = 'none';
               if(window.location.pathname == '/'){
                 window.location.replace('https://porsche-tms.webflow.io/en/account');
               }
-            }        
+            }
         }
       }
     // first page load
     const loadingOverlay = document.querySelector(".loading-overlay");
     if(loadingOverlay){
-    setTimeout(function() {      
+    setTimeout(function() {
       loadingOverlay.style.display = "none";
     }, 2000);
   }
@@ -2160,11 +2160,11 @@ async function getCompanyType(user) {
       if (user) {
         // user is signed in
         console.log(`The current user's UID is equal to ${user.uid}`);
-        
+
         dispatchRequest(user);
         populateForms(user);
         showPrivateElements();
-        
+
       } else {
         // user is signed out
         showPublicElements();
@@ -2176,6 +2176,8 @@ async function getCompanyType(user) {
   var minDate = new Date(today.getFullYear(), 3, 15);
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
+
+  console.log('debug storedlang for datepicker', storedLang);
 
   startDatePicker.datepicker({
     multipleDates: true,
@@ -2204,7 +2206,7 @@ async function getCompanyType(user) {
   const currentPath = window.location.pathname;
   const isWelcomePage = currentPath.startsWith("/en/welcome") || currentPath.startsWith("/de/welcome");
   const isSignupPage = currentPath.startsWith("/en/signup") || currentPath.startsWith("/de/signup");
-  
+
   // Get the current URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   const companyId = urlParams.get("company");
@@ -2273,7 +2275,7 @@ async function getCompanyType(user) {
           sign_lang.innerHTML = "EN";
         }
       }
-    
+
     document.getElementById("englishBtn").addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
