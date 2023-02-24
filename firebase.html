@@ -2178,21 +2178,10 @@ async function getCompanyType(user) {
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
 
 
-  /*
+
   // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
-  let localeEN = {
-    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    today: 'Today',
-    clear: 'Clear',
-    dateFormat: 'MM/dd/yyyy',
-    timeFormat: 'hh:mm aa',
-    firstDay: 0
-  };
-  let localeDE = {
+  // and from http://t1m0n.name/air-datepicker/docs/
+  $.fn.datepicker.language['de'] = {
     days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
     daysShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
     daysMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
@@ -2205,12 +2194,25 @@ async function getCompanyType(user) {
     firstDay: 1
   };
 
-  let datepickerLocaleToUse = localeEN;
+  $.fn.datepicker.language['en'] = {
+    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
+    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    today: 'Today',
+    clear: 'Clear',
+    dateFormat: 'mm/dd/yyyy',
+    timeFormat: 'hh:ii aa',
+    firstDay: 0,
+};
+
+  let datepickerLocaleToUse = 'en';
   if ( storedLang == 'de' ) {
-    datepickerLocaleToUse = localeDE;
+    datepickerLocaleToUse = 'de';
   }
-  console.log('datepickerLanguage', storedLang);
-  console.log('datepickerLocaleToUse', datepickerLocaleToUse);*/
+  console.log('datepickerLanguage !!', storedLang);
+  console.log('datepickerLocaleToUse', datepickerLocaleToUse);
 
   startDatePicker.datepicker({
     multipleDates: true,
@@ -2219,7 +2221,7 @@ async function getCompanyType(user) {
     minDate: minDate,
     maxDate: maxDate,
     //locale: datepickerLocaleToUse,
-    language: 'en',
+    language: datepickerLocaleToUse,
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates); // log the selected dates
