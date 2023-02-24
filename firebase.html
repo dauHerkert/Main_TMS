@@ -364,8 +364,17 @@ if (profile_img) {
     }
 
     function translateNavigation() {
-      let navLinks = jQuery('.nav-menu').find('.nav-link');
-      console.log('translateNavigation navLinks', navLinks);
+      if ( storedLang && storedLang == 'de' ) {
+
+        let navLinks = jQuery('.nav-menu').find('.nav-link');
+        navLinks.each(function(i, e) {
+          let navLabel = $(e).text().trim();
+          if ( navLabel == 'Form' ) {
+            $(e).text('Formular');
+          }
+        })
+
+      }
     }
 
     async function populateForms(user) {
