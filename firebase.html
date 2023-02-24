@@ -2417,6 +2417,11 @@ function changeLanguage(lang) {
           }
       }
     }
+
+if (storedLang == 'de') {
+  document.getElementById('imprint').textContent = 'Impressum';
+  document.getElementById('data_protection').textContent = 'Datenschutz';
+}
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
