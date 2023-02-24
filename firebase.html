@@ -1731,12 +1731,10 @@ update_user_form.addEventListener('submit', (e) => {
       //Print zones select
       let create_company_zone = document.getElementById('companyZone');
       let update_company_zone = document.getElementById('newCompanyZones');
-      let update_user_zone = document.getElementById('userZones');
       let profileZones = document.getElementById('profileZones');
 
           createOptions(create_company_zone);
           createOptions(update_company_zone);
-          createOptions(update_user_zone);
           createOptions(profileZones);
 
         //Print profiles select
@@ -1982,7 +1980,6 @@ update_user_form.addEventListener('submit', (e) => {
     /* If it does then set a value in the local storage
     /* and pre-populate the text field in the sign up form
     **/
-
     const zonesRef = collection(db, 'zones');
     function createOptions(select) {
         getDocs(zonesRef)
@@ -2002,7 +1999,6 @@ update_user_form.addEventListener('submit', (e) => {
       }
 
     function checkUrlParameter() {
-
       let url = new URL(window.location.href);
       let company = url.searchParams.get('company');
 
@@ -2422,6 +2418,7 @@ function changeLanguage(lang) {
           }
       }
     }
+
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
