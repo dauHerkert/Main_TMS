@@ -371,6 +371,10 @@ if (profile_img) {
           let navLabel = $(e).text().trim();
           if ( navLabel == 'Form' ) {
             $(e).text('Formular');
+          } else if ( navLabel == 'Account' ) {
+            $(e).text('Profil');
+          } else if ( navLabel == 'Sign Out' ) {
+            $(e).text('Ausloggen');
           }
         })
 
