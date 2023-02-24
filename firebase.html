@@ -363,6 +363,11 @@ if (profile_img) {
       }
     }
 
+    function translateNavigation() {
+      let navLinks = jQuery('.nav-menu').find('.nav-link');
+      console.log('translateNavigation navLinks', navLinks);
+    }
+
     async function populateForms(user) {
       let userInfo = await getUserInfo(user);
       const accountType_button = document.getElementById('account_user_profile');
@@ -372,6 +377,8 @@ if (profile_img) {
       var storedLang = localStorage.getItem("language");
 
       if ( userInfo ) {
+
+        translateNavigation();
         // Use the changeCompanyNameToID(user) function to get the company name
         const companyNames = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyNames;
