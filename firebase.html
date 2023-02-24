@@ -994,6 +994,7 @@ function updateFileLabel() {
       let userTableStatusLabel = 'Status';
       let userTableAdminLabel = 'Admin';
       let userTableUpdateLabel = 'Update';
+      let userTableSelectLabel = 'Select';
 
       let userTableEditLabel = 'Edit';
 
@@ -1004,6 +1005,7 @@ function updateFileLabel() {
         userTableStatusLabel = 'Status';
         userTableAdminLabel = 'Admin';
         userTableUpdateLabel = 'Bearbeiten';
+        userTableSelectLabel = 'Auswählen';
 
         userTableEditLabel = 'Bearbeiten';
       }
@@ -1043,7 +1045,7 @@ function updateFileLabel() {
             button.setAttribute("id","open_modal_btn");
             return button;
         }, align: "center", cssClass:"center_col other_columns", width: 120},
-        {title: "Select", cssClass:"center_col other_columns", formatter:function(cell, formatterParams){
+        {title: userTableSelectLabel, cssClass:"center_col other_columns", formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
               checkbox.addEventListener("click", function(){
