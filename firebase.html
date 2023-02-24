@@ -2178,6 +2178,7 @@ async function getCompanyType(user) {
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
 
 
+  /*
   // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
   let localeEN = {
     days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -2209,7 +2210,7 @@ async function getCompanyType(user) {
     datepickerLocaleToUse = localeDE;
   }
   console.log('datepickerLanguage', storedLang);
-  console.log('datepickerLocaleToUse', datepickerLocaleToUse);
+  console.log('datepickerLocaleToUse', datepickerLocaleToUse);*/
 
   startDatePicker.datepicker({
     multipleDates: true,
@@ -2217,8 +2218,8 @@ async function getCompanyType(user) {
     dateFormat: 'mm-dd-yyyy',
     minDate: minDate,
     maxDate: maxDate,
-    locale: datepickerLocaleToUse,
-    //language: datepickerLanguage,
+    //locale: datepickerLocaleToUse,
+    language: 'en',
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates); // log the selected dates
