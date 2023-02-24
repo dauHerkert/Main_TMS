@@ -2211,8 +2211,8 @@ async function getCompanyType(user) {
   if ( storedLang == 'de' ) {
     datepickerLocaleToUse = 'de';
   }
-  console.log('datepickerLanguage !!', storedLang);
-  console.log('datepickerLocaleToUse', datepickerLocaleToUse);
+  //console.log('datepickerLanguage !!', storedLang);
+  //console.log('datepickerLocaleToUse', datepickerLocaleToUse);
 
   startDatePicker.datepicker({
     multipleDates: true,
@@ -2220,7 +2220,6 @@ async function getCompanyType(user) {
     dateFormat: 'mm-dd-yyyy',
     minDate: minDate,
     maxDate: maxDate,
-    //locale: datepickerLocaleToUse,
     language: datepickerLocaleToUse,
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
