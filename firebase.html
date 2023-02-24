@@ -761,12 +761,18 @@ function updateFileLabel() {
       const companyNames = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyNames;
       // Show displayName
-      document.getElementById("client_press").innerHTML = `Hello ${userInfo.user_firstname} ${userInfo.user_lastname}`;
+      if(storedLang == 'de'){
+        document.getElementById("client_press").innerHTML = `Willkommen ${userInfo.user_firstname} ${userInfo.user_lastname}`;
+      }else{
+        document.getElementById("client_press").innerHTML = `Hello ${userInfo.user_firstname} ${userInfo.user_lastname}`;
+      }
+
       if(userInfo.user_company_name == undefined){
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }
+      
       showProfilePic(user);
 
       // Get press form
@@ -868,7 +874,12 @@ function updateFileLabel() {
       const companyNames = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyNames;
       // Show displayName
-      document.getElementById("supplier_user").innerHTML = `Hello ${userInfo.user_firstname} ${userInfo.user_lastname}`;
+      if(storedLang == 'de'){
+        document.getElementById("supplier_user").innerHTML = `Willkommen ${userInfo.user_firstname} ${userInfo.user_lastname}`;
+      }else{
+        document.getElementById("supplier_user").innerHTML = `Hello ${userInfo.user_firstname} ${userInfo.user_lastname}`;
+      }
+
       if(userInfo.user_company_name == undefined){
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
