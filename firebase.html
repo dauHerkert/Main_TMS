@@ -273,7 +273,7 @@ if (profile_img) {
             } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
               window.location = "/de/admin/users-table";
             } else if ( userData.user_is_admin === "0" && userData.user_type == 'No company' ) {
-              window.location = '/de/account';
+              window.location = '/de/supplier';
             }
           } else {
             if (userData.user_is_admin === "0" && userData.user_type === "Press") {
@@ -285,7 +285,7 @@ if (profile_img) {
             } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
               window.location = "/en/admin/users-table";
             } else if ( userData.user_is_admin === "0" && userData.user_type == 'No company' ) {
-              window.location = '/en/account';
+              window.location = '/en/supplier';
             }
           }
         } else {
