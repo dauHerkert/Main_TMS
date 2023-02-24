@@ -1013,7 +1013,6 @@ function updateFileLabel() {
       * Admin functions
       * -----------------------------------------------------------------------------------------------------------
       */
-
      async function pageAdmin(user) {
 
       changeAdminTypeTitle(user);
@@ -1059,13 +1058,13 @@ function updateFileLabel() {
        //options here
         layout:"fitData",
         overflow: 'x',
-        responsiveLayout:"scroll",  //hide columns that dont fit on the table
-        addRowPos:"top",          //when adding a new row, add it to the top of the table
-        history:true,             //allow undo and redo actions on the table
-        pagination:"local",     //paginate the data
-        paginationSize:10,         //allow 10 rows per page of data.
+        responsiveLayout:"scroll",
+        addRowPos:"top",
+        history:true,
+        pagination:"local",
+        paginationSize:10,
         paginationSizeSelector:[10, 25, 50],
-        paginationCounter:"rows", //display count of paginated rows in footer
+        paginationCounter:"rows",
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -1453,24 +1452,7 @@ update_user_form.addEventListener('submit', (e) => {
 
       //Print zones select
       let update_user_zone = document.getElementById('userZones');
-      const zonesRef = collection(db, 'zones');
 
-      function createOptions(select) {
-        getDocs(zonesRef)
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              let zone = doc.data();
-
-              var opt = document.createElement('option');
-              opt.value = zone.zone;
-              opt.textContent = zone.zone;
-              select.appendChild(opt);
-            });
-          })
-          .catch(err => {
-            console.log('error fetching companies', err);
-          });
-      }
           createOptions(update_user_zone);
 
           // Display instruction modal
@@ -1751,24 +1733,7 @@ update_user_form.addEventListener('submit', (e) => {
       let update_company_zone = document.getElementById('newCompanyZones');
       let update_user_zone = document.getElementById('userZones');
       let profileZones = document.getElementById('profileZones');
-      const zonesRef = collection(db, 'zones');
 
-      function createOptions(select) {
-        getDocs(zonesRef)
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              let zone = doc.data();
-
-              var opt = document.createElement('option');
-              opt.value = zone.zone;
-              opt.textContent = zone.zone;
-              select.appendChild(opt);
-            });
-          })
-          .catch(err => {
-            console.log('error fetching companies', err);
-          });
-      }
           createOptions(create_company_zone);
           createOptions(update_company_zone);
           createOptions(update_user_zone);
@@ -2017,6 +1982,25 @@ update_user_form.addEventListener('submit', (e) => {
     /* If it does then set a value in the local storage
     /* and pre-populate the text field in the sign up form
     **/
+
+    const zonesRef = collection(db, 'zones');
+    function createOptions(select) {
+        getDocs(zonesRef)
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              let zone = doc.data();
+
+              var opt = document.createElement('option');
+              opt.value = zone.zone;
+              opt.textContent = zone.zone;
+              select.appendChild(opt);
+            });
+          })
+          .catch(err => {
+            console.log('error fetching companies', err);
+          });
+      }
+
     function checkUrlParameter() {
 
       let url = new URL(window.location.href);
