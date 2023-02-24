@@ -1111,6 +1111,10 @@ function updateFileLabel() {
 $(document).ready(function() {
           $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
           $(".tabulator-paginator").find(".tabulator-page[data-page='next']").html("&gt;");
+          if(storedLang == 'de'){
+            $(".tabulator-paginator").find(".tabulator-page[data-page='first']").html("Zurück");
+            $(".tabulator-paginator").find(".tabulator-page[data-page='last']").html("Vor");
+          }
         });
 
 let selectedData = [];
@@ -1155,10 +1159,6 @@ getDocs(colRef)
     snapshot.docs.forEach((doc) => {
         let user = doc.data();
 
-        /*if (!user.user_company) {
-            console.log(`User ${user.uid} does not have a user_company field defined`);
-            return;
-        }*/
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
           data.push({id: doc.id, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
 
@@ -1187,10 +1187,6 @@ getDocs(colRef)
       let selectedUserCompaniesString = '';
       const zonesSelect = document.getElementById('userZones');
 
-      /*$('#userZones').on('change', function () {
-        var selectedUserZones = $(this).val();
-        selectedUserZonesString = selectedUserZones.join(', ');
-      });*/
       $('#userCompany').on('change', function () {
         var selectedUserCompanies = $(this).val();
         selectedUserCompaniesString = selectedUserCompanies.join(', ');
@@ -1239,7 +1235,6 @@ userTypeUpdate.addEventListener('change', async () => {
 zonesSelect.addEventListener('change', () => {
   updateSelectedUserZonesString();
 });
-
 
 update_user_form.addEventListener('submit', (e) => {
   e.preventDefault();
