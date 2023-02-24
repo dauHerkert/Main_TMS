@@ -1577,7 +1577,7 @@ update_user_form.addEventListener('submit', (e) => {
         }
         return match;
     }
-console.log('trying send email 222')
+
   getDocs(company_colRef)
     .then((snapshot) => {
         let data = [];
@@ -2424,6 +2424,8 @@ if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
+
+console.log('trying send email 222')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
