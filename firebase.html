@@ -1483,7 +1483,7 @@ update_user_form.addEventListener('submit', (e) => {
     */
     async function pageCompaniesTable(user){
 
-      changeAdminTypeTitle(user)
+      changeAdminTypeTitle(user);
 
     let companyProfileLabel = 'Company Profile';
     let companyLabel = 'Company';
@@ -1492,6 +1492,7 @@ update_user_form.addEventListener('submit', (e) => {
     let updateLabel = 'Update';
     let sendLinkButtonLabel = 'Send Link';
     let editButtonLabel = 'Edit';
+    let link_lang = 'en';
 
     if ( storedLang == 'de' ) {
       companyProfileLabel = 'Firma';
@@ -1500,6 +1501,7 @@ update_user_form.addEventListener('submit', (e) => {
       updateLabel = 'Bearbeiten';
       sendLinkButtonLabel = 'Link senden';
       editButtonLabel = 'Bearbeiten';
+      let link_lang = 'de';
     }
 
     // Print companies table
@@ -1581,7 +1583,7 @@ update_user_form.addEventListener('submit', (e) => {
         let data = [];
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
-            let company_link = `https://porsche-tms.webflow.io/en/welcome?company=${doc.id}`
+            let company_link = `https://porsche-tms.webflow.io/${link_lang}/welcome?company=${doc.id}`;
                 data.push({companyLink: company_link, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
                 companies_table.setData(data);
         });
