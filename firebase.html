@@ -2177,7 +2177,11 @@ async function getCompanyType(user) {
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
 
-  console.log('debug storedlang for datepicker', storedLang);
+  let datepickerLanguage = 'en';
+  if ( storedLang == 'de' ) {
+    datepickerLanguage = 'de';
+  }
+  console.log('datepickerLanguage', datepickerLanguage);
 
   startDatePicker.datepicker({
     multipleDates: true,
@@ -2185,7 +2189,7 @@ async function getCompanyType(user) {
     dateFormat: 'mm-dd-yyyy',
     minDate: minDate,
     maxDate: maxDate,
-    language: 'en',
+    language: datepickerLanguage,
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates); // log the selected dates
