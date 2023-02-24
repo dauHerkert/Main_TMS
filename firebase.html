@@ -374,20 +374,19 @@ if (profile_img) {
     }
 
     function translateNavigation() {
-      if ( storedLang && storedLang == 'de' ) {
-
-        let navLinks = jQuery('.nav-menu').find('.nav-link');
-        navLinks.each(function(i, e) {
-          let navLabel = $(e).text().trim();
-          if ( navLabel == 'Form' ) {
-            $(e).text('Formular');
-          } else if ( navLabel == 'Account' ) {
-            $(e).text('Profil');
-          } else if ( navLabel == 'Sign Out' ) {
-            $(e).text('Ausloggen');
-          }
-        });
-
+      if (storedLang && storedLang == 'de') {
+  let navLinks = $('.nav-menu').find('.nav-link');
+  navLinks.each(function(i, e) {
+    let navLabel = $(e).text().trim();
+    if (navLabel == 'Form') {
+      $(e).text('Formular');
+    } else if (navLabel == 'Account') {
+      $(e).text('Profil');
+    } else if (navLabel == 'Sign Out') {
+      $(e).text('');
+      $(e).prepend('<img id="signout_img" src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63cac10c1580eace4e9444cb_logout_icon.svg"/>Ausloggen');
+    }
+  });
         let navDropdownLinks = $('#admin_button').find('nav').find('a');
         navDropdownLinks.each(function(i, e) {
           let navLabel = $(e).text().trim();
