@@ -376,7 +376,17 @@ if (profile_img) {
           } else if ( navLabel == 'Sign Out' ) {
             $(e).text('Ausloggen');
           }
-        })
+        });
+
+        let navDropdownLinks = $('#admin_button').find('nav').find('a');
+        navDropdownLinks.each(function(i, e) {
+          let navLabel = $(e).text().trim();
+          if ( navLabel == 'Users table' ) {
+            $(e).text('Benutzerliste');
+          } else if ( navLabel == 'Companies table' ) {
+            $(e).text('Firmenliste');
+          }
+        });
 
       }
     }
