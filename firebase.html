@@ -95,19 +95,19 @@
             setTimeout(function(user) {
                 if (storedLang) {
                     if (storedLang == "de") {
-                      if(userDefaultValues.user_type == 'Press'){
-                        window.location = "/de/press";
-                      }else if (userDefaultValues.user_type == 'Supplier'){
+                     if (userDefaultValues.user_type == 'Supplier' || userDefaultValues.user_type == 'No company'){
                         window.location = "/de/supplier";
+                      }else if(userDefaultValues.user_type == 'Press'){
+                        window.location = "/de/press";
                       } else {
                           window.location = "/de/suppler";
                       }
                     } else {
-                      if(userDefaultValues.user_type == 'Press'){
-                        window.location = "/en/press";
-                      }else if (userDefaultValues.user_type == 'Supplier'){
+                      if (userDefaultValues.user_type == 'Supplier' || userDefaultValues.user_type == 'No company'){
                         window.location = "/en/supplier";
-                      } else {
+                      }else if(userDefaultValues.user_type == 'Press'){
+                        window.location = "/en/press";
+                      } else{
                           window.location = "/en/supplier";
                       }
                     }
