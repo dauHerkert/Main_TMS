@@ -1571,9 +1571,13 @@ update_user_form.addEventListener('submit', (e) => {
     });
 
   $(document).ready(function() {
-          $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
-          $(".tabulator-paginator").find(".tabulator-page[data-page='next']").html("&gt;");
-        });
+    $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
+    $(".tabulator-paginator").find(".tabulator-page[data-page='next']").html("&gt;");
+    if(storedLang == 'de'){
+      $(".tabulator-paginator").find(".tabulator-page[data-page='first']").html("Zurück");
+      $(".tabulator-paginator").find(".tabulator-page[data-page='last']").html("Vor");
+    } 
+  });
 
     const company_input = document.getElementById("company_search");
     company_input.addEventListener("keyup", function() {
@@ -2037,8 +2041,7 @@ update_user_form.addEventListener('submit', (e) => {
 
       // User is NOT signed in
       if ( user == false ) {
-        // Homepage
-
+ 
         let signOutbutton = document.getElementById('signout-button');
          if(signOutbutton){
           signOutbutton.style.display = 'none';
@@ -2192,20 +2195,15 @@ update_user_form.addEventListener('submit', (e) => {
     checkUrlParameter();
 
     async function changeCompanyNameToID(user) {
-    // Get the collection of companies
     const companiesRef = collection(db, "companies");
-    // Get all the company documents
     const companiesSnapshot = await getDocs(companiesRef);
     let companyNames = [];
-    // Iterate over the companies and find the ones with the matching IDs
     for (const company of companiesSnapshot.docs) {
         if (user.user_company.includes(company.id)) {
             companyNames.push(company.data().company_name);
         }
     }
-    // If one or more companies with the matching IDs are found
     if (companyNames.length > 0) {
-        // Return the company names
         return companyNames.join(", ");
     } else {
         console.log("No company found with that ID");
@@ -2214,13 +2212,11 @@ update_user_form.addEventListener('submit', (e) => {
 
 async function getCompanyType(user) {
     let userInfo = await getUserInfo(user);
-    // Get the collection of companies
     const companiesRef = collection(db, "companies");
-    // Get all the company documents
     const companiesSnapshot = await getDocs(companiesRef);
     let companyProfile = 'No company';
     let companyZones = [];
-    // Iterate over the companies and find the one with the matching ID
+
     for (const company of companiesSnapshot.docs) {
         if (company.id === userInfo.user_company) {
           companyProfile = company.data().company_type;
@@ -2235,7 +2231,7 @@ async function getCompanyType(user) {
     } else {
         console.log("No company found with that ID");
     }
-}
+  }
     onAuthStateChanged(auth, (user) => {
       replaceUrl(user);
       if (user) {
@@ -2257,8 +2253,6 @@ async function getCompanyType(user) {
   var minDate = new Date(today.getFullYear(), 3, 11);
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
-
-
 
   // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
   // and from http://t1m0n.name/air-datepicker/docs/
@@ -2292,8 +2286,6 @@ async function getCompanyType(user) {
   if ( storedLang == 'de' ) {
     datepickerLocaleToUse = 'de';
   }
-  //console.log('datepickerLanguage !!', storedLang);
-  //console.log('datepickerLocaleToUse', datepickerLocaleToUse);
 
   startDatePicker.datepicker({
     multipleDates: true,
@@ -2313,32 +2305,24 @@ async function getCompanyType(user) {
   }
 });
 
-//Change language
 //Language selection
-    let reloaded = false;
+let reloaded = false;
 
-    function changeLanguage(lang) {
-  // Check if the current page is a welcome or signup page
+function changeLanguage(lang) {
   const currentPath = window.location.pathname;
   const isWelcomePage = currentPath.startsWith("/en/welcome") || currentPath.startsWith("/de/welcome");
   const isSignupPage = currentPath.startsWith("/en/signup") || currentPath.startsWith("/de/signup");
-
-  // Get the current URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   const companyId = urlParams.get("company");
 
-  // Set the new language and update the URL
   localStorage.setItem("language", lang);
   let newPath = currentPath.replace(/^\/[a-z]{2}/, `/${lang}`);
 
-  // Add the company parameter if it is present in the current URL and we're on the welcome or signup page
   if (companyId && (isWelcomePage || isSignupPage)) {
     newPath += `?company=${companyId}`;
   }
-
   window.history.pushState({}, null, newPath);
 
-  // Reload the page with the new URL
   if (!reloaded) {
             reloaded = true;
             location.reload();
