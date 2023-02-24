@@ -1444,6 +1444,23 @@ update_user_form.addEventListener('submit', (e) => {
 
       changeAdminTypeTitle(user)
 
+    let companyProfileLabel = 'Company Profile';
+    let companyLabel = 'Company';
+    let companyZoneLabel = 'Company Zone';
+    let sendLinkLabel = 'Send Link';
+    let updateLabel = 'Update';
+    let sendLinkButtonLabel = 'Send Link';
+    let editButtonLabel = 'Edit';
+
+    if ( storedLang == 'de' ) {
+      companyProfileLabel = 'Firma';
+      companyZoneLabel = 'Zonen';
+      sendLinkLabel = 'Einladung';
+      updateLabel = 'Bearbeiten';
+      sendLinkButtonLabel = 'Link senden';
+      editButtonLabel = 'Bearbeiten';
+    }
+
     // Print companies table
     const company_colRef = collection(db, 'companies');
       let searchCompanyInput = document.getElementById("search-input");
@@ -1466,21 +1483,21 @@ update_user_form.addEventListener('submit', (e) => {
             }},
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
             {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
-            {title:"Company", field:"company", sorter:"string", width:300, cssClass:"companyName first_column"},
-            {title:"Company Zone", field:"zone", sorter:"string", width:400, cssClass:"companyZone other_columns"},
+            {title: companyProfileLabel, field:"company", sorter:"string", width:300, cssClass:"companyName first_column"},
+            {title: companyZoneLabel, field:"zone", sorter:"string", width:400, cssClass:"companyZone other_columns"},
             {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
-            {title:"Send Link", width:200, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
+            {title: sendLinkLabel, width:200, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
-            button.innerHTML = "Send Link";
+            button.innerHTML = sendLinkButtonLabel;
             button.setAttribute("onclick","openModal5()");
             button.setAttribute("id","open_link_modal");
             return button;
             }},
-            {title:"Update", width:200, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
+            {title: updateLabel, width:200, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
-            button.innerHTML = "Edit";
+            button.innerHTML = editButtonLabel;
             button.setAttribute("onclick","openModal2()");
             button.setAttribute("id","open_companies_modal");
             return button;
