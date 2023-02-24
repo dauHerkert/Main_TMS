@@ -253,6 +253,10 @@ if (profile_img) {
     if (docSnap.exists) {
       const userData = docSnap.data();
       toastr.success('user logged in: ' + user.email);
+
+      console.log('handleSignIn() storedLang', storedLang);
+      console.log('handleSignIn() userData', userData);
+
       setTimeout(() => {
         if (storedLang) {
           if (storedLang === "de") {
