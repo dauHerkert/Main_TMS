@@ -1760,7 +1760,6 @@ update_user_form.addEventListener('submit', (e) => {
         }
             createProfileOptions(companyProfile);
             createProfileOptions(newCompanyProfile);
-            console.log('Lluvia fina')
 
              // Update the selectedUserZonesString variable based on the current selection
             function updateSelectedCompanyZonesString() {
@@ -2419,7 +2418,10 @@ function changeLanguage(lang) {
       }
     }
 
-
+    if(storedLang = 'de'){
+      document.getElementById('imprint').innerHTML = 'Impressum';
+      document.getElementById('data_protection').innerHTML = 'Datenschutz';
+    }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
