@@ -988,6 +988,26 @@ function updateFileLabel() {
 
       // =========== USERS TABLE FUNCTIONS ============ //
       // Print users table
+      let userTableFirstnameLabel = 'First name';
+      let userTableLastnameLabel = 'Last name';
+      let userTableCompanyLabel = 'Company';
+      let userTableStatusLabel = 'Status';
+      let userTableAdminLabel = 'Admin';
+      let userTableUpdateLabel = 'Update';
+
+      let userTableEditLabel = 'Edit';
+
+      if ( storedLang == 'de' ) {
+        userTableFirstnameLabel = 'Vorname';
+        userTableLastnameLabel = 'Nachname';
+        userTableCompanyLabel = 'Firma';
+        userTableStatusLabel = 'Status';
+        userTableAdminLabel = 'Admin';
+        userTableUpdateLabel = 'Bearbeiten';
+
+        userTableEditLabel = 'Bearbeiten';
+      }
+
       const colRef = collection(db, 'users');
       const company_colRef = collection(db, 'companies');
       let searchInput = document.getElementById("search-input");
@@ -1018,7 +1038,7 @@ function updateFileLabel() {
             {title:"Actions", cssClass:"center_col other_columns", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
-            button.innerHTML = "Edit";
+            button.innerHTML = userTableEditLabel;
             button.setAttribute("onclick","openModal()");
             button.setAttribute("id","open_modal_btn");
             return button;
