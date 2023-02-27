@@ -2196,9 +2196,20 @@ async function getCompanyType(user) {
         return;
       }
     });
-    $(document).ready(function () {
+
+    async function getMinDate(user){
+  let userInfo = await getUserInfo(user);
+
+  if(userInfo.user_type == 'Press'){
+    return new Date(today.getFullYear(), 3, 15);
+  }else{
+    return new Date(today.getFullYear(), 3, 11);
+  }
+}
+
+    $(document).ready(async function () {
   var today = new Date();
-  var minDate = new Date(today.getFullYear(), 3, 15);
+  var minDate = await getMinDate(user);
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
 
