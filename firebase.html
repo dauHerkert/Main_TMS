@@ -1816,6 +1816,12 @@ update_user_form.addEventListener('submit', (e) => {
               }
              });
 
+             if(userInfo.user_company_name == undefined){
+                document.getElementById("company_name").innerHTML = 'No company';
+              }else{
+                document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
+              }
+
               // Update the selectedUserZonesString variable whenever the zones select element changes
               newCompanyZones.addEventListener('change', () => {
                 updateCompanyZonesString();
