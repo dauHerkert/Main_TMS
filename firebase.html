@@ -2197,7 +2197,7 @@ async function getCompanyType(user) {
       }
     });
 
-    async function getMinDate(user){
+   /* async function getMinDate(user){
   let userInfo = await getUserInfo(user);
 
   if(userInfo.user_type == 'Press'){
@@ -2205,11 +2205,11 @@ async function getCompanyType(user) {
   }else{
     return new Date(today.getFullYear(), 3, 11);
   }
-}
+}*/
 
     $(document).ready(async function (user) {
   var today = new Date();
-  var minDate = await getMinDate(user);
+  var minDate = new Date(today.getFullYear(), 3, 15);
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
 
@@ -2255,7 +2255,7 @@ async function getCompanyType(user) {
     language: datepickerLocaleToUse,
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
-      console.log(selectedDates); // log the selected dates
+      console.log(selectedDates);
     }
   });
 
