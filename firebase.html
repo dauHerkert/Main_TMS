@@ -2196,20 +2196,11 @@ async function getCompanyType(user) {
         return;
       }
     });
-
-  async function checkMinDate(user){
-    
-    let userInfo = await getUserInfo(user);
- 
-      var today = new Date();
-      var minDate = new Date(today.getFullYear(), 3, 11);
-      var maxDate = new Date(today.getFullYear(), 3, 23);
-      var startDatePicker = $('[data-date-picker="datepicker-start"]');
-
-      if(userInfo.user_type == 'Press'){
-        var minDate = new Date(today.getFullYear(), 3, 15);
-  }
-  console.log('nalguitaa')
+    $(document).ready(function () {
+  var today = new Date();
+  var minDate = new Date(today.getFullYear(), 3, 15);
+  var maxDate = new Date(today.getFullYear(), 3, 23);
+  var startDatePicker = $('[data-date-picker="datepicker-start"]');
 
   // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
   // and from http://t1m0n.name/air-datepicker/docs/
@@ -2260,8 +2251,7 @@ async function getCompanyType(user) {
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
-}
-$(document).ready(function () {checkMinDate(user)});
+});
 
 //Language selection
 let reloaded = false;
