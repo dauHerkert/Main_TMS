@@ -1459,6 +1459,7 @@ update_user_form.addEventListener('submit', (e) => {
     let sendLinkButtonLabel = 'Send Link';
     let editButtonLabel = 'Edit';
     let link_lang = 'en';
+    let userInfo = await getUserInfo(user);
 
     if ( storedLang == 'de' ) {
       companyProfileLabel = 'Firma';
