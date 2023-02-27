@@ -2207,7 +2207,7 @@ async function getCompanyType(user) {
   }
 }
 
-    $(document).ready(async function () {
+    $(document).ready(async function (user) {
   var today = new Date();
   var minDate = await getMinDate(user);
   var maxDate = new Date(today.getFullYear(), 3, 23);
