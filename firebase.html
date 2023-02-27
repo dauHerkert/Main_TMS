@@ -2197,7 +2197,10 @@ async function getCompanyType(user) {
       }
     });
 
-  $(document).ready(function () {
+  async function checkMinDate(user){
+    
+    let userInfo = await getUserInfo(user);
+ 
       var today = new Date();
       var minDate = new Date(today.getFullYear(), 3, 11);
       var maxDate = new Date(today.getFullYear(), 3, 23);
@@ -2257,7 +2260,8 @@ async function getCompanyType(user) {
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
-});
+}
+$(document).ready(function () {checkMinDate(user)});
 
 //Language selection
 let reloaded = false;
