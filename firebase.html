@@ -2200,6 +2200,7 @@ async function getCompanyType(user) {
   var minDate;
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
+  var user = auth.currentUser;
   let userInfo = await getUserInfo(user);
 
   //Change minDate depending the user type
