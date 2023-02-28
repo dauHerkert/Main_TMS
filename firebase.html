@@ -813,6 +813,7 @@ function updateFileLabel() {
       showProfilePic(user);
 
       //Change minDate depending the user type
+      var today = new Date();
       if(userInfo.user_type == 'Press'){
         minDate = new Date(today.getFullYear(), 3, 15);
       }else{
@@ -924,6 +925,7 @@ function updateFileLabel() {
       showProfilePic(user);
 
        //Change minDate depending the user type
+       var today = new Date();
        if(userInfo.user_type == 'Press'){
         minDate = new Date(today.getFullYear(), 3, 15);
       }else{
