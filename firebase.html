@@ -812,6 +812,13 @@ function updateFileLabel() {
 
       showProfilePic(user);
 
+      //Change minDate depending the user type
+      if(userInfo.user_type == 'Press'){
+        minDate = new Date(today.getFullYear(), 3, 15);
+      }else{
+        minDate =  new Date(today.getFullYear(), 3, 11);
+      }
+
       // Get press form
       const press_form = document.getElementById('moreInfo_press_form');
       // Add submit event to form
@@ -915,6 +922,13 @@ function updateFileLabel() {
         document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
       }
       showProfilePic(user);
+
+       //Change minDate depending the user type
+       if(userInfo.user_type == 'Press'){
+        minDate = new Date(today.getFullYear(), 3, 15);
+      }else{
+        minDate =  new Date(today.getFullYear(), 3, 11);
+      }
 
       const supplier_form = document.getElementById('supplier_form');
       supplier_form.addEventListener('submit', function(ev) {
@@ -2195,19 +2209,9 @@ async function getCompanyType(user) {
       }
     });
 
-   /* async function getMinDate(user){
-  let userInfo = await getUserInfo(user);
-
-  if(userInfo.user_type == 'Press'){
-    return new Date(today.getFullYear(), 3, 15);
-  }else{
-    return new Date(today.getFullYear(), 3, 11);
-  }
-}*/
-
     $(document).ready(async function (user) {
   var today = new Date();
-  var minDate = new Date(today.getFullYear(), 3, 15);
+  var minDate;
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
 
