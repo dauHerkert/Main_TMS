@@ -747,7 +747,7 @@ function updateFileLabel() {
   var requiredFields = document.querySelectorAll(".required");
   var hasErrors = false;
 
-  for (var i = 0; i < requiredFields.length; i++) {
+    for (var i = 0; i < requiredFields.length; i++) {
     if (!requiredFields[i].value) {
       requiredFields[i].style.border = "2px solid red";
       hasErrors = true;
@@ -757,12 +757,19 @@ function updateFileLabel() {
         requiredFields[i].style.border = "2px solid red";
         hasErrors = true;
       }
+    } else if (requiredFields[i].id === "press_phone") {
+      var phonePattern = /^\d{10}$/;
+      if (!phonePattern.test(requiredFields[i].value)) {
+        requiredFields[i].style.border = "2px solid red";
+        hasErrors = true;
+      }
+    } else if (requiredFields[i].id === "press_zip_code") {
+      var zipCodePattern = /^\d{5}$/;
+      if (!zipCodePattern.test(requiredFields[i].value)) {
+        requiredFields[i].style.border = "2px solid red";
+        hasErrors = true;
+      }
     }
-  }
-
-  if (hasErrors) {
-    toastr.error("Please fill out all required fields correctly");
-    return;
   }
     
     const pressFormRef = collection(db, 'press_forms');
@@ -2440,7 +2447,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba1')
+console.log('prueba2')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
