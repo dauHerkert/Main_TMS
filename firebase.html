@@ -2322,20 +2322,27 @@ function changeLanguage(lang) {
     //Update the language select name
     var storedLang = localStorage.getItem("language");
     let sign_lang = document.getElementById('selected_lang2');
+    let user_lang = document.getElementById('selected_lang');
       if(storedLang){
         if(storedLang == "de"){
-        document.getElementById('selected_lang').innerHTML = "DE";
-        if(sign_lang){
+          if(user_lang){
+            user_lang.innerHTML = "DE";
+          }        
+          if(sign_lang){
           sign_lang.innerHTML = "DE";
-        }
+          }
       }else{
+        if(user_lang){
         document.getElementById('selected_lang').innerHTML = "EN";
+        }
         if(sign_lang){
           sign_lang.innerHTML = "EN";
         }
       }
       }else{
+        if(user_lang){
         document.getElementById('selected_lang').innerHTML = "EN";
+        }
         if(sign_lang){
           sign_lang.innerHTML = "EN";
         }
