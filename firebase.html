@@ -743,6 +743,20 @@ function updateFileLabel() {
     function pressFormSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
+
+    var requiredFields = document.querySelectorAll(".required");
+    for (var i = 0; i < requiredFields.length; i++) {
+      if (!requiredFields[i].value) {
+        requiredFields[i].style.border = "2px solid red";
+        return;
+      } else if (requiredFields[i].type === "email") {
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(requiredFields[i].value)) {
+          requiredFields[i].style.border = "2px solid red";
+          return;
+        }
+      }
+    }
     
     const pressFormRef = collection(db, 'press_forms');
     let press_title = document.getElementById('press_title');
