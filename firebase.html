@@ -807,10 +807,17 @@ function updateFileLabel() {
     }
   }
   
-  function pressUploadImage(docId, storageRef) {
+  async function pressUploadImage(docId, storageRef) {
   const press_image = document.getElementById('press_image');
+  if (!press_image) {
+    console.error('press_image is null');
+    return;
+  }
   let fileItem = press_image.files[0];
-
+  if (!fileItem) {
+    console.error('fileItem is null');
+    return;
+  }
   uploadBytes(storageRef, fileItem)
     .then((snapshot) => {
       toastr.success('You have submitted the form successfully');
@@ -830,6 +837,7 @@ function updateFileLabel() {
       console.error(error);
     });
 }
+
     async function pagePress() {      
       // Get press form
       const press_form = document.getElementById('logout_press_form');
@@ -2386,7 +2394,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba123455444666')
+console.log('pruebamia')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
