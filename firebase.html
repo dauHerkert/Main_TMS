@@ -744,7 +744,7 @@ function updateFileLabel() {
     e.preventDefault();
     e.stopPropagation();
     
-    const pressFormRef = doc(collection(db, 'press_forms'));;
+    const pressFormRef = collection(db, 'press_forms');
     let press_title = document.getElementById('press_title');
     let press_lastname = document.getElementById('press_lastname');
     let press_firstname = document.getElementById('press_firstname');
