@@ -772,7 +772,7 @@ function updateFileLabel() {
       if (press_email.value !== press_confirm_email.value) {
         toastr.error("The emails don't match");
       } else {
-        setDoc(pressFormRef, {
+        const docRef = addDoc(pressFormRef, {
           press_title: press_title.value,
           press_lastname: press_lastname.value,
           press_firstname: press_firstname.value,
@@ -2385,7 +2385,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('pruebitica')
+console.log('pruebiticaticaaa')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
