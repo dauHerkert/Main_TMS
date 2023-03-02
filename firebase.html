@@ -1970,6 +1970,8 @@ update_user_form.addEventListener('submit', (e) => {
           pageHome();
         } else if ( url == '/en/signin-porsche' || url == '/de/signin-porsche' ) {
           signInPage();
+        }else if ( url == '/en/press-form' || url == '/de/press-form' ) {
+          pagePress();
         } else {
           // User does NOT have access to this page
           console.log('user does NOT have access to this page');
@@ -1979,8 +1981,6 @@ update_user_form.addEventListener('submit', (e) => {
         // User IS signed in
          if ( url == '/en/account' || url == '/de/account' ) {
           pageAccount(user);
-        } else if ( url == '/en/press-form' || url == '/de/press-form' ) {
-          pagePress();
         } else if ( url == '/en/supplier' || url == '/de/supplier' ) {
           pageSupplier(user);
         } else if ( url == '/en/admin/users-table' || url == '/de/admin/users-table' ) {
