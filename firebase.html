@@ -98,7 +98,7 @@
                       }else if(userDefaultValues.user_type == 'Press'){
                         window.location = "/de/press";
                       } else {
-                          window.location = "/de/suppler";
+                          window.location = "/de/supplier";
                       }
                     } else {
                       if (userDefaultValues.user_type == 'Supplier' || userDefaultValues.user_type == 'No company'){
@@ -1921,7 +1921,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${email_to_send.value}`,
                     message: {
-                    subject: 'DE: Hello! Here is the registration link',
+                    subject: 'DE: Willkommen, hier ist Ihr registrierungslink',
                     html:  `DE: ${company_link.value}`,
                     }
                     });
