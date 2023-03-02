@@ -740,7 +740,7 @@ function updateFileLabel() {
     * Press functions
     * -----------------------------------------------------------------------------------------------------------
     */
-    function pressFormSubmit(e, user) {
+    function pressFormSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
     
@@ -806,7 +806,7 @@ function updateFileLabel() {
     }
   }
   
-  function pressUploadImage(user, docId, storageRef) {
+  function pressUploadImage(docId, storageRef) {
   const press_id = document.getElementById('fileInp');
   let fileItem = press_id.files[0];
 
@@ -829,12 +829,12 @@ function updateFileLabel() {
       console.error(error);
     });
 }
-    async function pagePress(user) {      
+    async function pagePress() {      
       // Get press form
       const press_form = document.getElementById('logout_press_form');
       // Add submit event to form
       press_form.addEventListener('submit', function(ev) {
-        pressFormSubmit(ev, user);
+        pressFormSubmit(ev);
       });
     }
     /*
@@ -1980,7 +1980,7 @@ update_user_form.addEventListener('submit', (e) => {
          if ( url == '/en/account' || url == '/de/account' ) {
           pageAccount(user);
         } else if ( url == '/en/press-form' || url == '/de/press-form' ) {
-          pagePress(user);
+          pagePress();
         } else if ( url == '/en/supplier' || url == '/de/supplier' ) {
           pageSupplier(user);
         } else if ( url == '/en/admin/users-table' || url == '/de/admin/users-table' ) {
