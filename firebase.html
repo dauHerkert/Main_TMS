@@ -741,55 +741,95 @@ function updateFileLabel() {
     * -----------------------------------------------------------------------------------------------------------
     */
     function pressFormSubmit(e, user) {
-      e.preventDefault();
-      e.stopPropagation();
-      const userRef = doc(db, 'users', user.uid);
-      const workspot = document.getElementById('workspot');
-      const publisher = document.getElementById('publisher');
-      const media_type = document.getElementById('media_type');
-      const from_press_date = document.getElementById('Select-dates');
-      const special_press_request = document.getElementById('special_press_request');
-      const press_email = user.email;
-      const press_id = document.getElementById('fileInp');
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const pressFormRef = doc(db, 'press_forms');
+    let press_title = document.getElementById('press_title');
+    let press_lastname = document.getElementById('press_lastname');
+    let press_firstname = document.getElementById('press_firstname');
+    let press_nationality = document.getElementById('press_nationality');
+    let press_media_type = document.getElementById('press_media_type');
+    let press_media = document.getElementById('press_media');
+    let press_id = document.getElementById('press_id');
+    let press_issued_by = document.getElementById('press_issued_by');
+    let press_email = document.getElementById('press_email');
+    let press_confirm_email = document.getElementById('press_confirm_email');
+    let press_address = document.getElementById('press_address');
+    let press_city = document.getElementById('press_city');
+    let press_zip_code = document.getElementById('press_zip_code');
+    let press_country = document.getElementById('press_country');
+    let press_phone = document.getElementById('press_phone');
+    let press_mobile_phone = document.getElementById('press_mobile_phone');
+    let press_itwa = document.getElementById('press_itwa');
+    let press_workspace = document.getElementById('press_workspace');
+    let press_locker = document.getElementById('press_locker');
+    let press_hotel_information = document.getElementById('press_hotel_information');
 
-      if (press_id.files.length === 0) {
-              toastr.error('Please upload your profile picture')
-            }else{
-            setDoc(userRef, {
-              press_visit_dates: from_press_date.value,
-              press_special_request: special_press_request.value,
-              press_workspot: workspot.value,
-              press_publisher: publisher.value,
-              press_media_type: media_type.value,
-              press_has_form_submitted: "1",
-              press_email: press_email
-            }, { merge: true })
-            .then(() => {
-              //console.log('press data successfully updated');
-              pressUploadImage(user);
-            })
-            .catch((err) => {
-              console.log('there was a problem updating the data', err);
-              toastr.error('There was an error updating your info');
-            });
-          }
-        }
-
-    function pressUploadImage(user) {
-      const press_id = document.getElementById('fileInp');
-      let fileItem = press_id.files[0];
-      const storageRef = ref(storage, 'press_id/' + user.uid);
-
-      uploadBytes(storageRef, fileItem)
-      .then((snapshot) => {
-        toastr.success('You have submitted the form successfully');
-        setTimeout(reloadPage, 3000);
-      })
-      .catch(err => {
-        console.log('error uploading file', err);
-        toastr.error('There was an error uploading the file');
-      });
+    if (press_id.files.length === 0) {
+      toastr.error('Please upload your profile picture');
+    } else {
+      if (press_email.value !== press_confirm_email.value) {
+        toastr.error("The emails don't match");
+      } else {
+        setDoc(pressFormRef, {
+          press_title: press_title.value,
+          press_lastname: press_lastname.value,
+          press_firstname: press_firstname.value,
+          press_nationality: press_nationality.value,
+          press_media_type: press_media_type.value,
+          press_media: press_media.value,
+          press_id: press_id.value,
+          press_issued_by: press_issued_by.value,
+          press_email: press_email.value,
+          press_address: press_address.value,
+          press_city: press_city.value,
+          press_zip_code: press_zip_code.value,
+          press_country: press_country.value,
+          press_phone: press_phone.value,
+          press_mobile_phone: press_mobile_phone.value,
+          press_itwa: press_itwa.value,
+          press_workspace: press_workspace.value,
+          press_locker: press_locker.value,
+          press_hotel_information: press_hotel_information.value
+        }, { merge: true })
+        .then((docRef) => {
+          // Save the storageRef with the ID of the form
+          const storageRef = ref(storage, `press_id/${docRef.id}/${press_id.files[0].name}`);
+          pressUploadImage(user, docRef.id, storageRef);
+        })
+        .catch((err) => {
+          console.log('there was a problem updating the data', err);
+          toastr.error('There was an error updating your info');
+        });
+      }
     }
+  }
+  
+  function pressUploadImage(user, docId, storageRef) {
+  const press_id = document.getElementById('fileInp');
+  let fileItem = press_id.files[0];
+
+  uploadBytes(storageRef, fileItem)
+    .then((snapshot) => {
+      toastr.success('You have submitted the form successfully');
+      try {
+        const docRef = addDoc(collection(db, "mail"), {
+          to: 'serfaty.samuel90@gmail.com',
+          message: {
+            subject: `Press form Submited`,
+            html: `Hi! A new press user has submited the form`,
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 
     async function pagePress(user) {
       let userInfo = await getUserInfo(user);
@@ -797,43 +837,13 @@ function updateFileLabel() {
       let update_picture_modal = document.getElementById("picture_form_modal");
       const companyNames = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyNames;
-      // Show displayName
-      if(storedLang == 'de'){
-        document.getElementById("client_press").innerHTML = `Willkommen ${userInfo.user_firstname} ${userInfo.user_lastname}`;
-      }else{
-        document.getElementById("client_press").innerHTML = `Hello ${userInfo.user_firstname} ${userInfo.user_lastname}`;
-      }
-
-      if(userInfo.user_company_name == undefined){
-        document.getElementById("company_name").innerHTML = 'No company';
-      }else{
-        document.getElementById("company_name").innerHTML = `${userInfo.user_company_name}`;
-      }
-
-      showProfilePic(user);
-      getMinDate(user);
-
+      
       // Get press form
-      const press_form = document.getElementById('moreInfo_press_form');
+      const press_form = document.getElementById('logout_press_form');
       // Add submit event to form
       press_form.addEventListener('submit', function(ev) {
         pressFormSubmit(ev, user);
       });
-      if ( update_picture_modal !== null ) {
-        update_picture_modal.addEventListener('submit', function(ev) {
-          updateProfilePic(ev, user);
-        }, true);
-      }
-          setDoc(userRef, {
-            last_signin_date: new Date()
-          }, { merge: true })
-          .then(() => {
-              console.log('press data successfully updated');
-          })
-          .catch((err) => {
-              console.log('there was a problem signin user', err);
-              toastr.error('There was an error signin user');
-          })
     }
     // Notify admin to make changes on the press form
     let press_notify_form = document.getElementById('notify_admin_modal');
