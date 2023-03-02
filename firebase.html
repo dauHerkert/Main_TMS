@@ -741,28 +741,29 @@ function updateFileLabel() {
     * -----------------------------------------------------------------------------------------------------------
     */
     function pressFormSubmit(e) {
-    e.preventDefault();
-    e.stopPropagation();
+      e.preventDefault();
+  e.stopPropagation();
 
-    var requiredFields = document.querySelectorAll(".required");
-    var hasErrors = false;
+  var requiredFields = document.querySelectorAll(".required");
+  var hasErrors = false;
 
-    for (var i = 0; i < requiredFields.length; i++) {
-      if (!requiredFields[i].value) {
+  for (var i = 0; i < requiredFields.length; i++) {
+    if (!requiredFields[i].value) {
+      requiredFields[i].style.border = "2px solid red";
+      hasErrors = true;
+    } else if (requiredFields[i].type === "email") {
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(requiredFields[i].value)) {
         requiredFields[i].style.border = "2px solid red";
         hasErrors = true;
-      } else if (requiredFields[i].type === "email") {
-        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(requiredFields[i].value)) {
-          requiredFields[i].style.border = "2px solid red";
-          hasErrors = true;
-        }
       }
     }
-    if (hasErrors) {
-      toastr.error("Please fill out all required fields correctly");
-      return;
-    }
+  }
+
+  if (hasErrors) {
+    toastr.error("Please fill out all required fields correctly");
+    return;
+  }
     
     const pressFormRef = collection(db, 'press_forms');
     let press_title = document.getElementById('press_title');
