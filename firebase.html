@@ -795,13 +795,13 @@ function updateFileLabel() {
           press_hotel_information: press_hotel_information.value
         }, { merge: true })
         .then((docRef) => {
-            if (press_id && press_id.files.length > 0) {
-              const storageRef = ref(storage, `press_id/${docRef.id}/${press_id.files[0].name}`);
-              pressUploadImage(docRef.id, storageRef);
-            } else {
-              toastr.error('Please upload your press ID');
-            }
-          })
+          if (press_id.files.length > 0) {
+            const storageRef = ref(storage, `press_id/${docRef.id}/${press_id.files[0].name}`);
+            pressUploadImage(docRef.id, storageRef, press_image);
+          } else {
+            toastr.error('Please upload your press ID');
+          }
+        })
         .catch((err) => {
           console.log('there was a problem updating the data', err);
           toastr.error('There was an error updating your info');
