@@ -795,10 +795,14 @@ function updateFileLabel() {
           press_hotel_information: press_hotel_information.value
         }, { merge: true })
         .then((docRef) => {
-          // Save the storageRef with the ID of the form
-          const storageRef = ref(storage, `press_id/${docRef.id}/${press_id.files[0].name}`);
-          pressUploadImage(user, docRef.id, storageRef);
-        })
+          const press_id = document.getElementById('press_id');
+            if (press_id && press_id.files.length > 0) {
+              const storageRef = ref(storage, `press_id/${docRef.id}/${press_id.files[0].name}`);
+              pressUploadImage(docRef.id, storageRef);
+            } else {
+              toastr.error('Please upload your press ID');
+            }
+          })
         .catch((err) => {
           console.log('there was a problem updating the data', err);
           toastr.error('There was an error updating your info');
@@ -2394,7 +2398,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('pruebamia')
+console.log('pruebamiaytuya')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
