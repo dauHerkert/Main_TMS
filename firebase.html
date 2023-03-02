@@ -752,7 +752,7 @@ function updateFileLabel() {
     let press_media_type = document.getElementById('press_media_type');
     let press_media = document.getElementById('press_media');
     let press_id = document.getElementById('press_id');
-    //let press_image = document.getElementById('press_image')
+    let press_image = document.getElementById('press_image')
     let press_issued_by = document.getElementById('press_issued_by');
     let press_email = document.getElementById('press_email');
     let press_confirm_email = document.getElementById('press_confirm_email');
@@ -795,7 +795,6 @@ function updateFileLabel() {
           press_hotel_information: press_hotel_information.value
         }, { merge: true })
         .then((docRef) => {
-          const press_id = document.getElementById('press_id');
             if (press_id && press_id.files.length > 0) {
               const storageRef = ref(storage, `press_id/${docRef.id}/${press_id.files[0].name}`);
               pressUploadImage(docRef.id, storageRef);
