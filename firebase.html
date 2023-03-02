@@ -752,6 +752,7 @@ function updateFileLabel() {
     let press_media_type = document.getElementById('press_media_type');
     let press_media = document.getElementById('press_media');
     let press_id = document.getElementById('press_id');
+    let press_image = document.getElementById('press_image')
     let press_issued_by = document.getElementById('press_issued_by');
     let press_email = document.getElementById('press_email');
     let press_confirm_email = document.getElementById('press_confirm_email');
@@ -766,7 +767,7 @@ function updateFileLabel() {
     let press_locker = document.getElementById('press_locker');
     let press_hotel_information = document.getElementById('press_hotel_information');
 
-    if (press_id.files.length === 0) {
+    if (press_image.files.length === 0) {
       toastr.error('Please upload your profile picture');
     } else {
       if (press_email.value !== press_confirm_email.value) {
@@ -807,8 +808,8 @@ function updateFileLabel() {
   }
   
   function pressUploadImage(docId, storageRef) {
-  const press_id = document.getElementById('fileInp');
-  let fileItem = press_id.files[0];
+  const press_image = document.getElementById('press_image');
+  let fileItem = press_image.files[0];
 
   uploadBytes(storageRef, fileItem)
     .then((snapshot) => {
