@@ -829,13 +829,7 @@ function updateFileLabel() {
       console.error(error);
     });
 }
-    async function pagePress(user) {
-      let userInfo = await getUserInfo(user);
-      const userRef = doc(db, 'users', user.uid);
-      let update_picture_modal = document.getElementById("picture_form_modal");
-      const companyNames = await changeCompanyNameToID(userInfo);
-        userInfo.user_company_name = companyNames;
-      
+    async function pagePress(user) {      
       // Get press form
       const press_form = document.getElementById('logout_press_form');
       // Add submit event to form
@@ -843,36 +837,6 @@ function updateFileLabel() {
         pressFormSubmit(ev, user);
       });
     }
-    // Notify admin to make changes on the press form
-    let press_notify_form = document.getElementById('notify_admin_modal');
-    let notifier_email = document.getElementById('notifier_email');
-    let notifier_text = document.getElementById('notifier_text');
-
-    if(press_notify_form){
-    press_notify_form.addEventListener('submit', function (e, user){
-      e.preventDefault();
-      e.stopPropagation();
-
-      try {
-            const docRef = addDoc(collection(db, "mail"), {
-              to: 'dev@porschetennis.com',
-              message: {
-                subject: `Press form changes`,
-                html: `Hi! The user ${notifier_email.value} wants to make the following changes:<br><br> ${notifier_text.value}.`,
-              }
-            });
-            console.log("Email has been sent!");
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-          toastr.success('Email has been sent!');
-          setTimeout(function() {
-            document.getElementById('notify_modal').style.display = 'none';
-            $('body').removeClass('modal-open');
-                }, 500);
-
-    })
-  }
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Supplier functions
