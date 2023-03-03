@@ -880,7 +880,7 @@ function updateFileLabel() {
                         <title>Press Form Submission</title>
                         <style>
                           /* Set default styles */
-                          body {
+                          [class*='email_body'] {
                             margin: 0;
                             padding: 0;
                             font-family: Arial, sans-serif;
@@ -891,14 +891,14 @@ function updateFileLabel() {
                           }
                           
                           /* Define container styles */
-                          .container {
+                          [class*='container'] {
                             max-width: 500px;
                             margin: 0 auto;
                             background-color: #ffffff;
                           }
                           
                           /* Define header styles */
-                          .header {
+                          [class*='header'] {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
@@ -907,12 +907,12 @@ function updateFileLabel() {
                           }
                           
                           /* Define logo styles */
-                          .logo img {
+                          [class*='logo'] img {
                             max-height: 100px;
                           }
                           
                           /* Define email title styles */
-                          .title {
+                          [class*='title'] {
                             font-size: 24px;
                             font-weight: bold;
                             text-align: center;
@@ -921,13 +921,13 @@ function updateFileLabel() {
                           }
                           
                           /* Define email content styles */
-                          .content {
+                          [class*='content'] {
                             padding: 20px;
                             background-color: #ffffff;
                           }
                         </style>
                       </head>
-                      <body>
+                      <body class='email_body'>
                         <div class="container">
                           <div class="header">
                             <div class="logo">
