@@ -846,8 +846,33 @@ function updateFileLabel() {
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
-              subject: `DE: Press form Submited`,
-              html: `Thanks for submiting the form!`,
+              subject: `Antrag eingegangen`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission DE</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                            <div class="logo">
+                              <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                            </div>
+                            <div class="logo">
+                              <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                            </div>
+                          </div>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Sehr geehrte ${press_title.value} geehrter Herr ${press_firstname.value}</p>
+                            <p style="margin-bottom:15px">vielen Dank für Ihren Akkreditierungsantrag für den Porsche Tennis Grand Prix 2023. Sie werden in Kürze von uns hören.</p>
+                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                            <p>Claus-Peter Andorka<br>
+                              Pressesprecher Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
             }
           });
         } catch (error) {
@@ -1366,8 +1391,35 @@ update_user_form.addEventListener('submit', (e) => {
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
-                subject: 'EN: Sorry you have been declined',
-                html: 'EN: Sorry you have been declined',
+                subject: 'Application rejected',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                                  </div>
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                                  </div>
+                                </div>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are unfortunately not able to provide you with media credentials.</p>
+                                  <p style="margin-bottom:15px">We would be very happy to support your reporting on the Porsche Tennis Grand Prix by offering you the opportunity to use our press database and our Media Hub. All the latest news and photos as well as comprehensive background information from the tournament in the Porsche Arena can be found at <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>.</p>
+                                  <p style="margin-bottom:15px">If you need any further assistance, please let me know. I can be reached via telephone at +49 (0) 1726911517 or via email at <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>
+                                    Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
               }
               });
             } catch (e) {
@@ -1380,8 +1432,35 @@ update_user_form.addEventListener('submit', (e) => {
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
-                subject: 'DE: Sorry you have been declined',
-                html: 'DE: Sorry you have been declined',
+                subject: 'Akkreditierung Ablehnung',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email DE</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                                  </div>
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                                  </div>
+                                </div>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
+                                  <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
+                                  <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                  <p>Claus-Peter Andorka<br>
+                                    Pressesprecher Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
               }
               });
             } catch (e) {
@@ -1396,8 +1475,35 @@ update_user_form.addEventListener('submit', (e) => {
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
                   message: {
-                    subject: 'EN: Hello from Firebase!',
-                    html: 'EN: This is an <code>HTML</code> email body.',
+                    subject: 'Application accepted',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Accepted user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                                  </div>
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                                  </div>
+                                </div>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are delighted to learn of your intention to report about the tournament in the Porsche Arena and are pleased to confirm your accreditation.</p>
+                                  <p style="margin-bottom:15px">Your press credentials for the Porsche Tennis Grand Prix can be picked up from the Accreditation Office behind the Porsche Arena (access via Benzstrasse). There you will also find the Media Parking P13.</p>
+                                  <p style="margin-bottom:15px">We are looking forward to both cooperating closely with you and to an exciting Porsche Tennis Grand Prix.</p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>
+                                    Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
                   }
                 });
                     console.log("Document written with ID: ", docRef.id);
@@ -1409,8 +1515,35 @@ update_user_form.addEventListener('submit', (e) => {
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
-                        subject: 'DE: Hello from Firebase!',
-                        html: 'DE: This is an <code>HTML</code> email body.',
+                        subject: 'Akkreditierungsbestätigung',
+                        html: `<!DOCTYPE html>
+                                <html>
+                                <head>
+                                  <title>Accepted user email DE</title>
+                                </head>
+                                <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                                  <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                    <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                                      <div class="logo">
+                                        <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                                      </div>
+                                      <div class="logo">
+                                        <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                                      </div>
+                                    </div>
+                                    <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                                    <div style="padding: 20px;background-color: #ffffff;">
+                                      <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname}</p>
+                                      <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Wir freuen uns, dass Sie über das Turnier in der Porsche-Arena berichten wollen und bestätigen Ihnen gerne Ihre Akkreditierung.</p>
+                                      <p style="margin-bottom:15px">Ihren Presse-Ausweis für den Porsche Tennis Grand Prix erhalten Sie im Akkreditierungsbüro vor dem Hintereingang der Porsche-Arena (Zufahrt über die Benzstraße). Dort liegt auch der Presseparkplatz P13.</p>
+                                      <p style="margin-bottom:15px">Wir freuen uns auf eine gute Zusammenarbeit und einen spannenden Porsche Tennis Grand Prix.</p>
+                                      <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                      <p>Claus-Peter Andorka<br>
+                                        Pressesprecher Porsche Tennis Grand Prix</p>
+                                    </div>
+                                  </div>
+                                </body>
+                                </html>`,
                       }
                     });
                     console.log("Document written with ID: ", docRef.id);
@@ -1448,8 +1581,35 @@ update_user_form.addEventListener('submit', (e) => {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
                     message: {
-                    subject: 'EN: Sorry you have been declined',
-                    html: 'EN: Sorry you have been declined',
+                    subject: 'Application rejected',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                                  </div>
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                                  </div>
+                                </div>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are unfortunately not able to provide you with media credentials.</p>
+                                  <p style="margin-bottom:15px">We would be very happy to support your reporting on the Porsche Tennis Grand Prix by offering you the opportunity to use our press database and our Media Hub. All the latest news and photos as well as comprehensive background information from the tournament in the Porsche Arena can be found at <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>.</p>
+                                  <p style="margin-bottom:15px">If you need any further assistance, please let me know. I can be reached via telephone at +49 (0) 1726911517 or via email at <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>
+                                    Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
                     }
                     });
                     } catch (e) {
@@ -1464,8 +1624,35 @@ update_user_form.addEventListener('submit', (e) => {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
                     message: {
-                    subject: 'DE: Sorry you have been declined',
-                    html: 'DE: Sorry you have been declined',
+                      subject: 'Akkreditierung Ablehnung',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email DE</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                                  </div>
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                                  </div>
+                                </div>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
+                                  <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
+                                  <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                  <p>Claus-Peter Andorka<br>
+                                    Pressesprecher Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
                     }
                     });
                     } catch (e) {
@@ -1482,8 +1669,35 @@ update_user_form.addEventListener('submit', (e) => {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
                     message: {
-                    subject: 'EN: Hello from Firebase!',
-                    html: 'EN: This is an <code>HTML</code> email body.',
+                      subject: 'Application accepted',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Accepted user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                                  </div>
+                                  <div class="logo">
+                                    <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                                  </div>
+                                </div>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are delighted to learn of your intention to report about the tournament in the Porsche Arena and are pleased to confirm your accreditation.</p>
+                                  <p style="margin-bottom:15px">Your press credentials for the Porsche Tennis Grand Prix can be picked up from the Accreditation Office behind the Porsche Arena (access via Benzstrasse). There you will also find the Media Parking P13.</p>
+                                  <p style="margin-bottom:15px">We are looking forward to both cooperating closely with you and to an exciting Porsche Tennis Grand Prix.</p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>
+                                    Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
                     }
                     });
                     console.log("Document written with ID: ", docRef.id);
@@ -1499,8 +1713,35 @@ update_user_form.addEventListener('submit', (e) => {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
                     message: {
-                    subject: 'DE: Hello from Firebase!',
-                    html: 'DE: This is an <code>HTML</code> email body.',
+                      subject: 'Akkreditierungsbestätigung',
+                        html: `<!DOCTYPE html>
+                                <html>
+                                <head>
+                                  <title>Accepted user email DE</title>
+                                </head>
+                                <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                                  <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                    <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;margin-bottom:30px;">
+                                      <div class="logo">
+                                        <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                                      </div>
+                                      <div class="logo">
+                                        <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
+                                      </div>
+                                    </div>
+                                    <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
+                                    <div style="padding: 20px;background-color: #ffffff;">
+                                      <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname}</p>
+                                      <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Wir freuen uns, dass Sie über das Turnier in der Porsche-Arena berichten wollen und bestätigen Ihnen gerne Ihre Akkreditierung.</p>
+                                      <p style="margin-bottom:15px">Ihren Presse-Ausweis für den Porsche Tennis Grand Prix erhalten Sie im Akkreditierungsbüro vor dem Hintereingang der Porsche-Arena (Zufahrt über die Benzstraße). Dort liegt auch der Presseparkplatz P13.</p>
+                                      <p style="margin-bottom:15px">Wir freuen uns auf eine gute Zusammenarbeit und einen spannenden Porsche Tennis Grand Prix.</p>
+                                      <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                      <p>Claus-Peter Andorka<br>
+                                        Pressesprecher Porsche Tennis Grand Prix</p>
+                                    </div>
+                                  </div>
+                                </body>
+                                </html>`,
                     }
                     });
                     console.log("Document written with ID: ", docRef.id);
