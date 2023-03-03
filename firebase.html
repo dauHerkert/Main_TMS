@@ -573,6 +573,11 @@ updatedPicture.addEventListener("change", function handleProfilePic(e) {
       image.src = URL.createObjectURL(fileItem);
       cropper = new Cropper(image, {
         aspectRatio: 3 / 4,
+        width: 200,
+          height: 200,
+          viewMode: 1,
+          autoCropArea: 0.5,
+          responsive: true,
         crop(event) {
           // Get the cropped canvas data as a data URL
           const canvas = cropper.getCroppedCanvas();
