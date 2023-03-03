@@ -878,67 +878,19 @@ function updateFileLabel() {
                       <html>
                       <head>
                         <title>Press Form Submission</title>
-                        <style>
-                          /* Set default styles */
-                          [class*='email_body'] {
-                            margin: 0;
-                            padding: 0;
-                            font-family: Arial, sans-serif;
-                            font-size: 16px;
-                            line-height: 1.4;
-                            color: #444444;
-                            background-color: #f2f2f2;
-                          }
-                          
-                          /* Define container styles */
-                          [class*='container'] {
-                            max-width: 500px;
-                            margin: 0 auto;
-                            background-color: #ffffff;
-                          }
-                          
-                          /* Define header styles */
-                          [class*='header'] {
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            padding: 20px;
-                            background-color: #ffffff;
-                          }
-                          
-                          /* Define logo styles */
-                          [class*='logo'] img {
-                            max-height: 100px;
-                          }
-                          
-                          /* Define email title styles */
-                          [class*='title'] {
-                            font-size: 24px;
-                            font-weight: bold;
-                            text-align: center;
-                            padding: 20px;
-                            background-color: #ffffff;
-                          }
-                          
-                          /* Define email content styles */
-                          [class*='content'] {
-                            padding: 20px;
-                            background-color: #ffffff;
-                          }
-                        </style>
                       </head>
-                      <body class='email_body'>
-                        <div class="container">
-                          <div class="header">
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff;">
+                          <div style="display: flex;align-items: center;justify-content: space-between;padding: 20px;background-color: #ffffff;">
                             <div class="logo">
-                              <img src="./images/Porsche_tennis.png" alt="Porsche Tennis">
+                              <img style="max-height:100px;" src="./images/Porsche_tennis.png" alt="Porsche Tennis">
                             </div>
                             <div class="logo">
-                              <img src="./images/Wta.png" alt="WTA Logo">
+                              <img style="max-height:100px;" src="./images/Wta.png" alt="WTA Logo">
                             </div>
                           </div>
-                          <div class="title">Press Form Submission</div>
-                          <div class="content">
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;">Press Form Submission</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
                             <p>Dear ${press_title.value} ${press_firstname.value}</p>
                             <p>Many thanks for your application for 2023 Porsche Tennis Grand Prix credentials. We will get back to you in the near future.</p>
                             <p>Kind regards</p>
