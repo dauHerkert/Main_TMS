@@ -842,6 +842,17 @@ function updateFileLabel() {
         } catch (error) {
           console.error(error);
         }
+        try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: 'serfaty.samuel90@gmail.com',
+            message: {
+              subject: `DE: Press form Submited`,
+              html: `Thanks for submiting the form!`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
         setTimeout(function() {
             window.location.pathname = '/de/signin-porsche';
         }, 1500);
@@ -853,6 +864,17 @@ function updateFileLabel() {
             message: {
               subject: `EN: Press form Submited`,
               html: `Hi! A new press user has submited the form`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: 'serfaty.samuel90@gmail.com',
+            message: {
+              subject: `EN: Press form Submited`,
+              html: `Thanks for submiting the form!`,
             }
           });
         } catch (error) {
