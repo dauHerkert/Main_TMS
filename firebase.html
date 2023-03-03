@@ -204,9 +204,9 @@ if (profile_img) {
         profile_cropper = new Cropper(image, {
           aspectRatio: 3 / 4,
           width: 200,
-          height: 100,
-          viewMode: 0,
-          autoCropArea: 0.7,
+          height: 200,
+          viewMode: 1,
+          autoCropArea: 0.5,
           responsive: true,
           crop(event) {
             // Get the cropped canvas data as a data URL
