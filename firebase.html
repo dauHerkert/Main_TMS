@@ -844,7 +844,7 @@ function updateFileLabel() {
         }
         try {
           const docRef = addDoc(collection(db, "mail"), {
-            to: 'serfaty.samuel90@gmail.com',
+            to: `${press_email.value}`,
             message: {
               subject: `DE: Press form Submited`,
               html: `Thanks for submiting the form!`,
@@ -871,11 +871,82 @@ function updateFileLabel() {
         }
         try {
           const docRef = addDoc(collection(db, "mail"), {
-            to: 'serfaty.samuel90@gmail.com',
+            to: `${press_email.value}`,
             message: {
               subject: `EN: Press form Submited`,
-              html: `Thanks for submiting the form!`,
-            }
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission</title>
+                        <style>
+                          /* Set default styles */
+                          body {
+                            margin: 0;
+                            padding: 0;
+                            font-family: Arial, sans-serif;
+                            font-size: 16px;
+                            line-height: 1.4;
+                            color: #444444;
+                            background-color: #f2f2f2;
+                          }
+                          
+                          /* Define container styles */
+                          .container {
+                            max-width: 800px;
+                            margin: 0 auto;
+                            background-color: #ffffff;
+                          }
+                          
+                          /* Define header styles */
+                          .header {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 20px;
+                            background-color: #ffffff;
+                          }
+                          
+                          /* Define logo styles */
+                          .logo img {
+                            max-height: 100px;
+                          }
+                          
+                          /* Define email title styles */
+                          .title {
+                            font-size: 24px;
+                            font-weight: bold;
+                            text-align: center;
+                            padding: 20px;
+                            background-color: #ffffff;
+                          }
+                          
+                          /* Define email content styles */
+                          .content {
+                            padding: 20px;
+                            background-color: #ffffff;
+                          }
+                        </style>
+                      </head>
+                      <body>
+                        <div class="container">
+                          <div class="header">
+                            <div class="logo">
+                              <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5cdc8002f8f13fa0b7c2a_porsche_white.png" alt="Porsche Tennis">
+                            </div>
+                            <div class="logo">
+                              <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5cdc83ea54790a22351b1_WTA_white.png" alt="WTA Logo">
+                            </div>
+                          </div>
+                          <div class="title">Press Form Submission</div>
+                          <div class="content">
+                            <p>Hi! A new press user has submitted the form. Thank you for your interest.</p>
+                            <p>Thanks for submitting the form!</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>
+                    `,
+              }
           });
         } catch (error) {
           console.error(error);
@@ -2520,7 +2591,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba')
+console.log('prueba11')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
