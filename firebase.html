@@ -799,10 +799,11 @@ function updateFileLabel() {
           press_hotel_information: press_hotel_information.value,
           press_form_user: '1',
           user_company: 'JVhBWwwfdL03n4mh57rG',
+          company_admin: '0',
           user_is_admin: '0',
           user_type: 'Press',
           user_zones: '',
-          user_status: 'pending',
+          user_status: 'Pending',
         }, { merge: true })
         .then((docRef) => {
           const press_image = document.getElementById('press_image');
@@ -2794,7 +2795,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba1')
+console.log('prueba12')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
