@@ -808,8 +808,7 @@ function updateFileLabel() {
         .then((docRef) => {
           const press_image = document.getElementById('press_image');
           if (press_image.files.length > 0) {
-            const imageName = press_image.files[0].name.replace('/', '');
-            const storageRef = ref(storage, `press_image/${docRef.id}/${imageName}`);
+            const storageRef = ref(storage, `press_image/${docRef.id}`);
             pressUploadImage(docRef.id, storageRef, press_image);
           } else {
             toastr.error('Please upload your press ID');
@@ -2796,7 +2795,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba123')
+console.log('prueba1234')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
