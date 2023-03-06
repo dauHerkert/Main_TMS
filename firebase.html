@@ -749,7 +749,7 @@ function updateFileLabel() {
       e.preventDefault();
   e.stopPropagation();
     
-    const pressFormRef = collection(db, 'press_forms');
+    const pressFormRef = collection(db, 'users');
     let press_title = document.getElementById('press_title');
     let press_lastname = document.getElementById('press_lastname');
     let press_firstname = document.getElementById('press_firstname');
@@ -796,7 +796,8 @@ function updateFileLabel() {
           press_itwa: press_itwa.value,
           press_workspace: press_workspace.value,
           press_locker: press_locker.value,
-          press_hotel_information: press_hotel_information.value
+          press_hotel_information: press_hotel_information.value,
+          press_form_user: '1'
         }, { merge: true })
         .then((docRef) => {
           const press_image = document.getElementById('press_image');
