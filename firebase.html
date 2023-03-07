@@ -50,6 +50,16 @@
       press_has_uploaded_id: '0',
       // press_has_form_submitted: 0 | 1
       press_has_form_submitted: '0',
+      //Press form info
+      press_media: '',
+      press_media_type: '',
+      user_itwa: '',
+      press_workspot: '',
+      press_locker: '',
+      press_hotel_information: '',
+      press_form_user: '0',
+      press_id: '',
+      press_issued_by: '',
 
       // User fields
       user_email: '',
@@ -275,7 +285,7 @@ if (profile_img) {
             }
           } else {
             if (userData.user_is_admin === "0" && userData.user_type === "Press") {
-              window.location = "/en/press";
+              window.location = "/en/account";
             } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
               window.location = "/en/supplier";
             } else if (userData.user_is_admin === "1") {
@@ -288,7 +298,7 @@ if (profile_img) {
           }
         } else {
           if (userData.user_is_admin === "0" && userData.user_type === "Press") {
-            window.location = "/en/press";
+            window.location = "/en/account";
           } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
             window.location = "/en/supplier";
           } else if (userData.user_is_admin === "1") {
@@ -1181,6 +1191,15 @@ function updateFileLabel() {
         paginationCounter:"rows",
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"ITWA", field:"user_itwa", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Workspot", field:"press_workspot", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Locker", field:"press_locker", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Hotel info", field:"press_hotel_information", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Press media type", field:"press_media_type", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Press media", field:"press_media", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Press ID", field:"press_id", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Press ID issued by", field:"press_issued_by", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Email", field:"email", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -1310,7 +1329,7 @@ getDocs(colRef)
         let user = doc.data();
 
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id, email:user.user_email, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_information: user.press_hotel_information, press_form_user: user.press_form_user, press_media_type: user.press_media_type, press_media: user.press_media, press_id: user.press_id, press_issued_by: user.press_issued_by, email:user.user_email, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
 
         }));
     });
