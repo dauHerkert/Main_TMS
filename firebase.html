@@ -893,7 +893,7 @@ function updateFileLabel() {
           console.error(error);
         }
         setTimeout(function() {
-            window.location.pathname = '/de/signin-porsche';
+            window.location.pathname = '/de/press-form-submitted';
         }, 1500);
       }else {       
         toastr.success('You have submitted the form successfully');
@@ -946,7 +946,7 @@ function updateFileLabel() {
           console.error(error);
         }
         setTimeout(function() {
-            window.location.pathname = '/en/signin-porsche';
+            window.location.pathname = '/en/press-form-submitted';
         }, 1500);
         }
     })
@@ -956,9 +956,7 @@ function updateFileLabel() {
 }
 
     async function pagePress() {      
-      // Get press form
       const press_form = document.getElementById('logout_press_form');
-      // Add submit event to form
       press_form.addEventListener('submit', function(ev) {
 
       var requiredFields = document.querySelectorAll(".required");
