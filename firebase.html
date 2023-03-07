@@ -305,7 +305,6 @@ if (profile_img) {
   }
 }
 
-
     // Handle signOut
     function handleSignOut() {
       var storedLang = localStorage.getItem("language");
@@ -543,8 +542,6 @@ if (profile_img) {
     function showProfilePic(user){
       getDownloadURL(ref(storage, 'profiles/' + user.uid))
         .then((url) => {
-
-          //insert into an <img> element
           const img = document.getElementById('user_profile_pic');
           img.setAttribute('src', url);
         })
@@ -808,7 +805,7 @@ function updateFileLabel() {
         .then((docRef) => {
           const press_image = document.getElementById('press_image');
           if (press_image.files.length > 0) {
-            const storageRef = ref(storage, `press_image/${docRef.id}`);
+            const storageRef = ref(storage, `profiles/${docRef.id}`);
             pressUploadImage(docRef.id, storageRef, press_image);
           } else {
             toastr.error('Please upload your press ID');
@@ -954,8 +951,8 @@ function updateFileLabel() {
       // Add submit event to form
       press_form.addEventListener('submit', function(ev) {
 
-        var requiredFields = document.querySelectorAll(".required");
-  var hasErrors = false;
+      var requiredFields = document.querySelectorAll(".required");
+      var hasErrors = false;
 
     for (var i = 0; i < requiredFields.length; i++) {
     if (!requiredFields[i].value) {
@@ -981,7 +978,7 @@ function updateFileLabel() {
       }
      }
     }
-        pressFormSubmit(ev);
+      pressFormSubmit(ev);
       });
     }
     /*
@@ -1012,7 +1009,6 @@ function updateFileLabel() {
         toastr.error('There was an error updating your info');
       });
     }
-
     function reloadPage(){
         window.location.reload();
     }
@@ -1059,6 +1055,17 @@ function updateFileLabel() {
         toastr.error('There was an error signin user');
      })
      }
+         //Display profile picture
+    function showUserPic(user){
+      getDownloadURL(ref(storage, 'profiles/' + user.uid))
+        .then((url) => {
+          const img = document.getElementById('user_profile_pic');
+          img.setAttribute('src', url);
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
+    }
 
     // Notify admin to make changes on the supplier form
     let supplier_notify_form = document.getElementById('notify_supplier_form');
@@ -1377,6 +1384,23 @@ userTypeUpdate.addEventListener('change', async () => {
 // Update the selectedUserZonesString variable whenever the zones select element changes
 zonesSelect.addEventListener('change', () => {
   updateSelectedUserZonesString();
+});
+
+$(document).on( 'click' , '#open_modal_btn' , function() {
+
+  const img = document.getElementById('specific_user_img');
+  let idCell = $(this).closest('div').siblings('div[tabulator-field="id"]');
+
+  // get the profile picture from storage
+  getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
+    .then((url) => {
+      // update the image's src attribute with the URL
+      img.setAttribute('src', url);
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.log(error);
+    });
 });
 
 update_user_form.addEventListener('submit', (e) => {
@@ -2795,7 +2819,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba1234')
+console.log('prueba')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
