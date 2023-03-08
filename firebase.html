@@ -829,18 +829,51 @@ function updateFileLabel() {
     }
   }
   
-  async function pressUploadImage(docId, storageRef) {
   const press_image = document.getElementById('press_image');
-  if (!press_image) {
-    console.error('press_image is null');
+  const hiddenPressInput = document.getElementById('hidden_press_img');
+  var press_crop_modal = document.getElementById("crop_modal");
+  let press_cropper;
+
+  press_image.addEventListener('change', function handlePressPic(e){
+    if (!press_image) {
+    console.error('Please upload your profile picture');
     return;
   }
   let fileItem = press_image.files[0];
   if (!fileItem) {
-    console.error('fileItem is null');
+    console.error('Please upload your profile picture');
     return;
   }
-  uploadBytes(storageRef, fileItem)
+  if (/^image\/\w+/.test(fileItem.type)) {
+    press_crop_modal.style.display = "block";
+    // Initialize the cropper
+    const image = document.getElementById('press_image_cropper');
+        image.src = URL.createObjectURL(fileItem);
+        press_cropper = new Cropper(image, {
+          aspectRatio: 3 / 4,
+          width: 200,
+          height: 200,
+          viewMode: 1,
+          autoCropArea: 0.7,
+          responsive: true,
+          crop(event) {
+            // Get the cropped canvas data as a data URL
+            const canvas = press_cropper.getCroppedCanvas();
+            const dataURL = canvas.toDataURL();
+
+            // Set the data URL as the value of the hidden input field
+            hiddenPressInput.value = dataURL;
+          },
+        });
+      } else {
+        toastr.error('Please choose an image file.');
+      }
+  })
+  
+  async function pressUploadImage(docId, storageRef) {  
+    const canvas = press_cropper.getCroppedCanvas();
+    canvas.toBlob((blob) =>{
+  uploadBytes(storageRef, blob)
     .then((snapshot) => {
       
       if(storedLang == 'de'){
@@ -971,6 +1004,7 @@ function updateFileLabel() {
     .catch((error) => {
       console.error(error);
     });
+  })
 }
 
     async function pagePress() {      
