@@ -834,6 +834,7 @@ function updateFileLabel() {
   var press_crop_modal = document.getElementById("crop_modal");
   let press_cropper;
 
+  if(press_image){
   press_image.addEventListener('change', function handlePressPic(e){
     if (!press_image) {
     console.error('Please upload your profile picture');
@@ -869,7 +870,7 @@ function updateFileLabel() {
         toastr.error('Please choose an image file.');
       }
   })
-  
+}
   async function pressUploadImage(docId, storageRef) {  
     const canvas = press_cropper.getCroppedCanvas();
     canvas.toBlob((blob) =>{
