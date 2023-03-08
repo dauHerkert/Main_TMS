@@ -976,7 +976,7 @@ function updateFileLabel() {
 async function pagePress() {      
   const press_form = document.getElementById('logout_press_form');
   press_form.addEventListener('submit', function(ev) {
-
+    ev.preventDefault();    
     var requiredFields = document.querySelectorAll(".required");
     var hasErrors = false;
 
@@ -984,42 +984,33 @@ async function pagePress() {
       if (!requiredFields[i].value) {
         requiredFields[i].style.border = "2px solid red";
         hasErrors = true;
-        continue;
-      }      
-      if (requiredFields[i].type === "email") {
+      } else if (requiredFields[i].type === "email") {
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(requiredFields[i].value)) {
           requiredFields[i].style.border = "2px solid red";
           hasErrors = true;
-          continue;
         }
-      }      
-      if (requiredFields[i].id === "press_phone") {
+      } else if (requiredFields[i].id === "press_phone") {
         var phonePattern = /^\d{10}$/;
         if (!phonePattern.test(requiredFields[i].value)) {
           requiredFields[i].style.border = "2px solid red";
           hasErrors = true;
-          continue;
         }
-      }      
-      if (requiredFields[i].id === "press_zip_code") {
+      } else if (requiredFields[i].id === "press_zip_code") {
         var zipCodePattern = /^\d{5}$/;
         if (!zipCodePattern.test(requiredFields[i].value)) {
           requiredFields[i].style.border = "2px solid red";
           hasErrors = true;
-          continue;
         }
       }
     }
-
     if (hasErrors) {
-      ev.preventDefault();
+      return false;
     } else {
       pressFormSubmit(ev);
     }
   });
 }
-
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Supplier functions
@@ -2939,7 +2930,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba12')
+console.log('prueba1234')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
