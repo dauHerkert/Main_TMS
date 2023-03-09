@@ -1036,7 +1036,7 @@ function updateFileLabel() {
       }
      }
     }
-    if(press_image.value == null || press_image.value == 0){
+    if(press_image.files.length == 0){
       if(storedLang == 'de'){
         toastr.error('Bitte laden Sie Ihr Profilbild hoch')
       }else{
