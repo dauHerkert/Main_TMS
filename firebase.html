@@ -1266,42 +1266,49 @@ function updateFileLabel() {
             {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
             {title: userTableCompanyLabel, field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
             {
-      title: userTableStatusLabel,
-      field: "status",
-      sorter: "string",
-      width: 170,
-      formatter: function(cell) {
-        let value = cell.getValue();
-        let label = "";
-        if (storedLang === 'de') {
-          if (value === "Ok") {
-            label = "Ok";
-          } else if (value === "Declined") {
-            label = "Abgelehnt";
-          } else if (value === "Pending") {
-            label = "Ausstehend";
-          }
-        } else {
-          if (value === "Ok") {
-            label = "Ok";
-          } else if (value === "Declined") {
-            label = "Declined";
-          } else if (value === "Pending") {
-            label = "Pending";
-          }
-        }
-        return label;
-      },
-      headerFilter: "list",
-      headerFilterParams: {
-        values: true,
-        valuesSort: "asc",
-        values: statusOptions,
-        clearable: true,
-      },
-      headerFilterPlaceholder: "Status",
-      cssClass: "other_columns",
-    },
+              title: userTableStatusLabel,
+              field: "status",
+              sorter: "string",
+              width: 170,
+              formatter: function(cell) {
+                let value = cell.getValue();
+                let label = "";
+                let color = "";
+                if (storedLang === 'de') {
+                  if (value === "Ok") {
+                    label = "Ok";
+                    color = "green";
+                  } else if (value === "Declined") {
+                    label = "Abgelehnt";
+                    color = "red";
+                  } else if (value === "Pending") {
+                    label = "Ausstehend";
+                    color = "yellow";
+                  }
+                } else {
+                  if (value === "Ok") {
+                    label = "Ok";
+                    color = "green";
+                  } else if (value === "Declined") {
+                    label = "Declined";
+                    color = "red";
+                  } else if (value === "Pending") {
+                    label = "Pending";
+                    color = "yellow";
+                  }
+                }
+                return '<div style="display:flex;align-items:center;"><div style="width:10px;height:10px;border-radius:50%;background-color:' + color + ';margin-right:5px;"></div><div>' + label + '</div></div>';
+              },
+              headerFilter: "list",
+              headerFilterParams: {
+                values: true,
+                valuesSort: "asc",
+                values: statusOptions,
+                clearable: true,
+              },
+              headerFilterPlaceholder: "Status",
+              cssClass: "other_columns",
+            },
             {title: userTableAdminLabel, field:"user_admin", cssClass:"center_col other_columns", width: 120, formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
