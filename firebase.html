@@ -858,11 +858,8 @@ function updateFileLabel() {
           autoCropArea: 0.7,
           responsive: true,
           crop(event) {
-            // Get the cropped canvas data as a data URL
             const canvas = press_cropper.getCroppedCanvas();
             const dataURL = canvas.toDataURL();
-
-            // Set the data URL as the value of the hidden input field
             hiddenPressInput.value = dataURL;
           },
         });
@@ -921,7 +918,7 @@ function updateFileLabel() {
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Sehr geehrte ${press_title.value} geehrter Herr ${press_firstname.value}</p>
+                            <p style="margin-bottom:30px">Sehr geehrte ${press_title.value} geehrter Herr ${press_firstname.value} ${press_lastname.value}</p>
                             <p style="margin-bottom:15px">vielen Dank für Ihren Akkreditierungsantrag für den Porsche Tennis Grand Prix 2023. Sie werden in Kürze von uns hören.</p>
                             <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
                             <p>Claus-Peter Andorka<br>
@@ -982,7 +979,7 @@ function updateFileLabel() {
                                     </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application received</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Dear ${press_title.value} ${press_firstname.value}</p>
+                            <p style="margin-bottom:30px">Dear ${press_title.value} ${press_firstname.value} ${press_lastname.value}</p>
                             <p style="margin-bottom:15px">Many thanks for your application for 2023 Porsche Tennis Grand Prix credentials. We will get back to you in the near future.</p>
                             <p style="margin-bottom:30px">Kind regards</p>
                             <p>Claus-Peter Andorka<br>
@@ -1520,7 +1517,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application rejected</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname} ${userRef.user_lastname}</p>
                                   <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are unfortunately not able to provide you with media credentials.</p>
                                   <p style="margin-bottom:15px">We would be very happy to support your reporting on the Porsche Tennis Grand Prix by offering you the opportunity to use our press database and our Media Hub. All the latest news and photos as well as comprehensive background information from the tournament in the Porsche Arena can be found at <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>.</p>
                                   <p style="margin-bottom:15px">If you need any further assistance, please let me know. I can be reached via telephone at +49 (0) 1726911517 or via email at <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
@@ -1570,7 +1567,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname} ${userRef.user_lastname}</p>
                                   <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
                                   <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
                                   <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
@@ -1622,7 +1619,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application accepted</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname} ${userRef.user_lastname}</p>
                                   <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are delighted to learn of your intention to report about the tournament in the Porsche Arena and are pleased to confirm your accreditation.</p>
                                   <p style="margin-bottom:15px">Your press credentials for the Porsche Tennis Grand Prix can be picked up from the Accreditation Office behind the Porsche Arena (access via Benzstrasse). There you will also find the Media Parking P13.</p>
                                   <p style="margin-bottom:15px">We are looking forward to both cooperating closely with you and to an exciting Porsche Tennis Grand Prix.</p>
@@ -1671,7 +1668,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                     <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
                                     <div style="padding: 20px;background-color: #ffffff;">
-                                      <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname}</p>
+                                      <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname} ${userRef.user_lastname}</p>
                                       <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Wir freuen uns, dass Sie über das Turnier in der Porsche-Arena berichten wollen und bestätigen Ihnen gerne Ihre Akkreditierung.</p>
                                       <p style="margin-bottom:15px">Ihren Presse-Ausweis für den Porsche Tennis Grand Prix erhalten Sie im Akkreditierungsbüro vor dem Hintereingang der Porsche-Arena (Zufahrt über die Benzstraße). Dort liegt auch der Presseparkplatz P13.</p>
                                       <p style="margin-bottom:15px">Wir freuen uns auf eine gute Zusammenarbeit und einen spannenden Porsche Tennis Grand Prix.</p>
@@ -1746,7 +1743,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname} ${userRef.user_lastname}</p>
                                   <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are unfortunately not able to provide you with media credentials.</p>
                                   <p style="margin-bottom:15px">We would be very happy to support your reporting on the Porsche Tennis Grand Prix by offering you the opportunity to use our press database and our Media Hub. All the latest news and photos as well as comprehensive background information from the tournament in the Porsche Arena can be found at <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>.</p>
                                   <p style="margin-bottom:15px">If you need any further assistance, please let me know. I can be reached via telephone at +49 (0) 1726911517 or via email at <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
@@ -1798,7 +1795,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname} ${userRef.user_lastname}</p>
                                   <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
                                   <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
                                   <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
@@ -1852,7 +1849,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname}</p>
+                                  <p style="margin-bottom:30px">Dear Mr/Ms ${userRef.user_firstname} ${userRef.user_lastname}</p>
                                   <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are delighted to learn of your intention to report about the tournament in the Porsche Arena and are pleased to confirm your accreditation.</p>
                                   <p style="margin-bottom:15px">Your press credentials for the Porsche Tennis Grand Prix can be picked up from the Accreditation Office behind the Porsche Arena (access via Benzstrasse). There you will also find the Media Parking P13.</p>
                                   <p style="margin-bottom:15px">We are looking forward to both cooperating closely with you and to an exciting Porsche Tennis Grand Prix.</p>
@@ -1905,7 +1902,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                     <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Press Form Submission</div>
                                     <div style="padding: 20px;background-color: #ffffff;">
-                                      <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname}</p>
+                                      <p style="margin-bottom:30px">Sehr geehrte Frau/Sehr geehrter Herr ${userRef.user_firstname} ${userRef.user_lastname}</p>
                                       <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Wir freuen uns, dass Sie über das Turnier in der Porsche-Arena berichten wollen und bestätigen Ihnen gerne Ihre Akkreditierung.</p>
                                       <p style="margin-bottom:15px">Ihren Presse-Ausweis für den Porsche Tennis Grand Prix erhalten Sie im Akkreditierungsbüro vor dem Hintereingang der Porsche-Arena (Zufahrt über die Benzstraße). Dort liegt auch der Presseparkplatz P13.</p>
                                       <p style="margin-bottom:15px">Wir freuen uns auf eine gute Zusammenarbeit und einen spannenden Porsche Tennis Grand Prix.</p>
@@ -2496,7 +2493,6 @@ update_user_form.addEventListener('submit', (e) => {
     * URL functions
     * -----------------------------------------------------------------------------------------------------------
     */
-
     /* Check if the company parameter exists in the URL
     /* If it does then set a value in the local storage
     /* and pre-populate the text field in the sign up form
