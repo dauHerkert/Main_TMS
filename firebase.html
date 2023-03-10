@@ -765,7 +765,7 @@ function updateFileLabel() {
     */
     function pressFormSubmit(e) {
       e.preventDefault();
-  e.stopPropagation();
+      e.stopPropagation();
     
     const pressFormRef = collection(db, 'users');
     let press_title = document.getElementById('press_title');
@@ -786,9 +786,7 @@ function updateFileLabel() {
     let press_locker = document.getElementById('press_locker');
     let press_hotel_information = document.getElementById('press_hotel_information');
 
-    if (press_image.files.length === 0) {
-      toastr.error('Please upload your profile picture');
-    } else {
+    
       if (press_email.value !== press_confirm_email.value) {
         toastr.error("The emails don't match");
       } else {
@@ -832,14 +830,16 @@ function updateFileLabel() {
         });
       }
     }
-  }
   
   const press_image = document.getElementById('press_image');
   const hiddenPressInput = document.getElementById('hidden_press_img');
   var press_crop_modal = document.getElementById("crop_modal");
   let press_cropper;
-
+  
   if(press_image){
+  if(press_image.files.length === 0){
+    toastr.error('There was an error updating your info');
+  }else{
   press_image.addEventListener('change', function handlePressPic(e){
     if (!press_image) {
     console.error('Please upload your profile picture');
@@ -873,11 +873,9 @@ function updateFileLabel() {
       }
   })
 }
+}
   async function pressUploadImage(docId, storageRef) {  
     const canvas = press_cropper.getCroppedCanvas();
-    if(!press_image.value) {
-      toastr.error('Please select an image to upload');
-      } else {
     canvas.toBlob((blob) =>{
   uploadBytes(storageRef, blob)
     .then((snapshot) => {
@@ -1078,7 +1076,6 @@ function updateFileLabel() {
       console.error(error);
     });
   })
-}
 }
 
     async function pagePress() {      
