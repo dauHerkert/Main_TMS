@@ -875,10 +875,12 @@ function updateFileLabel() {
 }
   async function pressUploadImage(docId, storageRef) {  
     const canvas = press_cropper.getCroppedCanvas();
+    if(!press_image.value) {
+      toastr.error('Please select an image to upload');
+      } else {
     canvas.toBlob((blob) =>{
   uploadBytes(storageRef, blob)
     .then((snapshot) => {
-      
       if(storedLang == 'de'){
         toastr.success('Sie haben das Formular erfolgreich übermittelt');
         try {
@@ -1076,6 +1078,7 @@ function updateFileLabel() {
       console.error(error);
     });
   })
+}
 }
 
     async function pagePress() {      
