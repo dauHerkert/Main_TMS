@@ -1220,10 +1220,44 @@ function updateFileLabel() {
       if (storedLang == 'en'){
         try {
             const docRef = addDoc(collection(db, "mail"), {
-              to: 'dev@porschetennis.com',
+              to: 'andreas.salvermoser@ops.dauherkert.com',
               message: {
                 subject: `EN: Supplier form changes`,
-                html: `EN: Hi! The user ${supplier_email.value} wants to make the following changes:<br><br> ${supplier_text.value}.`,
+                html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application received</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Dear Admin</p>
+                            <p style="margin-bottom:15px">The user ${supplier_email.value} wants to make the following changes:<br><br> ${supplier_text.value}.</p>
+                            <p style="margin-bottom:30px">Kind regards</p>
+                            <p>Claus-Peter Andorka<br>
+                              Media Director Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
               }
             });
           } catch (e) {
@@ -1237,10 +1271,44 @@ function updateFileLabel() {
       }else{
         try {
             const docRef = addDoc(collection(db, "mail"), {
-              to: 'dev@porschetennis.com',
+              to: 'andreas.salvermoser@ops.dauherkert.com',
               message: {
                 subject: `DE: Supplier form changes`,
-                html: `DE: Hi! The user ${supplier_email.value} wants to make the following changes:<br><br> ${supplier_text.value}.`,
+                html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application received</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Dear Admin</p>
+                            <p style="margin-bottom:15px">The user ${supplier_email.value} wants to make the following changes:<br><br> ${supplier_text.value}.</p>
+                            <p style="margin-bottom:30px">Kind regards</p>
+                            <p>Claus-Peter Andorka<br>
+                              Media Director Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
               }
             });
           } catch (e) {
@@ -2546,7 +2614,41 @@ update_user_form.addEventListener('submit', (e) => {
                     to: `${email_to_send.value}`,
                     message: {
                     subject: 'Willkommen, hier ist Ihr registrierungslink',
-                    html:  `DE: ${company_link.value}`,
+                    html:  `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application received</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Dear Admin</p>
+                            <p style="margin-bottom:15px">Hi! Here is the registration link: ${company_link.value}</p>
+                            <p style="margin-bottom:30px">Kind regards</p>
+                            <p>Claus-Peter Andorka<br>
+                              Media Director Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
                     }
                     });
                     toastr.success('E-Mail wurde erfolgreich versendet');
@@ -2563,7 +2665,41 @@ update_user_form.addEventListener('submit', (e) => {
                     to: `${email_to_send.value}`,
                     message: {
                     subject: 'Hello! Here is the registration link',
-                    html:  `EN: ${company_link.value}`,
+                    html:  `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application received</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Dear Admin</p>
+                            <p style="margin-bottom:15px">Hi! Here is the registration link: ${company_link.value}</p>
+                            <p style="margin-bottom:30px">Kind regards</p>
+                            <p>Claus-Peter Andorka<br>
+                              Media Director Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
                     }
                     });
                     toastr.success('Email has been successfully sent');
@@ -3046,7 +3182,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba32111')
+console.log('prueba1234')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
