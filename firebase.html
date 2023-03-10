@@ -835,13 +835,10 @@ function updateFileLabel() {
   const hiddenPressInput = document.getElementById('hidden_press_img');
   var press_crop_modal = document.getElementById("crop_modal");
   let press_cropper;
-  
+
   if(press_image){
-  if(press_image.files.length === 0){
-    toastr.error('There was an error updating your info');
-  }else{
   press_image.addEventListener('change', function handlePressPic(e){
-    if (!press_image) {
+    if (press_image.files.length == 0) {
     console.error('Please upload your profile picture');
     return;
   }
@@ -872,7 +869,6 @@ function updateFileLabel() {
         toastr.error('Please choose an image file.');
       }
   })
-}
 }
   async function pressUploadImage(docId, storageRef) {  
     const canvas = press_cropper.getCroppedCanvas();
@@ -3182,7 +3178,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba12443')
+console.log('prueba123')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
