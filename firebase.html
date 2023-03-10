@@ -1074,49 +1074,58 @@ function updateFileLabel() {
   })
 }
 
-    async function pagePress() {      
-      const press_form = document.getElementById('logout_press_form');
-      press_form.addEventListener('submit', function(ev) {
+async function pagePress() {
+    const press_form = document.getElementById('logout_press_form');
+    press_form.addEventListener('submit', function(ev) {
+        ev.preventDefault(); // Prevent form submission
 
-      var requiredFields = document.querySelectorAll(".required");
-      var hasErrors = false;
+        let requiredFields = document.querySelectorAll(".required");
+        let hasErrors = false;
+        let storedLang = localStorage.getItem("language");
+        let press_image = document.getElementById('press_image');
 
-    for (var i = 0; i < requiredFields.length; i++) {
-    if (!requiredFields[i].value) {
-      requiredFields[i].style.border = "2px solid red";
-      hasErrors = true;
-    } else if (requiredFields[i].type === "email") {
-      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(requiredFields[i].value)) {
-        requiredFields[i].style.border = "2px solid red";
-        hasErrors = true;
-      }
-    } else if (requiredFields[i].id === "press_phone") {
-      var phonePattern = /^\d{10}$/;
-      if (!phonePattern.test(requiredFields[i].value)) {
-        requiredFields[i].style.border = "2px solid red";
-        hasErrors = true;
-      }
-    } else if (requiredFields[i].id === "press_zip_code") {
-      var zipCodePattern = /^\d{5}$/;
-      if (!zipCodePattern.test(requiredFields[i].value)) {
-        requiredFields[i].style.border = "2px solid red";
-        hasErrors = true;
-      }
-     }
-    }
-    if(press_image.files.length == 0){
-      if(storedLang == 'de'){
-        toastr.error('Bitte laden Sie Ihr Profilbild hoch')
-      }else{
-        toastr.error('Please upload your profile image')
-      }
-    }else{
-      pressFormSubmit(ev);
-    }
-      
-      });
-    }
+        for (var i = 0; i < requiredFields.length; i++) {
+            if (!requiredFields[i].value) {
+                requiredFields[i].style.border = "2px solid red";
+                hasErrors = true;
+            } else if (requiredFields[i].type === "email") {
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(requiredFields[i].value)) {
+                    requiredFields[i].style.border = "2px solid red";
+                    hasErrors = true;
+                }
+            } else if (requiredFields[i].id === "press_phone") {
+                var phonePattern = /^\d{10}$/;
+                if (!phonePattern.test(requiredFields[i].value)) {
+                    requiredFields[i].style.border = "2px solid red";
+                    hasErrors = true;
+                }
+            } else if (requiredFields[i].id === "press_zip_code") {
+                var zipCodePattern = /^\d{5}$/;
+                if (!zipCodePattern.test(requiredFields[i].value)) {
+                    requiredFields[i].style.border = "2px solid red";
+                    hasErrors = true;
+                }
+            } else {
+                requiredFields[i].style.border = "1px solid #ccc"; // Reset the border color
+            }
+        }
+
+        if (hasErrors || press_image.files.length == 0) {
+            // Display error message
+            if(storedLang == 'de'){
+                toastr.error('Bitte füllen Sie alle Pflichtfelder aus und laden Sie Ihr Profilbild hoch');
+            } else {
+                toastr.error('Please fill in all required fields and upload your profile image');
+            }
+            return;
+        }
+
+        // If there are no errors, submit the form
+        pressFormSubmit(ev);
+    });
+}
+
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Supplier functions
@@ -3178,7 +3187,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba123')
+console.log('prueba332')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
