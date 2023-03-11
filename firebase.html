@@ -1074,57 +1074,60 @@ function updateFileLabel() {
   })
 }
 
-async function pagePress() {
-    const press_form = document.getElementById('logout_press_form');
-    press_form.addEventListener('submit', function(ev) {
-        ev.preventDefault(); // Prevent form submission
+async function pagePress() {      
+  const press_form = document.getElementById('logout_press_form');
+  const submit_button = document.getElementById('submit_button');
+  const requiredFields = document.querySelectorAll(".required");
+  const press_image = document.getElementById('press_image');
+  const storedLang = localStorage.getItem("language");
 
-        let requiredFields = document.querySelectorAll(".required");
-        let hasErrors = false;
-        let storedLang = localStorage.getItem("language");
-        let press_image = document.getElementById('press_image');
+  submit_button.addEventListener('click', function(ev) {
+    ev.preventDefault(); // Prevent the default form submission
 
-        for (var i = 0; i < requiredFields.length; i++) {
-            if (!requiredFields[i].value) {
-                requiredFields[i].style.border = "2px solid red";
-                hasErrors = true;
-            } else if (requiredFields[i].type === "email") {
-                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(requiredFields[i].value)) {
-                    requiredFields[i].style.border = "2px solid red";
-                    hasErrors = true;
-                }
-            } else if (requiredFields[i].id === "press_phone") {
-                var phonePattern = /^\d{10}$/;
-                if (!phonePattern.test(requiredFields[i].value)) {
-                    requiredFields[i].style.border = "2px solid red";
-                    hasErrors = true;
-                }
-            } else if (requiredFields[i].id === "press_zip_code") {
-                var zipCodePattern = /^\d{5}$/;
-                if (!zipCodePattern.test(requiredFields[i].value)) {
-                    requiredFields[i].style.border = "2px solid red";
-                    hasErrors = true;
-                }
-            } else {
-                requiredFields[i].style.border = "1px solid #ccc"; // Reset the border color
-            }
+    let hasErrors = false;
+
+    // Validate the required fields
+    for (let i = 0; i < requiredFields.length; i++) {
+      if (!requiredFields[i].value) {
+        requiredFields[i].style.border = "2px solid red";
+        hasErrors = true;
+      } else if (requiredFields[i].type === "email") {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(requiredFields[i].value)) {
+          requiredFields[i].style.border = "2px solid red";
+          hasErrors = true;
         }
-
-        if (hasErrors || press_image.files.length == 0) {
-            // Display error message
-            if(storedLang == 'de'){
-                toastr.error('Bitte füllen Sie alle Pflichtfelder aus und laden Sie Ihr Profilbild hoch');
-            } else {
-                toastr.error('Please fill in all required fields and upload your profile image');
-            }
-            return;
+      } else if (requiredFields[i].id === "press_phone") {
+        const phonePattern = /^\d{10}$/;
+        if (!phonePattern.test(requiredFields[i].value)) {
+          requiredFields[i].style.border = "2px solid red";
+          hasErrors = true;
         }
+      } else if (requiredFields[i].id === "press_zip_code") {
+        const zipCodePattern = /^\d{5}$/;
+        if (!zipCodePattern.test(requiredFields[i].value)) {
+          requiredFields[i].style.border = "2px solid red";
+          hasErrors = true;
+        }
+      }
+    }
+    // Validate the press image file input
+    if (press_image.files.length === 0) {
+      if (storedLang === 'de') {
+        toastr.error('Bitte laden Sie Ihr Profilbild hoch');
+      } else {
+        toastr.error('Please upload your profile image');
+      }
+      hasErrors = true;
+    }
 
-        // If there are no errors, submit the form
-        pressFormSubmit(ev);
-    });
+    // Submit the form if there are no errors
+    if (!hasErrors) {
+      press_form.submit();
+    }
+  });
 }
+
 
     /*
     * -----------------------------------------------------------------------------------------------------------
@@ -3187,7 +3190,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba332')
+console.log('prueba999999')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
