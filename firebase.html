@@ -425,6 +425,8 @@ if (profile_img) {
 
       if ( userInfo ) {
 
+        console.log('populateForms() userInfo', userInfo);
+
         translateNavigation();
         // Use the changeCompanyNameToID(user) function to get the company name
         const companyNames = await changeCompanyNameToID(userInfo);
@@ -766,7 +768,7 @@ function updateFileLabel() {
     function pressFormSubmit(e) {
       e.preventDefault();
       e.stopPropagation();
-    
+
     const pressFormRef = collection(db, 'users');
     let press_title = document.getElementById('press_title');
     let press_lastname = document.getElementById('press_lastname');
@@ -786,7 +788,7 @@ function updateFileLabel() {
     let press_locker = document.getElementById('press_locker');
     let press_hotel_information = document.getElementById('press_hotel_information');
 
-    
+
       if (press_email.value !== press_confirm_email.value) {
         toastr.error("The emails don't match");
       } else {
@@ -830,7 +832,7 @@ function updateFileLabel() {
         });
       }
     }
-  
+
   const press_image = document.getElementById('press_image');
   const hiddenPressInput = document.getElementById('hidden_press_img');
   var press_crop_modal = document.getElementById("crop_modal");
@@ -870,7 +872,7 @@ function updateFileLabel() {
       }
   })
 }
-  async function pressUploadImage(docId, storageRef) {  
+  async function pressUploadImage(docId, storageRef) {
     const canvas = press_cropper.getCroppedCanvas();
     canvas.toBlob((blob) =>{
   uploadBytes(storageRef, blob)
@@ -970,7 +972,7 @@ function updateFileLabel() {
         setTimeout(function() {
             window.location.pathname = '/de/press-form-submitted';
         }, 1500);
-      }else {       
+      }else {
         toastr.success('You have submitted the form successfully');
         try {
           const docRef = addDoc(collection(db, "mail"), {
@@ -1074,7 +1076,7 @@ function updateFileLabel() {
   })
 }
 
-async function pagePress() {      
+async function pagePress() {
   const press_form = document.getElementById('logout_press_form');
   const submit_button = document.getElementById('submit_button');
   const requiredFields = document.querySelectorAll(".required");
@@ -2229,7 +2231,7 @@ update_user_form.addEventListener('submit', (e) => {
     if(storedLang == 'de'){
       $(".tabulator-paginator").find(".tabulator-page[data-page='first']").html("Zurück");
       $(".tabulator-paginator").find(".tabulator-page[data-page='last']").html("Vor");
-    } 
+    }
   });
 
     const company_input = document.getElementById("company_search");
@@ -2764,7 +2766,7 @@ update_user_form.addEventListener('submit', (e) => {
 
       // User is NOT signed in
       if ( user == false ) {
- 
+
         let signOutbutton = document.getElementById('signout-button');
          if(signOutbutton){
           signOutbutton.style.display = 'none';
@@ -3094,7 +3096,7 @@ function changeLanguage(lang) {
         if(storedLang == "de"){
           if(user_lang){
             user_lang.innerHTML = "DE";
-          }        
+          }
           if(sign_lang){
           sign_lang.innerHTML = "DE";
           }
