@@ -499,6 +499,15 @@ if (profile_img) {
             document.getElementById("Select-dates").setAttribute('disabled', "");
             document.getElementById("Special-request-2").setAttribute('disabled', "");
             document.getElementById("supplier_submmited_form").style.display = 'flex';
+
+            let supplier_visit_dates = userInfo.supplier_visit_dates;
+            let supplier_special_request = userInfo.supplier_special_request;
+            if ( supplier_visit_dates ) {
+              $('#supplier_form').find('#Select-dates').val( supplier_visit_dates );
+            }
+            if ( supplier_special_request ) {
+              $('#supplier_form').find('#Special-request-2').val( supplier_special_request );
+            }
         }
         }
        if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press'){
