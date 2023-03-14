@@ -1087,11 +1087,11 @@ function updateFileLabel() {
 
 async function pagePress() {
   const press_form = document.getElementById('logout_press_form');
-const submit_button = document.getElementById('submit_button');
-const requiredFields = document.querySelectorAll(".required");
-const press_image = document.getElementById('press_image');
-const storedLang = localStorage.getItem("language");
-let checkboxesChecked = false;
+  const submit_button = document.getElementById('submit_button');
+  const requiredFields = document.querySelectorAll(".required");
+  const press_image = document.getElementById('press_image');
+  const storedLang = localStorage.getItem("language");
+  let checkboxesChecked = false;
 
 submit_button.addEventListener('click', function(ev) {
   ev.preventDefault();
@@ -1118,7 +1118,7 @@ submit_button.addEventListener('click', function(ev) {
     } else if (requiredFields[i].id === "press_zip_code") {
       // Validate zip code if needed
     } else{
-      requiredFields[i].addEventListener('change', function() {
+      requiredFields[i].addEventListener('input', function() {
       requiredFields[i].style.border = "1px solid #cccccc";
     });
     }
@@ -3225,7 +3225,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba19')
+console.log('prueba33')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
