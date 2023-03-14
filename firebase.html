@@ -1085,74 +1085,71 @@ function updateFileLabel() {
   })
 }
 
-async function pagePress() {
-  const press_form = document.getElementById('logout_press_form');
-  const submit_button = document.getElementById('submit_button');
-  const requiredFields = document.querySelectorAll(".required");
-  const press_image = document.getElementById('press_image');
-  const storedLang = localStorage.getItem("language");
+submit_button.addEventListener('click', function(ev) {
+  ev.preventDefault(); // Prevent the default form submission
 
-  submit_button.addEventListener('click', function(ev) {
-    ev.preventDefault(); // Prevent the default form submission
+  let hasErrors = false;
 
-    let hasErrors = false;
-
-    // Validate the required fields
-    for (let i = 0; i < requiredFields.length; i++) {
-      if (!requiredFields[i].value) {
+  // Validate the required fields
+  for (let i = 0; i < requiredFields.length; i++) {
+    if (!requiredFields[i].value) {
+      requiredFields[i].style.border = "2px solid red";
+      hasErrors = true;
+    } else if (requiredFields[i].type === "email") {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(requiredFields[i].value)) {
         requiredFields[i].style.border = "2px solid red";
         hasErrors = true;
-      } else if (requiredFields[i].type === "email") {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(requiredFields[i].value)) {
-          requiredFields[i].style.border = "2px solid red";
-          hasErrors = true;
-        }
-      } else if (requiredFields[i].id === "press_phone") {
-        /*
-        const phonePattern = /^\d{10}$/;
-        if (!phonePattern.test(requiredFields[i].value)) {
-          requiredFields[i].style.border = "2px solid red";
-          hasErrors = true;
-        }
-        */
-      } else if (requiredFields[i].id === "press_zip_code") {
-        /*
-        const zipCodePattern = /^\d{5}$/;
-        if (!zipCodePattern.test(requiredFields[i].value)) {
-          requiredFields[i].style.border = "2px solid red";
-          hasErrors = true;
-        }*/
       }
+    } else if (requiredFields[i].type === "checkbox" && !requiredFields[i].checked) {
+      requiredFields[i].style.border = "2px solid red";
+      hasErrors = true;
+    } else if (requiredFields[i].id === "press_phone") {
+      /*
+      const phonePattern = /^\d{10}$/;
+      if (!phonePattern.test(requiredFields[i].value)) {
+        requiredFields[i].style.border = "2px solid red";
+        hasErrors = true;
+      }
+      */
+    } else if (requiredFields[i].id === "press_zip_code") {
+      /*
+      const zipCodePattern = /^\d{5}$/;
+      if (!zipCodePattern.test(requiredFields[i].value)) {
+        requiredFields[i].style.border = "2px solid red";
+        hasErrors = true;
+      }*/
     }
-    // Validate the press image file input
-    if (press_image.files.length === 0) {
+  }
+
+  // Validate the press image file input
+  if (press_image.files.length === 0) {
+    if (storedLang === 'de') {
+      toastr.error('Bitte laden Sie Ihr Profilbild hoch');
+    } else {
+      toastr.error('Please upload your profile image');
+    }
+    hasErrors = true;
+  }
+
+  // Check for identical emails
+  if ( $('#press_email').length && $('#press_confirm_email').length ) {
+    if ( $('#press_email').val() != $('#press_confirm_email').val() ) {
       if (storedLang === 'de') {
-        toastr.error('Bitte laden Sie Ihr Profilbild hoch');
+      toastr.error('Bitte verwenden Sie die gleiche E-mail');
       } else {
-        toastr.error('Please upload your profile image');
+        toastr.error('Please make sure to use the same E-mail');
       }
       hasErrors = true;
     }
+  }
 
-    // Check for identical emails
-    if ( $('#press_email').length && $('#press_confirm_email').length ) {
-      if ( $('#press_email').val() != $('#press_confirm_email').val() ) {
-        if (storedLang === 'de') {
-        toastr.error('Bitte verwenden Sie die gleiche E-mail');
-        } else {
-          toastr.error('Please make sure to use the same E-mail');
-        }
-        hasErrors = true;
-      }
-    }
+  // Submit the form if there are no errors
+  if (!hasErrors) {
+    pressFormSubmit(ev);
+  }
+});
 
-    // Submit the form if there are no errors
-    if (!hasErrors) {
-      pressFormSubmit(ev);
-    }
-  });
-}
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Supplier functions
