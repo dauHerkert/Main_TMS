@@ -1135,6 +1135,18 @@ async function pagePress() {
       hasErrors = true;
     }
 
+    // Check for identical emails
+    if ( $('#press_email').length && $('#press_confirm_email').length ) {
+      if ( $('#press_email').val() != $('#press_confirm_email').val() ) {
+        if (storedLang === 'de') {
+        toastr.error('Bitte verwenden Sie die gleiche E-mail');
+        } else {
+          toastr.error('Please make sure to use the same E-mail');
+        }
+        hasErrors = true;
+      }
+    }
+
     // Submit the form if there are no errors
     if (!hasErrors) {
       pressFormSubmit(ev);
