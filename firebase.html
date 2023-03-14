@@ -1117,6 +1117,10 @@ submit_button.addEventListener('click', function(ev) {
       // Validate phone number if needed
     } else if (requiredFields[i].id === "press_zip_code") {
       // Validate zip code if needed
+    } else{
+      requiredFields[i].addEventListener('input', function() {
+      requiredFields[i].style.border = "";
+    });
     }
   }
   // Display the error message only once for all unchecked checkboxes
@@ -1128,7 +1132,6 @@ submit_button.addEventListener('click', function(ev) {
       toastr.error('Please ensure that all legal notices are checked before submitting the form.');
     }
   }
-
   // Validate the press image file input
   if (press_image.files.length === 0) {
     if (storedLang === 'de') {
@@ -1138,7 +1141,6 @@ submit_button.addEventListener('click', function(ev) {
     }
     hasErrors = true;
   }
-
   // Check for identical emails
   if ($('#press_email').length && $('#press_confirm_email').length) {
     if ($('#press_email').val() != $('#press_confirm_email').val()) {
@@ -1153,7 +1155,7 @@ submit_button.addEventListener('click', function(ev) {
   if (!hasErrors) {
     checkboxesChecked = true;
   }
-  // Submit the form if there are no errors and the checkboxes are checked
+
   if (!hasErrors && checkboxesChecked) {
     pressFormSubmit(ev);
   }
