@@ -1085,7 +1085,14 @@ function updateFileLabel() {
   })
 }
 
-submit_button.addEventListener('click', function(ev) {
+async function pagePress() {
+  const press_form = document.getElementById('logout_press_form');
+  const submit_button = document.getElementById('submit_button');
+  const requiredFields = document.querySelectorAll(".required");
+  const press_image = document.getElementById('press_image');
+  const storedLang = localStorage.getItem("language");
+
+  submit_button.addEventListener('click', function(ev) {
   ev.preventDefault(); // Prevent the default form submission
 
   let hasErrors = false;
@@ -1121,7 +1128,6 @@ submit_button.addEventListener('click', function(ev) {
       }*/
     }
   }
-
   // Validate the press image file input
   if (press_image.files.length === 0) {
     if (storedLang === 'de') {
@@ -1150,6 +1156,7 @@ submit_button.addEventListener('click', function(ev) {
   }
 });
 
+}
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Supplier functions
@@ -3211,7 +3218,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
 }
 
-console.log('prueba77899')
+console.log('prueba99')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
