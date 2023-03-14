@@ -1111,9 +1111,12 @@ submit_button.addEventListener('click', function(ev) {
     } else if (requiredFields[i].type === "checkbox") {
       if (requiredFields[i].checked) {
         checkboxesChecked = true;
-        break;
       } else {
-        requiredFields[i].style.border = "2px solid red";
+        if(storedLang == 'de'){
+          toastr.error('Bitte stellen Sie sicher, dass alle rechtlichen Hinweise vor dem Absenden des Formulars angekreuzt sind.');
+        }else{
+          toastr.error('Please ensure that all legal notices are checked before submitting the form.');
+        }
         hasErrors = true;
       }
     } else if (requiredFields[i].id === "press_phone") {
