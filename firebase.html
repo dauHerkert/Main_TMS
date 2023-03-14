@@ -1091,6 +1091,7 @@ async function pagePress() {
   const requiredFields = document.querySelectorAll(".required");
   const press_image = document.getElementById('press_image');
   const storedLang = localStorage.getItem("language");
+  let checkboxesChecked = false;
 
   submit_button.addEventListener('click', function(ev) {
   ev.preventDefault();
@@ -1110,6 +1111,7 @@ async function pagePress() {
     } else if (requiredFields[i].type === "checkbox") {
       if (requiredFields[i].checked) {
         checkboxesChecked = true;
+        break;
       } else {
         requiredFields[i].style.border = "2px solid red";
         hasErrors = true;
