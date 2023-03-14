@@ -1093,6 +1093,16 @@ async function pagePress() {
   const storedLang = localStorage.getItem("language");
   let checkboxesChecked = false;
 
+  requiredFields.forEach(field => {
+  field.addEventListener('change', function() {
+    if (!this.value) {
+      this.style.border = "2px solid red";
+    } else {
+      this.style.border = "1px solid #cccccc";
+    }
+  });
+});
+
 submit_button.addEventListener('click', function(ev) {
   ev.preventDefault();
 
@@ -1117,10 +1127,6 @@ submit_button.addEventListener('click', function(ev) {
       // Validate phone number if needed
     } else if (requiredFields[i].id === "press_zip_code") {
       // Validate zip code if needed
-    } else{
-      requiredFields[i].addEventListener('input', function() {
-      requiredFields[i].style.border = "1px solid #cccccc";
-    });
     }
   }
   // Display the error message only once for all unchecked checkboxes
@@ -3225,7 +3231,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba33')
+console.log('prueba123')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
