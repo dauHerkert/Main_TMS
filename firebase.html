@@ -1093,7 +1093,7 @@ async function pagePress() {
   const storedLang = localStorage.getItem("language");
 
   submit_button.addEventListener('click', function(ev) {
-  ev.preventDefault(); // Prevent the default form submission
+  ev.preventDefault();
 
   let hasErrors = false;
 
@@ -1112,16 +1112,13 @@ async function pagePress() {
       requiredFields[i].style.border = "2px solid red";
       hasErrors = true;
     } else if (requiredFields[i].id === "press_phone") {
-      /*
-      const phonePattern = /^\d{10}$/;
+      /*const phonePattern = /^\d{10}$/;
       if (!phonePattern.test(requiredFields[i].value)) {
         requiredFields[i].style.border = "2px solid red";
         hasErrors = true;
-      }
-      */
+      }*/
     } else if (requiredFields[i].id === "press_zip_code") {
-      /*
-      const zipCodePattern = /^\d{5}$/;
+      /*const zipCodePattern = /^\d{5}$/;
       if (!zipCodePattern.test(requiredFields[i].value)) {
         requiredFields[i].style.border = "2px solid red";
         hasErrors = true;
@@ -1155,6 +1152,7 @@ async function pagePress() {
     pressFormSubmit(ev);
   }
 });
+
 
 }
     /*
