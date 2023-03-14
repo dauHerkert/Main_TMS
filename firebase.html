@@ -1087,13 +1087,13 @@ function updateFileLabel() {
 
 async function pagePress() {
   const press_form = document.getElementById('logout_press_form');
-  const submit_button = document.getElementById('submit_button');
-  const requiredFields = document.querySelectorAll(".required");
-  const press_image = document.getElementById('press_image');
-  const storedLang = localStorage.getItem("language");
-  let checkboxesChecked = false;
+const submit_button = document.getElementById('submit_button');
+const requiredFields = document.querySelectorAll(".required");
+const press_image = document.getElementById('press_image');
+const storedLang = localStorage.getItem("language");
+let checkboxesChecked = false;
 
-  submit_button.addEventListener('click', function(ev) {
+submit_button.addEventListener('click', function(ev) {
   ev.preventDefault();
 
   let hasErrors = false;
@@ -1144,7 +1144,7 @@ async function pagePress() {
   if ( $('#press_email').length && $('#press_confirm_email').length ) {
     if ( $('#press_email').val() != $('#press_confirm_email').val() ) {
       if (storedLang === 'de') {
-      toastr.error('Bitte verwenden Sie die gleiche E-mail');
+        toastr.error('Bitte verwenden Sie die gleiche E-mail');
       } else {
         toastr.error('Please make sure to use the same E-mail');
       }
@@ -1152,11 +1152,12 @@ async function pagePress() {
     }
   }
 
-  // Submit the form if there are no errors
+  // Submit the form if there are no errors and the checkboxes are checked
   if (!hasErrors && checkboxesChecked) {
     pressFormSubmit(ev);
   }
 });
+
 }
     /*
     * -----------------------------------------------------------------------------------------------------------
