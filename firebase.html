@@ -1097,7 +1097,7 @@ submit_button.addEventListener('click', function(ev) {
   ev.preventDefault();
 
   let hasErrors = false;
-  let uncheckedCheckboxesCount = 0; // Variable to store the count of unchecked checkboxes
+  let uncheckedCheckboxesCount = 0;
   // Validate the required fields
   for (let i = 0; i < requiredFields.length; i++) {
     if (!requiredFields[i].value) {
@@ -1111,15 +1111,15 @@ submit_button.addEventListener('click', function(ev) {
       }
     } else if (requiredFields[i].type === "checkbox") {
       if (!requiredFields[i].checked) {
-        uncheckedCheckboxesCount++; // Increment the count of unchecked checkboxes
+        uncheckedCheckboxesCount++;
       }
     } else if (requiredFields[i].id === "press_phone") {
       // Validate phone number if needed
     } else if (requiredFields[i].id === "press_zip_code") {
       // Validate zip code if needed
     } else{
-      requiredFields[i].addEventListener('input', function() {
-      requiredFields[i].style.border = "";
+      requiredFields[i].addEventListener('change', function() {
+      requiredFields[i].style.border = "1px solid #cccccc";
     });
     }
   }
