@@ -1096,7 +1096,6 @@ async function pagePress() {
   ev.preventDefault();
 
   let hasErrors = false;
-
   // Validate the required fields
   for (let i = 0; i < requiredFields.length; i++) {
     if (!requiredFields[i].value) {
@@ -1108,9 +1107,13 @@ async function pagePress() {
         requiredFields[i].style.border = "2px solid red";
         hasErrors = true;
       }
-    } else if (requiredFields[i].type === "checkbox" && !requiredFields[i].checked) {
-      requiredFields[i].style.border = "2px solid red";
-      hasErrors = true;
+    } else if (requiredFields[i].type === "checkbox") {
+      if (requiredFields[i].checked) {
+        checkboxesChecked = true;
+      } else {
+        requiredFields[i].style.border = "2px solid red";
+        hasErrors = true;
+      }
     } else if (requiredFields[i].id === "press_phone") {
       /*const phonePattern = /^\d{10}$/;
       if (!phonePattern.test(requiredFields[i].value)) {
@@ -1148,12 +1151,10 @@ async function pagePress() {
   }
 
   // Submit the form if there are no errors
-  if (!hasErrors) {
+  if (!hasErrors && checkboxesChecked) {
     pressFormSubmit(ev);
   }
 });
-
-
 }
     /*
     * -----------------------------------------------------------------------------------------------------------
@@ -3213,7 +3214,9 @@ function changeLanguage(lang) {
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
+  document.getElementById('imprint').setAttribute('href', '/de/impressum');
   document.getElementById('data_protection').textContent = 'Datenschutz';
+  document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
 console.log('prueba99111')
