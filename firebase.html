@@ -1097,6 +1097,7 @@ submit_button.addEventListener('click', function(ev) {
   ev.preventDefault();
 
   let hasErrors = false;
+  let uncheckedCheckboxesCount = 0; // Variable to store the count of unchecked checkboxes
   // Validate the required fields
   for (let i = 0; i < requiredFields.length; i++) {
     if (!requiredFields[i].value) {
@@ -1110,27 +1111,24 @@ submit_button.addEventListener('click', function(ev) {
       }
     } else if (requiredFields[i].type === "checkbox") {
       if (!requiredFields[i].checked) {
-          hasErrors = true;
-          if(storedLang == 'de'){
-          toastr.error('Bitte stellen Sie sicher, dass alle rechtlichen Hinweise vor dem Absenden des Formulars angekreuzt sind.');
-        }else{
-          toastr.error('Please ensure that all legal notices are checked before submitting the form.');
-        }
-     }
+        uncheckedCheckboxesCount++; // Increment the count of unchecked checkboxes
+      }
     } else if (requiredFields[i].id === "press_phone") {
-      /*const phonePattern = /^\d{10}$/;
-      if (!phonePattern.test(requiredFields[i].value)) {
-        requiredFields[i].style.border = "2px solid red";
-        hasErrors = true;
-      }*/
+      // Validate phone number if needed
     } else if (requiredFields[i].id === "press_zip_code") {
-      /*const zipCodePattern = /^\d{5}$/;
-      if (!zipCodePattern.test(requiredFields[i].value)) {
-        requiredFields[i].style.border = "2px solid red";
-        hasErrors = true;
-      }*/
+      // Validate zip code if needed
     }
   }
+  // Display the error message only once for all unchecked checkboxes
+  if (uncheckedCheckboxesCount > 0) {
+    hasErrors = true;
+    if (storedLang == 'de') {
+      toastr.error('Bitte stellen Sie sicher, dass alle rechtlichen Hinweise vor dem Absenden des Formulars angekreuzt sind.');
+    } else {
+      toastr.error('Please ensure that all legal notices are checked before submitting the form.');
+    }
+  }
+
   // Validate the press image file input
   if (press_image.files.length === 0) {
     if (storedLang === 'de') {
@@ -1142,8 +1140,8 @@ submit_button.addEventListener('click', function(ev) {
   }
 
   // Check for identical emails
-  if ( $('#press_email').length && $('#press_confirm_email').length ) {
-    if ( $('#press_email').val() != $('#press_confirm_email').val() ) {
+  if ($('#press_email').length && $('#press_confirm_email').length) {
+    if ($('#press_email').val() != $('#press_confirm_email').val()) {
       if (storedLang === 'de') {
         toastr.error('Bitte verwenden Sie die gleiche E-mail');
       } else {
@@ -1153,7 +1151,7 @@ submit_button.addEventListener('click', function(ev) {
     }
   }
   if (!hasErrors) {
-  checkboxesChecked = true;
+    checkboxesChecked = true;
   }
   // Submit the form if there are no errors and the checkboxes are checked
   if (!hasErrors && checkboxesChecked) {
