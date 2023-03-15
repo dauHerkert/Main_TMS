@@ -206,6 +206,10 @@ if (profile_img) {
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
+        // Destroy the current cropper instance if it exists
+        if (profile_cropper) {
+          profile_cropper.destroy();
+        }
         // Open the modal
         modal4.style.display = "block";
         // Initialize the cropper
@@ -233,21 +237,22 @@ if (profile_img) {
     }
   });
 }
-  function userUploadImage(user) {
-    const canvas = profile_cropper.getCroppedCanvas();
-    canvas.toBlob((blob) => {
-      const storageRef = ref(storage, 'profiles/' + user.uid);
-      uploadBytes(storageRef, blob)
-        .then((snapshot) => {
-          toastr.success('You have updated the profile picture successfully');
-          setTimeout(reloadPage, 1500);
-        })
-        .catch(err => {
-          console.log('error uploading file', err);
-          toastr.error('There was an error uploading the file');
-        });
-    });
-  }
+function userUploadImage(user) {
+  const canvas = profile_cropper.getCroppedCanvas();
+  canvas.toBlob((blob) => {
+    const storageRef = ref(storage, 'profiles/' + user.uid);
+    uploadBytes(storageRef, blob)
+      .then((snapshot) => {
+        toastr.success('You have updated the profile picture successfully');
+        setTimeout(reloadPage, 1500);
+      })
+      .catch(err => {
+        console.log('error uploading file', err);
+        toastr.error('There was an error uploading the file');
+      });
+  });
+}
+
   //Handle singin
   async function handleSignIn(e) {
   let storedLang = localStorage.getItem("language");
@@ -3542,7 +3547,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba12')
+console.log('prueba123')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
