@@ -592,10 +592,10 @@ function userUploadImage(user) {
     const hiddenInput = document.getElementById('hidden_input');
     let cropper;
 
-  if (updatedPicture) {
-    updatedPicture.addEventListener('change', function handleProfilePic(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    if (updatedPicture) {
+  updatedPicture.addEventListener('change', function handleProfilePic(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
     let fileItem = updatedPicture.files[0];
 
@@ -604,6 +604,10 @@ function userUploadImage(user) {
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
+        if (cropper) {
+          cropper.destroy();
+        }
+
         // Initialize the cropper
         const image = document.getElementById('image_cropper');
         image.src = URL.createObjectURL(fileItem);
@@ -628,6 +632,7 @@ function userUploadImage(user) {
     }
   });
 }
+
 
 function updateProfilePic(e, user) {
   e.preventDefault();
