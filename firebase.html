@@ -1688,6 +1688,10 @@ update_user_form.addEventListener('submit', (e) => {
       company_admin: company_admin.value,
     }, { merge: true })
       .then(() => {
+
+        console.log('sending email... status is', user_status_update.value);
+        console.log('stored lang for email is', storedLang);
+
         if (user_status_update.value == 'decline') {
           if(storedLang == 'en'){
             try {
