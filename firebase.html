@@ -588,9 +588,9 @@ function userUploadImage(user) {
         });
     }
 
-const updatedPicture = document.getElementById('updated_picture');
-const hiddenInput = document.getElementById('hidden_input');
-let cropper;
+    const updatedPicture = document.getElementById('updated_picture');
+    const hiddenInput = document.getElementById('hidden_input');
+    let cropper;
 
 if (updatedPicture) {
   updatedPicture.addEventListener('change', function handleProfilePic(e) {
@@ -604,7 +604,7 @@ if (updatedPicture) {
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
-        // Destroy the cropper if it already exists
+        // Destroy the previous cropper instance
         if (cropper) {
           cropper.destroy();
         }
@@ -629,8 +629,11 @@ if (updatedPicture) {
         });
       } else {
         toastr.error('Please choose an image file.');
-        // Clear the input file
-        updatedPicture.value = '';
+        // Clear the input field and destroy the cropper instance
+        updatedPicture.value = null;
+        if (cropper) {
+          cropper.destroy();
+        }
       }
     }
   });
@@ -644,6 +647,7 @@ function updateProfilePic(e, user) {
     toastr.error('Please upload a profile picture first');
     return;
   }
+
   const canvas = cropper.getCroppedCanvas();
   canvas.toBlob((blob) => {
     const storageRef = ref(storage, 'profiles/' + user.uid);
