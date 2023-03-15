@@ -857,37 +857,43 @@ function updateFileLabel() {
   if(press_image){
   press_image.addEventListener('change', function handlePressPic(e){
     if (press_image.files.length == 0) {
-    console.error('Please upload your profile picture');
-    return;
-  }
-  let fileItem = press_image.files[0];
-  if (!fileItem) {
-    console.error('Please upload your profile picture');
-    return;
-  }
-  if (/^image\/\w+/.test(fileItem.type)) {
-    press_crop_modal.style.display = "block";
-    // Initialize the cropper
-    const image = document.getElementById('press_image_cropper');
-        image.src = URL.createObjectURL(fileItem);
-        press_cropper = new Cropper(image, {
-          aspectRatio: 3 / 4,
-          width: 200,
-          height: 200,
-          viewMode: 1,
-          autoCropArea: 0.7,
-          responsive: true,
-          crop(event) {
-            const canvas = press_cropper.getCroppedCanvas();
-            const dataURL = canvas.toDataURL();
-            hiddenPressInput.value = dataURL;
-          },
-        });
-      } else {
-        toastr.error('Please choose an image file.');
+      console.error('Please upload your profile picture');
+      return;
+    }
+    let fileItem = press_image.files[0];
+    if (!fileItem) {
+      console.error('Please upload your profile picture');
+      return;
+    }
+    if (/^image\/\w+/.test(fileItem.type)) {
+      // Reset the cropper
+      if (press_cropper) {
+        press_cropper.destroy();
       }
+      // Open the modal
+      press_crop_modal.style.display = "block";
+      // Initialize the cropper
+      const image = document.getElementById('press_image_cropper');
+      image.src = URL.createObjectURL(fileItem);
+      press_cropper = new Cropper(image, {
+        aspectRatio: 3 / 4,
+        width: 200,
+        height: 200,
+        viewMode: 1,
+        autoCropArea: 0.7,
+        responsive: true,
+        crop(event) {
+          const canvas = press_cropper.getCroppedCanvas();
+          const dataURL = canvas.toDataURL();
+          hiddenPressInput.value = dataURL;
+        },
+      });
+    } else {
+      toastr.error('Please choose an image file.');
+    }
   })
 }
+
   async function pressUploadImage(docId, storageRef) {
     const canvas = press_cropper.getCroppedCanvas();
     canvas.toBlob((blob) =>{
@@ -3547,7 +3553,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba123')
+console.log('prueba1234')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
