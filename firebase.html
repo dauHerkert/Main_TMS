@@ -194,6 +194,7 @@ const hiddenProfileInput = document.getElementById('hidden_profile_img');
 var modal4 = document.getElementById("cropper_modal");
 
 let profile_cropper;
+
 if (profile_img) {
   profile_img.addEventListener("change", function handleProfilePic(e) {
     e.preventDefault();
@@ -233,10 +234,15 @@ if (profile_img) {
         });
       } else {
         toastr.error('Please choose an image file.');
+        profile_img.value = null;
+        if (profile_cropper) {
+          profile_cropper.destroy();
+        }
       }
     }
   });
 }
+
 function userUploadImage(user) {
   const canvas = profile_cropper.getCroppedCanvas();
   canvas.toBlob((blob) => {
@@ -3575,7 +3581,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba133')
+console.log('prueba1')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
