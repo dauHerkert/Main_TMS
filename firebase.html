@@ -1688,7 +1688,7 @@ update_user_form.addEventListener('submit', (e) => {
       company_admin: company_admin.value,
     }, { merge: true })
       .then(() => {
-        if (user_status_update.value == 'decline') {
+        if (user_status_update.value == 'Declined') {
           if(storedLang == 'en'){
             try {
             const docRef = addDoc(collection(db, "mail"), {
@@ -1914,7 +1914,7 @@ update_user_form.addEventListener('submit', (e) => {
                 user_status: bulk_status_update.value,
             }, { merge: true })
                 .then(() => {
-                  if(bulk_status_update.value == 'decline'){
+                  if(bulk_status_update.value == 'Declined'){
                     if(storedLang == 'en'){
                       try {
                     const docRef = addDoc(collection(db, "mail"), {
@@ -3249,7 +3249,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba12')
+console.log('prueba1233')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
