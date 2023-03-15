@@ -796,6 +796,7 @@ function updateFileLabel() {
     let press_workspace = document.getElementById('press_workspace');
     let press_locker = document.getElementById('press_locker');
     let press_hotel_information = document.getElementById('press_hotel_information');
+    let language = localStorage.getItem('language');
 
 
       if (press_email.value !== press_confirm_email.value) {
@@ -825,6 +826,7 @@ function updateFileLabel() {
           user_type: 'Press',
           user_zones: '',
           user_status: 'Pending',
+          language: language,
         }, { merge: true })
         .then((docRef) => {
           const press_image = document.getElementById('press_image');
@@ -3253,7 +3255,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1233')
+console.log('prueba1')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
