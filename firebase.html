@@ -779,7 +779,8 @@ function updateFileLabel() {
       if ( update_picture_modal !== null ) {
         update_picture_modal.addEventListener('submit', function(ev) {
           if (!isImage) {
-          e.preventDefault(); // prevent form submission if file is not an image
+          e.preventDefault();
+          e.stopPropagation();
         } else {
           updateProfilePic(e, user);
         }
@@ -3567,7 +3568,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba5')
+console.log('prueba56')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
