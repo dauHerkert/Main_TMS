@@ -907,6 +907,11 @@ function updateFileLabel() {
       });
     } else {
       toastr.error('Please choose an image file.');
+       // Clear the input field and destroy the cropper instance
+       press_image.value = null;
+        if (press_cropper) {
+          press_cropper.destroy();
+        }
     }
   })
 }
