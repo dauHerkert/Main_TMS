@@ -1460,6 +1460,11 @@ submit_button.addEventListener('click', function(ev) {
   // Display the error message only once for all unchecked checkboxes
   if (uncheckedCheckboxesCount > 0) {
     hasErrors = true;
+    document.getElementById('checkbox_1').style.border = "2px solid red";
+    document.getElementById('checkbox_2').style.border = "2px solid red";
+    document.getElementById('checkbox_3').style.border = "2px solid red";
+    document.getElementById('checkbox_4').style.border = "2px solid red";
+  
     if (storedLang == 'de') {
       toastr.error('Bitte stellen Sie sicher, dass alle rechtlichen Hinweise vor dem Absenden des Formulars angekreuzt sind.');
     } else {
