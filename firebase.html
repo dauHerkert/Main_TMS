@@ -588,10 +588,9 @@ function userUploadImage(user) {
         });
     }
 
-    const updatedPicture = document.getElementById('updated_picture');
+const updatedPicture = document.getElementById('updated_picture');
 const hiddenInput = document.getElementById('hidden_input');
 let cropper;
-let isImage = true;
 
 if (updatedPicture) {
   updatedPicture.addEventListener('change', function handleProfilePic(e) {
@@ -602,11 +601,14 @@ if (updatedPicture) {
 
     if (updatedPicture.files.length === 0) {
       toastr.error('Please upload your profile picture');
-      isImage = false; // set flag to false if no file selected
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
-        isImage = true; // set flag to true if file is an image
+        // Destroy the cropper if it already exists
+        if (cropper) {
+          cropper.destroy();
+        }
+
         // Initialize the cropper
         const image = document.getElementById('image_cropper');
         image.src = URL.createObjectURL(fileItem);
@@ -626,8 +628,9 @@ if (updatedPicture) {
           },
         });
       } else {
-        isImage = false;
         toastr.error('Please choose an image file.');
+        // Clear the input file
+        updatedPicture.value = '';
       }
     }
   });
@@ -778,12 +781,7 @@ function updateFileLabel() {
 
       if ( update_picture_modal !== null ) {
         update_picture_modal.addEventListener('submit', function(ev) {
-          if (!isImage) {
-          e.preventDefault();
-          e.stopPropagation();
-        } else {
           updateProfilePic(e, user);
-        }
         }, true);
       }
       showProfilePic(user);
@@ -3568,7 +3566,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba56')
+console.log('prueba5776')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
