@@ -2191,6 +2191,24 @@ update_user_form.addEventListener('submit', (e) => {
             console.log('there was a problem signin user', err);
             toastr.error('There was an error signin user');
         })
+
+        let select_type_id = document.getElementById('select_type_id');
+        let user_profile_company_update = document.getElementById('user_company_update');
+        let update_user_profile = document.getElementById('update_user_profile');
+        let head_user = document.getElementById('head_user');
+
+        if(userRef.user_is_admin == '0'){
+          select_type_id.style.display = 'none';
+          user_profile_company_update.style.display = 'none';
+          update_user_profile.style.display = 'none';
+          head_user.style.display = 'none';
+        }else{
+          select_type_id.style.display = 'block';
+          user_profile_company_update.style.display = 'block';
+          update_user_profile.style.display = 'block';
+          head_user.style.display = 'block';
+        }
+
     }
     /*
     * --------------------------------------------------------------------------------------------
@@ -3231,7 +3249,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba123')
+console.log('prueba1')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
