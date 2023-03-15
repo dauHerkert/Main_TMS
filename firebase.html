@@ -890,7 +890,8 @@ function updateFileLabel() {
     .then((snapshot) => {
       if(storedLang == 'de'){
         toastr.success('Sie haben das Formular erfolgreich übermittelt');
-        try {
+        if(press_title.value == 'Mr'){
+          try {
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
             message: {
@@ -921,7 +922,7 @@ function updateFileLabel() {
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Neues Benutzeranmeldeformular ${press_title.value} ${press_firstname.value} ${press_lastname.value}</p>
+                            <p style="margin-bottom:30px">Neues Benutzeranmeldeformular Herr ${press_firstname.value} ${press_lastname.value}</p>
                             <p style="margin-bottom:15px">Wir haben ein Formular für die Registrierung eines neuen Benutzers erhalten.</p>
                             <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
                             <p>Claus-Peter Andorka<br>
@@ -966,7 +967,7 @@ function updateFileLabel() {
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Sehr geehrte Frau/ Sehr geehrter Herr ${press_firstname.value} ${press_lastname.value}</p>
+                            <p style="margin-bottom:30px">Sehr geehrter Herr ${press_firstname.value} ${press_lastname.value}</p>
                             <p style="margin-bottom:15px">vielen Dank für Ihren Akkreditierungsantrag für den Porsche Tennis Grand Prix 2023. Sie werden in Kürze von uns hören.</p>
                             <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
                             <p>Claus-Peter Andorka<br>
@@ -983,9 +984,199 @@ function updateFileLabel() {
         setTimeout(function() {
             window.location.pathname = '/de/press-form-submitted';
         }, 1500);
+        }else if(press_title.value == 'Ms'){
+          try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: 'andreas.salvermoser@ops.dauherkert.com',
+            message: {
+              subject: `Antrag eingegangen`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission DE</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                             </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Neues Benutzeranmeldeformular Frau ${press_firstname.value} ${press_lastname.value}</p>
+                            <p style="margin-bottom:15px">Wir haben ein Formular für die Registrierung eines neuen Benutzers erhalten.</p>
+                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                            <p>Claus-Peter Andorka<br>
+                              Pressesprecher Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: `${press_email.value}`,
+            message: {
+              subject: `Antrag eingegangen`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission DE</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                             </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Sehr geehrte Frau ${press_firstname.value} ${press_lastname.value}</p>
+                            <p style="margin-bottom:15px">vielen Dank für Ihren Akkreditierungsantrag für den Porsche Tennis Grand Prix 2023. Sie werden in Kürze von uns hören.</p>
+                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                            <p>Claus-Peter Andorka<br>
+                              Pressesprecher Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+        setTimeout(function() {
+            window.location.pathname = '/de/press-form-submitted';
+        }, 1500);
+        }else if(press_title.value == 'Diverse'){
+          try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: 'andreas.salvermoser@ops.dauherkert.com',
+            message: {
+              subject: `Antrag eingegangen`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission DE</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                             </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Neues Benutzeranmeldeformular ${press_firstname.value} ${press_lastname.value}</p>
+                            <p style="margin-bottom:15px">Wir haben ein Formular für die Registrierung eines neuen Benutzers erhalten.</p>
+                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                            <p>Claus-Peter Andorka<br>
+                              Pressesprecher Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: `${press_email.value}`,
+            message: {
+              subject: `Antrag eingegangen`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission DE</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                             </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Liebe Medienvertretenden</p>
+                            <p style="margin-bottom:15px">vielen Dank für Ihren Akkreditierungsantrag für den Porsche Tennis Grand Prix 2023. Sie werden in Kürze von uns hören.</p>
+                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                            <p>Claus-Peter Andorka<br>
+                              Pressesprecher Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+        setTimeout(function() {
+            window.location.pathname = '/de/press-form-submitted';
+        }, 1500);
+        }        
       }else {
         toastr.success('You have submitted the form successfully');
-        try {
+        if(press_title.value == 'Mr' || press_title.value == 'Ms'){
+          try {
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
             message: {
@@ -1079,7 +1270,103 @@ function updateFileLabel() {
         setTimeout(function() {
             window.location.pathname = '/en/press-form-submitted';
         }, 1500);
+        }else if(press_title.value == 'Diverse'){
+          try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: 'andreas.salvermoser@ops.dauherkert.com',
+            message: {
+              subject: `New Press form Submited`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission DE</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                             </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">New user registration form ${press_firstname.value} ${press_lastname.value}</p>
+                            <p style="margin-bottom:15px">We've received a new user form submission.</p>
+                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                            <p>Claus-Peter Andorka<br>
+                              Media Director Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
         }
+        try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: `${press_email.value}`,
+            message: {
+              subject: `Application received`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Press Form Submission</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application received</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Dear media representatives</p>
+                            <p style="margin-bottom:15px">Many thanks for your application for 2023 Porsche Tennis Grand Prix credentials. We will get back to you in the near future.</p>
+                            <p style="margin-bottom:30px">Kind regards</p>
+                            <p>Claus-Peter Andorka<br>
+                              Media Director Porsche Tennis Grand Prix</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>
+                    `,
+              }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+        setTimeout(function() {
+            window.location.pathname = '/en/press-form-submitted';
+        }, 1500);
+        }
+      }
     })
     .catch((error) => {
       console.error(error);
@@ -3255,7 +3542,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1')
+console.log('prueba12')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
