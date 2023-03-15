@@ -589,10 +589,11 @@ function userUploadImage(user) {
     }
 
     const updatedPicture = document.getElementById('updated_picture');
-    const hiddenInput = document.getElementById('hidden_input');
-    let cropper;
+const hiddenInput = document.getElementById('hidden_input');
+let cropper;
+let isImage = true;
 
-    if (updatedPicture) {
+if (updatedPicture) {
   updatedPicture.addEventListener('change', function handleProfilePic(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -601,13 +602,11 @@ function userUploadImage(user) {
 
     if (updatedPicture.files.length === 0) {
       toastr.error('Please upload your profile picture');
+      isImage = false; // set flag to false if no file selected
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
-        if (cropper) {
-          cropper.destroy();
-        }
-
+        isImage = true; // set flag to true if file is an image
         // Initialize the cropper
         const image = document.getElementById('image_cropper');
         image.src = URL.createObjectURL(fileItem);
@@ -627,12 +626,12 @@ function userUploadImage(user) {
           },
         });
       } else {
+        isImage = false;
         toastr.error('Please choose an image file.');
       }
     }
   });
 }
-
 
 function updateProfilePic(e, user) {
   e.preventDefault();
@@ -779,7 +778,11 @@ function updateFileLabel() {
 
       if ( update_picture_modal !== null ) {
         update_picture_modal.addEventListener('submit', function(ev) {
-          updateProfilePic(ev, user);
+          if (!isImage) {
+          e.preventDefault(); // prevent form submission if file is not an image
+        } else {
+          updateProfilePic(e, user);
+        }
         }, true);
       }
       showProfilePic(user);
@@ -3564,7 +3567,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba665')
+console.log('prueba5')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
