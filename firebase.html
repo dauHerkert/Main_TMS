@@ -603,6 +603,10 @@ updatedPicture.addEventListener("change", function handleProfilePic(e) {
   } else {
     // Check if the file is an image
     if (/^image\/\w+/.test(fileItem.type)) {
+      // Destroy the current cropper instance if it exists
+      if (profile_cropper) {
+          profile_cropper.destroy();
+        }
       // Initialize the cropper
       const image = document.getElementById('image_cropper');
       image.src = URL.createObjectURL(fileItem);
@@ -3553,7 +3557,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1234')
+console.log('prueba12345')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
