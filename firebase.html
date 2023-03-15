@@ -2197,7 +2197,7 @@ update_user_form.addEventListener('submit', (e) => {
         let update_user_profile = document.getElementById('update_user_profile');
         let head_user = document.getElementById('head_user');
 
-        if(userRef.user_is_admin == '0'){
+        if(userRef.user_is_admin == '0' && userRef.company_admin == 'company_admin'){
           select_type_id.style.display = 'none';
           user_profile_company_update.style.display = 'none';
           update_user_profile.style.display = 'none';
@@ -3249,7 +3249,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1')
+console.log('prueba12')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
