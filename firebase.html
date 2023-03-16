@@ -795,6 +795,8 @@ function updateFileLabel() {
 
       if ( update_picture_modal !== null ) {
         update_picture_modal.addEventListener('submit', function(ev) {
+          ev.preventDefault();
+          ev.stopPropagation()
           updateProfilePic(e, user);
         }, true);
       }
@@ -1572,12 +1574,7 @@ submit_button.addEventListener('click', function(ev) {
         ev.preventDefault();
         addSupplierInfo(ev, user);
       });
-      let update_picture_modal = document.getElementById("picture_form_modal");
-      if ( update_picture_modal !== null ) {
-        update_picture_modal.addEventListener('submit', function(ev) {
-          updateProfilePic(ev, user);
-        }, true);
-      }
+     
      setDoc(userRef, {
       last_signin_date: new Date()
      }, { merge: true })
@@ -4632,7 +4629,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1s')
+console.log('pruebaadsads')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
