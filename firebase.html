@@ -778,8 +778,6 @@ function updateFileLabel() {
 
       if ( update_picture_modal !== null ) {
         update_picture_modal.addEventListener('submit', function(ev) {
-          ev.preventDefault();
-          ev.stopPropagation()
           updateProfilePic(ev, user);
         }, true);
       }
