@@ -598,64 +598,47 @@ function userUploadImage(user) {
     }
 
     const updatedPicture = document.getElementById('updated_picture');
-const hiddenInput = document.getElementById('hidden_input');
-let cropper;
+  const hiddenInput = document.getElementById('hidden_input');
+  let cropper;
+if(updatedPicture){
+updatedPicture.addEventListener("change", function handleProfilePic(e) {
+  e.preventDefault();
+  e.stopPropagation();
 
-if (updatedPicture) {
-  updatedPicture.addEventListener('change', function handleProfilePic(e) {
-    e.preventDefault();
-    e.stopPropagation();
+  let fileItem = updatedPicture.files[0];
 
-    let fileItem = updatedPicture.files[0];
-
-    if (updatedPicture.files.length === 0) {
-      toastr.error('Please upload your profile picture');
-    } else {
-      // Check if the file is an image
-      if (/^image\/\w+/.test(fileItem.type)) {
-        // Destroy the previous cropper instance
-        if (cropper) {
-          cropper.destroy();
-        }
-
-        // Initialize the cropper
-        const image = document.getElementById('image_cropper');
-        image.src = URL.createObjectURL(fileItem);
-        cropper = new Cropper(image, {
-          aspectRatio: 3 / 4,
-          width: 200,
+  if (updatedPicture.files.length === 0) {
+    toastr.error('Please upload your profile picture');
+  } else {
+    // Check if the file is an image
+    if (/^image\/\w+/.test(fileItem.type)) {
+      // Initialize the cropper
+      const image = document.getElementById('image_cropper');
+      image.src = URL.createObjectURL(fileItem);
+      cropper = new Cropper(image, {
+        aspectRatio: 3 / 4,
+        width: 200,
           height: 200,
           viewMode: 1,
           autoCropArea: 0.7,
           responsive: true,
-          crop(event) {
-            // Get the cropped canvas data as a data URL
-            const canvas = cropper.getCroppedCanvas();
-            const dataURL = canvas.toDataURL();
-            // Set the data URL as the value of the hidden input field
-            hiddenInput.value = dataURL;
-          },
-        });
-      } else {
-        toastr.error('Please choose an image file.');
-        // Clear the input field and destroy the cropper instance
-        updatedPicture.value = null;
-        if (cropper) {
-          cropper.destroy();
-        }
-      }
+        crop(event) {
+          // Get the cropped canvas data as a data URL
+          const canvas = cropper.getCroppedCanvas();
+          const dataURL = canvas.toDataURL();
+          // Set the data URL as the value of the hidden input field
+          hiddenInput.value = dataURL;
+        },
+      });
+    } else {
+      toastr.error('Please choose an image file.');
     }
-  });
+  }
+});
 }
-
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
-
-  if (!cropper) {
-    toastr.error('Please upload a profile picture first');
-    return;
-  }
 
   const canvas = cropper.getCroppedCanvas();
   canvas.toBlob((blob) => {
@@ -663,13 +646,13 @@ function updateProfilePic(e, user) {
     uploadBytes(storageRef, blob)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
-        //setTimeout(reloadPage, 1500);
+        setTimeout(reloadPage, 1500);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log('error uploading file', err);
         toastr.error('There was an error uploading the file');
       });
-  }, 'image/jpeg', 0.8);
+  });
 }
 
 
