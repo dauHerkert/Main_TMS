@@ -663,7 +663,7 @@ function updateProfilePic(e, user) {
     uploadBytes(storageRef, blob)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
-        setTimeout(reloadPage, 1500);
+        //setTimeout(reloadPage, 1500);
       })
       .catch((err) => {
         console.log('error uploading file', err);
@@ -4632,7 +4632,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1')
+console.log('prueba1s')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
