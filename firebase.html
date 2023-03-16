@@ -1969,7 +1969,7 @@ getDocs(colRef)
       let selectedUserZonesString = '';
       let selectedUserCompaniesString = '';
       let user_language = document.getElementById('user_language');
-      let user_title = document.getElementById('user_title');
+      let press_user_title = document.getElementById('press_user_title');
       let press_user = document.getElementById('press_user');
       const zonesSelect = document.getElementById('userZones');
 
@@ -2057,8 +2057,8 @@ update_user_form.addEventListener('submit', (e) => {
         console.log('sending email... status is', user_status_update.value);
         console.log('stored lang for email is', storedLang);
 
-        if(press_user.value == '1'){
-          if(user_title.value == 'Mr'){
+        if(press_user.textContent == '1'){
+          if(press_user_title.textContent == 'Mr'){
             if (user_status_update.value == 'Declined') {
           if(user_language.value == 'en'){
             try {
@@ -2261,7 +2261,7 @@ update_user_form.addEventListener('submit', (e) => {
               document.getElementById('update_user_modal').style.display = 'none';
               $('body').removeClass('modal-open');
             }
-          }if(user_title.value == 'Ms'){
+          }if(user_title.textContent == 'Ms'){
             if (user_status_update.value == 'Declined') {
           if(user_language.value == 'en'){
             try {
@@ -2464,7 +2464,7 @@ update_user_form.addEventListener('submit', (e) => {
               document.getElementById('update_user_modal').style.display = 'none';
               $('body').removeClass('modal-open');
             }
-          }if(user_title.value == 'Diverse'){
+          }if(user_title.textContent == 'Diverse'){
             if (user_status_update.value == 'Declined') {
           if(user_language.value == 'en'){
             try {
@@ -4203,7 +4203,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba13')
+console.log('prueba136')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
