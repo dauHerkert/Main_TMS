@@ -1454,6 +1454,12 @@ requiredFields[i].parentNode.style.border = "2px solid red";
 } else {
 requiredFields[i].parentNode.style.border = "none";
 }
+requiredFields[i].addEventListener("change", function() {
+      if (requiredFields[i].checked) {
+        // Remove the red border if the checkbox is checked
+        document.getElementById('checkbox_' + (i+1)).style.border = "none";
+      }
+    });
 } else if (requiredFields[i].id === "press_phone") {
 // Validate phone number if needed
 } else if (requiredFields[i].id === "press_zip_code") {
@@ -3572,7 +3578,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba167')
+console.log('prueba236')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
