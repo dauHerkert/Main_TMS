@@ -171,13 +171,15 @@
       const user_lastname = document.getElementById('last-name');
       const user_address = document.getElementById('user_address');
       const user_company = document.getElementById('sign-up-company');
+      let language = localStorage.getItem("language");
 
       setDoc(userRef, {
         user_firstname: user_firstname.value,
         user_lastname: user_lastname.value,
         user_address: user_address.value,
         user_company: user_company.value,
-        last_signin_date: new Date()
+        last_signin_date: new Date(),
+        language: language,
       }, { merge: true })
       .then(() => {
         //console.log('press data successfully updated');
