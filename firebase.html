@@ -598,8 +598,8 @@ function userUploadImage(user) {
     }
 
     const updatedPicture = document.getElementById('updated_picture');
-    const hiddenInput = document.getElementById('hidden_input');
-    let cropper;
+const hiddenInput = document.getElementById('hidden_input');
+let cropper;
 
 if (updatedPicture) {
   updatedPicture.addEventListener('change', function handleProfilePic(e) {
@@ -669,8 +669,9 @@ function updateProfilePic(e, user) {
         console.log('error uploading file', err);
         toastr.error('There was an error uploading the file');
       });
-  });
+  }, 'image/jpeg', 0.8);
 }
+
 
 function updateFileLabel() {
   const fileName = document.getElementById("fileName");
@@ -4631,7 +4632,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba123')
+console.log('prueba1')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
