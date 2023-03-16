@@ -1801,7 +1801,7 @@ submit_button.addEventListener('click', function(ev) {
             {title:"Locker", field:"press_locker", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Hotel info", field:"press_hotel_information", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"Press user title", field:"press_user_title", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"User title", field:"user_title", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press media type", field:"press_media_type", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press media", field:"press_media", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Email", field:"email", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -1969,6 +1969,8 @@ getDocs(colRef)
       let selectedUserZonesString = '';
       let selectedUserCompaniesString = '';
       let user_language = document.getElementById('user_language');
+      let user_title = document.getElementById('user_title');
+      let press_user = document.getElementById('press_user');
       const zonesSelect = document.getElementById('userZones');
 
       $('#userCompany').on('change', function () {
@@ -2055,7 +2057,9 @@ update_user_form.addEventListener('submit', (e) => {
         console.log('sending email... status is', user_status_update.value);
         console.log('stored lang for email is', storedLang);
 
-        if (user_status_update.value == 'Declined') {
+        if(press_user.value == '1'){
+          if(user_title.value == 'Mr'){
+            if (user_status_update.value == 'Declined') {
           if(user_language.value == 'en'){
             try {
             const docRef = addDoc(collection(db, "mail"), {
@@ -2088,7 +2092,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application rejected</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Dear Mr/Ms ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:30px">Dear Mr ${admin_user_name.value} ${admin_user_lastname.value},</p>
                                   <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are unfortunately not able to provide you with media credentials.</p>
                                   <p style="margin-bottom:15px">We would be very happy to support your reporting on the Porsche Tennis Grand Prix by offering you the opportunity to use our press database and our Media Hub. All the latest news and photos as well as comprehensive background information from the tournament in the Porsche Arena can be found at <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>.</p>
                                   <p style="margin-bottom:15px">If you need any further assistance, please let me know. I can be reached via telephone at +49 (0) 1726911517 or via email at <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
@@ -2137,7 +2141,617 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Sehr geehrte Frau/ Sehr geehrter Herr ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:30px">Sehr geehrter Herr ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
+                                  <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
+                                  <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                  <p>Claus-Peter Andorka<br>Pressesprecher Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+              }
+              });
+            } catch (e) {
+              console.error("Error declining user: ", e);
+            }
+            toastr.success('User registration declined');
+            document.getElementById('update_user_modal').style.display = 'none';
+            }
+            } else {
+              if(user_language.value == 'en'){
+                try {
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${user_specific_email.value}`,
+                  message: {
+                    subject: 'Application accepted',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Accepted user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application accepted</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Mr ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are delighted to learn of your intention to report about the tournament in the Porsche Arena and are pleased to confirm your accreditation.</p>
+                                  <p style="margin-bottom:15px">Your press credentials for the Porsche Tennis Grand Prix can be picked up from the Accreditation Office behind the Porsche Arena (access via Benzstrasse). There you will also find the Media Parking P13.</p>
+                                  <p style="margin-bottom:15px">We are looking forward to both cooperating closely with you and to an exciting Porsche Tennis Grand Prix.</p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+                  }
+                });
+                    console.log("Document written with ID: ", docRef.id);
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
+                }else {
+                  try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                      to: `${user_specific_email.value}`,
+                      message: {
+                        subject: 'Akkreditierungsbestätigung',
+                        html: `<!DOCTYPE html>
+                                <html>
+                                <head>
+                                  <title>Accepted user email DE</title>
+                                </head>
+                                <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                                  <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
+                                    <div style="padding: 20px;background-color: #ffffff;">
+                                      <p style="margin-bottom:30px">Sehr geehrter Herr ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                      <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Wir freuen uns, dass Sie über das Turnier in der Porsche-Arena berichten wollen und bestätigen Ihnen gerne Ihre Akkreditierung.</p>
+                                      <p style="margin-bottom:15px">Ihren Presse-Ausweis für den Porsche Tennis Grand Prix erhalten Sie im Akkreditierungsbüro vor dem Hintereingang der Porsche-Arena (Zufahrt über die Benzstraße). Dort liegt auch der Presseparkplatz P13.</p>
+                                      <p style="margin-bottom:15px">Wir freuen uns auf eine gute Zusammenarbeit und einen spannenden Porsche Tennis Grand Prix.</p>
+                                      <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                      <p>Claus-Peter Andorka<br>Pressesprecher Porsche Tennis Grand Prix</p>
+                                    </div>
+                                  </div>
+                                </body>
+                                </html>`,
+                      }
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
+                }
+              toastr.success('Account info has been successfully updated');
+              document.getElementById('update_user_modal').style.display = 'none';
+              $('body').removeClass('modal-open');
+            }
+          }if(user_title.value == 'Ms'){
+            if (user_status_update.value == 'Declined') {
+          if(user_language.value == 'en'){
+            try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: `${user_specific_email.value}`,
+              message: {
+                subject: 'Application rejected',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application rejected</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Ms ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are unfortunately not able to provide you with media credentials.</p>
+                                  <p style="margin-bottom:15px">We would be very happy to support your reporting on the Porsche Tennis Grand Prix by offering you the opportunity to use our press database and our Media Hub. All the latest news and photos as well as comprehensive background information from the tournament in the Porsche Arena can be found at <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>.</p>
+                                  <p style="margin-bottom:15px">If you need any further assistance, please let me know. I can be reached via telephone at +49 (0) 1726911517 or via email at <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+              }
+              });
+            } catch (e) {
+              console.error("Error declining user: ", e);
+            }
+            toastr.success('User registration declined');
+            document.getElementById('update_user_modal').style.display = 'none';
+            }else {
+              try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: `${user_specific_email.value}`,
+              message: {
+                subject: 'Akkreditierung Ablehnung',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email DE</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Sehr geehrter Frau ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
+                                  <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
+                                  <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                  <p>Claus-Peter Andorka<br>Pressesprecher Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+              }
+              });
+            } catch (e) {
+              console.error("Error declining user: ", e);
+            }
+            toastr.success('User registration declined');
+            document.getElementById('update_user_modal').style.display = 'none';
+            }
+            } else {
+              if(user_language.value == 'en'){
+                try {
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${user_specific_email.value}`,
+                  message: {
+                    subject: 'Application accepted',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Accepted user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application accepted</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Ms ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are delighted to learn of your intention to report about the tournament in the Porsche Arena and are pleased to confirm your accreditation.</p>
+                                  <p style="margin-bottom:15px">Your press credentials for the Porsche Tennis Grand Prix can be picked up from the Accreditation Office behind the Porsche Arena (access via Benzstrasse). There you will also find the Media Parking P13.</p>
+                                  <p style="margin-bottom:15px">We are looking forward to both cooperating closely with you and to an exciting Porsche Tennis Grand Prix.</p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+                  }
+                });
+                    console.log("Document written with ID: ", docRef.id);
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
+                }else {
+                  try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                      to: `${user_specific_email.value}`,
+                      message: {
+                        subject: 'Akkreditierungsbestätigung',
+                        html: `<!DOCTYPE html>
+                                <html>
+                                <head>
+                                  <title>Accepted user email DE</title>
+                                </head>
+                                <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                                  <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
+                                    <div style="padding: 20px;background-color: #ffffff;">
+                                      <p style="margin-bottom:30px">Sehr geehrter Frau ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                      <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Wir freuen uns, dass Sie über das Turnier in der Porsche-Arena berichten wollen und bestätigen Ihnen gerne Ihre Akkreditierung.</p>
+                                      <p style="margin-bottom:15px">Ihren Presse-Ausweis für den Porsche Tennis Grand Prix erhalten Sie im Akkreditierungsbüro vor dem Hintereingang der Porsche-Arena (Zufahrt über die Benzstraße). Dort liegt auch der Presseparkplatz P13.</p>
+                                      <p style="margin-bottom:15px">Wir freuen uns auf eine gute Zusammenarbeit und einen spannenden Porsche Tennis Grand Prix.</p>
+                                      <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                      <p>Claus-Peter Andorka<br>Pressesprecher Porsche Tennis Grand Prix</p>
+                                    </div>
+                                  </div>
+                                </body>
+                                </html>`,
+                      }
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
+                }
+              toastr.success('Account info has been successfully updated');
+              document.getElementById('update_user_modal').style.display = 'none';
+              $('body').removeClass('modal-open');
+            }
+          }if(user_title.value == 'Diverse'){
+            if (user_status_update.value == 'Declined') {
+          if(user_language.value == 'en'){
+            try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: `${user_specific_email.value}`,
+              message: {
+                subject: 'Application rejected',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application rejected</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Media representative,</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are unfortunately not able to provide you with media credentials.</p>
+                                  <p style="margin-bottom:15px">We would be very happy to support your reporting on the Porsche Tennis Grand Prix by offering you the opportunity to use our press database and our Media Hub. All the latest news and photos as well as comprehensive background information from the tournament in the Porsche Arena can be found at <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>.</p>
+                                  <p style="margin-bottom:15px">If you need any further assistance, please let me know. I can be reached via telephone at +49 (0) 1726911517 or via email at <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+              }
+              });
+            } catch (e) {
+              console.error("Error declining user: ", e);
+            }
+            toastr.success('User registration declined');
+            document.getElementById('update_user_modal').style.display = 'none';
+            }else {
+              try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: `${user_specific_email.value}`,
+              message: {
+                subject: 'Akkreditierung Ablehnung',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email DE</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Liebe Medienvertretenden,</p>
+                                  <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
+                                  <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
+                                  <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                  <p>Claus-Peter Andorka<br>Pressesprecher Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+              }
+              });
+            } catch (e) {
+              console.error("Error declining user: ", e);
+            }
+            toastr.success('User registration declined');
+            document.getElementById('update_user_modal').style.display = 'none';
+            }
+            } else {
+              if(user_language.value == 'en'){
+                try {
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${user_specific_email.value}`,
+                  message: {
+                    subject: 'Application accepted',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Accepted user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application accepted</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear Media representative,</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are delighted to learn of your intention to report about the tournament in the Porsche Arena and are pleased to confirm your accreditation.</p>
+                                  <p style="margin-bottom:15px">Your press credentials for the Porsche Tennis Grand Prix can be picked up from the Accreditation Office behind the Porsche Arena (access via Benzstrasse). There you will also find the Media Parking P13.</p>
+                                  <p style="margin-bottom:15px">We are looking forward to both cooperating closely with you and to an exciting Porsche Tennis Grand Prix.</p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+                  }
+                });
+                    console.log("Document written with ID: ", docRef.id);
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
+                }else {
+                  try {
+                    const docRef = addDoc(collection(db, "mail"), {
+                      to: `${user_specific_email.value}`,
+                      message: {
+                        subject: 'Akkreditierungsbestätigung',
+                        html: `<!DOCTYPE html>
+                                <html>
+                                <head>
+                                  <title>Accepted user email DE</title>
+                                </head>
+                                <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                                  <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
+                                    <div style="padding: 20px;background-color: #ffffff;">
+                                      <p style="margin-bottom:30px">Liebe Medienvertretenden,</p>
+                                      <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Wir freuen uns, dass Sie über das Turnier in der Porsche-Arena berichten wollen und bestätigen Ihnen gerne Ihre Akkreditierung.</p>
+                                      <p style="margin-bottom:15px">Ihren Presse-Ausweis für den Porsche Tennis Grand Prix erhalten Sie im Akkreditierungsbüro vor dem Hintereingang der Porsche-Arena (Zufahrt über die Benzstraße). Dort liegt auch der Presseparkplatz P13.</p>
+                                      <p style="margin-bottom:15px">Wir freuen uns auf eine gute Zusammenarbeit und einen spannenden Porsche Tennis Grand Prix.</p>
+                                      <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                                      <p>Claus-Peter Andorka<br>Pressesprecher Porsche Tennis Grand Prix</p>
+                                    </div>
+                                  </div>
+                                </body>
+                                </html>`,
+                      }
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
+                }
+              toastr.success('Account info has been successfully updated');
+              document.getElementById('update_user_modal').style.display = 'none';
+              $('body').removeClass('modal-open');
+            }
+          }
+        }else{
+        if (user_status_update.value == 'Declined') {
+          if(user_language.value == 'en'){
+            try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: `${user_specific_email.value}`,
+              message: {
+                subject: 'Application rejected',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email EN</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application rejected</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Dear ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are unfortunately not able to provide you with media credentials.</p>
+                                  <p style="margin-bottom:15px">We would be very happy to support your reporting on the Porsche Tennis Grand Prix by offering you the opportunity to use our press database and our Media Hub. All the latest news and photos as well as comprehensive background information from the tournament in the Porsche Arena can be found at <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>.</p>
+                                  <p style="margin-bottom:15px">If you need any further assistance, please let me know. I can be reached via telephone at +49 (0) 1726911517 or via email at <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+                                  <p style="margin-bottom:30px">Kind regards</p>
+                                  <p>Claus-Peter Andorka<br>Media Director Porsche Tennis Grand Prix</p>
+                                </div>
+                              </div>
+                            </body>
+                            </html>`,
+              }
+              });
+            } catch (e) {
+              console.error("Error declining user: ", e);
+            }
+            toastr.success('User registration declined');
+            document.getElementById('update_user_modal').style.display = 'none';
+            }else {
+              try {
+            const docRef = addDoc(collection(db, "mail"), {
+              to: `${user_specific_email.value}`,
+              message: {
+                subject: 'Akkreditierung Ablehnung',
+                    html: `<!DOCTYPE html>
+                            <html>
+                            <head>
+                              <title>Declined user email DE</title>
+                            </head>
+                            <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                              <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
+                                <div style="padding: 20px;background-color: #ffffff;">
+                                  <p style="margin-bottom:30px">Sehr geehrte ${admin_user_name.value} ${admin_user_lastname.value},</p>
                                   <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
                                   <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
                                   <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
@@ -2188,7 +2802,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                 <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Application accepted</div>
                                 <div style="padding: 20px;background-color: #ffffff;">
-                                  <p style="margin-bottom:30px">Dear Mr/Ms ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                  <p style="margin-bottom:30px">Dear ${admin_user_name.value} ${admin_user_lastname.value},</p>
                                   <p style="margin-bottom:15px">Many thanks for your interest in the 2023 Porsche Tennis Grand Prix. We are delighted to learn of your intention to report about the tournament in the Porsche Arena and are pleased to confirm your accreditation.</p>
                                   <p style="margin-bottom:15px">Your press credentials for the Porsche Tennis Grand Prix can be picked up from the Accreditation Office behind the Porsche Arena (access via Benzstrasse). There you will also find the Media Parking P13.</p>
                                   <p style="margin-bottom:15px">We are looking forward to both cooperating closely with you and to an exciting Porsche Tennis Grand Prix.</p>
@@ -2236,7 +2850,7 @@ update_user_form.addEventListener('submit', (e) => {
                                     </table>
                                     <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsbestätigung</div>
                                     <div style="padding: 20px;background-color: #ffffff;">
-                                      <p style="margin-bottom:30px">Sehr geehrte Frau/ Sehr geehrter Herr ${admin_user_name.value} ${admin_user_lastname.value},</p>
+                                      <p style="margin-bottom:30px">Sehr geehrte ${admin_user_name.value} ${admin_user_lastname.value},</p>
                                       <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Wir freuen uns, dass Sie über das Turnier in der Porsche-Arena berichten wollen und bestätigen Ihnen gerne Ihre Akkreditierung.</p>
                                       <p style="margin-bottom:15px">Ihren Presse-Ausweis für den Porsche Tennis Grand Prix erhalten Sie im Akkreditierungsbüro vor dem Hintereingang der Porsche-Arena (Zufahrt über die Benzstraße). Dort liegt auch der Presseparkplatz P13.</p>
                                       <p style="margin-bottom:15px">Wir freuen uns auf eine gute Zusammenarbeit und einen spannenden Porsche Tennis Grand Prix.</p>
@@ -2257,6 +2871,7 @@ update_user_form.addEventListener('submit', (e) => {
               document.getElementById('update_user_modal').style.display = 'none';
               $('body').removeClass('modal-open');
             }
+          }
       })
       .catch((err) => {
               toastr.error('There was an error updating the account info');
