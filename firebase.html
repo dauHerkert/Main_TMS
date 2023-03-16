@@ -1787,8 +1787,9 @@ submit_button.addEventListener('click', function(ev) {
             {title:"Email", field:"email", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
-            { title: "user type", field: "user_type", sorter: "string", width: 0, cssClass: "hidden-column"},
+            {title: "user type", field: "user_type", sorter: "string", width: 0, cssClass: "hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"User Language", field:"language", sorter:"string", width:0, cssClass:"hidden-column"},
             {title: userTableFirstnameLabel, field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
             {title: userTableCompanyLabel, field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
@@ -1920,7 +1921,7 @@ getDocs(colRef)
         let user = doc.data();
 
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_information: user.press_hotel_information, press_form_user: user.press_form_user, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_information: user.press_hotel_information, press_form_user: user.press_form_user, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
 
         }));
     });
@@ -1947,6 +1948,7 @@ getDocs(colRef)
       let company_admin = document.getElementById('headUser');
       let selectedUserZonesString = '';
       let selectedUserCompaniesString = '';
+      let user_language = document.getElementById('user_language');
       const zonesSelect = document.getElementById('userZones');
 
       $('#userCompany').on('change', function () {
@@ -2034,7 +2036,7 @@ update_user_form.addEventListener('submit', (e) => {
         console.log('stored lang for email is', storedLang);
 
         if (user_status_update.value == 'Declined') {
-          if(storedLang == 'en'){
+          if(user_language.value == 'en'){
             try {
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
@@ -2134,7 +2136,7 @@ update_user_form.addEventListener('submit', (e) => {
             document.getElementById('update_user_modal').style.display = 'none';
             }
           } else {
-              if(storedLang == 'en'){
+              if(user_language.value == 'en'){
                 try {
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
@@ -2256,7 +2258,7 @@ update_user_form.addEventListener('submit', (e) => {
             }, { merge: true })
                 .then(() => {
                   if(bulk_status_update.value == 'Declined'){
-                    if(storedLang == 'en'){
+                    if(userData.data().language == 'en'){
                       try {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
@@ -2360,7 +2362,7 @@ update_user_form.addEventListener('submit', (e) => {
                     }, 1500);
                     }
                 }else{
-                    if(storedLang == 'en'){
+                    if(userData.data().language == 'en'){
                       try {
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${userData.data().user_email}`,
@@ -3584,7 +3586,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba2')
+console.log('prueba23')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
