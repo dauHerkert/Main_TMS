@@ -1432,78 +1432,84 @@ async function pagePress() {
 });
 
 submit_button.addEventListener('click', function(ev) {
-ev.preventDefault();
+  ev.preventDefault();
 
-let hasErrors = false;
-let uncheckedCheckboxesCount = 0;
-// Validate the required fields
-for (let i = 0; i < requiredFields.length; i++) {
-if (!requiredFields[i].value) {
-requiredFields[i].style.border = "2px solid red";
-hasErrors = true;
-} else if (requiredFields[i].type === "email") {
-const emailPattern = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
-if (!emailPattern.test(requiredFields[i].value)) {
-requiredFields[i].style.border = "2px solid red";
-hasErrors = true;
-}
-} else if (requiredFields[i].type === "checkbox") {
-if (!requiredFields[i].checked) {
-uncheckedCheckboxesCount++;
-requiredFields[i].parentNode.style.border = "2px solid red";
-} else {
-requiredFields[i].parentNode.style.border = "none";
-}
-requiredFields[i].addEventListener("change", function() {
-      if (requiredFields[i].checked) {
-        // Remove the red border if the checkbox is checked
-        document.getElementById('checkbox_' + (i+1)).style.border = "none";
+  let hasErrors = false;
+  let uncheckedCheckboxesCount = 0;
+
+  // Validate the required fields
+  for (let i = 0; i < requiredFields.length; i++) {
+    if (!requiredFields[i].value) {
+      requiredFields[i].style.border = "2px solid red";
+      hasErrors = true;
+    } else if (requiredFields[i].type === "email") {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(requiredFields[i].value)) {
+        requiredFields[i].style.border = "2px solid red";
+        hasErrors = true;
       }
-    });
-} else if (requiredFields[i].id === "press_phone") {
-// Validate phone number if needed
-} else if (requiredFields[i].id === "press_zip_code") {
-// Validate zip code if needed
-}
-}
-// Display the error message only once for all unchecked checkboxes
-if (uncheckedCheckboxesCount > 0) {
-hasErrors = true;
-if (storedLang == 'de') {
-toastr.error('Bitte stellen Sie sicher, dass alle rechtlichen Hinweise vor dem Absenden des Formulars angekreuzt sind.');
-} else {
-toastr.error('Please ensure that all legal notices are checked before submitting the form.');
-}
-}
-// Validate the press image file input
-if (press_image.files.length === 0) {
-if (storedLang === 'de') {
-toastr.error('Bitte laden Sie Ihr Profilbild hoch');
-} else {
-toastr.error('Please upload your profile image');
-}
-hasErrors = true;
-}
-// Check for identical emails
-if ($('#press_email').length && $('#press_confirm_email').length) {
-if ($('#press_email').val() != $('#press_confirm_email').val()) {
-if (storedLang === 'de') {
-toastr.error('Bitte verwenden Sie die gleiche E-mail');
-} else {
-toastr.error('Please make sure to use the same E-mail');
-}
-hasErrors = true;
-}
-}
-if (!hasErrors) {
-checkboxesChecked = true;
-}
+    } else if (requiredFields[i].type === "checkbox") {
+      if (!requiredFields[i].checked) {
+        uncheckedCheckboxesCount++;
+        requiredFields[i].parentNode.style.border = "2px solid red";
 
-if (!hasErrors && checkboxesChecked) {
-pressFormSubmit(ev);
-}
+        requiredFields[i].addEventListener("change", function() {
+          if (requiredFields[i].checked) {
+            // Remove the red border if the checkbox is checked
+            requiredFields[i].parentNode.style.border = "none";
+          }
+        });
+
+      } else {
+        requiredFields[i].parentNode.style.border = "none";
+      }
+    } else if (requiredFields[i].id === "press_phone") {
+      // Validate phone number if needed
+    } else if (requiredFields[i].id === "press_zip_code") {
+      // Validate zip code if needed
+    }
+  }
+
+  // Display the error message only once for all unchecked checkboxes
+  if (uncheckedCheckboxesCount > 0) {
+    hasErrors = true;
+    if (storedLang == 'de') {
+      toastr.error('Bitte stellen Sie sicher, dass alle rechtlichen Hinweise vor dem Absenden des Formulars angekreuzt sind.');
+    } else {
+      toastr.error('Please ensure that all legal notices are checked before submitting the form.');
+    }
+  }
+
+  // Validate the press image file input
+  if (press_image.files.length === 0) {
+    if (storedLang === 'de') {
+      toastr.error('Bitte laden Sie Ihr Profilbild hoch');
+    } else {
+      toastr.error('Please upload your profile image');
+    }
+    hasErrors = true;
+  }
+
+  // Check for identical emails
+  if ($('#press_email').length && $('#press_confirm_email').length) {
+    if ($('#press_email').val() != $('#press_confirm_email').val()) {
+      if (storedLang === 'de') {
+        toastr.error('Bitte verwenden Sie die gleiche E-mail');
+      } else {
+        toastr.error('Please make sure to use the same E-mail');
+      }
+      hasErrors = true;
+    }
+  }
+
+  if (!hasErrors) {
+    checkboxesChecked = true;
+  }
+
+  if (!hasErrors && checkboxesChecked) {
+    pressFormSubmit(ev);
+  }
 });
-
 }
     /*
     * -----------------------------------------------------------------------------------------------------------
@@ -3578,7 +3584,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba236')
+console.log('prueba2')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
