@@ -3841,6 +3841,7 @@ update_user_form.addEventListener('submit', (e) => {
           bulkUserUpdate(selectedData);
         });
 
+        //CREATE USERS FORM
         //Print companies select
         let select = document.getElementById('userCompany');
           getDocs(company_colRef)
@@ -3900,6 +3901,12 @@ update_user_form.addEventListener('submit', (e) => {
       let new_user_account_type = document.getElementById('new_user_account_type');
       let new_user_company = document.getElementById('new_user_company');
       let new_user_profile = document.getElementById('new_user_profile');
+      let newUserCompaniesString = '';
+
+      $('#new_user_company').on('change', function () {
+        var selectedNewUserCompanies = $(this).val();
+        newUserCompaniesString = selectedNewUserCompanies.join(', ');
+      });
 
       //Print companies select
           getDocs(company_colRef)
@@ -3933,11 +3940,35 @@ update_user_form.addEventListener('submit', (e) => {
           })
 
       async function createUser() {
+        let storedLang = localStorage.getItem("language");
         const companyRef = await addDoc(collection(db, "users"), {
             user_firstname: new_user_firstname.value,
             user_lastname: new_user_lastname.value,
             user_type: new_user_account_type.value,
-
+            user_company: newUserCompaniesString,
+            user_profile: new_user_profile.value,
+            user_status: 'Pending',
+            company_admin: '0',
+            language: storedLang,
+            press_form_user: '0',
+            press_hotel_information: '',
+            press_locker: '',
+            press_media: '',
+            press_media_type: '',
+            press_workspot: '',
+            user_address: '',
+            user_city: '',
+            user_company: '',
+            user_country: '',
+            user_email: '',
+            user_firstname: '',
+            user_is_admin: '0',
+            user_itwa:'',
+            user_nationality:'',
+            user_phone:'',
+            user_title:'',
+            user_zip_code:'',
+            user_zones:'',
           })
           .then(() => {
             toastr.success('Company has been successfully created');
@@ -4994,7 +5025,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba3333')
+console.log('prueba')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
