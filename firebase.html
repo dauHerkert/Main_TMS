@@ -247,12 +247,109 @@ if (profile_img) {
 }
 
 function userUploadImage(user) {
+  const new_user_email = document.getElementById('signup-email').value;
+  const new_user_firstname = document.getElementById('first-name').value;
+  const new_user_lastname = document.getElementById('last-name').value;
   const canvas = profile_cropper.getCroppedCanvas();
   canvas.toBlob((blob) => {
     const storageRef = ref(storage, 'profiles/' + user.uid);
     uploadBytes(storageRef, blob)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
+        //cuca
+        if(storedLang == 'de'){
+        try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: `${new_user_email}`,
+            message: {
+              subject: `Danke für die Registrierung`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>DE Sign up email</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                             </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Hallo ${new_user_firstname} ${new_user_lastname},</p>
+                            <p style="margin-bottom:25px">Vielen Dank für Ihre Registrierung. Bitte verwenden Sie den folgenden Link, um sich im Portal anzumelden und Ihre Akkreditierungsanfrage zu vervollständigen.</p>
+                            <a href="https://porsche-tms.webflow.io/de/signin-porsche" target="_blank" style="color:#f2a100">Klicken Sie hier, um sich einzuloggen</a>
+                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+                            <p>Porsche Tennis Grand Prix Team </p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }else{
+        try {
+          const docRef = addDoc(collection(db, "mail"), {
+            to: `${new_user_email}`,
+            message: {
+              subject: `Thanks for Registering`,
+              html: `<!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Signup email EN</title>
+                      </head>
+                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td align="center" valign="middle">
+                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                                            <tr>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
+                                              </td>
+                                              <td width="30"></td>
+                                              <td align="center" valign="middle">
+                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                             </table>
+                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
+                          <div style="padding: 20px;background-color: #ffffff;">
+                            <p style="margin-bottom:30px">Hello ${new_user_firstname} ${new_user_lastname},</p>
+                            <p style="margin-bottom:15px">Thanks for registering, please use the link below to log into the portal and complete your accreditation request.</p>
+                            <a href="https://porsche-tms.webflow.io/en/signin-porsche" target="_blank" style="color:#f2a100">Click here to login</a>
+                            <p style="margin-bottom:30px">Kind regards,</p>
+                            <p>Porsche Tennis Grand Prix Team</p>
+                          </div>
+                        </div>
+                      </body>
+                      </html>`,
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
         setTimeout(reloadPage, 1500);
       })
       .catch(err => {
