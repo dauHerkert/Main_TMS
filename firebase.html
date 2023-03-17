@@ -3970,7 +3970,11 @@ update_user_form.addEventListener('submit', (e) => {
             user_zones:'',
           })
           .then(() => {
-            toastr.success('Company has been successfully created');
+            if(storedLang == 'de'){
+              toastr.success('Benutzer wurde erfolgreich erstellt');
+            }else{
+              toastr.success('User has been successfully created');
+            }            
             setTimeout(function() {
               window.location.reload();
             }, 2000);
