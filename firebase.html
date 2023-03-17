@@ -131,7 +131,7 @@
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Danke für die Registrierung</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Hallo ${user_firstname} ${user_lastname},</p>
+                            <p style="margin-bottom:30px">Hallo ${user_firstname.value} ${user_lastname.value},</p>
                             <p style="margin-bottom:25px">Vielen Dank für Ihre Registrierung. Bitte verwenden Sie den folgenden Link, um sich im Portal anzumelden und Ihre Akkreditierungsanfrage zu vervollständigen.</p>
                             <a href="https://porsche-tms.webflow.io/de/signin-porsche" target="_blank" style="color:#f2a100">Klicken Sie hier, um sich einzuloggen</a>
                             <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
@@ -177,7 +177,7 @@
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Thanks for Registering</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Hello ${user_firstname} ${user_lastname},</p>
+                            <p style="margin-bottom:30px">Hello ${user_firstname.value} ${user_lastname.value},</p>
                             <p style="margin-bottom:15px">Thanks for registering, please use the link below to log into the portal and complete your accreditation request.</p>
                             <a href="https://porsche-tms.webflow.io/en/signin-porsche" target="_blank" style="color:#f2a100">Click here to login</a>
                             <p style="margin-bottom:30px">Kind regards,</p>
@@ -4711,7 +4711,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba33')
+console.log('prueba3311')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
