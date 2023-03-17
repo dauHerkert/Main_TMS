@@ -91,7 +91,7 @@
     userDefaultValues.user_id = user.uid;
     // Use the companyZones variable to set the user_zones field
     userDefaultValues.user_zones = companyZones;
-    var storedLang = localStorage.getItem("language");
+    let storedLang = localStorage.getItem("language");
     // Use the setDoc function to set the userDefaultValues object
     setDoc(userRef, userDefaultValues, { merge: true })
         .then(() => {
@@ -247,20 +247,17 @@ if (profile_img) {
 }
 
 function userUploadImage(user) {
-  const new_user_email = document.getElementById('signup-email').value;
-  const new_user_firstname = document.getElementById('first-name').value;
-  const new_user_lastname = document.getElementById('last-name').value;
+  let storedLang = localStorage.getItem("language");
   const canvas = profile_cropper.getCroppedCanvas();
   canvas.toBlob((blob) => {
     const storageRef = ref(storage, 'profiles/' + user.uid);
     uploadBytes(storageRef, blob)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
-        //cuca
         if(storedLang == 'de'){
         try {
           const docRef = addDoc(collection(db, "mail"), {
-            to: `${new_user_email}`,
+            to: `${user.user_email}`,
             message: {
               subject: `Danke für die Registrierung`,
               html: `<!DOCTYPE html>
@@ -289,7 +286,7 @@ function userUploadImage(user) {
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Hallo ${new_user_firstname} ${new_user_lastname},</p>
+                            <p style="margin-bottom:30px">Hallo ${user.user_firstname} ${user.user_lastname},</p>
                             <p style="margin-bottom:25px">Vielen Dank für Ihre Registrierung. Bitte verwenden Sie den folgenden Link, um sich im Portal anzumelden und Ihre Akkreditierungsanfrage zu vervollständigen.</p>
                             <a href="https://porsche-tms.webflow.io/de/signin-porsche" target="_blank" style="color:#f2a100">Klicken Sie hier, um sich einzuloggen</a>
                             <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
@@ -335,7 +332,7 @@ function userUploadImage(user) {
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Hello ${new_user_firstname} ${new_user_lastname},</p>
+                            <p style="margin-bottom:30px">Hello ${user.user_firstname} ${user.user_lastname},</p>
                             <p style="margin-bottom:15px">Thanks for registering, please use the link below to log into the portal and complete your accreditation request.</p>
                             <a href="https://porsche-tms.webflow.io/en/signin-porsche" target="_blank" style="color:#f2a100">Click here to login</a>
                             <p style="margin-bottom:30px">Kind regards,</p>
@@ -4712,7 +4709,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba31')
+console.log('prueba3133')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
