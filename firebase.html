@@ -3889,6 +3889,73 @@ update_user_form.addEventListener('submit', (e) => {
                 console.log('there was a problem signin user', err);
                 toastr.error('There was an error signin user');
             })
+
+            $('#companyZone').on('change', function () {
+        var selectedValues = $(this).val();
+        selectedValuesString = selectedValues.join(', ');
+      });
+
+      let new_user_firstname = document.getElementById('new_user_firstname');
+      let new_user_lastname = document.getElementById('new_user_lastname');
+      let new_user_account_type = document.getElementById('new_user_account_type');
+      let new_user_company = document.getElementById('new_user_company');
+      let new_user_profile = document.getElementById('new_user_profile');
+
+      //Print companies select
+          getDocs(company_colRef)
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              let company = doc.data();
+
+              var opt = document.createElement('option');
+              opt.value = doc.id;
+              opt.textContent = company.company_name;
+              new_user_company.appendChild(opt);
+            });
+          })
+          .catch(err => {
+            console.log('error fetching companies', err);
+          })
+          //Print profiles select
+          getDocs(profilesRef)
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              let profile = doc.data();
+
+              var opt = document.createElement('option');
+              opt.value = doc.id;
+              opt.textContent = profile.profile_name;
+              new_user_profile.appendChild(opt);
+            });
+          })
+          .catch(err => {
+            console.log('error fetching companies', err);
+          })
+
+      async function createUser() {
+        const companyRef = await addDoc(collection(db, "users"), {
+            user_firstname: new_user_firstname.value,
+            user_lastname: new_user_lastname.value,
+            user_type: new_user_account_type.value,
+
+          })
+          .then(() => {
+            toastr.success('Company has been successfully created');
+            setTimeout(function() {
+              window.location.reload();
+            }, 2000);
+          })
+          .catch((err) => {
+            toastr.error('There was an error creating the company');
+            console.log('error creating company', err);
+          });
+      }
+      create_user_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        createUser();
+      });
     }
     /*
     * --------------------------------------------------------------------------------------------
@@ -4927,7 +4994,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba3')
+console.log('prueba3333')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
