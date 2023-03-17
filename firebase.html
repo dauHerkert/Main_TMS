@@ -99,7 +99,7 @@
             if(storedLang == 'de'){
         try {
           const docRef = addDoc(collection(db, "mail"), {
-            to: `${user.user_email}`,
+            to: `${userRef.user_email}`,
             message: {
               subject: `Danke für die Registrierung`,
               html: `<!DOCTYPE html>
@@ -145,7 +145,7 @@
       }else{
         try {
           const docRef = addDoc(collection(db, "mail"), {
-            to: `${user.user_email}`,
+            to: `${userRef.user_email}`,
             message: {
               subject: `Thanks for Registering`,
               html: `<!DOCTYPE html>
@@ -4708,7 +4708,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba12333')
+console.log('prueba12')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
