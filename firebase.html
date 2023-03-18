@@ -104,7 +104,7 @@
           const docRef = addDoc(collection(db, "mail"), {
             to: `${user.email}`,
             message: {
-              subject: `Danke für die Registrierung`,
+              subject: `Danke für Ihre Registrierung`,
               html: `<!DOCTYPE html>
                       <html>
                       <head>
@@ -1303,7 +1303,7 @@ function updateFileLabel() {
         setTimeout(function() {
             window.location.pathname = '/de/press-form-submitted';
         }, 1500);
-        }        
+        }
       }else {
         toastr.success('You have submitted the form successfully');
         if(press_title.value == 'Mr' || press_title.value == 'Ms'){
@@ -1660,7 +1660,7 @@ submit_button.addEventListener('click', function(ev) {
         ev.preventDefault();
         addSupplierInfo(ev, user);
       });
-     
+
      setDoc(userRef, {
       last_signin_date: new Date()
      }, { merge: true })
@@ -3974,7 +3974,7 @@ update_user_form.addEventListener('submit', (e) => {
               toastr.success('Benutzer wurde erfolgreich erstellt');
             }else{
               toastr.success('User has been successfully created');
-            }            
+            }
             setTimeout(function() {
               window.location.reload();
             }, 2000);
