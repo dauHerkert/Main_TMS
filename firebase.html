@@ -1709,6 +1709,7 @@ submit_button.addEventListener('click', function(ev) {
       e.stopPropagation();
 
       if (storedLang == 'en'){
+        // Admin notification - EN
         try {
             const docRef = addDoc(collection(db, "mail"), {
               to: 'andreas.salvermoser@ops.dauherkert.com',
@@ -1759,6 +1760,7 @@ submit_button.addEventListener('click', function(ev) {
             $('body').removeClass('modal-open');
                 }, 500);
       }else{
+        // Admin notification DE
         try {
             const docRef = addDoc(collection(db, "mail"), {
               to: 'andreas.salvermoser@ops.dauherkert.com',
@@ -2159,6 +2161,7 @@ update_user_form.addEventListener('submit', (e) => {
           if(press_user_title.textContent == 'Mr'){
             if (user_status_update.value == 'Declined') {
           if(user_language.value == 'en'){
+            // Press - EN - Mr - Application rejected
             try {
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
@@ -2209,6 +2212,7 @@ update_user_form.addEventListener('submit', (e) => {
             document.getElementById('update_user_modal').style.display = 'none';
             }else {
               try {
+                // Press - DE - Mr - Application rejected
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
@@ -2259,6 +2263,7 @@ update_user_form.addEventListener('submit', (e) => {
             }
             } else {
               if(user_language.value == 'en'){
+                // Press - EN - Mr - Application accepted
                 try {
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
@@ -2307,6 +2312,7 @@ update_user_form.addEventListener('submit', (e) => {
                     console.error("Error adding document: ", e);
                   }
                 }else {
+                  // Press - DE - Mr - Application accepted
                   try {
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
@@ -2363,6 +2369,7 @@ update_user_form.addEventListener('submit', (e) => {
             if (user_status_update.value == 'Declined') {
           if(user_language.value == 'en'){
             try {
+              // Press - EN - Ms - Application rejected
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
@@ -2411,6 +2418,7 @@ update_user_form.addEventListener('submit', (e) => {
             toastr.success('User registration declined');
             document.getElementById('update_user_modal').style.display = 'none';
             }else {
+              // Press - DE - Ms - Application rejected
               try {
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
