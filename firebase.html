@@ -101,6 +101,8 @@
             userUploadImage(user);
             if(storedLang == 'de'){
         try {
+
+          // Sign up - DE
           const docRef = addDoc(collection(db, "mail"), {
             to: `${user.email}`,
             message: {
@@ -146,6 +148,7 @@
           console.error(error);
         }
       }else{
+        // Sign up - EN
         try {
           const docRef = addDoc(collection(db, "mail"), {
             to: `${user.email}`,
@@ -1022,6 +1025,7 @@ function updateFileLabel() {
       if(storedLang == 'de'){
         toastr.success('Sie haben das Formular erfolgreich übermittelt');
         if(press_title.value == 'Mr'){
+          // Form confirmation email to admin
           try {
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
@@ -1067,6 +1071,8 @@ function updateFileLabel() {
         } catch (error) {
           console.error(error);
         }
+
+        // Press - DE - Mr - Application received
         try {
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
@@ -1116,6 +1122,7 @@ function updateFileLabel() {
             window.location.pathname = '/de/press-form-submitted';
         }, 1500);
         }else if(press_title.value == 'Ms'){
+          // Form confirmation email to admin
           try {
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
@@ -1162,6 +1169,7 @@ function updateFileLabel() {
           console.error(error);
         }
         try {
+          // Press - DE - Ms - Application received
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
@@ -1211,6 +1219,7 @@ function updateFileLabel() {
         }, 1500);
         }else if(press_title.value == 'Diverse'){
           try {
+            // Form confirmation email to admin
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
             message: {
@@ -1256,6 +1265,7 @@ function updateFileLabel() {
           console.error(error);
         }
         try {
+          // Press - DE - Diverse - Application received
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
@@ -1304,9 +1314,10 @@ function updateFileLabel() {
             window.location.pathname = '/de/press-form-submitted';
         }, 1500);
         }
-      }else {
+      }else { // storedLang == 'en'
         toastr.success('You have submitted the form successfully');
         if(press_title.value == 'Mr' || press_title.value == 'Ms'){
+          // Form confirmation email to admin
           try {
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
@@ -1353,6 +1364,7 @@ function updateFileLabel() {
           console.error(error);
         }
         try {
+          // Press - EN - Mr/Ms - Application received
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
@@ -1403,6 +1415,7 @@ function updateFileLabel() {
         }, 1500);
         }else if(press_title.value == 'Diverse'){
           try {
+            // Form confirmation email to admin
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
             message: {
@@ -1448,6 +1461,7 @@ function updateFileLabel() {
           console.error(error);
         }
         try {
+          // Press - EN - Diverse - Application received
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
