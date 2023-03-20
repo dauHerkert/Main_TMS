@@ -1018,7 +1018,7 @@ function updateFileLabel() {
 
   async function pressUploadImage(docId, storageRef) {
     const canvas = press_cropper.getCroppedCanvas();
-    const htmlUrl = './mails_templates/form_confirmation_email_to_admin.html';
+    const htmlUrl = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/form_confirmation_email_to_admin.html';
   const html = await fetch(htmlUrl).then(response => response.text());
     canvas.toBlob((blob) =>{
   uploadBytes(storageRef, blob)
@@ -1041,7 +1041,7 @@ function updateFileLabel() {
         // Press - DE - Mr - Application received
         (async () => {
             try {
-              const html = await fetch('./mails_templates/press_de_mr_application_received.html').then(response => response.text());
+              const html = await fetch('https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_de_mr_application_received.html').then(response => response.text());
               const docRef = addDoc(collection(db, "mail"), {
                 to: `${press_email.value}`,
                 message: {
@@ -5093,7 +5093,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba3')
+console.log('prueba321')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
