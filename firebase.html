@@ -1624,7 +1624,7 @@ submit_button.addEventListener('click', function(ev) {
     function addSupplierInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
-
+      const storedLang = localStorage.getItem("language");
       const userRef = doc(db, 'users', user.uid);
       const select_dates = document.getElementById('Select-dates');
       const special_request = document.getElementById('Special-request-2');
@@ -5152,7 +5152,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba12')
+console.log('prueba123')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
