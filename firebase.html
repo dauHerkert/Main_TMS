@@ -1621,11 +1621,12 @@ submit_button.addEventListener('click', function(ev) {
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    function addSupplierInfo(e, user) {
+    async function addSupplierInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
       const storedLang = localStorage.getItem("language");
       const userRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userRef);
       const select_dates = document.getElementById('Select-dates');
       const special_request = document.getElementById('Special-request-2');
 
@@ -1641,7 +1642,7 @@ submit_button.addEventListener('click', function(ev) {
 
           //Supplier form submited - DE
           const docRef = addDoc(collection(db, "mail"), {
-            to: `${user.email}`,
+            to: `${userDoc.user_email}`,
             message: {
               subject: `Danke für die Anmeldung`,
               html: `<!DOCTYPE html>
@@ -1670,7 +1671,7 @@ submit_button.addEventListener('click', function(ev) {
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Danke für die Anmeldung</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Hallo ${user_firstname.value} ${user_lastname.value},</p>
+                            <p style="margin-bottom:30px">Hallo ${userDoc.user_firstname} ${userDoc.user_lastname},</p>
                             <p style="margin-bottom:25px">Ihre Registrierung ist erfolgreich bei uns eingegangen und befindet sich nun zur Prüfung bei Ihrem Ansprechpartner.</a>
                             <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
                             <p>Porsche Tennis Grand Prix Team</p>
@@ -1687,7 +1688,7 @@ submit_button.addEventListener('click', function(ev) {
         // Supplier form submited - EN
         try {
           const docRef = addDoc(collection(db, "mail"), {
-            to: `${user.email}`,
+            to: `${userDoc.user_email}`,
             message: {
               subject: `Thanks for Applicating`,
               html: `<!DOCTYPE html>
@@ -1716,7 +1717,7 @@ submit_button.addEventListener('click', function(ev) {
                              </table>
                           <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Thanks for Applicating</div>
                           <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Hello ${user_firstname.value} ${user_lastname.value},</p>
+                            <p style="margin-bottom:30px">Hello ${userDoc.user_firstname} ${userDoc.user_lastname},</p>
                             <p style="margin-bottom:15px">We have successfully received your registration and it is now in review by your contact person.</a>
                             <p style="margin-bottom:30px">Kind regards,</p>
                             <p>Porsche Tennis Grand Prix Team</p>
