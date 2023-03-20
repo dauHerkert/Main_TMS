@@ -1626,7 +1626,7 @@ submit_button.addEventListener('click', function(ev) {
       e.stopPropagation();
       const storedLang = localStorage.getItem("language");
       const userRef = doc(db, 'users', user.uid);
-      const userDoc = await getDoc(userRef);
+      const userDoc = await getUserInfo(user);
       const select_dates = document.getElementById('Select-dates');
       const special_request = document.getElementById('Special-request-2');
 
@@ -1853,7 +1853,7 @@ submit_button.addEventListener('click', function(ev) {
             $('body').removeClass('modal-open');
                 }, 500);
       }else{
-        // Admin notification DE
+        // Admin notification EN
         try {
             const docRef = addDoc(collection(db, "mail"), {
               to: 'andreas.salvermoser@ops.dauherkert.com',
@@ -3056,7 +3056,7 @@ update_user_form.addEventListener('submit', (e) => {
                                       <p style="margin-bottom:30px">Hallo ${admin_user_name.value} ${admin_user_lastname.value},</p>
                                       <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Gerne bestätigen wir Ihnen Ihre Akkreditierung.</p>
                                       <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
-                                      <p>Claus-Peter Andorka<br>Pressesprecher Porsche Tennis Grand Prix</p>
+                                      <p>Porsche Tennis Grand Prix Team</p>
                                     </div>
                                   </div>
                                 </body>
@@ -5153,7 +5153,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba13')
+console.log('prueba12')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
