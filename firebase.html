@@ -1041,7 +1041,10 @@ function updateFileLabel() {
         // Press - DE - Mr - Application received
         (async () => {
             try {
-              const html = await fetch('https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_de_mr_application_received.html').then(response => response.text());
+              const fullName = `${press_firstname.value} ${press_lastname.value}`;
+              const html = await fetch('https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_de_mr_application_received.html')
+                .then(response => response.text())
+                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
               const docRef = addDoc(collection(db, "mail"), {
                 to: `${press_email.value}`,
                 message: {
@@ -5093,7 +5096,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba321')
+console.log('prueba3333')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
