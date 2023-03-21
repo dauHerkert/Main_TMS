@@ -1875,7 +1875,17 @@ submit_button.addEventListener('click', function(ev) {
       */
     async function pageAdmin(user) {
 
-  async function updateDates(user) {
+      $(document).on( 'click' , '#open_modal_btn' , function() {
+
+      let user_dates = document.getElementById('Select-dates');
+      let datesCell = $(this).closest('div').siblings('div[tabulator-field="user_dates"]');
+      user_dates.value = datesCell.text();
+      var dateStr = user_dates.value;
+
+      updateDates(user, dateStr)
+      })
+
+  async function updateDates(user, dateStr) {
   var today = new Date();
   var minDate;
   var maxDate = new Date(today.getFullYear(), 3, 23);
@@ -1941,15 +1951,6 @@ submit_button.addEventListener('click', function(ev) {
   }
 };
 
-$(document).on( 'click' , '#open_modal_btn' , function() {
-
-let user_dates = document.getElementById('Select-dates');
-let datesCell = $(this).closest('div').siblings('div[tabulator-field="user_dates"]');
-user_dates.value = datesCell.text();
-var dateStr = user_dates.value;
-
-updateDates(user)
-})
       changeAdminTypeTitle(user);
 
       let userInfo = await getUserInfo(user);
@@ -5191,7 +5192,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1665')
+console.log('prueba1')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
