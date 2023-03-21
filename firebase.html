@@ -1899,6 +1899,8 @@ submit_button.addEventListener('click', function(ev) {
         minDate =  new Date(today.getFullYear(), 3, 11);
       }
 
+      var defaultDate = dateStr ? new Date(Date.parse(dateStr.replace(/-/g, '/'))) : null;
+
   // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
   // and from http://t1m0n.name/air-datepicker/docs/
   $.fn.datepicker.language['de'] = {
@@ -1933,7 +1935,7 @@ submit_button.addEventListener('click', function(ev) {
   }
 
   startDatePicker.datepicker({
-    defaultDate: dateStr,
+    defaultDate: defaultDate,
     multipleDates: true,
     multipleDatesSeparator: ', ',
     dateFormat: 'mm-dd-yyyy',
@@ -5192,7 +5194,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1')
+console.log('prueba122')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
