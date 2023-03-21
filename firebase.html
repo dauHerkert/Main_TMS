@@ -367,9 +367,10 @@ function userUploadImage(user) {
 
   //Handle singin
   async function handleSignIn(e) {
-  let storedLang = localStorage.getItem("language");
+  
   e.preventDefault();
   e.stopPropagation();
+  let storedLang = localStorage.getItem("language");
   const email = document.getElementById('signin-email').value;
   const password = document.getElementById('signin-password').value;
 
@@ -378,7 +379,10 @@ function userUploadImage(user) {
     const user = userCredential.user;
     const userRef = doc(db, 'users', user.uid);
     const docSnap = await getDoc(userRef);
+    const params = new URLSearchParams(window.location.search);
+    const userID = params.get('user_id');
 
+    if (userID) {
     if (docSnap.exists) {
       const userData = docSnap.data();
       toastr.success('user logged in: ' + user.email);
@@ -429,6 +433,14 @@ function userUploadImage(user) {
     } else {
       toastr.error('user does not exist');
     }
+  }else{
+    if(storedLang == 'en'){
+      toastr.error('Please click on the link in your email first in order to sign in.');
+    }else{
+      toastr.error('Bitte klicken Sie zuerst auf den Link den sie per email erhalten haben.')
+    }
+    
+  }
   } catch (error) {
     const errorMessage = error.message;
     toastr.error(errorMessage);
@@ -5098,7 +5110,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1')
+console.log('prueba123')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
