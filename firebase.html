@@ -1018,6 +1018,7 @@ function updateFileLabel() {
 
   async function pressUploadImage(docId, storageRef) {
     const canvas = press_cropper.getCroppedCanvas();
+    const fullName = `${press_firstname.value} ${press_lastname.value}`;
     const htmlUrl = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/form_confirmation_email_to_admin.html';
   const html = await fetch(htmlUrl)
   .then(response => response.text())
@@ -5098,7 +5099,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba313')
+console.log('prueba3')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
