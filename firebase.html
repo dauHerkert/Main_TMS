@@ -75,6 +75,11 @@
       user_status: 'Pending',
     };
 
+    const fullName = `${press_firstname.value} ${press_lastname.value}`;
+    const form_confirmation_email_to_admin_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/form_confirmation_email_to_admin.html';
+    const press_de_mr_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_de_mr_application_received.html';
+    const press_de_mr_application_received_subject = 'Antrag eingegangen'
+
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Auth functions
@@ -101,7 +106,6 @@
             userUploadImage(user);
             if(storedLang == 'de'){
         try {
-
           // Sign up - DE
           const docRef = addDoc(collection(db, "mail"), {
             to: `${user.email}`,
@@ -378,9 +382,6 @@ function userUploadImage(user) {
     if (docSnap.exists) {
       const userData = docSnap.data();
       toastr.success('user logged in: ' + user.email);
-
-      //console.log('handleSignIn() storedLang', storedLang);
-      //console.log('handleSignIn() userData', userData);
 
       setTimeout(() => {
         if (storedLang) {
@@ -700,7 +701,7 @@ function userUploadImage(user) {
         });
     }
 
-    const updatedPicture = document.getElementById('updated_picture');
+  const updatedPicture = document.getElementById('updated_picture');
   const hiddenInput = document.getElementById('hidden_input');
   let cropper;
 if(updatedPicture){
@@ -761,7 +762,6 @@ function updateProfilePic(e, user) {
       });
   });
 }
-
 
 function updateFileLabel() {
   const fileName = document.getElementById("fileName");
@@ -1017,10 +1017,8 @@ function updateFileLabel() {
 }
 
   async function pressUploadImage(docId, storageRef) {
-    const canvas = press_cropper.getCroppedCanvas();
-    const fullName = `${press_firstname.value} ${press_lastname.value}`;
-    const htmlUrl = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/form_confirmation_email_to_admin.html';
-  const html = await fetch(htmlUrl)
+  const canvas = press_cropper.getCroppedCanvas();
+  const html = await fetch(form_confirmation_email_to_admin_url)
   .then(response => response.text())
   .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
     canvas.toBlob((blob) =>{
@@ -1034,7 +1032,7 @@ function updateFileLabel() {
             const docRef = addDoc(collection(db, "mail"), {
               to: 'andreas.salvermoser@ops.dauherkert.com',
               message: {
-                subject: `Antrag eingegangen`,
+                subject: press_de_mr_application_received_subject,
                 html: html,
               }
             });
@@ -1044,14 +1042,13 @@ function updateFileLabel() {
         // Press - DE - Mr - Application received
         (async () => {
             try {
-              const fullName = `${press_firstname.value} ${press_lastname.value}`;
-              const html = await fetch('https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_de_mr_application_received.html')
+              const html = await fetch(press_de_mr_application_received_url)
                 .then(response => response.text())
                 .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
               const docRef = addDoc(collection(db, "mail"), {
                 to: `${press_email.value}`,
                 message: {
-                  subject: `Antrag eingegangen`,
+                  subject: press_de_mr_application_received_subject,
                   html: html,
                 }
               });
@@ -5099,7 +5096,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba3')
+console.log('prueba321')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
