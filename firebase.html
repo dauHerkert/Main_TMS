@@ -208,23 +208,19 @@
                 if (storedLang) {
                     if (storedLang == "de") {
                      if (userDefaultValues.user_type == 'Supplier' || userDefaultValues.user_type == 'No company' || userDefaultValues.user_type == 'RSW'){
-                        window.location = "/de/supplier";
-                      }else if(userDefaultValues.user_type == 'Press'){
-                        window.location = "/de/press";
+                        window.location = "/de/signup-form-submitted";
                       } else {
-                          window.location = "/de/supplier";
+                          window.location = "/de/signup-form-submitted";
                       }
                     } else {
                       if (userDefaultValues.user_type == 'Supplier' || userDefaultValues.user_type == 'No company' || userDefaultValues.user_type == 'RSW'){
-                        window.location = "/en/supplier";
-                      }else if(userDefaultValues.user_type == 'Press'){
-                        window.location = "/en/press";
+                        window.location = "/en/signup-form-submitted";
                       } else{
-                          window.location = "/en/supplier";
+                          window.location = "/en/signup-form-submitted";
                       }
                     }
                 } else {
-                    window.location = "/en/supplier";
+                    window.location = "/en/signup-form-submitted";
                 }
             }, 1000);
         })
@@ -5098,7 +5094,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba12')
+console.log('prueba123')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
