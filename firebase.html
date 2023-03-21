@@ -1875,6 +1875,7 @@ submit_button.addEventListener('click', function(ev) {
       */
      async function pageAdmin(user) {
 
+      getMinDate(user);
       changeAdminTypeTitle(user);
 
       let userInfo = await getUserInfo(user);
@@ -5116,7 +5117,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba1')
+console.log('prueba132')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
