@@ -365,43 +365,63 @@ function userUploadImage(user) {
   });
 }
 
-  //Handle singin
-  async function handleSignIn(e) {
-  
-  e.preventDefault();
-  e.stopPropagation();
-  let storedLang = localStorage.getItem("language");
-  const email = document.getElementById('signin-email').value;
-  const password = document.getElementById('signin-password').value;
+    //Handle singin
+    async function handleSignIn(e) {
+    
+    e.preventDefault();
+    e.stopPropagation();
+    let storedLang = localStorage.getItem("language");
+    const email = document.getElementById('signin-email').value;
+    const password = document.getElementById('signin-password').value;
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    const userRef = doc(db, 'users', user.uid);
-    const docSnap = await getDoc(userRef);
-    const params = new URLSearchParams(window.location.search);
-    const userID = params.get('user_id');
-
-    if (userID) {
-    if (docSnap.exists) {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const userRef = doc(db, 'users', user.uid);
+      const docSnap = await getDoc(userRef);
+      const params = new URLSearchParams(window.location.search);
+      const userID = params.get('user_id');
       const userData = docSnap.data();
-      toastr.success('user logged in: ' + user.email);
 
-      setTimeout(() => {
-        if (storedLang) {
-          if (storedLang === "de") {
-            if (userData.user_is_admin === "0" && userData.user_type === "Press") {
-              window.location = "/de/press";
-            } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
-              window.location = "/de/supplier";
-            }else if (userData.user_is_admin === "0" && userData.user_type === "RSW") {
-              window.location = "/de/supplier";
-            } else if (userData.user_is_admin === "1") {
-              window.location = "/de/admin/users-table";
-            } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
-              window.location = "/de/admin/users-table";
-            } else if ( userData.user_is_admin === "0" && userData.user_type == 'No company' ) {
-              window.location = '/de/supplier';
+      if (userID || userData.confirmed_email == "1") {
+      if (docSnap.exists) {
+
+        toastr.success('user logged in: ' + user.email);
+
+        if (userData.confirmed_email == "0") {
+          await updateDoc(userRef, { confirmed_email: "1" });
+        }
+
+        setTimeout(() => {
+          if (storedLang) {
+            if (storedLang === "de") {
+              if (userData.user_is_admin === "0" && userData.user_type === "Press") {
+                window.location = "/de/press";
+              } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
+                window.location = "/de/supplier";
+              }else if (userData.user_is_admin === "0" && userData.user_type === "RSW") {
+                window.location = "/de/supplier";
+              } else if (userData.user_is_admin === "1") {
+                window.location = "/de/admin/users-table";
+              } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
+                window.location = "/de/admin/users-table";
+              } else if ( userData.user_is_admin === "0" && userData.user_type == 'No company' ) {
+                window.location = '/de/supplier';
+              }
+            } else {
+              if (userData.user_is_admin === "0" && userData.user_type === "Press") {
+                window.location = "/en/account";
+              } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
+                window.location = "/en/supplier";
+              } else if (userData.user_is_admin === "0" && userData.user_type === "RSW") {
+                window.location = "/en/supplier";
+              } else if (userData.user_is_admin === "1") {
+                window.location = "/en/admin/users-table";
+              } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
+                window.location = "/en/admin/users-table";
+              } else if ( userData.user_is_admin === "0" && userData.user_type == 'No company' ) {
+                window.location = '/en/supplier';
+              }
             }
           } else {
             if (userData.user_is_admin === "0" && userData.user_type === "Press") {
@@ -409,43 +429,28 @@ function userUploadImage(user) {
             } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
               window.location = "/en/supplier";
             } else if (userData.user_is_admin === "0" && userData.user_type === "RSW") {
-              window.location = "/en/supplier";
-            } else if (userData.user_is_admin === "1") {
+                window.location = "/en/supplier";
+              } else if (userData.user_is_admin === "1") {
               window.location = "/en/admin/users-table";
-            } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
-              window.location = "/en/admin/users-table";
-            } else if ( userData.user_is_admin === "0" && userData.user_type == 'No company' ) {
-              window.location = '/en/supplier';
             }
           }
-        } else {
-          if (userData.user_is_admin === "0" && userData.user_type === "Press") {
-            window.location = "/en/account";
-          } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
-            window.location = "/en/supplier";
-          } else if (userData.user_is_admin === "0" && userData.user_type === "RSW") {
-              window.location = "/en/supplier";
-            } else if (userData.user_is_admin === "1") {
-            window.location = "/en/admin/users-table";
-          }
-        }
-      }, 1000);
-    } else {
-      toastr.error('user does not exist');
-    }
-  }else{
-    if(storedLang == 'en'){
-      toastr.error('Please click on the link in your email first in order to sign in.');
+        }, 1000);
+      } else {
+        toastr.error('user does not exist');
+      }
     }else{
-      toastr.error('Bitte klicken Sie zuerst auf den Link den sie per email erhalten haben.')
+      if(storedLang == 'en'){
+        toastr.error('Please click on the link in your email first in order to sign in.');
+      }else{
+        toastr.error('Bitte klicken Sie zuerst auf den Link den sie per email erhalten haben.')
+      }
+      
     }
-    
+    } catch (error) {
+      const errorMessage = error.message;
+      toastr.error(errorMessage);
+    }
   }
-  } catch (error) {
-    const errorMessage = error.message;
-    toastr.error(errorMessage);
-  }
-}
 
     // Handle signOut
     function handleSignOut() {
@@ -5110,7 +5115,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba13')
+console.log('prueba13222')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
