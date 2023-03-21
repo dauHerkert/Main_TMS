@@ -1880,6 +1880,7 @@ submit_button.addEventListener('click', function(ev) {
   let datesCell = $(this).closest('div').siblings('div[tabulator-field="user_dates"]');
   user_dates.value = datesCell.text();
   var dateStr = user_dates.value;
+  var startDatePicker = $('[data-date-picker="datepicker-start"]');
 
   updateDates(user, dateStr)
 })
@@ -1897,7 +1898,7 @@ async function updateDates(user, dateStr) {
     minDate =  new Date(today.getFullYear(), 3, 11);
   }
 
-  let dp = datepicker('#Select-dates', {
+  startDatePicker.datepicker({
     dateSelected: new Date(dateStr),
     minDate: minDate,
     maxDate: maxDate,
@@ -5160,7 +5161,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba2336')
+console.log('prueba6')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
