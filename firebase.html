@@ -1875,76 +1875,42 @@ submit_button.addEventListener('click', function(ev) {
       */
     async function pageAdmin(user) {
 
-      $(document).on( 'click' , '#open_modal_btn' , function() {
+      $(document).on('click', '#open_modal_btn', function() {
+  let user_dates = document.getElementById('Select-dates');
+  let datesCell = $(this).closest('div').siblings('div[tabulator-field="user_dates"]');
+  user_dates.value = datesCell.text();
+  var dateStr = user_dates.value;
 
-      let user_dates = document.getElementById('Select-dates');
-      let datesCell = $(this).closest('div').siblings('div[tabulator-field="user_dates"]');
-      user_dates.value = datesCell.text();
-      var dateStr = user_dates.value;
+  updateDates(user, dateStr)
+})
 
-      updateDates(user, dateStr)
-      })
-
-  async function updateDates(user, dateStr) {
+async function updateDates(user, dateStr) {
   var today = new Date();
   var minDate;
   var maxDate = new Date(today.getFullYear(), 3, 23);
-  var startDatePicker = $('[data-date-picker="datepicker-start"]');
   let userInfo = await getUserInfo(user);
 
   //Change minDate depending the user type
   if(userInfo.user_type == 'Press'){
-        minDate = new Date(today.getFullYear(), 3, 15);
-      }else{
-        minDate =  new Date(today.getFullYear(), 3, 11);
-      }
-
-      var defaultDate = dateStr ? new Date(Date.parse(dateStr.replace(/-/g, '/'))) : null;
-
-  // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
-  // and from http://t1m0n.name/air-datepicker/docs/
-  $.fn.datepicker.language['de'] = {
-    days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-    daysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-    daysMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-    months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-    monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-    today: 'Heute',
-    clear: 'Zurücksetzen',
-    dateFormat: 'dd.MM.yyyy',
-    timeFormat: 'HH:mm',
-    firstDay: 1
-  };
-
-  $.fn.datepicker.language['en'] = {
-    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-    months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
-    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    today: 'Today',
-    clear: 'Clear',
-    dateFormat: 'mm/dd/yyyy',
-    timeFormat: 'hh:ii aa',
-    firstDay: 0,
-};
-
-  let datepickerLocaleToUse = 'en';
-  if ( storedLang == 'de' ) {
-    datepickerLocaleToUse = 'de';
+    minDate = new Date(today.getFullYear(), 3, 15);
+  } else {
+    minDate =  new Date(today.getFullYear(), 3, 11);
   }
 
-  startDatePicker.datepicker({
-    defaultDate: defaultDate,
-    multipleDates: true,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
+  let dp = datepicker('#datepicker', {
+    dateSelected: new Date(dateStr),
     minDate: minDate,
     maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
+    startDate: minDate,
+    onSelect: function(instance, date) {
+      let selectedDates = instance.dateSelected;
+      let selectedDatesFormatted = selectedDates.map(date => {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+      });
+      document.getElementById('Select-dates').value = selectedDatesFormatted.join(', ');
     }
   });
 
@@ -5194,7 +5160,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba122')
+console.log('prueba2')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
