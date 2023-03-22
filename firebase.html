@@ -87,6 +87,16 @@
     //URLs for press - DE - Ms - application received
     const form_de_ms_confirmation_email_to_admin_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/form_de_ms_confirmation_email_to_admin.html';
     const press_de_ms_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_de_ms_application_received.html';
+    //URLs for press - DE - Diverse - application received
+    const form_de_diverse_confirmation_email_to_admin_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/form_de_diverse_confirmation_email_to_admin.html';
+    const press_de_diverse_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_de_diverse_application_received.html';
+
+    //Subject for press - EN - application received
+    const press_en_application_received_subject_admin = 'New Press form Submited';
+    const press_en_application_received_subject = 'Application recieved'
+    //URLs for press - EN - Mr - Ms - application received
+    const form_en_mr_ms_confirmation_form_to_admin_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/form_en_mr_ms_confirmation_form_to_admin.html';
+    const press_en_mr_ms_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_en_mr_ms_application_received.html';
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Auth functions
@@ -1105,13 +1115,13 @@ function updateFileLabel() {
           console.error(error);
         }
         })();
-        try {
-          (async () => {
+        // Press - DE - Ms - Application received
+        (async () => {
+        try {          
           const fullName = `${press_firstname.value} ${press_lastname.value}`;
               const html = await fetch(press_de_ms_application_received_url)
                 .then(response => response.text())
                 .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-          // Press - DE - Ms - Application received
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
@@ -1119,101 +1129,45 @@ function updateFileLabel() {
               html: html,
             }
           });
-        })();
+        
         } catch (error) {
           console.error(error);
         }
         setTimeout(function() {
             window.location.pathname = '/de/press-form-submitted';
         }, 1500);
+        })();
         }else if(press_title.value == 'Diverse'){
+          // Form confirmation email to admin
+          (async () => {
           try {
-            // Form confirmation email to admin
+            const fullName = `${press_firstname.value} ${press_lastname.value}`;
+              const html = await fetch(form_de_diverse_confirmation_email_to_admin_url)
+                .then(response => response.text())
+                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
             message: {
-              subject: `Antrag eingegangen`,
-              html: `<!DOCTYPE html>
-                      <html>
-                      <head>
-                        <title>Press Form Submission DE</title>
-                      </head>
-                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
-                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
-                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                      <tr>
-                                        <td align="center" valign="middle">
-                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
-                                            <tr>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
-                                              </td>
-                                              <td width="30"></td>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
-                                              </td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                      </tr>
-                             </table>
-                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
-                          <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Neues Benutzeranmeldeformular ${press_firstname.value} ${press_lastname.value},</p>
-                            <p style="margin-bottom:15px">wir haben ein Formular für die Registrierung eines neuen Benutzers erhalten.</p>
-                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
-                            <p>Claus-Peter Andorka<br>
-                              Pressesprecher Porsche Tennis Grand Prix</p>
-                          </div>
-                        </div>
-                      </body>
-                      </html>`,
+              subject: press_de_application_received_subject,
+              html: html,
             }
-          });
+          });        
         } catch (error) {
           console.error(error);
         }
+        })();
+        // Press - DE - Diverse - Application received
+        (async () => {
         try {
-          // Press - DE - Diverse - Application received
+          const fullName = `${press_firstname.value} ${press_lastname.value}`;
+              const html = await fetch(press_de_diverse_application_received_url)
+                .then(response => response.text())
+                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
-              subject: `Antrag eingegangen`,
-              html: `<!DOCTYPE html>
-                      <html>
-                      <head>
-                        <title>Press Form Submission DE</title>
-                      </head>
-                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
-                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
-                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                      <tr>
-                                        <td align="center" valign="middle">
-                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
-                                            <tr>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
-                                              </td>
-                                              <td width="30"></td>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
-                                              </td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                      </tr>
-                             </table>
-                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
-                          <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Liebe Medienvertretenden,</p>
-                            <p style="margin-bottom:15px">vielen Dank für Ihren Akkreditierungsantrag für den Porsche Tennis Grand Prix 2023. Sie werden in Kürze von uns hören.</p>
-                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
-                            <p>Claus-Peter Andorka<br>
-                              Pressesprecher Porsche Tennis Grand Prix</p>
-                          </div>
-                        </div>
-                      </body>
-                      </html>`,
+              subject: press_de_application_received_subject,
+              html: html,
             }
           });
         } catch (error) {
@@ -1222,62 +1176,35 @@ function updateFileLabel() {
         setTimeout(function() {
             window.location.pathname = '/de/press-form-submitted';
         }, 1500);
+        })();
         }
       }else { // storedLang == 'en'
         toastr.success('You have submitted the form successfully');
         if(press_title.value == 'Mr' || press_title.value == 'Ms'){
           // Form confirmation email to admin
+          (async () => {
           try {
+            const fullName = `${press_firstname.value} ${press_lastname.value}`;
+            const html = await fetch(press_de_diverse_application_received_url)
+                .then(response => response.text())
+                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
             message: {
-              subject: `New Press form Submited`,
-              html: `<!DOCTYPE html>
-                      <html>
-                      <head>
-                        <title>Press Form Submission DE</title>
-                      </head>
-                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
-                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
-                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                      <tr>
-                                        <td align="center" valign="middle">
-                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
-                                            <tr>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
-                                              </td>
-                                              <td width="30"></td>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
-                                              </td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                      </tr>
-                             </table>
-                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Antrag eingegangen</div>
-                          <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">New user registration form ${press_title.value} ${press_firstname.value} ${press_lastname.value},</p>
-                            <p style="margin-bottom:15px">we've received a new user form submission.</p>
-                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
-                            <p>Claus-Peter Andorka<br>
-                              Media Director Porsche Tennis Grand Prix</p>
-                          </div>
-                        </div>
-                      </body>
-                      </html>`,
+              subject: press_en_application_received_subject_admin,
+              html: html,
             }
           });
         } catch (error) {
           console.error(error);
         }
+        })();
         try {
           // Press - EN - Mr/Ms - Application received
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
-              subject: `Application received`,
+              subject: press_en_application_received_subject,
               html: `<!DOCTYPE html>
                       <html>
                       <head>
