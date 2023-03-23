@@ -17,7 +17,7 @@ exports.createContactInSendinblue = functions.firestore
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'api-key': '1ffcea85ac55ee30cd4b41e2c1dc91d1bdfb458339ff44b45367a9dd6718fcd6-xtF8KJWVLQEhk2n7'
+          'api-key': 'xsmtpsib-1ffcea85ac55ee30cd4b41e2c1dc91d1bdfb458339ff44b45367a9dd6718fcd6-SXmTG0jkyM7t65AD'
         },
         body: JSON.stringify({
           email: email,
