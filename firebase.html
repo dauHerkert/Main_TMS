@@ -2008,7 +2008,7 @@ getDocs(colRef)
         let user = doc.data();
 
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_information: user.press_hotel_information, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin});
+          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_information: user.press_hotel_information, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
 
         }));
     });
@@ -5029,7 +5029,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba2111')
+console.log('prueba233')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
