@@ -29,7 +29,6 @@
     const user = auth.currentUser;
     let currentLang = 'en';
 
-
     // This is a list of the default values
     // as well as of all the possible fields that a user doc can have
     const userDefaultValues = {
@@ -1872,6 +1871,12 @@ submit_button.addEventListener('click', function(ev) {
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Dates", field:"user_dates", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Language", field:"language", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Nationality", field:"nationality", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Address", field:"address", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"City", field:"city", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Zip", field:"zip", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Country", field:"country", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Phone", field:"phone", sorter:"string", width:0, cssClass:"hidden-column"},
             {title: userTableFirstnameLabel, field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
             {title: userTableCompanyLabel, field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
@@ -5024,7 +5029,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba2')
+console.log('prueba2111')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </html>
