@@ -271,9 +271,6 @@ function handleSignUp(e) {
           setDefaultFields(user);
           userExtraInfo(e, user);
           toastr.success('user successfully created: ' + user.email);
-
-          // Llamar la función que crea el contacto en Sendinblue
-          createContactInSendinblue(user.email, data.user_firstname, data.user_lastname);
         })
         .catch((error) => {
           const errorMessage = error.message;
