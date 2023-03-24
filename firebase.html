@@ -251,38 +251,42 @@
     };
 
     // Sign Up
-    function handleSignUp(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        const email = document.getElementById('signup-email').value;
-        const password = document.getElementById('signup-password').value;
-        var confirm_password = document.getElementById("password-confirm").value;
-        const profile_img = document.getElementById('profile_img');
+function handleSignUp(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  const email = document.getElementById('signup-email').value;
+  const password = document.getElementById('signup-password').value;
+  var confirm_password = document.getElementById("password-confirm").value;
+  const profile_img = document.getElementById('profile_img');
 
-        if (profile_img.files.length === 0) {
-              toastr.error('Please upload your profile picture')
-            }else{
-              if(password == confirm_password){
-              createUserWithEmailAndPassword(auth, email, password)
-              .then(userCredential => {
-                //Signed in
-                const user = userCredential.user;
-                sessionStorage.setItem('userID', user.uid);
-                setDefaultFields(user);
-                userExtraInfo(e, user);
-                toastr.success('user successfully created: ' + user.email);
-              })
-              .catch((error) => {
-                const errorMessage = error.message;
-                var errorText = document.getElementById('signup-error-message');
-                alert(errorMessage);
-                errorText.innerHTML = errorMessage;
-              });
-            }else{
-              toastr.error('Password confirmation does not match');
-            }
-          }
-    };
+  if (profile_img.files.length === 0) {
+    toastr.error('Please upload your profile picture')
+  } else {
+    if (password == confirm_password) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+          // Signed in
+          const user = userCredential.user;
+          sessionStorage.setItem('userID', user.uid);
+          setDefaultFields(user);
+          userExtraInfo(e, user);
+          toastr.success('user successfully created: ' + user.email);
+
+          // Llamar la función que crea el contacto en Sendinblue
+          createContactInSendinblue(user.email, data.user_firstname, data.user_lastname);
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          var errorText = document.getElementById('signup-error-message');
+          alert(errorMessage);
+          errorText.innerHTML = errorMessage;
+        });
+    } else {
+      toastr.error('Password confirmation does not match');
+    }
+  }
+};
+
     //Add user's extra info to Firestore
     function userExtraInfo(e, user) {
       e.preventDefault();
@@ -505,7 +509,7 @@ function userUploadImage(user) {
 
         //assign event listeners
         if ( typeof(signUpForm) !== null ) {
-          signUpForm.addEventListener('submit', handleSignUp, true)
+          signUpForm.addEventListener('submit', handleSignUp, true);
         }
     }
     function signInPage(){
@@ -520,6 +524,24 @@ function userUploadImage(user) {
       if(signOutButton) {
           signOutButton.addEventListener('click', handleSignOut);
         }
+
+      let signup_button = document.getElementById('signup_button');
+      if(signup_button){
+        signup_button.addEventListener('click', async (event) => {
+        event.preventDefault();
+        const email = document.querySelector('#signup-email').value;
+
+        try {
+          const createContactResult = await firebase.functions().httpsCallable('createContactInSendinblue')({
+            email: email,
+          });
+
+          console.log(createContactResult);
+        } catch (error) {
+          console.error(error);
+        }
+      });
+      }
 
     /*
     * -----------------------------------------------------------------------------------------------------------
@@ -5029,7 +5051,9 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
 
-console.log('prueba233')
+console.log('prueba2')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<body>
+</body>
 </html>
