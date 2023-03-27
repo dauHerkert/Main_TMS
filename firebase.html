@@ -76,7 +76,23 @@
       confirmed_email: '0',
     };
 
-    //EMAILS TEMPLATES AND SUBJECTS
+    /*
+    * -----------------------------------------------------------------------------------------------------------
+    * EMAILS TEMPLATES AND SUBJECTS
+    * -----------------------------------------------------------------------------------------------------------
+    */
+
+    // ---- SIGN UP REGISTER EMAIL ----
+
+    //Subject for Register email - DE
+    const register_de_email_subject = 'Danke für Ihre Registrierung';
+    const register_de_email_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/register_de_email.html';
+
+     //Subject for Register email - EN
+     const register_en_email_subject = 'Thanks for Registering';
+     const register_en_email_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/register_en_email.html';
+
+    // ---- PRESS FORM EMAILS ----
 
     //Subject for press - DE - application received
     const press_de_application_received_subject = 'Antrag eingegangen';
@@ -99,6 +115,8 @@
     //URLs for press - EN - Diverse - application received
     const form_en_diverse_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/form_en_diverse_confirmation_form_to_admin.html';
     const press_diverse_ms_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/Porsche-TMS/master/mails_templates/press_en_diverse_application_received.html';
+
+
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Auth functions
@@ -124,100 +142,44 @@
     setDoc(userRef, userDefaultValues, { merge: true })
         .then(() => {
             userUploadImage(user);
+        // Sign up - DE
             if(storedLang == 'de'){
+        (async () => {
         try {
-          // Sign up - DE
+          const fullName = `${user_firstname.value} ${user_lastname.value}`;
+          const html = await fetch(register_de_email_url)
+                .then(response => response.text())
+                .then(html => html.replace('${user_firstname.value} ${user_lastname.value}', fullName));
           const docRef = addDoc(collection(db, "mail"), {
             to: `${user.email}`,
             message: {
-              subject: `Danke für Ihre Registrierung`,
-              html: `<!DOCTYPE html>
-                      <html>
-                      <head>
-                        <title>DE Sign up email</title>
-                      </head>
-                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
-                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
-                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                      <tr>
-                                        <td align="center" valign="middle">
-                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
-                                            <tr>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
-                                              </td>
-                                              <td width="30"></td>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
-                                              </td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                      </tr>
-                             </table>
-                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Danke für Ihre Registrierung</div>
-                          <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Hallo ${user_firstname.value} ${user_lastname.value},</p>
-                            <p style="margin-bottom:25px">vielen Dank für Ihre Registrierung. Bitte verwenden Sie den folgenden Link, um sich im Portal anzumelden und Ihre Akkreditierungsanfrage zu vervollständigen.</p>
-                            <a href="https://porsche-tms.webflow.io/de/signin-porsche?user_id=${userID}" target="_blank" style="color:#f2a100">Klicken Sie hier, um sich einzuloggen</a>
-                            <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
-                            <p>Porsche Tennis Grand Prix Team </p>
-                          </div>
-                        </div>
-                      </body>
-                      </html>`,
+              subject: register_de_email_subject,
+              html: html,
             }
           });
         } catch (error) {
           console.error(error);
         }
+      })();
       }else{
         // Sign up - EN
+        (async () => {
         try {
+          const fullName = `${user_firstname.value} ${user_lastname.value}`;
+          const html = await fetch(register_en_email_url)
+                .then(response => response.text())
+                .then(html => html.replace('${user_firstname.value} ${user_lastname.value}', fullName));
           const docRef = addDoc(collection(db, "mail"), {
             to: `${user.email}`,
             message: {
-              subject: `Thanks for Registering`,
-              html: `<!DOCTYPE html>
-                      <html>
-                      <head>
-                        <title>Signup email EN</title>
-                      </head>
-                      <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
-                        <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
-                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                      <tr>
-                                        <td align="center" valign="middle">
-                                          <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
-                                            <tr>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
-                                              </td>
-                                              <td width="30"></td>
-                                              <td align="center" valign="middle">
-                                                <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
-                                              </td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                      </tr>
-                             </table>
-                          <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Thanks for Registering</div>
-                          <div style="padding: 20px;background-color: #ffffff;">
-                            <p style="margin-bottom:30px">Hello ${user_firstname.value} ${user_lastname.value},</p>
-                            <p style="margin-bottom:15px">thanks for registering, please use the link below to log into the portal and complete your accreditation request.</p>
-                            <a href="https://porsche-tms.webflow.io/en/signin-porsche?user_id=${userID}" target="_blank" style="color:#f2a100">Click here to login</a>
-                            <p style="margin-bottom:30px">Kind regards,</p>
-                            <p>Porsche Tennis Grand Prix Team</p>
-                          </div>
-                        </div>
-                      </body>
-                      </html>`,
+              subject: register_en_email_subject,
+              html: html,
             }
           });
         } catch (error) {
           console.error(error);
         }
+      })();
       }
             if (companyProfile == 'No company'){
                 toastr.success('You are signing up with no company set');
@@ -1140,7 +1102,7 @@ function updateFileLabel() {
         (async () => {
         try {          
           const fullName = `${press_firstname.value} ${press_lastname.value}`;
-              const html = await fetch(press_de_ms_application_received_url)
+          const html = await fetch(press_de_ms_application_received_url)
                 .then(response => response.text())
                 .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
           const docRef = addDoc(collection(db, "mail"), {
