@@ -2889,6 +2889,11 @@ update_user_form.addEventListener('submit', (e) => {
           })
 
       async function createUser() {
+        if (!cropper) {
+            toastr.error('Please select an image to upload');
+            return;
+          }
+
         let storedLang = localStorage.getItem("language");
         let companyRef;
         companyRef = await addDoc(collection(db, "users"), {
@@ -2941,7 +2946,7 @@ update_user_form.addEventListener('submit', (e) => {
       const hiddenInput = document.getElementById('hidden_input');
       let cropper;
       if (uploadPicture) {
-        uploadPicture.addEventListener('change', function handleProfilePic(e) {
+        uploadPicture.addEventListener('change', function ulploadProfilePic(e) {
           e.preventDefault();
           e.stopPropagation();
 
@@ -2980,11 +2985,6 @@ update_user_form.addEventListener('submit', (e) => {
           }
 
           function userUploadImage(userID) {
-          // Check that cropper is defined
-          if (!cropper) {
-            toastr.error('Please select an image to upload');
-            return;
-          }
           const canvas = cropper.getCroppedCanvas();
           canvas.toBlob(async (blob) => {
             const storageRef = ref(storage, 'profiles/' + userID);
@@ -3979,7 +3979,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba06')
+    console.log('prueba07')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
