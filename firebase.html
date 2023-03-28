@@ -2980,11 +2980,6 @@ update_user_form.addEventListener('submit', (e) => {
           }
         });
 
-        function updateFileLabel() {
-          const fileName = document.getElementById("fileName");
-          fileName.innerHTML = uploadPicture.files[0].name;
-        }
-
         function userUploadImage(userID) {
           // Check that cropper is defined
           if (!cropper) {
