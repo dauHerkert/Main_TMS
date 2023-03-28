@@ -2890,7 +2890,8 @@ update_user_form.addEventListener('submit', (e) => {
 
       async function createUser() {
         let storedLang = localStorage.getItem("language");
-        const companyRef = await addDoc(collection(db, "users"), {
+        let companyRef;
+        companyRef = await addDoc(collection(db, "users"), {
             user_firstname: new_user_firstname.value,
             user_lastname: new_user_lastname.value,
             user_type: new_user_account_type.value,
@@ -2979,6 +2980,11 @@ update_user_form.addEventListener('submit', (e) => {
             }
           }
         });
+
+        function updateFileLabel() {
+          const fileName = document.getElementById("fileName");
+          fileName.innerHTML = updatedPicture.files[0].name;
+        }[]
 
         function userUploadImage(userID) {
         const canvas = cropper.getCroppedCanvas();
@@ -3974,7 +3980,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba000')
+    console.log('prueba01')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
