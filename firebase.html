@@ -2986,16 +2986,21 @@ update_user_form.addEventListener('submit', (e) => {
         }
 
         function userUploadImage(userID) {
-        const canvas = cropper.getCroppedCanvas();
-        canvas.toBlob(async (blob) => {
-          const storageRef = ref(storage, 'profiles/' + userID);
-          const snapshot = await uploadBytes(storageRef, blob);
-          toastr.success('User and photo created successfully');
-          setTimeout(function () {
-            window.location.reload();
-          }, 2000);
-        });
-      }
+          // Check that cropper is defined
+          if (!cropper) {
+            toastr.error('Please select an image to upload');
+            return;
+          }
+          const canvas = cropper.getCroppedCanvas();
+          canvas.toBlob(async (blob) => {
+            const storageRef = ref(storage, 'profiles/' + userID);
+            const snapshot = await uploadBytes(storageRef, blob);
+            toastr.success('User and photo created successfully');
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+          });
+        }
     }
 
       create_user_form.addEventListener('submit', (e) => {
@@ -3979,7 +3984,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba03')
+    console.log('prueba04')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
