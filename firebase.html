@@ -2919,7 +2919,7 @@ update_user_form.addEventListener('submit', (e) => {
             user_zip_code:'',
             user_zones:'',
           })
-          .then(() => {
+          .then((companyRef) => {
             userUploadImage(companyRef.id);
             if(storedLang == 'de'){
               toastr.success('Benutzer wurde erfolgreich erstellt');
@@ -3979,7 +3979,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba023')
+    console.log('prueba03')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
