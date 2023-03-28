@@ -523,6 +523,7 @@ function userUploadImage(user) {
         });
     }
 
+    console.log('prueba123')
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Homepage functions
@@ -549,24 +550,6 @@ function userUploadImage(user) {
       if(signOutButton) {
           signOutButton.addEventListener('click', handleSignOut);
         }
-
-      let signup_button = document.getElementById('signup_button');
-      if(signup_button){
-        signup_button.addEventListener('click', async (event) => {
-        event.preventDefault();
-        const email = document.querySelector('#signup-email').value;
-
-        try {
-          const createContactResult = await firebase.functions().httpsCallable('createContactInSendinblue')({
-            email: email,
-          });
-
-          console.log(createContactResult);
-        } catch (error) {
-          console.error(error);
-        }
-      });
-      }
 
     /*
     * -----------------------------------------------------------------------------------------------------------
