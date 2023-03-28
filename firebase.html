@@ -2978,9 +2978,8 @@ update_user_form.addEventListener('submit', (e) => {
               toastr.error('Please choose an image file.');
             }
           }
-        });
 
-        function userUploadImage(userID) {
+          function userUploadImage(userID) {
           // Check that cropper is defined
           if (!cropper) {
             toastr.error('Please select an image to upload');
@@ -2996,6 +2995,7 @@ update_user_form.addEventListener('submit', (e) => {
             }, 2000);
           });
         }
+        });
     }
 
       create_user_form.addEventListener('submit', (e) => {
@@ -3979,7 +3979,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba04')
+    console.log('prueba05')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
