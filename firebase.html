@@ -2920,8 +2920,7 @@ update_user_form.addEventListener('submit', (e) => {
             user_zones:'',
           })
           .then(() => {
-            const userID = companyRef.id;
-            userUploadImage(userID);
+            userUploadImage(companyRef.id);
             if(storedLang == 'de'){
               toastr.success('Benutzer wurde erfolgreich erstellt');
             }else{
@@ -2933,7 +2932,7 @@ update_user_form.addEventListener('submit', (e) => {
           })
           .catch((err) => {
             toastr.error('There was an error creating the company');
-            console.log('error creating company', err);
+            console.log('error creating user', err);
           });
       }
       
@@ -2983,8 +2982,8 @@ update_user_form.addEventListener('submit', (e) => {
 
         function updateFileLabel() {
           const fileName = document.getElementById("fileName");
-          fileName.innerHTML = updatedPicture.files[0].name;
-        }[]
+          fileName.innerHTML = uploadPicture.files[0].name;
+        }
 
         function userUploadImage(userID) {
         const canvas = cropper.getCroppedCanvas();
@@ -3980,7 +3979,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba01')
+    console.log('prueba023')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
