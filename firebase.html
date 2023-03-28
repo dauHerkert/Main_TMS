@@ -523,7 +523,7 @@ function userUploadImage(user) {
         });
     }
 
-    console.log('prueba123')
+    
     /*
     * -----------------------------------------------------------------------------------------------------------
     * Homepage functions
@@ -2924,17 +2924,17 @@ update_user_form.addEventListener('submit', (e) => {
       // Get new user ID
       const userID = companyRef.id;
 
-      const updatedPicture = document.getElementById('updload_picture');
+      const uploadPicture = document.getElementById('updload_picture');
       const hiddenInput = document.getElementById('hidden_input');
       let cropper;
-      if (updatedPicture) {
-        updatedPicture.addEventListener('change', function handleProfilePic(e) {
+      if (uploadPicture) {
+        uploadPicture.addEventListener('change', function handleProfilePic(e) {
           e.preventDefault();
           e.stopPropagation();
 
-          let fileItem = updatedPicture.files[0];
+          let fileItem = uploadPicture.files[0];
 
-          if (updatedPicture.files.length === 0) {
+          if (uploadPicture.files.length === 0) {
             toastr.error('Please upload your profile picture');
           } else {
             // Check if the file is an image
@@ -2983,7 +2983,7 @@ update_user_form.addEventListener('submit', (e) => {
       const fileName = document.getElementById("fileName");
       fileName.innerHTML = updatedPicture.files[0].name;
     }[]
-    
+
       create_user_form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -3965,7 +3965,7 @@ function changeLanguage(lang) {
           }
       }
     }
-
+    console.log('prueba000')
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
   document.getElementById('imprint').setAttribute('href', '/de/impressum');
