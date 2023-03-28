@@ -2889,51 +2889,101 @@ update_user_form.addEventListener('submit', (e) => {
             console.log('error fetching companies', err);
           })
 
-      async function createUser() {
-        let storedLang = localStorage.getItem("language");
-        const companyRef = await addDoc(collection(db, "users"), {
-            user_firstname: new_user_firstname.value,
-            user_lastname: new_user_lastname.value,
-            user_type: new_user_account_type.value,
-            user_company: newUserCompaniesString,
-            user_profile: new_user_profile.value,
-            user_status: 'Pending',
-            company_admin: '0',
-            language: storedLang,
-            press_form_user: '0',
-            press_hotel_information: '',
-            press_locker: '',
-            press_media: '',
-            press_media_type: '',
-            press_workspot: '',
-            user_address: '',
-            user_city: '',
-            user_company: '',
-            user_country: '',
-            user_email: '',
-            user_is_admin: '0',
-            user_itwa:'',
-            user_nationality:'',
-            user_phone:'',
-            user_title:'',
-            user_zip_code:'',
-            user_zones:'',
-          })
-          .then(() => {
-            if(storedLang == 'de'){
-              toastr.success('Benutzer wurde erfolgreich erstellt');
-            }else{
-              toastr.success('User has been successfully created');
+          async function createUser() {
+      // Crear el nuevo usuario en Firestore
+      let storedLang = localStorage.getItem('language');
+      const companyRef = await addDoc(collection(db, 'users'), {
+        user_firstname: new_user_firstname.value,
+        user_lastname: new_user_lastname.value,
+        user_type: new_user_account_type.value,
+        user_company: newUserCompaniesString,
+        user_profile: new_user_profile.value,
+        user_status: 'Pending',
+        company_admin: '0',
+        language: storedLang,
+        press_form_user: '0',
+        press_hotel_information: '',
+        press_locker: '',
+        press_media: '',
+        press_media_type: '',
+        press_workspot: '',
+        user_address: '',
+        user_city: '',
+        user_company: '',
+        user_country: '',
+        user_email: '',
+        user_is_admin: '0',
+        user_itwa:'',
+        user_nationality:'',
+        user_phone:'',
+        user_title:'',
+        user_zip_code:'',
+        user_zones:'',
+      });
+
+      // Get new user ID
+      const userID = companyRef.id;
+
+      const updatedPicture = document.getElementById('updload_picture');
+      const hiddenInput = document.getElementById('hidden_input');
+      let cropper;
+      if (updatedPicture) {
+        updatedPicture.addEventListener('change', function handleProfilePic(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          let fileItem = updatedPicture.files[0];
+
+          if (updatedPicture.files.length === 0) {
+            toastr.error('Please upload your profile picture');
+          } else {
+            // Check if the file is an image
+            if (/^image\/\w+/.test(fileItem.type)) {
+              // Destroy the current cropper instance if it exists
+              if (cropper) {
+                cropper.destroy();
+              }
+              // Initialize the cropper
+              const image = document.getElementById('image_cropper');
+              image.src = URL.createObjectURL(fileItem);
+              cropper = new Cropper(image, {
+                aspectRatio: 3 / 4,
+                width: 200,
+                height: 200,
+                viewMode: 1,
+                autoCropArea: 0.7,
+                responsive: true,
+                crop(event) {
+                  // Get the cropped canvas data as a data URL
+                  const canvas = cropper.getCroppedCanvas();
+                  const dataURL = canvas.toDataURL();
+                  // Set the data URL as the value of the hidden input field
+                  hiddenInput.value = dataURL;
+                },
+              });
+            } else {
+              toastr.error('Please choose an image file.');
             }
-            setTimeout(function() {
-              window.location.reload();
-            }, 2000);
-          })
-          .catch((err) => {
-            toastr.error('There was an error creating the company');
-            console.log('error creating company', err);
-          });
+          }
+        });
+
+        const canvas = cropper.getCroppedCanvas();
+        canvas.toBlob(async (blob) => {
+          const storageRef = ref(storage, 'profiles/' + userID);
+          const snapshot = await uploadBytes(storageRef, blob);
+          toastr.success('User and photo created successfully');
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+        });
       }
+    }
+
+    function updateFileLabel() {
+      const fileName = document.getElementById("fileName");
+      fileName.innerHTML = updatedPicture.files[0].name;
+    }[]
+    
       create_user_form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation();
