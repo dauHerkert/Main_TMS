@@ -2944,7 +2944,7 @@ update_user_form.addEventListener('submit', (e) => {
       //Upload profile picture
       const uploadPicture = document.getElementById('upload_picture');
       const hiddenInput = document.getElementById('hidden_input');
-      let cropper;
+      let upload_cropper;
       if (uploadPicture) {
         uploadPicture.addEventListener('change', function ulploadProfilePic(e) {
           e.preventDefault();
@@ -2958,13 +2958,13 @@ update_user_form.addEventListener('submit', (e) => {
             // Check if the file is an image
             if (/^image\/\w+/.test(fileItem.type)) {
               // Destroy the current cropper instance if it exists
-              if (cropper) {
-                cropper.destroy();
+              if (upload_cropper) {
+                upload_cropper.destroy();
               }
               // Initialize the cropper
               const image = document.getElementById('image_cropper');
               image.src = URL.createObjectURL(fileItem);
-              cropper = new Cropper(image, {
+              upload_cropper = new Cropper(image, {
                 aspectRatio: 3 / 4,
                 width: 200,
                 height: 200,
@@ -2973,7 +2973,7 @@ update_user_form.addEventListener('submit', (e) => {
                 responsive: true,
                 crop(event) {
                   // Get the cropped canvas data as a data URL
-                  const canvas = cropper.getCroppedCanvas();
+                  const canvas = upload_cropper.getCroppedCanvas();
                   const dataURL = canvas.toDataURL();
                   // Set the data URL as the value of the hidden input field
                   hiddenInput.value = dataURL;
@@ -2985,7 +2985,7 @@ update_user_form.addEventListener('submit', (e) => {
           }
 
           function userUploadImage(userID) {
-          const canvas = cropper.getCroppedCanvas();
+          const canvas = upload_cropper.getCroppedCanvas();
           canvas.toBlob(async (blob) => {
             const storageRef = ref(storage, 'profiles/' + userID);
             const snapshot = await uploadBytes(storageRef, blob);
@@ -3979,7 +3979,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba07')
+    console.log('prueba08')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
