@@ -2889,7 +2889,7 @@ update_user_form.addEventListener('submit', (e) => {
           })
 
       async function createUser() {
-        if (!cropper) {
+        if (!upload_cropper) {
             toastr.error('Please select an image to upload');
             return;
           }
@@ -3979,7 +3979,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba08')
+    console.log('prueba09')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
