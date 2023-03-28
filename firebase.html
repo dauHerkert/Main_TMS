@@ -2983,8 +2983,10 @@ update_user_form.addEventListener('submit', (e) => {
               toastr.error('Please choose an image file.');
             }
           }
+        });
+    }
 
-          function userUploadImage(userID) {
+    function userUploadImage(userID) {
           const canvas = upload_cropper.getCroppedCanvas();
           canvas.toBlob(async (blob) => {
             const storageRef = ref(storage, 'profiles/' + userID);
@@ -2995,8 +2997,6 @@ update_user_form.addEventListener('submit', (e) => {
             }, 2000);
           });
         }
-        });
-    }
 
       create_user_form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -3979,7 +3979,7 @@ function changeLanguage(lang) {
           }
       }
     }
-    console.log('prueba09')
+    console.log('prueba10')
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
