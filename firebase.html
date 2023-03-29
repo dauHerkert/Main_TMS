@@ -3111,7 +3111,7 @@ update_user_form.addEventListener('submit', (e) => {
         let data = [];
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
-            let company_link = `https://porsche-tms.webflow.io/${link_lang}/welcome?company=${doc.id}`;
+            let company_link = `https://credentials.porsche-tennis.com/${link_lang}/welcome?company=${doc.id}`;
                 data.push({companyLink: company_link, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
                 companies_table.setData(data);
         });
@@ -3650,7 +3650,7 @@ update_user_form.addEventListener('submit', (e) => {
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
-              window.location.replace('https://porsche-tms.webflow.io/de/signin-porsche');
+              window.location.replace('https://credentials.porsche-tennis.com/de/signin-porsche');
               }
           }else{
             form_button.setAttribute('href', '/en/signin-porsche');
@@ -3660,7 +3660,7 @@ update_user_form.addEventListener('submit', (e) => {
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
-              window.location.replace('https://porsche-tms.webflow.io/en/signin-porsche');
+              window.location.replace('https://credentials.porsche-tennis.com/en/signin-porsche');
               }
           }
         }else{
@@ -3680,7 +3680,7 @@ update_user_form.addEventListener('submit', (e) => {
             document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/'){
-              window.location.replace('https://porsche-tms.webflow.io/de/account');
+              window.location.replace('https://credentials.porsche-tennis.com/de/account');
             }
           }else{
             account_button.setAttribute('href', '/en/account');
@@ -3689,7 +3689,7 @@ update_user_form.addEventListener('submit', (e) => {
             document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/'){
-              window.location.replace('https://porsche-tms.webflow.io/en/account');
+              window.location.replace('https://credentials.porsche-tennis.com/en/account');
             }
           }
         }else{
@@ -3699,7 +3699,7 @@ update_user_form.addEventListener('submit', (e) => {
               document.getElementById('signIn_button').style.display = 'none';
               document.getElementById('signUp_button').style.display = 'none';
               if(window.location.pathname == '/'){
-                window.location.replace('https://porsche-tms.webflow.io/en/account');
+                window.location.replace('https://credentials.porsche-tennis.com/en/account');
               }
             }
         }
