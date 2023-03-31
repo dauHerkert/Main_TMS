@@ -67,8 +67,11 @@
       // user_is_admin: 0 | 1
       user_is_admin: '0',
       company_admin: '0',
+      basic_admin: '0',
       user_zones: '',
-      // user_type: supplier | press | RSW
+      // account_type: supplier | press | RSW
+      account_type: '',
+      //User profile
       user_type: '',
       // user_status: pending | ok
       user_status: 'Pending',
@@ -198,7 +201,7 @@
     const user_lastname = document.getElementById('last-name');
     const userID = sessionStorage.getItem('userID');
     // Use the companyProfile variable to set the user_type field
-    userDefaultValues.user_type = companyProfile;
+    userDefaultValues.account_type = companyProfile;
     userDefaultValues.user_email = user.email;
     userDefaultValues.user_id = user.uid;
     // Use the companyZones variable to set the user_zones field
@@ -255,13 +258,13 @@
             setTimeout(function(user) {
                 if (storedLang) {
                     if (storedLang == "de") {
-                     if (userDefaultValues.user_type == 'Supplier' || userDefaultValues.user_type == 'No company' || userDefaultValues.user_type == 'RSW'){
+                     if (userDefaultValues.account_type == 'Supplier' || userDefaultValues.account_type == 'No company' || userDefaultValues.account_type == 'RSW'){
                         window.location = "/de/signup-form-submitted";
                       } else {
                           window.location = "/de/signup-form-submitted";
                       }
                     } else {
-                      if (userDefaultValues.user_type == 'Supplier' || userDefaultValues.user_type == 'No company' || userDefaultValues.user_type == 'RSW'){
+                      if (userDefaultValues.account_type == 'Supplier' || userDefaultValues.account_type == 'No company' || userDefaultValues.account_type == 'RSW'){
                         window.location = "/en/signup-form-submitted";
                       } else{
                           window.location = "/en/signup-form-submitted";
@@ -441,40 +444,44 @@ function userUploadImage(user) {
         setTimeout(() => {
           if (storedLang) {
             if (storedLang === "de") {
-              if (userData.user_is_admin === "0" && userData.user_type === "Press") {
+              if (userData.user_is_admin === "0" && userData.account_type === "Press") {
                 window.location = "/de/press";
-              } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
+              } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
                 window.location = "/de/supplier";
-              }else if (userData.user_is_admin === "0" && userData.user_type === "RSW") {
+              }else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
                 window.location = "/de/supplier";
               } else if (userData.user_is_admin === "1") {
                 window.location = "/de/admin/users-table";
-              } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
+              } else if (userData.user_is_admin === "0" && userData.company_admin == '1' && userData.basic_admin == '0') {
                 window.location = "/de/admin/users-table";
-              } else if ( userData.user_is_admin === "0" && userData.user_type == 'No company' ) {
+              } else if (userData.user_is_admin === "0" && userData.company_admin == '0' && userData.basic_admin == '1') {
+                window.location = "/de/admin/users-table";
+              } else if ( userData.user_is_admin === "0" && userData.account_type == 'No company' ) {
                 window.location = '/de/supplier';
               }
             } else {
-              if (userData.user_is_admin === "0" && userData.user_type === "Press") {
+              if (userData.user_is_admin === "0" && userData.account_type === "Press") {
                 window.location = "/en/account";
-              } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
+              } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
                 window.location = "/en/supplier";
-              } else if (userData.user_is_admin === "0" && userData.user_type === "RSW") {
+              } else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
                 window.location = "/en/supplier";
               } else if (userData.user_is_admin === "1") {
                 window.location = "/en/admin/users-table";
-              } else if (userData.user_is_admin === "0" && userData.company_admin == '1') {
+              } else if (userData.user_is_admin === "0" && userData.company_admin == '1' && userData.basic_admin == '0') {
                 window.location = "/en/admin/users-table";
-              } else if ( userData.user_is_admin === "0" && userData.user_type == 'No company' ) {
+              } else if (userData.user_is_admin === "0" && userData.company_admin == '0' && userData.basic_admin == '1') {
+                window.location = "/en/admin/users-table";
+              } else if ( userData.user_is_admin === "0" && userData.account_type == 'No company' ) {
                 window.location = '/en/supplier';
               }
             }
           } else {
-            if (userData.user_is_admin === "0" && userData.user_type === "Press") {
+            if (userData.user_is_admin === "0" && userData.account_type === "Press") {
               window.location = "/en/account";
-            } else if (userData.user_is_admin === "0" && userData.user_type === "Supplier") {
+            } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
               window.location = "/en/supplier";
-            } else if (userData.user_is_admin === "0" && userData.user_type === "RSW") {
+            } else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
                 window.location = "/en/supplier";
               } else if (userData.user_is_admin === "1") {
               window.location = "/en/admin/users-table";
@@ -616,33 +623,33 @@ function userUploadImage(user) {
             }
         if(storedLang){
           if(storedLang == "de"){
-            if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
+            if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
             form_button.setAttribute('href', '/de/supplier');
-          }else if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
+          }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/supplier');
-        }else if ( userInfo.user_type == "RSW" && userInfo.user_is_admin == '0') {
+        }else if ( userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/supplier');
-        } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
+        } else if( userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/press');
-        } else if(userInfo.user_is_admin == "0" && userInfo.company_admin == "1") {
+        } else if(userInfo.user_is_admin == "0" && userInfo.company_admin == "1" || userInfo.basic_admin == '1') {
               if(window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table'){
                 location.replace('/de/account');
               }
-              document.getElementById('admin_button').style.display = 'block';
-          }else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1") {
+              document.getElementById('companies_table').style.display = 'none';
+          }else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == '1') {
               form_button.setAttribute('href', '/de/supplier');
               document.getElementById('admin_button').style.display = 'block';
           }else{}
           }else{
-              if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
+              if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
               form_button.setAttribute('href', '/en/supplier');
-              }else if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
+              }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/supplier');
-              }else if ( userInfo.user_type == "RSW" && userInfo.user_is_admin == '0') {
+              }else if ( userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/supplier');
-              } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
+              } else if( userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/press');
-              } else if(userInfo.user_is_admin == "0" && userInfo.company_admin != "1") {
+              } else if(userInfo.user_is_admin == "0" && userInfo.company_admin != "1" || userInfo.user_is_admin == "0" && userInfo.basic_admin != '1') {
                   if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table'){
                     location.replace('/en/account');
                   }
@@ -653,16 +660,18 @@ function userUploadImage(user) {
               }else{}
               }
         }else{
-          if( userInfo.user_type == "No company" && userInfo.user_is_admin == '0'){
+          if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
               form_button.setAttribute('href', '/en/supplier');
-              }else if ( userInfo.user_type == "Supplier" && userInfo.user_is_admin == '0') {
+              }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/supplier');
-              } else if ( userInfo.user_type == "RSW" && userInfo.user_is_admin == '0') {
+              } else if ( userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/supplier');
-              } else if( userInfo.user_type == "Press" && userInfo.user_is_admin == '0') {
+              } else if( userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
               form_button.setAttribute('href', '/en/press');
               } else if(userInfo.user_is_admin == "0") {
                   if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.company_admin != "1"){
+                    location.replace('/en/account');
+                  } else if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.basic_admin != "1"){
                     location.replace('/en/account');
                   }
                   document.getElementById('admin_button').style.display = 'none';
@@ -1008,9 +1017,11 @@ function updateFileLabel() {
           user_company: 'JVhBWwwfdL03n4mh57rG',
           company_admin: '0',
           user_is_admin: '0',
-          user_type: 'Press',
+          account_type: 'Press',
+          user_type: '',
           user_zones: '',
           user_status: 'Pending',
+          confirmed_email: '1',
           language: language,
         }, { merge: true })
         .then((docRef) => {
@@ -1215,10 +1226,10 @@ function updateFileLabel() {
           // Form confirmation email to admin
           (async () => {
           try {
-            const fullName = `${press_firstname.value} ${press_lastname.value}`;
+            const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
             const html = await fetch(form_en_mr_ms_confirmation_form_to_admin_url)
                 .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
           const docRef = addDoc(collection(db, "mail"), {
             to: 'andreas.salvermoser@ops.dauherkert.com',
             message: {
@@ -1233,10 +1244,10 @@ function updateFileLabel() {
         // Press - EN - Mr/Ms - Application received
         (async () => {
         try {
-          const fullName = `${press_firstname.value} ${press_lastname.value}`;
+          const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
             const html = await fetch(press_en_mr_ms_application_received_url)
                 .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
           const docRef = addDoc(collection(db, "mail"), {
             to: `${press_email.value}`,
             message: {
@@ -1601,7 +1612,7 @@ submit_button.addEventListener('click', function(ev) {
       updateDates(user, dateStr)
       })
 
-  async function updateDates(user, dateStr) {
+      async function updateDates(user, dateStr) {
   var today = new Date();
   var minDate;
   var maxDate = new Date(today.getFullYear(), 3, 23);
@@ -1609,13 +1620,18 @@ submit_button.addEventListener('click', function(ev) {
   let userInfo = await getUserInfo(user);
 
   //Change minDate depending the user type
-  if(userInfo.user_type == 'Press'){
-        minDate = new Date(today.getFullYear(), 3, 15);
-      }else{
-        minDate =  new Date(today.getFullYear(), 3, 11);
-      }
+  if(userInfo.account_type == 'Press'){
+    minDate = new Date(today.getFullYear(), 3, 15);
+  } else {
+    minDate =  new Date(today.getFullYear(), 3, 11);
+  }
 
-      var defaultDate = dateStr ? new Date(Date.parse(dateStr.replace(/-/g, '/'))) : null;
+  // Parse the date string into an array of Date objects
+  var datesArray = dateStr.split(',').map(function(dateString) {
+    return new Date(Date.parse(dateString.replace(/-/g, '/')));
+  });
+
+  var defaultDate = datesArray.length > 0 ? datesArray : null;
 
   // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
   // and from http://t1m0n.name/air-datepicker/docs/
@@ -1643,14 +1659,13 @@ submit_button.addEventListener('click', function(ev) {
     dateFormat: 'mm/dd/yyyy',
     timeFormat: 'hh:ii aa',
     firstDay: 0,
-};
+  };
 
   let datepickerLocaleToUse = 'en';
-  if ( storedLang == 'de' ) {
+  if (storedLang == 'de') {
     datepickerLocaleToUse = 'de';
   }
-
-  startDatePicker.datepicker({
+startDatePicker.datepicker({
     defaultDate: defaultDate,
     multipleDates: true,
     multipleDatesSeparator: ', ',
@@ -1659,18 +1674,31 @@ submit_button.addEventListener('click', function(ev) {
     maxDate: maxDate,
     language: datepickerLocaleToUse,
     onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
+      let selectedDates = inst.selectedDates;
       console.log(selectedDates);
     }
   });
+let datepickerInstance = startDatePicker.data('datepicker');
+if(dateStr){
+  let datesArray = dateStr.split(',');
+  let parsedDates = [];
+  for(let i = 0; i < datesArray.length; i++){
+    let date = datesArray[i].trim();
+    if(date){
+      parsedDates.push(new Date(Date.parse(date.replace(/-/g, '/'))));
+    }
+  }
+  datepickerInstance.selectDate(parsedDates);
+}
 
-  if (window.innerWidth < 768) {
+if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
-};
+}
 
       changeAdminTypeTitle(user);
-
+      let user_dates = document.getElementById('user_dates');
+      let basic_admin = document.getElementById('basicaAdminCont');
       let userInfo = await getUserInfo(user);
       const userRef = doc(db, 'users', user.uid);
       const companyNames = await changeCompanyNameToID(userInfo);
@@ -1685,16 +1713,28 @@ submit_button.addEventListener('click', function(ev) {
             let update_user_profile = document.getElementById('update_user_profile');
             let head_user = document.getElementById('head_user');
 
-            if(userInfo.user_is_admin == '0' && userInfo.company_admin == '1'){
+            if(userInfo.user_is_admin == '0' && userInfo.company_admin == '1' && userInfo.basic_admin == '0'){
               select_type_id.style.display = 'none';
               user_profile_company_update.style.display = 'none';
               update_user_profile.style.display = 'none';
               head_user.style.display = 'none';
+              user_dates.style.display = 'none';
+              basic_admin.style.display = 'none';
+            }else if(userInfo.user_is_admin == '0' && userInfo.basic_admin == '1' && userInfo.company_admin == '0'){
+              select_type_id.style.display = 'none';
+              user_profile_company_update.style.display = 'none';
+              update_user_profile.style.display = 'none';
+              head_user.style.display = 'none';
+              user_dates.style.display = 'none';
+              basic_admin.style.display = 'none';
+              document.getElementById('update_user_zones').style.display = 'none';
             }else{
               select_type_id.style.display = 'block';
               user_profile_company_update.style.display = 'block';
               update_user_profile.style.display = 'block';
               head_user.style.display = 'block';
+              user_dates.style.display = 'block';
+              basic_admin.style.display = 'block';
             }
 
       // =========== USERS TABLE FUNCTIONS ============ //
@@ -1731,9 +1771,9 @@ submit_button.addEventListener('click', function(ev) {
         };
       }
 
-      const colRef = collection(db, 'users');
       const company_colRef = collection(db, 'companies');
       let searchInput = document.getElementById("search-input");
+      const q = query(collection(db, "users"), where("confirmed_email", "==", '1'));
       let table = new Tabulator("#admin-user-list", {
        //options here
         layout:"fitData",
@@ -1755,8 +1795,10 @@ submit_button.addEventListener('click', function(ev) {
             {title:"Press media", field:"press_media", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Email", field:"email", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Basic Admin", field:"basic_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
             {title: "user type", field: "user_type", sorter: "string", width: 0, cssClass: "hidden-column"},
+            {title: "Account type", field: "account_type", sorter: "string", width: 0, cssClass: "hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Dates", field:"user_dates", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Language", field:"language", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -1889,7 +1931,7 @@ const companyAdmin = userInfo.company_admin;
 const adminCompanyName = userInfo.user_company;
 console.log('admin:', adminCompanyName)
 
-getDocs(colRef)
+getDocs(q)
   .then((snapshot) => {
     let data = [];
     let promises = [];
@@ -1897,7 +1939,7 @@ getDocs(colRef)
         let user = doc.data();
 
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_information: user.press_hotel_information, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, companyID: [user.user_company], user_type: user.user_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
+          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_information: user.press_hotel_information, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
 
         }));
     });
@@ -1918,17 +1960,19 @@ getDocs(colRef)
       let admin_user_name = document.getElementById('admin_user_name');
       let admin_user_lastname = document.getElementById('admin_user_lastname');
       let userTypeUpdate = document.getElementById('new_user_type');
+      let accountTypeUpdate = document.getElementById('accountType');
       let user_status_update = document.getElementById('accountStatus');
       let user_company_update = document.getElementById('userCompany');
       let admin_cred = document.getElementById('is_admin');
       let company_admin = document.getElementById('headUser');
-      let updated_dates = document.getElementById('Select-dates')
+      let updated_dates = document.getElementById('Select-dates');
       let selectedUserZonesString = '';
       let selectedUserCompaniesString = '';
       let user_language = document.getElementById('user_language');
       let press_user_title = document.getElementById('press_user_title');
       let press_user = document.getElementById('press_user');
       const zonesSelect = document.getElementById('userZones');
+      let user_zones_update = document.getElementById('select2-userZones-container');
 
       $('#userCompany').on('change', function () {
         var selectedUserCompanies = $(this).val();
@@ -1936,10 +1980,15 @@ getDocs(colRef)
       });
 
    // Update the selectedUserZonesString variable based on the current selection
-function updateSelectedUserZonesString() {
+  function updateSelectedUserZonesString() {
+  if (selectedUserZonesString === '') {
+  selectedUserZonesString = user_zones_update.textContent.trim();
+  }
   const selectedOptions = Array.from(zonesSelect.selectedOptions).map(option => option.value);
   selectedUserZonesString = selectedOptions.join(',');
-}
+  console.log('Selected zones:', selectedUserZonesString);
+  saveUserZones();
+  }
 
 // Update the zones based on the selected user type
 userTypeUpdate.addEventListener('change', async () => {
@@ -1961,8 +2010,11 @@ userTypeUpdate.addEventListener('change', async () => {
           }
         }
         $(zonesSelect).trigger('change.select2');
+        selectedUserZonesString = user_zones_update.textContent.trim();
         // Update the selectedUserZonesString variable based on the current selection
         updateSelectedUserZonesString();
+        // Save the user's zones when the user type is changed
+        saveUserZones();
       } else {
         console.log('Error getting document(s):', error);
       }
@@ -1977,23 +2029,43 @@ userTypeUpdate.addEventListener('change', async () => {
 // Update the selectedUserZonesString variable whenever the zones select element changes
 zonesSelect.addEventListener('change', () => {
   updateSelectedUserZonesString();
+  console.log('Updating user zones:', selectedUserZonesString);
 });
 
-$(document).on( 'click' , '#open_modal_btn' , function() {
+// Save the user's zones to the database
+function saveUserZones() {
+  const userRef = doc(db, 'users', user_specific_id.value);
+  setDoc(userRef, {
+    user_zones: selectedUserZonesString !== '' ? selectedUserZonesString : '',
+  }, { merge: true })
+  .then(() => {
+    console.log('User zones updated successfully.');
+  })
+  .catch((error) => {
+    console.log('Error updating user zones:', error);
+  });
+}
 
-  const img = document.getElementById('specific_user_img');
-  let idCell = $(this).closest('div').siblings('div[tabulator-field="id"]');
+$('#userZones').on('change', function () {
+  updateSelectedUserZonesString();
+});
 
-  // get the profile picture from storage
-  getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
-    .then((url) => {
-      // update the image's src attribute with the URL
-      img.setAttribute('src', url);
-    })
-    .catch((error) => {
-      // Handle any errors
-      console.log(error);
-    });
+$(document).on('click', '#open_modal_btn', function () {
+
+const img = document.getElementById('specific_user_img');
+let idCell = $(this).closest('div').siblings('div[tabulator-field="id"]');
+
+img.setAttribute('src', 'https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c61981b50c400a86f4f032_profile%20picture.png');
+
+getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
+  .then((url) => {
+    // Update image src
+    img.setAttribute('src', url);
+  })
+  .catch((error) => {
+    // Manege errors
+    console.log(error);
+  });
 });
 
 update_user_form.addEventListener('submit', (e) => {
@@ -2004,11 +2076,13 @@ update_user_form.addEventListener('submit', (e) => {
     const userRef = doc(db, 'users', user_specific_id.value);
     setDoc(userRef, {
       user_type: userTypeUpdate.value,
+      account_type: accountTypeUpdate.value,
       user_status: user_status_update.value,
       user_company: selectedUserCompaniesString,
       user_zones: selectedUserZonesString,
       company_admin: company_admin.value,
       supplier_visit_dates: updated_dates.value,
+      basic_admin: basic_admin.value,
     }, { merge: true })
       .then(() => {
         console.log('sending email... status is', user_status_update.value);
@@ -2373,6 +2447,7 @@ update_user_form.addEventListener('submit', (e) => {
               $('body').removeClass('modal-open');
             }
           }
+          saveUserZones();
       })
       .catch((err) => {
               toastr.error('There was an error updating the account info');
@@ -2899,11 +2974,12 @@ update_user_form.addEventListener('submit', (e) => {
         companyRef = await addDoc(collection(db, "users"), {
             user_firstname: new_user_firstname.value,
             user_lastname: new_user_lastname.value,
-            user_type: new_user_account_type.value,
+            account_type: new_user_account_type.value,
             user_company: newUserCompaniesString,
-            user_profile: new_user_profile.value,
+            user_type: new_user_profile.value,
             user_status: 'Pending',
             company_admin: '0',
+            basic_admin: '0',
             language: storedLang,
             press_form_user: '0',
             press_hotel_information: '',
@@ -3446,7 +3522,7 @@ update_user_form.addEventListener('submit', (e) => {
       let userTypeCell = newRow.insertCell(2);
       idCell.innerHTML = `${user.user_id}`;
       emailCell.innerHTML = `${user.user_email}`;
-      userTypeCell.innerHTML = `${user.user_type}`;
+      userTypeCell.innerHTML = `${user.account_type}`;
     });
 
     //Add company head
@@ -3777,7 +3853,7 @@ async function getCompanyType(user) {
   let userInfo = await getUserInfo(user);
 
   //Change minDate depending the user type
-  if(userInfo.user_type == 'Press'){
+  if(userInfo.account_type == 'Press'){
         minDate = new Date(today.getFullYear(), 3, 15);
       }else{
         minDate =  new Date(today.getFullYear(), 3, 11);
@@ -3966,26 +4042,34 @@ function changeLanguage(lang) {
       let storedLang = localStorage.getItem("language");
 
       if(storedLang == 'en'){
-        if(userInfo.user_is_admin === '0' && userInfo.company_admin === '1') {
+        if(userInfo.user_is_admin === '0' && userInfo.company_admin === '1' && userInfo.basic_admin === '0') {
           document.getElementById('user_admin_type').innerHTML = 'Company Admin';
+        }else if(userInfo.user_is_admin === '0' && userInfo.company_admin === '0' && userInfo.basic_admin === '1') {
+          document.getElementById('user_admin_type').innerHTML = 'Basic Admin';
         }else if(userInfo.user_is_admin === '1') {
           document.getElementById('user_admin_type').innerHTML = 'Super Admin';
         }
       }else{
-        if(userInfo.user_is_admin === '0' && userInfo.company_admin === '1') {
+        if(userInfo.user_is_admin === '0' && userInfo.company_admin === '1' && userInfo.basic_admin === '0') {
           document.getElementById('user_admin_type').innerHTML = 'Firmenadministrator';
-          }else if(userInfo.user_is_admin === '1') {
+          }else if(userInfo.user_is_admin === '0' && userInfo.company_admin === '0' && userInfo.basic_admin === '1') {
+          document.getElementById('user_admin_type').innerHTML = 'Grundlegender Administrator';
+        }else if(userInfo.user_is_admin === '1') {
             document.getElementById('user_admin_type').innerHTML = 'Superadministrator';
           }
       }
     }
-    console.log('prueba10')
+    console.log('prueba46'); 
 
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
   document.getElementById('imprint').setAttribute('href', '/de/impressum');
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
+}
+
+if (window.location.href === "https://porsche-tms.webflow.io/") {
+  window.location.href = "https://credentials.porsche-tennis.com/en/signin-porsche";
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
