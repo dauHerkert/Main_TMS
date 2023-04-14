@@ -350,8 +350,6 @@ if (select_company) {
         select_company.appendChild(opt);
       });
 
-      // Set the default selected value
-      select_company.value = select_company.value || select_company.firstElementChild.value;
     })
     .catch(err => {
       console.log('error fetching companies', err);
@@ -4324,7 +4322,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
-console.log('prueba103');
+console.log('prueba104');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
