@@ -2126,7 +2126,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba100');
+console.log('prueba101');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
@@ -4270,6 +4270,10 @@ function changeLanguage(lang) {
             document.getElementById('user_admin_type').innerHTML = 'Superadministrator';
           }
       }
+    }
+
+    if(window.location.href == 'https://main-tms.webflow.io/'){
+      window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
 
 if (storedLang == 'de') {
