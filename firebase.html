@@ -330,11 +330,12 @@ if (select_company) {
     // Use the user_company value when the URL has the ?company parameter
     const companyName = currentUrl.searchParams.get('company');
     select_company.value = companyName;
+    select_company.style.display = 'none';
   } else {
     // Use the select_company value when the URL doesn't have the ?company parameter
     const company_colRef = collection(db, 'companies');
     let newUserCompaniesString = '';
-
+    select_company.style.display = 'block';
     // Show the select_company element
     document.getElementById('company_select_cont').style.display = 'block';
     
@@ -4322,7 +4323,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
-console.log('prueba104');
+console.log('prueba105');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
