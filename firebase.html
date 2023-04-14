@@ -323,32 +323,67 @@ function handleSignUp(e) {
 };
 
     //Add user's extra info to Firestore
-    function userExtraInfo(e, user) {
-      e.preventDefault();
-      e.stopPropagation();
-      const userRef = doc(db, 'users', user.uid);
-      const user_firstname = document.getElementById('first-name');
-      const user_lastname = document.getElementById('last-name');
-      const user_address = document.getElementById('user_address');
-      const user_company = document.getElementById('sign-up-company');
-      let language = localStorage.getItem("language");
+function userExtraInfo(e, user) {
+  e.preventDefault();
+  e.stopPropagation();
+  const userRef = doc(db, 'users', user.uid);
+  const user_firstname = document.getElementById('first-name');
+  const user_lastname = document.getElementById('last-name');
+  const user_address = document.getElementById('user_address');
+  const user_company = document.getElementById('sign-up-company');
+  let language = localStorage.getItem("language");
+  const select_company = document.getElementById('user_company');
+  const currentUrl = new URL(window.location.href);
 
-      setDoc(userRef, {
-        user_firstname: user_firstname.value,
-        user_lastname: user_lastname.value,
-        user_address: user_address.value,
-        user_company: user_company.value,
-        last_signin_date: new Date(),
-        language: language,
-      }, { merge: true })
-      .then(() => {
-        //console.log('press data successfully updated');
-      })
-      .catch((err) => {
-        console.log('there was a problem updating the data', err);
-        toastr.error('There was an error updating your info');
+  if (currentUrl.searchParams.has('company')) {
+    // Use the user_company value when the URL has the ?company parameter
+    const companyName = currentUrl.searchParams.get('company');
+    user_company.value = companyName;
+    // Hide the select_company element
+    document.getElementById('company_select_cont').style.display = 'none';
+  } else {
+    // Use the select_company value when the URL doesn't have the ?company parameter
+    user_company.value = select_company.value;
+    // Show the select_company element
+    document.getElementById('company_select_cont').style.display = 'block';
+    $('#user_company').on('change', function () {
+      var selectedNewUserCompanies = $(this).val();
+      newUserCompaniesString = selectedNewUserCompanies.join(', ');
+    });
+    //Print companies select
+    getDocs(company_colRef)
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        let company = doc.data();
+
+        var opt = document.createElement('option');
+        opt.value = doc.id;
+        opt.textContent = company.company_name;
+        select_company.appendChild(opt);
       });
-    }
+    })
+    .catch(err => {
+      console.log('error fetching companies', err);
+    });
+  }
+
+  setDoc(userRef, {
+    user_firstname: user_firstname.value,
+    user_lastname: user_lastname.value,
+    user_address: user_address.value,
+    user_company: user_company.value,
+    last_signin_date: new Date(),
+    language: language,
+  }, { merge: true })
+  .then(() => {
+    //console.log('press data successfully updated');
+  })
+  .catch((err) => {
+    console.log('there was a problem updating the data', err);
+    toastr.error('There was an error updating your info');
+  });
+}
+
 
     //Upload user's profile image
 const profile_img = document.getElementById('profile_img');
@@ -2126,7 +2161,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba101');
+console.log('prueba102');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
