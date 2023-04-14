@@ -3862,12 +3862,16 @@ update_user_form.addEventListener('submit', (e) => {
 
     function checkUrlParameter() {
       let url = new URL(window.location.href);
-      let company = url.searchParams.get('company');
+      const company = url.searchParams.get('company');
+      const select_company = document.getElementById('user_company');
 
-      if ( company ) {
-          localStorage.setItem('company', company);
-          $('#sign-up-company').val(company);
-      }else{
+      if ( company && select_company.style.display && select_company.style.display !== 'none') {
+        localStorage.setItem('company', company);
+        $('#sign-up-company').val(company);
+      } else if (select_company.style.display && select_company.style.display === 'block') {
+        localStorage.setItem('company', select_company.value);
+        $('#sign-up-company').val(select_company.value);
+      } else {
         $('#sign-up-company').val('No company');
       }
     }
@@ -4320,7 +4324,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
-console.log('prueba100');
+console.log('prueba101');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
