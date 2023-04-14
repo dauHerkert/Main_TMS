@@ -344,6 +344,7 @@ function userExtraInfo(e, user) {
   } else {
     // Use the select_company value when the URL doesn't have the ?company parameter
     user_company.value = select_company.value;
+    const company_colRef = collection(db, 'companies');
     // Show the select_company element
     document.getElementById('company_select_cont').style.display = 'block';
     $('#user_company').on('change', function () {
@@ -2161,7 +2162,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba102');
+console.log('prueba103');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
