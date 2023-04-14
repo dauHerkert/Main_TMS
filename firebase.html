@@ -327,52 +327,63 @@ const currentUrl = new URL(window.location.href);
 
 if (select_company) {
   if (currentUrl.searchParams.has('company')) {
-    // Use the ?company parameter value when it exists
+    // Use the user_company value when the URL has the ?company parameter
     const companyName = currentUrl.searchParams.get('company');
-    user_company.value = companyName;
+    select_company.value = companyName;
   } else {
-    // Use the select_company value when the ?company parameter doesn't exist
-    user_company.value = select_company.value;
-  }
-  
-  // Hide/show the select_company element based on whether ?company parameter exists
-  const company_select_cont = document.getElementById('company_select_cont');
-  company_select_cont.style.display = currentUrl.searchParams.has('company') ? 'none' : 'block';
+    // Use the select_company value when the URL doesn't have the ?company parameter
+    const company_colRef = collection(db, 'companies');
+    let newUserCompaniesString = '';
 
-  // Add event listener to update the newUserCompaniesString when select_company changes
-  let newUserCompaniesString = '';
-  select_company.addEventListener('change', function() {
-    const selectedNewUserCompanies = Array.from(this.selectedOptions).map(option => option.value);
-    newUserCompaniesString = selectedNewUserCompanies.join(', ');
-  });
+    // Show the select_company element
+    document.getElementById('company_select_cont').style.display = 'block';
+    
+    //Print companies select
+    getDocs(company_colRef)
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        let company = doc.data();
 
-  // Add user's extra info to Firestore on form submit
-  const form = document.getElementById('wf-form-signup-form');
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const userRef = doc(db, 'users', user.uid);
-    const user_firstname = document.getElementById('first-name');
-    const user_lastname = document.getElementById('last-name');
-    const user_address = document.getElementById('user_address');
-    const user_company = document.getElementById('sign-up-company');
-    let language = localStorage.getItem("language");
+        var opt = document.createElement('option');
+        opt.value = doc.id;
+        opt.textContent = company.company_name;
+        select_company.appendChild(opt);
+      });
 
-    setDoc(userRef, {
-      user_firstname: user_firstname.value,
-      user_lastname: user_lastname.value,
-      user_address: user_address.value,
-      user_company: companyName || select_company.value, // Use the ?company parameter value if it exists, else use select_company value
-      last_signin_date: new Date(),
-      language: language,
-    }, { merge: true })
-    .then(() => {
-      //console.log('press data successfully updated');
+      // Set the default selected value
+      select_company.value = select_company.value || select_company.firstElementChild.value;
     })
-    .catch((err) => {
-      console.log('there was a problem updating the data', err);
-      toastr.error('There was an error updating your info');
+    .catch(err => {
+      console.log('error fetching companies', err);
     });
+  }
+}
+
+//Add user's extra info to Firestore
+function userExtraInfo(e, user) {
+  e.preventDefault();
+  e.stopPropagation();
+  const userRef = doc(db, 'users', user.uid);
+  const user_firstname = document.getElementById('first-name');
+  const user_lastname = document.getElementById('last-name');
+  const user_address = document.getElementById('user_address');
+  const user_company = document.getElementById('user_company');
+  let language = localStorage.getItem("language");
+
+  setDoc(userRef, {
+    user_firstname: user_firstname.value,
+    user_lastname: user_lastname.value,
+    user_address: user_address.value,
+    user_company: user_company.value,
+    last_signin_date: new Date(),
+    language: language,
+  }, { merge: true })
+  .then(() => {
+    //console.log('press data successfully updated');
+  })
+  .catch((err) => {
+    console.log('there was a problem updating the data', err);
+    toastr.error('There was an error updating your info');
   });
 }
 
@@ -4313,7 +4324,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
-console.log('prueba104');
+console.log('prueba102');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
