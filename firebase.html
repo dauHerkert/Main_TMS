@@ -336,6 +336,7 @@ if(select_company){
     // Use the select_company value when the URL doesn't have the ?company parameter
     user_company.value = select_company.value;
     const company_colRef = collection(db, 'companies');
+    let newUserCompaniesString = '';
     // Show the select_company element
     document.getElementById('company_select_cont').style.display = 'block';
     $('#user_company').on('change', function () {
@@ -4324,7 +4325,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
-console.log('prueba101');
+console.log('prueba102');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
