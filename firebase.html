@@ -322,19 +322,10 @@ function handleSignUp(e) {
   }
 };
 
-    //Add user's extra info to Firestore
-function userExtraInfo(e, user) {
-  e.preventDefault();
-  e.stopPropagation();
-  const userRef = doc(db, 'users', user.uid);
-  const user_firstname = document.getElementById('first-name');
-  const user_lastname = document.getElementById('last-name');
-  const user_address = document.getElementById('user_address');
-  const user_company = document.getElementById('sign-up-company');
-  let language = localStorage.getItem("language");
-  const select_company = document.getElementById('user_company');
-  const currentUrl = new URL(window.location.href);
+const select_company = document.getElementById('user_company');
+const currentUrl = new URL(window.location.href);
 
+if(select_company){
   if (currentUrl.searchParams.has('company')) {
     // Use the user_company value when the URL has the ?company parameter
     const companyName = currentUrl.searchParams.get('company');
@@ -367,6 +358,18 @@ function userExtraInfo(e, user) {
       console.log('error fetching companies', err);
     });
   }
+}
+
+    //Add user's extra info to Firestore
+function userExtraInfo(e, user) {
+  e.preventDefault();
+  e.stopPropagation();
+  const userRef = doc(db, 'users', user.uid);
+  const user_firstname = document.getElementById('first-name');
+  const user_lastname = document.getElementById('last-name');
+  const user_address = document.getElementById('user_address');
+  const user_company = document.getElementById('sign-up-company');
+  let language = localStorage.getItem("language");
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -2162,7 +2165,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba103');
+
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
@@ -4318,6 +4321,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
+console.log('prueba100');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
