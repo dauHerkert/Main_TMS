@@ -3106,6 +3106,7 @@ update_user_form.addEventListener('submit', (e) => {
         });
 
         //CREATE USERS FORM
+
         //Print companies select
         let select = document.getElementById('userCompany');
           getDocs(company_colRef)
@@ -3141,7 +3142,7 @@ update_user_form.addEventListener('submit', (e) => {
           })
 
           //Print zones select
-          let update_user_zone = document.getElementById('userZones');
+          let update_user_zone = document.getElementById('createUserZones');
 
               createOptions(update_user_zone);
             setDoc(userRef, {
@@ -3155,7 +3156,7 @@ update_user_form.addEventListener('submit', (e) => {
                 toastr.error('There was an error signin user');
             })
 
-            $('#companyZone').on('change', function () {
+            $('#createUserZones').on('change', function () {
         var selectedValues = $(this).val();
         selectedValuesString = selectedValues.join(', ');
       });
@@ -4329,7 +4330,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
-console.log('prueba107');
+console.log('prueba108');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
