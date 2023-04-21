@@ -1915,31 +1915,26 @@ if (window.innerWidth < 768) {
             {title: userTableFirstnameLabel, field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
             {
-    title: userTableCompanyLabel,
-    field: "company",
-    sorter: "string",
-    width: 170,
-    headerFilter: "list",
-    headerFilterParams: {
-        values: uniqueCompanies,
-        clearable: true,
-        searchFunc: function(searchTerm, headerValue) {
-            // convert both the search term and header value to lowercase for case-insensitive search
-            searchTerm = searchTerm.toLowerCase();
-            headerValue = headerValue.toLowerCase();
-
-            // return true if the header value contains the search term
-            return headerValue.includes(searchTerm);
-        },
-        headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {
-            let selectedCompany = headerValue.toLowerCase();
-            let userCompanies = rowData.company.toLowerCase().split(", ");
-            return userCompanies.includes(selectedCompany);
-        },
-        headerFilterPlaceholder: "Search Company",
-        cssClass: "other_columns"
-    }
-},
+                title: userTableCompanyLabel,
+                field: "company",
+                sorter: "string",
+                width: 170,
+                headerFilter: "list",
+                headerFilterParams: {
+                    values: uniqueCompanies,
+                    clearable: true,
+                    headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {
+                        let selectedCompany = headerValue.toLowerCase();
+                        let userCompanies = rowData.company.toLowerCase().split(", ");
+                        return userCompanies.includes(selectedCompany);
+                    },
+                    headerFilterPlaceholder: "Search Company",
+                    searchFunc: function(searchTerm, value) {
+                        return value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+                    }
+                },
+                cssClass: "other_columns"
+            },
             {
               title: userTableStatusLabel,
               field: "status",
@@ -2211,7 +2206,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba103');
+console.log('prueba104');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
