@@ -1873,7 +1873,7 @@ if (window.innerWidth < 768) {
         });
 
         uniqueCompanies.sort();
-        
+
         return uniqueCompanies;
       }
 
@@ -1914,28 +1914,7 @@ if (window.innerWidth < 768) {
             {title:"Phone", field:"phone", sorter:"string", width:0, cssClass:"hidden-column"},
             {title: userTableFirstnameLabel, field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
-            {
-    title: userTableCompanyLabel, 
-    field: "company", 
-    sorter: "string", 
-    width: 170, 
-    headerFilter: "list", 
-    headerFilterParams: {
-        values: uniqueCompanies, 
-        clearable: true, 
-        search: true, 
-        headerFilterPlaceholder: "Company",
-        valuesSorter: function(a, b, aRow, bRow, column, dir, sorterParams){
-            // sort values alphabetically
-            return a.localeCompare(b, undefined, {sensitivity: 'base'});
-        },
-        sorterParams: {
-            sortEmptyCells: true,
-            sortDirection: "asc",
-        }
-    },
-    cssClass: "other_columns"
-},
+            {title: userTableCompanyLabel, field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{values: uniqueCompanies, clearable:true, headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {let selectedCompany = headerValue.toLowerCase();let userCompanies = rowData.company.toLowerCase().split(", ");return userCompanies.includes(selectedCompany);}}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
             {
               title: userTableStatusLabel,
               field: "status",
@@ -2207,7 +2186,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba101');
+console.log('prueba102');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
