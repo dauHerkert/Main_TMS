@@ -643,7 +643,7 @@ function userUploadImage(user) {
       $(e).text('Profil');
     } else if (navLabel == 'Sign Out') {
       $(e).text('');
-      $(e).prepend('<img id="signout_img" src="https://uploads-ssl.webflow.com/64397ba779ed4f50592d3664/64397ba779ed4f3ce02d36aa_logout_icon.svg"/>Ausloggen');
+      $(e).prepend('<img id="signout_img" src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63cac10c1580eace4e9444cb_logout_icon.svg"/>Ausloggen');
     }
   });
         let navDropdownLinks = $('#admin_button').find('nav').find('a');
@@ -1845,6 +1845,7 @@ if (window.innerWidth < 768) {
         };
       }
 
+      const company_colRef = collection(db, 'companies');
       let searchInput = document.getElementById("search-input");
       const q = query(collection(db, "users"), where("confirmed_email", "==", '1'));
 
@@ -2081,8 +2082,6 @@ getDocs(q)
         selectedUserCompaniesString = selectedUserCompanies.join(', ');
       });
 
-      createOptions(zonesSelect);
-
    // Update the selectedUserZonesString variable based on the current selection
   function updateSelectedUserZonesString() {
   if (selectedUserZonesString === '') {
@@ -2150,6 +2149,20 @@ function saveUserZones() {
   });
 }
 
+//Print zones select
+let update_user_zone = document.getElementById('userZones');
+
+createOptions(update_user_zone);
+setDoc(userRef, {
+last_signin_date: new Date()
+}, { merge: true })
+.then(() => {
+  console.log('press data successfully updated');
+})
+.catch((err) => {
+  console.log('there was a problem signin user', err);
+  toastr.error('There was an error signin user');
+})
 $('#userZones').on('change', function () {
   updateSelectedUserZonesString();
 });
@@ -2159,7 +2172,7 @@ $(document).on('click', '#open_modal_btn', function () {
 const img = document.getElementById('specific_user_img');
 let idCell = $(this).closest('div').siblings('div[tabulator-field="id"]');
 
-img.setAttribute('src', 'shttps://uploads-ssl.webflow.com/64397ba779ed4f50592d3664/64397ba779ed4fe9002d3697_profile%20picture.png');
+img.setAttribute('src', 'https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c61981b50c400a86f4f032_profile%20picture.png');
 
 getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
   .then((url) => {
@@ -2171,7 +2184,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-
+console.log('prueba105');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
@@ -3108,6 +3121,7 @@ update_user_form.addEventListener('submit', (e) => {
         });
 
         //CREATE USERS FORM
+        let selectedCreateUserZonesString = '';
 
         //Print companies select
         let select = document.getElementById('userCompany');
@@ -3141,12 +3155,26 @@ update_user_form.addEventListener('submit', (e) => {
           })
           .catch(err => {
             console.log('error fetching companies', err);
-          })
+          });
+
+          // Save the user's zones to the database
+         /* function saveCreatedUserZones(userID) {
+            const userRef = doc(db, 'users', userID);
+            setDoc(userRef, {
+              user_zones: selectedCreateUserZonesString !== '' ? selectedCreateUserZonesString : '',
+            }, { merge: true })
+            .then(() => {
+              console.log('User zones updated successfully.');
+            })
+            .catch((error) => {
+              console.log('Error updating user zones:', error);
+            });
+          }*/
 
           //Print zones select
-          let update_user_zone = document.getElementById('createUserZones');
+          const create_user_zone = document.getElementById('createUserZones');
 
-              createOptions(update_user_zone);
+              createOptions(create_user_zone);
             setDoc(userRef, {
               last_signin_date: new Date()
             }, { merge: true })
@@ -3163,11 +3191,62 @@ update_user_form.addEventListener('submit', (e) => {
         selectedValuesString = selectedValues.join(', ');
       });
 
+      // Update the zones based on the selected user type
+      const create_user_zones_container = document.getElementById('select2-createUserZones-container');
+      const new_user_profile = document.getElementById('new_user_profile');
+
+      new_user_profile.addEventListener('change', async () => {
+  const userProfile = new_user_profile.value;
+  if (userProfile !== '') {
+    const profilesRef = doc(db, 'profiles', userProfile);
+    try {
+      const profilesSnapshot = await getDoc(profilesRef);
+      if (profilesSnapshot.exists()) {
+        const zones = profilesSnapshot.data().zones;
+        // Update the options for the zones select
+        const allOptions = create_user_zone.options;
+        for (let i = 0; i < allOptions.length; i++) {
+          const option = allOptions[i];
+          if (zones.includes(option.value)) {
+            option.selected = true;
+          } else if (option.selected) {
+            option.selected = false;
+          }
+        }
+        $(create_user_zone).trigger('change.select2');
+        selectedCreateUserZonesString = create_user_zones_container.textContent.trim();
+        // Update the selectedCreateUserZonesString variable based on the current selection
+        updateSelectedCreateUserZonesString();
+      } else {
+        console.log('Error getting document(s):', error);
+      }
+    } catch (error) {
+      console.log('Error getting document:', error);
+    }
+  } else {
+    console.log('Error: "userType" is empty.');
+  }
+});
+
+ // Update the selectedCreateUserZonesString variable based on the current selection
+ function updateSelectedCreateUserZonesString() {
+  if (selectedCreateUserZonesString === '') {
+    selectedCreateUserZonesString = user_zones_update.textContent.trim();
+  }
+  const selectedOptions = Array.from(create_user_zone.selectedOptions).map(option => option.value);
+  selectedCreateUserZonesString = selectedOptions.join(',');
+  console.log('Selected zones:', selectedCreateUserZonesString);
+  }
+
+// Update the selectedCreateUserZonesString variable whenever the zones select element changes
+create_user_zone.addEventListener('change', () => {
+  updateSelectedCreateUserZonesString();
+  console.log('Updating user zones:',selectedCreateUserZonesString);
+});
       let new_user_firstname = document.getElementById('new_user_firstname');
       let new_user_lastname = document.getElementById('new_user_lastname');
       let new_user_account_type = document.getElementById('new_user_account_type');
       let new_user_company = document.getElementById('new_user_company');
-      let new_user_profile = document.getElementById('new_user_profile');
       let newUserCompaniesString = '';
 
       $('#new_user_company').on('change', function () {
@@ -3241,8 +3320,8 @@ update_user_form.addEventListener('submit', (e) => {
             user_phone:'',
             user_title:'',
             user_zip_code:'',
-            user_zones:'',
-          })
+            user_zones: selectedCreateUserZonesString,
+          }) 
           .then((companyRef) => {
             userUploadImage(companyRef.id);
             if(storedLang == 'de'){
@@ -3870,16 +3949,12 @@ update_user_form.addEventListener('submit', (e) => {
 
     function checkUrlParameter() {
       let url = new URL(window.location.href);
-      const company = url.searchParams.get('company');
-      const select_company = document.getElementById('user_company');
+      let company = url.searchParams.get('company');
 
-      if ( company && select_company.style.display && select_company.style.display !== 'none') {
-        localStorage.setItem('company', company);
-        $('#sign-up-company').val(company);
-      } else if (select_company.style.display && select_company.style.display === 'block') {
-        localStorage.setItem('company', select_company.value);
-        $('#sign-up-company').val(select_company.value);
-      } else {
+      if ( company ) {
+          localStorage.setItem('company', company);
+          $('#sign-up-company').val(company);
+      }else{
         $('#sign-up-company').val('No company');
       }
     }
@@ -4011,9 +4086,9 @@ update_user_form.addEventListener('submit', (e) => {
             document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/' && userData.confirmed_email != '1'){
-              window.location.replace('https://main-tms.webflow.io/de/signup-form-submitted');
+              window.location.replace('https://main-tms.webflow.io.com/de/signup-form-submitted');
               }else if(window.location.pathname == '/' && userData.confirmed_email == '1'){
-              window.location.replace('https://main-tms.webflow.io/de/account');
+              window.location.replace('https://main-tms.webflow.io.com/de/account');
               }
           }else{
             account_button.setAttribute('href', '/en/account');
@@ -4049,10 +4124,7 @@ update_user_form.addEventListener('submit', (e) => {
     }, 2000);
   }
     dispatchRequest(false);
-
-    if(window.location.pathname == '/en/signup-porsche' || window.location.pathname == '/de/signup-porsche'){
-      checkUrlParameter();
-    }   
+    checkUrlParameter();
 
     async function changeCompanyNameToID(user) {
     const companiesRef = collection(db, "companies");
@@ -4325,17 +4397,16 @@ function changeLanguage(lang) {
       }
     }
 
-    if(window.location.href == 'https://main-tms.webflow.io/'){
-      window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
-    }
-
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
   document.getElementById('imprint').setAttribute('href', '/de/impressum');
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
-console.log('prueba116');
+
+if(window.location.href == 'https://main-tms.webflow.io/'){
+      window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
+    }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
