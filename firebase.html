@@ -1914,25 +1914,7 @@ if (window.innerWidth < 768) {
             {title:"Phone", field:"phone", sorter:"string", width:0, cssClass:"hidden-column"},
             {title: userTableFirstnameLabel, field:"name", sorter:"string", width:170, cssClass:"first_column"},
             {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:170, cssClass:"other_columns"},
-            {
-              title: userTableCompanyLabel,
-              field: "company",
-              sorter: "string",
-              width: 170,
-              headerFilter: "input",
-              headerFilterPlaceholder: "Search Company",
-              headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {
-                  let searchTerm = headerValue.trim().toLowerCase();
-                  let userCompanies = rowData.company.toLowerCase().split(", ");
-                  for (let i = 0; i < userCompanies.length; i++) {
-                      if (userCompanies[i].indexOf(searchTerm) !== -1) {
-                          return true;
-                      }
-                  }
-                  return false;
-              },
-              cssClass: "other_columns"
-          },
+            {title: userTableCompanyLabel, field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{values: uniqueCompanies, clearable:true, headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {let selectedCompany = headerValue.toLowerCase();let userCompanies = rowData.company.toLowerCase().split(", ");return userCompanies.includes(selectedCompany);}}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
             {
               title: userTableStatusLabel,
               field: "status",
