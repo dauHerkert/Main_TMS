@@ -331,7 +331,7 @@ if (select_company) {
   if (currentUrl.searchParams.has('company')) {
     // Use the user_company value when the URL has the ?company parameter
     const companyName = currentUrl.searchParams.get('company');
-    user_company.value = companyName;
+    select_company.value = companyName;
     // Hide the select_company element
     document.getElementById('company_select_cont').style.display = 'none';
   } else {
