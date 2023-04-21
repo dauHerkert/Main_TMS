@@ -1845,31 +1845,36 @@ if (window.innerWidth < 768) {
         };
       }
 
+      const company_colRef = collection(db, 'companies');
+      let searchInput = document.getElementById("search-input");
+      const q = query(collection(db, "users"), where("confirmed_email", "==", '1'));
+
+      // Function to fetch unique company names      
       async function fetchUniqueCompanies(userInfo) {
-          const snapshot = await getDocs(company_colRef);
-          const adminCompanyName = userInfo.user_company;
-          const adminCompanyIds = adminCompanyName.split(',');
-          let uniqueCompanies = [];
+        const snapshot = await getDocs(company_colRef);
+        const adminCompanyName = userInfo.user_company;
+        const adminCompanyIds = adminCompanyName.split(',');
+        let uniqueCompanies = [];
 
-          // Get company names for the user
-          const companyNames = await changeCompanyNameToID(userInfo);
+        // Get company names for the user
+        const companyNames = await changeCompanyNameToID(userInfo);
 
-          snapshot.forEach((doc) => {
-              let company = doc.data().company_name;
-              if (userInfo.company_admin == '1') {
-                  if (!uniqueCompanies.includes(company) && companyNames.includes(company)) {
-                      uniqueCompanies.push(company);
-                  }
-              } else {
-                  if (!uniqueCompanies.includes(company)) {
-                      uniqueCompanies.push(company);
-                  }
-              }
-          });
+        snapshot.forEach((doc) => {
+          let company = doc.data().company_name;
+          if (userInfo.company_admin == '1') {
+            if (!uniqueCompanies.includes(company) && companyNames.includes(company)) {
+              uniqueCompanies.push(company);
+            }
+          } else {
+            if (!uniqueCompanies.includes(company)) {
+              uniqueCompanies.push(company);
+            }
+          }
+        });
 
-          uniqueCompanies.sort(); // sort alphabetically
-
-          return uniqueCompanies;
+        uniqueCompanies.sort();
+        
+        return uniqueCompanies;
       }
 
       fetchUniqueCompanies(userInfo).then((uniqueCompanies) => {
@@ -2202,7 +2207,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba102');
+console.log('prueba101');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
