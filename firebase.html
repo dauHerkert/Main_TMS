@@ -335,6 +335,23 @@ if (select_company) {
     // Hide the select_company element
     document.getElementById('company_select_cont').style.display = 'none';
   } else {
+    //Print companies select
+    getDocs(company_colRef)
+      .then((snapshot) => {
+        console.log(snapshot); // Debugging line
+        snapshot.docs.forEach((doc) => {
+          let company = doc.data();
+
+          var opt = document.createElement('option');
+          opt.value = doc.id;
+          opt.textContent = company.company_name;
+          select_company.appendChild(opt);
+            });
+          })
+          .catch(err => {
+            console.log('error fetching companies', err);
+          });
+
     // Use the select_company value when the URL doesn't have the ?company parameter
     select_company.value = select_company.value || select_company.firstElementChild.value;
     let newUserCompaniesString = '';
@@ -344,23 +361,6 @@ if (select_company) {
       var selectedNewUserCompanies = $(this).val();
       newUserCompaniesString = selectedNewUserCompanies.join(', ');
     });
-
-    //Print companies select
-    getDocs(company_colRef)
-  .then((snapshot) => {
-    console.log(snapshot); // Debugging line
-    snapshot.docs.forEach((doc) => {
-      let company = doc.data();
-
-      var opt = document.createElement('option');
-      opt.value = doc.id;
-      opt.textContent = company.company_name;
-      select_company.appendChild(opt);
-        });
-      })
-      .catch(err => {
-        console.log('error fetching companies', err);
-      });
   }
 }
 
@@ -4333,7 +4333,7 @@ if (storedLang == 'de') {
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
-console.log('prueba113');
+console.log('prueba114');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
