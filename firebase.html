@@ -2186,7 +2186,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba105');
+console.log('prueba109');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
@@ -3323,6 +3323,7 @@ create_user_zone.addEventListener('change', () => {
             user_title:'',
             user_zip_code:'',
             user_zones: selectedCreateUserZonesString,
+            supplier_visit_dates: '04-17-2023, 04-18-2023, 04-19-2023, 04-20-2023, 04-21-2023, 04-22-2023, 04-23-2023, 04-16-2023, 04-11-2023, 04-12-2023, 04-13-2023, 04-14-2023, 04-15-2023',
           }) 
           .then((companyRef) => {
             userUploadImage(companyRef.id);
