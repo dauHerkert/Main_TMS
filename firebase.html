@@ -1921,13 +1921,12 @@ if (window.innerWidth < 768) {
     headerFilterParams: {
         values: uniqueCompanies, 
         clearable: true, 
-        search: true, // add search input
-        headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {
-            let selectedCompany = headerValue.toLowerCase();
-            let userCompanies = rowData.company.toLowerCase().split(", ");
-            return userCompanies.includes(selectedCompany);
-        },
+        search: true, 
         headerFilterPlaceholder: "Company",
+        valuesSorter: function(a, b, aRow, bRow, column, dir, sorterParams){
+            // sort values alphabetically
+            return a.localeCompare(b, undefined, {sensitivity: 'base'});
+        },
         sorterParams: {
             sortEmptyCells: true,
             sortDirection: "asc",
@@ -2206,7 +2205,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.text()}`))
     console.log(error);
   });
 });
-console.log('prueba109');
+console.log('prueba101');
 //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
