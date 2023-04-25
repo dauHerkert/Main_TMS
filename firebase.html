@@ -248,7 +248,8 @@ async function deleteObject(refToDelete) {
     // Use the setDoc function to set the userDefaultValues object
     setDoc(userRef, userDefaultValues, { merge: true })
         .then(() => {
-            userUploadImage(user);
+          // Update the image's ID with the user ID
+          updateImageID(user, selectedFileName);
         // Sign up - DE
             if(storedLang == 'de'){
         (async () => {
@@ -354,9 +355,6 @@ function handleSignUp(e) {
           setDefaultFields(user);
           userExtraInfo(e, user);
           toastr.success("user successfully created: " + user.email);
-
-          // Update the image's ID with the user ID
-          updateImageID(user, selectedFileName);
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -4449,7 +4447,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba115');
+    console.log('prueba116');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
