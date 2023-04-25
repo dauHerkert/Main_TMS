@@ -204,18 +204,12 @@
   toastr.success("You have updated the profile picture successfully");
 }
 
-
 function canvasToBlob(canvas) {
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       resolve(blob);
     });
   });
-}
-
-async function renameImage(srcRef, destRef) {
-  await copyObject(srcRef, destRef);
-  await deleteObject(srcRef);
 }
 
 async function copyObject(srcRef, destRef) {
@@ -226,6 +220,10 @@ async function copyObject(srcRef, destRef) {
     contentType: blob.type,
   };
   await uploadBytes(destRef, blob, metadata);
+}
+async function renameImage(srcRef, destRef) {
+  await copyObject(srcRef, destRef);
+  await deleteObject(srcRef);
 }
 
 async function deleteObject(refToDelete) {
@@ -361,7 +359,12 @@ function handleSignUp(e) {
           updateImageID(user, selectedFileName);
         })
         .catch((error) => {
-          toastr.error("An error ocurred", error)
+          const errorMessage = error.message;
+          if(storedLang == 'en'){
+            toastr.error('The email has already been used. Please choose another email.');
+          }else{
+            toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
+          }
         });
     } else {
       toastr.error('Password confirmation does not match');
@@ -388,7 +391,6 @@ if (select_company) {
         console.log(snapshot); // Debugging line
         snapshot.docs.forEach((doc) => {
           let company = doc.data();
-
           var opt = document.createElement('option');
           opt.value = doc.id;
           opt.textContent = company.company_name;
@@ -4447,7 +4449,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba114');
+    console.log('prueba115');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
