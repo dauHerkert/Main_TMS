@@ -192,6 +192,51 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
+    async function userUploadImage(user) {
+  let storedLang = localStorage.getItem("language");
+  const canvas = profile_cropper.getCroppedCanvas();
+  const metadata = {
+    contentType: 'image/png'
+  };
+
+  const storageRef = ref(storage, `profiles/${selectedFileName}`);
+  const blob = await canvasToBlob(canvas);
+
+  await uploadBytes(storageRef, blob, metadata);
+
+  const finalRef = ref(storage, `profiles/${user.uid}`);
+  await renameImage(storageRef, finalRef);
+
+  toastr.success('You have updated the profile picture successfully');
+}
+
+function canvasToBlob(canvas) {
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => {
+      resolve(blob);
+    });
+  });
+}
+
+async function renameImage(srcRef, destRef) {
+  await copyObject(srcRef, destRef);
+  await deleteObject(srcRef);
+}
+
+async function copyObject(srcRef, destRef) {
+  const url = await getDownloadURL(srcRef);
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const metadata = {
+    contentType: blob.type,
+  };
+  await uploadBytes(destRef, blob, metadata);
+}
+
+async function deleteObject(ref) {
+  await deleteObject(ref);
+}
+
     async function setDefaultFields(user) {
     const userRef = doc(db, 'users', user.uid);
     // Use the `getCompanyType` function to get the company type and zones
@@ -398,8 +443,8 @@ function userExtraInfo(e, user) {
 const profile_img = document.getElementById('profile_img');
 const hiddenProfileInput = document.getElementById('hidden_profile_img');
 var modal4 = document.getElementById("cropper_modal");
-
 let profile_cropper;
+let selectedFileName;
 
 if (profile_img) {
   profile_img.addEventListener("change", function handleProfilePic(e) {
@@ -407,6 +452,7 @@ if (profile_img) {
     e.stopPropagation();
 
     let fileItem = profile_img.files[0];
+    selectedFileName = fileItem.name;
 
     if (profile_img.files.length === 0) {
       toastr.error('Please upload your profile picture');
