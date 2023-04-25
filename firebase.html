@@ -495,25 +495,6 @@ if (profile_img) {
   });
 }
 
-function userUploadImage(user) {
-  let storedLang = localStorage.getItem("language");
-  const canvas = profile_cropper.getCroppedCanvas();
-  const metadata = {
-  contentType: 'image/png'
-};
-  canvas.toBlob((blob) => {
-    const storageRef = ref(storage, 'profiles/' + user.uid);
-    uploadBytes(storageRef, blob, metadata)
-      .then((snapshot) => {
-        toastr.success('You have updated the profile picture successfully');
-      })
-      .catch(err => {
-        console.log('error uploading file', err);
-        toastr.error('There was an error uploading the file');
-      });
-  });
-}
-
     //Handle singin
     async function handleSignIn(e) {
 
@@ -4456,7 +4437,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba110');
+    console.log('prueba111');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
