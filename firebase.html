@@ -500,11 +500,13 @@ if (profile_img) {
 
 // Get the save button element
 const saveButton = document.getElementById("close_button");
-// Add a click event listener to the save button
-saveButton.addEventListener("click", async () => {
-  // Upload the cropped image with its original name
-  await userUploadImage(selectedFileName, hiddenProfileInput.value);
-});
+if(saveButton){
+  // Add a click event listener to the save button
+  saveButton.addEventListener("click", async () => {
+    // Upload the cropped image with its original name
+    await userUploadImage(selectedFileName, hiddenProfileInput.value);
+  });
+}
 
     //Handle singin
     async function handleSignIn(e) {
