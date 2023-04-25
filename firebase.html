@@ -248,8 +248,8 @@ async function deleteObject(refToDelete) {
     // Use the setDoc function to set the userDefaultValues object
     setDoc(userRef, userDefaultValues, { merge: true })
         .then(() => {
-          // Update the image's ID with the user ID
-          updateImageID(user, selectedFileName);
+          const fileName = user.uid;
+          updateImageID(user, fileName);
         // Sign up - DE
             if(storedLang == 'de'){
         (async () => {
@@ -324,15 +324,17 @@ async function deleteObject(refToDelete) {
         });
     };
 
-    async function updateImageID(user, filename) {
-      const oldRef = ref(storage, `profiles/${filename}`);
-      const newRef = ref(storage, `profiles/${user.uid}`);
+    async function updateImageID(user, fileName) {
+  const userRef = doc(db, 'users', user.uid);
+  const userDoc = await getDoc(userRef);
+  const imageID = fileName ? fileName : userDoc.data().user_image_id;
 
-      await renameImage(oldRef, newRef);
+  const updatedValues = {
+    user_image_id: imageID
+  };
 
-      toastr.success("Image ID updated successfully");
-    }
-
+  await updateDoc(userRef, updatedValues);
+}
     // Sign Up
 function handleSignUp(e) {
   e.preventDefault();
@@ -4447,7 +4449,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba116');
+    console.log('prueba117');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
