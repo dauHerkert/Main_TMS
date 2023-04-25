@@ -192,23 +192,18 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    async function userUploadImage(user) {
-  let storedLang = localStorage.getItem("language");
-  const canvas = profile_cropper.getCroppedCanvas();
+    async function userUploadImage(filename, dataURL) {
   const metadata = {
-    contentType: 'image/png'
+    contentType: "image/png",
   };
-
-  const storageRef = ref(storage, `profiles/${selectedFileName}`);
-  const blob = await canvasToBlob(canvas);
+  const storageRef = ref(storage, `profiles/${filename}`);
+  const response = await fetch(dataURL);
+  const blob = await response.blob();
 
   await uploadBytes(storageRef, blob, metadata);
-
-  const finalRef = ref(storage, `profiles/${user.uid}`);
-  await renameImage(storageRef, finalRef);
-
-  toastr.success('You have updated the profile picture successfully');
+  toastr.success("You have updated the profile picture successfully");
 }
+
 
 function canvasToBlob(canvas) {
   return new Promise((resolve) => {
@@ -330,6 +325,15 @@ async function deleteObject(refToDelete) {
         });
     };
 
+    async function updateImageID(user, filename) {
+      const oldRef = ref(storage, `profiles/${filename}`);
+      const newRef = ref(storage, `profiles/${user.uid}`);
+
+      await renameImage(oldRef, newRef);
+
+      toastr.success("Image ID updated successfully");
+    }
+
     // Sign Up
 function handleSignUp(e) {
   e.preventDefault();
@@ -344,22 +348,20 @@ function handleSignUp(e) {
     toastr.error('Please upload your profile picture')
   } else {
     if (password == confirm_password) {
+      // Inside handleSignUp function
       createUserWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-          // Signed in
+        .then((userCredential) => {
           const user = userCredential.user;
-          sessionStorage.setItem('userID', user.uid);
+          sessionStorage.setItem("userID", user.uid);
           setDefaultFields(user);
           userExtraInfo(e, user);
-          toastr.success('user successfully created: ' + user.email);
+          toastr.success("user successfully created: " + user.email);
+
+          // Update the image's ID with the user ID
+          updateImageID(user, selectedFileName);
         })
         .catch((error) => {
-          const errorMessage = error.message;
-          if(storedLang == 'en'){
-            toastr.error('The email has already been used. Please choose another email.');
-          }else{
-            toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
-          }
+          toastr.error("An error ocurred", error)
         });
     } else {
       toastr.error('Password confirmation does not match');
@@ -494,6 +496,14 @@ if (profile_img) {
     }
   });
 }
+
+// Get the save button element
+const saveButton = document.getElementById("close_button");
+// Add a click event listener to the save button
+saveButton.addEventListener("click", async () => {
+  // Upload the cropped image with its original name
+  await userUploadImage(selectedFileName, hiddenProfileInput.value);
+});
 
     //Handle singin
     async function handleSignIn(e) {
@@ -4437,7 +4447,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba113');
+    console.log('prueba114');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
