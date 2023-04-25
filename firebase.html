@@ -307,7 +307,7 @@ async function deleteObject(refToDelete) {
                           window.location = "/de/signup-form-submitted";
                       }
                     } else {
-                      if (userDefaultValues.account_type == 'Supplier' || userDefaultValues.account_type == 'No company' || userDefaultValues.account_type == 'RSW'){
+                      if (userDefaultValues.account_type == 'Supplier' || userDefaultValues.account_type == 'No pdateImageIDcompany' || userDefaultValues.account_type == 'RSW'){
                         window.location = "/en/signup-form-submitted";
                       } else{
                           window.location = "/en/signup-form-submitted";
@@ -325,16 +325,15 @@ async function deleteObject(refToDelete) {
     };
 
     async function updateImageID(user, fileName) {
-  const userRef = doc(db, 'users', user.uid);
-  const userDoc = await getDoc(userRef);
-  const imageID = fileName ? fileName : userDoc.data().user_image_id;
+      const userRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userRef);
+      const imageID = fileName;
+      const updatedValues = {
+        user_image_id: imageID
+      };
 
-  const updatedValues = {
-    user_image_id: imageID
-  };
-
-  await updateDoc(userRef, updatedValues);
-}
+      await updateDoc(userRef, updatedValues);
+    }
     // Sign Up
 function handleSignUp(e) {
   e.preventDefault();
@@ -4449,7 +4448,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba117');
+    console.log('prueba118');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
