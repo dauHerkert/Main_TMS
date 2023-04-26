@@ -334,35 +334,41 @@ async function deleteObject(refToDelete) {
       await updateDoc(userRef, updatedValues);
     }
     // Sign Up
-function handleSignUp(e) {
+    async function handleSignUp(e) {
   e.preventDefault();
   e.stopPropagation();
   const email = document.getElementById('signup-email').value;
   const password = document.getElementById('signup-password').value;
-  var confirm_password = document.getElementById("password-confirm").value;
+  const confirm_password = document.getElementById("password-confirm").value;
   const profile_img = document.getElementById('profile_img');
   let storedLang = localStorage.getItem("language");
 
   if (profile_img.files.length === 0) {
-    toastr.error('Please upload your profile picture')
+    toastr.error('Please upload your profile picture');
   } else {
     if (password == confirm_password) {
       // Inside handleSignUp function
       createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
           const user = userCredential.user;
           sessionStorage.setItem("userID", user.uid);
           setDefaultFields(user);
           userExtraInfo(e, user);
           const fileName = user.uid;
-          toastr.success("user successfully created: " + user.email);
+          
+          // Rename the image after the user is created
+          const srcRef = ref(storage, `profiles/${selectedFileName}`);
+          const destRef = ref(storage, `profiles/${fileName}`);
+          await renameImage(srcRef, destRef);
+          
+          toastr.success("User successfully created: " + user.email);
         })
         .catch((error) => {
           const errorMessage = error.message;
-          if(storedLang == 'en'){
+          if (storedLang == 'en') {
             toastr.error('The email has already been used. Please choose another email.');
-          }else{
-            toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
+          } else {
+            toastr.error('Die E-Mail wurde bereits benutzt. Bitte wählen Sie eine andere E-Mail.');
           }
         });
     } else {
@@ -413,7 +419,7 @@ if (select_company) {
 }
 
 //Add user's extra info to Firestore
-async function userExtraInfo(e, user) {
+function userExtraInfo(e, user) {
   e.preventDefault();
   e.stopPropagation();
   const userRef = doc(db, 'users', user.uid);
@@ -424,16 +430,6 @@ async function userExtraInfo(e, user) {
   let language = localStorage.getItem("language");
 
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : user_company.value;
-
-  // Get the user's uid as the new file name
-  const newFileName = user.uid;  
-  // Rename the image in the storage
-  const srcRef = ref(storage, `profiles/${selectedFileName}`);
-  const destRef = ref(storage, `profiles/${newFileName}`);
-  await renameImage(srcRef, destRef);
-  
-  // Update the user_image_id field in Firestore
-  await updateDoc(userRef, { user_image_id: newFileName });
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -451,7 +447,6 @@ async function userExtraInfo(e, user) {
     toastr.error('There was an error updating your info');
   });
 }
-
 
     //Upload user's profile image
 const profile_img = document.getElementById('profile_img');
@@ -4463,7 +4458,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba121');
+    console.log('prueba122');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
