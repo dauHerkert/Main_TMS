@@ -355,7 +355,6 @@ function handleSignUp(e) {
           setDefaultFields(user);
           userExtraInfo(e, user);
           const fileName = user.uid;
-          updateImageID(user, fileName);
           toastr.success("user successfully created: " + user.email);
         })
         .catch((error) => {
@@ -414,7 +413,7 @@ if (select_company) {
 }
 
 //Add user's extra info to Firestore
-function userExtraInfo(e, user) {
+async function userExtraInfo(e, user) {
   e.preventDefault();
   e.stopPropagation();
   const userRef = doc(db, 'users', user.uid);
@@ -425,6 +424,16 @@ function userExtraInfo(e, user) {
   let language = localStorage.getItem("language");
 
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : user_company.value;
+
+  // Get the user's uid as the new file name
+  const newFileName = user.uid;  
+  // Rename the image in the storage
+  const srcRef = ref(storage, `profiles/${selectedFileName}`);
+  const destRef = ref(storage, `profiles/${newFileName}`);
+  await renameImage(srcRef, destRef);
+  
+  // Update the user_image_id field in Firestore
+  await updateDoc(userRef, { user_image_id: newFileName });
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -442,6 +451,7 @@ function userExtraInfo(e, user) {
     toastr.error('There was an error updating your info');
   });
 }
+
 
     //Upload user's profile image
 const profile_img = document.getElementById('profile_img');
@@ -4453,7 +4463,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba120');
+    console.log('prueba121');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
