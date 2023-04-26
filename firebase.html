@@ -375,7 +375,7 @@ function userExtraInfo(e, user) {
   const user_company = document.getElementById('sign-up-company');
   let language = localStorage.getItem("language");
 
-  const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : user_company.value;
+  const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -4410,7 +4410,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba121');
+    console.log('prueba120');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
