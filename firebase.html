@@ -202,6 +202,7 @@
 
   await uploadBytes(storageRef, blob, metadata);
   toastr.success("You have updated the profile picture successfully");
+  return filename;
 }
 
 function canvasToBlob(canvas) {
@@ -499,11 +500,13 @@ if (profile_img) {
 }
 
 // Get the save button element
+let profileDataURL;
 const saveButton = document.getElementById("close_button");
 if(saveButton){
   // Add a click event listener to the save button
   saveButton.addEventListener("click", async () => {
     // Upload the cropped image with its original name
+    profileDataURL = hiddenProfileInput.value;
     await userUploadImage(selectedFileName, hiddenProfileInput.value);
   });
 }
@@ -4450,7 +4453,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba118');
+    console.log('prueba119');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
