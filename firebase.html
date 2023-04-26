@@ -336,19 +336,19 @@ function handleSignUp(e) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
           // Signed in
-        const user = userCredential.user;
-        const tempImageId = sessionStorage.getItem('tempImageId');
-        if (tempImageId) {
-          // Update the image ID/name after the user's information is submitted
-          await handleImageRename(tempImageId, user.uid);
-          sessionStorage.removeItem('tempImageId');
-          toastr.success('Image ID/name updated successfully');
-        }
-        sessionStorage.setItem('userID', user.uid);
-        setDefaultFields(user);
-        userExtraInfo(e, user);
-        toastr.success('user successfully created: ' + user.email);
-      })
+          const user = userCredential.user;
+          const tempImageId = sessionStorage.getItem('tempImageId');
+          if (tempImageId) {
+            // Update the image ID/name after the user's information is submitted
+            await handleImageRename(tempImageId, user.uid);
+            sessionStorage.removeItem('tempImageId');
+            toastr.success('Image ID/name updated successfully');
+          }
+          sessionStorage.setItem('userID', user.uid);
+          setDefaultFields(user);
+          userExtraInfo(e, user);
+          toastr.success('user successfully created: ' + user.email);
+        })
         .catch((error) => {
           const errorMessage = error.message;
           if(storedLang == 'en'){
@@ -4477,7 +4477,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba121');
+    console.log('prueba120');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
