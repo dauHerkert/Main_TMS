@@ -483,6 +483,17 @@ document.getElementById('close_button').addEventListener('click', async () => {
   }
 });
 
+async function renameImage(oldRef, newRef) {
+  const tempImageUrl = await getDownloadURL(oldRef);
+  const response = await fetch(tempImageUrl);
+  const blob = await response.blob();
+  const metadata = { contentType: 'image/png' };
+
+  await uploadBytes(newRef, blob, metadata);
+  await deleteObject(oldRef);
+}
+
+
 async function updateImageId(oldId, newId) {
   const oldRef = ref(storage, 'profiles/' + oldId);
   const newRef = ref(storage, 'profiles/' + newId);
@@ -4458,7 +4469,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba1211');
+    console.log('prueba120');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
