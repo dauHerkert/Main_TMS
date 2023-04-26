@@ -192,45 +192,6 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
-    async function userUploadImage(filename, dataURL) {
-  const metadata = {
-    contentType: "image/png",
-  };
-  const storageRef = ref(storage, `profiles/${filename}`);
-  const response = await fetch(dataURL);
-  const blob = await response.blob();
-
-  await uploadBytes(storageRef, blob, metadata);
-  toastr.success("You have updated the profile picture successfully");
-  return filename;
-}
-
-function canvasToBlob(canvas) {
-  return new Promise((resolve) => {
-    canvas.toBlob((blob) => {
-      resolve(blob);
-    });
-  });
-}
-
-async function copyObject(srcRef, destRef) {
-  const url = await getDownloadURL(srcRef);
-  const response = await fetch(url);
-  const blob = await response.blob();
-  const metadata = {
-    contentType: blob.type,
-  };
-  await uploadBytes(destRef, blob, metadata);
-}
-async function renameImage(srcRef, destRef) {
-  await copyObject(srcRef, destRef);
-  await deleteObject(srcRef);
-}
-
-async function deleteObject(refToDelete) {
-  await delete_(refToDelete);
-}
-
     async function setDefaultFields(user) {
     const userRef = doc(db, 'users', user.uid);
     // Use the `getCompanyType` function to get the company type and zones
@@ -249,6 +210,7 @@ async function deleteObject(refToDelete) {
     // Use the setDoc function to set the userDefaultValues object
     setDoc(userRef, userDefaultValues, { merge: true })
         .then(() => {
+            userUploadImage(user);
         // Sign up - DE
             if(storedLang == 'de'){
         (async () => {
@@ -306,7 +268,7 @@ async function deleteObject(refToDelete) {
                           window.location = "/de/signup-form-submitted";
                       }
                     } else {
-                      if (userDefaultValues.account_type == 'Supplier' || userDefaultValues.account_type == 'No pdateImageIDcompany' || userDefaultValues.account_type == 'RSW'){
+                      if (userDefaultValues.account_type == 'Supplier' || userDefaultValues.account_type == 'No company' || userDefaultValues.account_type == 'RSW'){
                         window.location = "/en/signup-form-submitted";
                       } else{
                           window.location = "/en/signup-form-submitted";
@@ -323,52 +285,35 @@ async function deleteObject(refToDelete) {
         });
     };
 
-    async function updateImageID(user, fileName) {
-      const userRef = doc(db, 'users', user.uid);
-      const userDoc = await getDoc(userRef);
-      const imageID = fileName;
-      const updatedValues = {
-        user_image_id: imageID
-      };
-
-      await updateDoc(userRef, updatedValues);
-    }
     // Sign Up
-    async function handleSignUp(e) {
+function handleSignUp(e) {
   e.preventDefault();
   e.stopPropagation();
   const email = document.getElementById('signup-email').value;
   const password = document.getElementById('signup-password').value;
-  const confirm_password = document.getElementById("password-confirm").value;
+  var confirm_password = document.getElementById("password-confirm").value;
   const profile_img = document.getElementById('profile_img');
   let storedLang = localStorage.getItem("language");
 
   if (profile_img.files.length === 0) {
-    toastr.error('Please upload your profile picture');
+    toastr.error('Please upload your profile picture')
   } else {
     if (password == confirm_password) {
-      // Inside handleSignUp function
       createUserWithEmailAndPassword(auth, email, password)
-        .then(async (userCredential) => {
+        .then(userCredential => {
+          // Signed in
           const user = userCredential.user;
-          sessionStorage.setItem("userID", user.uid);
+          sessionStorage.setItem('userID', user.uid);
           setDefaultFields(user);
           userExtraInfo(e, user);
-          const fileName = user.uid;
-          
-          // Rename the image after the user is created
-          const srcRef = ref(storage, `profiles/${selectedFileName}`);
-          const destRef = ref(storage, `profiles/${fileName}`);
-          await renameImage(srcRef, destRef);
-          
-          toastr.success("User successfully created: " + user.email);
+          toastr.success('user successfully created: ' + user.email);
         })
         .catch((error) => {
           const errorMessage = error.message;
-          if (storedLang == 'en') {
+          if(storedLang == 'en'){
             toastr.error('The email has already been used. Please choose another email.');
-          } else {
-            toastr.error('Die E-Mail wurde bereits benutzt. Bitte wählen Sie eine andere E-Mail.');
+          }else{
+            toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
           }
         });
     } else {
@@ -396,6 +341,7 @@ if (select_company) {
         console.log(snapshot); // Debugging line
         snapshot.docs.forEach((doc) => {
           let company = doc.data();
+
           var opt = document.createElement('option');
           opt.value = doc.id;
           opt.textContent = company.company_name;
@@ -452,8 +398,8 @@ function userExtraInfo(e, user) {
 const profile_img = document.getElementById('profile_img');
 const hiddenProfileInput = document.getElementById('hidden_profile_img');
 var modal4 = document.getElementById("cropper_modal");
+
 let profile_cropper;
-let selectedFileName;
 
 if (profile_img) {
   profile_img.addEventListener("change", function handleProfilePic(e) {
@@ -461,7 +407,6 @@ if (profile_img) {
     e.stopPropagation();
 
     let fileItem = profile_img.files[0];
-    selectedFileName = fileItem.name;
 
     if (profile_img.files.length === 0) {
       toastr.error('Please upload your profile picture');
@@ -504,15 +449,22 @@ if (profile_img) {
   });
 }
 
-// Get the save button element
-let profileDataURL;
-const saveButton = document.getElementById("close_button");
-if(saveButton){
-  // Add a click event listener to the save button
-  saveButton.addEventListener("click", async () => {
-    // Upload the cropped image with its original name
-    profileDataURL = hiddenProfileInput.value;
-    await userUploadImage(selectedFileName, hiddenProfileInput.value);
+function userUploadImage(user) {
+  let storedLang = localStorage.getItem("language");
+  const canvas = profile_cropper.getCroppedCanvas();
+  const metadata = {
+  contentType: 'image/png'
+};
+  canvas.toBlob((blob) => {
+    const storageRef = ref(storage, 'profiles/' + user.uid);
+    uploadBytes(storageRef, blob, metadata)
+      .then((snapshot) => {
+        toastr.success('You have updated the profile picture successfully');
+      })
+      .catch(err => {
+        console.log('error uploading file', err);
+        toastr.error('There was an error uploading the file');
+      });
   });
 }
 
@@ -4458,7 +4410,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba122');
+    console.log('prueba120');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
