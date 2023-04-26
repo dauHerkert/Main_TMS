@@ -451,22 +451,34 @@ if (profile_img) {
 
 function userUploadImage(user) {
   let storedLang = localStorage.getItem("language");
-  const canvas = profile_cropper.getCroppedCanvas();
-  const metadata = {
-  contentType: 'image/png'
-};
-  canvas.toBlob((blob) => {
-    const storageRef = ref(storage, 'profiles/' + user.uid);
-    uploadBytes(storageRef, blob, metadata)
-      .then((snapshot) => {
-        toastr.success('You have updated the profile picture successfully');
-      })
-      .catch(err => {
-        console.log('error uploading file', err);
-        toastr.error('There was an error uploading the file');
-      });
-  });
+  const dataURL = hiddenProfileInput.value;
+  if (!dataURL) {
+    toastr.error('There was an error processing the profile picture');
+    return;
+  }
+  // Convert data URL to blob
+  fetch(dataURL)
+    .then((res) => res.blob())
+    .then((blob) => {
+      const metadata = {
+        contentType: 'image/png',
+      };
+      const storageRef = ref(storage, 'profiles/' + user.uid);
+      uploadBytes(storageRef, blob, metadata)
+        .then((snapshot) => {
+          toastr.success('You have updated the profile picture successfully');
+        })
+        .catch((err) => {
+          console.log('error uploading file', err);
+          toastr.error('There was an error uploading the file');
+        });
+    })
+    .catch((err) => {
+      console.log('error converting dataURL to blob', err);
+      toastr.error('There was an error processing the profile picture');
+    });
 }
+
 
     //Handle singin
     async function handleSignIn(e) {
@@ -4410,7 +4422,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba120');
+    console.log('prueba121');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
