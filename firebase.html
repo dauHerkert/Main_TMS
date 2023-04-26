@@ -192,6 +192,40 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
+    async function uploadTempImage() {
+      const canvas = profile_cropper.getCroppedCanvas();
+      const metadata = { contentType: 'image/png' };
+      
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(async (blob) => {
+          try {
+            const tempId = 'temp_' + new Date().getTime();
+            const tempRef = ref(storage, 'profiles/' + tempId);
+            await uploadBytes(tempRef, blob, metadata);
+            resolve(tempId);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      });
+    }
+    async function handleImageRename(oldId, newId) {
+      // Download the temporary image
+      const oldRef = ref(storage, 'profiles/' + oldId);
+      const url = await getDownloadURL(oldRef);
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const metadata = { contentType: 'image/png' };
+
+      // Upload the image with the new name
+      const newRef = ref(storage, 'profiles/' + newId);
+      await uploadBytes(newRef, blob, metadata);
+
+      // Delete the temporary image
+      await deleteObject(oldRef);
+    }
+
+
     async function setDefaultFields(user) {
     const userRef = doc(db, 'users', user.uid);
     // Use the `getCompanyType` function to get the company type and zones
@@ -300,14 +334,21 @@ function handleSignUp(e) {
   } else {
     if (password == confirm_password) {
       createUserWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
+        .then(async (userCredential) => {
           // Signed in
-          const user = userCredential.user;
-          sessionStorage.setItem('userID', user.uid);
-          setDefaultFields(user);
-          userExtraInfo(e, user);
-          toastr.success('user successfully created: ' + user.email);
-        })
+        const user = userCredential.user;
+        const tempImageId = sessionStorage.getItem('tempImageId');
+        if (tempImageId) {
+          // Update the image ID/name after the user's information is submitted
+          await handleImageRename(tempImageId, user.uid);
+          sessionStorage.removeItem('tempImageId');
+          toastr.success('Image ID/name updated successfully');
+        }
+        sessionStorage.setItem('userID', user.uid);
+        setDefaultFields(user);
+        userExtraInfo(e, user);
+        toastr.success('user successfully created: ' + user.email);
+      })
         .catch((error) => {
           const errorMessage = error.message;
           if(storedLang == 'en'){
@@ -447,6 +488,32 @@ if (profile_img) {
       }
     }
   });
+}
+
+document.getElementById('close_button').addEventListener('click', async () => {
+  if (profile_cropper) {
+    try {
+      const tempId = await uploadTempImage();
+      sessionStorage.setItem('tempImageId', tempId);
+      toastr.success('Image uploaded temporarily');
+    } catch (error) {
+      toastr.error('Error uploading the image temporarily');
+    }
+  }
+});
+
+async function updateImageId(oldId, newId) {
+  const oldRef = ref(storage, 'profiles/' + oldId);
+  const newRef = ref(storage, 'profiles/' + newId);
+
+  try {
+    await renameImage(oldRef, newRef);
+    sessionStorage.removeItem('tempImageId');
+    toastr.success('Image ID/name updated successfully');
+  } catch (error) {
+    console.error('Error updating image ID/name:', error);
+    toastr.error('Error updating image ID/name');
+  }
 }
 
 function userUploadImage(user) {
@@ -4410,7 +4477,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba120');
+    console.log('prueba121');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
