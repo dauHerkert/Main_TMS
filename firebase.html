@@ -195,6 +195,7 @@
     const signup_button = document.getElementById('signup_button');
     if(signup_button){
       signup_button.disabled = true;
+      signup_button.style.backgroundColor = '#EBEBE4';
     }
 
     function generateTempId() {
@@ -498,6 +499,7 @@ async function userUploadImage(user, imageId, hiddenProfileInput) {
         .then((snapshot) => {
           toastr.success('You have updated the profile picture successfully');
           signup_button.disabled = false;
+          signup_button.style.backgroundColor = '#f2a100';
           return `profiles/${imageId}`;
         })
         .catch((err) => {
