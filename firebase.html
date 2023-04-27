@@ -198,6 +198,8 @@
       signup_button.style.backgroundColor = '#EBEBE4';
     }
 
+    const uploading_image = document.getElementById('uploading_image');
+
     function generateTempId() {
       return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
@@ -500,6 +502,7 @@ async function userUploadImage(user, imageId, hiddenProfileInput) {
           toastr.success('You have updated the profile picture successfully');
           signup_button.disabled = false;
           signup_button.style.backgroundColor = '#f2a100';
+          uploading_image.style.display = 'none';
           return `profiles/${imageId}`;
         })
         .catch((err) => {
@@ -520,6 +523,7 @@ const saveButton = document.getElementById("close_button");
       sessionStorage.setItem("tempImageId", tempId);
       const hiddenProfileInput = document.getElementById('hidden_profile_img');
       await userUploadImage(null, tempId, hiddenProfileInput);
+      uploading_image.style.display = 'block';
     });
   }
 
@@ -4465,7 +4469,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba127');
+    console.log('prueba128');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
