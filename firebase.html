@@ -1936,7 +1936,7 @@ if (window.innerWidth < 768) {
           }
         });
 
-        uniqueCompanies.sort();
+        uniqueCompanies = uniqueCompanies.map(company => company.trim()).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
 
         return uniqueCompanies;
       }
@@ -4474,7 +4474,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba130');
+    console.log('prueba131');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
