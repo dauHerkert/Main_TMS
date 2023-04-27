@@ -505,7 +505,7 @@ async function userUploadImage(user, imageId, hiddenProfileInput) {
     });
 }
 
-    //Handle singin
+    // ============ Handle singin ===============
     async function handleSignIn(e) {
 
     e.preventDefault();
@@ -873,10 +873,9 @@ async function userUploadImage(user, imageId, hiddenProfileInput) {
     document.getElementById("close_button").addEventListener("click", async function () {
       const tempId = generateTempId();
       sessionStorage.setItem("tempImageId", tempId);
-      const hiddenProfileInput = document.getElementById('hidden_input');
-      await userUploadImage(user, tempId, hiddenProfileInput);
+      const hiddenProfileInput = document.getElementById('hidden_profile_img');
+      await userUploadImage(null, tempId, hiddenProfileInput);
     });
-
 
     //Update profile picture
   const updatedPicture = document.getElementById('updated_picture');
@@ -4455,7 +4454,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba122');
+    console.log('prueba123');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
