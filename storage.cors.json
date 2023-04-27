@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://main-tms.webflow.io/"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
