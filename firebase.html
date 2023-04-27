@@ -10,7 +10,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, updateEmail, updatePassword, sendPasswordResetEmail, deleteUser, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
     import { getFirestore, collection, addDoc, setDoc, updateDoc, getDoc, doc, query, where, getDocs, deleteDoc, writeBatch } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
-    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject as delete_ } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
+    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyB5rmetz90Ms1BI0tvtF0T7SB0tRbmTXZk",
@@ -192,6 +192,10 @@
     * -----------------------------------------------------------------------------------------------------------
     */
 
+    function generateTempId() {
+      return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
+
     async function setDefaultFields(user) {
     const userRef = doc(db, 'users', user.uid);
     // Use the `getCompanyType` function to get the company type and zones
@@ -209,8 +213,29 @@
     let storedLang = localStorage.getItem("language");
     // Use the setDoc function to set the userDefaultValues object
     setDoc(userRef, userDefaultValues, { merge: true })
-        .then(() => {
-            userUploadImage(user);
+        .then(async () => {
+          await userUploadImage(user, tempImageId, hiddenProfileInput);
+            const tempImageId = sessionStorage.getItem("tempImageId");
+            const oldImagePath = `profiles/${tempImageId}`;
+            const newImagePath = `profiles/${user.uid}`;
+
+            // Download the old image
+            const oldImageRef = ref(storage, oldImagePath);
+            const oldImageUrl = await getDownloadURL(oldImageRef);
+
+            // Upload the image with the new name
+            const response = await fetch(oldImageUrl);
+            const blob = await response.blob();
+            const newImageRef = ref(storage, newImagePath);
+            await uploadBytes(newImageRef, blob, { contentType: 'image/png' });
+
+            // Delete the old image
+            await deleteObject(oldImageRef);
+
+            // Update the user's profile image path in Firestore
+            const userRef = doc(db, 'users', user.uid);
+            await updateDoc(userRef, { profileImagePath: newImagePath });
+
         // Sign up - DE
             if(storedLang == 'de'){
         (async () => {
@@ -449,7 +474,7 @@ if (profile_img) {
   });
 }
 
-function userUploadImage(user) {
+async function userUploadImage(user, imageId, hiddenProfileInput) {
   let storedLang = localStorage.getItem("language");
   const dataURL = hiddenProfileInput.value;
   if (!dataURL) {
@@ -457,16 +482,17 @@ function userUploadImage(user) {
     return;
   }
   // Convert data URL to blob
-  fetch(dataURL)
+  return fetch(dataURL)
     .then((res) => res.blob())
     .then((blob) => {
       const metadata = {
         contentType: 'image/png',
       };
-      const storageRef = ref(storage, 'profiles/' + user.uid);
-      uploadBytes(storageRef, blob, metadata)
+      const storageRef = ref(storage, 'profiles/' + imageId);
+      return uploadBytes(storageRef, blob, metadata)
         .then((snapshot) => {
           toastr.success('You have updated the profile picture successfully');
+          return `profiles/${imageId}`;
         })
         .catch((err) => {
           console.log('error uploading file', err);
@@ -478,7 +504,6 @@ function userUploadImage(user) {
       toastr.error('There was an error processing the profile picture');
     });
 }
-
 
     //Handle singin
     async function handleSignIn(e) {
@@ -844,6 +869,14 @@ function userUploadImage(user) {
           // Handle any errors
         });
     }
+
+    document.getElementById("close_button").addEventListener("click", async function () {
+      const tempId = generateTempId();
+      sessionStorage.setItem("tempImageId", tempId);
+      const hiddenProfileInput = document.getElementById('hidden_input');
+      await userUploadImage(user, tempId, hiddenProfileInput);
+    });
+
 
     //Update profile picture
   const updatedPicture = document.getElementById('updated_picture');
@@ -4422,7 +4455,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba121');
+    console.log('prueba122');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
