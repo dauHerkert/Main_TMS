@@ -197,6 +197,10 @@
       signup_button.disabled = true;
       signup_button.style.backgroundColor = '#EBEBE4';
     }
+    const fileName = document.getElementById("fileName");
+    if(fileName){
+      fileName.style.display = 'none';
+    }
 
     const uploading_image = document.getElementById('uploading_image');
 
@@ -503,6 +507,7 @@ async function userUploadImage(user, imageId, hiddenProfileInput) {
           signup_button.disabled = false;
           signup_button.style.backgroundColor = '#f2a100';
           uploading_image.style.display = 'none';
+          fileName.style.display = 'block';
           return `profiles/${imageId}`;
         })
         .catch((err) => {
@@ -4469,7 +4474,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba129');
+    console.log('prueba130');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
