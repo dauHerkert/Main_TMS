@@ -216,7 +216,6 @@
     setDoc(userRef, userDefaultValues, { merge: true })
         .then(async () => {
           await userUploadImage(user, tempImageId, hiddenProfileInput);
-            const tempImageId = sessionStorage.getItem("tempImageId");
             const oldImagePath = `profiles/${tempImageId}`;
             const newImagePath = `profiles/${user.uid}`;
 
@@ -4455,7 +4454,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://main-tms.webflow.io/'){
       window.location.href = 'https://main-tms.webflow.io/en/signin-porsche'
     }
-    console.log('prueba124');
+    console.log('prueba125');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
