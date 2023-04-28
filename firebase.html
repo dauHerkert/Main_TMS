@@ -70,7 +70,7 @@
       basic_admin: '0',
       user_zones: '',
       // account_type: supplier | press | RSW
-      account_type: '',
+      account_type: 'Supplier',
       //User profile
       user_type: '',
       // user_status: pending | ok
@@ -218,7 +218,6 @@
     const userID = sessionStorage.getItem('userID');
     const tempImageId = sessionStorage.getItem("tempImageId");
     // Use the companyProfile variable to set the user_type field
-    userDefaultValues.account_type = companyProfile;
     userDefaultValues.user_email = user.email;
     userDefaultValues.user_id = user.uid;
     // Use the companyZones variable to set the user_zones field
