@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://main-tms.webflow.io/"],
+    "origin": ["https://bho-tournament.webflow.io/"],
     "method": ["GET"],
     "maxAgeSeconds": 3600
   }
