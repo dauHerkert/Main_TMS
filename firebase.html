@@ -4357,45 +4357,45 @@ function changeLanguage(lang) {
       if(storedLang){
         if(storedLang == "de"){
           if(user_lang){
-            document.getElementById('englishBtn').style.color = "#000";
-            document.getElementById('germanBtn').style.color = "#B11372";
+            document.getElementById('englishBtn').style.color = "#000 !important";
+            document.getElementById('germanBtn').style.color = "#B11372 !important";
           }
           if(sign_lang){
-            document.getElementById('englishBtn2').style.color = "#000";
-            document.getElementById('germanBtn2').style.color = "#B11372";
+            document.getElementById('englishBtn2').style.color = "#000 !important";
+            document.getElementById('germanBtn2').style.color = "#B11372 !important";
           }
       }else{
         if(user_lang){
-            document.getElementById('englishBtn').style.color = "#B11372";
-            document.getElementById('germanBtn').style.color = "#000";
+            document.getElementById('englishBtn').style.color = "#B11372 !important";
+            document.getElementById('germanBtn').style.color = "#000 !important";
         }
         if(sign_lang){
-          document.getElementById('englishBtn2').style.color = "#B11372";
-            document.getElementById('germanBtn2').style.color = "#000";
+          document.getElementById('englishBtn2').style.color = "#B11372 !important";
+            document.getElementById('germanBtn2').style.color = "#000 !important";
         }
       }
       }else{
         if(user_lang){
-          document.getElementById('englishBtn').style.color = "#B11372";
-            document.getElementById('germanBtn').style.color = "#000";
+          document.getElementById('englishBtn').style.color = "#B11372 !important";
+            document.getElementById('germanBtn').style.color = "#000 !important";
         }
         if(sign_lang){
-          document.getElementById('englishBtn2').style.color = "#B11372";
-            document.getElementById('germanBtn2').style.color = "#000";
+          document.getElementById('englishBtn2').style.color = "#B11372 !important";
+            document.getElementById('germanBtn2').style.color = "#000 !important";
         }
       }
 
     document.getElementById("englishBtn").addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
-        document.getElementById('englishBtn').style.color = "#B11372";
-        document.getElementById('germanBtn').style.color = "#000";
+        document.getElementById('englishBtn').style.color = "#B11372 !important";
+        document.getElementById('germanBtn').style.color = "#000 !important";
     });
     document.getElementById("germanBtn").addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
-        document.getElementById('germanBtn').style.color = "#B11372";
-        document.getElementById('englishBtn').style.color = "#000";
+        document.getElementById('germanBtn').style.color = "#B11372 !important";
+        document.getElementById('englishBtn').style.color = "#000 !important";
     });
 
     let signEnBtn = document.getElementById("englishBtn2")
@@ -4403,8 +4403,8 @@ function changeLanguage(lang) {
       signEnBtn.addEventListener("click", function() {
         changeLanguage("en");
         updateLinks();
-        document.getElementById('germanBtn2').style.color = "#000";
-        document.getElementById('englishBtn2').style.color = "#B11372";
+        document.getElementById('germanBtn2').style.color = "#000 !important";
+        document.getElementById('englishBtn2').style.color = "#B11372 !important";
     });
     }
     let signDeBtn = document.getElementById("germanBtn2")
@@ -4412,8 +4412,8 @@ function changeLanguage(lang) {
       signDeBtn.addEventListener("click", function() {
         changeLanguage("de");
         updateLinks();
-        document.getElementById('germanBtn2').style.color = "#B11372";
-        document.getElementById('englishBtn2').style.color = "#000";
+        document.getElementById('germanBtn2').style.color = "#B11372 !important";
+        document.getElementById('englishBtn2').style.color = "#000 !important";
     });
     }
 
