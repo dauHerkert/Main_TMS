@@ -54,8 +54,6 @@
       press_media_type: '',
       user_itwa: '',
       press_workspot: '',
-      press_locker: '',
-      press_hotel_information: '',
       press_form_user: '0',
       press_id: '',
       press_issued_by: '',
@@ -1116,8 +1114,6 @@ function updateFileLabel() {
     let press_phone = document.getElementById('press_phone');
     let press_itwa = document.getElementById('press_itwa');
     let press_workspace = document.getElementById('press_workspace');
-    let press_locker = document.getElementById('press_locker');
-    let press_hotel_information = document.getElementById('press_hotel_information');
     let language = localStorage.getItem('language');
 
 
@@ -1139,8 +1135,6 @@ function updateFileLabel() {
           user_phone: press_phone.value,
           user_itwa: press_itwa.value,
           press_workspot: press_workspace.value,
-          press_locker: press_locker.value,
-          press_hotel_information: press_hotel_information.value,
           press_form_user: '1',
           user_company: 'JVhBWwwfdL03n4mh57rG',
           company_admin: '0',
@@ -1954,8 +1948,6 @@ if (window.innerWidth < 768) {
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"ITWA", field:"user_itwa", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Workspot", field:"press_workspot", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"Locker", field:"press_locker", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"Hotel info", field:"press_hotel_information", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User title", field:"user_title", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press media type", field:"press_media_type", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -2107,7 +2099,7 @@ getDocs(q)
         let user = doc.data();
 
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_information: user.press_hotel_information, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
+          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
 
         }));
     });
@@ -3370,8 +3362,6 @@ create_user_zone.addEventListener('change', () => {
             confirmed_email: '1',
             language: storedLang,
             press_form_user: '0',
-            press_hotel_information: '',
-            press_locker: '',
             press_media: '',
             press_media_type: '',
             press_workspot: '',
