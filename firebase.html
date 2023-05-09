@@ -4357,25 +4357,31 @@ function changeLanguage(lang) {
       if(storedLang){
         if(storedLang == "de"){
           if(user_lang){
-            user_lang.innerHTML = "DE";
+            document.getElementById('englishBtn').style.color = "#000";
+            document.getElementById('germanBtn').style.color = "#B11372";
           }
           if(sign_lang){
-          sign_lang.innerHTML = "DE";
+            document.getElementById('englishBtn2').style.color = "#000";
+            document.getElementById('germanBtn2').style.color = "#B11372";
           }
       }else{
         if(user_lang){
-        document.getElementById('selected_lang').innerHTML = "EN";
+            document.getElementById('englishBtn').style.color = "#B11372";
+            document.getElementById('germanBtn').style.color = "#000";
         }
         if(sign_lang){
-          sign_lang.innerHTML = "EN";
+          document.getElementById('englishBtn2').style.color = "#B11372";
+            document.getElementById('germanBtn2').style.color = "#000";
         }
       }
       }else{
         if(user_lang){
-        document.getElementById('selected_lang').innerHTML = "EN";
+          document.getElementById('englishBtn').style.color = "#B11372";
+            document.getElementById('germanBtn').style.color = "#000";
         }
         if(sign_lang){
-          sign_lang.innerHTML = "EN";
+          document.getElementById('englishBtn2').style.color = "#B11372";
+            document.getElementById('germanBtn2').style.color = "#000";
         }
       }
 
