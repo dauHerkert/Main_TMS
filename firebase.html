@@ -2047,9 +2047,35 @@ if (window.innerWidth < 768) {
         ],
 });
 
-table.on("columnVisibilityChanged", function(){
-$(".tabulator-header-filter").appendTo("#tusnalgas");
+var companyFilterSelect = document.getElementById("company-filter");
+
+//Print companies select
+getDocs(company_colRef)
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              let company = doc.data();
+
+              var opt = document.createElement('option');
+              opt.value = doc.id;
+              opt.textContent = company.company_name;
+              companyFilterSelect.appendChild(opt);
+            });
+          })
+          .catch(err => {
+            console.log('error fetching companies', err);
+          })
+
+companyFilterSelect.addEventListener("change", function() {
+    // Obtener la columna "company" de la tabla
+    var companyColumn = table.getColumn("company");
+
+    // Obtener el valor seleccionado en el select
+    var selectedCompany = companyFilterSelect.value;
+
+    // Establecer el valor seleccionado en el filtro de la columna "company" en la tabla
+    table.setHeaderFilterValue(companyColumn, selectedCompany);
 });
+
 
 $(document).ready(function() {
           $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
@@ -3221,20 +3247,6 @@ update_user_form.addEventListener('submit', (e) => {
           .catch(err => {
             console.log('error fetching companies', err);
           });
-
-          // Save the user's zones to the database
-         /* function saveCreatedUserZones(userID) {
-            const userRef = doc(db, 'users', userID);
-            setDoc(userRef, {
-              user_zones: selectedCreateUserZonesString !== '' ? selectedCreateUserZonesString : '',
-            }, { merge: true })
-            .then(() => {
-              console.log('User zones updated successfully.');
-            })
-            .catch((error) => {
-              console.log('Error updating user zones:', error);
-            });
-          }*/
 
           //Print zones select
           const create_user_zone = document.getElementById('createUserZones');
@@ -4483,7 +4495,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba143');
+    console.log('prueba144');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
