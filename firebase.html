@@ -2047,6 +2047,10 @@ if (window.innerWidth < 768) {
         ],
 });
 
+table.on("columnVisibilityChanged", function(){
+$(".tabulator-header-filter").appendTo("#table_info_container");
+});
+
 $(document).ready(function() {
           $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
           $(".tabulator-paginator").find(".tabulator-page[data-page='next']").html("&gt;");
@@ -4479,7 +4483,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba141');
+    console.log('prueba142');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
