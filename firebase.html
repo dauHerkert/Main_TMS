@@ -2048,6 +2048,7 @@ if (window.innerWidth < 768) {
 });
 
 var companyFilterSelect = document.getElementById("company-filter");
+let statusFilterSelect = document.getElementById("status-filter");
 
 //Print companies select
 getDocs(company_colRef)
@@ -2066,16 +2067,15 @@ getDocs(company_colRef)
           })
 
 companyFilterSelect.addEventListener("change", function() {
-    // Obtener la columna "company" de la tabla
-    var companyColumn = table.getColumn("company");
-
-    // Obtener el valor seleccionado en el select
-    var selectedCompany = companyFilterSelect.value;
-
-    // Establecer el valor seleccionado en el filtro de la columna "company" en la tabla
+    let companyColumn = table.getColumn("company");
+    let selectedCompany = companyFilterSelect.value;
     table.setHeaderFilterValue(companyColumn, selectedCompany);
 });
-
+statusFilterSelect.addEventListener("change", function() {
+    let statusColumn = table.getColumn("company");
+    let selectedStatus = statusFilterSelect.value;
+    table.setHeaderFilterValue(statusColumn, selectedStatus);
+});
 
 $(document).ready(function() {
           $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
@@ -4495,7 +4495,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba146');
+    console.log('prueba147');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
