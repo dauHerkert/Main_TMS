@@ -2054,6 +2054,9 @@ $(document).ready(function() {
             $(".tabulator-paginator").find(".tabulator-page[data-page='first']").html("Zurück");
             $(".tabulator-paginator").find(".tabulator-page[data-page='last']").html("Vor");
           }
+          const tableFilters = table.getHeaderFilters();
+          const tableFiltersContainer = document.querySelector("#tusnalgas");
+          tableFilters.forEach((filterEl) => tableFiltersContainer.appendChild(filterEl));
         });
 
 let selectedData = [];
@@ -4476,7 +4479,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba140');
+    console.log('prueba141');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
