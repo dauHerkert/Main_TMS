@@ -1645,6 +1645,10 @@ submit_button.addEventListener('click', function(ev) {
         console.log('there was a problem signin user', err);
         toastr.error('There was an error signin user');
      })
+
+     //Print zones select
+      const supplier_user_zone = document.getElementById('supplierUserZones');
+      createOptions(supplier_user_zone);
      }
          //Display profile picture
     function showUserPic(user){
@@ -3252,6 +3256,7 @@ update_user_form.addEventListener('submit', (e) => {
           const create_user_zone = document.getElementById('createUserZones');
 
               createOptions(create_user_zone);
+
             setDoc(userRef, {
               last_signin_date: new Date()
             }, { merge: true })
@@ -4500,7 +4505,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba154');
+    console.log('prueba155');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
