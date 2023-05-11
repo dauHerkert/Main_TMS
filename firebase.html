@@ -1658,25 +1658,6 @@ submit_button.addEventListener('click', function(ev) {
         });
     }
 
-    var startDatePicker = $('[data-date-picker="datepicker-start"]');
-    let datepickerLocaleToUse = 'en';
-    if (storedLang == 'de') {
-      datepickerLocaleToUse = 'de';
-    }
-
-    startDatePicker.datepicker({
-    multipleDates: false,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: new Date(today.getFullYear(), 3, 11),
-    maxDate: new Date(today.getFullYear(), 3, 23),
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
-    }
-  });
-
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
@@ -4517,7 +4498,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba152');
+    console.log('prueba153');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
