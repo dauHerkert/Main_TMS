@@ -1658,12 +1658,18 @@ submit_button.addEventListener('click', function(ev) {
         });
     }
 
+    var startDatePicker = $('[data-date-picker="datepicker-start"]');
+    let datepickerLocaleToUse = 'en';
+    if (storedLang == 'de') {
+      datepickerLocaleToUse = 'de';
+    }
+
     startDatePicker.datepicker({
     multipleDates: false,
     multipleDatesSeparator: ', ',
     dateFormat: 'mm-dd-yyyy',
-    minDate: minDate,
-    maxDate: maxDate,
+    minDate: new Date(today.getFullYear(), 3, 11),
+    maxDate: new Date(today.getFullYear(), 3, 23),
     language: datepickerLocaleToUse,
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
