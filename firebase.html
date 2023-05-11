@@ -1657,10 +1657,7 @@ submit_button.addEventListener('click', function(ev) {
           // Handle any errors
         });
     }
-
-  if (window.innerWidth < 768) {
-    $('[data-date-picker]').attr('readonly', 'readonly');
-  }
+    
     // Notify admin to make changes on the supplier form
     let supplier_notify_form = document.getElementById('notify_supplier_form');
     let supplier_email = document.getElementById('supplier_notifier_email');
