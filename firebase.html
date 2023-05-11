@@ -1658,6 +1658,22 @@ submit_button.addEventListener('click', function(ev) {
         });
     }
 
+    startDatePicker.datepicker({
+    multipleDates: false,
+    multipleDatesSeparator: ', ',
+    dateFormat: 'mm-dd-yyyy',
+    minDate: minDate,
+    maxDate: maxDate,
+    language: datepickerLocaleToUse,
+    onHide: function(inst, animationCompleted) {
+      var selectedDates = inst.selectedDates;
+      console.log(selectedDates);
+    }
+  });
+
+  if (window.innerWidth < 768) {
+    $('[data-date-picker]').attr('readonly', 'readonly');
+  }
     // Notify admin to make changes on the supplier form
     let supplier_notify_form = document.getElementById('notify_supplier_form');
     let supplier_email = document.getElementById('supplier_notifier_email');
@@ -4304,7 +4320,7 @@ async function getCompanyType(user) {
   }
 
   startDatePicker.datepicker({
-    multipleDates: false,
+    multipleDates: true,
     multipleDatesSeparator: ', ',
     dateFormat: 'mm-dd-yyyy',
     minDate: minDate,
