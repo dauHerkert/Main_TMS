@@ -4281,6 +4281,7 @@ async function getCompanyType(user) {
   var minDate;
   var maxDate = new Date(today.getFullYear(), 3, 23);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
+  let endDatePicker = $('[data-date-picker="datepicker-end"]')
   let userInfo = await getUserInfo(user);
 
   //Change minDate depending the user type
@@ -4329,6 +4330,18 @@ async function getCompanyType(user) {
   }
 
   startDatePicker.datepicker({
+    multipleDates: multiDates,
+    multipleDatesSeparator: ', ',
+    dateFormat: 'mm-dd-yyyy',
+    minDate: minDate,
+    maxDate: maxDate,
+    language: datepickerLocaleToUse,
+    onHide: function(inst, animationCompleted) {
+      var selectedDates = inst.selectedDates;
+      console.log(selectedDates);
+    }
+  });
+  endDatePicker.datepicker({
     multipleDates: multiDates,
     multipleDatesSeparator: ', ',
     dateFormat: 'mm-dd-yyyy',
@@ -4520,7 +4533,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba156');
+    console.log('prueba157');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
