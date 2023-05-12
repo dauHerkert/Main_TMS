@@ -1657,6 +1657,13 @@ submit_button.addEventListener('click', function(ev) {
      //Print zones select
       const supplier_user_zone = document.getElementById('supplierUserZones');
       createOptions(supplier_user_zone);
+
+      let update_picture_modal = document.getElementById("picture_form_modal");
+      if ( update_picture_modal !== null ) {
+        update_picture_modal.addEventListener('submit', function(ev) {
+          updateProfilePic(ev, user);
+        }, true);
+      }
      }
          //Display profile picture
     function showUserPic(user){
