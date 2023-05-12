@@ -1521,6 +1521,11 @@ submit_button.addEventListener('click', function(ev) {
     * -----------------------------------------------------------------------------------------------------------
     */
 
+    function updateSelectedCompanyZonesString(supplierUserZones) {
+      const selectedOptions = Array.from(supplierUserZones.selectedOptions).map(option => option.value);
+      return selectedOptions.join(',');
+    }
+
     async function addSupplierInfo(e, user) {
       e.preventDefault();
       e.stopPropagation();
@@ -1531,15 +1536,10 @@ submit_button.addEventListener('click', function(ev) {
       const end_date = document.getElementById('Select-dates-2');
       const special_request = document.getElementById('Special-request-2');
       const supplierUserZones = document.getElementById('supplierUserZones');
-      let selectedSupplierZonesString = '';
-      function updateSelectedCompanyZonesString() {
-              const selectedOptions = Array.from(supplierUserZones.selectedOptions).map(option => option.value);
-              selectedSupplierZonesString = selectedOptions.join(',');
-            }
-
-            supplierUserZones.addEventListener('change', () => {
-                updateSelectedCompanyZonesString();
-              });
+      supplierUserZones.addEventListener('change', () => {
+        const selectedSupplierZonesString = updateSelectedCompanyZonesString(supplierUserZones);
+      });
+      const selectedSupplierZonesString = updateSelectedCompanyZonesString(supplierUserZones);
 
       setDoc(userRef, {
         supplier_start_date: start_date.value,
