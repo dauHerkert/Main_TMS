@@ -1755,7 +1755,7 @@ submit_button.addEventListener('click', function(ev) {
         $('#supplier_form').find('#Special-request-2').val(supplier_special_request);
       }
       if (supplierZones) {
-        $('#supplier_form').find('#supplier_zones_array').text(supplierZones);
+        $('#supplier_form').find('#supplier_zones_array').html(supplierZones);
         let zoneCell = document.getElementById('supplier_zones_array');
         let userZonesArray = zoneCell.textContent.split(',');
 
