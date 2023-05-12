@@ -1005,10 +1005,10 @@ function updateFileLabel() {
       userInfo.user_company_name = companyNames;
       const userRef = doc(db, 'users', user.uid);
       // Populate form fields with values
-      document.getElementById("user_email").innerHTML = `${user.email}`;
-      document.getElementById("user_name").innerHTML = `${userInfo.user_firstname}`;
-      document.getElementById("user_lastname").innerHTML = `${userInfo.user_lastname}`;
-      document.getElementById("user_address").innerHTML = `${userInfo.user_address}`;
+      document.getElementById("user_email").value = `${user.email}`;
+      document.getElementById("user_name").value = `${userInfo.user_firstname}`;
+      document.getElementById("user_lastname").value = `${userInfo.user_lastname}`;
+      document.getElementById("user_address").value = `${userInfo.user_address}`;
       if(userInfo.user_company_name == undefined){
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
@@ -4563,7 +4563,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba172');
+    console.log('prueba173');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
