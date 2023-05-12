@@ -1646,6 +1646,7 @@ submit_button.addEventListener('click', function(ev) {
           updateProfilePic(ev, user);
         }, true);
       }
+      processUserInfo()
      }
          //Display profile picture
     function showUserPic(user){
@@ -1724,6 +1725,7 @@ submit_button.addEventListener('click', function(ev) {
       }
     })
   }
+  async function processUserInfo() {
   let userInfo = await getUserInfo(user);
   if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
           if(userInfo.supplier_has_form_submitted == "1"){
@@ -1764,6 +1766,7 @@ submit_button.addEventListener('click', function(ev) {
             }
         }
         }
+      }
       /*
       * -----------------------------------------------------------------------------------------------------------
       * Admin functions
@@ -4555,7 +4558,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba159');
+    console.log('prueba160');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
