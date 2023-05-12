@@ -1549,11 +1549,19 @@ submit_button.addEventListener('click', function(ev) {
       const userDoc = await getUserInfo(user);
       const select_dates = document.getElementById('Select-dates');
       const special_request = document.getElementById('Special-request-2');
+      const supplierUserZones = document.getElementById('supplierUserZones');
+      let selectedSupplierZonesString = '';
+      function updateSelectedCompanyZonesString() {
+              const selectedOptions = Array.from(supplierUserZones.selectedOptions).map(option => option.value);
+              selectedSupplierZonesString = selectedOptions.join(',');
+            }
 
       setDoc(userRef, {
         supplier_visit_dates: select_dates.value,
         supplier_special_request: special_request.value,
-        supplier_has_form_submitted: "1"
+        supplier_has_form_submitted: "1",
+        user_zones: selectedSupplierZonesString
+
       }, { merge: true })
       .then(() => {
         toastr.success('You have submitted the form successfully');
@@ -4505,7 +4513,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba155');
+    console.log('prueba156');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
