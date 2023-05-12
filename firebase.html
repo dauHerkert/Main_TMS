@@ -1759,13 +1759,20 @@ submit_button.addEventListener('click', function(ev) {
         let zoneCell = document.getElementById('supplier_zones_array');
         let userZonesArray = zoneCell.textContent ? zoneCell.textContent.split(',') : [];
 
-        $("#userZones option").prop("selected", false);
-        for (let i = 0; i < userZonesArray.length; i++) {
-          let option = $("#supplierUserZones option[value='" + userZonesArray[i].trim() + "']");
-          option.prop("selected", true);
-        }
+        // Clear the previously selected options
+        $('#supplierUserZones').val(null).trigger('change');
 
-        $("#supplierUserZones").trigger("change");
+        // Loop through the userZonesArray and select the options
+        for (let i = 0; i < userZonesArray.length; i++) {
+          let optionValue = userZonesArray[i].trim();
+
+          // Check if the option exists before selecting it
+          if ($('#supplierUserZones option[value="' + optionValue + '"]').length) {
+            $('#supplierUserZones').append(new Option('', optionValue, true, true));
+          }
+        }
+        // Trigger the change event
+        $('#supplierUserZones').trigger('change');
       }
     }
   }
@@ -4561,7 +4568,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba170');
+    console.log('prueba171');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
