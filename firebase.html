@@ -1757,14 +1757,14 @@ submit_button.addEventListener('click', function(ev) {
       if (supplierZones) {
         $('#supplier_form').find('#supplier_zones_array').html(supplierZones);
         let zoneCell = document.getElementById('supplier_zones_array');
-        let userZonesArray = zoneCell.textContent ? zoneCell.textContent.split(',') : [];;
+        let userZonesArray = zoneCell.textContent ? zoneCell.textContent.split(',') : [];
 
         $("#userZones option").prop("selected", false);
         for (let i = 0; i < userZonesArray.length; i++) {
           let option = $("#supplierUserZones option[value='" + userZonesArray[i].trim() + "']");
           option.prop("selected", true);
         }
-        $("#supplierUserZones").val(userZonesArray);
+
         $("#supplierUserZones").trigger("change");
       }
     }
@@ -4561,7 +4561,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba169');
+    console.log('prueba170');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
