@@ -1757,7 +1757,7 @@ submit_button.addEventListener('click', function(ev) {
       if (supplierZones) {
         $('#supplier_form').find('#supplier_zones_array').html(supplierZones);
         let zoneCell = document.getElementById('supplier_zones_array');
-        let userZonesArray = zoneCell.html.split(',');
+        let userZonesArray = zoneCell.textContent ? zoneCell.textContent.split(',') : [];;
 
         $("#userZones option").prop("selected", false);
         for (let i = 0; i < userZonesArray.length; i++) {
