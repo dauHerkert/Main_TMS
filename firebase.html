@@ -1726,6 +1726,7 @@ submit_button.addEventListener('click', function(ev) {
     })
   }
   async function processUserInfo() {
+  const user = auth.currentUser;
   let userInfo = await getUserInfo(user);
   if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
           if(userInfo.supplier_has_form_submitted == "1"){
@@ -4558,7 +4559,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba160');
+    console.log('prueba161');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
