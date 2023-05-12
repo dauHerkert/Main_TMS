@@ -1732,43 +1732,44 @@ submit_button.addEventListener('click', function(ev) {
   async function processUserInfo() {
   const user = auth.currentUser;
   let userInfo = await getUserInfo(user);
-  if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
-          if(userInfo.supplier_has_form_submitted == "1"){
-            document.getElementById("Select-dates").setAttribute('disabled', "");
-            document.getElementById("Select-dates-2").setAttribute('disabled', "");
-            document.getElementById("supplierUserZones").setAttribute('disabled', "");
-            document.getElementById("Special-request-2").setAttribute('disabled', "");
-            document.getElementById("supplier_submmited_form").style.display = 'flex';
-            document.getElementById('supplier_submit_btn').style.display = 'none';
+  if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier') {
+    if (userInfo.supplier_has_form_submitted == "1") {
+      document.getElementById("Select-dates").setAttribute('disabled', "");
+      document.getElementById("Select-dates-2").setAttribute('disabled', "");
+      document.getElementById("supplierUserZones").setAttribute('disabled', "");
+      document.getElementById("Special-request-2").setAttribute('disabled', "");
+      document.getElementById("supplier_submmited_form").style.display = 'flex';
+      document.getElementById('supplier_submit_btn').style.display = 'none';
 
-            let supplier_start_date = userInfo.supplier_start_date;
-            let supplier_end_date = userInfo.supplier_end_date;
-            let supplier_special_request = userInfo.supplier_special_request;
-            let supplierZones = userInfo.user_zones;
-            if ( supplier_start_date ) {
-              $('#supplier_form').find('#Select-dates').val( supplier_start_date );
-            }
-            if ( supplier_end_date ) {
-              $('#supplier_form').find('#Select-dates-2').val( supplier_end_date );
-            }
-            if ( supplier_special_request ) {
-              $('#supplier_form').find('#Special-request-2').val( supplier_special_request );
-            }
-            if ( supplierZones ) {
-              $('#supplier_form').find('#supplier_zones_array').text( supplierZones );
-              let zoneCell = document.getElementById('supplier_zones_array');
-              let userZonesArray = zoneCell.text().split(',');
-
-              $("#userZones option").prop("selected", false);
-              for (let i = 0; i < userZonesArray.length; i++) {
-              let option = $("#supplierUserZones option[value='" + userZonesArray[i].trim() + "']");
-              option.prop("selected", true);
-              }
-              $("#supplierUserZones").trigger("change");
-            }
-        }
-        }
+      let supplier_start_date = userInfo.supplier_start_date;
+      let supplier_end_date = userInfo.supplier_end_date;
+      let supplier_special_request = userInfo.supplier_special_request;
+      let supplierZones = userInfo.user_zones;
+      if (supplier_start_date) {
+        $('#supplier_form').find('#Select-dates').val(supplier_start_date);
       }
+      if (supplier_end_date) {
+        $('#supplier_form').find('#Select-dates-2').val(supplier_end_date);
+      }
+      if (supplier_special_request) {
+        $('#supplier_form').find('#Special-request-2').val(supplier_special_request);
+      }
+      if (supplierZones) {
+        $('#supplier_form').find('#supplier_zones_array').text(supplierZones);
+        let zoneCell = document.getElementById('supplier_zones_array');
+        let userZonesArray = zoneCell.textContent.split(',');
+
+        $("#userZones option").prop("selected", false);
+        for (let i = 0; i < userZonesArray.length; i++) {
+          let option = $("#supplierUserZones option[value='" + userZonesArray[i].trim() + "']");
+          option.prop("selected", true);
+        }
+        $("#supplierUserZones").val(userZonesArray);
+        $("#supplierUserZones").trigger("change");
+      }
+    }
+  }
+}
       /*
       * -----------------------------------------------------------------------------------------------------------
       * Admin functions
@@ -4560,7 +4561,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba164');
+    console.log('prueba165');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
