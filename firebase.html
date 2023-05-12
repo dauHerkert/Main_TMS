@@ -801,26 +801,6 @@ const saveButton = document.getElementById("close_button");
                 document.getElementById('admin_button').style.display = 'block';
               }else{}
           }
-        if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
-          if(userInfo.supplier_has_form_submitted == "1"){
-            document.getElementById("Select-dates").setAttribute('disabled', "");
-            document.getElementById("Special-request-2").setAttribute('disabled', "");
-            document.getElementById("supplier_submmited_form").style.display = 'flex';
-            document.getElementById('supplier_submit_btn').style.display = 'none';
-            document.getElementById('checkbox_1').style.display = 'none';
-            document.getElementById('checkbox_2').style.display = 'none';
-            document.getElementById('checkbox_3').style.display = 'none';
-
-            let supplier_visit_dates = userInfo.supplier_visit_dates;
-            let supplier_special_request = userInfo.supplier_special_request;
-            if ( supplier_visit_dates ) {
-              $('#supplier_form').find('#Select-dates').val( supplier_visit_dates );
-            }
-            if ( supplier_special_request ) {
-              $('#supplier_form').find('#Special-request-2').val( supplier_special_request );
-            }
-        }
-        }
        if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press'){
         if(userInfo.press_has_form_submitted == "1"){
           document.getElementById("workspot").setAttribute('disabled', "");
@@ -1547,7 +1527,8 @@ submit_button.addEventListener('click', function(ev) {
       const storedLang = localStorage.getItem("language");
       const userRef = doc(db, 'users', user.uid);
       const userDoc = await getUserInfo(user);
-      const select_dates = document.getElementById('Select-dates');
+      const start_date = document.getElementById('Select-dates');
+      const end_date = document.getElementById('Select-dates-2');
       const special_request = document.getElementById('Special-request-2');
       const supplierUserZones = document.getElementById('supplierUserZones');
       let selectedSupplierZonesString = '';
@@ -1557,7 +1538,8 @@ submit_button.addEventListener('click', function(ev) {
             }
 
       setDoc(userRef, {
-        supplier_visit_dates: select_dates.value,
+        supplier_start_date: start_date.value,
+        supplier_end_date: end_date.value,
         supplier_special_request: special_request.value,
         supplier_has_form_submitted: "1",
         user_zones: selectedSupplierZonesString
@@ -1742,6 +1724,45 @@ submit_button.addEventListener('click', function(ev) {
       }
     })
   }
+  if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier'){
+          if(userInfo.supplier_has_form_submitted == "1"){
+            document.getElementById("Select-dates").setAttribute('disabled', "");
+            document.getElementById("Select-dates-2").setAttribute('disabled', "");
+            document.getElementById("supplierUserZones").setAttribute('disabled', "");
+            document.getElementById("Special-request-2").setAttribute('disabled', "");
+            document.getElementById("supplier_submmited_form").style.display = 'flex';
+            document.getElementById('supplier_submit_btn').style.display = 'none';
+            document.getElementById('checkbox_1').style.display = 'none';
+            document.getElementById('checkbox_2').style.display = 'none';
+            document.getElementById('checkbox_3').style.display = 'none';
+
+            let supplier_start_date = userInfo.supplier_start_date;
+            let supplier_end_date = userInfo.supplier_end_date;
+            let supplier_special_request = userInfo.supplier_special_request;
+            let supplierZones = userInfo.user_zones;
+            if ( supplier_start_date ) {
+              $('#supplier_form').find('#Select-dates').val( supplier_start_date );
+            }
+            if ( supplier_end_date ) {
+              $('#supplier_form').find('#Select-dates').val( supplier_end_date );
+            }
+            if ( supplier_special_request ) {
+              $('#supplier_form').find('#Special-request-2').val( supplier_special_request );
+            }
+            if ( supplierZones ) {
+              $('#supplier_form').find('#supplier_zones_array').text( supplierZones );
+              let zoneCell = document.getElementById('supplier_zones_array');
+              let userZonesArray = zoneCell.text().split(',');
+
+              $("#userZones option").prop("selected", false);
+              for (let i = 0; i < userZonesArray.length; i++) {
+              let option = $("#supplierUserZones option[value='" + userZonesArray[i].trim() + "']");
+              option.prop("selected", true);
+              }
+              $("#supplierUserZones").trigger("change");
+            }
+        }
+        }
       /*
       * -----------------------------------------------------------------------------------------------------------
       * Admin functions
@@ -4533,7 +4554,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba157');
+    console.log('prueba158');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
