@@ -1537,6 +1537,10 @@ submit_button.addEventListener('click', function(ev) {
               selectedSupplierZonesString = selectedOptions.join(',');
             }
 
+            supplierUserZones.addEventListener('change', () => {
+                updateSelectedCompanyZonesString();
+              });
+
       setDoc(userRef, {
         supplier_start_date: start_date.value,
         supplier_end_date: end_date.value,
@@ -4556,7 +4560,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba163');
+    console.log('prueba164');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
