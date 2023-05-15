@@ -2006,6 +2006,7 @@ if (window.innerWidth < 768) {
         headerFilterElement: document.querySelector('#tusnalgas'),
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"Fullname", field:"user_fullname", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"ITWA", field:"user_itwa", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Workspot", field:"press_workspot", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -2192,7 +2193,7 @@ getDocs(q)
         let user = doc.data();
 
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
+          data.push({id: doc.id,user_fullname:user.user_fullname, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
 
         }));
     });
@@ -4573,7 +4574,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba174');
+    console.log('prueba175');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
