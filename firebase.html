@@ -405,15 +405,21 @@ function userExtraInfo(e, user) {
   const userRef = doc(db, 'users', user.uid);
   const user_firstname = document.getElementById('first-name');
   const user_lastname = document.getElementById('last-name');
+  let user_fullname = '';
   const user_address = document.getElementById('user_address');
   const user_company = document.getElementById('sign-up-company');
   let language = localStorage.getItem("language");
+
+  if (user_firstname.value && user_lastname.value) {
+    user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
+  }
 
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
     user_lastname: user_lastname.value,
+    user_fullname: user_fullname,
     user_address: user_address.value,
     user_company: userCompanyValue,
     last_signin_date: new Date(),
@@ -1082,6 +1088,7 @@ function updateFileLabel() {
     let press_title = document.getElementById('press_title');
     let press_lastname = document.getElementById('press_lastname');
     let press_firstname = document.getElementById('press_firstname');
+    let user_fullname = '';
     let press_nationality = document.getElementById('press_nationality');
     let press_media_type = document.getElementById('press_media_type');
     let press_media = document.getElementById('press_media');
@@ -1095,8 +1102,10 @@ function updateFileLabel() {
     let press_itwa = document.getElementById('press_itwa');
     let press_workspace = document.getElementById('press_workspace');
     let language = localStorage.getItem('language');
-
-
+    
+    if (press_firstname.value && press_lastname.value) {
+    user_fullname = (press_firstname.value + press_lastname.value).toLowerCase().replace(/\s/g, '');
+  }
       if (press_email.value !== press_confirm_email.value) {
         toastr.error("The emails don't match");
       } else {
@@ -1104,6 +1113,7 @@ function updateFileLabel() {
           user_title: press_title.value,
           user_lastname: press_lastname.value,
           user_firstname: press_firstname.value,
+          user_fullname: user_fullname,
           user_nationality: press_nationality.value,
           press_media_type: press_media_type.value,
           press_media: press_media.value,
@@ -4563,7 +4573,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba173');
+    console.log('prueba174');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
