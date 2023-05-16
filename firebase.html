@@ -2011,12 +2011,12 @@ if (window.innerWidth < 768) {
             {title:"Workspot", field:"press_workspot", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User title", field:"user_title", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title: "User type", field: "user_type", sorter: "string", width: 0, cssClass: "hidden-column"},
             {title:"Press media type", field:"press_media_type", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press media", field:"press_media", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Basic Admin", field:"basic_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title: "Account type", field: "account_type", sorter: "string", width: 0, cssClass: "hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Dates", field:"user_dates", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Language", field:"language", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -2074,7 +2074,7 @@ if (window.innerWidth < 768) {
               headerFilterPlaceholder: "Status",
               cssClass: "other_columns",
             },
-            {title: "USER TYPE", field: "user_type", sorter: "string", width:170, cssClass:"other_columns"},
+            {title:"USER TYPE", field: "account_type", sorter: "string", width:170, cssClass:"other_columns"},
             {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
@@ -4574,7 +4574,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba176');
+    console.log('prueba177');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
