@@ -2034,7 +2034,7 @@ if (window.innerWidth < 768) {
               title: userTableStatusLabel,
               field: "status",
               sorter: "string",
-              width: 170,
+              width: 140,
               formatter: function(cell) {
                 let value = cell.getValue();
                 let label = "";
@@ -2074,7 +2074,7 @@ if (window.innerWidth < 768) {
               headerFilterPlaceholder: "Status",
               cssClass: "other_columns",
             },
-            {title:"USER TYPE", field: "account_type", sorter: "string", width:170, cssClass:"other_columns"},
+            {title:"USER TYPE", field: "account_type", sorter: "string", width:140, cssClass:"other_columns"},
             {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
