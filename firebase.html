@@ -1929,35 +1929,35 @@ if (window.innerWidth < 768) {
 
       // =========== USERS TABLE FUNCTIONS ============ //
       // Print users table
-      let userTableFirstnameLabel = 'First name';
-      let userTableLastnameLabel = 'Last name';
-      let userTableCompanyLabel = 'Company';
-      let userTableStatusLabel = 'Status';
-      let userTableAdminLabel = 'Admin';
-      let userTableUpdateLabel = 'Update';
-      let userTableSelectLabel = 'Select';
-      let userTableEditLabel = 'Edit';
+      let userTableFirstnameLabel = 'NAME';
+      let userTableLastnameLabel = 'LAST NAME';
+      let userTableCompanyLabel = 'COMPANY';
+      let userTableStatusLabel = 'STATUS';
+      let userTableAdminLabel = 'ADMIN';
+      let userTableUpdateLabel = 'ACTION';
+      let userTableSelectLabel = 'SELECT';
+      let userTableEditLabel = 'EDIT';
 
       if ( storedLang == 'de' ) {
-        userTableFirstnameLabel = 'Vorname';
-        userTableLastnameLabel = 'Nachname';
-        userTableCompanyLabel = 'Firma';
-        userTableStatusLabel = 'Status';
-        userTableAdminLabel = 'Admin';
-        userTableUpdateLabel = 'Bearbeiten';
-        userTableSelectLabel = 'Auswählen';
-        userTableEditLabel = 'Bearbeiten';
+        userTableFirstnameLabel = 'VORNAME';
+        userTableLastnameLabel = 'NACHNAME';
+        userTableCompanyLabel = 'FIRMA';
+        userTableStatusLabel = 'STATUS';
+        userTableAdminLabel = 'ADMIN';
+        userTableUpdateLabel = 'BEARBEITEN';
+        userTableSelectLabel = 'AUSWÄHLEN';
+        userTableEditLabel = 'BEARBEITEN';
       }
       let statusOptions = {
         "Ok": "OK",
-        "Declined": "Decline",
-        "Pending": "Pending"
+        "Declined": "DECLINED",
+        "Pending": "PENDING"
       };
       if (storedLang === 'de') {
         statusOptions = {
           "Ok": "OK",
-          "Declined": "Abgelehnt",
-          "Pending": "Ausstehend"
+          "Declined": "ABGELEHNT",
+          "Pending": "AUSSTEHEND"
         };
       }
 
