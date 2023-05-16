@@ -2078,32 +2078,14 @@ if (window.innerWidth < 768) {
             {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
-            {title: userTableUpdateLabel, cssClass: "center_col other_columns", formatter:function(cell, formatterParams){
-              let buttonContainer = document.createElement("div");
-
-              // Crear el primer botón
-              let button1 = document.createElement("button");
-              button1.setAttribute("onclick","openModal()");
-              button1.setAttribute("id","open_modal_btn");
-              button1.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462983e76b4d1ee3ac14cd1_pencil-alt.png' alt='Edit'/>";
-
-              // Agregar el código JS al primer botón
-              button1.addEventListener("click", function() {
-                  // Tu código JS aquí
-              });
-
-              // Crear el segundo botón
-              let button2 = document.createElement("button");
-              button2.setAttribute("id","delete_btn");
-              button2.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462e184b518709fa4ff5fe6_trash.png' alt='Delete'/>";
-
-              buttonContainer.style.display = "flex";
-              buttonContainer.style.gap = "10px";
-
-              buttonContainer.appendChild(button1);
-              buttonContainer.appendChild(button2);
-              return buttonContainer;
-          }, align: "center", cssClass:"center_col other_columns", width: 120},
+            {title: userTableUpdateLabel, cssClass:"center_col other_columns", formatter:function(cell, formatterParams){
+            let value = cell.getValue();
+            let button = document.createElement("button");
+            button.innerHTML = userTableEditLabel;
+            button.setAttribute("onclick","openModal()");
+            button.setAttribute("id","open_modal_btn");
+            return button;
+        }, align: "center", cssClass:"center_col other_columns", width: 120},
         {title: userTableSelectLabel, width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
@@ -4592,7 +4574,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba178');
+    console.log('prueba176');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
