@@ -2080,18 +2080,16 @@ if (window.innerWidth < 768) {
             }},
             {title: userTableUpdateLabel, cssClass: "center_col other_columns", formatter:function(cell, formatterParams){
               let buttonContainer = document.createElement("div");
-
+              let value = cell.getValue();
               // Crear el primer botón
               let button1 = document.createElement("button");
               button1.setAttribute("onclick","openModal()");
               button1.setAttribute("id","open_modal_btn");
               button1.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462983e76b4d1ee3ac14cd1_pencil-alt.png' alt='Edit'/>";
-
               // Agregar el código JS al primer botón
               button1.addEventListener("click", function() {
                   // Tu código JS aquí
               });
-
               // Crear el segundo botón
               let button2 = document.createElement("button");
               button2.setAttribute("id","delete_btn");
@@ -4592,7 +4590,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba176');
+    console.log('prueba177');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
