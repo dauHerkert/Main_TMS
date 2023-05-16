@@ -2026,15 +2026,15 @@ if (window.innerWidth < 768) {
             {title:"Zip", field:"zip", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Country", field:"country", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Phone", field:"phone", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title: userTableFirstnameLabel, field:"name", sorter:"string", width:170, cssClass:"first_column"},
-            {title:"EMAIL", field:"email", sorter:"string", width:250, cssClass:"other_columns"},
+            {title: userTableFirstnameLabel, field:"name", sorter:"string", width:150, cssClass:"first_column"},
+            {title:"EMAIL", field:"email", sorter:"string", width:220, cssClass:"other_columns"},
             {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title: userTableCompanyLabel, field:"company", sorter:"string", width:170, headerFilter:"list", headerFilterParams:{values: uniqueCompanies, clearable:true, headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {let selectedCompany = headerValue.toLowerCase();let userCompanies = rowData.company.toLowerCase().split(", ");return userCompanies.includes(selectedCompany);}}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
+            {title: userTableCompanyLabel, field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{values: uniqueCompanies, clearable:true, headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {let selectedCompany = headerValue.toLowerCase();let userCompanies = rowData.company.toLowerCase().split(", ");return userCompanies.includes(selectedCompany);}}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
             {
               title: userTableStatusLabel,
               field: "status",
               sorter: "string",
-              width: 140,
+              width: 120,
               formatter: function(cell) {
                 let value = cell.getValue();
                 let label = "";
@@ -2074,7 +2074,7 @@ if (window.innerWidth < 768) {
               headerFilterPlaceholder: "Status",
               cssClass: "other_columns",
             },
-            {title:"USER TYPE", field: "account_type", sorter: "string", width:140, cssClass:"other_columns"},
+            {title:"USER TYPE", field: "account_type", sorter: "string", width:120, cssClass:"other_columns"},
             {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
@@ -4586,7 +4586,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
     }
-    console.log('prueba182');
+    console.log('prueba183');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
