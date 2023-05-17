@@ -2078,15 +2078,15 @@ if (window.innerWidth < 768) {
             {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
-            {title: userTableUpdateLabel, cssClass: "center_col other_columns", formatter:function(cell, formatterParams){
-              let buttonContainer = document.createElement("div");
+            {title: userTableUpdateLabel, cssClass: "center_col other_columns edit_delete_col", formatter:function(cell, formatterParams){
+              let buttonContainer = document.querySelector(".edit_delete_col");
               let value = cell.getValue();
-              // Crear el primer botón
+              // Create first button
               let button1 = document.createElement("button");
               button1.setAttribute("onclick","openModal()");
               button1.setAttribute("id","open_modal_btn");
               button1.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462983e76b4d1ee3ac14cd1_pencil-alt.png' alt='Edit'/>";
-              // Crear el segundo botón
+              // Create second button
               let button2 = document.createElement("button");
               button2.setAttribute("id","delete_btn");
               button2.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462e184b518709fa4ff5fe6_trash.png' alt='Delete'/>";
