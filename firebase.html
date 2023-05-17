@@ -2078,26 +2078,25 @@ if (window.innerWidth < 768) {
             {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
-            {title: userTableUpdateLabel, cssClass: "center_col other_columns edit_delete_col", formatter:function(cell, formatterParams){
-              let buttonContainer = document.querySelector(".edit_delete_col");
+            {title: userTableUpdateLabel,  formatter:function(cell, formatterParams){
               let value = cell.getValue();
               // Create first button
               let button1 = document.createElement("button");
-              button1.setAttribute("onclick","openModal()");
+              button1.onclick = function() { openModal(value) };
               button1.setAttribute("id","open_modal_btn");
               button1.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462983e76b4d1ee3ac14cd1_pencil-alt.png' alt='Edit'/>";
               // Create second button
               let button2 = document.createElement("button");
+              button2.onclick = function() { deleteRecord(value) };
               button2.setAttribute("id","delete_btn");
               button2.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462e184b518709fa4ff5fe6_trash.png' alt='Delete'/>";
-
-              buttonContainer.style.display = "flex";
-              buttonContainer.style.justifyContent = 'center';
-
+              // Create a div to contain the buttons
+              let buttonContainer = document.createElement("div");
               buttonContainer.appendChild(button1);
               buttonContainer.appendChild(button2);
               return buttonContainer;
-          }, align: "center", cssClass:"center_col other_columns", width: 120},
+            }, align: "center", cssClass:"center_col other_columns edit_delete_col", width: 120},
+
         {title: userTableSelectLabel, width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
