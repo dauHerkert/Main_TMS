@@ -1960,6 +1960,18 @@ if (window.innerWidth < 768) {
           "Pending": "AUSSTEHEND"
         };
       }
+      let typeOptions = {
+        "Press": "PRESS",
+        "Supplier": "SUPPLIER",
+        "RSW": "RSW"
+      };
+      if (storedLang === 'de') {
+        typeOptions = {
+          "Press": "PRESSE",
+          "Supplier": "ANBIETER",
+          "RSW": "RSW"
+        };
+      }
 
       const company_colRef = collection(db, 'companies');
       let searchInput = document.getElementById("search-input");
@@ -2074,7 +2086,13 @@ if (window.innerWidth < 768) {
               headerFilterPlaceholder: "Status",
               cssClass: "other_columns",
             },
-            {title:"USER TYPE", field: "account_type", sorter: "string", width:120, cssClass:"other_columns"},
+            {title:"USER TYPE", field: "account_type", sorter: "string", width:120, cssClass:"other_columns", headerFilter: "list",
+              headerFilterParams: {
+                values: true,
+                valuesSort: "asc",
+                values: typeOptions,
+                clearable: true,
+              }},
             {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered){
                 return cell.getValue() == 1 ? "Admin" : "";
             }},
@@ -4584,7 +4602,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba192');
+    console.log('prueba193');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
