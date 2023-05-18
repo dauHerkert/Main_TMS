@@ -641,13 +641,13 @@ const saveButton = document.getElementById("close_button");
         }, 1000);
         setTimeout(() => {
           if(storedLang){
-            if(storedLang == "de" && window.location.pathname != "/de/signin-porsche"){
-              window.location = "/de/signin-porsche";
+            if(storedLang == "de" && window.location.pathname != "/de/signin-bho"){
+              window.location = "/de/signin-bho";
             }else{
-              window.location = "/en/signin-porsche";
+              window.location = "/en/signin-bho";
             }
           }else{
-            window.location = "/en/signin-porsche";
+            window.location = "/en/signin-bho";
           }
 
         }, 1500);
@@ -986,11 +986,11 @@ function updateFileLabel() {
           deleteUser(user).then(() => {
             if(storedLang == "de"){
               setTimeout(function() {
-                  window.location.pathname = "/de/signin-porsche";
+                  window.location.pathname = "/de/signin-bho";
                 }, 1500);
             }else{
               setTimeout(function() {
-                  window.location.pathname = "/en/signin-porsche";
+                  window.location.pathname = "/en/signin-bho";
                 }, 1500);
             }
             toastr.success('User account deleted');
@@ -4113,9 +4113,9 @@ create_user_zone.addEventListener('change', () => {
          if(signOutbutton){
           signOutbutton.style.display = 'none';
          }
-        if ( url == '/en/signup-porsche' || url == '/de/signup-porsche' ) {
+        if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
           pageHome();
-        } else if ( url == '/en/signin-porsche' || url == '/de/signin-porsche' ) {
+        } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
           signInPage();
         }else if ( url == '/en/press-form' || url == '/de/press-form' ) {
           pagePress();
@@ -4193,31 +4193,31 @@ create_user_zone.addEventListener('change', () => {
       if(!user){
         if(storedLang){
           if(storedLang == "de"){
-            form_button.setAttribute('href', '/de/signin-porsche');
-            account_button.setAttribute('href', '/de/signin-porsche');
-            users_button.setAttribute('href', '/de/signin-porsche');
-            companies_button.setAttribute('href', '/de/signin-porsche');
+            form_button.setAttribute('href', '/de/signin-bho');
+            account_button.setAttribute('href', '/de/signin-bho');
+            users_button.setAttribute('href', '/de/signin-pbho');
+            companies_button.setAttribute('href', '/de/signin-bho');
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/' && userData.confirmed_email != '1'){
-              window.location.replace('https://bho-tournament.webflow.io/de/signin-porsche');
+              window.location.replace('https://bho-tournament.webflow.io/de/signin-bho');
               }
           }else{
-            form_button.setAttribute('href', '/en/signin-porsche');
-            account_button.setAttribute('href', '/en/signin-porsche');
-            users_button.setAttribute('href', '/de/signin-porsche');
-            companies_button.setAttribute('href', '/de/signin-porsche');
+            form_button.setAttribute('href', '/en/signin-bho');
+            account_button.setAttribute('href', '/en/signin-bho');
+            users_button.setAttribute('href', '/de/signin-bho');
+            companies_button.setAttribute('href', '/de/signin-bho');
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
-              window.location.replace('https://bho-tournament.webflow.io/en/signin-porsche');
+              window.location.replace('https://bho-tournament.webflow.io/en/signin-bho');
               }
           }
         }else{
-          form_button.setAttribute('href', '/en/signin-porsche');
-          account_button.setAttribute('href', '/en/signin-porsche');
-          users_button.setAttribute('href', '/de/signin-porsche');
-          companies_button.setAttribute('href', '/de/signin-porsche');
+          form_button.setAttribute('href', '/en/signin-bho');
+          account_button.setAttribute('href', '/en/signin-bho');
+          users_button.setAttribute('href', '/de/signin-bho');
+          companies_button.setAttribute('href', '/de/signin-bho');
           document.getElementById('signIn_button').style.display = 'block';
           document.getElementById('signUp_button').style.display = 'block';
         }
@@ -4579,7 +4579,7 @@ if(signDeBtn){
 }*/
 
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
-      window.location.href = 'https://bho-tournament.webflow.io/en/signin-porsche'
+      window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
     console.log('prueba184');
 </script>
