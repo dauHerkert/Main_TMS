@@ -670,7 +670,6 @@ const saveButton = document.getElementById("close_button");
     function pageHome() {
         //identify auth action forms
         let signUpForm = document.getElementById('wf-form-signup-form');
-        getDateSignUp()
         //assign event listeners
         if ( typeof(signUpForm) !== null ) {
           signUpForm.addEventListener('submit', handleSignUp, true);
