@@ -4139,7 +4139,7 @@ create_user_zone.addEventListener('change', () => {
           signOutbutton.style.display = 'none';
          }
         if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
-          pageHome();
+          pageHome(user);
         } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
           signInPage();
         }else if ( url == '/en/press-form' || url == '/de/press-form' ) {
@@ -4607,7 +4607,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba193');
+    console.log('prueba194');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
