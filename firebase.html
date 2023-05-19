@@ -409,6 +409,9 @@ function userExtraInfo(e, user) {
   const user_address = document.getElementById('user_address');
   const user_company = document.getElementById('sign-up-company');
   let language = localStorage.getItem("language");
+  const start_date = document.getElementById('Select-dates');
+  const end_date = document.getElementById('Select-dates-2');
+  const special_requests = document.getElementById('special_requests');
 
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
@@ -420,9 +423,11 @@ function userExtraInfo(e, user) {
     user_firstname: user_firstname.value,
     user_lastname: user_lastname.value,
     user_fullname: user_fullname,
-    user_address: user_address.value,
     user_company: userCompanyValue,
     last_signin_date: new Date(),
+    supplier_start_date: start_date.value,
+    supplier_end_date: end_date.value,
+    supplier_special_request: special_requests.value,
     language: language,
   }, { merge: true })
   .then(() => {
@@ -1778,7 +1783,6 @@ submit_button.addEventListener('click', function(ev) {
   // Select the options in the supplierUserZones select2 element
   $('#supplierUserZones').val(selectedOptions).trigger('change');
 }
-
     }
   }
 }
@@ -4136,6 +4140,7 @@ create_user_zone.addEventListener('change', () => {
          }
         if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
           pageHome();
+          getMinDate(user)
         } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
           signInPage();
         }else if ( url == '/en/press-form' || url == '/de/press-form' ) {
@@ -4451,6 +4456,7 @@ function changeLanguage(lang) {
             location.reload();
         }
 }
+
     window.addEventListener('load', function(){
       var storedLang = localStorage.getItem("language");
       if(storedLang){
