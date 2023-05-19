@@ -3624,10 +3624,10 @@ create_user_zone.addEventListener('change', () => {
             }},
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
             {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
-            {title: companyProfileLabel, field:"company", sorter:"string", width:180, cssClass:"companyName first_column"},
-            {title: companyZoneLabel, field:"zone", sorter:"string", width:180, cssClass:"companyZone other_columns"},
+            {title: companyProfileLabel, field:"company", sorter:"string", width:250, cssClass:"companyName first_column"},
+            {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone other_columns"},
             {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
-            {title: sendLinkLabel, width:140, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
+            {title: sendLinkLabel, width:195, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = sendLinkButtonLabel;
@@ -3635,7 +3635,7 @@ create_user_zone.addEventListener('change', () => {
             button.setAttribute("id","open_link_modal");
             return button;
             }},
-            {title: updateLabel, width:140, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
+            {title: updateLabel, width:195, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
             button.innerHTML = editButtonLabel;
