@@ -667,10 +667,10 @@ const saveButton = document.getElementById("close_button");
     * Homepage functions
     * -----------------------------------------------------------------------------------------------------------
     */
-    function pageHome() {
+    function pageHome(user) {
         //identify auth action forms
         let signUpForm = document.getElementById('wf-form-signup-form');
-
+        getMinDate(user)
         //assign event listeners
         if ( typeof(signUpForm) !== null ) {
           signUpForm.addEventListener('submit', handleSignUp, true);
@@ -4140,7 +4140,6 @@ create_user_zone.addEventListener('change', () => {
          }
         if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
           pageHome();
-          getMinDate(user)
         } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
           signInPage();
         }else if ( url == '/en/press-form' || url == '/de/press-form' ) {
