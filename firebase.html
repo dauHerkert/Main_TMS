@@ -2058,13 +2058,13 @@ if (window.innerWidth < 768) {
                 if (storedLang === 'de') {
                   if (value === "Ok") {
                     label = "OK";
-                    color = "#5DA384";
+                    color = "#A3E11E";
                   } else if (value === "Declined") {
                     label = "Abgelehnt";
-                    color = "#EE4B2B";
+                    color = "#DD4042";
                   } else if (value === "Pending") {
                     label = "Ausstehend";
-                    color = "#F2A100";
+                    color = "#F29A2E";
                   }
                 } else {
                   if (value === "Ok") {
@@ -2072,13 +2072,13 @@ if (window.innerWidth < 768) {
                     color = "#5DA384";
                   } else if (value === "Declined") {
                     label = "Declined";
-                    color = "#EE4B2B";
+                    color = "#DD4042";
                   } else if (value === "Pending") {
                     label = "Pending";
-                    color = "#F2A100";
+                    color = "#A3E11E";
                   }
                 }
-                return '<div style="display:flex;align-items:center;color:' + color + ';"><div>' + label + '</div></div>';
+                return '<div style="display:flex;align-items:center;"><div style="width:16px;height:16px;border-radius:50%;background-color:' + color + ';margin-right:0px;"></div><div style="width:0px !important">' + label + '</div></div>';
               },
               headerFilter: "list",
               headerFilterParams: {
@@ -4679,7 +4679,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba198');
+    console.log('prueba199');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
