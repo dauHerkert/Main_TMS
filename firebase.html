@@ -667,10 +667,10 @@ const saveButton = document.getElementById("close_button");
     * Homepage functions
     * -----------------------------------------------------------------------------------------------------------
     */
-    function pageHome(user) {
+    function pageHome() {
         //identify auth action forms
         let signUpForm = document.getElementById('wf-form-signup-form');
-        getMinDate(user)
+        getDateSignUp()
         //assign event listeners
         if ( typeof(signUpForm) !== null ) {
           signUpForm.addEventListener('submit', handleSignUp, true);
@@ -4139,7 +4139,7 @@ create_user_zone.addEventListener('change', () => {
           signOutbutton.style.display = 'none';
          }
         if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
-          pageHome(user);
+          pageHome();
         } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
           signInPage();
         }else if ( url == '/en/press-form' || url == '/de/press-form' ) {
@@ -4432,6 +4432,78 @@ async function getCompanyType(user) {
   }
 };
 
+async function getDateSignUp() {
+  var today = new Date();
+  var minDate;
+  var maxDate = new Date(today.getFullYear(), 3, 23);
+  var startDatePicker = $('[data-date-picker="datepicker-start"]');
+  let endDatePicker = $('[data-date-picker="datepicker-end"]')
+  
+  // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
+  // and from http://t1m0n.name/air-datepicker/docs/
+  $.fn.datepicker.language['de'] = {
+    days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+    daysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    daysMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+    today: 'Heute',
+    clear: 'Zurücksetzen',
+    dateFormat: 'dd.MM.yyyy',
+    timeFormat: 'HH:mm',
+    firstDay: 1
+  };
+
+  $.fn.datepicker.language['en'] = {
+    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
+    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    today: 'Today',
+    clear: 'Clear',
+    dateFormat: 'mm/dd/yyyy',
+    timeFormat: 'hh:ii aa',
+    firstDay: 0,
+};
+
+  let datepickerLocaleToUse = 'en';
+  if ( storedLang == 'de' ) {
+    datepickerLocaleToUse = 'de';
+  }
+
+  let multiDates = false
+
+  startDatePicker.datepicker({
+    multipleDates: multiDates,
+    multipleDatesSeparator: ', ',
+    dateFormat: 'mm-dd-yyyy',
+    minDate: minDate,
+    maxDate: maxDate,
+    language: datepickerLocaleToUse,
+    onHide: function(inst, animationCompleted) {
+      var selectedDates = inst.selectedDates;
+      console.log(selectedDates);
+    }
+  });
+  endDatePicker.datepicker({
+    multipleDates: multiDates,
+    multipleDatesSeparator: ', ',
+    dateFormat: 'mm-dd-yyyy',
+    minDate: minDate,
+    maxDate: maxDate,
+    language: datepickerLocaleToUse,
+    onHide: function(inst, animationCompleted) {
+      var selectedDates = inst.selectedDates;
+      console.log(selectedDates);
+    }
+  });
+
+  if (window.innerWidth < 768) {
+    $('[data-date-picker]').attr('readonly', 'readonly');
+  }
+};
+
 //Language selection
 let reloaded = false;
 
@@ -4607,7 +4679,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba194');
+    console.log('prueba195');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
