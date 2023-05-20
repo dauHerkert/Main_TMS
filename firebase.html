@@ -718,7 +718,7 @@ const saveButton = document.getElementById("close_button");
       $(e).prepend('<img id="signout_img" src="https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6453e5fbbb9ef8cc1279b64a_logout_icon.svg"/>Ausloggen');
     }
   });
-        let navDropdownLinks = $('#admin_button').find('nav').find('a');
+        let navDropdownLinks = $('#admin_drop').find('nav').find('a');
         navDropdownLinks.each(function(i, e) {
           let navLabel = $(e).text().trim();
           if ( navLabel == 'Users table' ) {
@@ -757,7 +757,7 @@ const saveButton = document.getElementById("close_button");
           if(storedLang == "de"){
             if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
             form_button.setAttribute('href', '/de/supplier');
-            document.getElementById('admin_button').style.display = 'block';
+            document.getElementById('admin_drop').style.display = 'block';
           } else if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
             form_button.setAttribute('href', '/de/supplier');
           }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
@@ -775,7 +775,7 @@ const saveButton = document.getElementById("close_button");
           }else{
             if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
                 form_button.setAttribute('href', '/en/supplier');
-                document.getElementById('admin_button').style.display = 'block';
+                document.getElementById('admin_drop').style.display = 'block';
               }else if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
               form_button.setAttribute('href', '/en/supplier');
               }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
@@ -788,7 +788,7 @@ const saveButton = document.getElementById("close_button");
                   if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table'){
                     location.replace('/en/account');
                   }
-                  document.getElementById('admin_button').style.display = 'none';
+                  document.getElementById('admin_drop').style.display = 'none';
               }else {}
               }
         }else{
@@ -806,10 +806,10 @@ const saveButton = document.getElementById("close_button");
                   } else if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.basic_admin != "1"){
                     location.replace('/en/account');
                   }
-                  document.getElementById('admin_button').style.display = 'none';
+                  document.getElementById('admin_drop').style.display = 'none';
               }else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
                 form_button.setAttribute('href', '/en/supplier');
-                document.getElementById('admin_button').style.display = 'block';
+                document.getElementById('admin_drop').style.display = 'block';
               }else{}
           }
        if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press'){
@@ -4687,7 +4687,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba201');
+    console.log('prueba202');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
