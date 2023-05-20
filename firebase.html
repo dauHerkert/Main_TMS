@@ -3588,6 +3588,7 @@ create_user_zone.addEventListener('change', () => {
       const zonesFilterSelect = document.getElementById("companies_zones");
 
       //Print companies select
+      const company_colRef = collection(db, 'companies');
       getDocs(company_colRef)
                 .then((snapshot) => {
                   snapshot.docs.forEach((doc) => {
@@ -3636,7 +3637,6 @@ create_user_zone.addEventListener('change', () => {
     }
 
     // Print companies table
-    const company_colRef = collection(db, 'companies');
       let searchCompanyInput = document.getElementById("search-input");
       let companies_table = new Tabulator("#admin-companies-list", {
         //options here
@@ -4720,7 +4720,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba203');
+    console.log('prueba204');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
