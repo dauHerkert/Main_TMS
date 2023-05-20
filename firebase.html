@@ -2177,7 +2177,7 @@ $(document).ready(function() {
             $(".tabulator-paginator").find(".tabulator-page[data-page='last']").html("Vor");
           }
           const tableFilters = table.getHeaderFilters();
-          const tableFiltersContainer = document.querySelector("#tusnalgas");
+          const tableFiltersContainer = document.querySelector("#aaaa");
           tableFilters.forEach((filterEl) => tableFiltersContainer.appendChild(filterEl));
         });
 
@@ -3584,6 +3584,39 @@ create_user_zone.addEventListener('change', () => {
 
       changeAdminTypeTitle(user);
 
+      const companyFilterSelect = document.getElementById("companies_profile");
+      const zonesFilterSelect = document.getElementById("companies_zones");
+
+      //Print companies select
+      getDocs(company_colRef)
+                .then((snapshot) => {
+                  snapshot.docs.forEach((doc) => {
+                    let company = doc.data();
+
+                    var opt = document.createElement('option');
+                    opt.value = company.company_name;
+                    opt.textContent = company.company_name;
+                    companyFilterSelect.appendChild(opt);
+                  });
+                })
+                .catch(err => {
+                  console.log('error fetching companies', err);
+                })
+      
+      //Print zones select
+      createOptions(zonesFilterSelect);
+
+      companyFilterSelect.addEventListener("change", function() {
+          let companyColumn = table.getColumn("company_profile");
+          let selectedCompany = companyFilterSelect.value;
+          table.setHeaderFilterValue(companyColumn, selectedCompany);
+      });
+      zonesFilterSelect.addEventListener("change", function() {
+          let zoneColumn = table.getColumn("zone");
+          let selectedZone = zonesFilterSelect.value;
+          table.setHeaderFilterValue(zoneColumn, selectedZone);
+      });
+
     let companyProfileLabel = 'COMPANY PROFILE';
     let companyLabel = 'COMPANY';
     let companyZoneLabel = 'COMPANY ZONE';
@@ -4687,7 +4720,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba202');
+    console.log('prueba203');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
