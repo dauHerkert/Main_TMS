@@ -3584,23 +3584,21 @@ create_user_zone.addEventListener('change', () => {
 
       changeAdminTypeTitle(user);
 
-    let companyProfileLabel = 'Company Profile';
-    let companyLabel = 'Company';
-    let companyZoneLabel = 'Company Zone';
-    let sendLinkLabel = 'Send Link';
-    let updateLabel = 'Update';
-    let sendLinkButtonLabel = 'Send Link';
-    let editButtonLabel = 'Edit';
+    let companyProfileLabel = 'COMPANY PROFILE';
+    let companyLabel = 'COMPANY';
+    let companyZoneLabel = 'COMPANY ZONE';
+    let sendLinkLabel = 'SEND LINK';
+    let updateLabel = 'ACTION';
+    let sendLinkButtonLabel = 'SEND LINK';
     let link_lang = 'en';
     let userInfo = await getUserInfo(user);
 
     if ( storedLang == 'de' ) {
-      companyProfileLabel = 'Firma';
-      companyZoneLabel = 'Zonen';
-      sendLinkLabel = 'Einladung';
-      updateLabel = 'Bearbeiten';
-      sendLinkButtonLabel = 'Link senden';
-      editButtonLabel = 'Bearbeiten';
+      companyProfileLabel = 'FIRMA';
+      companyZoneLabel = 'ZONEN';
+      sendLinkLabel = 'EINLADUNG';
+      updateLabel = 'AKTION';
+      sendLinkButtonLabel = 'LINK SENDEN';
       link_lang = 'de';
     }
 
@@ -3630,7 +3628,7 @@ create_user_zone.addEventListener('change', () => {
             {title: sendLinkLabel, width:195, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
             let value = cell.getValue();
             let button = document.createElement("button");
-            button.innerHTML = sendLinkButtonLabel;
+            button.innerHTML = `<img class="button_img" src="https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6468108d231ed90e8f74b109_Vector.png">`;
             button.setAttribute("onclick","openModal5()");
             button.setAttribute("id","open_link_modal");
             return button;
