@@ -1161,18 +1161,19 @@ function updateFileLabel() {
       }
     }
 
-  const press_image = document.getElementById('press_image');
-  const hiddenPressInput = document.getElementById('hidden_press_img');
-  var press_crop_modal = document.getElementById("crop_modal");
-  let press_cropper;
+    const press_image = document.getElementById('press_image');
+const hiddenPressInput = document.getElementById('hidden_press_img');
+const press_crop_modal = document.getElementById("crop_modal");
+let press_cropper;
+let imageLoaded = false;
 
-  if(press_image){
-  press_image.addEventListener('change', function handlePressPic(e){
-    if (press_image.files.length == 0) {
+if (press_image) {
+  press_image.addEventListener('change', function handlePressPic(e) {
+    if (press_image.files.length === 0) {
       console.error('Please upload your profile picture');
       return;
     }
-    let fileItem = press_image.files[0];
+    const fileItem = press_image.files[0];
     if (!fileItem) {
       console.error('Please upload your profile picture');
       return;
@@ -1187,71 +1188,67 @@ function updateFileLabel() {
       // Initialize the cropper
       const image = document.getElementById('press_image_cropper');
       image.src = URL.createObjectURL(fileItem);
-      press_cropper = new Cropper(image, {
-        aspectRatio: 3 / 4,
-        width: 200,
-        height: 200,
-        viewMode: 1,
-        autoCropArea: 0.7,
-        responsive: true,
-        crop(event) {
-          const canvas = press_cropper.getCroppedCanvas();
-          const dataURL = canvas.toDataURL();
-          hiddenPressInput.value = dataURL;
-        },
-      });
+      image.onload = function () {
+        imageLoaded = true;
+        if (!press_cropper) {
+          press_cropper = new Cropper(image, {
+            aspectRatio: 3 / 4,
+            width: 200,
+            height: 200,
+            viewMode: 1,
+            autoCropArea: 0.7,
+            responsive: true,
+            crop(event) {
+              const canvas = press_cropper.getCroppedCanvas();
+              const dataURL = canvas.toDataURL();
+              hiddenPressInput.value = dataURL;
+            },
+          });
+        }
+      };
     } else {
       toastr.error('Please choose an image file.');
-       // Clear the input field and destroy the cropper instance
-       press_image.value = null;
-        if (press_cropper) {
-          press_cropper.destroy();
-        }
+      // Clear the input field and destroy the cropper instance
+      press_image.value = null;
+      if (press_cropper) {
+        press_cropper.destroy();
+      }
     }
-  })
+  });
 }
 
-  async function pressUploadImage(docId, storageRef) {
+async function pressUploadImage(docId, storageRef) {
+  if (!imageLoaded || !press_cropper) {
+    console.error('Image is not loaded or cropper is not initialized.');
+    return;
+  }
+
   const canvas = press_cropper.getCroppedCanvas();
   const fullName = `${press_firstname.value} ${press_lastname.value}`;
   const file = press_image.files[0];
   const contentType = file.type;
   const metadata = {
-  contentType: contentType
+    contentType: contentType
   };
-  const html = await fetch(form_de_mr_confirmation_email_to_admin_url)
-  .then(response => response.text())
-  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-    canvas.toBlob((blob) =>{
-      const imageSize = blob.size;
+
+  press_cropper.getCroppedCanvas().toBlob((blob) => {
+    if (!blob) {
+      console.error('Failed to generate Blob object.');
+      return;
+    }
+
+    const imageSize = blob.size; // Size of the image in bytes
     console.log('Image Size:', imageSize);
 
-  uploadBytes(storageRef, blob, metadata)
-    .then((snapshot) => {
-      if(storedLang == 'de'){
-        toastr.success('Sie haben das Formular erfolgreich übermittelt');
-        if(press_title.value == 'Mr'){
-          // Form confirmation email to admin DE
-          try {
-            const docRef = addDoc(collection(db, "mail"), {
-              to: 'andreas.salvermoser@ops.dauherkert.com',
-              message: {
-                subject: press_de_application_received_subject,
-                html: html,
-              }
-            });
-          } catch (error) {
-            console.error(error);
-          }
-        // Press - DE - Mr - Application received
-        (async () => {
+    uploadBytes(storageRef, blob, metadata)
+      .then((snapshot) => {
+        if (storedLang == 'de') {
+          toastr.success('Sie haben das Formular erfolgreich übermittelt');
+          if (press_title.value == 'Mr') {
+            // Form confirmation email to admin DE
             try {
-              const fullName = `${press_firstname.value} ${press_lastname.value}`;
-              const html = await fetch(press_de_mr_application_received_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
               const docRef = addDoc(collection(db, "mail"), {
-                to: `${press_email.value}`,
+                to: 'andreas.salvermoser@ops.dauherkert.com',
                 message: {
                   subject: press_de_application_received_subject,
                   html: html,
@@ -1260,185 +1257,202 @@ function updateFileLabel() {
             } catch (error) {
               console.error(error);
             }
-            setTimeout(function() {
+            // Press - DE - Mr - Application received
+            (async () => {
+              try {
+                const fullName = `${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(press_de_mr_application_received_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${press_email.value}`,
+                  message: {
+                    subject: press_de_application_received_subject,
+                    html: html,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
+              }
+              setTimeout(function () {
+                window.location.pathname = '/de/press-form-submitted';
+              }, 1500);
+            })();
+            setTimeout(function () {
               window.location.pathname = '/de/press-form-submitted';
             }, 1500);
-          })();
-        setTimeout(function() {
-            window.location.pathname = '/de/press-form-submitted';
-        }, 1500);
-        }else if(press_title.value == 'Ms'){
-          // Form confirmation email to admin
-          (async () => {
-          try {
-            const fullName = `${press_firstname.value} ${press_lastname.value}`;
-              const html = await fetch(form_de_ms_confirmation_email_to_admin_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: 'andreas.salvermoser@ops.dauherkert.com',
-            message: {
-              subject: press_de_application_received_subject,
-              html: html,
-            }
-          });
-        } catch (error) {
-          console.error(error);
-        }
-        })();
-        // Press - DE - Ms - Application received
-        (async () => {
-        try {
-          const fullName = `${press_firstname.value} ${press_lastname.value}`;
-          const html = await fetch(press_de_ms_application_received_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: `${press_email.value}`,
-            message: {
-              subject: press_de_application_received_subject,
-              html: html,
-            }
-          });
-
-        } catch (error) {
-          console.error(error);
-        }
-        setTimeout(function() {
-            window.location.pathname = '/de/press-form-submitted';
-        }, 1500);
-        })();
-        }else if(press_title.value == 'Diverse'){
-          // Form confirmation email to admin
-          (async () => {
-          try {
-            const fullName = `${press_firstname.value} ${press_lastname.value}`;
-              const html = await fetch(form_de_diverse_confirmation_email_to_admin_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: 'andreas.salvermoser@ops.dauherkert.com',
-            message: {
-              subject: press_de_application_received_subject,
-              html: html,
-            }
-          });
-        } catch (error) {
-          console.error(error);
-        }
-        })();
-        // Press - DE - Diverse - Application received
-        (async () => {
-        try {
-          const fullName = `${press_firstname.value} ${press_lastname.value}`;
-              const html = await fetch(press_de_diverse_application_received_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: `${press_email.value}`,
-            message: {
-              subject: press_de_application_received_subject,
-              html: html,
-            }
-          });
-        } catch (error) {
-          console.error(error);
-        }
-        setTimeout(function() {
-            window.location.pathname = '/de/press-form-submitted';
-        }, 1500);
-        })();
-        }
-      }else { // storedLang == 'en'
-        toastr.success('You have submitted the form successfully');
-        if(press_title.value == 'Mr' || press_title.value == 'Ms'){
-          // Form confirmation email to admin
-          (async () => {
-          try {
-            const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
-            const html = await fetch(form_en_mr_ms_confirmation_form_to_admin_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: 'andreas.salvermoser@ops.dauherkert.com',
-            message: {
-              subject: press_en_application_received_subject_admin,
-              html: html,
-            }
-          });
-        } catch (error) {
-          console.error(error);
-        }
-        })();
-        // Press - EN - Mr/Ms - Application received
-        (async () => {
-        try {
-          const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
-            const html = await fetch(press_en_mr_ms_application_received_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: `${press_email.value}`,
-            message: {
-              subject: press_en_application_received_subject,
-              html: html,
+          } else if (press_title.value == 'Ms') {
+            // Form confirmation email to admin
+            (async () => {
+              try {
+                const fullName = `${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(form_de_ms_confirmation_email_to_admin_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: 'andreas.salvermoser@ops.dauherkert.com',
+                  message: {
+                    subject: press_de_application_received_subject,
+                    html: html,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
               }
-          });
-        } catch (error) {
-          console.error(error);
-        }
-        setTimeout(function() {
-            window.location.pathname = '/en/press-form-submitted';
-        }, 1500);
-        })();
-        }else if(press_title.value == 'Diverse'){
-          // Form confirmation email to admin
-          (async () => {
-          try {
-            const fullName = `${press_firstname.value} ${press_lastname.value}`;
-            const html = await fetch(press_en_mr_ms_application_received_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: 'andreas.salvermoser@ops.dauherkert.com',
-            message: {
-              subject: press_en_application_received_subject_admin,
-              html: html,
-            }
-          });
-        } catch (error) {
-          console.error(error);
-        }
-        })();
-        // Press - EN - Diverse - Application received
-        (async () => {
-        try {
-          const fullName = `${press_firstname.value} ${press_lastname.value}`;
-            const html = await fetch(press_en_diverse_application_received_url)
-                .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: `${press_email.value}`,
-            message: {
-              subject: press_en_application_received_subject,
-              html: ``,
+            })();
+            // Press - DE - Ms - Application received
+            (async () => {
+              try {
+                const fullName = `${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(press_de_ms_application_received_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${press_email.value}`,
+                  message: {
+                    subject: press_de_application_received_subject,
+                    html: html,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
               }
-          });
-        } catch (error) {
-          console.error(error);
+              setTimeout(function () {
+                window.location.pathname = '/de/press-form-submitted';
+              }, 1500);
+            })();
+          } else if (press_title.value == 'Diverse') {
+            // Form confirmation email to admin
+            (async () => {
+              try {
+                const fullName = `${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(form_de_diverse_confirmation_email_to_admin_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: 'andreas.salvermoser@ops.dauherkert.com',
+                  message: {
+                    subject: press_de_application_received_subject,
+                    html: html,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
+              }
+            })();
+            // Press - DE - Diverse - Application received
+            (async () => {
+              try {
+                const fullName = `${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(press_de_diverse_application_received_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${press_email.value}`,
+                  message: {
+                    subject: press_de_application_received_subject,
+                    html: html,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
+              }
+              setTimeout(function () {
+                window.location.pathname = '/de/press-form-submitted';
+              }, 1500);
+            })();
+          }
+        } else { // storedLang == 'en'
+          toastr.success('You have submitted the form successfully');
+          if (press_title.value == 'Mr' || press_title.value == 'Ms') {
+            // Form confirmation email to admin
+            (async () => {
+              try {
+                const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(form_en_mr_ms_confirmation_form_to_admin_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: 'andreas.salvermoser@ops.dauherkert.com',
+                  message: {
+                    subject: press_en_application_received_subject_admin,
+                    html: html,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
+              }
+            })();
+            // Press - EN - Mr/Ms - Application received
+            (async () => {
+              try {
+                const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(press_en_mr_ms_application_received_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${press_email.value}`,
+                  message: {
+                    subject: press_en_application_received_subject,
+                    html: html,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
+              }
+              setTimeout(function () {
+                window.location.pathname = '/en/press-form-submitted';
+              }, 1500);
+            })();
+          } else if (press_title.value == 'Diverse') {
+            // Form confirmation email to admin
+            (async () => {
+              try {
+                const fullName = `${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(press_en_mr_ms_application_received_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: 'andreas.salvermoser@ops.dauherkert.com',
+                  message: {
+                    subject: press_en_application_received_subject_admin,
+                    html: html,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
+              }
+            })();
+            // Press - EN - Diverse - Application received
+            (async () => {
+              try {
+                const fullName = `${press_firstname.value} ${press_lastname.value}`;
+                const html = await fetch(press_en_diverse_application_received_url)
+                  .then(response => response.text())
+                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                const docRef = addDoc(collection(db, "mail"), {
+                  to: `${press_email.value}`,
+                  message: {
+                    subject: press_en_application_received_subject,
+                    html: ``,
+                  }
+                });
+              } catch (error) {
+                console.error(error);
+              }
+              setTimeout(function () {
+                window.location.pathname = '/en/press-form-submitted';
+              }, 1500);
+            })();
+          }
         }
-        setTimeout(function() {
-            window.location.pathname = '/en/press-form-submitted';
-        }, 1500);
-      })();
-        }
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  })
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, contentType);
 }
+
 
 async function pagePress() {
   const press_form = document.getElementById('logout_press_form');
@@ -4728,7 +4742,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba206');
+    console.log('prueba207');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
