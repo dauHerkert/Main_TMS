@@ -10,7 +10,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, updateEmail, updatePassword, sendPasswordResetEmail, deleteUser, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
     import { getFirestore, collection, addDoc, setDoc, updateDoc, getDoc, doc, query, where, getDocs, deleteDoc, writeBatch } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
-    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
+    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, uploadFile } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyDLN6BtVGtdGa5aeT76v0ashLVWwnxGqiE",
@@ -1223,7 +1223,7 @@ function updateFileLabel() {
   .then(response => response.text())
   .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
     canvas.toBlob((blob) =>{
-  uploadBytes(storageRef, blob, metadata)
+  uploadFile(storageRef, blob, metadata)
     .then((snapshot) => {
       if(storedLang == 'de'){
         toastr.success('Sie haben das Formular erfolgreich übermittelt');
@@ -4725,7 +4725,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba206');
+    console.log('prueba207');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
