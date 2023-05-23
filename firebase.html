@@ -1214,8 +1214,10 @@ function updateFileLabel() {
   async function pressUploadImage(docId, storageRef) {
   const canvas = press_cropper.getCroppedCanvas();
   const fullName = `${press_firstname.value} ${press_lastname.value}`;
+  const file = press_image.files[0];
+  const contentType = file.type;
   const metadata = {
-  contentType: 'image/png'
+  contentType: contentType
   };
   const html = await fetch(form_de_mr_confirmation_email_to_admin_url)
   .then(response => response.text())
@@ -4723,7 +4725,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba205');
+    console.log('prueba206');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
