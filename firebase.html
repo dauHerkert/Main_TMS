@@ -57,6 +57,7 @@
       press_form_user: '0',
       press_id: '',
       press_issued_by: '',
+      press_card_number:'',
 
       // User fields
       user_email: '',
@@ -1107,6 +1108,7 @@ function updateFileLabel() {
     let press_itwa = document.getElementById('press_itwa');
     let press_workspace = document.getElementById('press_workspace');
     let language = localStorage.getItem('language');
+    let press_card_number = document.getElementById('press_card_number')
     
     if (press_firstname.value && press_lastname.value) {
     user_fullname = (press_firstname.value + press_lastname.value).toLowerCase().replace(/\s/g, '');
@@ -1130,6 +1132,7 @@ function updateFileLabel() {
           user_phone: press_phone.value,
           user_itwa: press_itwa.value,
           press_workspot: press_workspace.value,
+          press_card_number: press_card_number.value,
           press_form_user: '1',
           user_company: 'JVhBWwwfdL03n4mh57rG',
           company_admin: '0',
