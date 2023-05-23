@@ -1223,6 +1223,9 @@ function updateFileLabel() {
   .then(response => response.text())
   .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
     canvas.toBlob((blob) =>{
+      const imageSize = blob.size;
+    console.log('Image Size:', imageSize);
+
   uploadBytes(storageRef, blob, metadata)
     .then((snapshot) => {
       if(storedLang == 'de'){
