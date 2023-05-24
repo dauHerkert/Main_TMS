@@ -3745,7 +3745,7 @@ create_user_zone.addEventListener('change', () => {
         let data = [];
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
-            let company_link = `https://bho-tournament.webflow.io/${link_lang}/welcome?company=${doc.id}`;
+            let company_link = `https://credentials.badhomburg-open.com/${link_lang}/welcome?company=${doc.id}`;
                 data.push({companyLink: company_link, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
                 companies_table.setData(data);
         });
@@ -4289,7 +4289,7 @@ create_user_zone.addEventListener('change', () => {
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/' && userData.confirmed_email != '1'){
-              window.location.replace('https://bho-tournament.webflow.io/de/signin-bho');
+              window.location.replace('https://credentials.badhomburg-open.com/de/signin-bho');
               }
           }else{
             form_button.setAttribute('href', '/en/signin-bho');
@@ -4299,7 +4299,7 @@ create_user_zone.addEventListener('change', () => {
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
-              window.location.replace('https://bho-tournament.webflow.io/en/signin-bho');
+              window.location.replace('https://credentials.badhomburg-open.com/en/signin-bho');
               }
           }
         }else{
@@ -4319,9 +4319,9 @@ create_user_zone.addEventListener('change', () => {
             document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/' && userData.confirmed_email != '1'){
-              window.location.replace('https://bho-tournament.webflow.io.com/de/signup-form-submitted');
+              window.location.replace('https://credentials.badhomburg-open.com/de/signup-form-submitted');
               }else if(window.location.pathname == '/' && userData.confirmed_email == '1'){
-              window.location.replace('https://bho-tournament.webflow.io.com/de/account');
+              window.location.replace('https://credentials.badhomburg-open.com/de/account');
               }
           }else{
             account_button.setAttribute('href', '/en/account');
@@ -4330,9 +4330,9 @@ create_user_zone.addEventListener('change', () => {
             document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
             if(window.location.pathname == '/' && userData.confirmed_email != '1'){
-              window.location.replace('https://bho-tournament.webflow.io/en/signup-form-submitted');
+              window.location.replace('https://credentials.badhomburg-open.com/en/signup-form-submitted');
               }else if(window.location.pathname == '/' && userData.confirmed_email == '1'){
-              window.location.replace('https://bho-tournament.webflow.io/en/account');
+              window.location.replace('https://credentials.badhomburg-open.com/en/account');
               }
           }
         }else{
@@ -4342,9 +4342,9 @@ create_user_zone.addEventListener('change', () => {
               document.getElementById('signIn_button').style.display = 'none';
               document.getElementById('signUp_button').style.display = 'none';
               if(window.location.pathname == '/' && userData.confirmed_email != '1'){
-              window.location.replace('https://bho-tournament.webflow.io/en/signup-form-submitted');
+              window.location.replace('https://credentials.badhomburg-open.com/en/signup-form-submitted');
               }else if(window.location.pathname == '/' && userData.confirmed_email == '1'){
-              window.location.replace('https://bho-tournament.webflow.io/en/account');
+              window.location.replace('https://credentials.badhomburg-open.com/en/account');
               }
             }
         }
@@ -4740,8 +4740,8 @@ if(signDeBtn){
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }*/
 
-if(window.location.href == 'https://bho-tournament.webflow.io/'){
-      window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
+if(window.location.href == 'https://credentials.badhomburg-open.com/'){
+      window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
     console.log('prueba212');
 </script>
