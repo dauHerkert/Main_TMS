@@ -1219,8 +1219,12 @@ if (press_image) {
 function handleBlob(canvas) {
   if (typeof canvas.toBlob === 'function') {
     canvas.toBlob(function (blob) {
-      const dataURL = getDataURLFromBlob(blob);
-      hiddenPressInput.value = dataURL;
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        const dataURL = reader.result;
+        hiddenPressInput.value = dataURL;
+      };
+      reader.readAsDataURL(blob);
     });
   } else {
     const dataURL = canvas.toDataURL();
@@ -1232,23 +1236,14 @@ function handleBlob(canvas) {
       ia[i] = byteString.charCodeAt(i);
     }
     const blob = new Blob([ab], { type: mimeString });
-    const dataURLBlob = getDataURLFromBlob(blob);
-    hiddenPressInput.value = dataURLBlob;
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      const dataURLBlob = reader.result;
+      hiddenPressInput.value = dataURLBlob;
+    };
+    reader.readAsDataURL(blob);
   }
 }
-
-function getDataURLFromBlob(blob) {
-  if (typeof URL !== 'undefined' && typeof URL.createObjectURL === 'function') {
-    return URL.createObjectURL(blob);
-  } else if (typeof webkitURL !== 'undefined' && typeof webkitURL.createObjectURL === 'function') {
-    return webkitURL.createObjectURL(blob);
-  } else {
-    throw new Error('URL.createObjectURL is not supported in this browser');
-  }
-}
-
-
-
 
 async function pressUploadImage(docId, storageRef) {
   if (!imageLoaded || !press_cropper) {
