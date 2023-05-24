@@ -1188,7 +1188,7 @@ if (press_image) {
       // Initialize the cropper
       const image = document.getElementById('press_image_cropper');
       image.src = URL.createObjectURL(fileItem);
-      image.onload = function () {
+      image.addEventListener('load', function () {
         imageLoaded = true;
         if (!press_cropper) {
           press_cropper = new Cropper(image, {
@@ -1201,7 +1201,7 @@ if (press_image) {
             },
           });
         }
-      };
+      });
     } else {
       toastr.error('Please choose an image file.');
       // Clear the input field and destroy the cropper instance
