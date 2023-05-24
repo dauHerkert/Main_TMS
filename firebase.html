@@ -1193,10 +1193,6 @@ if (press_image) {
         if (!press_cropper) {
           press_cropper = new Cropper(image, {
             aspectRatio: 3 / 4,
-            width: 200,
-            height: 200,
-            viewMode: 1,
-            autoCropArea: 0.7,
             responsive: true,
             crop(event) {
               const canvas = press_cropper.getCroppedCanvas();
@@ -1216,6 +1212,7 @@ if (press_image) {
     }
   });
 }
+
 
 async function pressUploadImage(docId, storageRef) {
   if (!imageLoaded || !press_cropper) {
@@ -4742,7 +4739,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba209');
+    console.log('prueba210');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
