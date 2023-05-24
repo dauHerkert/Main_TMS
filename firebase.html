@@ -1235,13 +1235,13 @@ function handleBlob(canvas) {
     for (let i = 0; i < byteString.length; i++) {
       ia[i] = byteString.charCodeAt(i);
     }
-    const blob = new Blob([ab], { type: mimeString });
+    const newBlob = new Blob([ab], { type: mimeString });
     const reader = new FileReader();
     reader.onloadend = function () {
       const dataURLBlob = reader.result;
       hiddenPressInput.value = dataURLBlob;
     };
-    reader.readAsDataURL(blob);
+    reader.readAsDataURL(newBlob);
   }
 }
 
@@ -4770,7 +4770,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba217');
+    console.log('prueba218');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
