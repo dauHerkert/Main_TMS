@@ -1235,7 +1235,7 @@ function handleBlob(canvas) {
     for (let i = 0; i < byteString.length; i++) {
       ia[i] = byteString.charCodeAt(i);
     }
-    const newBlob = new Blob([ab], { type: mimeString });
+    const newBlob = new Blob([ia], { type: mimeString });
     const reader = new FileReader();
     reader.onloadend = function () {
       const dataURLBlob = reader.result;
@@ -4770,7 +4770,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba218');
+    console.log('prueba219');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
