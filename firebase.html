@@ -1188,11 +1188,15 @@ if (press_image) {
       // Initialize the cropper
       const image = document.getElementById('press_image_cropper');
       image.src = URL.createObjectURL(fileItem);
-      image.addEventListener('load', function () {
+      image.onload = function () {
         imageLoaded = true;
         if (!press_cropper) {
           press_cropper = new Cropper(image, {
             aspectRatio: 3 / 4,
+            width: 200,
+            height: 200,
+            viewMode: 1,
+            autoCropArea: 0.7,
             responsive: true,
             crop(event) {
               const canvas = press_cropper.getCroppedCanvas();
@@ -1201,7 +1205,7 @@ if (press_image) {
             },
           });
         }
-      });
+      };
     } else {
       toastr.error('Please choose an image file.');
       // Clear the input field and destroy the cropper instance
@@ -4739,7 +4743,7 @@ if(signDeBtn){
 if(window.location.href == 'https://bho-tournament.webflow.io/'){
       window.location.href = 'https://bho-tournament.webflow.io/en/signin-bho'
     }
-    console.log('prueba211');
+    console.log('prueba212');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
