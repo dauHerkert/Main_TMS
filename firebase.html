@@ -1267,32 +1267,22 @@ async function pressUploadImage(docId, storageRef) {
     maxHeight: 1024,
   }).toBlob((blob) => {
 
-    console.log('---------');
-    console.log('DEBUG');
-    console.log('file', file);
-    console.log('file.toBlob()');
-    file.toBlob(function(b) {
-      console.log('b', b);
-    });
-    console.log('press_cropper', press_cropper);
-    console.log('press_cropper.getCroppedCanvas()', press_cropper.getCroppedCanvas({
-      minWidth: 128,
-      minHeight: 128,
-      maxWidth: 1024,
-      maxHeight: 1024,
-    }));
-    console.log('-----------');
-
+    let fileToUpload;
     if (!blob) {
       console.error('Failed to generate Blob object.');
-      console.log('blob dump', blob);
-      return;
+      console.log('using raw file instead');
+      fileToUpload = file;
+    } else {
+      fileToUpload = blob;
+      console.log('Using blob to upload');
     }
 
-    const imageSize = blob.size; // Size of the image in bytes
-    console.log('Image Size:', imageSize);
+    console.log('fileToUpload', fileToUpload);
 
-    uploadBytes(storageRef, blob, metadata)
+    //const imageSize = blob.size; // Size of the image in bytes
+    //console.log('Image Size:', imageSize);
+
+    uploadBytes(storageRef, fileToUpload, metadata)
       .then((snapshot) => {
         if (storedLang == 'de') {
           toastr.success('Sie haben das Formular erfolgreich übermittelt');
