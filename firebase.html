@@ -440,61 +440,6 @@ function userExtraInfo(e, user) {
   });
 }
 
-  //Upload user's profile image
-const profile_img = document.getElementById('profile_img');
-const hiddenProfileInput = document.getElementById('hidden_profile_img');
-var modal4 = document.getElementById("cropper_modal");
-
-let profile_cropper;
-
-if (profile_img) {
-  profile_img.addEventListener("change", function handleProfilePic(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    let fileItem = profile_img.files[0];
-
-    if (profile_img.files.length === 0) {
-      toastr.error('Please upload your profile picture');
-    } else {
-      // Check if the file is an image
-      if (/^image\/\w+/.test(fileItem.type)) {
-        // Destroy the current cropper instance if it exists
-        if (profile_cropper) {
-          profile_cropper.destroy();
-        }
-        // Open the modal
-        modal4.style.display = "block";
-        // Initialize the cropper
-        const image = document.getElementById('profile_image_cropper');
-        image.src = URL.createObjectURL(fileItem);
-        profile_cropper = new Cropper(image, {
-          aspectRatio: 3 / 4,
-          width: 200,
-          height: 200,
-          viewMode: 1,
-          autoCropArea: 0.7,
-          responsive: true,
-          crop(event) {
-            // Get the cropped canvas data as a data URL
-            const canvas = profile_cropper.getCroppedCanvas();
-            const dataURL = canvas.toDataURL();
-
-            // Set the data URL as the value of the hidden input field
-            hiddenProfileInput.value = dataURL;
-          },
-        });
-      } else {
-        toastr.error('Please choose an image file.');
-        profile_img.value = null;
-        if (profile_cropper) {
-          profile_cropper.destroy();
-        }
-      }
-    }
-  });
-}
-
 async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
   let storedLang = localStorage.getItem("language");
 
@@ -549,7 +494,6 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
       toastr.error('There was an error uploading the file');
     });
 }
-
 
     // ============ Handle singin ===============
     async function handleSignIn(e) {
@@ -4777,7 +4721,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba223');
+    console.log('prueba224');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
