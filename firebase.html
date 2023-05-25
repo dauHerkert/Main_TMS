@@ -508,30 +508,10 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
   const isMobile = window.innerWidth <= 800;
 
   if (!isMobile) {
-    const dataURL = hiddenProfileInput.value;
-    if (!dataURL) {
-      toastr.error('There was an error processing the profile picture');
-      return;
-    }
-    // Convert data URL to blob
-    await fetch(dataURL)
-      .then((res) => res.blob())
-      .then((blob) => {
-        if (!blob) {
-          console.error('Failed to generate Blob object.');
-          console.log('using raw file instead');
-          fileToUpload = fileItem;
-        } else {
-          fileToUpload = blob;
-          console.log('Using blob to upload');
-        }
-      })
-      .catch((err) => {
-        console.log('error converting dataURL to blob', err);
-        toastr.error('There was an error processing the profile picture');
-      });
+    // For desktop, use the cropped image
+    fileToUpload = hiddenProfileInput.value;
   } else {
-    // For mobile, use the original file, not the cropped image
+    // For mobile, use the original file
     fileToUpload = fileItem;
   }
 
@@ -4794,7 +4774,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba226');
+    console.log('prueba227');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
