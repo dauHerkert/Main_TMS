@@ -509,7 +509,11 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
 
   if (!isMobile) {
     // For desktop, use the cropped image
-    fileToUpload = hiddenProfileInput.value;
+    const dataURL = hiddenProfileInput.value;
+    
+    // convert dataURL to blob
+    const response = await fetch(dataURL);
+    fileToUpload = await response.blob();
   } else {
     // For mobile, use the original file
     fileToUpload = fileItem;
@@ -535,17 +539,6 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
     });
 }
 
-const saveButton = document.getElementById("close_button");
-if(saveButton){
-    saveButton.addEventListener("click", async function () {
-      const tempId = generateTempId();
-      uploading_image.style.display = 'block';
-      sessionStorage.setItem("tempImageId", tempId);
-      const hiddenProfileInput = document.getElementById('hidden_profile_img');
-      let fileItem = profile_img.files[0]; // get the file from the input
-      await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
-    });
-}
 
     // ============ Handle singin ===============
     async function handleSignIn(e) {
@@ -4773,7 +4766,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba227');
+    console.log('prueba228');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
