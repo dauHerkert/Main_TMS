@@ -1269,9 +1269,13 @@ async function pressUploadImage(docId, storageRef) {
 
     console.log('---------');
     console.log('DEBUG');
+    console.log('file', file);
+    console.log('file.toBlob()');
+    file.toBlob(function(b) {
+      console.log('b', b);
+    });
     console.log('press_cropper', press_cropper);
-    console.log('press_cropper typeof', typeof(press_cropper));
-    console.log('press_cropper.getCroppedCanvas()', press_cropper.  press_cropper.getCroppedCanvas({
+    console.log('press_cropper.getCroppedCanvas()', press_cropper.getCroppedCanvas({
       minWidth: 128,
       minHeight: 128,
       maxWidth: 1024,
