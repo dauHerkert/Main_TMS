@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://bho-tournament.webflow.io"],
+    "origin": ["https://credentials.badhomburg-open.com"],
     "method": ["GET", "PUT", "POST", "DELETE"],
     "maxAgeSeconds": 3600,
     "responseHeader": ["Content-Type", "Content-Length", "Content-Encoding", "Content-Disposition", "Access-Control-Allow-Origin"]

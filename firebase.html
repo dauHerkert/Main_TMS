@@ -497,59 +497,59 @@ if (profile_img) {
 
 async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
   let storedLang = localStorage.getItem("language");
-  const dataURL = hiddenProfileInput.value;
-  if (!dataURL) {
-    toastr.error('There was an error processing the profile picture');
-    return;
-  }
-  // Convert data URL to blob
-  return fetch(dataURL)
-    .then((res) => res.blob())
-    .then((blob) => {
-      let fileToUpload;
-      if (!blob) {
-        console.error('Failed to generate Blob object.');
-        console.log('using raw file instead');
-        fileToUpload = fileItem;
-      } else {
-        fileToUpload = blob;
-        console.log('Using blob to upload');
-      }
 
-      const metadata = {
-        contentType: 'image/png',
-      };
-      const storageRef = ref(storage, 'profiles/' + imageId);
-      return uploadBytes(storageRef, fileToUpload, metadata)
-        .then((snapshot) => {
-          toastr.success('You have updated the profile picture successfully');
-          signup_button.disabled = false;
-          signup_button.style.backgroundColor = '#2b2b2b';
-          uploading_image.style.display = 'none';
-          fileName.style.display = 'block';
-          return `profiles/${imageId}`;
-        })
-        .catch((err) => {
-          console.log('error uploading file', err);
-          toastr.error('There was an error uploading the file');
-        });
+  let fileToUpload;
+  const metadata = {
+    contentType: 'image/png',
+  };
+  const storageRef = ref(storage, 'profiles/' + imageId);
+
+  // Check if it's a mobile device
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (!isMobile) {
+    const dataURL = hiddenProfileInput.value;
+    if (!dataURL) {
+      toastr.error('There was an error processing the profile picture');
+      return;
+    }
+    // Convert data URL to blob
+    await fetch(dataURL)
+      .then((res) => res.blob())
+      .then((blob) => {
+        if (!blob) {
+          console.error('Failed to generate Blob object.');
+          console.log('using raw file instead');
+          fileToUpload = fileItem;
+        } else {
+          fileToUpload = blob;
+          console.log('Using blob to upload');
+        }
+      })
+      .catch((err) => {
+        console.log('error converting dataURL to blob', err);
+        toastr.error('There was an error processing the profile picture');
+      });
+  } else {
+    // For mobile, use the original file, not the cropped image
+    fileToUpload = fileItem;
+  }
+
+  return uploadBytes(storageRef, fileToUpload, metadata)
+    .then((snapshot) => {
+      toastr.success('You have updated the profile picture successfully');
+      signup_button.disabled = false;
+      signup_button.style.backgroundColor = '#2b2b2b';
+      uploading_image.style.display = 'none';
+      fileName.style.display = 'block';
+      return `profiles/${imageId}`;
     })
     .catch((err) => {
-      console.log('error converting dataURL to blob', err);
-      toastr.error('There was an error processing the profile picture');
+      console.log('error uploading file', err);
+      toastr.error('There was an error uploading the file');
     });
 }
 
-const saveButton = document.getElementById("close_button");
-    if(saveButton){
-    saveButton.addEventListener("click", async function () {
-      const tempId = generateTempId();
-      uploading_image.style.display = 'block';
-      sessionStorage.setItem("tempImageId", tempId);
-      const hiddenProfileInput = document.getElementById('hidden_profile_img');
-      await userUploadImage(null, tempId, hiddenProfileInput);
-    });
-  }
 
     // ============ Handle singin ===============
     async function handleSignIn(e) {
@@ -4777,7 +4777,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba222');
+    console.log('prueba223');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
