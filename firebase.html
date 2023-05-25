@@ -495,53 +495,78 @@ if (profile_img) {
   });
 }
 
-
-
-async function userUploadImage(user, imageId, hiddenProfileInput) {
+async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
   let storedLang = localStorage.getItem("language");
-  const dataURL = hiddenProfileInput.value;
-  if (!dataURL) {
-    toastr.error('There was an error processing the profile picture');
-    return;
-  }
-  // Convert data URL to blob
-  return fetch(dataURL)
-    .then((res) => res.blob())
-    .then((blob) => {
-      const metadata = {
-        contentType: 'image/png',
-      };
-      const storageRef = ref(storage, 'profiles/' + imageId);
-      return uploadBytes(storageRef, blob, metadata)
-        .then((snapshot) => {
-          toastr.success('You have updated the profile picture successfully');
-          signup_button.disabled = false;
-          signup_button.style.backgroundColor = '#2b2b2b';
-          uploading_image.style.display = 'none';
-          fileName.style.display = 'block';
-          return `profiles/${imageId}`;
-        })
-        .catch((err) => {
-          console.log('error uploading file', err);
-          toastr.error('There was an error uploading the file');
-        });
-    })
-    .catch((err) => {
-      console.log('error converting dataURL to blob', err);
+
+  // Check if it's a mobile device
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (!isMobile) {
+    const dataURL = hiddenProfileInput.value;
+    if (!dataURL) {
       toastr.error('There was an error processing the profile picture');
-    });
+      return;
+    }
+    // Convert data URL to blob
+    return fetch(dataURL)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const metadata = {
+          contentType: 'image/png',
+        };
+        const storageRef = ref(storage, 'profiles/' + imageId);
+        return uploadBytes(storageRef, blob, metadata)
+          .then((snapshot) => {
+            toastr.success('You have updated the profile picture successfully');
+            signup_button.disabled = false;
+            signup_button.style.backgroundColor = '#2b2b2b';
+            uploading_image.style.display = 'none';
+            fileName.style.display = 'block';
+            return `profiles/${imageId}`;
+          })
+          .catch((err) => {
+            console.log('error uploading file', err);
+            toastr.error('There was an error uploading the file');
+          });
+      })
+      .catch((err) => {
+        console.log('error converting dataURL to blob', err);
+        toastr.error('There was an error processing the profile picture');
+      });
+  } else {
+    // For mobile, use the original file, not the cropped image
+    const metadata = {
+      contentType: 'image/png',
+    };
+    const storageRef = ref(storage, 'profiles/' + imageId);
+    return uploadBytes(storageRef, fileItem, metadata)
+      .then((snapshot) => {
+        toastr.success('You have updated the profile picture successfully');
+        signup_button.disabled = false;
+        signup_button.style.backgroundColor = '#2b2b2b';
+        uploading_image.style.display = 'none';
+        fileName.style.display = 'block';
+        return `profiles/${imageId}`;
+      })
+      .catch((err) => {
+        console.log('error uploading file', err);
+        toastr.error('There was an error uploading the file');
+      });
+  }
 }
 
 const saveButton = document.getElementById("close_button");
-    if(saveButton){
-    saveButton.addEventListener("click", async function () {
-      const tempId = generateTempId();
-      uploading_image.style.display = 'block';
-      sessionStorage.setItem("tempImageId", tempId);
-      const hiddenProfileInput = document.getElementById('hidden_profile_img');
-      await userUploadImage(null, tempId, hiddenProfileInput);
-    });
-  }
+if(saveButton){
+  saveButton.addEventListener("click", async function () {
+    const tempId = generateTempId();
+    uploading_image.style.display = 'block';
+    sessionStorage.setItem("tempImageId", tempId);
+    const hiddenProfileInput = document.getElementById('hidden_profile_img');
+    const fileItem = profile_img.files[0];
+    await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
+  });
+}
+
 
     // ============ Handle singin ===============
     async function handleSignIn(e) {
@@ -4769,7 +4794,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba221');
+    console.log('prueba222');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
