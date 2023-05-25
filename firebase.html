@@ -504,8 +504,8 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
   };
   const storageRef = ref(storage, 'profiles/' + imageId);
 
-  // Check if it's a mobile device
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  // Check if it's a mobile device by screen width
+  const isMobile = window.innerWidth <= 800;
 
   if (!isMobile) {
     const dataURL = hiddenProfileInput.value;
@@ -561,6 +561,7 @@ if(saveButton){
       await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
     });
 }
+
 
     // ============ Handle singin ===============
     async function handleSignIn(e) {
@@ -4788,7 +4789,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba224');
+    console.log('prueba225');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
