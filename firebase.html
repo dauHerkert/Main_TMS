@@ -1260,6 +1260,13 @@ async function pressUploadImage(docId, storageRef) {
   };
 
   press_cropper.getCroppedCanvas().toBlob((blob) => {
+
+    console.log('---------');
+    console.log('DEBUG');
+    console.log('press_cropper', press_cropper);
+    console.log('press_cropper.getCroppedCanvas()', press_cropper.getCroppedCanvas());
+    console.log('-----------');
+
     if (!blob) {
       console.error('Failed to generate Blob object.');
       console.log('blob dump', blob);
@@ -4771,7 +4778,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba219-1');
+    console.log('prueba219-2');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
