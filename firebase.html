@@ -216,6 +216,8 @@
     const user_lastname = document.getElementById('last-name');
     const userID = sessionStorage.getItem('userID');
     const tempImageId = sessionStorage.getItem("tempImageId");
+    const profile_img = document.getElementById('profile_img');
+    let fileItem = profile_img.files[0];
     // Use the companyProfile variable to set the user_type field
     userDefaultValues.user_email = user.email;
     userDefaultValues.user_id = user.uid;
@@ -225,7 +227,7 @@
     // Use the setDoc function to set the userDefaultValues object
     setDoc(userRef, userDefaultValues, { merge: true })
         .then(async () => {
-          await userUploadImage(user, tempImageId, hiddenProfileInput);
+          await userUploadImage(user, tempImageId, hiddenProfileInput, fileItem);
             const oldImagePath = `profiles/${tempImageId}`;
             const newImagePath = `profiles/${user.uid}`;
 
@@ -574,7 +576,8 @@ if(saveButton){
       uploading_image.style.display = 'block';
       sessionStorage.setItem("tempImageId", tempId);
       const hiddenProfileInput = document.getElementById('hidden_profile_img');
-      let fileItem = profile_img.files[0]; // get the file from the input
+      let fileItem = profile_img.files[0];
+      console.log(fileItem);
       await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
     });
 }
@@ -4805,7 +4808,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba231');
+    console.log('prueba232');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
