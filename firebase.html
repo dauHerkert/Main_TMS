@@ -497,46 +497,74 @@ if (profile_img) {
 
 async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
   let storedLang = localStorage.getItem("language");
-  let fileToUpload;
-
-  const metadata = {
-    contentType: 'image/png',
-  };
-  const storageRef = ref(storage, 'profiles/' + imageId);
 
   // Check if it's a mobile device by screen width
   const isMobile = window.innerWidth <= 800;
 
-  if (!isMobile) {
-    // For desktop, use the cropped image
-    const dataURL = hiddenProfileInput.value;
-    
-    // convert dataURL to blob
-    const response = await fetch(dataURL);
-    fileToUpload = await response.blob();
-  } else {
+  if (isMobile) {
     // For mobile, use the original file
-    fileToUpload = fileItem;
-  }
+    let fileToUpload = fileItem;
+    const metadata = {
+      contentType: 'image/png',
+    };
+    const storageRef = ref(storage, 'profiles/' + imageId);
+    return uploadBytes(storageRef, fileToUpload, metadata)
+      .then((snapshot) => {
+        toastr.success('You have updated the profile picture successfully');
+        signup_button.disabled = false;
+        signup_button.style.backgroundColor = '#2b2b2b';
+        uploading_image.style.display = 'none';
+        fileName.style.display = 'block';
+        return `profiles/${imageId}`;
+      })
+      .catch((err) => {
+        console.log('error uploading file', err);
+        toastr.error('There was an error uploading the file');
+      });
+  } else {
+    // For desktop, continue with original code
+    const dataURL = hiddenProfileInput.value;
+    if (!dataURL) {
+      toastr.error('There was an error processing the profile picture');
+      return;
+    }
+    // Convert data URL to blob
+    return fetch(dataURL)
+      .then((res) => res.blob())
+      .then((blob) => {
+        let fileToUpload;
+        if (!blob) {
+          console.error('Failed to generate Blob object.');
+          console.log('using raw file instead');
+          fileToUpload = fileItem;
+        } else {
+          fileToUpload = blob;
+          console.log('Using blob to upload');
+        }
 
-  // Make sure that we have a file to upload
-  if(!fileToUpload) {
-    return;
+        const metadata = {
+          contentType: 'image/png',
+        };
+        const storageRef = ref(storage, 'profiles/' + imageId);
+        return uploadBytes(storageRef, fileToUpload, metadata)
+          .then((snapshot) => {
+            toastr.success('You have updated the profile picture successfully');
+            signup_button.disabled = false;
+            signup_button.style.backgroundColor = '#2b2b2b';
+            uploading_image.style.display = 'none';
+            fileName.style.display = 'block';
+            return `profiles/${imageId}`;
+          })
+          .catch((err) => {
+            console.log('error uploading file', err);
+            toastr.error('There was an error uploading the file');
+          });
+      })
+      .catch((err) => {
+        console.log('error converting dataURL to blob', err);
+        toastr.error('There was an error processing the profile picture');
+      });
   }
-
-  return uploadBytes(storageRef, fileToUpload, metadata)
-    .then((snapshot) => {
-      toastr.success('You have updated the profile picture successfully');
-      signup_button.disabled = false;
-      signup_button.style.backgroundColor = '#2b2b2b';
-      uploading_image.style.display = 'none';
-      fileName.style.display = 'block';
-      return `profiles/${imageId}`;
-    })
-    .catch((err) => {
-      console.log('error uploading file', err);
-      toastr.error('There was an error uploading the file');
-    });
 }
 
 const saveButton = document.getElementById("close_button");
@@ -4777,7 +4805,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba230');
+    console.log('prueba231');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
