@@ -442,7 +442,7 @@ function userExtraInfo(e, user) {
   });
 }
 
-    //Upload user's profile image
+//Upload user's profile image
 const profile_img = document.getElementById('profile_img');
 const hiddenProfileInput = document.getElementById('hidden_profile_img');
 var modal4 = document.getElementById("cropper_modal");
@@ -486,6 +486,14 @@ if (profile_img) {
             hiddenProfileInput.value = dataURL;
           },
         });
+
+        const isMobile = window.innerWidth <= 800;
+        if (isMobile) {
+        const saveButton = document.getElementById("close_button");
+        if (saveButton) {
+          saveButton.click();
+        }
+      }
       } else {
         toastr.error('Please choose an image file.');
         profile_img.value = null;
@@ -4808,7 +4816,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba232');
+    console.log('prueba233');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
