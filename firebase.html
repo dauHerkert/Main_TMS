@@ -490,10 +490,10 @@ if (profile_img) {
         const isMobile = window.innerWidth <= 800;
         if (isMobile) {
         const saveButton = document.getElementById("close_button");
-        if (saveButton) {
-          saveButton.click();
+          if (saveButton) {
+            saveButton.click();
+          }
         }
-      }
       } else {
         toastr.error('Please choose an image file.');
         profile_img.value = null;
@@ -1230,7 +1230,7 @@ let press_cropper;
 let imageLoaded = false;
 
 if (press_image) {
-  press_image.addEventListener('change', function handlePressPic(e) {
+  press_image.addEventListener('change', async function handlePressPic(e) {
     if (press_image.files.length === 0) {
       console.error('Please upload your profile picture');
       return;
@@ -1265,7 +1265,12 @@ if (press_image) {
             },
           });
         }
-      };
+      };      
+      // Auto close the cropper
+      const isMobile = window.innerWidth <= 800;
+      if (isMobile) {
+        press_crop_modal.style.display = "none";
+      }      
     } else {
       toastr.error('Please choose an image file.');
       // Clear the input field and destroy the cropper instance
@@ -1290,7 +1295,6 @@ async function pressUploadImage(docId, storageRef) {
   const metadata = {
     contentType: contentType
   };
-
 
   press_cropper.getCroppedCanvas({
     minWidth: 128,
@@ -4816,9 +4820,10 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba233');
+    console.log('prueba234');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
 </body>
 </html>
+
