@@ -1230,7 +1230,7 @@ let press_cropper;
 let imageLoaded = false;
 
 if (press_image) {
-  press_image.addEventListener('change', async function handlePressPic(e) {
+  press_image.addEventListener('change', function handlePressPic(e) {
     e.preventDefault();
     e.stopPropagation();
     
@@ -1239,54 +1239,45 @@ if (press_image) {
     if (press_image.files.length === 0 || !fileItem) {
       console.error('Please upload your profile picture');
       return;
-    }else{
+    }
     if (/^image\/\w+/.test(fileItem.type)) {
-      // Reset the cropper
+      // Clear the input field
+      press_image.value = null;
+
+      // Destroy the current cropper instance if it exists
       if (press_cropper) {
         press_cropper.destroy();
       }
+
       // Open the modal
       press_crop_modal.style.display = "block";
+
       // Initialize the cropper
       const image = document.getElementById('press_image_cropper');
       image.src = URL.createObjectURL(fileItem);
       image.onload = function () {
         imageLoaded = true;
-        if (!press_cropper) {
-          press_cropper = new Cropper(image, {
-            aspectRatio: 3 / 4,
-            width: 200,
-            height: 200,
-            viewMode: 1,
-            autoCropArea: 0.7,
-            responsive: true,
-            crop(event) {
-              const canvas = press_cropper.getCroppedCanvas();
-              const dataURL = canvas.toDataURL();
+        press_cropper = new Cropper(image, {
+          aspectRatio: 3 / 4,
+          width: 200,
+          height: 200,
+          viewMode: 1,
+          autoCropArea: 0.7,
+          responsive: true,
+          crop(event) {
+            const canvas = press_cropper.getCroppedCanvas();
+          },
+        });
+      };
 
-            // Set the data URL as the value of the hidden input field
-            hiddenPressInput.value = dataURL;
-            },
-          });
-        }
-      };      
       // Auto close the cropper
       const isMobile = window.innerWidth <= 800;
       if (isMobile) {
         press_crop_modal.style.display = "none";
-      }      
+      }
     } else {
       toastr.error('Please choose an image file.');
-      // Clear the input field and destroy the cropper instance
-      press_image.value = null;
-      if (press_cropper) {
-        press_cropper.destroy();
-      }
     }
-  }
-  document.getElementById('inputFileLabel').addEventListener('click', function (){
-        press_cropper.destroy();
-})
   });
 }
 
@@ -4831,7 +4822,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba240');
+    console.log('prueba241');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
