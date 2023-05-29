@@ -1283,6 +1283,10 @@ if (press_image) {
   });
 }
 
+document.getElementById('inputFileLabel').addEventListener('click', ()=>{
+  press_cropper.destroy();
+})
+
 async function pressUploadImage(docId, storageRef) {
   if (!imageLoaded || !press_cropper) {
     console.error('Image is not loaded or cropper is not initialized.');
@@ -4821,7 +4825,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba236');
+    console.log('prueba237');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
