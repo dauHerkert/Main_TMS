@@ -2241,8 +2241,9 @@ if (window.innerWidth < 768) {
         ],
 });
 
-var companyFilterSelect = document.getElementById("company-filter");
+let companyFilterSelect = document.getElementById("company-filter");
 let statusFilterSelect = document.getElementById("status-filter");
+let typeFilterSelect = document.getElementById("type-filter");
 
 //Print companies select
 getDocs(company_colRef)
@@ -2268,6 +2269,11 @@ companyFilterSelect.addEventListener("change", function() {
 statusFilterSelect.addEventListener("change", function() {
     let statusColumn = table.getColumn("status");
     let selectedStatus = statusFilterSelect.value;
+    table.setHeaderFilterValue(statusColumn, selectedStatus);
+});
+typeFilterSelect.addEventListener("change", function() {
+    let statusColumn = table.getColumn("user_type");
+    let selectedStatus = typeFilterSelect.value;
     table.setHeaderFilterValue(statusColumn, selectedStatus);
 });
 
@@ -4822,7 +4828,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba241');
+    console.log('prueba242');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
