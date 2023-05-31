@@ -1246,10 +1246,6 @@ if (press_image) {
       if (fileItem.type === 'image/png') {
         originalType = 'image/png';
       }
-      // Destroy the current cropper instance if it exists
-      if (press_cropper) {
-        press_cropper.destroy();
-      }
 
       // Open the modal
       press_crop_modal.style.display = "block";
@@ -1258,7 +1254,10 @@ if (press_image) {
       const image = document.getElementById('press_image_cropper');
       image.src = URL.createObjectURL(fileItem);
       image.onload = function () {
-        imageLoaded = true;
+        // Check if the cropper instance already exists and destroy it if it does
+        if (press_cropper) {
+          press_cropper.destroy();
+        }
         press_cropper = new Cropper(image, {
           aspectRatio: 3 / 4,
           width: 200,
@@ -1268,12 +1267,14 @@ if (press_image) {
           responsive: true,
           crop(event) {
             const canvas = press_cropper.getCroppedCanvas();
-            canvas.toBlob((blob) => {
-              const file = new File([blob], "recortedImage." + originalType.split('/')[1], { type: originalType });
-              const dataTransfer = new DataTransfer();
-              dataTransfer.items.add(file);
-              press_image.files = dataTransfer.files;
-            }, originalType);
+            if (canvas !== null) {
+              canvas.toBlob((blob) => {
+                const file = new File([blob], "recortedImage." + originalType.split('/')[1], { type: originalType });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                press_image.files = dataTransfer.files;
+              }, originalType);
+            }
           },
         });
       };
@@ -4836,7 +4837,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba243');
+    console.log('prueba244');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
