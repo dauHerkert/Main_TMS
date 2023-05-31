@@ -1249,6 +1249,10 @@ function handlePressPic(e) {
     // Open the modal
     press_crop_modal.style.display = "block";
 
+    if(press_cropper){
+      press_cropper.destroy();
+    }
+
     // Initialize the cropper
     const image = document.getElementById('press_image_cropper');
     image.src = URL.createObjectURL(fileItem);
@@ -1270,7 +1274,6 @@ function handlePressPic(e) {
             press_image.files = dataTransfer.files;
 
             // Destroy the cropper after getting the canvas and toBlob
-            press_cropper.destroy();
           }, originalType);
         },
       });
