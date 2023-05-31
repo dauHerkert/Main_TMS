@@ -4645,14 +4645,14 @@ async function getDateSignUp() {
       endDatePicker.datepicker().data('datepicker').update('minDate', newMinDate);
     }
   },
-  onSelectDate: function(selectedDate) {
-    startDatePicker.datepicker().data('datepicker').$datepicker
-      .find('.datepicker--cell.-selected-').removeClass('-selected-');
-    selectedDate.forEach(function(date) {
-      startDatePicker.datepicker().data('datepicker').$datepicker
-        .find('.datepicker--cell[data-date="' + date + '"]').addClass('-selected-');
-    });
-  }
+  onRenderCell: function(date, cellType) {
+    if (cellType === 'day' && date.getTime() === selectedStartDate.getTime()) {
+      return {
+        classes: '-selected-',
+        html: date.getDate().toString(),
+      };
+    }
+  },
 });
 
 endDatePicker.datepicker({
@@ -4665,9 +4665,8 @@ endDatePicker.datepicker({
   onHide: function(inst, animationCompleted) {
     var selectedDates = inst.selectedDates;
     console.log(selectedDates);
-  }
+  },
 });
-
 
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
