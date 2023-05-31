@@ -4588,7 +4588,6 @@ async function getCompanyType(user) {
 
 async function getDateSignUp() {
   var today = new Date();
-  today.setHours(0, 0, 0, 0);
   var minDate = new Date(today.getFullYear(), 6, 24);
   var maxDate = new Date(today.getFullYear(), 7, 1);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
@@ -4640,24 +4639,8 @@ async function getDateSignUp() {
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates);
-    },
-    onSelect: function(selectedDate) {
-      if (selectedDate && selectedDate[0]) {
-        selectedStartDate = selectedDate[0];
-        var newMinDate = selectedDate[0];
-        endDatePicker.datepicker().data('datepicker').update('minDate', newMinDate);
-      }
-    },
-    onRenderCell: function(date, cellType) {
-      if (cellType === 'day' && selectedStartDate && date.getTime() === selectedStartDate.getTime()) {
-        return {
-          classes: '-selected-',
-          html: date.getDate().toString(),
-        };
-      }
-    },
+    }
   });
-
   endDatePicker.datepicker({
     multipleDates: multiDates,
     multipleDatesSeparator: ', ',
@@ -4668,7 +4651,7 @@ async function getDateSignUp() {
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates);
-    },
+    }
   });
 
   if (window.innerWidth < 768) {
@@ -4851,7 +4834,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba255');
+    console.log('prueba256');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
