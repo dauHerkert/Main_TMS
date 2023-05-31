@@ -4625,22 +4625,31 @@ async function getDateSignUp() {
     },
     onSelectDate: function(selectedDate, inst) {
       minDateEndPicker = selectedDate;
-      inst.update('minDate', minDateEndPicker);
+      endDatePicker.datepicker().destroy();
+      initializeEndDatePicker();
     }
   });
 
-  endDatePicker.datepicker({
-    multipleDates: multiDates,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: minDateEndPicker,
-    maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
-    }
-  });
+  function initializeEndDatePicker() {
+    endDatePicker.datepicker({
+      multipleDates: multiDates,
+      multipleDatesSeparator: ', ',
+      dateFormat: 'mm-dd-yyyy',
+      minDate: minDateEndPicker,
+      maxDate: maxDate,
+      language: datepickerLocaleToUse,
+      onHide: function(inst, animationCompleted) {
+        var selectedDates = inst.selectedDates;
+        console.log(selectedDates);
+      }
+    });
+  }
+
+  initializeEndDatePicker();
+
+  if (window.innerWidth < 768) {
+    $('[data-date-picker]').attr('readonly', 'readonly');
+  }
 
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
@@ -4823,7 +4832,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba260');
+    console.log('prueba261');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
