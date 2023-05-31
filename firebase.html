@@ -4588,6 +4588,7 @@ async function getCompanyType(user) {
 
 async function getDateSignUp() {
   var today = new Date();
+  today.setHours(0, 0, 0, 0);
   var minDate = new Date(today.getFullYear(), 6, 24);
   var maxDate = new Date(today.getFullYear(), 7, 1);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
@@ -4850,7 +4851,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba254');
+    console.log('prueba255');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
