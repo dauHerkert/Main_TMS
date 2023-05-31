@@ -1293,17 +1293,11 @@ if (press_image) {
   press_image.addEventListener('change', handlePressPic);
 }
 
-
 async function pressUploadImage(docId, storageRef) {
   if (!imageLoaded || !press_cropper) {
     console.error('Image is not loaded or cropper is not initialized.');
     return;
   }
-  if (press_cropper) {
-        press_cropper.destroy();
-      }
-
-  const canvas = press_cropper.getCroppedCanvas();
   const fullName = `${press_firstname.value} ${press_lastname.value}`;
   const file = press_image.files[0];
   const contentType = file.type;
@@ -1311,24 +1305,20 @@ async function pressUploadImage(docId, storageRef) {
     contentType: contentType
   };
 
-  press_cropper.getCroppedCanvas({
-    minWidth: 128,
-    minHeight: 128,
-    maxWidth: 1024,
-    maxHeight: 1024,
-  }).toBlob((blob) => {
+  if (press_cropper && press_cropper.getCroppedCanvas()) {
+    const canvas = press_cropper.getCroppedCanvas();
+    canvas.toBlob((blob) => {
+      let fileToUpload;
+      if (!blob) {
+        console.error('Failed to generate Blob object.');
+        console.log('Using raw file instead');
+        fileToUpload = file;
+      } else {
+        fileToUpload = blob;
+        console.log('Using blob to upload');
+      }
 
-    let fileToUpload;
-    if (!blob) {
-      console.error('Failed to generate Blob object.');
-      console.log('using raw file instead');
-      fileToUpload = file;
-    } else {
-      fileToUpload = blob;
-      console.log('Using blob to upload');
-    }
-
-    console.log('fileToUpload', fileToUpload);
+      console.log('fileToUpload', fileToUpload);
 
     //const imageSize = blob.size; // Size of the image in bytes
     //console.log('Image Size:', imageSize);
@@ -1544,6 +1534,9 @@ async function pressUploadImage(docId, storageRef) {
         console.error(error);
       });
   }, contentType);
+}else {
+    console.error('Canvas is not available. The cropper might not be initialized properly or the image is not loaded.');
+  }
 }
 
 
@@ -4841,7 +4834,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba247');
+    console.log('prueba248');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
