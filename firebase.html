@@ -4635,7 +4635,7 @@ async function getDateSignUp() {
       multipleDates: multiDates,
       multipleDatesSeparator: ', ',
       dateFormat: 'mm-dd-yyyy',
-      minDate: minDateEndPicker,
+      minDate: new Date(minDateEndPicker),
       maxDate: maxDate,
       language: datepickerLocaleToUse,
       onHide: function(inst, animationCompleted) {
@@ -4646,10 +4646,6 @@ async function getDateSignUp() {
   }
 
   initializeEndDatePicker();
-
-  if (window.innerWidth < 768) {
-    $('[data-date-picker]').attr('readonly', 'readonly');
-  }
 
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
@@ -4832,7 +4828,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba261');
+    console.log('prueba262');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
