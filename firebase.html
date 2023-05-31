@@ -4642,10 +4642,16 @@ async function getDateSignUp() {
   onSelect: function(selectedDate) {
     if (selectedDate && selectedDate[0]) {
       var newMinDate = selectedDate[0];
-      endDatePicker.datepicker({
-        minDate: newMinDate
-      });
+      endDatePicker.datepicker().data('datepicker').update('minDate', newMinDate);
     }
+  },
+  onSelectDate: function(selectedDate) {
+    startDatePicker.datepicker().data('datepicker').$datepicker
+      .find('.datepicker--cell.-selected-').removeClass('-selected-');
+    selectedDate.forEach(function(date) {
+      startDatePicker.datepicker().data('datepicker').$datepicker
+        .find('.datepicker--cell[data-date="' + date + '"]').addClass('-selected-');
+    });
   }
 });
 
@@ -4661,6 +4667,7 @@ endDatePicker.datepicker({
     console.log(selectedDates);
   }
 });
+
 
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
@@ -4842,7 +4849,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba251');
+    console.log('prueba252');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
