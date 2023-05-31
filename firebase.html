@@ -4641,7 +4641,7 @@ async function getDateSignUp() {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates);
       minDateEndPicker = selectedDate;
-      endDatePicker.datepicker().data('datepicker').update('minDate', minDateEndPicker);
+      endDatePicker.datepicker().data('datepicker-end').update('minDate', minDateEndPicker);
     },
   });
 
@@ -4839,7 +4839,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba266');
+    console.log('prueba267');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
