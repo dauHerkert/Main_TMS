@@ -4588,8 +4588,8 @@ async function getCompanyType(user) {
 
 async function getDateSignUp() {
   var today = new Date();
-  var minDate;
-  var maxDate = new Date(today.getFullYear(), 3, 23);
+  var minDate = new Date(today.getFullYear(), 6, 24);
+  var maxDate = new Date(today.getFullYear(), 7, 1);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
   let endDatePicker = $('[data-date-picker="datepicker-end"]')
 
@@ -4629,29 +4629,38 @@ async function getDateSignUp() {
   let multiDates = false
 
   startDatePicker.datepicker({
-    multipleDates: multiDates,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: minDate,
-    maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
+  multipleDates: multiDates,
+  multipleDatesSeparator: ', ',
+  dateFormat: 'mm-dd-yyyy',
+  minDate: minDate,
+  maxDate: maxDate,
+  language: datepickerLocaleToUse,
+  onHide: function(inst, animationCompleted) {
+    var selectedDates = inst.selectedDates;
+    console.log(selectedDates);
+  },
+  onSelect: function(selectedDate) {
+    if (selectedDate && selectedDate[0]) {
+      var newMinDate = selectedDate[0];
+      endDatePicker.datepicker({
+        minDate: newMinDate
+      });
     }
-  });
-  endDatePicker.datepicker({
-    multipleDates: multiDates,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: minDate,
-    maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
-    }
-  });
+  }
+});
+
+endDatePicker.datepicker({
+  multipleDates: multiDates,
+  multipleDatesSeparator: ', ',
+  dateFormat: 'mm-dd-yyyy',
+  minDate: minDate,
+  maxDate: maxDate,
+  language: datepickerLocaleToUse,
+  onHide: function(inst, animationCompleted) {
+    var selectedDates = inst.selectedDates;
+    console.log(selectedDates);
+  }
+});
 
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
@@ -4833,7 +4842,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba250');
+    console.log('prueba251');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
