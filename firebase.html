@@ -4619,54 +4619,56 @@ async function getDateSignUp() {
     dateFormat: 'mm/dd/yyyy',
     timeFormat: 'hh:ii aa',
     firstDay: 0,
-};
+  };
 
   let datepickerLocaleToUse = 'en';
-  if ( storedLang == 'de' ) {
+  if (storedLang == 'de') {
     datepickerLocaleToUse = 'de';
   }
 
-  let multiDates = false
+  let multiDates = false;
+  let selectedStartDate = null;
 
   startDatePicker.datepicker({
-  multipleDates: multiDates,
-  multipleDatesSeparator: ', ',
-  dateFormat: 'mm-dd-yyyy',
-  minDate: minDate,
-  maxDate: maxDate,
-  language: datepickerLocaleToUse,
-  onHide: function(inst, animationCompleted) {
-    var selectedDates = inst.selectedDates;
-    console.log(selectedDates);
-  },
-  onSelect: function(selectedDate) {
-    if (selectedDate && selectedDate[0]) {
-      var newMinDate = selectedDate[0];
-      endDatePicker.datepicker().data('datepicker').update('minDate', newMinDate);
-    }
-  },
-  onRenderCell: function(date, cellType) {
-    if (cellType === 'day' && date.getTime() === selectedStartDate.getTime()) {
-      return {
-        classes: '-selected-',
-        html: date.getDate().toString(),
-      };
-    }
-  },
-});
+    multipleDates: multiDates,
+    multipleDatesSeparator: ', ',
+    dateFormat: 'mm-dd-yyyy',
+    minDate: minDate,
+    maxDate: maxDate,
+    language: datepickerLocaleToUse,
+    onHide: function(inst, animationCompleted) {
+      var selectedDates = inst.selectedDates;
+      console.log(selectedDates);
+    },
+    onSelect: function(selectedDate) {
+      if (selectedDate && selectedDate[0]) {
+        selectedStartDate = selectedDate[0];
+        var newMinDate = selectedDate[0];
+        endDatePicker.datepicker().data('datepicker').update('minDate', newMinDate);
+      }
+    },
+    onRenderCell: function(date, cellType) {
+      if (cellType === 'day' && selectedStartDate && date.getTime() === selectedStartDate.getTime()) {
+        return {
+          classes: '-selected-',
+          html: date.getDate().toString(),
+        };
+      }
+    },
+  });
 
-endDatePicker.datepicker({
-  multipleDates: multiDates,
-  multipleDatesSeparator: ', ',
-  dateFormat: 'mm-dd-yyyy',
-  minDate: minDate,
-  maxDate: maxDate,
-  language: datepickerLocaleToUse,
-  onHide: function(inst, animationCompleted) {
-    var selectedDates = inst.selectedDates;
-    console.log(selectedDates);
-  },
-});
+  endDatePicker.datepicker({
+    multipleDates: multiDates,
+    multipleDatesSeparator: ', ',
+    dateFormat: 'mm-dd-yyyy',
+    minDate: minDate,
+    maxDate: maxDate,
+    language: datepickerLocaleToUse,
+    onHide: function(inst, animationCompleted) {
+      var selectedDates = inst.selectedDates;
+      console.log(selectedDates);
+    },
+  });
 
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
@@ -4848,7 +4850,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba253');
+    console.log('prueba254');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
