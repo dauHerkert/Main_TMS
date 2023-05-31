@@ -1229,63 +1229,65 @@ const press_crop_modal = document.getElementById("crop_modal");
 let press_cropper;
 let imageLoaded = false;
 
+function handlePressPic(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  let fileItem = press_image.files[0];
+
+  if (press_image.files.length === 0 || !fileItem) {
+    console.error('Please upload your profile picture');
+    return;
+  }
+  if (/^image\/\w+/.test(fileItem.type)) {
+    // Get the original file type (jpeg or png)
+    let originalType = 'image/jpeg';
+    if (fileItem.type === 'image/png') {
+      originalType = 'image/png';
+    }
+
+    // Open the modal
+    press_crop_modal.style.display = "block";
+
+    // Initialize the cropper
+    const image = document.getElementById('press_image_cropper');
+    image.src = URL.createObjectURL(fileItem);
+    image.onload = function () {
+      imageLoaded = true;
+      press_cropper = new Cropper(image, {
+        aspectRatio: 3 / 4,
+        width: 200,
+        height: 200,
+        viewMode: 1,
+        autoCropArea: 0.7,
+        responsive: true,
+        crop(event) {
+          const canvas = press_cropper.getCroppedCanvas();
+          canvas.toBlob((blob) => {
+            const file = new File([blob], "recortedImage." + originalType.split('/')[1], { type: originalType });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            press_image.files = dataTransfer.files;
+
+            // Destroy the cropper after getting the canvas and toBlob
+            press_cropper.destroy();
+          }, originalType);
+        },
+      });
+    };
+
+    // Auto close the cropper
+    const isMobile = window.innerWidth <= 800;
+    if (isMobile) {
+      press_crop_modal.style.display = "none";
+    }
+  } else {
+    toastr.error('Please choose an image file.');
+  }
+}
+
 if (press_image) {
-  press_image.addEventListener('change', function handlePressPic(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    let fileItem = press_image.files[0];
-
-    if (press_image.files.length === 0 || !fileItem) {
-      console.error('Please upload your profile picture');
-      return;
-    }
-    if (/^image\/\w+/.test(fileItem.type)) {
-      // Get the original file type (jpeg or png)
-      let originalType = 'image/jpeg';
-      if (fileItem.type === 'image/png') {
-        originalType = 'image/png';
-      }
-
-      // Open the modal
-      press_crop_modal.style.display = "block";
-
-      // Initialize the cropper
-      const image = document.getElementById('press_image_cropper');
-      image.src = URL.createObjectURL(fileItem);
-      image.onload = function () {
-        imageLoaded = true;
-        press_cropper = new Cropper(image, {
-          aspectRatio: 3 / 4,
-          width: 200,
-          height: 200,
-          viewMode: 1,
-          autoCropArea: 0.7,
-          responsive: true,
-          crop(event) {
-            const canvas = press_cropper.getCroppedCanvas();
-            canvas.toBlob((blob) => {
-              const file = new File([blob], "recortedImage." + originalType.split('/')[1], { type: originalType });
-              const dataTransfer = new DataTransfer();
-              dataTransfer.items.add(file);
-              press_image.files = dataTransfer.files;
-
-              // Destroy the cropper after getting the canvas and toBlob
-              press_cropper.destroy();
-            }, originalType);
-          },
-        });
-      };
-
-      // Auto close the cropper
-      const isMobile = window.innerWidth <= 800;
-      if (isMobile) {
-        press_crop_modal.style.display = "none";
-      }
-    } else {
-      toastr.error('Please choose an image file.');
-    }
-  });
+  press_image.addEventListener('change', handlePressPic);
 }
 
 
@@ -4836,7 +4838,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba245');
+    console.log('prueba246');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
