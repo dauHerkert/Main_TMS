@@ -544,7 +544,6 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
       .then((blob) => {
         let fileToUpload;
         if (!blob) {
-          console.error('Failed to generate Blob object.');
           console.log('using raw file instead');
           fileToUpload = fileItem;
         } else {
@@ -4834,7 +4833,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba248');
+    console.log('prueba250');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
