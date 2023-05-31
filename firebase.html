@@ -1254,10 +1254,7 @@ if (press_image) {
       const image = document.getElementById('press_image_cropper');
       image.src = URL.createObjectURL(fileItem);
       image.onload = function () {
-        // Check if the cropper instance already exists and destroy it if it does
-        if (press_cropper) {
-          press_cropper.destroy();
-        }
+        imageLoaded = true;
         press_cropper = new Cropper(image, {
           aspectRatio: 3 / 4,
           width: 200,
@@ -1267,14 +1264,15 @@ if (press_image) {
           responsive: true,
           crop(event) {
             const canvas = press_cropper.getCroppedCanvas();
-            if (canvas !== null) {
-              canvas.toBlob((blob) => {
-                const file = new File([blob], "recortedImage." + originalType.split('/')[1], { type: originalType });
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                press_image.files = dataTransfer.files;
-              }, originalType);
-            }
+            canvas.toBlob((blob) => {
+              const file = new File([blob], "recortedImage." + originalType.split('/')[1], { type: originalType });
+              const dataTransfer = new DataTransfer();
+              dataTransfer.items.add(file);
+              press_image.files = dataTransfer.files;
+
+              // Destroy the cropper after getting the canvas and toBlob
+              press_cropper.destroy();
+            }, originalType);
           },
         });
       };
@@ -1289,6 +1287,7 @@ if (press_image) {
     }
   });
 }
+
 
 async function pressUploadImage(docId, storageRef) {
   if (!imageLoaded || !press_cropper) {
@@ -4837,7 +4836,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba244');
+    console.log('prueba245');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
