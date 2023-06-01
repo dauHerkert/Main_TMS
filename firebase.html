@@ -4640,10 +4640,10 @@ async function getDateSignUp() {
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates);
-      var selectedDate = $(this).val();
+      var selectedDate = this.value;
       var parsedDate = new Date(selectedDates);
       minDateEndPicker = parsedDate;
-      endDatePicker.val('');
+      endDatePicker.value = '';
       initializeEndDatePicker();
       },
     });
@@ -4846,7 +4846,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba275');
+    console.log('prueba276');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
