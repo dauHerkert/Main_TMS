@@ -376,19 +376,19 @@ if (select_company) {
     //Print companies select
     getDocs(company_colRef)
       .then((snapshot) => {
-        console.log(snapshot); // Debugging line
-        snapshot.docs.forEach((doc) => {
-          let company = doc.data();
+        const companies = snapshot.docs.map((doc) => doc.data());
+        const sortedCompanies = companies.sort((a, b) => a.company_name.localeCompare(b.company_name));
 
+        sortedCompanies.forEach((company) => {
           var opt = document.createElement('option');
-          opt.value = doc.id;
+          opt.value = company.id;
           opt.textContent = company.company_name;
           select_company.appendChild(opt);
-            });
-          })
-          .catch(err => {
-            console.log('error fetching companies', err);
-          });
+        });
+      })
+      .catch((err) => {
+        console.log('error fetching companies', err);
+      });
 
     // Use the select_company value when the URL doesn't have the ?company parameter
     select_company.value = select_company.value;
@@ -4872,7 +4872,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba284');
+    console.log('prueba285');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
