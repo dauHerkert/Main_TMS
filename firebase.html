@@ -2000,8 +2000,8 @@ startDatePicker.datepicker({
       console.log(selectedDates);
     }
   });
-let datepickerInstance = startDatePicker.data('datepicker');
-if(dateStr){
+let startDatepickerInstance = startDatePicker.data('datepicker');
+if(dateStartStr){
   let datesArray = dateStr.split(',');
   let parsedDates = [];
   for(let i = 0; i < datesArray.length; i++){
@@ -2010,7 +2010,7 @@ if(dateStr){
       parsedDates.push(new Date(Date.parse(date.replace(/-/g, '/'))));
     }
   }
-  datepickerInstance.selectDate(parsedDates);
+  startDatepickerInstance.selectDate(parsedDates);
 }
 
 if (window.innerWidth < 768) {
@@ -4867,7 +4867,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba280');
+    console.log('prueba281');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
