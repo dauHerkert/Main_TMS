@@ -4643,6 +4643,15 @@ async function getDateSignUp() {
     },
   });
 
+  startDatePicker.on('change', function() {
+  var selectedDate = $(this).val();
+  var parsedDate = new Date(selectedDate);
+  minDateEndPicker = parsedDate;
+  endDatePicker.datepicker().destroy();
+  initializeEndDatePicker();
+});
+
+function initializeEndDatePicker() {
   endDatePicker.datepicker({
     multipleDates: multiDates,
     multipleDatesSeparator: ', ',
@@ -4655,6 +4664,7 @@ async function getDateSignUp() {
       console.log(selectedDates);
     }
   });
+}
 
   if (window.innerWidth < 768) {
     $('[data-date-picker]').attr('readonly', 'readonly');
@@ -4837,7 +4847,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba270');
+    console.log('prueba271');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
