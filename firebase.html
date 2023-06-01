@@ -4640,11 +4640,9 @@ async function getDateSignUp() {
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates);
-      var selectedDate = $(this).val();
-    var parsedDate = new Date(selectedDates); // Convertir la cadena a objeto Date
-    minDateEndPicker = parsedDate;
-    endDatePicker.val(''); // Vaciar el contenido del elemento
-    initializeEndDatePicker();
+      minDateEndPicker = selectedDates;
+      endDatePicker.datepicker('destroy');
+      initializeEndDatePicker();
     },
   });
 
@@ -4854,10 +4852,9 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba275');
+    console.log('prueba276');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
 </body>
 </html>
-
