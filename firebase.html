@@ -1918,16 +1918,16 @@ submit_button.addEventListener('click', function(ev) {
   async function updateDates(user, dateStartStr, dateEndStr) {
   var today = new Date();
   var minDate;
-  var maxDate = new Date(today.getFullYear(), 7, 1);
+  var maxDate = new Date(today.getFullYear(), 6, 1);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
   var endDatePicker = $('[data-date-picker="datepicker-end"]');
   let userInfo = await getUserInfo(user);
 
   //Change minDate depending the user type
   if(userInfo.account_type == 'Press'){
-    minDate = new Date(today.getFullYear(), 6, 22);
+    minDate = new Date(today.getFullYear(), 5, 22);
   } else {
-    minDate =  new Date(today.getFullYear(), 6, 22);
+    minDate =  new Date(today.getFullYear(), 5, 22);
   }
 
   // Parse the date string into an array of Date objects
@@ -4527,16 +4527,16 @@ async function getCompanyType(user) {
   async function getMinDate(user) {
   var today = new Date();
   var minDate;
-  var maxDate = new Date(today.getFullYear(), 7, 1);
+  var maxDate = new Date(today.getFullYear(), 6, 1);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
   let endDatePicker = $('[data-date-picker="datepicker-end"]')
   let userInfo = await getUserInfo(user);
 
   //Change minDate depending the user type
   if(userInfo.account_type == 'Press'){
-        minDate = new Date(today.getFullYear(), 6, 22);
+        minDate = new Date(today.getFullYear(), 5, 22);
       }else{
-        minDate =  new Date(today.getFullYear(), 6, 22);
+        minDate =  new Date(today.getFullYear(), 5, 22);
       }
 
   // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
@@ -4609,9 +4609,9 @@ async function getCompanyType(user) {
 
 async function getDateSignUp() {
   var today = new Date();
-  var minDate = new Date(today.getFullYear(), 6, 22);
-  var maxDate = new Date(today.getFullYear(), 7, 1);
-  var minDateEndPicker = new Date(today.getFullYear(), 6, 22);
+  var minDate = new Date(today.getFullYear(), 5, 22);
+  var maxDate = new Date(today.getFullYear(), 6, 1);
+  var minDateEndPicker = new Date(today.getFullYear(), 5, 22);
   var startDatePicker = $('[data-date-picker="datepicker-start"]');
   let endDatePicker = $('[data-date-picker="datepicker-end"]');
 
@@ -4867,7 +4867,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba282');
+    console.log('prueba283');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
