@@ -735,8 +735,12 @@ if(saveButton){
         }
     }
       let signOutButton = document.getElementById('signout-button');
+      let signOutButton2 = document.getElementById('signout-button2');
       if(signOutButton) {
           signOutButton.addEventListener('click', handleSignOut);
+        }
+        if(signOutButton2) {
+          signOutButton2.addEventListener('click', handleSignOut);
         }
 
     /*
@@ -4313,7 +4317,7 @@ create_user_zone.addEventListener('change', () => {
 
       // User is NOT signed in
       if ( user == false ) {
-        document.getElementById('signout-button').style.display = 'block';
+        document.getElementById('signout-button').style.display = 'none';
         if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
           pageHome();
         } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
