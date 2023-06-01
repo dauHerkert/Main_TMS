@@ -4313,6 +4313,7 @@ create_user_zone.addEventListener('change', () => {
 
       // User is NOT signed in
       if ( user == false ) {
+        document.getElementById('signout-button').style.display = 'block';
         if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
           pageHome();
         } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
@@ -4867,7 +4868,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba283');
+    console.log('prueba284');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
