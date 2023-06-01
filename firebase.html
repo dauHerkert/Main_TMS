@@ -33,49 +33,50 @@
     // as well as of all the possible fields that a user doc can have
     const userDefaultValues = {
       // Supplier fields
-      supplier_visit_dates: '',
-      supplier_special_request: '',
-      supplier_access_zone: '',
+      supplier_start_date:'',
+      supplier_end_date:'',
+      supplier_special_request:'',
+      supplier_access_zone:'',
       // supplier_has_form_submitted: 0 | 1
-      supplier_has_form_submitted: '0',
+      supplier_has_form_submitted:'0',
 
       // Press fields
-      press_workspot: '',
-      press_publisher: '',
-      press_media_type: '',
-      press_visit_dates: '',
-      press_special_request: '',
+      press_workspot:'',
+      press_publisher:'',
+      press_media_type:'',
+      press_visit_dates:'',
+      press_special_request:'',
       // press_has_uploaded_id: 0 | 1
-      press_has_uploaded_id: '0',
+      press_has_uploaded_id:'0',
       // press_has_form_submitted: 0 | 1
-      press_has_form_submitted: '0',
+      press_has_form_submitted:'0',
       //Press form info
-      press_media: '',
-      press_media_type: '',
-      user_itwa: '',
-      press_workspot: '',
-      press_form_user: '0',
-      press_id: '',
-      press_issued_by: '',
+      press_media:'',
+      press_media_type:'',
+      user_itwa:'',
+      press_workspot:'',
+      press_form_user:'0',
+      press_id:'',
+      press_issued_by:'',
       press_card_number:'',
 
       // User fields
-      user_email: '',
-      user_id: '',
-      user_title: '',
+      user_email:'',
+      user_id:'',
+      user_title:'',
       // user_is_admin: 0 | 1
-      user_is_admin: '0',
-      company_admin: '0',
-      basic_admin: '0',
-      user_zones: '',
+      user_is_admin:'0',
+      company_admin:'0',
+      basic_admin:'0',
+      user_zones:'',
       // account_type: supplier | press | RSW
-      account_type: 'Supplier',
+      account_type:'Supplier',
       //User profile
-      user_type: '',
+      user_type:'',
       // user_status: pending | ok
-      user_status: 'Pending',
+      user_status:'Pending',
       // confirmed_email: 0 | 1
-      confirmed_email: '0',
+      confirmed_email:'0',
     };
 
     /*
@@ -2141,7 +2142,8 @@ if (window.innerWidth < 768) {
             {title:"Basic Admin", field:"basic_admin", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"User Dates", field:"user_dates", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"User Start Date", field:"user_start_date", sorter:"string", width:0, cssClass:"hidden-column"},
+            {title:"User End Date", field:"user_end_date", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User Language", field:"language", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Nationality", field:"nationality", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Address", field:"address", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -2338,7 +2340,7 @@ getDocs(q)
         let user = doc.data();
 
         promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id,user_fullname:user.user_fullname, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_dates: user.supplier_visit_dates, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
+          data.push({id: doc.id,user_fullname:user.user_fullname, user_itwa: user.user_itwa, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_start_date: user.supplier_start_date, user_end_date: user.supplier_end_date, language: user.language, name: user.user_firstname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
 
         }));
     });
@@ -4842,7 +4844,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba278');
+    console.log('prueba279');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
