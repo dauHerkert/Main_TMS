@@ -4631,22 +4631,22 @@ async function getDateSignUp() {
   let selectedStartDate = null;
 
   startDatePicker.datepicker({
-    multipleDates: multiDates,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: minDate,
-    maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
-      var selectedDate = this.value;
-      var parsedDate = new Date(selectedDates);
-      minDateEndPicker = parsedDate;
-      endDatePicker.value = '';
-      initializeEndDatePicker();
-      },
-    });
+  multipleDates: multiDates,
+  multipleDatesSeparator: ', ',
+  dateFormat: 'mm-dd-yyyy',
+  minDate: minDate,
+  maxDate: maxDate,
+  language: datepickerLocaleToUse,
+  onHide: function(inst, animationCompleted) {
+    var selectedDates = inst.selectedDates;
+    console.log(selectedDates);
+    var selectedDate = startDatePicker.value;
+    var parsedDate = new Date(selectedDates);
+    minDateEndPicker = parsedDate;
+    endDatePicker.value = '';
+    initializeEndDatePicker();
+  },
+});
 
   function initializeEndDatePicker() {
     endDatePicker.datepicker({
@@ -4846,7 +4846,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba276');
+    console.log('prueba277');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
