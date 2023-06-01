@@ -4640,36 +4640,31 @@ async function getDateSignUp() {
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates);
-      var selectedDate = $(this).val();
-      var parsedDate = new Date(selectedDate);
-      minDateEndPicker = parsedDate;
-      endDatePicker.datepicker().destroy();
-      initializeEndDatePicker();
-        },
-      });
+    },
+  });
 
   startDatePicker.on('change', function() {
-  var selectedDate = $(this).val();
-  var parsedDate = new Date(selectedDate);
-  minDateEndPicker = parsedDate;
-  endDatePicker.datepicker().destroy();
-  initializeEndDatePicker();
-});
-
-function initializeEndDatePicker() {
-  endDatePicker.datepicker({
-    multipleDates: multiDates,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: minDateEndPicker,
-    maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
-    }
+    var selectedDate = $(this).val();
+    var parsedDate = new Date(selectedDate); // Convertir la cadena a objeto Date
+    minDateEndPicker = parsedDate;
+    endDatePicker.val(''); // Vaciar el contenido del elemento
+    initializeEndDatePicker();
   });
-}
+
+  function initializeEndDatePicker() {
+    endDatePicker.datepicker({
+      multipleDates: multiDates,
+      multipleDatesSeparator: ', ',
+      dateFormat: 'mm-dd-yyyy',
+      minDate: minDateEndPicker,
+      maxDate: maxDate,
+      language: datepickerLocaleToUse,
+      onHide: function(inst, animationCompleted) {
+        var selectedDates = inst.selectedDates;
+        console.log(selectedDates);
+      }
+    });
+  }
 
 initializeEndDatePicker();
 
@@ -4854,7 +4849,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba273');
+    console.log('prueba274');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
