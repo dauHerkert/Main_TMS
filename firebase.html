@@ -420,10 +420,11 @@ function userExtraInfo(e, user) {
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
   }
-  if(admin_checkbox.checked){
-    admin_checkbox.value = "Company admin";
-  }else{
-    admin_checkbox.value = "False"
+  let company_admin_petition;
+  if (admin_checkbox.checked) {
+    company_admin_petition = "Company admin";
+  } else {
+    company_admin_petition = "No admin";
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
@@ -437,7 +438,7 @@ function userExtraInfo(e, user) {
     supplier_end_date: end_date.value,
     supplier_special_request: special_requests.value,
     language: language,
-    company_admin_petition: admin_checkbox.value,
+    company_admin_petition: company_admin_petition,
   }, { merge: true })
   .then(() => {
     //console.log('press data successfully updated');
@@ -4882,7 +4883,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba290');
+    console.log('prueba291');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
