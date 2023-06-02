@@ -88,11 +88,11 @@
     // ---- SIGN UP REGISTER EMAIL ----
 
     //Subject for Register email - DE
-    const register_de_email_subject = 'Danke für Ihre Registrierung';
+    const register_de_email_subject = 'Vielen Dank für Ihre Anmeldung';
     const register_de_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/register_de_email.html';
 
      //Subject for Register email - EN
-     const register_en_email_subject = 'Thanks for Registering';
+     const register_en_email_subject = 'Thanks for Applicating';
      const register_en_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/register_en_email.html';
 
     // ---- PRESS FORM EMAILS ----
@@ -257,7 +257,6 @@
           const stored_userID = `${userID}`;
           const html = await fetch(register_de_email_url)
                 .then(response => response.text())
-                .then(html => html.replace('${user_firstname.value} ${user_lastname.value}', fullName))
                 .then(html => html.replace('${userID}', stored_userID));
           const docRef = addDoc(collection(db, "mail"), {
             to: `${user.email}`,
@@ -278,7 +277,6 @@
           const stored_userID = `${userID}`;
           const html = await fetch(register_en_email_url)
                 .then(response => response.text())
-                .then(html => html.replace('${user_firstname.value} ${user_lastname.value}', fullName))
                 .then(html => html.replace('${userID}', stored_userID));
           const docRef = addDoc(collection(db, "mail"), {
             to: `${user.email}`,
@@ -4877,7 +4875,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba288');
+    console.log('prueba289');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
