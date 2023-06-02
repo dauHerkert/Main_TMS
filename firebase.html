@@ -37,6 +37,7 @@
       supplier_end_date:'',
       supplier_special_request:'',
       supplier_access_zone:'',
+      company_admin_petition:'',
       // supplier_has_form_submitted: 0 | 1
       supplier_has_form_submitted:'0',
 
@@ -414,11 +415,16 @@ function userExtraInfo(e, user) {
   const start_date = document.getElementById('Select-dates');
   const end_date = document.getElementById('Select-dates-2');
   const special_requests = document.getElementById('special_requests');
+  const admin_checkbox = document.getElementById('admin_checkbox');
 
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
   }
-
+  if(admin_checkbox.checked){
+    admin_checkbox.value = "Company admin";
+  }else{
+    admin_checkbox.value = "False"
+  }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
   setDoc(userRef, {
@@ -431,6 +437,7 @@ function userExtraInfo(e, user) {
     supplier_end_date: end_date.value,
     supplier_special_request: special_requests.value,
     language: language,
+    company_admin_petition: admin_checkbox.value,
   }, { merge: true })
   .then(() => {
     //console.log('press data successfully updated');
@@ -2229,7 +2236,7 @@ if (window.innerWidth < 768) {
               headerFilterPlaceholder: "Status",
               cssClass: "other_columns",
             },
-            {title:"USER TYPE", field: "account_type", sorter: "string", width:120, cssClass:"other_columns", headerFilter: "list",
+            {title:"USER TYPE", field: "account_type", sorter: "string", width:0, cssClass:"hidden-column", headerFilter: "list",
               headerFilterParams: {
                 values: true,
                 valuesSort: "asc",
@@ -4875,7 +4882,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba289');
+    console.log('prueba290');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
