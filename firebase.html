@@ -2174,7 +2174,7 @@ if (window.innerWidth < 768) {
             {title:"Workspot", field:"press_workspot", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User title", field:"user_title", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title:"User type", field: "user_type", sorter: "string", width: 0, headerFilter:"list", cssClass: "hidden-column"},
+            {title:"User type", field:"user_type", sorter: "string", width: 0, headerFilter:"list", cssClass: "hidden-column"},
             {title:"Press media type", field:"press_media_type", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press media", field:"press_media", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -2319,9 +2319,9 @@ statusFilterSelect.addEventListener("change", function() {
     table.setHeaderFilterValue(statusColumn, selectedStatus);
 });
 typeFilterSelect.addEventListener("change", function() {
-    let statusColumn = table.getColumn("user_type");
-    let selectedStatus = typeFilterSelect.value;
-    table.setHeaderFilterValue(statusColumn, selectedStatus);
+    let typeColumn = table.getColumn("user_type");
+    let selectedType = typeFilterSelect.value;
+    table.setHeaderFilterValue(typeColumn, selectedType);
 });
 
 $(document).ready(function() {
@@ -4930,7 +4930,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba304');
+    console.log('prueba305');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
