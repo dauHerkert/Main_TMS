@@ -4429,6 +4429,8 @@ create_company_form.addEventListener('submit', async (e) => {
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/' && userData.confirmed_email != '1'){
               window.location.replace('https://credentials.badhomburg-open.com/de/signin-bho');
+              }else if(window.location.pathname !== '/de/signin-bho' && window.location.pathname !== '/de/signup-bho' && window.location.pathname !== '/de/press-form'){
+                window.location.replace('https://credentials.badhomburg-open.com/de/signin-bho');
               }
           }else{
             form_button.setAttribute('href', '/en/signin-bho');
@@ -4437,8 +4439,10 @@ create_company_form.addEventListener('submit', async (e) => {
             companies_button.setAttribute('href', '/de/signin-bho');
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
-            if(window.location.pathname == '/'){
+            if(window.location.pathname == '/' && userData.confirmed_email != '1'){
               window.location.replace('https://credentials.badhomburg-open.com/en/signin-bho');
+              }else if(window.location.pathname !== '/de/signin-bho' && window.location.pathname !== '/de/signup-bho' && window.location.pathname !== '/de/press-form'){
+                window.location.replace('https://credentials.badhomburg-open.com/en/signin-bho');
               }
           }
         }else{
@@ -4895,7 +4899,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba296');
+    console.log('prueba297');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
