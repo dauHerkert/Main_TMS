@@ -987,17 +987,18 @@ function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
   const metadata = {
-  contentType: 'image/png'
+    contentType: 'image/png'
   };
   const canvas = cropper.getCroppedCanvas();
   canvas.toBlob((blob) => {
-
-    const file = canvas.files[0];
-
     let fileToUpload;
+
+    const fileInput = document.getElementById('updated_picture');
+    const file = fileInput.files[0];
+
     if (!blob) {
       console.error('Failed to generate Blob object.');
-      console.log('using raw file instead');
+      console.log('Using raw file instead');
       fileToUpload = file;
     } else {
       fileToUpload = blob;
@@ -1011,7 +1012,7 @@ function updateProfilePic(e, user) {
         setTimeout(reloadPage, 1500);
       })
       .catch(err => {
-        console.log('error uploading file', err);
+        console.log('Error uploading file', err);
         toastr.error('There was an error uploading the file');
       });
   });
@@ -1139,7 +1140,7 @@ function updateFileLabel() {
         }, true);
       }
 
-      if ( update_picture_modal !== null ) {
+      if (update_picture_modal) {
         update_picture_modal.addEventListener('submit', function(ev) {
           updateProfilePic(ev, user);
         }, true);
@@ -4876,7 +4877,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba287');
+    console.log('prueba288');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
