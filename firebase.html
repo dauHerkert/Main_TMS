@@ -2004,17 +2004,21 @@ startDatePicker.datepicker({
       console.log(selectedDates);
     }
   });
-let startDatepickerInstance = startDatePicker.data('datepicker');
+  let startDatepickerInstance = startDatePicker.data('datepicker');
+let endDatepickerInstance = endDatePicker.data('datepicker');
+
 if(dateStartStr){
-  let datesArray = dateStartStr.split(',');
-  let parsedDates = [];
-  for(let i = 0; i < datesArray.length; i++){
-    let date = datesArray[i].trim();
-    if(date){
-      parsedDates.push(new Date(Date.parse(date.replace(/-/g, '/'))));
-    }
-  }
-  startDatepickerInstance.selectDate(parsedDates);
+  let startDateArray = dateStartStr.split(',').map(function(dateString) {
+    return new Date(dateString);
+  });
+  startDatepickerInstance.selectDate(startDateArray);
+}
+
+if(dateEndStr){
+  let endDateArray = dateEndStr.split(',').map(function(dateString) {
+    return new Date(dateString);
+  });
+  endDatepickerInstance.selectDate(endDateArray);
 }
 
 if (window.innerWidth < 768) {
@@ -4872,7 +4876,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba286');
+    console.log('prueba287');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
