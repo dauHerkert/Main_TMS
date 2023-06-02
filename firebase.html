@@ -2174,7 +2174,7 @@ if (window.innerWidth < 768) {
             {title:"Workspot", field:"press_workspot", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"User title", field:"user_title", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title: "User type", field: "user_type", sorter: "string", width: 0, headerFilter:"list", cssClass: "hidden-column"},
+            {title:"User type", field: "user_type", sorter: "string", width: 0, headerFilter:"list", cssClass: "hidden-column"},
             {title:"Press media type", field:"press_media_type", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Press media", field:"press_media", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -2190,7 +2190,7 @@ if (window.innerWidth < 768) {
             {title:"Zip", field:"zip", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Country", field:"country", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Phone", field:"phone", sorter:"string", width:0, cssClass:"hidden-column"},
-            {title: userTableFirstnameLabel, field:"name", sorter:"string", width:150, cssClass:"first_column"},
+            {title: userTableFirstnameLabel, field:"name", sorter:"string", width:180, cssClass:"first_column"},
             {title:"EMAIL", field:"email", sorter:"string", width:220, cssClass:"other_columns"},
             {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:0, cssClass:"hidden-column"},
             {title: userTableCompanyLabel, field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{values: uniqueCompanies, clearable:true, headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {let selectedCompany = headerValue.toLowerCase();let userCompanies = rowData.company.toLowerCase().split(", ");return userCompanies.includes(selectedCompany);}}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
@@ -2198,7 +2198,7 @@ if (window.innerWidth < 768) {
               title: userTableStatusLabel,
               field: "status",
               sorter: "string",
-              width: 120,
+              width: 105,
               formatter: function(cell) {
                 let value = cell.getValue();
                 let label = "";
@@ -2266,7 +2266,7 @@ if (window.innerWidth < 768) {
                 // Return the container with the buttons
                 return buttonContainer;
             }, align: "center", cssClass:"center_col other_columns edit_delete_col", width: 120},
-        {title: userTableSelectLabel, cssClass:"center_col other_columns", width: 120, formatter:function(cell, formatterParams){
+        {title: userTableSelectLabel, cssClass:"center_col other_columns", width: 105, formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
               checkbox.addEventListener("click", function(){
@@ -4929,7 +4929,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba302');
+    console.log('prueba303');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
