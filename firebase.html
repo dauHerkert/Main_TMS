@@ -2292,20 +2292,21 @@ let statusFilterSelect = document.getElementById("status-filter");
 let typeFilterSelect = document.getElementById("type-filter");
 
 //Print companies select
-getDocs(company_colRef)
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              let company = doc.data();
+    getDocs(company_colRef)
+      .then((snapshot) => {
+        const companies = snapshot.docs.map((doc) => doc.data());
+        const sortedCompanies = companies.sort((a, b) => a.company_name.localeCompare(b.company_name));
 
-              var opt = document.createElement('option');
-              opt.value = company.company_name;
-              opt.textContent = company.company_name;
-              companyFilterSelect.appendChild(opt);
-            });
-          })
-          .catch(err => {
-            console.log('error fetching companies', err);
-          })
+        sortedCompanies.forEach((company) => {
+          var opt = document.createElement('option');
+          opt.value = company.company_id;
+          opt.textContent = company.company_name;
+          companyFilterSelect.appendChild(opt);
+        });
+      })
+      .catch((err) => {
+        console.log('error fetching companies', err);
+      });
 
 companyFilterSelect.addEventListener("change", function() {
     let companyColumn = table.getColumn("company");
@@ -4929,7 +4930,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba303');
+    console.log('prueba304');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
