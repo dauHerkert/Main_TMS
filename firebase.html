@@ -426,6 +426,7 @@ function userExtraInfo(e, user) {
   } else {
     company_admin_petition = "No admin";
   }
+  console.log("company peti", company_admin_petition);
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
   setDoc(userRef, {
@@ -4883,7 +4884,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba291');
+    console.log('prueba292');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
