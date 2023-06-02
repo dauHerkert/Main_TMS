@@ -2266,7 +2266,7 @@ if (window.innerWidth < 768) {
                 // Return the container with the buttons
                 return buttonContainer;
             }, align: "center", cssClass:"center_col other_columns edit_delete_col", width: 120},
-        {title: userTableSelectLabel, width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams){
+        {title: userTableSelectLabel, cssClass:"center_col other_columns", width: 120, formatter:function(cell, formatterParams){
           let checkbox = document.createElement("input");
               checkbox.type = "checkbox";
               checkbox.addEventListener("click", function(){
@@ -4895,7 +4895,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba295');
+    console.log('prueba296');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
