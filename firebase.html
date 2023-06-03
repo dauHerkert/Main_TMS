@@ -4559,7 +4559,7 @@ async function getCompanyType(user) {
   let companyZones = [];
 
   for (const company of companiesSnapshot.docs) {
-    if (company.id === userInfo.user_company) {
+    if (company.company_id === userInfo.user_company) {
       companyProfile = company.data().company_type;
       companyZones = company.data().company_zones || [];
       break;
@@ -4931,7 +4931,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba306');
+    console.log('prueba307');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
