@@ -400,19 +400,8 @@ if (select_company) {
     });
   }
 }
-const admin_checkbox = document.getElementById('admin_checkbox');
-let company_admin_petition;
-if(admin_checkbox){
-  if (admin_checkbox.checked) {
-    company_admin_petition = "Company admin";
-    console.log("company peti", company_admin_petition);
-  } else {
-    company_admin_petition = "No admin";
-  }
-  console.log("company peti", company_admin_petition);
-}
 
-//Add user's extra info to Firestore
+// Add user's extra info to Firestore
 function userExtraInfo(e, user) {
   e.preventDefault();
   e.stopPropagation();
@@ -433,6 +422,13 @@ function userExtraInfo(e, user) {
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
+  let company_admin_petition;
+  if (admin_checkbox.checked) {
+    company_admin_petition = "Company admin";
+  } else {
+    company_admin_petition = "No admin";
+  }
+
   setDoc(userRef, {
     user_firstname: user_firstname.value,
     user_lastname: user_lastname.value,
@@ -446,13 +442,14 @@ function userExtraInfo(e, user) {
     company_admin_petition: company_admin_petition,
   }, { merge: true })
   .then(() => {
-    //console.log('press data successfully updated');
+    // console.log('press data successfully updated');
   })
   .catch((err) => {
     console.log('there was a problem updating the data', err);
     toastr.error('There was an error updating your info');
   });
 }
+
 
 //Upload user's profile image
 const profile_img = document.getElementById('profile_img');
@@ -4934,7 +4931,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba308');
+    console.log('prueba309');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
