@@ -2068,7 +2068,7 @@ if (window.innerWidth < 768) {
               user_dates.style.display = 'none';
               basic_admin.style.display = 'none';
               document.getElementById('update_user_zones').style.display = 'none';
-              document.getElementById('accepted_option').style.display = 'none !important';
+              document.getElementById('accepted_option').style.display = 'none';
               document.getElementById('create_user_modal_button').style.display = 'none';
             }else{
               select_type_id.style.display = 'none';
@@ -2239,7 +2239,7 @@ if (window.innerWidth < 768) {
               headerFilterPlaceholder: "Status",
               cssClass: "other_columns",
             },
-            {title:"USER TYPE", field: "account_type", sorter: "string", cssClass:"center_col other_columns edit_delete_col", width: 120, headerFilter: "list",
+            {title:"USER TYPE", field: "account_type", sorter: "string", cssClass:"hidden-column", width:0, headerFilter: "list",
               headerFilterParams: {
                 values: true,
                 valuesSort: "asc",
