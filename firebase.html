@@ -3812,10 +3812,15 @@ create_user_zone.addEventListener('change', () => {
         paginationSizeSelector:[10, 25, 50],
         paginationCounter:"rows",
         columns:[
-        {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy", formatter: function(cell, formatterParams, onRendered){
-                let companyLink = cell.getValue();
+        {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy_en", formatter: function(cell, formatterParams, onRendered){
+                let companyLink_en = cell.getValue();
                 cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
-                return companyLink;
+                return companyLink_en;
+            }},
+            {title:"Company Link De", field:"companyLinkDe", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy_de", formatter: function(cell, formatterParams, onRendered){
+                let companyLink_de = cell.getValue();
+                cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
+                return companyLink_de;
             }},
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
             {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
@@ -3886,8 +3891,9 @@ create_user_zone.addEventListener('change', () => {
         let data = [];
         snapshot.docs.forEach((doc) => {
             let company = doc.data();
-            let company_link = `https://credentials.badhomburg-open.com/${link_lang}/signup-bho?company=${doc.id}`;
-                data.push({companyLink: company_link, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
+            let company_link_en = `https://credentials.badhomburg-open.com/en/signup-bho?company=${doc.id}`;
+            let company_link_de = `https://credentials.badhomburg-open.com/de/signup-bho?company=${doc.id}`;
+                data.push({companyLink: company_link_en,companyLinkDe: company_link_de, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
                 companies_table.setData(data);
         });
     })
@@ -4252,9 +4258,11 @@ create_company_form.addEventListener('submit', async (e) => {
                 (async () => {
                 try {
                 const registrationLink = `${company_link.value}`;
+                const registrationLink_de = `${company_link_de.value}`;
                 const html = await fetch(registration_link_de_email_url)
                 .then(response => response.text())
                 .then(html => html.replace('${company_link.value}', registrationLink))
+                .then(html => html.replace('${company_link_de.value}', registrationLink_de))
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${email_to_send.value}`,
                     message: {
@@ -4275,9 +4283,11 @@ create_company_form.addEventListener('submit', async (e) => {
                 (async () => {
                 try {
                   const registrationLink = `${company_link.value}`;
+                  const registrationLink_de = `${company_link_de.value}`;
                   const html = await fetch(registration_link_en_email_url)
                   .then(response => response.text())
                   .then(html => html.replace('${company_link.value}', registrationLink))
+                  .then(html => html.replace('${company_link_de.value}', registrationLink_de))
                     const docRef = addDoc(collection(db, "mail"), {
                     to: `${email_to_send.value}`,
                     message: {
@@ -4931,7 +4941,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba314');
+    console.log('prueba315');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
