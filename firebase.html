@@ -2416,6 +2416,9 @@ getDocs(q)
       let press_user = document.getElementById('press_user');
       const zonesSelect = document.getElementById('userZones');
       let user_zones_update = document.getElementById('select2-userZones-container');
+      let update_itwa = document.getElementById('itwa');
+      let update_workspace = document.getElementById('workspace');
+      let update_card_number = document.getElementById('press-id')
 
       $('#userCompany').on('change', function () {
         var selectedUserCompanies = $(this).val();
@@ -2637,6 +2640,9 @@ update_user_form.addEventListener('submit', (e) => {
       company_admin: company_admin.value,
       supplier_visit_dates: updated_dates.value,
       basic_admin: basic_admin.value,
+      user_itwa: update_itwa.value,
+      press_workspot: update_workspace.value,
+      press_card_number: update_card_number.value
     }, { merge: true })
       .then(() => {
         console.log('sending email... status is', user_status_update.value);
@@ -4942,7 +4948,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba323');
+    console.log('prueba324');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
