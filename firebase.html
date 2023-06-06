@@ -3118,6 +3118,7 @@ update_user_form.addEventListener('submit', (e) => {
             });
         }
          });
+
           //Bulk users update
           async function bulkUserUpdate(selectedData) {
           let bulk_user_form = document.getElementById('bulk_user_form');
@@ -3141,7 +3142,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(press_en_mr_application_rejected_url)
                         .then(response => response.text())
-                        .then(html => html.replace('${userData.data().user_firstname} ${userData.data().user_lastname}', fullName))
+                        .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -3166,7 +3167,7 @@ update_user_form.addEventListener('submit', (e) => {
                       const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                       const html = await fetch(press_de_mr_application_rejected_url)
                           .then(response => response.text())
-                          .then(html => html.replace('${userData.data().user_firstname} ${userData.data().user_lastname}', fullName))
+                          .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
                       const docRef = addDoc(collection(db, "mail"), {
                         to: `${user_specific_email.value}`,
                         message: {
@@ -3193,7 +3194,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(press_en_mr_application_accepted_url)
                         .then(response => response.text())
-                        .then(html => html.replace('${userData.data().user_firstname} ${userData.data().user_lastname}', fullName))
+                        .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -3217,7 +3218,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(press_de_mr_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${userData.data().user_firstname} ${userData.data().user_lastname}', fullName))
+                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -3245,7 +3246,7 @@ update_user_form.addEventListener('submit', (e) => {
                             const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                             const html = await fetch(press_en_ms_application_rejected_url)
                             .then(response => response.text())
-                            .then(html => html.replace('${userData.data().user_firstname} ${userData.data().user_lastname}', fullName))
+                            .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -3266,7 +3267,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(press_de_ms_application_rejected_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${userData.data().user_firstname} ${userData.data().user_lastname}', fullName))
+                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -3289,7 +3290,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(press_en_ms_application_accepted_url)
                         .then(response => response.text())
-                        .then(html => html.replace('${userData.data().user_firstname} ${userData.data().user_lastname}', fullName))
+                        .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
                       const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -3309,7 +3310,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(press_de_ms_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${userData.data().user_firstname} ${userData.data().user_lastname}', fullName))
+                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -3418,7 +3419,7 @@ update_user_form.addEventListener('submit', (e) => {
                 // Supplier - EN - Application rejected
                 (async () => {
                   try {
-                    const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
+                    const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(supplier_en_application_rejected_url)
                     .then(response => response.text())
                     .then(html => html.replace('${admin_user_name.value} ${admin_user_lastname.value}', fullName))
@@ -3441,7 +3442,7 @@ update_user_form.addEventListener('submit', (e) => {
                    // Supplier - DE - Application rejected
                   (async () => {
                   try {
-                    const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
+                    const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(supplier_de_application_rejected_url)
                     .then(response => response.text())
                     .then(html => html.replace('${admin_user_name.value} ${admin_user_lastname.value}', fullName))
@@ -3467,7 +3468,7 @@ update_user_form.addEventListener('submit', (e) => {
                       // Supplier - EN - Application accepted
                 (async () => {
                   try {
-                    const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
+                    const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(supplier_en_application_accepted_url)
                     .then(response => response.text())
                     .then(html => html.replace('${admin_user_name.value} ${admin_user_lastname.value}', fullName))
@@ -3491,7 +3492,7 @@ update_user_form.addEventListener('submit', (e) => {
                      // Supplier - DE - Application accepted
                   (async () => {
                   try {
-                    const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
+                    const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                     const html = await fetch(supplier_de_application_accepted_url)
                     .then(response => response.text())
                     .then(html => html.replace('${admin_user_name.value} ${admin_user_lastname.value}', fullName))
@@ -5003,7 +5004,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba331');
+    console.log('prueba332');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
