@@ -2129,7 +2129,7 @@ if (window.innerWidth < 768) {
 
       const company_colRef = collection(db, 'companies');
       let searchInput = document.getElementById("search-input");
-      const q = query(collection(db, "users"), where("confirmed_email", "==", '1'));
+      const q = query(collection(db, "users"));
 
       // Function to fetch unique company names
       async function fetchUniqueCompanies(userInfo) {
@@ -2169,7 +2169,7 @@ if (window.innerWidth < 768) {
         paginationSize:10,
         paginationSizeSelector:[10, 25, 50],
         paginationCounter:"rows",
-        headerFilterElement: document.querySelector('#tusnalgas'),
+        headerFilterElement: document.querySelector('#tryany'),
         columns:[
             {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
             {title:"Fullname", field:"user_fullname", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -4953,7 +4953,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba329');
+    console.log('prueba330');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
