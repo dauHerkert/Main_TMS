@@ -2473,6 +2473,8 @@ getDocs(q)
       let update_workspace = document.getElementById('workspace');
       let update_card_number = document.getElementById('press-id');
       let update_special_request = document.getElementById('special_requests');
+      let update_media_type = document.getElementById("media_type");
+      let update_user_address = document.getElementById('update_user_address');
 
       $('#userCompany').on('change', function () {
         var selectedUserCompanies = $(this).val();
@@ -2697,6 +2699,8 @@ update_user_form.addEventListener('submit', (e) => {
       user_itwa: update_itwa.value,
       press_workspot: update_workspace.value,
       press_card_number: update_card_number.value,
+      press_media_type: update_media_type.value,
+      user_address: update_user_address.value,
       supplier_special_request: update_special_request.value
     }, { merge: true })
       .then(() => {
@@ -5004,7 +5008,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba334');
+    console.log('prueba335');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
