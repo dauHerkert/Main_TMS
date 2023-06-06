@@ -1410,7 +1410,7 @@ async function pressUploadImage(docId, storageRef) {
                 const fullName = `${press_firstname.value} ${press_lastname.value}`;
                 const html = await fetch(press_de_mr_application_received_url)
                   .then(response => response.text())
-                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                  .then(html => html.replace('${fullName}', fullName));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${press_email.value}`,
                   message: {
@@ -1435,7 +1435,7 @@ async function pressUploadImage(docId, storageRef) {
                 const fullName = `${press_firstname.value} ${press_lastname.value}`;
                 const html = await fetch(form_de_ms_confirmation_email_to_admin_url)
                   .then(response => response.text())
-                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                  .then(html => html.replace('${fullName}', fullName));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: 'andreas.salvermoser@ops.dauherkert.com',
                   message: {
@@ -1453,7 +1453,7 @@ async function pressUploadImage(docId, storageRef) {
                 const fullName = `${press_firstname.value} ${press_lastname.value}`;
                 const html = await fetch(press_de_ms_application_received_url)
                   .then(response => response.text())
-                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                  .then(html => html.replace('${fullName}', fullName));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${press_email.value}`,
                   message: {
@@ -1475,7 +1475,7 @@ async function pressUploadImage(docId, storageRef) {
                 const fullName = `${press_firstname.value} ${press_lastname.value}`;
                 const html = await fetch(form_de_diverse_confirmation_email_to_admin_url)
                   .then(response => response.text())
-                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                  .then(html => html.replace('${fullName}', fullName));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: 'andreas.salvermoser@ops.dauherkert.com',
                   message: {
@@ -1493,7 +1493,7 @@ async function pressUploadImage(docId, storageRef) {
                 const fullName = `${press_firstname.value} ${press_lastname.value}`;
                 const html = await fetch(press_de_diverse_application_received_url)
                   .then(response => response.text())
-                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                  .then(html => html.replace('${fullName}', fullName));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${press_email.value}`,
                   message: {
@@ -1518,7 +1518,7 @@ async function pressUploadImage(docId, storageRef) {
                 const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
                 const html = await fetch(form_en_mr_ms_confirmation_form_to_admin_url)
                   .then(response => response.text())
-                  .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
+                  .then(html => html.replace('${fullName}', fullName));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: 'andreas.salvermoser@ops.dauherkert.com',
                   message: {
@@ -1536,7 +1536,7 @@ async function pressUploadImage(docId, storageRef) {
                 const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
                 const html = await fetch(press_en_mr_ms_application_received_url)
                   .then(response => response.text())
-                  .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
+                  .then(html => html.replace('${fullName}', fullName));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${press_email.value}`,
                   message: {
@@ -2714,7 +2714,7 @@ update_user_form.addEventListener('submit', (e) => {
             const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
             const html = await fetch(press_en_mr_application_rejected_url)
                 .then(response => response.text())
-                .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                .then(html => html.replace('${fullName}', fullName))
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
@@ -2737,7 +2737,7 @@ update_user_form.addEventListener('submit', (e) => {
                 const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                 const html = await fetch(press_de_mr_application_rejected_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
                   message: {
@@ -2762,7 +2762,7 @@ update_user_form.addEventListener('submit', (e) => {
                 const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                 const html = await fetch(press_en_mr_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
                   message: {
@@ -2786,7 +2786,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_de_mr_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -2815,7 +2815,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_en_ms_application_rejected_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
@@ -2838,7 +2838,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_de_ms_application_rejected_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
@@ -2863,7 +2863,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_en_ms_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                   const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
                   message: {
@@ -2887,7 +2887,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_de_ms_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -2916,7 +2916,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_en_diverse_application_rejected_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -2939,7 +2939,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_de_diverse_application_rejected_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
@@ -2964,7 +2964,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_en_diverse_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -2988,7 +2988,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(press_de_diverse_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -3018,7 +3018,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(supplier_en_application_rejected_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${admin_user_name.value} ${admin_user_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
@@ -3041,7 +3041,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(supplier_de_application_rejected_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${admin_user_name.value} ${admin_user_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
             const docRef = addDoc(collection(db, "mail"), {
               to: `${user_specific_email.value}`,
               message: {
@@ -3066,7 +3066,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(supplier_en_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${admin_user_name.value} ${admin_user_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
                   message: {
@@ -3090,7 +3090,7 @@ update_user_form.addEventListener('submit', (e) => {
                     const fullName = `${admin_user_name.value} ${admin_user_lastname.value}`;
                     const html = await fetch(supplier_de_application_accepted_url)
                     .then(response => response.text())
-                    .then(html => html.replace('${admin_user_name.value} ${admin_user_lastname.value}', fullName))
+                    .then(html => html.replace('${fullName}', fullName))
                     const docRef = addDoc(collection(db, "mail"), {
                       to: `${user_specific_email.value}`,
                       message: {
@@ -5004,7 +5004,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba332');
+    console.log('prueba333');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
