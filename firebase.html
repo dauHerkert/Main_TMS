@@ -422,11 +422,11 @@ function userExtraInfo(e, user) {
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
   let company_admin_petition;
-  if (admin_checkbox.checked) {
-    company_admin_petition = "Company admin";
-  } else {
-    company_admin_petition = "No admin";
-  }
+if ($('#admin_checkbox').is(':checked')) {
+  company_admin_petition = "Company admin";
+} else {
+  company_admin_petition = "No admin";
+}
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -4951,7 +4951,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba326');
+    console.log('prueba327');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
