@@ -635,13 +635,13 @@ if(saveButton){
               } else if (userData.user_is_admin === "0" && userData.company_admin == '0' && userData.basic_admin == '1') {
                 window.location = "/de/admin/users-table";
               } else if ( userData.user_is_admin === "0" && userData.account_type == 'No company' ) {
-                window.location = '/de/supplier';
+                window.location = '/de/account';
               }else if (userData.user_is_admin === "0" && userData.account_type === "Press") {
-                window.location = "/de/press";
+                window.location = "/de/account";
               } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
-                window.location = "/de/supplier";
+                window.location = "/de/account";
               }else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
-                window.location = "/de/supplier";
+                window.location = "/de/account";
               } else if (userData.user_is_admin === "1") {
                 window.location = "/de/admin/users-table";
               }
@@ -651,13 +651,13 @@ if(saveButton){
               } else if (userData.user_is_admin === "0" && userData.company_admin == '0' && userData.basic_admin == '1') {
                 window.location = "/en/admin/users-table";
               }else if ( userData.user_is_admin === "0" && userData.account_type == 'No company' ) {
-                window.location = '/en/supplier';
+                window.location = '/en/account';
               }else if (userData.user_is_admin === "0" && userData.account_type === "Press") {
                 window.location = "/en/account";
               } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
-                window.location = "/en/supplier";
+                window.location = "/en/account";
               } else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
-                window.location = "/en/supplier";
+                window.location = "/en/account";
               } else if (userData.user_is_admin === "1") {
                 window.location = "/en/admin/users-table";
               }
@@ -668,13 +668,13 @@ if(saveButton){
               }else if (userData.user_is_admin === "0" && userData.company_admin == '1' && userData.basic_admin == '0') {
                 window.location = "/en/admin/users-table";
               } else if ( userData.user_is_admin === "0" && userData.account_type == 'No company' ) {
-                window.location = '/en/supplier';
+                window.location = '/en/account';
               }else if (userData.user_is_admin === "0" && userData.account_type === "Press") {
                 window.location = "/en/account";
               } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
-                window.location = "/en/supplier";
+                window.location = "/en/account";
               } else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
-                window.location = "/en/supplier";
+                window.location = "/en/account";
               } else if (userData.user_is_admin === "1") {
                 window.location = "/en/admin/users-table";
               }
@@ -689,7 +689,6 @@ if(saveButton){
       }else{
         toastr.error('Bitte klicken Sie zuerst auf den Link den sie per email erhalten haben.')
       }
-
     }
     } catch (error) {
       const errorMessage = error.message;
@@ -803,8 +802,7 @@ if(saveButton){
       let form_button = document.getElementById('form_button');
       var storedLang = localStorage.getItem("language");
 
-      if ( userInfo ) {
-
+      if (userInfo) {
         console.log('populateForms() userInfo', userInfo);
 
         translateNavigation();
@@ -819,19 +817,20 @@ if(saveButton){
             }
         if(storedLang){
           if(storedLang == "de"){
-            if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
+          if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
             form_button.setAttribute('href', '/de/supplier');
             document.getElementById('admin_drop').style.display = 'block';
-          } else if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
+          }else if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
             form_button.setAttribute('href', '/de/supplier');
           }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
           form_button.setAttribute('href', '/de/supplier');
-        }else if ( userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
-          form_button.setAttribute('href', '/de/supplier');
-        } else if( userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
-          form_button.setAttribute('href', '/de/press');
-        } else if(userInfo.user_is_admin == "0" && userInfo.company_admin == "1" || userInfo.basic_admin == '1') {
-              if(window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table'){
+          }else if ( userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
+            form_button.setAttribute('href', '/de/supplier');
+          }else if( userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
+            form_button.setAttribute('href', '/de/press');
+          }else if(userInfo.user_is_admin == "0" && userInfo.company_admin == "1" || userInfo.basic_admin == '1') {
+          
+            if(window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table'){
                 location.replace('/de/account');
               }
               document.getElementById('companies_table').style.display = 'none';
@@ -953,8 +952,8 @@ if(saveButton){
   const updatedPicture = document.getElementById('updated_picture');
   const hiddenInput = document.getElementById('hidden_input');
   let cropper;
-if(updatedPicture){
-updatedPicture.addEventListener("change", function handleProfilePic(e) {
+  if(updatedPicture){
+  updatedPicture.addEventListener("change", function handleProfilePic(e) {
   e.preventDefault();
   e.stopPropagation();
 
@@ -993,6 +992,7 @@ updatedPicture.addEventListener("change", function handleProfilePic(e) {
   }
 });
 }
+//Update profile pic
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
@@ -1002,7 +1002,6 @@ function updateProfilePic(e, user) {
   const canvas = cropper.getCroppedCanvas();
   canvas.toBlob((blob) => {
     let fileToUpload;
-
     const fileInput = document.getElementById('updated_picture');
     const file = fileInput.files[0];
 
@@ -1506,10 +1505,10 @@ async function pressUploadImage(docId, storageRef) {
             // Form confirmation email to admin
             (async () => {
               try {
-                const fullName = `${press_firstname.value} ${press_lastname.value}`;
+                const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
                 const html = await fetch(press_en_mr_ms_application_received_url)
                   .then(response => response.text())
-                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
+                  .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: 'andreas.salvermoser@ops.dauherkert.com',
                   message: {
@@ -4954,7 +4953,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba328');
+    console.log('prueba329');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
