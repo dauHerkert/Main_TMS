@@ -225,6 +225,11 @@
     // Use the companyZones variable to set the user_zones field
     userDefaultValues.user_zones = companyZones;
     let storedLang = localStorage.getItem("language");
+    //Save the user info in case he wants to resend the email
+    sessionStorage.setItem('user_firstname', user_firstname.value);
+    sessionStorage.setItem('user_lastname', user_lastname.value);
+    sessionStorage.setItem('user_email', user.email);
+    sessionStorage.setItem('userID', user.uid);
     // Use the setDoc function to set the userDefaultValues object
     setDoc(userRef, userDefaultValues, { merge: true })
         .then(async () => {
@@ -598,6 +603,51 @@ if(saveButton){
       console.log(fileItem);
       await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
     });
+}
+
+    // ======== Resend Register email ==========
+    
+  async function resendEmail() {
+  const user_email = sessionStorage.getItem('user_email');
+  const stored_userID = sessionStorage.getItem('userID');
+  const storedLang = localStorage.getItem('language');
+
+  try {
+    let html;
+    let subject;
+
+    if (storedLang == 'de') {
+      html = await fetch(register_de_email_url)
+        .then(response => response.text())
+        .then(html => html.replace('${userID}', stored_userID));
+      subject = register_de_email_subject;
+    } else {
+      html = await fetch(register_en_email_url)
+        .then(response => response.text())
+        .then(html => html.replace('${userID}', stored_userID));
+      subject = register_en_email_subject;
+    }
+
+    const docRef = await addDoc(collection(db, "mail"), {
+      to: user_email,
+      message: {
+        subject: subject,
+        html: html,
+      }
+    });
+
+    // Sucessfully resend email
+    toastr.success('Email resent successfully!');
+  } catch (error) {
+    console.error(error);
+    // Error resending email
+    toastr.error('Failed to resend email. Please try again.');
+  }
+}
+
+const resend_button = document.getElementById('resend_email_button');
+if (resend_button) {
+  resend_button.addEventListener('click', resendEmail);
 }
 
     // ============ Handle singin ===============
@@ -4953,7 +5003,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba330');
+    console.log('prueba331');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
