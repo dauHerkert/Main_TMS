@@ -420,7 +420,7 @@ function userExtraInfo(e, user) {
   const start_date = document.getElementById('Select-dates');
   const end_date = document.getElementById('Select-dates-2');
   const special_requests = document.getElementById('special_requests');
-  const admin_checkbox = document.getElementById('admin_checkbox').checked;
+  const admin_checkbox = document.getElementById('admin_checkbox');
 
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
