@@ -435,6 +435,8 @@ function userExtraInfo(e, user) {
       } else {
         company_admin_petition = "No admin";
       }
+    });
+  }
 
       setDoc(userRef, {
         user_firstname: user_firstname.value,
@@ -455,8 +457,6 @@ function userExtraInfo(e, user) {
         console.log('there was a problem updating the data', err);
         toastr.error('There was an error updating your info');
       });
-    });
-  }
 }
 
 
@@ -4630,15 +4630,13 @@ create_company_form.addEventListener('submit', async (e) => {
 }
 
 async function getCompanyType(user) {
-  let userInfo = await getUserInfo(user);
-  console.log('userInfo:', userInfo);
   const companiesRef = collection(db, "companies");
   const companiesSnapshot = await getDocs(companiesRef);
   let companyProfile = 'No company';
   let companyZones = [];
 
   for (const company of companiesSnapshot.docs) {
-    if (company.id === userInfo.user_company) {
+    if (company.id === user.user_company) {
       companyProfile = company.data().company_type;
       companyZones = company.data().company_zones || [];
       break;
@@ -4648,6 +4646,7 @@ async function getCompanyType(user) {
   // Return the object with the default values for companyProfile and companyZones
   return { companyProfile, companyZones };
 }
+
 
     onAuthStateChanged(auth, (user) => {
 
@@ -5010,7 +5009,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba341');
+    console.log('prueba3412');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
