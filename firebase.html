@@ -432,6 +432,9 @@ function userExtraInfo(e, user) {
     console.log(company_admin_petition)
   }
 
+  let checkbox = jQuery('#admin_checkbox').val()
+  console.log(checkbox)
+
   setDoc(userRef, {
     user_firstname: user_firstname.value,
     user_lastname: user_lastname.value,
@@ -5003,7 +5006,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba346');
+    console.log('prueba347');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
