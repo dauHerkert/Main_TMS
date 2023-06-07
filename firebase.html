@@ -405,20 +405,6 @@ if (select_company) {
   }
 }
 
-/// Listener de evento para el checkbox "admin_checkbox"
-const admin_checkbox = document.getElementById('admin_checkbox');
-let company_admin_petition;
-
-if (admin_checkbox) {
-  admin_checkbox.addEventListener('change', function() {
-    if (admin_checkbox.checked) {
-      company_admin_petition = "Company admin";
-    } else {
-      company_admin_petition = "No admin";
-    }
-  });
-}
-
 // Función para agregar información adicional del usuario a Firestore
 function userExtraInfo(e, user) {
   e.preventDefault();
@@ -5012,7 +4998,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba343');
+    console.log('prueba344');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
