@@ -996,89 +996,104 @@ if (resend_button) {
         });
     }
 
-    //Update profile picture
-  const updatedPicture = document.getElementById('updated_picture');
-  const hiddenInput = document.getElementById('hidden_input');
-  let cropper;
-  if(updatedPicture){
-  updatedPicture.addEventListener("change", function handleProfilePic(e) {
-  e.preventDefault();
-  e.stopPropagation();
+    // Variables globales
+const updatedPicture = document.getElementById('updated_picture');
+const hidden_input = document.getElementById('hidden_input');
+const update_picture_modal = document.getElementById('update_picture_modal');
+let cropper = null;
+let webcam = null;
 
-  let fileItem = updatedPicture.files[0];
+// Función para manejar la toma de la foto
+function takePhoto() {
+  if (webcam) {
+    const image = webcam.snap();
+    const imgElement = document.getElementById('image_cropper2');
+    imgElement.src = image;
 
-  if (updatedPicture.files.length === 0) {
-    toastr.error('Please upload your profile picture');
-  } else {
-    // Check if the file is an image
-    if (/^image\/\w+/.test(fileItem.type)) {
-      // Destroy the current cropper instance if it exists
-      if (cropper) {
-          cropper.destroy();
-        }
-      // Initialize the cropper
-      const image = document.getElementById('image_cropper');
-      image.src = URL.createObjectURL(fileItem);
-      cropper = new Cropper(image, {
-        aspectRatio: 3 / 4,
-        width: 200,
-          height: 200,
-          viewMode: 1,
-          autoCropArea: 0.7,
-          responsive: true,
-        crop(event) {
-          // Get the cropped canvas data as a data URL
-          const canvas = cropper.getCroppedCanvas();
-          const dataURL = canvas.toDataURL();
-          // Set the data URL as the value of the hidden input field
-          hiddenInput.value = dataURL;
-        },
-      });
-    } else {
-      toastr.error('Please choose an image file.');
-    }
+    // Mostrar el botón para abrir el cropper
+    openCropperBtn.style.display = 'inline-block';
   }
-});
 }
-//Update profile pic
+
+// Manejador de eventos para el botón de seleccionar imagen
+myBtn4.addEventListener('click', function() {
+  // Simular el clic en el campo de entrada de archivo oculto
+  updatedPicture.click();
+});
+
+// Manejador de eventos para el botón de tomar foto
+takePhotoBtn.addEventListener('click', function() {
+  // Limpiar cualquier referencia anterior al cropper
+  cropperContainer.innerHTML = '';
+
+  // Solicitar permiso para acceder a la cámara web
+  Webcam.requestPermission()
+    .then(function() {
+      // Crear una instancia de Webcam
+      webcam = new Webcam.default();
+
+      // Establecer el elemento objetivo donde se mostrará la vista previa de la cámara web
+      webcam.setElement('#image_cropper2');
+      webcam.setWidth(200); // Establecer el ancho deseado para la vista previa
+      webcam.setHeight(200); // Establecer la altura deseada para la vista previa
+
+      // Iniciar la cámara web
+      webcam.start()
+        .then(function() {
+          // Mostrar el botón para tomar la foto
+          takePhotoBtn.style.display = 'inline-block';
+        })
+        .catch(function(error) {
+          console.error('Error al iniciar la cámara web', error);
+          // Manejar cualquier error que ocurra al iniciar la cámara web
+        });
+    })
+    .catch(function(error) {
+      console.error('Error al solicitar permiso para acceder a la cámara web', error);
+      // Manejar cualquier error que ocurra al solicitar permiso para acceder a la cámara web
+    });
+});
+
+// Función para actualizar la imagen del perfil
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
-  const metadata = {
-    contentType: 'image/png'
-  };
-  const canvas = cropper.getCroppedCanvas();
-  canvas.toBlob((blob) => {
-    let fileToUpload;
-    const fileInput = document.getElementById('updated_picture');
-    const file = fileInput.files[0];
+  let update_img_user_id = document.getElementById('update_img_user_id');
 
-    if (!blob) {
-      console.error('Failed to generate Blob object.');
-      console.log('Using raw file instead');
-      fileToUpload = file;
-    } else {
-      fileToUpload = blob;
-      console.log('Using blob to upload');
-    }
-
-    const storageRef = ref(storage, 'profiles/' + user.uid);
-    uploadBytes(storageRef, fileToUpload, metadata)
-      .then((snapshot) => {
-        toastr.success('You have updated the profile picture successfully');
-        setTimeout(reloadPage, 1500);
-      })
-      .catch(err => {
-        console.log('Error uploading file', err);
-        toastr.error('There was an error uploading the file');
-      });
-  });
+  if (cropper) {
+    const canvas = cropper.getCroppedCanvas();
+    const metadata = {
+      contentType: 'image/png'
+    };
+    canvas.toBlob((blob) => {
+      const storageRef = ref(storage, 'profiles/' + update_img_user_id.value);
+      uploadBytes(storageRef, blob, metadata)
+        .then((snapshot) => {
+          toastr.success('You have updated the profile picture successfully');
+          setTimeout(function() {
+            update_picture_modal.style.display = 'none';
+          }, 1000);
+        })
+        .catch(err => {
+          console.log('error uploading file', err);
+          toastr.error('There was an error uploading the file');
+        });
+    });
+  } else {
+    toastr.error('Please upload your profile picture');
+  }
 }
 
 function updateFileLabel() {
   const fileName = document.getElementById("fileName");
   fileName.innerHTML = updatedPicture.files[0].name;
-}[]
+}
+
+if (update_picture_modal !== null) {
+  update_picture_modal.addEventListener('submit', function(ev) {
+    updateProfilePic(ev, user);
+  }, true);
+}
 
     function showPrivateElements() {
       // User is signed in
@@ -5024,7 +5039,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba354');
+    console.log('prueba355');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
