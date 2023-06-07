@@ -405,15 +405,6 @@ if (select_company) {
   }
 }
 
-const admin_checkbox = jQuery('#admin_checkbox').val();
-let company_admin_petition;
-  if ( $("#admin_checkbox").is( ":checked" ) ){
-    company_admin_petition = admin_checkbox;
-  }else{
-    company_admin_petition = "No admin";
-  }
-  console.log("company admin:", company_admin_petition)
-
 // Add user's extra info to Firestore
 function userExtraInfo(e, user) {
   e.preventDefault();
@@ -433,6 +424,15 @@ function userExtraInfo(e, user) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
+
+  const admin_checkbox = jQuery('#admin_checkbox').val();
+  var company_admin_petition;
+  if ( $("#admin_checkbox").is( ":checked" ) ){
+    company_admin_petition = admin_checkbox;
+  }else{
+    company_admin_petition = "No admin";
+  }
+  console.log("company admin:", company_admin_petition)
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -5005,7 +5005,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba350');
+    console.log('prueba351');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
