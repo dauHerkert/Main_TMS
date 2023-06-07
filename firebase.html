@@ -405,20 +405,6 @@ if (select_company) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  let company_admin_petition;
-  const admin_checkbox = document.getElementById('admin_checkbox');
-
-  if (admin_checkbox) {
-    if (admin_checkbox.checked) {
-      company_admin_petition = 'Company admin';
-    } else {
-      company_admin_petition = 'No admin';
-    }
-  } else {
-    console.log('No checkbox');
-  }
-});
 
 // Add user's extra info to Firestore
 function userExtraInfo(e, user) {
@@ -434,6 +420,7 @@ function userExtraInfo(e, user) {
   const start_date = document.getElementById('Select-dates');
   const end_date = document.getElementById('Select-dates-2');
   const special_requests = document.getElementById('special_requests');
+  const admin_checkbox = document.getElementById('admin_checkbox');
 
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
@@ -450,7 +437,7 @@ function userExtraInfo(e, user) {
     supplier_end_date: end_date.value,
     supplier_special_request: special_requests.value,
     language: language,
-    company_admin_petition: company_admin_petition,
+    company_admin_petition: admin_checkbox.value,
   }, { merge: true })
   .then(() => {
     // console.log('press data successfully updated');
