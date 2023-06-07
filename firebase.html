@@ -405,10 +405,25 @@ if (select_company) {
   }
 }
 
-// Add user's extra info to Firestore
+/// Listener de evento para el checkbox "admin_checkbox"
+const admin_checkbox = document.getElementById('admin_checkbox');
+let company_admin_petition;
+
+if (admin_checkbox) {
+  admin_checkbox.addEventListener('change', function() {
+    if (admin_checkbox.checked) {
+      company_admin_petition = "Company admin";
+    } else {
+      company_admin_petition = "No admin";
+    }
+  });
+}
+
+// Función para agregar información adicional del usuario a Firestore
 function userExtraInfo(e, user) {
   e.preventDefault();
   e.stopPropagation();
+  
   const userRef = doc(db, 'users', user.uid);
   const user_firstname = document.getElementById('first-name');
   const user_lastname = document.getElementById('last-name');
@@ -425,39 +440,27 @@ function userExtraInfo(e, user) {
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
-  const admin_checkbox = document.getElementById('admin_checkbox');
-  let company_admin_petition;
-  
-  if (admin_checkbox) {
-    admin_checkbox.addEventListener('change', function() {
-      if (admin_checkbox.checked) {
-        company_admin_petition = "Company admin";
-      } else {
-        company_admin_petition = "No admin";
-      }
-    });
-  }
-
-      setDoc(userRef, {
-        user_firstname: user_firstname.value,
-        user_lastname: user_lastname.value,
-        user_fullname: user_fullname,
-        user_company: userCompanyValue,
-        last_signin_date: new Date(),
-        supplier_start_date: start_date.value,
-        supplier_end_date: end_date.value,
-        supplier_special_request: special_requests.value,
-        language: language,
-        company_admin_petition: company_admin_petition,
-      }, { merge: true })
-      .then(() => {
-        // console.log('press data successfully updated');
-      })
-      .catch((err) => {
-        console.log('there was a problem updating the data', err);
-        toastr.error('There was an error updating your info');
-      });
+  setDoc(userRef, {
+    user_firstname: user_firstname.value,
+    user_lastname: user_lastname.value,
+    user_fullname: user_fullname,
+    user_company: userCompanyValue,
+    last_signin_date: new Date(),
+    supplier_start_date: start_date.value,
+    supplier_end_date: end_date.value,
+    supplier_special_request: special_requests.value,
+    language: language,
+    company_admin_petition: company_admin_petition,
+  }, { merge: true })
+  .then(() => {
+    // console.log('press data successfully updated');
+  })
+  .catch((err) => {
+    console.log('there was a problem updating the data', err);
+    toastr.error('There was an error updating your info');
+  });
 }
+
 
 
 //Upload user's profile image
@@ -5009,7 +5012,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba3412');
+    console.log('prueba343');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
