@@ -4652,6 +4652,16 @@ async function getCompanyType(user) {
         // user is signed out
         replaceUrlSignOut(user)
         showPublicElements();
+        if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
+          pageHome();
+        } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
+          signInPage();
+        }else if ( url == '/en/press-form' || url == '/de/press-form' ) {
+          pagePress();
+        } else {
+          // User does NOT have access to this page
+          console.log('user does NOT have access to this page');
+        }
         return;
       }
     });
@@ -4999,7 +5009,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba349');
+    console.log('prueba350');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
