@@ -404,6 +404,8 @@ if (select_company) {
     });
   }
 }
+let checkbox = jQuery('#admin_checkbox').val()
+  console.log(checkbox)
 
 // Add user's extra info to Firestore
 function userExtraInfo(e, user) {
@@ -431,9 +433,6 @@ function userExtraInfo(e, user) {
     company_admin_petition = "Company admin"
     console.log(company_admin_petition)
   }
-
-  let checkbox = jQuery('#admin_checkbox').val()
-  console.log(checkbox)
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -5006,7 +5005,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba347');
+    console.log('prueba348');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
