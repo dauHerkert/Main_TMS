@@ -4612,22 +4612,24 @@ create_company_form.addEventListener('submit', async (e) => {
     checkUrlParameter();
 
     async function changeCompanyNameToID(user) {
-  const companiesRef = collection(db, "companies");
-  const companiesSnapshot = await getDocs(companiesRef);
-  let companyNames = [];
-  for (const company of companiesSnapshot.docs) {
-    if (user.user_company.includes(company.id)) {
-      companyNames.push(company.data().company_name);
+  if (user.user_company) {
+    const companiesRef = collection(db, "companies");
+    const companiesSnapshot = await getDocs(companiesRef);
+    let companyNames = [];
+    for (const company of companiesSnapshot.docs) {
+      if (user.user_company.includes(company.id)) {
+        companyNames.push(company.data().company_name);
+      }
     }
-  }
-  if (companyNames.length > 0) {
-    return companyNames.join(", ");
+    if (companyNames.length > 0) {
+      return companyNames.join(", ");
+    } else {
+      console.log("No company found with that ID");
+    }
   } else {
-    console.log("No company found with that ID");
-    return "";
+    console.log("Invalid user_company value");
   }
 }
-
 
 async function getCompanyType(user) {
   let userInfo = await getUserInfo(user);
@@ -5010,7 +5012,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba338');
+    console.log('prueba340');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
