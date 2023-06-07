@@ -225,6 +225,17 @@
     // Use the companyZones variable to set the user_zones field
     userDefaultValues.user_zones = companyZones;
     let storedLang = localStorage.getItem("language");
+    const admin_checkbox = jQuery('#admin_checkbox').val();
+  var company_admin_petition;
+  if ( $("#admin_checkbox").is( ":checked" ) ){
+    company_admin_petition = admin_checkbox;
+  }else{
+    company_admin_petition = "No admin";
+  }
+  console.log("company admin:", company_admin_petition)
+
+  userDefaultValues.company_admin_petition = company_admin_petition;
+
     //Save the user info in case he wants to resend the email
     sessionStorage.setItem('user_firstname', user_firstname.value);
     sessionStorage.setItem('user_lastname', user_lastname.value);
@@ -425,15 +436,6 @@ function userExtraInfo(e, user) {
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
-  const admin_checkbox = jQuery('#admin_checkbox').val();
-  var company_admin_petition;
-  if ( $("#admin_checkbox").is( ":checked" ) ){
-    company_admin_petition = admin_checkbox;
-  }else{
-    company_admin_petition = "No admin";
-  }
-  console.log("company admin:", company_admin_petition)
-
   setDoc(userRef, {
     user_firstname: user_firstname.value,
     user_lastname: user_lastname.value,
@@ -444,7 +446,6 @@ function userExtraInfo(e, user) {
     supplier_end_date: end_date.value,
     supplier_special_request: special_requests.value,
     language: language,
-    company_admin_petition: "test12345",
   }, { merge: true })
   .then(() => {
     // console.log('press data successfully updated');
@@ -5005,7 +5006,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba352');
+    console.log('prueba353');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
