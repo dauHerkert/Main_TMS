@@ -996,25 +996,39 @@ if (resend_button) {
         });
     }
 
-    // Variables globales
+   // Variables globales
+const webcamElement = document.getElementById('webcam');
+const canvasElement = document.getElementById('canvas');
+const snapSoundElement = document.getElementById('snapSound');
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input');
 const update_picture_modal = document.getElementById('update_picture_modal');
-let takePhotoBtn = document.getElementById('take_photo');
 let cropper = null;
 let webcam = null;
 
 // Función para manejar la toma de la foto
 function takePhoto() {
   if (webcam) {
-    const image = webcam.snap();
+    const picture = webcam.snap();
     const imgElement = document.getElementById('image_cropper2');
-    imgElement.src = image;
+    imgElement.src = picture;
 
     // Mostrar el botón para abrir el cropper
     openCropperBtn.style.display = 'inline-block';
   }
 }
+
+// Inicializar objeto Webcam
+webcam = new Webcam.default(webcamElement, 'user', canvasElement, snapSoundElement);
+
+// Iniciar la cámara web
+webcam.start()
+  .then(result => {
+    console.log("Webcam started");
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 // Manejador de eventos para el botón de seleccionar imagen
 myBtn4.addEventListener('click', function() {
@@ -1024,33 +1038,7 @@ myBtn4.addEventListener('click', function() {
 
 // Manejador de eventos para el botón de tomar foto
 takePhotoBtn.addEventListener('click', function() {
-
-  // Solicitar permiso para acceder a la cámara web
-  Webcam.requestPermission()
-    .then(function() {
-      // Crear una instancia de Webcam
-      webcam = new Webcam.default();
-
-      // Establecer el elemento objetivo donde se mostrará la vista previa de la cámara web
-      webcam.setElement('#image_cropper2');
-      webcam.setWidth(200); // Establecer el ancho deseado para la vista previa
-      webcam.setHeight(200); // Establecer la altura deseada para la vista previa
-
-      // Iniciar la cámara web
-      webcam.start()
-        .then(function() {
-          // Mostrar el botón para tomar la foto
-          takePhotoBtn.style.display = 'inline-block';
-        })
-        .catch(function(error) {
-          console.error('Error al iniciar la cámara web', error);
-          // Manejar cualquier error que ocurra al iniciar la cámara web
-        });
-    })
-    .catch(function(error) {
-      console.error('Error al solicitar permiso para acceder a la cámara web', error);
-      // Manejar cualquier error que ocurra al solicitar permiso para acceder a la cámara web
-    });
+  takePhoto();
 });
 
 // Función para actualizar la imagen del perfil
@@ -5038,7 +5026,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba357');
+    console.log('prueba358');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
