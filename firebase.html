@@ -405,11 +405,11 @@ if (select_company) {
   }
 }
 
-// Función para agregar información adicional del usuario a Firestore
+let company_admin_petition;
+// Add user's extra info to Firestore
 function userExtraInfo(e, user) {
   e.preventDefault();
   e.stopPropagation();
-  
   const userRef = doc(db, 'users', user.uid);
   const user_firstname = document.getElementById('first-name');
   const user_lastname = document.getElementById('last-name');
@@ -420,11 +420,22 @@ function userExtraInfo(e, user) {
   const start_date = document.getElementById('Select-dates');
   const end_date = document.getElementById('Select-dates-2');
   const special_requests = document.getElementById('special_requests');
+  const admin_checkbox = document.getElementById('admin_checkbox');
 
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
+
+  if (admin_checkbox) {
+    if (admin_checkbox.checked) {
+      company_admin_petition = "Company admin";
+    } else {
+      company_admin_petition = "No admin";
+    }
+  }else{
+    console.log('No checkbox')
+  }
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -4998,7 +5009,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba344');
+    console.log('prueba345');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
