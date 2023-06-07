@@ -2047,6 +2047,9 @@ startDatePicker.datepicker({
     onHide: function(inst, animationCompleted) {
       let selectedDates = inst.selectedDates;
       console.log(selectedDates);
+    },
+    onSelect: function(formattedDate, date, inst) {
+      inst.hide();
     }
   });
   endDatePicker.datepicker({
@@ -2060,6 +2063,9 @@ startDatePicker.datepicker({
     onHide: function(inst, animationCompleted) {
       let selectedDates = inst.selectedDates;
       console.log(selectedDates);
+    },
+    onSelect: function(formattedDate, date, inst) {
+      inst.hide();
     }
   });
   let startDatepickerInstance = startDatePicker.data('datepicker');
@@ -4726,6 +4732,9 @@ async function getCompanyType(user) {
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates);
+    },
+    onSelect: function(formattedDate, date, inst) {
+      inst.hide();
     }
   });
   endDatePicker.datepicker({
@@ -4738,6 +4747,9 @@ async function getCompanyType(user) {
     onHide: function(inst, animationCompleted) {
       var selectedDates = inst.selectedDates;
       console.log(selectedDates);
+    },
+    onSelect: function(formattedDate, date, inst) {
+      inst.hide();
     }
   });
 
@@ -4806,6 +4818,9 @@ async function getDateSignUp() {
     endDatePicker.value = '';
     initializeEndDatePicker();
   },
+    onSelect: function(formattedDate, date, inst) {
+      inst.hide();
+    }
 });
 
   function initializeEndDatePicker() {
@@ -4819,7 +4834,10 @@ async function getDateSignUp() {
       onHide: function(inst, animationCompleted) {
         var selectedDates = inst.selectedDates;
         console.log(selectedDates);
-      }
+      },
+    onSelect: function(formattedDate, date, inst) {
+      inst.hide();
+    }
     });
   }
 
@@ -5006,7 +5024,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba353');
+    console.log('prueba354');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
