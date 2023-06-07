@@ -405,7 +405,7 @@ if (select_company) {
   }
 }
 
-
+let company_admin_petition;
 // Add user's extra info to Firestore
 function userExtraInfo(e, user) {
   e.preventDefault();
@@ -427,6 +427,16 @@ function userExtraInfo(e, user) {
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
 
+  if (admin_checkbox) {
+    if (admin_checkbox.checked) {
+      company_admin_petition = "Company admin";
+    } else {
+      company_admin_petition = "No admin";
+    }
+  }else{
+    console.log('No checkbox')
+  }
+
   setDoc(userRef, {
     user_firstname: user_firstname.value,
     user_lastname: user_lastname.value,
@@ -437,7 +447,7 @@ function userExtraInfo(e, user) {
     supplier_end_date: end_date.value,
     supplier_special_request: special_requests.value,
     language: language,
-    company_admin_petition: admin_checkbox.value,
+    company_admin_petition: company_admin_petition,
   }, { merge: true })
   .then(() => {
     // console.log('press data successfully updated');
@@ -447,8 +457,6 @@ function userExtraInfo(e, user) {
     toastr.error('There was an error updating your info');
   });
 }
-
-
 
 //Upload user's profile image
 const profile_img = document.getElementById('profile_img');
@@ -4600,8 +4608,8 @@ create_company_form.addEventListener('submit', async (e) => {
       loadingOverlay.style.display = "none";
     }, 2000);
   }
-    checkUrlParameter();
     dispatchRequest(false);
+    checkUrlParameter();
 
     async function changeCompanyNameToID(user) {
     const companiesRef = collection(db, "companies");
@@ -4620,13 +4628,15 @@ create_company_form.addEventListener('submit', async (e) => {
 }
 
 async function getCompanyType(user) {
+  let userInfo = await getUserInfo(user);
+  console.log('userInfo:', userInfo);
   const companiesRef = collection(db, "companies");
   const companiesSnapshot = await getDocs(companiesRef);
   let companyProfile = 'No company';
   let companyZones = [];
 
   for (const company of companiesSnapshot.docs) {
-    if (company.id === user.user_company) {
+    if (company.id === userInfo.user_company) {
       companyProfile = company.data().company_type;
       companyZones = company.data().company_zones || [];
       break;
@@ -4636,7 +4646,6 @@ async function getCompanyType(user) {
   // Return the object with the default values for companyProfile and companyZones
   return { companyProfile, companyZones };
 }
-
 
     onAuthStateChanged(auth, (user) => {
 
@@ -4999,7 +5008,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba350');
+    console.log('prueba337');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
