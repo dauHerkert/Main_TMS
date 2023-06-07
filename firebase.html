@@ -4601,6 +4601,7 @@ create_company_form.addEventListener('submit', async (e) => {
     }, 2000);
   }
     checkUrlParameter();
+    dispatchRequest(user);
 
     async function changeCompanyNameToID(user) {
     const companiesRef = collection(db, "companies");
@@ -4651,7 +4652,6 @@ async function getCompanyType(user) {
         // user is signed out
         replaceUrlSignOut(user)
         showPublicElements();
-        dispatchRequest(user);
         return;
       }
     });
@@ -4999,7 +4999,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba348');
+    console.log('prueba349');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
