@@ -405,7 +405,21 @@ if (select_company) {
   }
 }
 
-let company_admin_petition;
+document.addEventListener('DOMContentLoaded', function() {
+  let company_admin_petition;
+  const admin_checkbox = document.getElementById('admin_checkbox');
+
+  if (admin_checkbox) {
+    if (admin_checkbox.checked) {
+      company_admin_petition = 'Company admin';
+    } else {
+      company_admin_petition = 'No admin';
+    }
+  } else {
+    console.log('No checkbox');
+  }
+});
+
 // Add user's extra info to Firestore
 function userExtraInfo(e, user) {
   e.preventDefault();
@@ -420,22 +434,11 @@ function userExtraInfo(e, user) {
   const start_date = document.getElementById('Select-dates');
   const end_date = document.getElementById('Select-dates-2');
   const special_requests = document.getElementById('special_requests');
-  const admin_checkbox = document.getElementById('admin_checkbox');
 
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
-
-  if (admin_checkbox) {
-    if (admin_checkbox.checked) {
-      company_admin_petition = "Company admin";
-    } else {
-      company_admin_petition = "No admin";
-    }
-  }else{
-    console.log('No checkbox')
-  }
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
@@ -5009,7 +5012,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba345');
+    console.log('prueba346');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
