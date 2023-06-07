@@ -419,7 +419,7 @@ function userExtraInfo(e, user) {
   const start_date = document.getElementById('Select-dates');
   const end_date = document.getElementById('Select-dates-2');
   const special_requests = document.getElementById('special_requests');
-  const admin_checkbox = document.getElementById('admin_checkbox');
+  const admin_checkbox = document.getElementById('admin_checkbox').checked;
 
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
@@ -4997,7 +4997,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba344');
+    console.log('prueba345');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
