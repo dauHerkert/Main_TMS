@@ -2652,7 +2652,7 @@ function updateProfilePic(e, user) {
   e.stopPropagation();
   let update_img_user_id = document.getElementById('update_img_user_id');
 
-  if (cropper && isPhotoUploaded) {
+  if (cropper || isPhotoUploaded) {
     const canvas = cropper.getCroppedCanvas();
     const metadata = {
       contentType: 'image/png',
@@ -2670,8 +2670,9 @@ function updateProfilePic(e, user) {
           console.log('error uploading file', err);
           toastr.error('There was an error uploading the file');
         });
+        console.log(isPhotoUploaded)
     });
-  } else if (isPhotoUploaded == false) {
+  } else {
     toastr.error('Please upload your profile picture');
   }
 }
@@ -5100,7 +5101,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba371');
+    console.log('prueba372');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
