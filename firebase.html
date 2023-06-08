@@ -2612,8 +2612,10 @@ if (updatedPicture) {
       if (/^image\/\w+/.test(fileItem.type)) {
         // Destroy the current cropper instance if it exists
         if (cropper) {
+          let image_cropper = document.querySelector(".cropper-container.cropper-bg")
           cropper.destroy();
           cropper = null;
+          image_cropper.style.display = 'none';
         }
         // Initialize the cropper
         const image = document.getElementById('image_cropper2');
@@ -5089,7 +5091,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba367');
+    console.log('prueba368');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
