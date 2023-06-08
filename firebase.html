@@ -2592,14 +2592,14 @@ getDownloadURL(ref(storage, `profiles/${idCell.textContent}`))
   });
 });
 
-//Update profile picture
+// Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
 const update_picture_modal = document.getElementById('update_picture_modal');
 let cropper = null;
 
-if(updatedPicture){
-  updatedPicture.addEventListener("change", function handleProfilePic(e) {
+if (updatedPicture) {
+  updatedPicture.addEventListener('change', function handleProfilePic(e) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -2648,18 +2648,18 @@ function updateProfilePic(e, user) {
   if (cropper) {
     const canvas = cropper.getCroppedCanvas();
     const metadata = {
-    contentType: 'image/png'
+      contentType: 'image/png',
     };
     canvas.toBlob((blob) => {
       const storageRef = ref(storage, 'profiles/' + update_img_user_id.value);
       uploadBytes(storageRef, blob, metadata)
         .then((snapshot) => {
           toastr.success('You have updated the profile picture successfully');
-          setTimeout(function() {
+          setTimeout(function () {
             update_picture_modal.style.display = 'none';
           }, 1000);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('error uploading file', err);
           toastr.error('There was an error uploading the file');
         });
@@ -2670,12 +2670,40 @@ function updateProfilePic(e, user) {
 }
 
 function updateFileLabel() {
-  const fileName = document.getElementById("fileName");
+  const fileName = document.getElementById('fileName');
   fileName.innerHTML = updatedPicture.files[0].name;
 }
 
+function takeSnapshot() {
+  Webcam.snap(function (dataURL) {
+    if (cropper) {
+      // Destroy the current cropper instance if it exists
+      cropper.destroy();
+      cropper = null;
+    }
+    // Initialize the cropper with the snapshot image
+    const image = document.getElementById('image_cropper2');
+    image.src = dataURL;
+    cropper = new Cropper(image, {
+      aspectRatio: 3 / 4,
+      width: 200,
+      height: 200,
+      viewMode: 1,
+      autoCropArea: 0.7,
+      responsive: true,
+      crop(event) {
+        // Get the cropped canvas data as a data URL
+        const canvas = cropper.getCroppedCanvas();
+        const dataURL = canvas.toDataURL();
+        // Set the data URL as the value of the hidden input field
+        hidden_input.value = dataURL;
+      },
+    });
+  });
+}
+
 if (update_picture_modal !== null) {
-  update_picture_modal.addEventListener('submit', function(ev) {
+  update_picture_modal.addEventListener('submit', function (ev) {
     updateProfilePic(ev, user);
   }, true);
 }
@@ -5028,7 +5056,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba359');
+    console.log('prueba360');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
