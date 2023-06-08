@@ -2701,6 +2701,10 @@ function takeSnapshot() {
     });
   });
 }
+const snapshotButton = document.getElementById("snapshotButton");
+if(snapshotButton){
+snapshotButton.addEventListener("click", takeSnapshot);
+}
 
 if (update_picture_modal !== null) {
   update_picture_modal.addEventListener('submit', function (ev) {
@@ -5056,7 +5060,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba360');
+    console.log('prueba361');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
