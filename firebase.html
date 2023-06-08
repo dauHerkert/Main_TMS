@@ -2597,6 +2597,7 @@ const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
 const update_picture_modal = document.getElementById('update_picture_modal');
 let cropper = null;
+let isPhotoUploaded = false;
 
 if (updatedPicture) {
   updatedPicture.addEventListener('change', function handleProfilePic(e) {
@@ -2635,8 +2636,13 @@ if (updatedPicture) {
             hidden_input.value = dataURL;
           },
         });
+
+        // Set the flag for successful photo upload
+        isPhotoUploaded = true;
       } else {
         toastr.error('Please choose an image file.');
+        // Reset the flag for successful photo upload
+        isPhotoUploaded = false;
       }
     }
   });
@@ -2647,7 +2653,7 @@ function updateProfilePic(e, user) {
   e.stopPropagation();
   let update_img_user_id = document.getElementById('update_img_user_id');
 
-  if (cropper) {
+  if (cropper && isPhotoUploaded) {
     const canvas = cropper.getCroppedCanvas();
     const metadata = {
       contentType: 'image/png',
@@ -2666,7 +2672,7 @@ function updateProfilePic(e, user) {
           toastr.error('There was an error uploading the file');
         });
     });
-  } else {
+  } else if (!isPhotoUploaded) {
     toastr.error('Please upload your profile picture');
   }
 }
@@ -2676,9 +2682,9 @@ function updateFileLabel() {
   fileName.innerHTML = updatedPicture.files[0].name;
 }
 
-// Iniciar la cámara web con WebcamJS
+// Start the webcam with WebcamJS
 function startWebcam() {
-  // Destruir la instancia de Cropper si ya existe
+  // Destroy Cropper if exists
   if (cropper) {
     cropper.destroy();
     cropper = null;
@@ -2691,14 +2697,14 @@ function startWebcam() {
     image_format: 'png',
   });
 
-  // Iniciar la cámara web
+  // Start camera
   Webcam.attach('#camera');
 }
 
-// Tomar una foto con la cámara web y abrir el CropperJS
+// Take a picture with the webcam and open CropperJS
 function takeSnapshotAndOpenCropper() {
   Webcam.snap(function(dataURL) {
-    // Inicializar CropperJS con la imagen capturada
+    // Initialize CropperJS with the captured image
     const image = document.getElementById('image_cropper2');
     image.src = dataURL;
     cropper = new Cropper(image, {
@@ -2709,19 +2715,21 @@ function takeSnapshotAndOpenCropper() {
       autoCropArea: 0.7,
       responsive: true,
       crop(event) {
-        // Obtener la imagen recortada como una URL de datos
+        // Get the cropped canvas data as a data URL
         const canvas = cropper.getCroppedCanvas();
         const dataURL = canvas.toDataURL();
-        // Establecer la URL de datos como el valor del campo de entrada oculto
+        // Set the data URL as the value of the hidden input field
         hidden_input.value = dataURL;
       },
     });
 
-    // Apagar la cámara web después de tomar la foto
+    // Set the flag for successful photo upload
+    isPhotoUploaded = true;
+
+    // Turn off the camera
     Webcam.reset();
   });
 }
-
 
 // Agregar el event listener al botón para iniciar la cámara web y tomar la foto
 document.getElementById('snapshotButton').addEventListener('click', function() {
@@ -2732,13 +2740,15 @@ document.getElementById('snapshotButton').addEventListener('click', function() {
 
 // Agregar el botón de tomar foto y abrir el CropperJS
 const snapshotBtn = document.getElementById('take_photo');
-  snapshotBtn.addEventListener('click', function() {
-    takeSnapshotAndOpenCropper();
-    document.getElementById('take_picture_modal').style.display = 'none';
-  });
+snapshotBtn.addEventListener('click', function() {
+  takeSnapshotAndOpenCropper();
+  document.getElementById('take_picture_modal').style.display = 'none';
+});
 
 if (update_picture_modal !== null) {
   update_picture_modal.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
     updateProfilePic(ev, user);
   }, true);
 }
@@ -5091,7 +5101,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba368');
+    console.log('prueba369');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
