@@ -2672,7 +2672,7 @@ function updateProfilePic(e, user) {
         });
         console.log(isPhotoUploaded)
     });
-  } else {
+  } else if (isPhotoUploaded != true){
     toastr.error('Please upload your profile picture');
   }
 }
@@ -5101,7 +5101,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba372');
+    console.log('prueba373');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
