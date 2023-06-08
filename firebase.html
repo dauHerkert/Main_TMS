@@ -996,52 +996,54 @@ if (resend_button) {
         });
     }
 
-   // Variables globales
-const webcamElement = document.getElementById('webcam');
-const canvasElement = document.getElementById('canvas');
-const snapSoundElement = document.getElementById('snapSound');
+   //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
-const hidden_input = document.getElementById('hidden_input');
+const hidden_input = document.getElementById('hidden_input2');
 const update_picture_modal = document.getElementById('update_picture_modal');
 let cropper = null;
-let webcam = null;
 
-// Función para manejar la toma de la foto
-function takePhoto() {
-  if (webcam) {
-    const picture = webcam.snap();
-    const imgElement = document.getElementById('image_cropper2');
-    imgElement.src = picture;
+if(updatedPicture){
+  updatedPicture.addEventListener("change", function handleProfilePic(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
-    // Mostrar el botón para abrir el cropper
-    openCropperBtn.style.display = 'inline-block';
-  }
+    let fileItem = updatedPicture.files[0];
+
+    if (updatedPicture.files.length === 0) {
+      toastr.error('Please upload your profile picture');
+    } else {
+      // Check if the file is an image
+      if (/^image\/\w+/.test(fileItem.type)) {
+        // Destroy the current cropper instance if it exists
+        if (cropper) {
+          cropper.destroy();
+          cropper = null;
+        }
+        // Initialize the cropper
+        const image = document.getElementById('image_cropper2');
+        image.src = URL.createObjectURL(fileItem);
+        cropper = new Cropper(image, {
+          aspectRatio: 3 / 4,
+          width: 200,
+          height: 200,
+          viewMode: 1,
+          autoCropArea: 0.7,
+          responsive: true,
+          crop(event) {
+            // Get the cropped canvas data as a data URL
+            const canvas = cropper.getCroppedCanvas();
+            const dataURL = canvas.toDataURL();
+            // Set the data URL as the value of the hidden input field
+            hidden_input.value = dataURL;
+          },
+        });
+      } else {
+        toastr.error('Please choose an image file.');
+      }
+    }
+  });
 }
 
-// Inicializar objeto Webcam
-webcam = new Webcam.default(webcamElement, 'user', canvasElement, snapSoundElement);
-
-// Iniciar la cámara web
-webcam.start()
-  .then(result => {
-    console.log("Webcam started");
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-// Manejador de eventos para el botón de seleccionar imagen
-myBtn4.addEventListener('click', function() {
-  // Simular el clic en el campo de entrada de archivo oculto
-  updatedPicture.click();
-});
-
-// Manejador de eventos para el botón de tomar foto
-takePhotoBtn.addEventListener('click', function() {
-  takePhoto();
-});
-
-// Función para actualizar la imagen del perfil
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
@@ -1050,7 +1052,7 @@ function updateProfilePic(e, user) {
   if (cropper) {
     const canvas = cropper.getCroppedCanvas();
     const metadata = {
-      contentType: 'image/png'
+    contentType: 'image/png'
     };
     canvas.toBlob((blob) => {
       const storageRef = ref(storage, 'profiles/' + update_img_user_id.value);
@@ -5026,7 +5028,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba358');
+    console.log('prueba359');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
