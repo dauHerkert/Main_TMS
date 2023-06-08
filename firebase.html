@@ -2601,51 +2601,50 @@ let isPhotoUploaded = false;
 
 if (updatedPicture) {
   updatedPicture.addEventListener('change', function handleProfilePic(e) {
-    e.preventDefault();
-    e.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
 
-    let fileItem = updatedPicture.files[0];
+  let fileItem = updatedPicture.files[0];
 
-    if (updatedPicture.files.length === 0) {
-      toastr.error('Please upload your profile picture');
-    } else {
-      // Check if the file is an image
-      if (/^image\/\w+/.test(fileItem.type)) {
-        // Destroy the current cropper instance if it exists
-        if (cropper) {
-          let image_cropper = document.querySelector(".cropper-container.cropper-bg")
-          cropper.destroy();
-          cropper = null;
-          image_cropper.style.display = 'none';
-        }
-        // Initialize the cropper
-        const image = document.getElementById('image_cropper2');
-        image.src = URL.createObjectURL(fileItem);
-        cropper = new Cropper(image, {
-          aspectRatio: 3 / 4,
-          width: 200,
-          height: 200,
-          viewMode: 1,
-          autoCropArea: 0.7,
-          responsive: true,
-          crop(event) {
-            // Get the cropped canvas data as a data URL
-            const canvas = cropper.getCroppedCanvas();
-            const dataURL = canvas.toDataURL();
-            // Set the data URL as the value of the hidden input field
-            hidden_input.value = dataURL;
-          },
-        });
-
-        // Set the flag for successful photo upload
-        isPhotoUploaded = true;
-      } else {
-        toastr.error('Please choose an image file.');
-        // Reset the flag for successful photo upload
-        isPhotoUploaded = false;
+  if (updatedPicture.files.length === 0) {
+    toastr.error('Please upload your profile picture');
+    isPhotoUploaded = false; // Actualizamos la variable a false
+  } else {
+    // Check if the file is an image
+    if (/^image\/\w+/.test(fileItem.type)) {
+      // Destroy the current cropper instance if it exists
+      if (cropper) {
+        let image_cropper = document.querySelector(".cropper-container.cropper-bg")
+        cropper.destroy();
+        cropper = null;
+        image_cropper.style.display = 'none';
       }
+      // Initialize the cropper
+      const image = document.getElementById('image_cropper2');
+      image.src = URL.createObjectURL(fileItem);
+      cropper = new Cropper(image, {
+        aspectRatio: 3 / 4,
+        width: 200,
+        height: 200,
+        viewMode: 1,
+        autoCropArea: 0.7,
+        responsive: true,
+        crop(event) {
+          // Get the cropped canvas data as a data URL
+          const canvas = cropper.getCroppedCanvas();
+          const dataURL = canvas.toDataURL();
+          // Set the data URL as the value of the hidden input field
+          hidden_input.value = dataURL;
+        },
+      });
+
+      isPhotoUploaded = true;
+    } else {
+      toastr.error('Please choose an image file.');
+      isPhotoUploaded = false;
     }
-  });
+  }
+})
 }
 
 function updateProfilePic(e, user) {
@@ -5101,7 +5100,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba370');
+    console.log('prueba371');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
