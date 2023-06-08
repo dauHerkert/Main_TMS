@@ -2716,12 +2716,14 @@ function takeSnapshotAndOpenCropper() {
 document.getElementById('snapshotButton').addEventListener('click', function() {
   // Iniciar la cámara web
   startWebcam();
+  document.getElementById('take_picture_modal').style.display = 'block';
 });
 
 // Agregar el botón de tomar foto y abrir el CropperJS
 const snapshotBtn = document.getElementById('take_photo');
   snapshotBtn.addEventListener('click', function() {
     takeSnapshotAndOpenCropper();
+    document.getElementById('take_picture_modal').style.display = 'none';
   });
 
 if (update_picture_modal !== null) {
@@ -5078,7 +5080,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba365');
+    console.log('prueba366');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
