@@ -2718,8 +2718,7 @@ document.getElementById('snapshotButton').addEventListener('click', function() {
   startWebcam();
 
   // Agregar el botón de tomar foto y abrir el CropperJS
-  const snapshotBtn = document.createElement('button');
-  snapshotBtn.textContent = 'Tomar foto';
+  const snapshotBtn = document.getElementById('take_photo');
   snapshotBtn.addEventListener('click', function() {
     takeSnapshotAndOpenCropper();
   });
@@ -5081,7 +5080,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba363');
+    console.log('prueba364');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
