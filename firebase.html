@@ -2674,15 +2674,24 @@ function updateFileLabel() {
   fileName.innerHTML = updatedPicture.files[0].name;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-function takeSnapshot() {
-  Webcam.snap(function (dataURL) {
-    if (cropper) {
-      // Destroy the current cropper instance if it exists
-      cropper.destroy();
-      cropper = null;
-    }
-    // Initialize the cropper with the snapshot image
+// Iniciar la cámara web con WebcamJS
+function startWebcam() {
+  Webcam.set({
+    width: 320,
+    height: 240,
+    dest_width: 640,
+    dest_height: 480,
+    image_format: 'png',
+  });
+
+  // Iniciar la cámara web
+  Webcam.attach('#camera');
+}
+
+// Tomar una foto con la cámara web y abrir el CropperJS
+function takeSnapshotAndOpenCropper() {
+  Webcam.snap(function(dataURL) {
+    // Inicializar CropperJS con la imagen capturada
     const image = document.getElementById('image_cropper2');
     image.src = dataURL;
     cropper = new Cropper(image, {
@@ -2693,20 +2702,30 @@ function takeSnapshot() {
       autoCropArea: 0.7,
       responsive: true,
       crop(event) {
-        // Get the cropped canvas data as a data URL
+        // Obtener la imagen recortada como una URL de datos
         const canvas = cropper.getCroppedCanvas();
         const dataURL = canvas.toDataURL();
-        // Set the data URL as the value of the hidden input field
+        // Establecer la URL de datos como el valor del campo de entrada oculto
         hidden_input.value = dataURL;
       },
     });
   });
 }
-const snapshotButton = document.getElementById("snapshotButton");
-if(snapshotButton){
-snapshotButton.addEventListener("click", takeSnapshot);
-}
+
+// Agregar el event listener al botón para iniciar la cámara web y tomar la foto
+document.getElementById('snapshotButton').addEventListener('click', function() {
+  // Iniciar la cámara web
+  startWebcam();
+
+  // Agregar el botón de tomar foto y abrir el CropperJS
+  const snapshotBtn = document.createElement('button');
+  snapshotBtn.textContent = 'Tomar foto';
+  snapshotBtn.addEventListener('click', function() {
+    takeSnapshotAndOpenCropper();
+  });
+  document.body.appendChild(snapshotBtn);
 });
+
 
 if (update_picture_modal !== null) {
   update_picture_modal.addEventListener('submit', function (ev) {
@@ -5062,7 +5081,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba362');
+    console.log('prueba363');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
