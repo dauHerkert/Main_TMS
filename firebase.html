@@ -2676,6 +2676,11 @@ function updateFileLabel() {
 
 // Iniciar la cámara web con WebcamJS
 function startWebcam() {
+  // Destruir la instancia de Cropper si ya existe
+  if (cropper) {
+    cropper.destroy();
+    cropper = null;
+  }
   Webcam.set({
     width: 320,
     height: 240,
@@ -2709,8 +2714,12 @@ function takeSnapshotAndOpenCropper() {
         hidden_input.value = dataURL;
       },
     });
+
+    // Apagar la cámara web después de tomar la foto
+    Webcam.reset();
   });
 }
+
 
 // Agregar el event listener al botón para iniciar la cámara web y tomar la foto
 document.getElementById('snapshotButton').addEventListener('click', function() {
@@ -5080,7 +5089,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba366');
+    console.log('prueba367');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
