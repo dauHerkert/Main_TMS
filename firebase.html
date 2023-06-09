@@ -2722,13 +2722,22 @@ function takeSnapshotAndOpenCropper() {
         hidden_input.value = dataURL;
       },
     });
-
     // Set the flag for successful photo upload
     isPhotoUploaded = true;
-
     // Turn off the camera
     Webcam.reset();
   });
+}
+//Close the take picture modal
+var modal7 = document.getElementById("take_picture_modal");
+var span7 = document.getElementsByClassName("close7")[0];
+
+if(span7 || modal7){
+span7.onclick=function(){
+modal7.style.display="none";
+$('body').removeClass('modal-open');
+Webcam.reset();
+}
 }
 
 // Agregar el event listener al botón para iniciar la cámara web y tomar la foto
