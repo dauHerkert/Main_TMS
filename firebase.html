@@ -2595,7 +2595,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.textContent}`))
 // Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
-const update_picture_modal = document.getElementById('update_picture_modal');
+const update_photo_modal = document.getElementById('update_photo_modal');
 let cropper = null;
 let isPhotoUploaded = false;
 
@@ -2607,7 +2607,7 @@ if (updatedPicture) {
   let fileItem = updatedPicture.files[0];
 
   if (updatedPicture.files.length === 0) {
-    //toastr.error('Please upload your profile picture');
+    toastr.error('Please upload your profile picture');
     isPhotoUploaded = false; // Actualizamos la variable a false
   } else {
     // Check if the file is an image
@@ -5101,7 +5101,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba384');
+    console.log('prueba385');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
