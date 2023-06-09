@@ -1069,7 +1069,7 @@ function updateProfilePic(e, user) {
         });
     });
   } else {
-   //toastr.error('Please upload your profile picture');
+   toastr.error('Please upload your profile picture');
   }
 }
 
@@ -1302,7 +1302,7 @@ function handlePressPic(e) {
   let fileItem = press_image.files[0];
 
   if (press_image.files.length === 0 || !fileItem) {
-    //console.error('Please upload your profile picture');
+    console.error('Please upload your profile picture');
     return;
   }
   if (/^image\/\w+/.test(fileItem.type)) {
@@ -2607,7 +2607,7 @@ if (updatedPicture) {
   let fileItem = updatedPicture.files[0];
 
   if (updatedPicture.files.length === 0) {
-    //toastr.error('Please upload your profile picture');
+    toastr.error('Please upload your profile picture');
     isPhotoUploaded = false; // Actualizamos la variable a false
   } else {
     // Check if the file is an image
@@ -2647,7 +2647,7 @@ if (updatedPicture) {
 })
 }
 
-function updateProfilePic(e, user) {
+function updateProfilePic2(e, user) {
   e.preventDefault();
   e.stopPropagation();
   let update_img_user_id = document.getElementById('update_img_user_id');
@@ -2673,7 +2673,7 @@ function updateProfilePic(e, user) {
         console.log(isPhotoUploaded)
     });
   } else if (isPhotoUploaded != true){
-   //toastr.error('Please upload your profile picture');
+   toastr.error('Please upload your profile picture');
   }
 }
 
@@ -2749,7 +2749,7 @@ if (update_picture_modal !== null) {
   update_picture_modal.addEventListener('submit', function (ev) {
     ev.preventDefault();
     ev.stopPropagation();
-    updateProfilePic(ev, user);
+    updateProfilePic2(ev, user);
   }, true);
 }
 
@@ -3832,7 +3832,7 @@ create_user_zone.addEventListener('change', () => {
           let fileItem = uploadPicture.files[0];
 
           if (uploadPicture.files.length === 0) {
-            //toastr.error('Please upload your profile picture');
+            toastr.error('Please upload your profile picture');
           } else {
             // Check if the file is an image
             if (/^image\/\w+/.test(fileItem.type)) {
@@ -5101,7 +5101,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba382');
+    console.log('prueba383');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
