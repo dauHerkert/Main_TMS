@@ -348,7 +348,7 @@ function handleSignUp(e) {
   let storedLang = localStorage.getItem("language");
 
   if (profile_img.files.length === 0) {
-    //toastr.error('Please upload your profile picture')
+    toastr.error('Please upload your profile picture')
   } else {
     if (password == confirm_password) {
       createUserWithEmailAndPassword(auth, email, password)
@@ -471,7 +471,7 @@ if (profile_img) {
     let fileItem = profile_img.files[0];
 
     if (profile_img.files.length === 0) {
-      //toastr.error('Please upload your profile picture');
+      toastr.error('Please upload your profile picture');
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
@@ -5101,7 +5101,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba378');
+    console.log('prueba379');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
