@@ -348,7 +348,7 @@ function handleSignUp(e) {
   let storedLang = localStorage.getItem("language");
 
   if (profile_img.files.length === 0) {
-    toastr.error('Please upload your profile picture')
+    //toastr.error('Please upload your profile picture')
   } else {
     if (password == confirm_password) {
       createUserWithEmailAndPassword(auth, email, password)
@@ -471,7 +471,7 @@ if (profile_img) {
     let fileItem = profile_img.files[0];
 
     if (profile_img.files.length === 0) {
-      toastr.error('Please upload your profile picture');
+      //toastr.error('Please upload your profile picture');
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
@@ -1010,7 +1010,7 @@ if(updatedPicture){
     let fileItem = updatedPicture.files[0];
 
     if (updatedPicture.files.length === 0) {
-      toastr.error('Please upload your profile picture');
+      //toastr.error('Please upload your profile picture');
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
@@ -1069,7 +1069,7 @@ function updateProfilePic(e, user) {
         });
     });
   } else {
-    toastr.error('Please upload your profile picture');
+   // toastr.error('Please upload your profile picture');
   }
 }
 
@@ -1302,7 +1302,7 @@ function handlePressPic(e) {
   let fileItem = press_image.files[0];
 
   if (press_image.files.length === 0 || !fileItem) {
-    console.error('Please upload your profile picture');
+    //console.error('Please upload your profile picture');
     return;
   }
   if (/^image\/\w+/.test(fileItem.type)) {
@@ -3832,7 +3832,7 @@ create_user_zone.addEventListener('change', () => {
           let fileItem = uploadPicture.files[0];
 
           if (uploadPicture.files.length === 0) {
-            toastr.error('Please upload your profile picture');
+            //toastr.error('Please upload your profile picture');
           } else {
             // Check if the file is an image
             if (/^image\/\w+/.test(fileItem.type)) {
@@ -5101,7 +5101,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba377');
+    console.log('prueba378');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
