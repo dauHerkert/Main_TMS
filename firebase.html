@@ -1143,10 +1143,10 @@ if (update_picture_modal !== null) {
       userInfo.user_company_name = companyNames;
       const userRef = doc(db, 'users', user.uid);
       // Populate form fields with values
-      document.getElementById("user_email").value = `${user.email}`;
-      document.getElementById("user_name").value = `${userInfo.user_firstname}`;
-      document.getElementById("user_lastname").value = `${userInfo.user_lastname}`;
-      document.getElementById("user_address").value = `${userInfo.user_address}`;
+      document.getElementById("change_email").value = `${user.email}`;
+      document.getElementById("new_user_name").value = `${userInfo.user_firstname}`;
+      document.getElementById("new_user_lastname").value = `${userInfo.user_lastname}`;
+      document.getElementById("new_user_address").value = `${userInfo.user_address}`;
       if(userInfo.user_company_name == undefined){
         document.getElementById("company_name").innerHTML = 'No company';
       }else{
@@ -1155,7 +1155,7 @@ if (update_picture_modal !== null) {
         document.getElementById("company_name").innerHTML = `${firstCompany}`;
       }
       if(userInfo.user_address == undefined){
-        document.getElementById("user_address").value = "No Address"
+        document.getElementById("new_user_address").value = "No Address"
       }
      setDoc(userRef, {
       last_signin_date: new Date()
@@ -5103,7 +5103,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba389');
+    console.log('prueba390');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
