@@ -941,15 +941,14 @@ if (resend_button) {
     }
 
     // Update username
-      function updateUsername(e, user, newUsername, newUserLastname, newUserAddress) {
-        e.preventDefault();
-        e.stopPropagation();
+      function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
+        const userRef = doc(db, 'users', user.uid);
 
-        updateProfile(user, {
+        setDoc(userRef, {
           user_firstname: newUsername.value,
           user_lastname: newUserLastname.value,
           user_address: newUserAddress.value
-        })
+        }, { merge: true })
           .then(() => {
             toastr.success('Username has been successfully updated');
           })
@@ -959,7 +958,7 @@ if (resend_button) {
       }
 
     // Update email
-    function updateUserEmail(e, user, newEmail) {
+    function updateUserEmail(user, newEmail) {
       updateEmail(user, newEmail)
       .then(() => {
         toastr.success('Email has been successfully updated');
@@ -969,7 +968,7 @@ if (resend_button) {
     }
 
     // Update password
-    function updateUserPassword(e, user, newPassword) {
+    function updateUserPassword(user, newPassword) {
       updatePassword(user, newPassword)
       .then(() => {
         toastr.success('Password has been successfully updated');
@@ -1182,11 +1181,11 @@ if (update_picture_modal !== null) {
           let confirmPassword = document.getElementById('confirm_password');
 
           // Llama a las tres funciones
-          updateUsername(e, user, newUsername, newUserLastname, newUserAddress);
-          updateUserEmail(e, user, newEmail);
+          updateUsername(user, newUsername, newUserLastname, newUserAddress);
+          updateUserEmail(user, newEmail);
 
           if(newPassword.value == confirmPassword.value){
-            updateUserPassword(e, user, newPassword);
+            updateUserPassword(user, newPassword);
           }
         }, true);
       }
@@ -5100,7 +5099,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba391');
+    console.log('prueba392');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
