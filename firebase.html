@@ -959,9 +959,18 @@ if (resend_button) {
 
     // Update email
     function updateUserEmail(user, newEmail) {
+    var newPassword = document.getElementById('change_password');
+    var confirmPassword = document.getElementById('confirm_password');
       updateEmail(user, newEmail)
       .then(() => {
         toastr.success('Email has been successfully updated');
+        if (newPassword.value !== '') {
+      if (newPassword.value === confirmPassword.value) {
+        promises.push(updateUserPassword(user, newPassword.value));
+      } else {
+        toastr.error('Password confirmation does not match');
+      }
+    }
       }).catch((error) => {
         toastr.error('There was a problem updating the email');
       });
@@ -1166,7 +1175,7 @@ if (update_picture_modal !== null) {
 
       let update_picture_modal = document.getElementById("picture_form_modal");
 
-      // Event listener para el formulario
+      // Update info form
 var updateInfoForm = document.getElementById('update_info_form');
 if (updateInfoForm) {
   updateInfoForm.addEventListener('submit', function(e) {
@@ -1177,8 +1186,6 @@ if (updateInfoForm) {
     var newUserLastname = document.getElementById('new_user_lastname');
     var newUserAddress = document.getElementById('new_user_address');
     var newEmail = document.getElementById('change_email');
-    var newPassword = document.getElementById('change_password');
-    var confirmPassword = document.getElementById('confirm_password');
 
     // Promesas de actualización
     var promises = [];
@@ -1186,13 +1193,6 @@ if (updateInfoForm) {
     updateUsername(user, newUsername, newUserLastname, newUserAddress);
 
     // Verificar y actualizar contraseña
-    if (newPassword.value !== '') {
-      if (newPassword.value === confirmPassword.value) {
-        promises.push(updateUserPassword(user, newPassword.value));
-      } else {
-        toastr.error('Password confirmation does not match');
-      }
-    }
 
     if (newEmail.value !== user.email) {
       promises.push(updateUserEmail(user, newEmail.value));
