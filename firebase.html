@@ -2781,11 +2781,11 @@ update_user_form.addEventListener('submit', (e) => {
     const userRef = doc(db, 'users', user_specific_id.value);
 
     // Check if basic admin value is undefined
-    if ( typeof update_basic_admin.value === 'undefined' || update_basic_admin.value == false ) {
-      update_basic_admin.value = 0;
+    if ( typeof basic_admin_update.value === 'undefined' || basic_admin_update.value == false ) {
+      basic_admin_update.value = 0;
     }
-    console.log('basic admin variable', update_basic_admin);
-    console.log('basic admin value', update_basic_admin.value);
+    console.log('basic admin variable', basic_admin_update);
+    console.log('basic admin value', basic_admin_update.value);
 
     setDoc(userRef, {
       user_type: userTypeUpdate.value,
@@ -2795,7 +2795,7 @@ update_user_form.addEventListener('submit', (e) => {
       user_zones: selectedUserZonesString,
       company_admin: company_admin.value,
       supplier_visit_dates: updated_dates.value,
-      basic_admin: update_basic_admin.value,
+      basic_admin: basic_admin_update.value,
       user_itwa: update_itwa.value,
       press_workspot: update_workspace.value,
       press_card_number: update_card_number.value,
@@ -5120,7 +5120,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba403');
+    console.log('prueba404');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
