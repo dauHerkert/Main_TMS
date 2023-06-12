@@ -1182,7 +1182,10 @@ if (update_picture_modal !== null) {
 
           // Llama a las tres funciones
           updateUsername(user, newUsername, newUserLastname, newUserAddress);
-          updateUserEmail(user, newEmail.value);
+          
+          if(newEmail.value != user.email){
+            updateUserEmail(user, newEmail.value);
+          }
 
           if (newPassword.value !== '') {
           if(newPassword.value == confirmPassword.value){
@@ -5101,7 +5104,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba395');
+    console.log('prueba396');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
