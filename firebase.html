@@ -1183,13 +1183,7 @@ if (updateInfoForm) {
     // Promesas de actualización
     var promises = [];
 
-    // Actualizar nombre de usuario
     updateUsername(user, newUsername, newUserLastname, newUserAddress);
-
-    // Verificar y actualizar correo electrónico
-    if (newEmail.value !== user.email) {
-      promises.push(updateUserEmail(user, newEmail.value));
-    }
 
     // Verificar y actualizar contraseña
     if (newPassword.value !== '') {
@@ -1198,6 +1192,10 @@ if (updateInfoForm) {
       } else {
         toastr.error('Password confirmation does not match');
       }
+    }
+
+    if (newEmail.value !== user.email) {
+      promises.push(updateUserEmail(user, newEmail.value));
     }
 
     // Esperar a que todas las promesas se resuelvan
@@ -5121,7 +5119,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba397');
+    console.log('prueba398');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
