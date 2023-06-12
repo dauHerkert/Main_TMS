@@ -959,8 +959,6 @@ function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
 
    // Update email
 function updateUserEmail(user, newEmail, promises) {
-  var newPassword = document.getElementById('change_password');
-  var confirmPassword = document.getElementById('confirm_password');
   updateEmail(user, newEmail)
     .then(() => {
       toastr.success('Email has been successfully updated');
@@ -1180,6 +1178,8 @@ if (update_picture_modal !== null) {
         var newUserLastname = document.getElementById('new_user_lastname');
         var newUserAddress = document.getElementById('new_user_address');
         var newEmail = document.getElementById('change_email');
+        var newPassword = document.getElementById('change_password');
+        var confirmPassword = document.getElementById('confirm_password');
 
         // Promesas de actualización
         var promises = [];
@@ -5118,7 +5118,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba407');
+    console.log('prueba408');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
