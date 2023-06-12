@@ -951,16 +951,6 @@ function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
   }, { merge: true })
     .then(() => {
       toastr.success('Username has been successfully updated');
-      if (newPassword.value !== '') {
-        if (newPassword.value === confirmPassword.value) {
-          promises.push(updateUserPassword(user, newPassword.value));
-        } else {
-          toastr.error('Password confirmation does not match');
-        }
-      }
-      if (newEmail.value !== user.email) {
-          updateUserEmail(user, newEmail.value, promises);
-        }
     })
     .catch((error) => {
       toastr.error('There was a problem updating the username');
@@ -1199,8 +1189,18 @@ if (update_picture_modal !== null) {
         // Esperar a que todas las promesas se resuelvan
         Promise.all(promises)
           .then(() => {
-            toastr.success('Update completed successfully');
-            location.reload();
+            //toastr.success('Update completed successfully');
+            //location.reload();
+            if (newPassword.value !== '') {
+              if (newPassword.value === confirmPassword.value) {
+                promises.push(updateUserPassword(user, newPassword.value));
+              } else {
+                toastr.error('Password confirmation does not match');
+              }
+            }
+            if (newEmail.value !== user.email) {
+                updateUserEmail(user, newEmail.value, promises);
+              }
           })
           .catch((error) => {
             toastr.error('There was an error during the update', error);
@@ -5118,7 +5118,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba406');
+    console.log('prueba407');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
