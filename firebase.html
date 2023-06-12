@@ -64,6 +64,9 @@
       user_email:'',
       user_id:'',
       user_title:'',
+      user_city:'',
+      user_country:'',
+      user_nationality:'',
       // user_is_admin: 0 | 1
       user_is_admin:'0',
       company_admin:'0',
@@ -858,11 +861,11 @@ if (resend_button) {
         const companyNames = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyNames;
 
-        if (window.location.pathname === '/en/account' || window.location.pathname === '/de/account') {
+        /*if (window.location.pathname === '/en/account' || window.location.pathname === '/de/account') {
           document.getElementById('user_address').innerHTML = `${userInfo.user_address}`;
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
-            }
+            }*/
         if(storedLang){
           if(storedLang == "de"){
           if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
@@ -1155,6 +1158,9 @@ if (update_picture_modal !== null) {
         const companies = userInfo.user_company_name.split(",");
         const firstCompany = companies[0];
         document.getElementById("company_name").innerHTML = `${firstCompany}`;
+      }
+      if(userInfo.user_address == undefined){
+        document.getElementById("user_address").value = "No Address"
       }
      setDoc(userRef, {
       last_signin_date: new Date()
@@ -5110,7 +5116,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba387');
+    console.log('prueba388');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
