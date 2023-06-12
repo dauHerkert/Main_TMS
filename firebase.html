@@ -951,6 +951,16 @@ function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
   }, { merge: true })
     .then(() => {
       toastr.success('Username has been successfully updated');
+      if (newPassword.value !== '') {
+        if (newPassword.value === confirmPassword.value) {
+          promises.push(updateUserPassword(user, newPassword.value));
+        } else {
+          toastr.error('Password confirmation does not match');
+        }
+      }
+      if (newEmail.value !== user.email) {
+          updateUserEmail(user, newEmail.value, promises);
+        }
     })
     .catch((error) => {
       toastr.error('There was a problem updating the username');
@@ -975,10 +985,6 @@ function updateUserPassword(user, newPassword) {
   updatePassword(user, newPassword)
     .then(() => {
       toastr.success('Password has been successfully updated');
-      // Verificar y actualizar contraseña
-      if (newEmail.value !== user.email) {
-          updateUserEmail(user, newEmail.value, promises);
-        }
     })
     .catch((error) => {
       toastr.error('There was a problem updating the password', error);
@@ -1189,14 +1195,6 @@ if (update_picture_modal !== null) {
         var promises = [];
 
         updateUsername(user, newUsername, newUserLastname, newUserAddress);
-
-        if (newPassword.value !== '') {
-        if (newPassword.value === confirmPassword.value) {
-          promises.push(updateUserPassword(user, newPassword.value));
-        } else {
-          toastr.error('Password confirmation does not match');
-        }
-      }
 
         // Esperar a que todas las promesas se resuelvan
         Promise.all(promises)
@@ -5120,7 +5118,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba405');
+    console.log('prueba406');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
