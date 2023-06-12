@@ -941,32 +941,31 @@ if (resend_button) {
     }
 
     // Update username
-    function updateUsername(e, user, newUsername) {
-      e.preventDefault();
-      e.stopPropagation();
-      updateProfile(user, {
-        displayName: newUsername
-      })
-      .then(() => {
-        toastr.success('Username has been successfully updated');
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
-      })
-      .catch((error) => {
-        toastr.error('There was a problem updating the username');
-      });
-    }
+      function updateUsername(e, user, newUsername, newUserLastname, newUserAddress) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        updateProfile(user, {
+          user_firstname: newUsername.value,
+          user_lastname: newUserLastname.value,
+          user_address: newUserAddress.value
+        })
+          .then(() => {
+            toastr.success('Username has been successfully updated');
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+          })
+          .catch((error) => {
+            toastr.error('There was a problem updating the username');
+          });
+      }
 
     // Update email
     function updateUserEmail(e, user, newEmail) {
       updateEmail(user, newEmail)
       .then(() => {
         toastr.success('Email has been successfully updated');
-        setTimeout(() => {
-          document.getElementById('update_info_modal').style.display = 'none';
-          $('body').removeClass('modal-open');
-        }, 500);
       }).catch((error) => {
         toastr.error('There was a problem updating the email');
       });
@@ -977,10 +976,6 @@ if (resend_button) {
       updatePassword(user, newPassword)
       .then(() => {
         toastr.success('Password has been successfully updated');
-        setTimeout(() => {
-          document.getElementById('update_info_modal').style.display = 'none';
-          $('body').removeClass('modal-open');
-        }, 500);
       })
       .catch((error) => {
         toastr.error('There was a problem updating the password', error);
@@ -1173,36 +1168,28 @@ if (update_picture_modal !== null) {
         toastr.error('There was an error signin user');
      })
 
-      let update_email_modal = document.getElementById("email_form_modal");
-      let update_password_modal = document.getElementById("password_form_modal");
       let update_picture_modal = document.getElementById("picture_form_modal");
-      let change_email = document.getElementById("change_email");
-      let confirm_email = document.getElementById('confirm_email');
-      let change_username = document.getElementById("change_username");
-      let change_password = document.getElementById("change_password");
-      let confirm_password = document.getElementById("confirm_password");
 
-      if ( update_email_modal !== null ) {
-        update_email_modal.addEventListener('submit', function(ev) {
-          ev.preventDefault();
-          ev.stopPropagation();
-
-          if(change_email.value == confirm_email.value){
-            updateUserEmail(ev, user, change_email.value);
-          }else{
-            toastr.error('Email confirmation does not match');
-          }
-        }, true);
-      }
-      if ( update_password_modal) {
-        update_password_modal.addEventListener('submit', function(e) {
+      // Event listener para el formulario
+      var updateInfoForm = document.getElementById('update_info_form');
+      if (updateInfoForm) {
+        updateInfoForm.addEventListener('submit', function(e) {
           e.preventDefault();
           e.stopPropagation();
 
-          if(change_password.value == confirm_password.value){
-            updateUserPassword(e, user, change_password.value);
-          }else{
-            toastr.error('Password confirmation does not match');
+          let newUsername = document.getElementById('new_user_name');
+          let newUserLastname = document.getElementById('new_user_lastname');
+          let newUserAddress = document.getElementById('new_user_address');
+          let newEmail = document.getElementById('change_email');
+          let newPassword = document.getElementById('change_password');
+          let confirmPassword = document.getElementById('confirm_password');
+
+          // Llama a las tres funciones
+          updateUsername(e, user, newUsername, newUserLastname, newUserAddress);
+          updateUserEmail(e, user, newEmail);
+
+          if(newPassword.value == confirmPassword.value){
+            updateUserPassword(e, user, newPassword);
           }
         }, true);
       }
@@ -5116,7 +5103,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba388');
+    console.log('prueba389');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
