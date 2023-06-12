@@ -963,10 +963,10 @@ if (resend_button) {
     var confirmPassword = document.getElementById('confirm_password');
       updateEmail(user, newEmail)
       .then(() => {
-        toastr.success('Email has been successfully updated');
         if (newPassword.value !== '') {
       if (newPassword.value === confirmPassword.value) {
         promises.push(updateUserPassword(user, newPassword.value));
+        toastr.success('Email has been successfully updated');
       } else {
         toastr.error('Password confirmation does not match');
       }
@@ -5119,7 +5119,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba400');
+    console.log('prueba401');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
