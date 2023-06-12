@@ -1184,9 +1184,11 @@ if (update_picture_modal !== null) {
           updateUsername(user, newUsername, newUserLastname, newUserAddress);
           updateUserEmail(user, newEmail.value);
 
+          if (changePassword.value !== '') {
           if(newPassword.value == confirmPassword.value){
             updateUserPassword(user, newPassword.value);
           }
+        }
         }, true);
       }
 
