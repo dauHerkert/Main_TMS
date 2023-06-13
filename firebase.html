@@ -1050,7 +1050,7 @@ function updateProfilePic(e, user) {
     contentType: 'image/png'
     };
     canvas.toBlob((blob) => {
-      const storageRef = ref(storage, 'profiles/' + update_img_user_id.value);
+      const storageRef = ref(storage, 'profiles/' + user.uid);
       uploadBytes(storageRef, blob, metadata)
         .then((snapshot) => {
           toastr.success('You have updated the profile picture successfully');
@@ -5128,7 +5128,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba415');
+    console.log('prueba416');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
