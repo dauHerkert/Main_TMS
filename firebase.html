@@ -1043,6 +1043,7 @@ function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
   let update_img_user_id = document.getElementById('update_img_user_id');
+  update_img_user_id.value = user.uid;
 
   if (cropper) {
     const canvas = cropper.getCroppedCanvas();
@@ -5128,7 +5129,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba415');
+    console.log('prueba417');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
