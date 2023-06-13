@@ -2170,13 +2170,15 @@ if (window.innerWidth < 768) {
       let statusOptions = {
         "Ok": "OK",
         "Declined": "DECLINED",
-        "Pending": "PENDING"
+        "Pending": "PENDING",
+        "Printed": "PRINTED"
       };
       if (storedLang === 'de') {
         statusOptions = {
           "Ok": "OK",
           "Declined": "ABGELEHNT",
-          "Pending": "AUSSTEHEND"
+          "Pending": "AUSSTEHEND",
+          "Printed": "GEDRUCKT"
         };
       }
       let typeOptions = {
@@ -2283,6 +2285,9 @@ if (window.innerWidth < 768) {
                   } else if (value === "Pending") {
                     label = "Ausstehend";
                     color = "#F29A2E";
+                  } else if (value === "Printed") {
+                    label = "Gedruckt";
+                    color = "#0047AB";
                   }
                 } else {
                   if (value === "Ok") {
@@ -2294,6 +2299,9 @@ if (window.innerWidth < 768) {
                   } else if (value === "Pending") {
                     label = "Pending";
                     color = "#F29A2E";
+                  } else if (value === "Printed") {
+                    label = "Printed";
+                    color = "#0047AB";
                   }
                 }
                 return '<div style="display:flex;align-items:center;justify-content:center"><div style="width:16px;height:16px;border-radius:50%;background-color:' + color + ';margin-right:0px;"></div><div style="width:0px;font-size:0px">' + label + '</div></div>';
@@ -5120,7 +5128,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba413');
+    console.log('prueba414');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
