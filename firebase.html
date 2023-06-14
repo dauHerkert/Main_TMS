@@ -2108,6 +2108,7 @@ if (window.innerWidth < 768) {
       changeAdminTypeTitle(user);
       let user_dates = document.getElementById('user_dates');
       let basic_admin = document.getElementById('basicaAdminCont');
+      let companies_table = document.getElementById('companies_table')
       let userInfo = await getUserInfo(user);
       const userRef = doc(db, 'users', user.uid);
       const companyNames = await changeCompanyNameToID(userInfo);
@@ -2137,6 +2138,7 @@ if (window.innerWidth < 768) {
               head_user.style.display = 'none';
               user_dates.style.display = 'none';
               basic_admin.style.display = 'none';
+              companies_table.style.display = 'none';
               document.getElementById('update_user_zones').style.display = 'none';
               document.getElementById('accepted_option').style.display = 'none';
               document.getElementById('accepted_option_bulk').style.display = 'none';
@@ -5132,7 +5134,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba419');
+    console.log('prueba420');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
