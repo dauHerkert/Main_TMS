@@ -2108,7 +2108,8 @@ if (window.innerWidth < 768) {
       changeAdminTypeTitle(user);
       let user_dates = document.getElementById('user_dates');
       let basic_admin = document.getElementById('basicaAdminCont');
-      let companies_table = document.getElementById('companies_table_link')
+      let companies_table = document.getElementById('companies_table_link');
+      let companies_table_mob = document.getElementById('companies_table_mob');
       let userInfo = await getUserInfo(user);
       const userRef = doc(db, 'users', user.uid);
       const companyNames = await changeCompanyNameToID(userInfo);
@@ -2132,6 +2133,7 @@ if (window.innerWidth < 768) {
               head_user.style.display = 'none';
               basic_admin.style.display = 'none';
               companies_table.style.display = 'block';
+              companies_table_mob.style.display = 'block';
             }else if(userInfo.user_is_admin == '0' && userInfo.basic_admin == '1' && userInfo.company_admin == '0'){
               select_type_id.style.display = 'none';
               user_profile_company_update.style.display = 'none';
@@ -2140,6 +2142,7 @@ if (window.innerWidth < 768) {
               user_dates.style.display = 'none';
               basic_admin.style.display = 'none';
               companies_table.style.display = 'none';
+              companies_table_mob.style.display = 'none';
               document.getElementById('update_user_zones').style.display = 'none';
               document.getElementById('accepted_option').style.display = 'none';
               document.getElementById('accepted_option_bulk').style.display = 'none';
@@ -2151,6 +2154,7 @@ if (window.innerWidth < 768) {
               user_dates.style.display = 'block';
               basic_admin.style.display = 'block';
               companies_table.style.display = 'block';
+              companies_table_mob.style.display = 'block';
             }
 
       // =========== USERS TABLE FUNCTIONS ============ //
