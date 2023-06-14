@@ -2108,7 +2108,7 @@ if (window.innerWidth < 768) {
       changeAdminTypeTitle(user);
       let user_dates = document.getElementById('user_dates');
       let basic_admin = document.getElementById('basicaAdminCont');
-      let companies_table = document.getElementById('companies_table')
+      let companies_table = document.getElementById('companies_table_link')
       let userInfo = await getUserInfo(user);
       const userRef = doc(db, 'users', user.uid);
       const companyNames = await changeCompanyNameToID(userInfo);
@@ -2131,6 +2131,7 @@ if (window.innerWidth < 768) {
               update_user_profile.style.display = 'none';
               head_user.style.display = 'none';
               basic_admin.style.display = 'none';
+              companies_table.style.display = 'block';
             }else if(userInfo.user_is_admin == '0' && userInfo.basic_admin == '1' && userInfo.company_admin == '0'){
               select_type_id.style.display = 'none';
               user_profile_company_update.style.display = 'none';
@@ -2150,6 +2151,7 @@ if (window.innerWidth < 768) {
               head_user.style.display = 'block';
               user_dates.style.display = 'block';
               basic_admin.style.display = 'block';
+              companies_table.style.display = 'block';
             }
 
       // =========== USERS TABLE FUNCTIONS ============ //
@@ -5134,7 +5136,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba420');
+    console.log('prueba421');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
