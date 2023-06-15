@@ -2379,6 +2379,8 @@ if (window.innerWidth < 768) {
 let companyFilterSelect = document.getElementById("company-filter");
 let statusFilterSelect = document.getElementById("status-filter");
 let typeFilterSelect = document.getElementById("type-filter");
+let companyFilterSelectMobile = document.getElementById("company-filter-mob");
+let statusFilterSelectMobile = document.getElementById("status-filter-mob");
 
 //Print companies select
     getDocs(company_colRef)
@@ -2391,6 +2393,7 @@ let typeFilterSelect = document.getElementById("type-filter");
           opt.value = company.company_name;
           opt.textContent = company.company_name;
           companyFilterSelect.appendChild(opt);
+          companyFilterSelectMobile.appendChild(opt);
         });
       })
       .catch((err) => {
@@ -2411,6 +2414,16 @@ typeFilterSelect.addEventListener("change", function() {
     let typeColumn = table.getColumn("account_type");
     let selectedStatus = typeFilterSelect.value;
     table.setHeaderFilterValue(typeColumn, selectedStatus);
+});
+companyFilterSelectMobile.addEventListener("change", function() {
+    let companyColumn = table.getColumn("company");
+    let selectedCompany = companyFilterSelectMobile.value;
+    table.setHeaderFilterValue(companyColumn, selectedCompany);
+});
+statusFilterSelectMobile.addEventListener("change", function() {
+    let statusColumn = table.getColumn("status");
+    let selectedStatus = statusFilterSelectMobile.value;
+    table.setHeaderFilterValue(statusColumn, selectedStatus);
 });
 
 $(document).ready(function() {
@@ -5139,7 +5152,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba422');
+    console.log('prueba423');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
