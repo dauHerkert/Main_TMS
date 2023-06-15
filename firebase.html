@@ -2460,12 +2460,23 @@ function matchAny(data, filterParams) {
     return match;
 }
 let clearFilterButton = document.getElementById('clear_button');
+let clearFilterButtonMobile = document.getElementById('clear_button_mob');
 if (clearFilterButton) {
   clearFilterButton.addEventListener("click", function() {
     document.querySelector('input[placeholder="Company"]').value = "";
     document.querySelector('input[placeholder="Status"]').value = "";
     document.querySelector('#company-filter').value = "clear";
     document.querySelector('#status-filter').value = "clear";
+
+    table.clearHeaderFilter();
+  });
+}
+if (clearFilterButtonMobile) {
+  clearFilterButtonMobile.addEventListener("click", function() {
+    document.querySelector('input[placeholder="Company"]').value = "";
+    document.querySelector('input[placeholder="Status"]').value = "";
+    document.querySelector('#company-filter-mob').value = "clear";
+    document.querySelector('#status-filter-mob').value = "clear";
 
     table.clearHeaderFilter();
   });
@@ -5152,7 +5163,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba423');
+    console.log('prueba424');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
