@@ -3804,9 +3804,13 @@ create_user_zone.addEventListener('change', () => {
 });
       let new_user_firstname = document.getElementById('new_user_firstname');
       let new_user_lastname = document.getElementById('new_user_lastname');
+      let new_user_fullname = "";
       let new_user_account_type = document.getElementById('new_user_account_type');
       let new_user_company = document.getElementById('new_user_company');
       let newUserCompaniesString = '';
+      if (new_user_firstname.value && new_user_lastname.value) {
+        new_user_fullname = (new_user_firstname.value + new_user_lastname.value).toLowerCase().replace(/\s/g, '');
+      }
 
       $('#new_user_company').on('change', function () {
         var selectedNewUserCompanies = $(this).val();
@@ -3878,6 +3882,7 @@ create_user_zone.addEventListener('change', () => {
             user_phone:'',
             user_title:'',
             user_zip_code:'',
+            user_fullname: new_user_fullname,
             user_zones: selectedCreateUserZonesString,
             supplier_start_date: '06-24-2023',
             supplier_end_date: '07-01-2023',
