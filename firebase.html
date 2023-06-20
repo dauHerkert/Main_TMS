@@ -893,7 +893,7 @@ if (resend_button) {
       }
       document.getElementById('companies_table').style.display = 'none';
       document.getElementById('admin_drop').style.display = 'none';
-      document.getElementById('admin_drop_mob').style.display = 'none';
+      document.getElementById('admin_drop_mob').style.display = 'none !important';
     } else {}
   } else {
     if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
@@ -913,7 +913,7 @@ if (resend_button) {
         location.replace('/en/account');
       }
       document.getElementById('admin_drop').style.display = 'none';
-      document.getElementById('admin_drop_mob').style.display = 'none';
+      document.getElementById('admin_drop_mob').style.display = 'none !important';
     } else {}
   }
 } else {
@@ -5226,7 +5226,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba433');
+    console.log('prueba434');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
