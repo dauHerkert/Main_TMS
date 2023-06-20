@@ -72,6 +72,7 @@
       company_admin:'0',
       basic_admin:'0',
       user_zones:'',
+      user_deleted: '0',
       // account_type: supplier | press | RSW
       account_type:'Supplier',
       //User profile
@@ -1283,6 +1284,7 @@ if (update_picture_modal !== null) {
           user_status: 'Pending',
           confirmed_email: '1',
           language: language,
+          user_deleted: '0'
         }, { merge: true })
         .then((docRef) => {
           const press_image = document.getElementById('press_image');
@@ -2345,7 +2347,7 @@ if (window.innerWidth < 768) {
                 button1.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462983e76b4d1ee3ac14cd1_pencil-alt.png' alt='Edit'/>";
                 // Create second button
                 let button2 = document.createElement("button");
-                button2.setAttribute("onclick","deleteRecord()");
+                button2.setAttribute("onclick","openModal10()");
                 button2.setAttribute("id","delete_btn");
                 button2.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462e184b518709fa4ff5fe6_trash.png' alt='Delete'/>";
                 // Create a div to contain the buttons
@@ -3276,11 +3278,34 @@ update_user_form.addEventListener('submit', (e) => {
           saveUserZones();
       })
       .catch((err) => {
-              toastr.error('There was an error updating the account info');
-              console.log('error updating account info', err);
-            });
-        }
-         });
+         toastr.error('There was an error updating the account info');
+         console.log('error updating account info', err);
+     });
+    }
+   });
+
+   const delete_user_form = document.getElementById('delete_user_modal');
+   const delete_user_id = document.getElementById('deleted_user_id');
+  //Delete user
+delete_user_form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (delete_user_id != null || delete_user_id != 0) {
+    const userRef = doc(db, 'users', delete_user_id.value);
+
+    setDoc(userRef, {
+      user_deleted: '1'
+    }, { merge: true })
+      .then(() => {
+        toastr.success('User succesfully deleted');
+      })
+      .catch((err) => {
+        toastr.error('There was an error deleting the account');
+        console.log('error deleting account', err);
+      });
+  }
+});
 
           //Bulk users update
           async function bulkUserUpdate(selectedData) {
@@ -3785,7 +3810,7 @@ update_user_form.addEventListener('submit', (e) => {
   } else {
     console.log('Error: "userType" is empty.');
   }
-});
+ });
 
  // Update the selectedCreateUserZonesString variable based on the current selection
  function updateSelectedCreateUserZonesString() {
@@ -3886,6 +3911,7 @@ create_user_zone.addEventListener('change', () => {
             user_zones: selectedCreateUserZonesString,
             supplier_start_date: '06-24-2023',
             supplier_end_date: '07-01-2023',
+            user_deleted:'0'
           })
           .then((companyRef) => {
             userUploadImage(companyRef.id);
@@ -5185,7 +5211,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba426');
+    console.log('prueba427');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
