@@ -735,6 +735,12 @@ if (resend_button) {
       } else {
         toastr.error('user does not exist');
       }
+    }else if (userData.user_deleted !== "0"){
+      if(storedLang == 'en'){
+        toastr.error('Your account has been deleted.');
+      }else{
+        toastr.error('Ihr Konto wurde gelöscht.');
+      }
     }else{
       if(storedLang == 'en'){
         toastr.error('Please click on the link in your email first in order to sign in.');
@@ -2510,12 +2516,13 @@ getDocs(q)
     let data = [];
     let promises = [];
     snapshot.docs.forEach((doc) => {
-        let user = doc.data();
+      let user = doc.data();
 
-        promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-          data.push({id: doc.id,user_fullname:user.user_fullname, special_requests:user.supplier_special_request, user_itwa: user.user_itwa, press_id: user.press_card_number, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email:user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_start_date: user.supplier_start_date, user_end_date: user.supplier_end_date, language: user.language, name: user.user_firstname + ' ' + user.user_lastname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
-
-        }));
+      promises.push(changeCompanyNameToID(user).then(userCompanyName => {
+        if (user.user_deleted !== '1') { // Agregar condición para excluir usuarios eliminados
+          data.push({id: doc.id, user_fullname: user.user_fullname, special_requests: user.supplier_special_request, user_itwa: user.user_itwa, press_id: user.press_card_number, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email: user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_start_date: user.supplier_start_date, user_end_date: user.supplier_end_date, language: user.language, name: user.user_firstname + ' ' + user.user_lastname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
+        }
+      }));
     });
     return Promise.all(promises).then(() => data);
   })
@@ -5211,7 +5218,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba427');
+    console.log('prueba428');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
