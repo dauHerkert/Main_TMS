@@ -878,6 +878,7 @@ if (resend_button) {
           if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
             form_button.setAttribute('href', '/de/supplier');
             document.getElementById('admin_drop').style.display = 'block';
+            document.getElementById('admin_drop_mob').style.display = 'block';
           }else if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
             form_button.setAttribute('href', '/de/supplier');
           }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
@@ -897,6 +898,7 @@ if (resend_button) {
             if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
                 form_button.setAttribute('href', '/en/supplier');
                 document.getElementById('admin_drop').style.display = 'block';
+                document.getElementById('admin_drop_mob').style.display = 'block';
               }else if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
               form_button.setAttribute('href', '/en/supplier');
               }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
@@ -910,6 +912,7 @@ if (resend_button) {
                     location.replace('/en/account');
                   }
                   document.getElementById('admin_drop').style.display = 'none';
+                  document.getElementById('admin_drop_mob').style.display = 'none';
               }else {}
               }
         }else{
@@ -928,9 +931,11 @@ if (resend_button) {
                     location.replace('/en/account');
                   }
                   document.getElementById('admin_drop').style.display = 'none';
+                  document.getElementById('admin_drop_mob').style.display = 'none';
               }else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
                 form_button.setAttribute('href', '/en/supplier');
                 document.getElementById('admin_drop').style.display = 'block';
+                document.getElementById('admin_drop_mob').style.display = 'block';
               }else{}
           }
        if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press'){
