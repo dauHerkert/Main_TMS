@@ -735,10 +735,10 @@ if (resend_button) {
       } else {
         toastr.error('user does not exist');
       }
-    }else if (userData.user_deleted !== "0"){
-      if(storedLang == 'en'){
+    }else if (userData.user_deleted === "1") {
+      if (storedLang == 'en') {
         toastr.error('Your account has been deleted.');
-      }else{
+      } else {
         toastr.error('Ihr Konto wurde gelöscht.');
       }
     }else{
@@ -5218,7 +5218,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba428');
+    console.log('prueba429');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
