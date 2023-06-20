@@ -873,7 +873,7 @@ if (resend_button) {
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
             }*/
-            if (storedLang) {
+  if (storedLang) {
   if (storedLang == "de") {
     if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
       form_button.setAttribute('href', '/de/supplier');
@@ -887,11 +887,13 @@ if (resend_button) {
       form_button.setAttribute('href', '/de/supplier');
     } else if (userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
       form_button.setAttribute('href', '/de/press');
-    } else if (userInfo.user_is_admin == "0" && userInfo.company_admin == "1" || userInfo.basic_admin == '1') {
+    } else if (userInfo.user_is_admin == "0" && (userInfo.company_admin != "1" || userInfo.basic_admin != '1')) {
       if (window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table') {
         location.replace('/de/account');
       }
       document.getElementById('companies_table').style.display = 'none';
+      document.getElementById('admin_drop').style.display = 'none';
+      document.getElementById('admin_drop_mob').style.display = 'none';
     } else {}
   } else {
     if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
@@ -906,7 +908,7 @@ if (resend_button) {
       form_button.setAttribute('href', '/en/supplier');
     } else if (userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
       form_button.setAttribute('href', '/en/press');
-    } else if (userInfo.user_is_admin == "0" && userInfo.company_admin != "1" || userInfo.basic_admin != '1') {
+    } else if (userInfo.user_is_admin == "0" && (userInfo.company_admin != "1" || userInfo.basic_admin != '1')) {
       if (window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table') {
         location.replace('/en/account');
       }
@@ -923,6 +925,14 @@ if (resend_button) {
     form_button.setAttribute('href', '/en/supplier');
   } else if (userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
     form_button.setAttribute('href', '/en/press');
+  } else if (userInfo.user_is_admin == "0" && (userInfo.company_admin != "1" || userInfo.basic_admin != '1')) {
+    if (window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.company_admin != "1") {
+      location.replace('/en/account');
+    } else if (window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.basic_admin != "1") {
+      location.replace('/en/account');
+    }
+    document.getElementById('admin_drop').style.display = 'none';
+    document.getElementById('admin_drop_mob').style.display = 'none';
   } else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
     form_button.setAttribute('href', '/en/supplier');
     document.getElementById('admin_drop').style.display = 'block';
@@ -5216,7 +5226,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba432');
+    console.log('prueba433');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
