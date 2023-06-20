@@ -2202,9 +2202,9 @@ if (window.innerWidth < 768) {
       if (storedLang === 'de') {
         statusOptions = {
           "Ok": "OK",
-          "Declined": "ABGELEHNT",
-          "Pending": "AUSSTEHEND",
-          "Printed": "GEDRUCKT"
+          "Declined": "DECLINED",
+          "Pending": "PENDING",
+          "Printed": "PRINTED"
         };
       }
       let typeOptions = {
@@ -2306,13 +2306,13 @@ if (window.innerWidth < 768) {
                     label = "Ok";
                     color = "#A3E11E";
                   } else if (value === "Declined") {
-                    label = "Abgelehnt";
+                    label = "Declined";
                     color = "#DD4042";
                   } else if (value === "Pending") {
-                    label = "Ausstehend";
+                    label = "Pending";
                     color = "#F29A2E";
                   } else if (value === "Printed") {
-                    label = "Gedruckt";
+                    label = "Printed";
                     color = "#0000FF";
                   }
                 } else {
@@ -5228,7 +5228,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba436');
+    console.log('prueba437');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
