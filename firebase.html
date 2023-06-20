@@ -3851,6 +3851,7 @@ create_user_zone.addEventListener('change', () => {
       if (new_user_firstname.value && new_user_lastname.value) {
         new_user_fullname = (new_user_firstname.value + new_user_lastname.value).toLowerCase().replace(/\s/g, '');
       }
+      console.log(new_user_fullname);
 
       $('#new_user_company').on('change', function () {
         var selectedNewUserCompanies = $(this).val();
@@ -5226,7 +5227,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba434');
+    console.log('prueba435');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
