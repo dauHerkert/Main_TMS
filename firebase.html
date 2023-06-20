@@ -3302,7 +3302,8 @@ delete_user_form.addEventListener('submit', (e) => {
     const userRef = doc(db, 'users', delete_user_id.value);
 
     setDoc(userRef, {
-      user_deleted: '1'
+      user_deleted: '1',
+      confirmed_email:"0"
     }, { merge: true })
       .then(() => {
         toastr.success('User succesfully deleted');
@@ -5218,7 +5219,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba429');
+    console.log('prueba430');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
