@@ -873,82 +873,74 @@ if (resend_button) {
           document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
           document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
             }*/
-        if(storedLang){
-          if(storedLang == "de"){
-          if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
-            form_button.setAttribute('href', '/de/supplier');
-            document.getElementById('admin_drop').style.display = 'block';
-            document.getElementById('admin_drop_mob').style.display = 'block';
-          }else if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
-            form_button.setAttribute('href', '/de/supplier');
-          }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
-          form_button.setAttribute('href', '/de/supplier');
-          }else if ( userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
-            form_button.setAttribute('href', '/de/supplier');
-          }else if( userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
-            form_button.setAttribute('href', '/de/press');
-          }else if(userInfo.user_is_admin == "0" && userInfo.company_admin == "1" || userInfo.basic_admin == '1') {
-          
-            if(window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table'){
-                location.replace('/de/account');
-              }
-              document.getElementById('companies_table').style.display = 'none';
-          }else {}
-          }else{
-            if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
-                form_button.setAttribute('href', '/en/supplier');
-                document.getElementById('admin_drop').style.display = 'block';
-                document.getElementById('admin_drop_mob').style.display = 'block';
-              }else if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
-              form_button.setAttribute('href', '/en/supplier');
-              }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
-              form_button.setAttribute('href', '/en/supplier');
-              }else if ( userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
-              form_button.setAttribute('href', '/en/supplier');
-              } else if( userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
-              form_button.setAttribute('href', '/en/press');
-              } else if(userInfo.user_is_admin == "0" && userInfo.company_admin != "1" || userInfo.user_is_admin == "0" && userInfo.basic_admin != '1') {
-                  if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table'){
-                    location.replace('/en/account');
-                  }
-                  document.getElementById('admin_drop').style.display = 'none';
-                  document.getElementById('admin_drop_mob').style.display = 'none';
-              }else {}
-              }
-        }else{
-          if( userInfo.account_type == "No company" && userInfo.user_is_admin == '0'){
-              form_button.setAttribute('href', '/en/supplier');
-              }else if ( userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
-              form_button.setAttribute('href', '/en/supplier');
-              } else if ( userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
-              form_button.setAttribute('href', '/en/supplier');
-              } else if( userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
-              form_button.setAttribute('href', '/en/press');
-              } else if(userInfo.user_is_admin == "0") {
-                  if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.company_admin != "1"){
-                    location.replace('/en/account');
-                  } else if(window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && userInfo.basic_admin != "1"){
-                    location.replace('/en/account');
-                  }
-                  document.getElementById('admin_drop').style.display = 'none';
-                  document.getElementById('admin_drop_mob').style.display = 'none';
-              }else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
-                form_button.setAttribute('href', '/en/supplier');
-                document.getElementById('admin_drop').style.display = 'block';
-                document.getElementById('admin_drop_mob').style.display = 'block';
-              }else{}
-          }
-       if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press'){
-        if(userInfo.press_has_form_submitted == "1"){
-          document.getElementById("workspot").setAttribute('disabled', "");
-          document.getElementById("publisher").setAttribute('disabled', "");
-          document.getElementById("media_type").setAttribute('disabled', "");
-          document.getElementById("Select-dates").setAttribute('disabled', "");
-          document.getElementById("special_press_request").setAttribute('disabled', "");
-          document.getElementById("fileInp").setAttribute('disabled', "");
-          document.getElementById("press_submmited_form").style.display = 'flex';
-        }
-       }
+            if (storedLang) {
+  if (storedLang == "de") {
+    if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
+      form_button.setAttribute('href', '/de/supplier');
+      document.getElementById('admin_drop').style.display = 'block';
+      document.getElementById('admin_drop_mob').style.display = 'block';
+    } else if (userInfo.account_type == "No company" && userInfo.user_is_admin == '0') {
+      form_button.setAttribute('href', '/de/supplier');
+    } else if (userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
+      form_button.setAttribute('href', '/de/supplier');
+    } else if (userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
+      form_button.setAttribute('href', '/de/supplier');
+    } else if (userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
+      form_button.setAttribute('href', '/de/press');
+    } else if (userInfo.user_is_admin == "0" && userInfo.company_admin == "1" || userInfo.basic_admin == '1') {
+      if (window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table') {
+        location.replace('/de/account');
+      }
+      document.getElementById('companies_table').style.display = 'none';
+    } else {}
+  } else {
+    if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
+      form_button.setAttribute('href', '/en/supplier');
+      document.getElementById('admin_drop').style.display = 'block';
+      document.getElementById('admin_drop_mob').style.display = 'block';
+    } else if (userInfo.account_type == "No company" && userInfo.user_is_admin == '0') {
+      form_button.setAttribute('href', '/en/supplier');
+    } else if (userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
+      form_button.setAttribute('href', '/en/supplier');
+    } else if (userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
+      form_button.setAttribute('href', '/en/supplier');
+    } else if (userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
+      form_button.setAttribute('href', '/en/press');
+    } else if (userInfo.user_is_admin == "0" && userInfo.company_admin != "1" || userInfo.basic_admin != '1') {
+      if (window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table') {
+        location.replace('/en/account');
+      }
+      document.getElementById('admin_drop').style.display = 'none';
+      document.getElementById('admin_drop_mob').style.display = 'none';
+    } else {}
+  }
+} else {
+  if (userInfo.account_type == "No company" && userInfo.user_is_admin == '0') {
+    form_button.setAttribute('href', '/en/supplier');
+  } else if (userInfo.account_type == "Supplier" && userInfo.user_is_admin == '0') {
+    form_button.setAttribute('href', '/en/supplier');
+  } else if (userInfo.account_type == "RSW" && userInfo.user_is_admin == '0') {
+    form_button.setAttribute('href', '/en/supplier');
+  } else if (userInfo.account_type == "Press" && userInfo.user_is_admin == '0') {
+    form_button.setAttribute('href', '/en/press');
+  } else if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
+    form_button.setAttribute('href', '/en/supplier');
+    document.getElementById('admin_drop').style.display = 'block';
+    document.getElementById('admin_drop_mob').style.display = 'block';
+  } else {}
+}
+
+if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press') {
+  if (userInfo.press_has_form_submitted == "1") {
+    document.getElementById("workspot").setAttribute('disabled', "");
+    document.getElementById("publisher").setAttribute('disabled', "");
+    document.getElementById("media_type").setAttribute('disabled', "");
+    document.getElementById("Select-dates").setAttribute('disabled', "");
+    document.getElementById("special_press_request").setAttribute('disabled', "");
+    document.getElementById("fileInp").setAttribute('disabled', "");
+    document.getElementById("press_submmited_form").style.display = 'flex';
+  }
+}
       }
     }
 
@@ -5224,7 +5216,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba430');
+    console.log('prueba432');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
