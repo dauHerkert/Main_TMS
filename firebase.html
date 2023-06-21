@@ -2567,27 +2567,24 @@ getDocs(q)
       let update_media_type = document.getElementById("update_media_type");
       let update_user_address = document.getElementById('update_user_address');
 
-$(document).ready(function() {
-  $('#userCompany').select2({
-    tags: true
-  }).on('select2:select', function(e) {
-    var data = $(this).select2('data');
-    var sortedData = data.sort(function(a, b) {
-      return a.element.dataset.index - b.element.dataset.index;
-    });
-    $(this).val(sortedData.map(function(item) {
-      return item.id;
-    })).trigger('change');
-  }).on('select2:unselect', function(e) {
-    var data = $(this).select2('data');
-    var sortedData = data.sort(function(a, b) {
-      return a.element.dataset.index - b.element.dataset.index;
-    });
-    $(this).val(sortedData.map(function(item) {
-      return item.id;
-    })).trigger('change');
+      $(document).ready(function() {
+  // Inicializa Select2 desde JavaScript
+  $('#userCompany').select2();
+
+  var selectedOptions = [];
+  // Agrega un controlador de eventos para el evento de selección
+  $('#userCompany').on('select2:select', function (e) {
+    // Obtén el valor de la opción seleccionada
+    var value = e.params.data.id;
+
+    // Agrega la opción seleccionada al array en el orden correcto
+    selectedOptions.push(value);
+
+    // Actualiza la lista de selecciones en Select2 con el nuevo orden
+    $('#userCompany').val(selectedOptions).trigger('change');
   });
 });
+
 
       $('#userCompany').on('change', function () {
         var selectedUserCompanies = $(this).val();
@@ -5250,7 +5247,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba439');
+    console.log('prueba440');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
