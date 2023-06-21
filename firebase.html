@@ -2568,22 +2568,10 @@ getDocs(q)
       let update_user_address = document.getElementById('update_user_address');
 
       $(document).ready(function() {
-  // Inicializa Select2 desde JavaScript
-  $('#userCompany').select2();
-
-  var selectedOptions = [];
-  // Agrega un controlador de eventos para el evento de selección
-  $('#userCompany').on('select2:select', function (e) {
-    // Obtén el valor de la opción seleccionada
-    var value = e.params.data.id;
-
-    // Agrega la opción seleccionada al array en el orden correcto
-    selectedOptions.push(value);
-
-    // Actualiza la lista de selecciones en Select2 con el nuevo orden
-    $('#userCompany').val(selectedOptions).trigger('change');
-  });
-});
+      $('#userCompany').select2({
+        sortable: true
+      });
+    });
 
 
       $('#userCompany').on('change', function () {
@@ -5247,7 +5235,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba440');
+    console.log('prueba441');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
