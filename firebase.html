@@ -2567,6 +2567,28 @@ getDocs(q)
       let update_media_type = document.getElementById("update_media_type");
       let update_user_address = document.getElementById('update_user_address');
 
+$(document).ready(function() {
+  $('#userCompany').select2({
+    tags: true
+  }).on('select2:select', function(e) {
+    var data = $(this).select2('data');
+    var sortedData = data.sort(function(a, b) {
+      return a.element.dataset.index - b.element.dataset.index;
+    });
+    $(this).val(sortedData.map(function(item) {
+      return item.id;
+    })).trigger('change');
+  }).on('select2:unselect', function(e) {
+    var data = $(this).select2('data');
+    var sortedData = data.sort(function(a, b) {
+      return a.element.dataset.index - b.element.dataset.index;
+    });
+    $(this).val(sortedData.map(function(item) {
+      return item.id;
+    })).trigger('change');
+  });
+});
+
       $('#userCompany').on('change', function () {
         var selectedUserCompanies = $(this).val();
         selectedUserCompaniesString = selectedUserCompanies.join(', ');
@@ -5228,7 +5250,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba438');
+    console.log('prueba439');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
