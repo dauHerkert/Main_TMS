@@ -2568,8 +2568,31 @@ getDocs(q)
       let update_user_address = document.getElementById('update_user_address');
 
       $(document).ready(function() {
-      $('#userCompany').select2({
-        sortable: true
+      $('#userCompany').select2();
+
+      var selectedOptions = [];
+
+      $('#userCompany').on('select2:select', function (e) {
+        var value = e.params.data.id;
+
+        // Verificar si la opción ya fue seleccionada previamente
+        var index = selectedOptions.indexOf(value);
+        if (index !== -1) {
+          // La opción ya fue seleccionada, la eliminamos del array
+          selectedOptions.splice(index, 1);
+        }
+
+        // Agregar la opción seleccionada al final del array
+        selectedOptions.push(value);
+
+        // Actualizar la lista de selecciones en Select2 en el orden correcto
+        $('#userCompany').html('');
+        selectedOptions.forEach(function (optionValue) {
+          $('#userCompany').append('<option value="' + optionValue + '" selected>' + optionValue + '</option>');
+        });
+
+        // Disparar el evento 'change' en Select2
+        $('#userCompany').trigger('change');
       });
     });
 
@@ -5235,7 +5258,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba441');
+    console.log('prueba442');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
