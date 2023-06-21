@@ -2567,42 +2567,31 @@ getDocs(q)
       let update_media_type = document.getElementById("update_media_type");
       let update_user_address = document.getElementById('update_user_address');
 
+      // Sort the companies order by the selection order
       $(document).ready(function() {
-      $('#userCompany').select2();
+        $('#userCompany').select2();
+      var selected = [];
 
-      // Inicializar un array para mantener los elementos seleccionados
-    var selected = [];
-
-    // Enlazar el evento 'select2:select'
+    // Event 'select2:select'
     $("#userCompany").on('select2:select', function (e) {
       var id = e.params.data.id;
       var option = $(e.target).children('[value='+id+']');
       option.detach();
       $(e.target).append(option);
-
-      // Añade el id del elemento seleccionado a la lista de elementos seleccionados
+  
       selected.push(id);
-
-      // Establece el valor del select2 a la lista de elementos seleccionados
       $(this).val(selected);
-
-      // Dispara el evento 'change' para refrescar el select2
       $(this).trigger('change');
     });
 
-    // Enlazar el evento 'select2:unselect'
+    // Event 'select2:unselect'
     $("#userCompany").on('select2:unselect', function (e) {
-      var id = e.params.data.id;  // Obtiene el id del elemento deseleccionado
-
-      // Elimina el id del elemento deseleccionado de la lista de elementos seleccionados
+      var id = e.params.data.id;
       selected = selected.filter(function (value) {
         return value !== id;
       });
 
-      // Establece el valor del select2 a la lista de elementos seleccionados
       $(this).val(selected);
-
-      // Dispara el evento 'change' para refrescar el select2
       $(this).trigger('change');
     });
     });
@@ -5269,7 +5258,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba444');
+    console.log('prueba445');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
