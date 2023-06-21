@@ -2469,8 +2469,6 @@ $(document).ready(function() {
           tableFilters.forEach((filterEl) => tableFiltersContainer.appendChild(filterEl));
         });
 
-let selectedData = [];
-console.log(selectedData);
 const input = document.getElementById("fSearch");
 input.addEventListener("keyup", function() {
     table.setFilter(matchAny, { value: input.value });
@@ -3321,6 +3319,8 @@ delete_user_form.addEventListener('submit', (e) => {
       });
   }
 });
+let selectedData = [];
+console.log(selectedData);
 
           //Bulk users update
           async function bulkUserUpdate(selectedData) {
@@ -5228,7 +5228,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba437');
+    console.log('prueba438');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
