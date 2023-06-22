@@ -2597,22 +2597,18 @@ getDocs(q)
       let update_user_address = document.getElementById('update_user_address');
 
       // Matriz para almacenar los valores de las opciones seleccionadas en orden
-var selectedUserCompanies = [];
+      var selectedUserCompanies = [];
 
 $(document).ready(function() {
   // Inicializar el select2
   $('#userCompany').select2();
-
   // Evento 'select2:select'
   $("#userCompany").on('select2:select', function (e) {
     var id = e.params.data.id;
-
     // Agregar el valor a la matriz en el orden de selección
     selectedUserCompanies.push(id);
-
     // Actualizar el campo de texto oculto con los valores en orden
     selectedUserCompaniesString = selectedUserCompanies.join(', ');
-
     // Imprimir los valores en el mismo orden de selección
     console.log(selectedUserCompanies);
   });
@@ -2632,12 +2628,6 @@ $(document).ready(function() {
 
     // Imprimir los valores en el mismo orden de selección
     console.log(selectedUserCompanies);
-  });
-
-  // Evento 'change'
-  $('#userCompany').on('change', function () {
-    // Aquí puedes agregar tu lógica para utilizar los valores en el orden de selección
-    console.log(selectedUserCompaniesString);
   });
 });
 
@@ -5297,7 +5287,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba450');
+    console.log('prueba451');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
