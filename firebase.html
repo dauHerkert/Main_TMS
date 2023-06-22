@@ -2596,57 +2596,43 @@ getDocs(q)
       let update_media_type = document.getElementById("update_media_type");
       let update_user_address = document.getElementById('update_user_address');
 
-// Variable para almacenar las compañías seleccionadas en orden
-var selectedUserCompanies = [];
+      // Sort the companies order by the selection order
+      $(document).ready(function() {
+        $('#userCompany').select2();
+      var selected = [];
 
-$(document).ready(function() {
-  // Inicializar el select2
-  $('#userCompany').select2();
-
-  // Obtener las opciones seleccionadas al inicio
-  selectedUserCompanies = $('#userCompany').val() || [];
-
-  // Evento 'select2:select'
-  $('#userCompany').on('select2:select', function(e) {
-    var selectedOption = e.params.data;
-    selectedUserCompanies.push(selectedOption.id);
-
-    // Ordenar las opciones seleccionadas por el orden en que se seleccionaron
-    var sortedOptions = $(this).children('option').sort(function(a, b) {
-      return selectedUserCompanies.indexOf($(a).val()) - selectedUserCompanies.indexOf($(b).val());
+    // Event 'select2:select'
+    $("#userCompany").on('select2:select', function (e) {
+      var id = e.params.data.id;
+      var option = $(e.target).children('[value='+id+']');
+      option.detach();
+      $(e.target).append(option);
+  
+      selected.push(id);
+      $(this).val(selected);
+      $(this).trigger('change');
     });
 
-    // Reemplazar las opciones en el select2 con las opciones ordenadas
-    $(this).empty().append(sortedOptions).val(selectedUserCompanies).trigger('change');
+    // Event 'select2:unselect'
+    $("#userCompany").on('select2:unselect', function (e) {
+      var id = e.params.data.id;
+      selected = selected.filter(function (value) {
+        return value !== id;
+      });
+
+      $(this).val(selected);
+      $(this).trigger('change');
+    });
+    });
+
+    $('#userCompany').on('change', function () {
+  var selectedOptions = $(this).find('option:selected');
+  let selectedUserCompanies = [];
+  selectedOptions.each(function () {
+    selectedUserCompanies.push($(this).val());
   });
-
-  // Evento 'select2:unselect'
-  $('#userCompany').on('select2:unselect', function(e) {
-    var unselectedOption = e.params.data;
-    selectedUserCompanies = selectedUserCompanies.filter(function(companyId) {
-      return companyId !== unselectedOption.id;
-    });
-
-    // Ordenar las opciones seleccionadas por el orden en que se seleccionaron
-    var sortedOptions = $(this).children('option').sort(function(a, b) {
-      return selectedUserCompanies.indexOf($(a).val()) - selectedUserCompanies.indexOf($(b).val());
-    });
-
-    // Reemplazar las opciones en el select2 con las opciones ordenadas
-    $(this).empty().append(sortedOptions).val(selectedUserCompanies).trigger('change');
-  });
-
-  // Evento 'change'
-  $('#userCompany').on('change', function() {
-    var selectedOptions = $(this).find('option:selected');
-    selectedUserCompanies = [];
-    selectedOptions.each(function () {
-      selectedUserCompanies.push($(this).val());
-    });
-
-  });
+  selectedUserCompaniesString = selectedUserCompanies.join(', ');
 });
-
 
    // Update the selectedUserZonesString variable based on the current selection
   function updateSelectedUserZonesString() {
@@ -5304,7 +5290,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba453');
+    console.log('prueba448');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
