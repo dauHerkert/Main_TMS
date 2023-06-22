@@ -2621,8 +2621,13 @@ $(document).ready(function() {
   });
 });
 
-    $('#userCompany').on('change', function () {
-      var selectedUserCompaniesString = selectedUserCompanies.join(', ');
+$('#userCompany').on('change', function () {
+  var selectedOptions = $(this).find('option:selected');
+  selectedUserCompanies = [];
+  selectedOptions.each(function () {
+    selectedUserCompanies.push($(this).val());
+  });
+  selectedUserCompaniesString = selectedUserCompanies.join(', ');
 });
 
    // Update the selectedUserZonesString variable based on the current selection
@@ -5281,7 +5286,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba451');
+    console.log('prueba452');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
