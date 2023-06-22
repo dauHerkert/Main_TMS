@@ -2579,8 +2579,10 @@ $(document).ready(function() {
     var id = e.params.data.id;
     // Agregar el valor a la matriz en el orden de selección
     selectedUserCompanies.push(id);
-    // Ordenar los valores de la matriz
-    selectedUserCompanies.sort();
+    // Ordenar los valores de la matriz en orden inverso
+    selectedUserCompanies.sort(function(a, b) {
+      return b - a;
+    });
     // Actualizar el campo de texto oculto con los valores en orden
     selectedUserCompaniesString = selectedUserCompanies.join(', ');
     // Imprimir los valores en el mismo orden de selección
@@ -2597,8 +2599,10 @@ $(document).ready(function() {
       selectedUserCompanies.splice(index, 1);
     }
 
-    // Ordenar los valores de la matriz
-    selectedUserCompanies.sort();
+    // Ordenar los valores de la matriz en orden inverso
+    selectedUserCompanies.sort(function(a, b) {
+      return b - a;
+    });
 
     // Actualizar el campo de texto oculto con los valores en orden
     selectedUserCompaniesString = selectedUserCompanies.join(', ');
@@ -5262,7 +5266,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba452');
+    console.log('prueba453');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
