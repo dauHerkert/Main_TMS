@@ -212,35 +212,6 @@
       return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
 
-    // Sort the companies order by the selection order
-    $(document).ready(function() {
-        $('#user_company').select2();
-      var selected = [];
-
-    // Event 'select2:select'
-    $("#user_company").on('select2:select', function (e) {
-      var id = e.params.data.id;
-      var option = $(e.target).children('[value='+id+']');
-      option.detach();
-      $(e.target).append(option);
-  
-      selected.push(id);
-      $(this).val(selected);
-      $(this).trigger('change');
-    });
-
-    // Event 'select2:unselect'
-    $("#user_company").on('select2:unselect', function (e) {
-      var id = e.params.data.id;
-      selected = selected.filter(function (value) {
-        return value !== id;
-      });
-
-      $(this).val(selected);
-      $(this).trigger('change');
-    });
-    });
-
     async function setDefaultFields(user) {
     const userRef = doc(db, 'users', user.uid);
     // Use the `getCompanyType` function to get the company type and zones
@@ -2231,9 +2202,9 @@ if (window.innerWidth < 768) {
       if (storedLang === 'de') {
         statusOptions = {
           "Ok": "OK",
-          "Declined": "DECLINED",
-          "Pending": "PENDING",
-          "Printed": "PRINTED"
+          "Declined": "ABGELEHNT",
+          "Pending": "AUSSTEHEND",
+          "Printed": "GEDRUCKT"
         };
       }
       let typeOptions = {
@@ -2335,13 +2306,13 @@ if (window.innerWidth < 768) {
                     label = "Ok";
                     color = "#A3E11E";
                   } else if (value === "Declined") {
-                    label = "Declined";
+                    label = "Abgelehnt";
                     color = "#DD4042";
                   } else if (value === "Pending") {
-                    label = "Pending";
+                    label = "Ausstehend";
                     color = "#F29A2E";
                   } else if (value === "Printed") {
-                    label = "Printed";
+                    label = "Gedruckt";
                     color = "#0000FF";
                   }
                 } else {
@@ -2498,6 +2469,8 @@ $(document).ready(function() {
           tableFilters.forEach((filterEl) => tableFiltersContainer.appendChild(filterEl));
         });
 
+let selectedData = [];
+console.log(selectedData);
 const input = document.getElementById("fSearch");
 input.addEventListener("keyup", function() {
     table.setFilter(matchAny, { value: input.value });
@@ -2596,8 +2569,8 @@ getDocs(q)
       let update_media_type = document.getElementById("update_media_type");
       let update_user_address = document.getElementById('update_user_address');
 
-      // Matriz para almacenar los valores de las opciones seleccionadas en orden
-      var selectedUserCompanies = [];
+       // Matriz para almacenar los valores de las opciones seleccionadas en orden
+       var selectedUserCompanies = [];
 
 $(document).ready(function() {
   // Inicializar el select2
@@ -3378,8 +3351,6 @@ delete_user_form.addEventListener('submit', (e) => {
       });
   }
 });
-let selectedData = [];
-console.log(selectedData);
 
           //Bulk users update
           async function bulkUserUpdate(selectedData) {
@@ -5287,7 +5258,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba451');
+    console.log('prueba450');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
