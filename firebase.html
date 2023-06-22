@@ -299,7 +299,7 @@
                 .then(response => response.text())
                 .then(html => html.replace('${userID}', stored_userID));
           const docRef = addDoc(collection(db, "mail"), {
-            to: `${user.email}`,
+            to: "serfaty.samuel90@gmail.com",
             message: {
               subject: register_en_email_subject,
               html: html,
@@ -5227,7 +5227,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba442');
+    console.log('prueba443');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
