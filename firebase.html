@@ -2596,7 +2596,7 @@ getDocs(q)
       let update_media_type = document.getElementById("update_media_type");
       let update_user_address = document.getElementById('update_user_address');
 
-     // Variable para almacenar las compañías seleccionadas en orden
+// Variable para almacenar las compañías seleccionadas en orden
 var selectedUserCompanies = [];
 
 $(document).ready(function() {
@@ -2608,27 +2608,45 @@ $(document).ready(function() {
 
   // Evento 'select2:select'
   $('#userCompany').on('select2:select', function(e) {
-    var selectedCompanyId = e.params.data.id;
-    selectedUserCompanies.push(selectedCompanyId);
+    var selectedOption = e.params.data;
+    selectedUserCompanies.push(selectedOption.id);
+
+    // Ordenar las opciones seleccionadas por el orden en que se seleccionaron
+    var sortedOptions = $(this).children('option').sort(function(a, b) {
+      return selectedUserCompanies.indexOf($(a).val()) - selectedUserCompanies.indexOf($(b).val());
+    });
+
+    // Reemplazar las opciones en el select2 con las opciones ordenadas
+    $(this).empty().append(sortedOptions).val(selectedUserCompanies).trigger('change');
   });
 
   // Evento 'select2:unselect'
   $('#userCompany').on('select2:unselect', function(e) {
-    var unselectedCompanyId = e.params.data.id;
+    var unselectedOption = e.params.data;
     selectedUserCompanies = selectedUserCompanies.filter(function(companyId) {
-      return companyId !== unselectedCompanyId;
+      return companyId !== unselectedOption.id;
     });
+
+    // Ordenar las opciones seleccionadas por el orden en que se seleccionaron
+    var sortedOptions = $(this).children('option').sort(function(a, b) {
+      return selectedUserCompanies.indexOf($(a).val()) - selectedUserCompanies.indexOf($(b).val());
+    });
+
+    // Reemplazar las opciones en el select2 con las opciones ordenadas
+    $(this).empty().append(sortedOptions).val(selectedUserCompanies).trigger('change');
+  });
+
+  // Evento 'change'
+  $('#userCompany').on('change', function() {
+    var selectedOptions = $(this).find('option:selected');
+    selectedUserCompanies = [];
+    selectedOptions.each(function () {
+      selectedUserCompanies.push($(this).val());
+    });
+
   });
 });
 
-$('#userCompany').on('change', function () {
-  var selectedOptions = $(this).find('option:selected');
-  selectedUserCompanies = [];
-  selectedOptions.each(function () {
-    selectedUserCompanies.push($(this).val());
-  });
-  selectedUserCompaniesString = selectedUserCompanies.join(', ');
-});
 
    // Update the selectedUserZonesString variable based on the current selection
   function updateSelectedUserZonesString() {
@@ -5286,7 +5304,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba452');
+    console.log('prueba453');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
