@@ -2569,8 +2569,7 @@ getDocs(q)
       let update_media_type = document.getElementById("update_media_type");
       let update_user_address = document.getElementById('update_user_address');
 
-       // Matriz para almacenar los valores de las opciones seleccionadas en orden
-       var selectedUserCompanies = [];
+      var selectedUserCompanies = [];
 
 $(document).ready(function() {
   // Inicializar el select2
@@ -2580,6 +2579,8 @@ $(document).ready(function() {
     var id = e.params.data.id;
     // Agregar el valor a la matriz en el orden de selección
     selectedUserCompanies.push(id);
+    // Ordenar los valores de la matriz
+    selectedUserCompanies.sort();
     // Actualizar el campo de texto oculto con los valores en orden
     selectedUserCompaniesString = selectedUserCompanies.join(', ');
     // Imprimir los valores en el mismo orden de selección
@@ -2595,6 +2596,9 @@ $(document).ready(function() {
     if (index > -1) {
       selectedUserCompanies.splice(index, 1);
     }
+
+    // Ordenar los valores de la matriz
+    selectedUserCompanies.sort();
 
     // Actualizar el campo de texto oculto con los valores en orden
     selectedUserCompaniesString = selectedUserCompanies.join(', ');
@@ -5258,7 +5262,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba451');
+    console.log('prueba452');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
