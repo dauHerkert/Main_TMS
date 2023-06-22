@@ -2202,9 +2202,9 @@ if (window.innerWidth < 768) {
       if (storedLang === 'de') {
         statusOptions = {
           "Ok": "OK",
-          "Declined": "ABGELEHNT",
-          "Pending": "AUSSTEHEND",
-          "Printed": "GEDRUCKT"
+          "Declined": "DECLINED",
+          "Pending": "PENDING",
+          "Printed": "PRINTED"
         };
       }
       let typeOptions = {
@@ -2306,13 +2306,13 @@ if (window.innerWidth < 768) {
                     label = "Ok";
                     color = "#A3E11E";
                   } else if (value === "Declined") {
-                    label = "Abgelehnt";
+                    label = "Declined";
                     color = "#DD4042";
                   } else if (value === "Pending") {
-                    label = "Ausstehend";
+                    label = "Pending";
                     color = "#F29A2E";
                   } else if (value === "Printed") {
-                    label = "Gedruckt";
+                    label = "Printed";
                     color = "#0000FF";
                   }
                 } else {
@@ -2469,8 +2469,6 @@ $(document).ready(function() {
           tableFilters.forEach((filterEl) => tableFiltersContainer.appendChild(filterEl));
         });
 
-let selectedData = [];
-console.log(selectedData);
 const input = document.getElementById("fSearch");
 input.addEventListener("keyup", function() {
     table.setFilter(matchAny, { value: input.value });
@@ -2569,48 +2567,10 @@ getDocs(q)
       let update_media_type = document.getElementById("update_media_type");
       let update_user_address = document.getElementById('update_user_address');
 
-      var selectedUserCompanies = [];
-
-$(document).ready(function() {
-  // Inicializar el select2
-  $('#userCompany').select2();
-  // Evento 'select2:select'
-  $("#userCompany").on('select2:select', function (e) {
-    var id = e.params.data.id;
-    // Agregar el valor a la matriz en el orden de selección
-    selectedUserCompanies.push(id);
-    // Ordenar los valores de la matriz en orden inverso
-    selectedUserCompanies.sort(function(a, b) {
-      return b - a;
-    });
-    // Actualizar el campo de texto oculto con los valores en orden
-    selectedUserCompaniesString = selectedUserCompanies.join(', ');
-    // Imprimir los valores en el mismo orden de selección
-    console.log(selectedUserCompanies);
-  });
-
-  // Evento 'select2:unselect'
-  $("#userCompany").on('select2:unselect', function (e) {
-    var id = e.params.data.id;
-
-    // Eliminar el valor de la matriz
-    var index = selectedUserCompanies.indexOf(id);
-    if (index > -1) {
-      selectedUserCompanies.splice(index, 1);
-    }
-
-    // Ordenar los valores de la matriz en orden inverso
-    selectedUserCompanies.sort(function(a, b) {
-      return b - a;
-    });
-
-    // Actualizar el campo de texto oculto con los valores en orden
-    selectedUserCompaniesString = selectedUserCompanies.join(', ');
-
-    // Imprimir los valores en el mismo orden de selección
-    console.log(selectedUserCompanies);
-  });
-});
+      $('#userCompany').on('change', function () {
+        var selectedUserCompanies = $(this).val();
+        selectedUserCompaniesString = selectedUserCompanies.join(', ');
+      });
 
    // Update the selectedUserZonesString variable based on the current selection
   function updateSelectedUserZonesString() {
@@ -3359,7 +3319,8 @@ delete_user_form.addEventListener('submit', (e) => {
       });
   }
 });
-
+let selectedData = [];
+console.log(selectedData);
           //Bulk users update
           async function bulkUserUpdate(selectedData) {
           let bulk_user_form = document.getElementById('bulk_user_form');
@@ -5266,7 +5227,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
     }
-    console.log('prueba453');
+    console.log('prueba437');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
