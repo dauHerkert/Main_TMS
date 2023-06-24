@@ -785,6 +785,12 @@ if (resend_button) {
     * Homepage functions
     * -----------------------------------------------------------------------------------------------------------
     */
+
+/*================================================================================================================================================================
+ * This function is called on the home page. It identifies the sign-up form (wf-form-signup-form) and assigns an event listener to it. The event listener listens
+ * for the form's submission and calls the handleSignUp function.
+=================================================================================================================================================================*/
+
     function pageHome() {
         //identify auth action forms
         let signUpForm = document.getElementById('wf-form-signup-form');
@@ -794,6 +800,12 @@ if (resend_button) {
         }
         getDateSignUp()
     }
+
+/*================================================================================================================================================================
+ * This function is called on the sign-in page. It identifies the sign-in form (wf-form-signin-form) and assigns an event listener to it. The event listener
+ * listens for the form's submission and calls the handleSignIn function.
+=================================================================================================================================================================*/
+
     function signInPage(){
         let signInForm = document.getElementById('wf-form-signin-form');
 
@@ -802,6 +814,10 @@ if (resend_button) {
           signInForm.addEventListener('submit', handleSignIn, true)
         }
     }
+
+/*================================================================================================================================================================
+ * These event listeners listen for clicks on the sign-out buttons (signout-button and signout-button2). When clicked, they call the handleSignOut function.
+================================================================================================================================================================*/
       let signOutButton = document.getElementById('signout-button');
       let signOutButton2 = document.getElementById('signout-button2');
       if(signOutButton) {
@@ -816,6 +832,12 @@ if (resend_button) {
     * Account functions
     * -----------------------------------------------------------------------------------------------------------
     */
+
+/*==================================================================================================================================================================
+ * This function retrieves the user information from the Firestore database based on the provided user parameter, which is the user object. It queries the database
+ * using the user's UID and returns the corresponding user data if it exists. Otherwise, it displays an error message using Toastr.
+===================================================================================================================================================================*/
+
     async function getUserInfo(user) {
       const typeRef = doc(db, 'users', user.uid);
       const typeSnap = await getDoc(typeRef);
@@ -825,6 +847,12 @@ if (resend_button) {
         toastr.error('No user found with that ID');
       }
     }
+
+/*=================================================================================================================================================================
+ * This function translates the navigation menu items based on the selected language (storedLang). It selects the navigation links on the page and iterates over 
+ * each link, checking its text content. If the text matches specific labels (e.g., "Form," "Account," or "Sign Out"), it replaces the text with the corresponding 
+ * translation. In the case of "Sign Out," it replaces the text with an image and the translated text "Ausloggen."
+==================================================================================================================================================================*/
 
     function translateNavigation() {
       if (storedLang && storedLang == 'de') {
@@ -853,6 +881,12 @@ if (resend_button) {
       }
     }
 
+/*===============================================================================================================================================================
+ * This function populates the forms and sets the appropriate links and display based on the user's information and the selected language (storedLang). It 
+ * retrieves the user information using the getUserInfo(user) function and updates the UI elements accordingly. It also handles specific scenarios for different 
+ * account types and user roles.
+================================================================================================================================================================*/
+
     async function populateForms(user) {
       let userInfo = await getUserInfo(user);
       const accountType_button = document.getElementById('account_user_profile');
@@ -869,11 +903,6 @@ if (resend_button) {
         const companyNames = await changeCompanyNameToID(userInfo);
         userInfo.user_company_name = companyNames;
 
-        /*if (window.location.pathname === '/en/account' || window.location.pathname === '/de/account') {
-          document.getElementById('user_address').innerHTML = `${userInfo.user_address}`;
-          document.getElementById('user_name').innerHTML = `${userInfo.user_firstname}`;
-          document.getElementById('user_lastname').innerHTML = `${userInfo.user_lastname}`;
-            }*/
   if (storedLang) {
   if (storedLang == "de") {
     if (userInfo.user_is_admin == "1" || userInfo.company_admin == "1" || userInfo.basic_admin == "1") {
@@ -952,10 +981,16 @@ if (window.location.pathname == '/de/press' || window.location.pathname == '/en/
     document.getElementById("press_submmited_form").style.display = 'flex';
   }
 }
-      }
-    }
+}
+}
 
-    // Update user info
+/*============================================================================================================================================================
+ * This function updates the user's first name, last name, and address in the Firestore database. It uses the provided user object to identify the user, and 
+ * the newUsername, newUserLastname, and newUserAddress parameters contain the updated values for each field. The function uses the setDoc function to update 
+ * the document in the database.
+=============================================================================================================================================================*/
+
+// Update user info
 function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
   const userRef = doc(db, 'users', user.uid);
 
@@ -972,6 +1007,11 @@ function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
     });
 }
 
+/*=================================================================================================================================================================
+ * This function updates the user's email address. It uses the provided user object and the newEmail parameter, which contains the new email address. It uses the 
+ * updateEmail function to update the email address.
+==================================================================================================================================================================*/
+
    // Update email
 function updateUserEmail(user, newEmail, promises) {
   updateEmail(user, newEmail)
@@ -982,6 +1022,11 @@ function updateUserEmail(user, newEmail, promises) {
       toastr.error('There was a problem updating the email');
     });
 }
+
+/*============================================================================================================================================================
+ * This function updates the user's password. It uses the provided user object and the newPassword parameter, which contains the new password. It uses the 
+ * updatePassword function to update the password.
+=============================================================================================================================================================*/
 
 // Update password
 function updateUserPassword(user, newPassword) {
@@ -994,6 +1039,11 @@ function updateUserPassword(user, newPassword) {
     });
 }
 
+/*==================================================================================================================================================================
+ * This function displays the user's profile picture. It uses the getDownloadURL function to retrieve the download URL of the profile picture from Firebase Storage.
+ * It then sets the src attribute of the img element with the user_profile_pic ID to the obtained URL.
+===================================================================================================================================================================*/
+
     //Display profile picture
     function showProfilePic(user){
       getDownloadURL(ref(storage, 'profiles/' + user.uid))
@@ -1005,6 +1055,11 @@ function updateUserPassword(user, newPassword) {
           // Handle any errors
         });
     }
+
+/*===================================================================================================================================================================
+ * This event listener listens for changes in the updatedPicture input element, which represents the updated profile picture file. When a change occurs, it checks 
+ * if the selected file is an image. If it is, it initializes the cropper and sets up the cropping functionality using the Cropper library.
+====================================================================================================================================================================*/
 
    //Update profile picture
 const updatedPicture = document.getElementById('updated_picture');
@@ -1053,6 +1108,12 @@ if(updatedPicture){
     }
   });
 }
+
+/*====================================================================================================================================================================
+ * This function is triggered when the user submits the form to update their profile picture. It prevents the default form submission behavior, retrieves the cropped
+ * canvas from the cropper, converts it to a blob, and uploads it to the Firebase Storage using the uploadBytes function. The updated profile picture is stored
+ *  under the profiles directory with the user's ID as the filename. Once the upload is complete, a success message is displayed, and the modal is closed.
+=====================================================================================================================================================================*/
   
 function updateProfilePic(e, user) {
   e.preventDefault();
@@ -1093,6 +1154,11 @@ if (update_picture_modal !== null) {
   }, true);
 }
 
+/*============================================================================================================================================================
+ * This function is called when the user is signed in. It selects elements with the data-onlogin="show" attribute and sets their display style to "initial", 
+ * making them visible. It also selects elements with the data-onlogin="hide" attribute and sets their display style to "none", hiding them from view.
+=============================================================================================================================================================*/
+
     function showPrivateElements() {
       // User is signed in
       let publicElements = document.querySelectorAll("[data-onlogin='hide']");
@@ -1105,6 +1171,11 @@ if (update_picture_modal !== null) {
       });
     }
 
+/*============================================================================================================================================================
+ * This function is called when the user is signed out. It selects elements with the data-onlogin="hide" attribute and sets their display style to "initial",
+ * making them visible. It selects elements with the data-onlogin="show" attribute and sets their display style to "none", hiding them from view.
+=============================================================================================================================================================*/
+
     function showPublicElements() {
       // User is signed out
       let publicElements = document.querySelectorAll("[data-onlogin='hide']");
@@ -1116,6 +1187,12 @@ if (update_picture_modal !== null) {
         element.style.display = "none";
       });
     }
+
+/*================================================================================================================================================================
+ * This event listener listens for clicks on the deleteButton element. When clicked, it retrieves the currently signed-in user, deletes the user's account using
+ * the deleteUser function, and deletes the user's data from Firestore using the deleteDoc function. Depending on the user's selected language (storedLang),
+ *  the page is redirected to the appropriate sign-in page after a brief delay. A success message is displayed if the account deletion is successful.
+=================================================================================================================================================================*/
 
     let deleteButton = document.getElementById('delete_user');
     var storedLang = localStorage.getItem("language");
@@ -1147,6 +1224,12 @@ if (update_picture_modal !== null) {
         }
       });
     }
+
+/*================================================================================================================================================================
+ * This event listener listens for clicks on the deleteButton element. When clicked, it retrieves the currently signed-in user, deletes the user's account 
+ * using the deleteUser function, and deletes the user's data from Firestore using the deleteDoc function. Depending on the user's selected language (storedLang), 
+ * the page is redirected to the appropriate sign-in page after a brief delay. A success message is displayed if the account deletion is successful.
+=================================================================================================================================================================*/
 
     async function pageAccount(user) {
       let userInfo = await getUserInfo(user);
@@ -1235,11 +1318,18 @@ if (update_picture_modal !== null) {
       showProfilePic(user);
       console.log(`Your ID: ${user.uid}`);
     }
-    /*
-    * -----------------------------------------------------------------------------------------------------------
-    * Press functions
-    * -----------------------------------------------------------------------------------------------------------
-    */
+
+/*
+* -----------------------------------------------------------------------------------------------------------
+* Press functions
+* -----------------------------------------------------------------------------------------------------------
+*/
+
+/*==========================================================================================================================================================
+ * The code defines functions related to adding press information. It updates the press's start date, end date, special request, user zones, and form 
+ * submission status. It also triggers email notifications based on the language selected and reloads the page after a successful form submission.
+===========================================================================================================================================================*/
+
     function pressFormSubmit(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -1316,6 +1406,11 @@ if (update_picture_modal !== null) {
       }
     }
 
+/*================================================================================================================================================
+ * The code handles the selection and cropping of a press image. It listens for changes in the press image input field, initializes the cropper, 
+ * and allows the user to crop the image. It also performs validation to ensure that only image files are selected.
+=================================================================================================================================================*/
+
 const press_image = document.getElementById('press_image');
 const hiddenPressInput = document.getElementById('hidden_press_img');
 const press_crop_modal = document.getElementById("crop_modal");
@@ -1385,6 +1480,12 @@ function handlePressPic(e) {
 if (press_image) {
   press_image.addEventListener('change', handlePressPic);
 }
+
+/*============================================================================================================================================================
+ * The code handles the upload and processing of a press image. It checks if the image is loaded and the cropper is initialized, retrieves the necessary
+ * information (such as file, metadata, and user details), and performs the upload to the storage. It also sends confirmation emails and redirects the user
+ *  to the appropriate page based on the language and title selected.
+=============================================================================================================================================================*/
 
 async function pressUploadImage(docId, storageRef) {
   if (!imageLoaded || !press_cropper) {
@@ -1632,6 +1733,11 @@ async function pressUploadImage(docId, storageRef) {
   }
 }
 
+/*==============================================================================================================================================================
+ * The code is responsible for handling the press page functionality. It performs various validations on the required fields, checks if checkboxes are checked, 
+ * validates the press image file input, checks for identical emails, and submits the press form if there are no errors. It also displays appropriate error 
+ * messages based on the selected language.
+===============================================================================================================================================================*/
 
 async function pagePress() {
   const press_form = document.getElementById('logout_press_form');
@@ -1737,6 +1843,11 @@ submit_button.addEventListener('click', function(ev) {
     * -----------------------------------------------------------------------------------------------------------
     */
 
+/*===========================================================================================================================================================
+ * The code defines functions related to adding supplier information. It updates the supplier's start date, end date, special request, user zones, and form 
+ * submission status. It also triggers email notifications based on the language selected and reloads the page after a successful form submission.
+===========================================================================================================================================================*/
+
     function updateSelectedCompanyZonesString(supplierUserZones) {
       const selectedOptions = Array.from(supplierUserZones.selectedOptions).map(option => option.value);
       return selectedOptions.join(',');
@@ -1817,6 +1928,11 @@ submit_button.addEventListener('click', function(ev) {
         window.location.reload();
     }
 
+/*===============================================================================================================================================================
+ * The code fetches and displays the user's profile information and company name. It handles form submission, updates the user's last sign-in date, and creates 
+ * options for the zones select. It also includes a function to display the user's profile picture and processes the user's additional information.
+================================================================================================================================================================*/
+
     async function pageSupplier(user) {
       let userInfo = await getUserInfo(user);
       const userRef = doc(db, 'users', user.uid);
@@ -1879,6 +1995,11 @@ submit_button.addEventListener('click', function(ev) {
           // Handle any errors
         });
     }
+
+/*================================================================================================================================================================
+ * The code listens for the form submission event. It sends an email notification to the admin based on the form language. After fetching the email template and 
+ * replacing placeholders, it adds the email details to the database. A success message is displayed, and the modal is hidden after a delay.
+==================================================================================================================================================================*/
 
     // Notify admin to make changes on the supplier form
     let supplier_notify_form = document.getElementById('notify_supplier_form');
@@ -1945,6 +2066,12 @@ submit_button.addEventListener('click', function(ev) {
       }
     })
   }
+
+/*==============================================================================================================================================================
+ * This function, which processes user information and manipulates the user interface on a supplier page. If the user has already submitted the supplier form 
+ * (supplier_has_form_submitted equals "1"), certain elements are disabled and displayed accordingly. The function retrieves the supplier start date, end date, 
+ * special request, and zones from the user information and updates the corresponding form fields and select options.
+===============================================================================================================================================================*/
   async function processUserInfo() {
   const user = auth.currentUser;
   let userInfo = await getUserInfo(user);
@@ -1992,6 +2119,14 @@ submit_button.addEventListener('click', function(ev) {
       * Admin functions
       * -----------------------------------------------------------------------------------------------------------
       */
+
+/*=============================================================================================================================================================
+ * The provided code is part of the pageAdmin function, which handles date selection and user interface manipulation on an admin page. The first block of 
+ * code assigns a click event to an element with the ID "open_modal_btn" to open a modal and retrieve start and end dates. The updateDates function initializes 
+ * the date pickers using the Air Datepicker library. Language and format options are adjusted based on the selected language. Lastly, the user interface is 
+ * manipulated to show or hide elements based on the user's administrative role.
+==============================================================================================================================================================*/
+
     async function pageAdmin(user) {
 
       $(document).on( 'click' , '#open_modal_btn' , function() {
@@ -2173,7 +2308,16 @@ if (window.innerWidth < 768) {
               companies_table_mob.style.display = 'block';
             }
 
-      // =========== USERS TABLE FUNCTIONS ============ //
+/*---------------------------------------------------------------------------------------------------------------------------------------
+ * USERS TABLE FUNCTIONS
+----------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*===========================================================================================================================================================
+ * This code snippet creates a users table using the Tabulator library. It includes various columns such as ID, Fullname, Email, Company, Status, User Type,
+ * and Admin. The table supports pagination, filtering, sorting, and row selection. The data is fetched from the Firestore database, and certain column labels
+ * and options are localized based on the stored language. The table also includes buttons for editing and deleting user records.
+ ============================================================================================================================================================*/
+
       // Print users table
       let userTableFirstnameLabel = 'NAME';
       let userTableLastnameLabel = 'LAST NAME';
@@ -2392,6 +2536,13 @@ if (window.innerWidth < 768) {
         ],
 });
 
+/*=================================================================================================================================================================
+ * This code snippet sets up event listeners and filters for the users table. It fetches company data from Firestore and populates the company filter dropdowns. 
+ * The code enables filtering of the table based on selected values in the company, status, and type filters. It also includes pagination customization and a
+ *  search functionality. The clear filter button resets the filters. User data is retrieved based on admin privileges and company, and the filtered data is
+ *  displayed in the table.
+==================================================================================================================================================================*/
+
 let companyFilterSelect = document.getElementById("company-filter");
 let statusFilterSelect = document.getElementById("status-filter");
 let typeFilterSelect = document.getElementById("type-filter");
@@ -2401,9 +2552,11 @@ let statusFilterSelectMobile = document.getElementById("status-filter-mob");
 //Print companies select
     getDocs(company_colRef)
       .then((snapshot) => {
+          // Retrieve company data from Firestore
         const companies = snapshot.docs.map((doc) => doc.data());
         const sortedCompanies = companies.sort((a, b) => a.company_name.localeCompare(b.company_name));
 
+        // Populate the company filter dropdown with company names
         sortedCompanies.forEach((company) => {
           var opt = document.createElement('option');
           opt.value = company.company_name;
@@ -2418,9 +2571,11 @@ let statusFilterSelectMobile = document.getElementById("status-filter-mob");
 //Print companies select Mobile
 getDocs(company_colRef)
       .then((snapshot) => {
+        // Retrieve company data from Firestore
         const companies = snapshot.docs.map((doc) => doc.data());
         const sortedCompanies = companies.sort((a, b) => a.company_name.localeCompare(b.company_name));
 
+        // Populate the mobile company filter dropdown with company names
         sortedCompanies.forEach((company) => {
           var opt = document.createElement('option');
           opt.value = company.company_name;
@@ -2432,26 +2587,35 @@ getDocs(company_colRef)
         console.log('error fetching companies', err);
       });
 
+// Event listener for company filter select
 companyFilterSelect.addEventListener("change", function() {
     let companyColumn = table.getColumn("company");
     let selectedCompany = companyFilterSelect.value;
     table.setHeaderFilterValue(companyColumn, selectedCompany);
 });
+
+// Event listener for status filter select
 statusFilterSelect.addEventListener("change", function() {
     let statusColumn = table.getColumn("status");
     let selectedStatus = statusFilterSelect.value;
     table.setHeaderFilterValue(statusColumn, selectedStatus);
 });
+
+// Event listener for type filter select
 typeFilterSelect.addEventListener("change", function() {
     let typeColumn = table.getColumn("account_type");
     let selectedStatus = typeFilterSelect.value;
     table.setHeaderFilterValue(typeColumn, selectedStatus);
 });
+
+// Event listener for mobile company filter select
 companyFilterSelectMobile.addEventListener("change", function() {
     let companyColumn = table.getColumn("company");
     let selectedCompany = companyFilterSelectMobile.value;
     table.setHeaderFilterValue(companyColumn, selectedCompany);
 });
+
+// Event listener for mobile status filter select
 statusFilterSelectMobile.addEventListener("change", function() {
     let statusColumn = table.getColumn("status");
     let selectedStatus = statusFilterSelectMobile.value;
@@ -2478,6 +2642,7 @@ input.addEventListener("keyup", function() {
     }
 });
 
+// Function to match any value in the data with the filter value
 function matchAny(data, filterParams) {
     var match = false;
     const regex = RegExp(filterParams.value, 'i');
@@ -2489,10 +2654,14 @@ function matchAny(data, filterParams) {
     }
     return match;
 }
+
+// Event listener for clear filter button
 let clearFilterButton = document.getElementById('clear_button');
 let clearFilterButtonMobile = document.getElementById('clear_button_mob');
 if (clearFilterButton) {
+ 
   clearFilterButton.addEventListener("click", function() {
+    // Clear filter values and header filters
     document.querySelector('input[placeholder="Company"]').value = "";
     document.querySelector('input[placeholder="Status"]').value = "";
     document.querySelector('#company-filter').value = "clear";
@@ -2503,6 +2672,7 @@ if (clearFilterButton) {
 }
 if (clearFilterButtonMobile) {
   clearFilterButtonMobile.addEventListener("click", function() {
+    // Clear filter values and header filters
     document.querySelector('input[placeholder="Company"]').value = "";
     document.querySelector('input[placeholder="Status"]').value = "";
     document.querySelector('#company-filter-mob').value = "clear";
@@ -2533,6 +2703,7 @@ getDocs(q)
     return Promise.all(promises).then(() => data);
   })
   .then(data => {
+    // Filter and set user data for the table based on admin privileges and company
     console.log(data, 'admin', adminCompanyName);
     table.setData((companyAdmin == '1' || basicAdmin == '1') ? data.filter(user => user.companyID && user.companyID != ' ' && user.companyID != '' && user.companyID.some(x => adminCompanyName.includes(x))) : data);
   })
@@ -2540,6 +2711,13 @@ getDocs(q)
     console.log('error fetching users', err);
   });
 });
+
+/*========================================================================================================================================================
+ * This code segment is responsible for updating user information. It listens for form submission events and prevents the default behavior. It retrieves
+ * various form elements and values, including user-specific details such as ID and email. It updates the selected user's information in the database, 
+ * including user type, account type, user status, user company, admin privileges, and other relevant fields. It also handles email notifications and displays 
+ * appropriate success messages. Finally, it updates and saves the user's selected zones to the database.
+=========================================================================================================================================================*/
     // Update single user Info
       let update_user_form = document.getElementById('update_user_type');
       let user_specific_id = document.getElementById('admin_user_id');
@@ -2640,7 +2818,11 @@ function saveUserZones() {
   });
 }
 
-//Print zones select
+/*=================================================================================================================================================
+ * This code snippet manages user zone selection, updates the last sign-in date in Firestore, and handles profile picture retrieval and display. 
+ * It ensures user zones are updated, tracks sign-in activity, and dynamically displays profile pictures based on the user's ID.
+==================================================================================================================================================*/
+
 let update_user_zone = document.getElementById('userZones');
 
 createOptions(update_user_zone);
@@ -2676,7 +2858,12 @@ getDownloadURL(ref(storage, `profiles/${idCell.textContent}`))
   });
 });
 
-// Update profile picture
+/*========================================================================================================================================================
+ * The code enables users to update their profile picture by uploading an image file or capturing a snapshot from a webcam. It utilizes the CropperJS
+ * library for image cropping and the WebcamJS library for webcam access. The code includes event listeners for file input changes, webcam activation, 
+ * and snapshot capture. It also provides functions for updating the profile picture and handling form submissions.
+=========================================================================================================================================================*/
+
 const updatedPicture = document.getElementById('updated_picture');
 const hidden_input = document.getElementById('hidden_input2');
 const update_photo_modal = document.getElementById('update_photo_modal');
@@ -2824,14 +3011,14 @@ Webcam.reset();
 }
 }
 
-// Agregar el event listener al botón para iniciar la cámara web y tomar la foto
+// Add the event listener to the button to start the webcam and take the photo.
 document.getElementById('snapshotButton').addEventListener('click', function() {
-  // Iniciar la cámara web
+  // Start the webcam
   startWebcam();
   document.getElementById('take_picture_modal').style.display = 'block';
 });
 
-// Agregar el botón de tomar foto y abrir el CropperJS
+// Add the button to take a photo and open CropperJS.
 const snapshotBtn = document.getElementById('take_photo');
 snapshotBtn.addEventListener('click', function() {
   takeSnapshotAndOpenCropper();
@@ -2845,6 +3032,12 @@ if (update_picture_modal !== null) {
     updateProfilePic2(ev, user);
   }, true);
 }
+
+/*==================================================================================================================================================================
+ * This function handles the form submission event for updating a user's information. It prevents the default form submission behavior and stops event propagation.
+ * It retrieves the necessary form elements and checks if the user ID is valid. Then, it updates the user's information in the database and sends an email 
+ * notification based on the user's status and language.
+===================================================================================================================================================================*/
 
 update_user_form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -3297,6 +3490,12 @@ update_user_form.addEventListener('submit', (e) => {
     }
    });
 
+/*===============================================================================================================================================================
+ * This function handles the form submission event for deleting a user. It prevents the default form submission behavior, retrieves the user ID to be deleted, 
+ * and updates the user's information in the database to mark it as deleted. It displays a success message if the deletion is successful, or an error message 
+ * otherwise.
+================================================================================================================================================================*/
+
    const delete_user_form = document.getElementById('delete_user_modal');
    const delete_user_id = document.getElementById('deleted_user_id');
   //Delete user
@@ -3732,6 +3931,13 @@ console.log(selectedData);
           bulkUserUpdate(selectedData);
         });
 
+/*=================================================================================================================================================================
+ * This code segment handles the creation of user forms. It dynamically populates select dropdowns with options from the database, such as companies and profiles. 
+ * It also includes event listeners to capture user input and trigger actions accordingly. The createUser function creates a new user in the database using the 
+ * provided form inputs. It also handles the upload of a profile picture and associates it with the newly created user. Overall, this code enables the creation of 
+ * user accounts with various details and functionalities.
+==================================================================================================================================================================*/
+
         //CREATE USERS FORM
         let selectedCreateUserZonesString = '';
 
@@ -4014,13 +4220,18 @@ create_user_zone.addEventListener('change', () => {
         createUser();
       });
     }
-    /*
-    * --------------------------------------------------------------------------------------------
-    *  Companies table page functions
-    * --------------------------------------------------------------------------------------------
-    */
-    async function pageCompaniesTable(user){
 
+/*
+ * --------------------------------------------------------------------------------------------
+ * Companies table page functions
+ * --------------------------------------------------------------------------------------------
+ */
+
+/*================================================================================================================================================================
+ * This code snippet handles the functionality related to the companies table, including data retrieval, filtering, pagination, creation, updating,
+ * and deletion of companies. It also includes the creation and updating of profiles and zones, as well as the display of selected company and zone information.
+=================================================================================================================================================================*/
+    async function pageCompaniesTable(user){
       changeAdminTypeTitle(user);
 
       const companyFilterSelect = document.getElementById("companies_profile");
@@ -4451,7 +4662,11 @@ create_company_form.addEventListener('submit', async (e) => {
           }
       }
 
-    //Company page
+/*===================================================================================================================================================
+ * This code snippet handles the company page functionality, including data retrieval, storage, and population in the table, as well as redirection
+ * to the appropriate company page based on the language.
+====================================================================================================================================================*/
+
     $(document).on( 'click' , '#companyName' ,async function() {
           let storedLang = localStorage.getItem("language");
           let companyValue = event.target.getAttribute('data-value');
@@ -4521,7 +4736,11 @@ create_company_form.addEventListener('submit', async (e) => {
     })
   }
 
-  // Send email with the user's registration link
+/*==========================================================================================================================================================
+ * This code snippet sends an email with the user's registration link when a form is submitted. It retrieves the necessary values, fetches the appropriate
+ * HTML template for the email body based on the stored language value, and sends the email. Success or error messages are displayed accordingly.
+===========================================================================================================================================================*/
+
     let company_link_form = document.getElementById('company_link_form');
 
     if(company_link_form){
@@ -4582,15 +4801,17 @@ create_company_form.addEventListener('submit', async (e) => {
               }
                 })
               }
-    /*
-    * -----------------------------------------------------------------------------------------------------------
-    * URL functions
-    * -----------------------------------------------------------------------------------------------------------
-    */
-    /* Check if the company parameter exists in the URL
-    /* If it does then set a value in the local storage
-    /* and pre-populate the text field in the sign up form
-    **/
+
+/*
+* -----------------------------------------------------------------------------------------------------------
+* URL functions
+* -----------------------------------------------------------------------------------------------------------
+*/
+
+/*=========================================================================================================================================================
+ * Check if the company parameter exists in the URL, if it does then set a value in the local storage and pre-populate the text field in the sign up form
+==========================================================================================================================================================*/
+
     const zonesRef = collection(db, 'zones');
     function createOptions(select) {
         getDocs(zonesRef)
@@ -4609,6 +4830,11 @@ create_company_form.addEventListener('submit', async (e) => {
           });
       }
 
+/*===========================================================================================================================================================
+ * This function checks the URL parameters and retrieves the value of the 'company' parameter. If the parameter exists, it stores it in the local storage 
+ * and sets the value of an input field. Otherwise, it sets the input field value to 'No company'.
+============================================================================================================================================================*/
+
     function checkUrlParameter() {
       let url = new URL(window.location.href);
       let company = url.searchParams.get('company');
@@ -4620,6 +4846,10 @@ create_company_form.addEventListener('submit', async (e) => {
         $('#sign-up-company').val('No company');
       }
     }
+
+/*=========================================================================================================================================================
+ * This function handles different actions based on the user's sign-in status and the current URL path, determining which page or functionality to display.
+==========================================================================================================================================================*/
 
     function dispatchRequest(user) {
       let url = window.location.pathname;
@@ -4652,7 +4882,12 @@ create_company_form.addEventListener('submit', async (e) => {
         }
       }
     }
-    // Forgot password functionality
+    
+/*=================================================================================================================================================
+ * This code snippet handles the forgot password functionality, sends password reset emails, and displays success messages and email confirmation
+ * messages based on the current URL path and stored language value.
+===================================================================================================================================================*/
+
     if(window.location.pathname == '/en/forgoten-password' || window.location.pathname == '/de/forgoten-password'){
       var storedLang = localStorage.getItem("language");
       let email = document.getElementById('email_address');
@@ -4694,7 +4929,11 @@ create_company_form.addEventListener('submit', async (e) => {
       document.getElementById('email_confirmation_text').innerHTML = `We sent a password reset link to ${forgot_password_email}`;
     }
 
-    //Location redirect when the user is logged out
+/*=======================================================================================================================================================
+ * This function handles URL replacement and redirection based on the user's sign-in or sign-out status and language settings. It sets the appropriate
+ * URLs for buttons, adjusts the display of buttons, and redirects the user to the appropriate pages based on the language and user status.
+=========================================================================================================================================================*/
+
     async function replaceUrl(user) {
         let form_button = document.getElementById('form_button');
         let account_button = document.getElementById('account_user_profile');
@@ -4779,6 +5018,12 @@ create_company_form.addEventListener('submit', async (e) => {
             }
         }
       }
+
+/*============================================================================================================================================================
+ * This function handles URL replacement and redirection based on the sign-out status and language settings. It redirects the user to the appropriate sign-in 
+ * page based on the language or displays the sign-in and sign-up buttons accordingly.
+===============================================================================================================================================================*/
+
      async function replaceUrlSignOut(user) {
       if(!user){
         if(storedLang){
@@ -4809,7 +5054,12 @@ create_company_form.addEventListener('submit', async (e) => {
         }
         }
       }
-    // first page load
+    
+/*======================================================================================================================================================
+ * This code snippet performs several tasks on the first page load. It handles a loading overlay by setting its display to "none" after a delay. It then 
+ * dispatches a request, checks URL parameters, and defines an asynchronous function called changeCompanyNameToID.
+=======================================================================================================================================================*/      
+
     const loadingOverlay = document.querySelector(".loading-overlay");
     if(loadingOverlay){
     setTimeout(function() {
@@ -4835,6 +5085,12 @@ create_company_form.addEventListener('submit', async (e) => {
     }
 }
 
+/*========================================================================================================================================================
+ * This asynchronous function retrieves user information and performs a database query to fetch company data. It checks if the user's company ID matches 
+ * any company in the database, and if so, it assigns the corresponding company type and company zones to variables. If no matching company is found, 
+ * default values are used.
+=========================================================================================================================================================*/
+
 async function getCompanyType(user) {
   let userInfo = await getUserInfo(user);
   console.log('userInfo:', userInfo);
@@ -4855,6 +5111,12 @@ async function getCompanyType(user) {
   return { companyProfile, companyZones };
 }
 
+/*=====================================================================================================================================================
+ *This code snippet listens for changes in the authentication state using the onAuthStateChanged function. When a user signs in, it logs the user's UID 
+ * to the console, replaces the URL, dispatches a request, populates forms, and shows private elements. When a user signs out, it replaces the URL, shows 
+ * public elements, and exits the function.
+=======================================================================================================================================================*/
+
     onAuthStateChanged(auth, (user) => {
 
       if (user) {
@@ -4872,6 +5134,11 @@ async function getCompanyType(user) {
         return;
       }
     });
+
+/*=======================================================================================================================================================
+ * This asynchronous function initializes start and end date pickers on a webpage. It sets the minimum and maximum selectable dates, language settings, 
+ * and other configuration options based on the user's account type and the current URL path.
+========================================================================================================================================================*/
 
   async function getMinDate(user) {
   var today = new Date();
@@ -4961,6 +5228,12 @@ async function getCompanyType(user) {
     $('[data-date-picker]').attr('readonly', 'readonly');
   }
 };
+
+/*========================================================================================================================================================
+ *This asynchronous function initializes a start date picker and an end date picker. It sets the minimum and maximum selectable dates, language 
+ settings, and other configuration options. The end date picker is dependent on the selected start date, and it is initialized separately through the 
+ initializeEndDatePicker function.
+==========================================================================================================================================================*/
 
 async function getDateSignUp() {
   var today = new Date();
@@ -5052,8 +5325,10 @@ initializeEndDatePicker();
   }
 }
 
+/*===================================================================================================================================
+ * These onClick events add/delete a class to the selected language and triggers the changeLanguage and updateLinks functions
+ ====================================================================================================================================*/
 
-//Language selection
 let reloaded = false;
 
 function changeLanguage(lang) {
@@ -5103,7 +5378,11 @@ function changeLanguage(lang) {
       }
       }
     }
-    //Update the language select name
+  
+/*===================================================================================================================================
+ * These onClick events add/delete a class to the selected language and triggers the changeLanguage and updateLinks functions
+====================================================================================================================================*/
+
 var storedLang = localStorage.getItem("language");
 let sign_lang = document.getElementById('selected_lang2');
 let user_lang = document.getElementById('selected_lang');
@@ -5172,6 +5451,10 @@ if(signDeBtn){
   });
 }
 
+/*===================================================================================================================================
+ * This function adds a border bottom to the link on the navbar of the current page
+ ====================================================================================================================================*/
+
     let form_button = document.getElementById('form_button');
     let admin_users_table = document.getElementById("users_table");
     let admin_companies_table = document.getElementById("companies_table");
@@ -5194,6 +5477,11 @@ if(signDeBtn){
         welcomeBanner.style.display = 'none';
       }
     }
+
+    /*===============================================================================================================================================================
+    * This function changes the Admin type title on the tables to the correct one. If the user is a Basic Admin the code will print "Basic Admin" on the DOM element, 
+    * if it's a "Company Admin" will print "Multi Company Admin" and if it's a Super Admin will print "Super Admin".
+    =================================================================================================================================================================*/
 
     async function changeAdminTypeTitle(user){
       let userInfo = await getUserInfo(user);
@@ -5218,12 +5506,20 @@ if(signDeBtn){
       }
     }
 
+/*===================================================================================================================================
+ * This function changes the text and the url of the "Impressum" and "Data Protection" on the footer depending on the user's language
+ ====================================================================================================================================*/
+
 if (storedLang == 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
   document.getElementById('imprint').setAttribute('href', '/de/impressum');
   document.getElementById('data_protection').textContent = 'Datenschutz';
   document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
 }
+
+/*===================================================================================================================================
+ * This function redirects from the "Home page" to the "Sign-in page"
+ ====================================================================================================================================*/
 
 if(window.location.href == 'https://credentials.badhomburg-open.com/'){
       window.location.href = 'https://credentials.badhomburg-open.com/en/signin-bho'
