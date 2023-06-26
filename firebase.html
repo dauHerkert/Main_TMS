@@ -197,6 +197,13 @@ const firebaseConfig = {
     * -----------------------------------------------------------------------------------------------------------
     */
 
+    /*====================================================================================================================================================
+     *  Sets default fields for a user during sign-up process. It retrieves user information such as first name, last name, user ID, and profile image.
+     * The function updates the Firestore document with the user's default values and uploads the profile image to Firebase Storage. It also triggers the
+     * * sending of a registration confirmation email to the user based on their language preference. Displays success messages for default value setting
+     * * and email sending. Finally, redirects the user to the appropriate sign-up confirmation page based on language and account type.
+    =====================================================================================================================================================*/
+
     const signup_button = document.getElementById('signup_button');
     if(signup_button){
       signup_button.disabled = true;
@@ -342,7 +349,12 @@ const firebaseConfig = {
         });
     };
 
+  
     // Sign Up
+  /*============================================================================================================================================================
+   * Handles the sign-up process by creating a new user with the provided email, password, and profile image. It sets default fields for the user and collects
+   * additional information.
+  =============================================================================================================================================================*/
 function handleSignUp(e) {
   e.preventDefault();
   e.stopPropagation();
@@ -378,6 +390,12 @@ function handleSignUp(e) {
     }
   }
 };
+
+/*=============================================================================================================================================================
+ * The code handles the user's selection of a company. If the "company" parameter is present in the URL, it sets the value of the user_company field and hides
+ *  the company_select_cont element. If the "company" parameter is not present, it displays the available company options and captures the user's selection
+ *  in the newUserCompaniesString variable.
+==============================================================================================================================================================*/
 
 const select_company = document.getElementById('user_company');
 const currentUrl = new URL(window.location.href);
@@ -422,6 +440,11 @@ if (select_company) {
 }
 
 // Add user's extra info to Firestore
+/*================================================================================================================================================================
+ * The function userExtraInfo captures the user's extra information, such as first name, last name, address, company, language, start date, end date, and special
+ *  requests. It then updates the corresponding fields in Firestore for the user.
+================================================================================================================================================================*/
+
 function userExtraInfo(e, user) {
   e.preventDefault();
   e.stopPropagation();
@@ -462,6 +485,14 @@ function userExtraInfo(e, user) {
 }
 
 //Upload user's profile image
+
+/*=========================================================================================================================================================
+ * The code provided handles the uploading of a user's profile image. When the profile_img element changes, it checks if the selected file is an image and
+ *  initializes a cropper instance for image cropping. The cropped image data is then stored in a hidden input field. The userUploadImage function is
+ *  responsible for uploading the image to Firebase Storage. It converts the data URL to a blob and uploads it to the specified storage path. The function
+ *  also handles different cases for mobile and desktop devices.
+==========================================================================================================================================================*/
+
 const profile_img = document.getElementById('profile_img');
 const hiddenProfileInput = document.getElementById('hidden_profile_img');
 var modal4 = document.getElementById("cropper_modal");
@@ -595,6 +626,12 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
   }
 }
 
+/*============================================================================================================================================================
+ * This code adds an event listener to the "close_button" element. When the button is clicked, it generates a temporary ID using the generateTempId function.
+ *  It then displays the "uploading_image" element, sets the temporary ID in the session storage, retrieves the file item from the "profile_img" element,
+ *  and calls the userUploadImage function to upload the image with the temporary ID.
+============================================================================================================================================================*/
+
 const saveButton = document.getElementById("close_button");
 if(saveButton){
     saveButton.addEventListener("click", async function () {
@@ -609,6 +646,11 @@ if(saveButton){
 }
 
     // ======== Resend Register email ==========
+  /*============================================================================================================================================================
+   * Resends the registration email to the user. It retrieves the user's email and language preference from session storage, constructs the HTML content of the
+   * email based on the language, and sends the email using Firebase's Firestore database. Displays success message upon successful email resend and error
+   *  message in case of failure.
+  =============================================================================================================================================================*/
     
   async function resendEmail() {
   const user_email = sessionStorage.getItem('user_email');
@@ -648,14 +690,20 @@ if(saveButton){
   }
 }
 
+//Attaches the resendEmail function to the click event of the "resend_email_button" element, triggering the email resend process when the button is clicked.
 const resend_button = document.getElementById('resend_email_button');
 if (resend_button) {
   resend_button.addEventListener('click', resendEmail);
 }
 
     // ============ Handle singin ===============
-    async function handleSignIn(e) {
+  /*=========================================================================================================================================================
+   * Manages the user sign-in action. It retrieves the email and password from the sign-in form, uses the signInWithEmailAndPassword function from Firebase
+   * Authentication to authenticate the user, and redirects the user to the appropriate page based on their account type and language preference. Displays
+   *  success messages upon successful sign-in and error messages for various scenarios such as invalid credentials, deleted accounts, or unconfirmed emails.
+  ==========================================================================================================================================================*/
 
+    async function handleSignIn(e) {
     e.preventDefault();
     e.stopPropagation();
     let storedLang = localStorage.getItem("language");
@@ -755,7 +803,12 @@ if (resend_button) {
     }
   }
 
-    // Handle signOut
+  // Handle signOut
+  /*=======================================================================================================================================================
+   * Manages the user sign-out action. It uses the signOut function from Firebase Authentication to sign out the current user. Redirects the user to the 
+   * "/en/signin-bho" page after signing out.
+  ========================================================================================================================================================*/
+
     function handleSignOut() {
       var storedLang = localStorage.getItem("language");
         signOut(auth).then(() => {
