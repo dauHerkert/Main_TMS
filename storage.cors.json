@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://bho-copy.webflow.io"],
+    "origin": ["https://tms-main.webflow.io/"],
     "method": ["GET", "PUT", "POST", "DELETE"],
     "maxAgeSeconds": 3600,
     "responseHeader": ["Content-Type", "Content-Length", "Content-Encoding", "Content-Disposition", "Access-Control-Allow-Origin"]
