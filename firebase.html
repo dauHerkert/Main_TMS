@@ -349,7 +349,7 @@ const firebaseConfig = {
         });
     };
 
-  
+
     // Sign Up
   /*============================================================================================================================================================
    * Handles the sign-up process by creating a new user with the provided email, password, and profile image. It sets default fields for the user and collects
@@ -651,7 +651,7 @@ if(saveButton){
    * email based on the language, and sends the email using Firebase's Firestore database. Displays success message upon successful email resend and error
    *  message in case of failure.
   =============================================================================================================================================================*/
-    
+
   async function resendEmail() {
   const user_email = sessionStorage.getItem('user_email');
   const stored_userID = sessionStorage.getItem('userID');
@@ -805,7 +805,7 @@ if (resend_button) {
 
   // Handle signOut
   /*=======================================================================================================================================================
-   * Manages the user sign-out action. It uses the signOut function from Firebase Authentication to sign out the current user. Redirects the user to the 
+   * Manages the user sign-out action. It uses the signOut function from Firebase Authentication to sign out the current user. Redirects the user to the
    * "/en/signin-bho" page after signing out.
   ========================================================================================================================================================*/
 
@@ -902,8 +902,8 @@ if (resend_button) {
     }
 
 /*=================================================================================================================================================================
- * This function translates the navigation menu items based on the selected language (storedLang). It selects the navigation links on the page and iterates over 
- * each link, checking its text content. If the text matches specific labels (e.g., "Form," "Account," or "Sign Out"), it replaces the text with the corresponding 
+ * This function translates the navigation menu items based on the selected language (storedLang). It selects the navigation links on the page and iterates over
+ * each link, checking its text content. If the text matches specific labels (e.g., "Form," "Account," or "Sign Out"), it replaces the text with the corresponding
  * translation. In the case of "Sign Out," it replaces the text with an image and the translated text "Ausloggen."
 ==================================================================================================================================================================*/
 
@@ -935,8 +935,8 @@ if (resend_button) {
     }
 
 /*===============================================================================================================================================================
- * This function populates the forms and sets the appropriate links and display based on the user's information and the selected language (storedLang). It 
- * retrieves the user information using the getUserInfo(user) function and updates the UI elements accordingly. It also handles specific scenarios for different 
+ * This function populates the forms and sets the appropriate links and display based on the user's information and the selected language (storedLang). It
+ * retrieves the user information using the getUserInfo(user) function and updates the UI elements accordingly. It also handles specific scenarios for different
  * account types and user roles.
 ================================================================================================================================================================*/
 
@@ -1038,8 +1038,8 @@ if (window.location.pathname == '/de/press' || window.location.pathname == '/en/
 }
 
 /*============================================================================================================================================================
- * This function updates the user's first name, last name, and address in the Firestore database. It uses the provided user object to identify the user, and 
- * the newUsername, newUserLastname, and newUserAddress parameters contain the updated values for each field. The function uses the setDoc function to update 
+ * This function updates the user's first name, last name, and address in the Firestore database. It uses the provided user object to identify the user, and
+ * the newUsername, newUserLastname, and newUserAddress parameters contain the updated values for each field. The function uses the setDoc function to update
  * the document in the database.
 =============================================================================================================================================================*/
 
@@ -1061,7 +1061,7 @@ function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
 }
 
 /*=================================================================================================================================================================
- * This function updates the user's email address. It uses the provided user object and the newEmail parameter, which contains the new email address. It uses the 
+ * This function updates the user's email address. It uses the provided user object and the newEmail parameter, which contains the new email address. It uses the
  * updateEmail function to update the email address.
 ==================================================================================================================================================================*/
 
@@ -1077,7 +1077,7 @@ function updateUserEmail(user, newEmail, promises) {
 }
 
 /*============================================================================================================================================================
- * This function updates the user's password. It uses the provided user object and the newPassword parameter, which contains the new password. It uses the 
+ * This function updates the user's password. It uses the provided user object and the newPassword parameter, which contains the new password. It uses the
  * updatePassword function to update the password.
 =============================================================================================================================================================*/
 
@@ -1110,7 +1110,7 @@ function updateUserPassword(user, newPassword) {
     }
 
 /*===================================================================================================================================================================
- * This event listener listens for changes in the updatedPicture input element, which represents the updated profile picture file. When a change occurs, it checks 
+ * This event listener listens for changes in the updatedPicture input element, which represents the updated profile picture file. When a change occurs, it checks
  * if the selected file is an image. If it is, it initializes the cropper and sets up the cropping functionality using the Cropper library.
 ====================================================================================================================================================================*/
 
@@ -1167,7 +1167,7 @@ if(updatedPicture){
  * canvas from the cropper, converts it to a blob, and uploads it to the Firebase Storage using the uploadBytes function. The updated profile picture is stored
  *  under the profiles directory with the user's ID as the filename. Once the upload is complete, a success message is displayed, and the modal is closed.
 =====================================================================================================================================================================*/
-  
+
 function updateProfilePic(e, user) {
   e.preventDefault();
   e.stopPropagation();
@@ -1208,7 +1208,7 @@ if (update_picture_modal !== null) {
 }
 
 /*============================================================================================================================================================
- * This function is called when the user is signed in. It selects elements with the data-onlogin="show" attribute and sets their display style to "initial", 
+ * This function is called when the user is signed in. It selects elements with the data-onlogin="show" attribute and sets their display style to "initial",
  * making them visible. It also selects elements with the data-onlogin="hide" attribute and sets their display style to "none", hiding them from view.
 =============================================================================================================================================================*/
 
@@ -1279,8 +1279,8 @@ if (update_picture_modal !== null) {
     }
 
 /*================================================================================================================================================================
- * This event listener listens for clicks on the deleteButton element. When clicked, it retrieves the currently signed-in user, deletes the user's account 
- * using the deleteUser function, and deletes the user's data from Firestore using the deleteDoc function. Depending on the user's selected language (storedLang), 
+ * This event listener listens for clicks on the deleteButton element. When clicked, it retrieves the currently signed-in user, deletes the user's account
+ * using the deleteUser function, and deletes the user's data from Firestore using the deleteDoc function. Depending on the user's selected language (storedLang),
  * the page is redirected to the appropriate sign-in page after a brief delay. A success message is displayed if the account deletion is successful.
 =================================================================================================================================================================*/
 
@@ -1379,7 +1379,7 @@ if (update_picture_modal !== null) {
 */
 
 /*==========================================================================================================================================================
- * The code defines functions related to adding press information. It updates the press's start date, end date, special request, user zones, and form 
+ * The code defines functions related to adding press information. It updates the press's start date, end date, special request, user zones, and form
  * submission status. It also triggers email notifications based on the language selected and reloads the page after a successful form submission.
 ===========================================================================================================================================================*/
 
@@ -1460,7 +1460,7 @@ if (update_picture_modal !== null) {
     }
 
 /*================================================================================================================================================
- * The code handles the selection and cropping of a press image. It listens for changes in the press image input field, initializes the cropper, 
+ * The code handles the selection and cropping of a press image. It listens for changes in the press image input field, initializes the cropper,
  * and allows the user to crop the image. It also performs validation to ensure that only image files are selected.
 =================================================================================================================================================*/
 
@@ -1787,8 +1787,8 @@ async function pressUploadImage(docId, storageRef) {
 }
 
 /*==============================================================================================================================================================
- * The code is responsible for handling the press page functionality. It performs various validations on the required fields, checks if checkboxes are checked, 
- * validates the press image file input, checks for identical emails, and submits the press form if there are no errors. It also displays appropriate error 
+ * The code is responsible for handling the press page functionality. It performs various validations on the required fields, checks if checkboxes are checked,
+ * validates the press image file input, checks for identical emails, and submits the press form if there are no errors. It also displays appropriate error
  * messages based on the selected language.
 ===============================================================================================================================================================*/
 
@@ -1897,7 +1897,7 @@ submit_button.addEventListener('click', function(ev) {
     */
 
 /*===========================================================================================================================================================
- * The code defines functions related to adding supplier information. It updates the supplier's start date, end date, special request, user zones, and form 
+ * The code defines functions related to adding supplier information. It updates the supplier's start date, end date, special request, user zones, and form
  * submission status. It also triggers email notifications based on the language selected and reloads the page after a successful form submission.
 ===========================================================================================================================================================*/
 
@@ -1982,7 +1982,7 @@ submit_button.addEventListener('click', function(ev) {
     }
 
 /*===============================================================================================================================================================
- * The code fetches and displays the user's profile information and company name. It handles form submission, updates the user's last sign-in date, and creates 
+ * The code fetches and displays the user's profile information and company name. It handles form submission, updates the user's last sign-in date, and creates
  * options for the zones select. It also includes a function to display the user's profile picture and processes the user's additional information.
 ================================================================================================================================================================*/
 
@@ -2050,7 +2050,7 @@ submit_button.addEventListener('click', function(ev) {
     }
 
 /*================================================================================================================================================================
- * The code listens for the form submission event. It sends an email notification to the admin based on the form language. After fetching the email template and 
+ * The code listens for the form submission event. It sends an email notification to the admin based on the form language. After fetching the email template and
  * replacing placeholders, it adds the email details to the database. A success message is displayed, and the modal is hidden after a delay.
 ==================================================================================================================================================================*/
 
@@ -2121,8 +2121,8 @@ submit_button.addEventListener('click', function(ev) {
   }
 
 /*==============================================================================================================================================================
- * This function, which processes user information and manipulates the user interface on a supplier page. If the user has already submitted the supplier form 
- * (supplier_has_form_submitted equals "1"), certain elements are disabled and displayed accordingly. The function retrieves the supplier start date, end date, 
+ * This function, which processes user information and manipulates the user interface on a supplier page. If the user has already submitted the supplier form
+ * (supplier_has_form_submitted equals "1"), certain elements are disabled and displayed accordingly. The function retrieves the supplier start date, end date,
  * special request, and zones from the user information and updates the corresponding form fields and select options.
 ===============================================================================================================================================================*/
   async function processUserInfo() {
@@ -2174,9 +2174,9 @@ submit_button.addEventListener('click', function(ev) {
       */
 
 /*=============================================================================================================================================================
- * The provided code is part of the pageAdmin function, which handles date selection and user interface manipulation on an admin page. The first block of 
- * code assigns a click event to an element with the ID "open_modal_btn" to open a modal and retrieve start and end dates. The updateDates function initializes 
- * the date pickers using the Air Datepicker library. Language and format options are adjusted based on the selected language. Lastly, the user interface is 
+ * The provided code is part of the pageAdmin function, which handles date selection and user interface manipulation on an admin page. The first block of
+ * code assigns a click event to an element with the ID "open_modal_btn" to open a modal and retrieve start and end dates. The updateDates function initializes
+ * the date pickers using the Air Datepicker library. Language and format options are adjusted based on the selected language. Lastly, the user interface is
  * manipulated to show or hide elements based on the user's administrative role.
 ==============================================================================================================================================================*/
 
@@ -2590,7 +2590,7 @@ if (window.innerWidth < 768) {
 });
 
 /*=================================================================================================================================================================
- * This code snippet sets up event listeners and filters for the users table. It fetches company data from Firestore and populates the company filter dropdowns. 
+ * This code snippet sets up event listeners and filters for the users table. It fetches company data from Firestore and populates the company filter dropdowns.
  * The code enables filtering of the table based on selected values in the company, status, and type filters. It also includes pagination customization and a
  *  search functionality. The clear filter button resets the filters. User data is retrieved based on admin privileges and company, and the filtered data is
  *  displayed in the table.
@@ -2712,7 +2712,7 @@ function matchAny(data, filterParams) {
 let clearFilterButton = document.getElementById('clear_button');
 let clearFilterButtonMobile = document.getElementById('clear_button_mob');
 if (clearFilterButton) {
- 
+
   clearFilterButton.addEventListener("click", function() {
     // Clear filter values and header filters
     document.querySelector('input[placeholder="Company"]').value = "";
@@ -2767,8 +2767,8 @@ getDocs(q)
 
 /*========================================================================================================================================================
  * This code segment is responsible for updating user information. It listens for form submission events and prevents the default behavior. It retrieves
- * various form elements and values, including user-specific details such as ID and email. It updates the selected user's information in the database, 
- * including user type, account type, user status, user company, admin privileges, and other relevant fields. It also handles email notifications and displays 
+ * various form elements and values, including user-specific details such as ID and email. It updates the selected user's information in the database,
+ * including user type, account type, user status, user company, admin privileges, and other relevant fields. It also handles email notifications and displays
  * appropriate success messages. Finally, it updates and saves the user's selected zones to the database.
 =========================================================================================================================================================*/
     // Update single user Info
@@ -2872,7 +2872,7 @@ function saveUserZones() {
 }
 
 /*=================================================================================================================================================
- * This code snippet manages user zone selection, updates the last sign-in date in Firestore, and handles profile picture retrieval and display. 
+ * This code snippet manages user zone selection, updates the last sign-in date in Firestore, and handles profile picture retrieval and display.
  * It ensures user zones are updated, tracks sign-in activity, and dynamically displays profile pictures based on the user's ID.
 ==================================================================================================================================================*/
 
@@ -2913,7 +2913,7 @@ getDownloadURL(ref(storage, `profiles/${idCell.textContent}`))
 
 /*========================================================================================================================================================
  * The code enables users to update their profile picture by uploading an image file or capturing a snapshot from a webcam. It utilizes the CropperJS
- * library for image cropping and the WebcamJS library for webcam access. The code includes event listeners for file input changes, webcam activation, 
+ * library for image cropping and the WebcamJS library for webcam access. The code includes event listeners for file input changes, webcam activation,
  * and snapshot capture. It also provides functions for updating the profile picture and handling form submissions.
 =========================================================================================================================================================*/
 
@@ -3088,7 +3088,7 @@ if (update_picture_modal !== null) {
 
 /*==================================================================================================================================================================
  * This function handles the form submission event for updating a user's information. It prevents the default form submission behavior and stops event propagation.
- * It retrieves the necessary form elements and checks if the user ID is valid. Then, it updates the user's information in the database and sends an email 
+ * It retrieves the necessary form elements and checks if the user ID is valid. Then, it updates the user's information in the database and sends an email
  * notification based on the user's status and language.
 ===================================================================================================================================================================*/
 
@@ -3544,8 +3544,8 @@ update_user_form.addEventListener('submit', (e) => {
    });
 
 /*===============================================================================================================================================================
- * This function handles the form submission event for deleting a user. It prevents the default form submission behavior, retrieves the user ID to be deleted, 
- * and updates the user's information in the database to mark it as deleted. It displays a success message if the deletion is successful, or an error message 
+ * This function handles the form submission event for deleting a user. It prevents the default form submission behavior, retrieves the user ID to be deleted,
+ * and updates the user's information in the database to mark it as deleted. It displays a success message if the deletion is successful, or an error message
  * otherwise.
 ================================================================================================================================================================*/
 
@@ -3985,9 +3985,9 @@ console.log(selectedData);
         });
 
 /*=================================================================================================================================================================
- * This code segment handles the creation of user forms. It dynamically populates select dropdowns with options from the database, such as companies and profiles. 
- * It also includes event listeners to capture user input and trigger actions accordingly. The createUser function creates a new user in the database using the 
- * provided form inputs. It also handles the upload of a profile picture and associates it with the newly created user. Overall, this code enables the creation of 
+ * This code segment handles the creation of user forms. It dynamically populates select dropdowns with options from the database, such as companies and profiles.
+ * It also includes event listeners to capture user input and trigger actions accordingly. The createUser function creates a new user in the database using the
+ * provided form inputs. It also handles the upload of a profile picture and associates it with the newly created user. Overall, this code enables the creation of
  * user accounts with various details and functionalities.
 ==================================================================================================================================================================*/
 
@@ -4884,7 +4884,7 @@ create_company_form.addEventListener('submit', async (e) => {
       }
 
 /*===========================================================================================================================================================
- * This function checks the URL parameters and retrieves the value of the 'company' parameter. If the parameter exists, it stores it in the local storage 
+ * This function checks the URL parameters and retrieves the value of the 'company' parameter. If the parameter exists, it stores it in the local storage
  * and sets the value of an input field. Otherwise, it sets the input field value to 'No company'.
 ============================================================================================================================================================*/
 
@@ -4935,7 +4935,7 @@ create_company_form.addEventListener('submit', async (e) => {
         }
       }
     }
-    
+
 /*=================================================================================================================================================
  * This code snippet handles the forgot password functionality, sends password reset emails, and displays success messages and email confirmation
  * messages based on the current URL path and stored language value.
@@ -5073,7 +5073,7 @@ create_company_form.addEventListener('submit', async (e) => {
       }
 
 /*============================================================================================================================================================
- * This function handles URL replacement and redirection based on the sign-out status and language settings. It redirects the user to the appropriate sign-in 
+ * This function handles URL replacement and redirection based on the sign-out status and language settings. It redirects the user to the appropriate sign-in
  * page based on the language or displays the sign-in and sign-up buttons accordingly.
 ===============================================================================================================================================================*/
 
@@ -5107,11 +5107,11 @@ create_company_form.addEventListener('submit', async (e) => {
         }
         }
       }
-    
+
 /*======================================================================================================================================================
- * This code snippet performs several tasks on the first page load. It handles a loading overlay by setting its display to "none" after a delay. It then 
+ * This code snippet performs several tasks on the first page load. It handles a loading overlay by setting its display to "none" after a delay. It then
  * dispatches a request, checks URL parameters, and defines an asynchronous function called changeCompanyNameToID.
-=======================================================================================================================================================*/      
+=======================================================================================================================================================*/
 
     const loadingOverlay = document.querySelector(".loading-overlay");
     if(loadingOverlay){
@@ -5139,8 +5139,8 @@ create_company_form.addEventListener('submit', async (e) => {
 }
 
 /*========================================================================================================================================================
- * This asynchronous function retrieves user information and performs a database query to fetch company data. It checks if the user's company ID matches 
- * any company in the database, and if so, it assigns the corresponding company type and company zones to variables. If no matching company is found, 
+ * This asynchronous function retrieves user information and performs a database query to fetch company data. It checks if the user's company ID matches
+ * any company in the database, and if so, it assigns the corresponding company type and company zones to variables. If no matching company is found,
  * default values are used.
 =========================================================================================================================================================*/
 
@@ -5165,8 +5165,8 @@ async function getCompanyType(user) {
 }
 
 /*=====================================================================================================================================================
- *This code snippet listens for changes in the authentication state using the onAuthStateChanged function. When a user signs in, it logs the user's UID 
- * to the console, replaces the URL, dispatches a request, populates forms, and shows private elements. When a user signs out, it replaces the URL, shows 
+ *This code snippet listens for changes in the authentication state using the onAuthStateChanged function. When a user signs in, it logs the user's UID
+ * to the console, replaces the URL, dispatches a request, populates forms, and shows private elements. When a user signs out, it replaces the URL, shows
  * public elements, and exits the function.
 =======================================================================================================================================================*/
 
@@ -5189,7 +5189,7 @@ async function getCompanyType(user) {
     });
 
 /*=======================================================================================================================================================
- * This asynchronous function initializes start and end date pickers on a webpage. It sets the minimum and maximum selectable dates, language settings, 
+ * This asynchronous function initializes start and end date pickers on a webpage. It sets the minimum and maximum selectable dates, language settings,
  * and other configuration options based on the user's account type and the current URL path.
 ========================================================================================================================================================*/
 
@@ -5283,8 +5283,8 @@ async function getCompanyType(user) {
 };
 
 /*========================================================================================================================================================
- *This asynchronous function initializes a start date picker and an end date picker. It sets the minimum and maximum selectable dates, language 
- settings, and other configuration options. The end date picker is dependent on the selected start date, and it is initialized separately through the 
+ *This asynchronous function initializes a start date picker and an end date picker. It sets the minimum and maximum selectable dates, language
+ settings, and other configuration options. The end date picker is dependent on the selected start date, and it is initialized separately through the
  initializeEndDatePicker function.
 ==========================================================================================================================================================*/
 
@@ -5431,7 +5431,7 @@ function changeLanguage(lang) {
       }
       }
     }
-  
+
 /*===================================================================================================================================
  * These onClick events add/delete a class to the selected language and triggers the changeLanguage and updateLinks functions
 ====================================================================================================================================*/
@@ -5532,7 +5532,7 @@ if(signDeBtn){
     }
 
     /*===============================================================================================================================================================
-    * This function changes the Admin type title on the tables to the correct one. If the user is a Basic Admin the code will print "Basic Admin" on the DOM element, 
+    * This function changes the Admin type title on the tables to the correct one. If the user is a Basic Admin the code will print "Basic Admin" on the DOM element,
     * if it's a "Company Admin" will print "Multi Company Admin" and if it's a Super Admin will print "Super Admin".
     =================================================================================================================================================================*/
 
@@ -5579,7 +5579,7 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://tms-main.webflow.io/'){
       window.location.href = 'https://tms-main.webflow.io/en/signin-bho'
     }
-    console.log('prueba444');
+    console.log('prueba444-1');
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
