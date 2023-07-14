@@ -4,6 +4,10 @@
     import { getFirestore, collection, addDoc, setDoc, updateDoc, getDoc, doc, query, where, getDocs, deleteDoc, writeBatch } from 'firebase/firestore';
     import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
+    console.log('------------------------------------------------------------------------------------------------------');
+    console.log('Starting firebase config');
+    console.log('------------------------------------------------------------------------------------------------------');
+
     // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAMoVGExyvb89NEa-M3EMl647-_rUN4XP4",
