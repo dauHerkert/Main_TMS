@@ -5572,3 +5572,9 @@ if(window.location.href == 'https://tms-main.webflow.io/'){
       window.location.href = 'https://tms-main.webflow.io/en/signin-bho'
     }
 
+
+
+
+console.log('------------------------------------------------------------------------------------------------------');
+console.log('base.js loading successfully');
+console.log('------------------------------------------------------------------------------------------------------');
