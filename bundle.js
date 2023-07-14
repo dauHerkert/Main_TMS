@@ -16,17 +16,7 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_base2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/base2 */ \"./components/base2.js\");\n/* harmony import */ var _components_base2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_base2__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/test */ \"./components/test.js\");\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_test__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\n//# sourceURL=webpack://main_tms/./app.js?");
-
-/***/ }),
-
-/***/ "./components/base2.js":
-/*!*****************************!*\
-  !*** ./components/base2.js ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("/* provided dependency */ var jQuery = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\njQuery(function() {\n  console.log('testing with jQuery');\n});\n\n\n\nconsole.log('------------------------------------------------------------------------------------------------------');\nconsole.log('base2.js loading successfully');\nconsole.log('------------------------------------------------------------------------------------------------------');\n\n//# sourceURL=webpack://main_tms/./components/base2.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/test */ \"./components/test.js\");\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_test__WEBPACK_IMPORTED_MODULE_0__);\n\n\n//# sourceURL=webpack://main_tms/./app.js?");
 
 /***/ }),
 
