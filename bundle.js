@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
   \****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("/* provided dependency */ var jQuery = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\njQuery(function() {\n    console.log('another console.log');\n});\nconsole.log('this is loading from a test.js file!!');\n\n//# sourceURL=webpack://main_tms/./components/test.js?");
+eval("/* provided dependency */ var jQuery = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\njQuery(function() {\n    console.log('another console.log');\n    jQuery('.text-block1').addClass('foo23432');\n});\nconsole.log('this is loading from a test.js file!!');\n\n//# sourceURL=webpack://main_tms/./components/test.js?");
 
 /***/ }),
 
