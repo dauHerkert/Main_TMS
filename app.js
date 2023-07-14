@@ -1,2 +1,2 @@
-import './components/config';
+import './components/base';
 import './components/test';
