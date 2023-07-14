@@ -16,7 +16,17 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/test */ \"./components/test.js\");\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_test__WEBPACK_IMPORTED_MODULE_0__);\n\n\n//# sourceURL=webpack://main_tms/./app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/config */ \"./components/config.js\");\n/* harmony import */ var _components_config__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_config__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/test */ \"./components/test.js\");\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_test__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\n//# sourceURL=webpack://main_tms/./app.js?");
+
+/***/ }),
+
+/***/ "./components/config.js":
+/*!******************************!*\
+  !*** ./components/config.js ***!
+  \******************************/
+/***/ (() => {
+
+eval("const firebaseConfig = {\n    apiKey: \"AIzaSyAMoVGExyvb89NEa-M3EMl647-_rUN4XP4\",\n    authDomain: \"bho-copy.firebaseapp.com\",\n    projectId: \"bho-copy\",\n    storageBucket: \"bho-copy.appspot.com\",\n    messagingSenderId: \"792136477405\",\n    appId: \"1:792136477405:web:001c2802b72baa4321c934\"\n  };\n\n//# sourceURL=webpack://main_tms/./components/config.js?");
 
 /***/ }),
 
