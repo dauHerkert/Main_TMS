@@ -18,13 +18,16 @@ const firebaseConfig = {
   appId: "1:792136477405:web:001c2802b72baa4321c934"
 };
 
+/*
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
     const storage = getStorage(app);
     const user = auth.currentUser;
-    let currentLang = 'en';
+    let currentLang = 'en';*/
+
+    console.log('config', firebaseConfig);
 
 
 
