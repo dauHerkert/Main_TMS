@@ -1,0 +1,25 @@
+{
+  "name": "main_tms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/dauHerkert/Main_TMS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dauHerkert/Main_TMS/issues"
+  },
+  "homepage": "https://github.com/dauHerkert/Main_TMS#readme",
+  "devDependencies": {
+    "mini-css-extract-plugin": "^2.7.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
