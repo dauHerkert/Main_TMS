@@ -16,7 +16,17 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/test */ \"./components/test.js\");\n\n\n//# sourceURL=webpack://main_tms/./app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_test__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/test */ \"./components/test.js\");\n/* harmony import */ var _components_base2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/base2 */ \"./components/base2.js\");\n/* harmony import */ var _components_base2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_base2__WEBPACK_IMPORTED_MODULE_1__);\n\r\n\n\n//# sourceURL=webpack://main_tms/./app.js?");
+
+/***/ }),
+
+/***/ "./components/base2.js":
+/*!*****************************!*\
+  !*** ./components/base2.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("/* provided dependency */ var jQuery = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\njQuery(function() {\r\n  console.log('testing with jQuery');\r\n});\r\n\r\n\r\n\r\nconsole.log('------------------------------------------------------------------------------------------------------');\r\nconsole.log('base2.js loading successfullyyyyy');\r\nconsole.log('------------------------------------------------------------------------------------------------------');\n\n//# sourceURL=webpack://main_tms/./components/base2.js?");
 
 /***/ }),
 
@@ -27,7 +37,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ \"./node_modules/firebase/app/dist/esm/index.esm.js\");\n/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/auth */ \"./node_modules/firebase/auth/dist/esm/index.esm.js\");\n/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase/firestore */ \"./node_modules/firebase/firestore/dist/esm/index.esm.js\");\n/* harmony import */ var firebase_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! firebase/storage */ \"./node_modules/firebase/storage/dist/esm/index.esm.js\");\n/* provided dependency */ var jQuery = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\njQuery(function() {\n    console.log('firebase test');\n    jQuery('.text-block1').addClass('foo23432');\n});\n\n\n\n\n\n\n\n\nconsole.log('------------------------------------------------------------------------------------------------------');\nconsole.log('Starting firebase config');\nconsole.log('------------------------------------------------------------------------------------------------------');\n\n//# sourceURL=webpack://main_tms/./components/test.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ \"./node_modules/firebase/app/dist/esm/index.esm.js\");\n/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/auth */ \"./node_modules/firebase/auth/dist/esm/index.esm.js\");\n/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase/firestore */ \"./node_modules/firebase/firestore/dist/esm/index.esm.js\");\n/* harmony import */ var firebase_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! firebase/storage */ \"./node_modules/firebase/storage/dist/esm/index.esm.js\");\n/* provided dependency */ var jQuery = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\njQuery(function() {\r\n    console.log('firebase test');\r\n    jQuery('.text-block1').addClass('foo23432');\r\n});\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nconsole.log('------------------------------------------------------------------------------------------------------');\r\nconsole.log('Starting firebase config');\r\nconsole.log('------------------------------------------------------------------------------------------------------');\n\n//# sourceURL=webpack://main_tms/./components/test.js?");
 
 /***/ }),
 
@@ -244,6 +254,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
