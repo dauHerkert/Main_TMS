@@ -1,2 +1,3 @@
-import './components/test';
-import './components/base2';
+import './components/firebaseConfig';
+import './components/signUp';
+import './components/base';
