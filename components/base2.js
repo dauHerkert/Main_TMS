@@ -5,5 +5,5 @@ jQuery(function() {
 
 
 console.log('------------------------------------------------------------------------------------------------------');
-console.log('base2.js loading successfully');
+console.log('base2.js loading successfullyyyyy');
 console.log('------------------------------------------------------------------------------------------------------');
