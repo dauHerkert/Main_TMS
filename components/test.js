@@ -11,5 +11,5 @@ import { getFirestore, collection, addDoc, setDoc, updateDoc, getDoc, doc, query
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
 console.log('------------------------------------------------------------------------------------------------------');
-console.log('Starting firebase config');
+console.log('Starting firebase configurationnn');
 console.log('------------------------------------------------------------------------------------------------------');
