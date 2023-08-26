@@ -523,3 +523,114 @@ if(saveButton){
       await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
     });
 }
+
+/*========================================================================================================================================================
+ *This asynchronous function initializes a start date picker and an end date picker. It sets the minimum and maximum selectable dates, language
+ settings, and other configuration options. The end date picker is dependent on the selected start date, and it is initialized separately through the
+ initializeEndDatePicker function.
+==========================================================================================================================================================*/
+
+async function getDateSignUp() {
+  var today = new Date();
+  var minDate = new Date(today.getFullYear(), 5, 22);
+  var maxDate = new Date(today.getFullYear(), 6, 1);
+  var minDateEndPicker = new Date(today.getFullYear(), 5, 22);
+  var startDatePicker = $('[data-date-picker="datepicker-start"]');
+  let endDatePicker = $('[data-date-picker="datepicker-end"]');
+
+  // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
+  // and from http://t1m0n.name/air-datepicker/docs/
+  $.fn.datepicker.language['de'] = {
+    days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+    daysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    daysMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+    today: 'Heute',
+    clear: 'Zurücksetzen',
+    dateFormat: 'dd.MM.yyyy',
+    timeFormat: 'HH:mm',
+    firstDay: 1
+  };
+
+  $.fn.datepicker.language['en'] = {
+    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
+    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    today: 'Today',
+    clear: 'Clear',
+    dateFormat: 'mm/dd/yyyy',
+    timeFormat: 'hh:ii aa',
+    firstDay: 0,
+};
+
+  let datepickerLocaleToUse = 'en';
+  if ( storedLang == 'de' ) {
+    datepickerLocaleToUse = 'de';
+  }
+
+  let multiDates = false;
+  let selectedStartDate = null;
+
+  startDatePicker.datepicker({
+  multipleDates: multiDates,
+  multipleDatesSeparator: ', ',
+  dateFormat: 'mm-dd-yyyy',
+  minDate: minDate,
+  maxDate: maxDate,
+  language: datepickerLocaleToUse,
+  onHide: function(inst, animationCompleted) {
+    var selectedDates = inst.selectedDates;
+    console.log(selectedDates);
+    var selectedDate = startDatePicker.value;
+    var parsedDate = new Date(selectedDates);
+    minDateEndPicker = parsedDate;
+    endDatePicker.value = '';
+    initializeEndDatePicker();
+  },
+    onSelect: function(formattedDate, date, inst) {
+      inst.hide();
+    }
+});
+
+  function initializeEndDatePicker() {
+    endDatePicker.datepicker({
+      multipleDates: multiDates,
+      multipleDatesSeparator: ', ',
+      dateFormat: 'mm-dd-yyyy',
+      minDate: minDateEndPicker,
+      maxDate: maxDate,
+      language: datepickerLocaleToUse,
+      onHide: function(inst, animationCompleted) {
+        var selectedDates = inst.selectedDates;
+        console.log(selectedDates);
+      },
+    onSelect: function(formattedDate, date, inst) {
+      inst.hide();
+    }
+    });
+  }
+
+initializeEndDatePicker();
+
+  if (window.innerWidth < 768) {
+    $('[data-date-picker]').attr('readonly', 'readonly');
+  }
+}
+
+/*================================================================================================================================================================
+ * This function is called on the home page. It identifies the sign-up form (wf-form-signup-form) and assigns an event listener to it. The event listener listens
+ * for the form's submission and calls the handleSignUp function.
+=================================================================================================================================================================*/
+
+export function signUpPage() {
+  //identify auth action forms
+  let signUpForm = document.getElementById('wf-form-signup-form');
+  //assign event listeners
+  if ( typeof(signUpForm) !== null ) {
+    signUpForm.addEventListener('submit', handleSignUp, true);
+  }
+  getDateSignUp()
+}

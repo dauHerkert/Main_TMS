@@ -57,6 +57,8 @@ const firebaseConfig = {
     // Firebase variables export
 
     export {
+        app,
+        auth,
         db,
         storage,
         user,
