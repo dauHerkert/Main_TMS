@@ -1,5 +1,5 @@
 import { doc, setDoc, deleteDoc, auth, updateEmail, updatePassword, deleteUser, ref, getDownloadURL, uploadBytes, user } from './firebaseConfig';
-import { getUserInfo } from './globalFunctions'
+import { getUserInfo } from './base'
 
 /*============================================================================================================================================================
  * This function updates the user's first name, last name, and address in the Firestore database. It uses the provided user object to identify the user, and

@@ -1,5 +1,5 @@
 import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes } from './firebaseConfig';
-import { getUserInfo } from './globalFunctions'
+import { getUserInfo } from './base';
 
 // ---- USERS TABLE EMAILS ----
 

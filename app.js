@@ -1,5 +1,5 @@
 import './components/firebaseConfig';
-import './components/globalFunctions';
+import './components/base';
 import './components/signUp';
 import './components/resendSignUpEmail';
 import './components/signIn';
@@ -8,4 +8,4 @@ import './components/accountPage';
 import './components/pressPage';
 import './components/supplierPage';
 import './components/adminPage';
-import './components/base';
+import './components/companiesPage';

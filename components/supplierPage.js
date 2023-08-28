@@ -1,5 +1,5 @@
 import { doc, setDoc, addDoc, collection, getDownloadURL, ref, user } from './firebaseConfig';
-import { getUserInfo } from './globalFunctions'
+import { getUserInfo } from './base';
 
 // ---- SUPPLIER FORM EMAILS ----
 
