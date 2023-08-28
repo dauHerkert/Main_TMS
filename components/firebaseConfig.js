@@ -19,7 +19,6 @@
     const db = getFirestore(app);
     const storage = getStorage(app);
     const user = auth.currentUser;
-    let currentLang = 'en';
 
     // Firebase functions export
 
@@ -61,6 +60,5 @@
         auth,
         db,
         storage,
-        user,
-        currentLang
+        user
     }
