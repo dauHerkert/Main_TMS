@@ -7,8 +7,6 @@ import { pageSupplier } from './supplierPage';
 import { pageAdmin } from './adminPage';
 import { pageCompaniesTable } from './companiesPage';
 
-let currentLang = 'en';
-
 /*==================================================================================================================================================================
  * This function retrieves the user information from the Firestore database based on the provided user parameter, which is the user object. It queries the database
  * using the user's UID and returns the corresponding user data if it exists. Otherwise, it displays an error message using Toastr.
@@ -524,6 +522,7 @@ function changeLanguage(lang) {
 }
 
     window.addEventListener('load', function(){
+      let currentLang = 'en';
       var storedLang = localStorage.getItem("language");
       if(storedLang){
           currentLang = storedLang;
