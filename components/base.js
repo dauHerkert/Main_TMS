@@ -1,4 +1,4 @@
-import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged, currentLang } from './firebaseConfig';
+import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged } from './firebaseConfig';
 import { signInPage } from './signIn';
 import { signUpPage } from './signUp';
 import { pagePress } from './pressPage';
@@ -521,8 +521,8 @@ function changeLanguage(lang) {
         }
 }
 
+let currentLang = 'en';
     window.addEventListener('load', function(){
-      let currentLang = 'en';
       var storedLang = localStorage.getItem("language");
       if(storedLang){
           currentLang = storedLang;
