@@ -76,6 +76,32 @@ import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL
     * -----------------------------------------------------------------------------------------------------------
     */
 
+/*========================================================================================================================================================
+ * This asynchronous function retrieves user information and performs a database query to fetch company data. It checks if the user's company ID matches
+ * any company in the database, and if so, it assigns the corresponding company type and company zones to variables. If no matching company is found,
+ * default values are used.
+=========================================================================================================================================================*/
+
+async function getCompanyType(user) {
+  let userInfo = await getUserInfo(user);
+  console.log('userInfo:', userInfo);
+  const companiesRef = collection(db, "companies");
+  const companiesSnapshot = await getDocs(companiesRef);
+  let companyProfile = 'No company';
+  let companyZones = [];
+
+  for (const company of companiesSnapshot.docs) {
+    if (company.id === userInfo.user_company) {
+      companyProfile = company.data().company_type;
+      companyZones = company.data().company_zones || [];
+      break;
+    }
+  }
+
+  // Return the object with the default values for companyProfile and companyZones
+  return { companyProfile, companyZones };
+}
+
     /*====================================================================================================================================================
      *  Sets default fields for a user during sign-up process. It retrieves user information such as first name, last name, user ID, and profile image.
      * The function updates the Firestore document with the user's default values and uploads the profile image to Firebase Storage. It also triggers the

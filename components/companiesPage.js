@@ -1,5 +1,5 @@
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db } from './firebaseConfig';
-import { getUserInfo } from './base';
+import { getUserInfo, createOptions, changeAdminTypeTitle } from './base';
 
 //Registration link email - DE
 const registration_link_de_email_subject = 'Akkreditierung Bad Homburg Open';

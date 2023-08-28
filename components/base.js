@@ -1,4 +1,11 @@
 import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged } from './firebaseConfig';
+import { signInPage } from './signIn';
+import { signUpPage } from './signUp';
+import { pagePress } from './pressPage';
+import { pageAccount } from './accountPage';
+import { pageSupplier } from './supplierPage';
+import { pageAdmin } from './adminPage';
+import { pageCompaniesTable } from './companiesPage';
 
 /*==================================================================================================================================================================
  * This function retrieves the user information from the Firestore database based on the provided user parameter, which is the user object. It queries the database
@@ -21,7 +28,7 @@ export async function getUserInfo(user) {
 * translation. In the case of "Sign Out," it replaces the text with an image and the translated text "Ausloggen."
 ==================================================================================================================================================================*/
 
-export function translateNavigation() {
+function translateNavigation() {
   if (storedLang && storedLang == 'de') {
 let navLinks = $('.nav-menu').find('.nav-link');
 navLinks.each(function(i, e) {
@@ -54,7 +61,7 @@ if (navLabel == 'Form') {
 * account types and user roles.
 ================================================================================================================================================================*/
 
-export async function populateForms(user) {
+async function populateForms(user) {
   let userInfo = await getUserInfo(user);
   const accountType_button = document.getElementById('account_user_profile');
   const press_info = document.getElementsByClassName('press_info');
@@ -157,7 +164,7 @@ document.getElementById("press_submmited_form").style.display = 'flex';
 * making them visible. It also selects elements with the data-onlogin="hide" attribute and sets their display style to "none", hiding them from view.
 =============================================================================================================================================================*/
 
-export function showPrivateElements() {
+function showPrivateElements() {
   // User is signed in
   let publicElements = document.querySelectorAll("[data-onlogin='hide']");
   let privateElements = document.querySelectorAll("[data-onlogin='show']");
@@ -174,7 +181,7 @@ export function showPrivateElements() {
 * making them visible. It selects elements with the data-onlogin="show" attribute and sets their display style to "none", hiding them from view.
 =============================================================================================================================================================*/
 
-export function showPublicElements() {
+function showPublicElements() {
   // User is signed out
   let publicElements = document.querySelectorAll("[data-onlogin='hide']");
   let privateElements = document.querySelectorAll("[data-onlogin='show']");
@@ -447,7 +454,7 @@ export function showPublicElements() {
     dispatchRequest(false);
     checkUrlParameter();
 
-    async function changeCompanyNameToID(user) {
+   export async function changeCompanyNameToID(user) {
     const companiesRef = collection(db, "companies");
     const companiesSnapshot = await getDocs(companiesRef);
     let companyNames = [];
@@ -461,32 +468,6 @@ export function showPublicElements() {
     } else {
         console.log("No company found with that ID");
     }
-}
-
-/*========================================================================================================================================================
- * This asynchronous function retrieves user information and performs a database query to fetch company data. It checks if the user's company ID matches
- * any company in the database, and if so, it assigns the corresponding company type and company zones to variables. If no matching company is found,
- * default values are used.
-=========================================================================================================================================================*/
-
-async function getCompanyType(user) {
-  let userInfo = await getUserInfo(user);
-  console.log('userInfo:', userInfo);
-  const companiesRef = collection(db, "companies");
-  const companiesSnapshot = await getDocs(companiesRef);
-  let companyProfile = 'No company';
-  let companyZones = [];
-
-  for (const company of companiesSnapshot.docs) {
-    if (company.id === userInfo.user_company) {
-      companyProfile = company.data().company_type;
-      companyZones = company.data().company_zones || [];
-      break;
-    }
-  }
-
-  // Return the object with the default values for companyProfile and companyZones
-  return { companyProfile, companyZones };
 }
 
 /*=====================================================================================================================================================
@@ -512,100 +493,6 @@ async function getCompanyType(user) {
         return;
       }
     });
-
-/*=======================================================================================================================================================
- * This asynchronous function initializes start and end date pickers on a webpage. It sets the minimum and maximum selectable dates, language settings,
- * and other configuration options based on the user's account type and the current URL path.
-========================================================================================================================================================*/
-
-  async function getMinDate(user) {
-  var today = new Date();
-  var minDate;
-  var maxDate = new Date(today.getFullYear(), 6, 1);
-  var startDatePicker = $('[data-date-picker="datepicker-start"]');
-  let endDatePicker = $('[data-date-picker="datepicker-end"]')
-  let userInfo = await getUserInfo(user);
-
-  //Change minDate depending the user type
-  if(userInfo.account_type == 'Press'){
-        minDate = new Date(today.getFullYear(), 5, 22);
-      }else{
-        minDate =  new Date(today.getFullYear(), 5, 22);
-      }
-
-  // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
-  // and from http://t1m0n.name/air-datepicker/docs/
-  $.fn.datepicker.language['de'] = {
-    days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-    daysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-    daysMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-    months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-    monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-    today: 'Heute',
-    clear: 'Zurücksetzen',
-    dateFormat: 'dd.MM.yyyy',
-    timeFormat: 'HH:mm',
-    firstDay: 1
-  };
-
-  $.fn.datepicker.language['en'] = {
-    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-    months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
-    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    today: 'Today',
-    clear: 'Clear',
-    dateFormat: 'mm/dd/yyyy',
-    timeFormat: 'hh:ii aa',
-    firstDay: 0,
-};
-
-  let datepickerLocaleToUse = 'en';
-  if ( storedLang == 'de' ) {
-    datepickerLocaleToUse = 'de';
-  }
-
-  let multiDates = true
-  if(window.location.pathname == "/en/supplier" || window.location.pathname == "/de/supplier"){
-    multiDates = false
-  }
-
-  startDatePicker.datepicker({
-    multipleDates: multiDates,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: minDate,
-    maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
-    },
-    onSelect: function(formattedDate, date, inst) {
-      inst.hide();
-    }
-  });
-  endDatePicker.datepicker({
-    multipleDates: multiDates,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: minDate,
-    maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst, animationCompleted) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
-    },
-    onSelect: function(formattedDate, date, inst) {
-      inst.hide();
-    }
-  });
-
-  if (window.innerWidth < 768) {
-    $('[data-date-picker]').attr('readonly', 'readonly');
-  }
-};
 
 /*===================================================================================================================================
  * These onClick events add/delete a class to the selected language and triggers the changeLanguage and updateLinks functions
@@ -765,7 +652,7 @@ if(signDeBtn){
     * if it's a "Company Admin" will print "Multi Company Admin" and if it's a Super Admin will print "Super Admin".
     =================================================================================================================================================================*/
 
-    async function changeAdminTypeTitle(user){
+   export async function changeAdminTypeTitle(user){
       let userInfo = await getUserInfo(user);
       let storedLang = localStorage.getItem("language");
 
@@ -802,8 +689,6 @@ if (storedLang == 'de') {
 /*===================================================================================================================================
  * This function redirects from the "Home page" to the "Sign-in page"
  ====================================================================================================================================*/
-
-
 
 if(window.location.href == 'https://tms-main.webflow.io/'){
       window.location.href = 'https://tms-main.webflow.io/en/signin-bho'
