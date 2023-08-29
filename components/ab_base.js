@@ -1,4 +1,4 @@
-import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged } from './firebaseConfig';
+import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged } from './a_firebaseConfig';
 import { signInPage } from './signIn';
 import { signUpPage } from './signUp';
 import { pagePress } from './pressPage';

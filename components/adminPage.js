@@ -1,5 +1,5 @@
-import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes } from './firebaseConfig';
-import { getUserInfo, createOptions, changeCompanyNameToID, changeAdminTypeTitle } from './base';
+import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes } from './a_firebaseConfig';
+import { getUserInfo, createOptions, changeCompanyNameToID, changeAdminTypeTitle } from './ab_base';
 
 // ---- USERS TABLE EMAILS ----
 

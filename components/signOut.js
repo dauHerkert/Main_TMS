@@ -1,4 +1,4 @@
-import {signOut,auth} from './firebaseConfig';
+import {signOut,auth} from './a_firebaseConfig';
 
 // Handle signOut
   /*=======================================================================================================================================================

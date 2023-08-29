@@ -1,4 +1,4 @@
-import {addDoc,collection,db} from './firebaseConfig';
+import {addDoc,collection,db} from './a_firebaseConfig';
 
 //Subject for Register email - DE
 const register_de_email_subject = 'Vielen Dank für Ihre Anmeldung';

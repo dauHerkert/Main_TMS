@@ -1,4 +1,4 @@
-import {signInWithEmailAndPassword,auth,doc,db,getDoc,updateDoc} from './firebaseConfig';
+import {signInWithEmailAndPassword,auth,doc,db,getDoc,updateDoc} from './a_firebaseConfig';
 
 // ============ Handle singin ===============
   /*=========================================================================================================================================================

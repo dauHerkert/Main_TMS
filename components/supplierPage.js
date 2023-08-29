@@ -1,5 +1,5 @@
-import { doc, setDoc, addDoc, collection, getDownloadURL, ref, user } from './firebaseConfig';
-import { getUserInfo, createOptions, changeCompanyNameToID } from './base';
+import { doc, setDoc, addDoc, collection, getDownloadURL, ref, user } from './a_firebaseConfig';
+import { getUserInfo, createOptions, changeCompanyNameToID } from './ab_base';
 
 // ---- SUPPLIER FORM EMAILS ----
 

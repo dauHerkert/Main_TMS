@@ -1,4 +1,4 @@
-  import { addDoc, collection, ref, uploadBytes, db, user } from './firebaseConfig';
+  import { addDoc, collection, ref, uploadBytes, db, user } from './a_firebaseConfig';
   
   // ---- PRESS FORM EMAILS ----
 
