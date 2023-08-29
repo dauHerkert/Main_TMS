@@ -532,7 +532,7 @@ let currentLang = 'en';
     });
 
     function updateLinks() {
-      console.log("Updating links");
+      console.log("Updating linkss");
       var baseUrl = window.location.origin;
       var currentPath = window.location.pathname;
       var pathArray = currentPath.split("/");
