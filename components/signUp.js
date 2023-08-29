@@ -1,4 +1,5 @@
 import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL,uploadBytes,deleteObject,createUserWithEmailAndPassword,auth,storage,db} from './a_firebaseConfig';
+import Cropper from 'cropperjs';
 
 // This is a list of the default values
     // as well as of all the possible fields that a user doc can have

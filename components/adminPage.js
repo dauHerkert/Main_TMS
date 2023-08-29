@@ -1,5 +1,6 @@
-import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes } from './a_firebaseConfig';
+import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeCompanyNameToID, changeAdminTypeTitle } from './ab_base';
+import Cropper from 'cropperjs';
 
 // ---- USERS TABLE EMAILS ----
 

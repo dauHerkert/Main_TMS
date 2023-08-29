@@ -1,5 +1,6 @@
-import { doc, setDoc, deleteDoc, auth, updateEmail, updatePassword, deleteUser, ref, getDownloadURL, uploadBytes, user } from './a_firebaseConfig';
-import { getUserInfo, changeCompanyNameToID } from './ab_base'
+import { doc, setDoc, deleteDoc, auth, updateEmail, updatePassword, deleteUser, ref, getDownloadURL, uploadBytes, user, storage } from './a_firebaseConfig';
+import { getUserInfo, changeCompanyNameToID } from './ab_base';
+import Cropper from 'cropperjs';
 
 /*============================================================================================================================================================
  * This function updates the user's first name, last name, and address in the Firestore database. It uses the provided user object to identify the user, and
