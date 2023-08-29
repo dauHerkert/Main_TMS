@@ -522,6 +522,7 @@ function changeLanguage(lang) {
 }
 
 let currentLang = 'en';
+
     window.addEventListener('load', function(){
       var storedLang = localStorage.getItem("language");
       if(storedLang){
