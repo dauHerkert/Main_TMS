@@ -6,6 +6,7 @@ import { pageAccount } from './accountPage';
 import { pageSupplier } from './supplierPage';
 import { pageAdmin } from './adminPage';
 import { pageCompaniesTable } from './companiesPage';
+import toastr from 'toastr';
 
 /*==================================================================================================================================================================
  * This function retrieves the user information from the Firestore database based on the provided user parameter, which is the user object. It queries the database

@@ -1,5 +1,6 @@
   import { addDoc, collection, ref, uploadBytes, db, storage } from './a_firebaseConfig';
   import Cropper from 'cropperjs';
+  import toastr from 'toastr';
   
   // ---- PRESS FORM EMAILS ----
 

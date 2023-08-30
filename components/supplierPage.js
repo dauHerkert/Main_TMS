@@ -1,5 +1,6 @@
 import { doc, setDoc, addDoc, collection, getDownloadURL, ref, user, storage } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeCompanyNameToID } from './ab_base';
+import toastr from 'toastr';
 
 // ---- SUPPLIER FORM EMAILS ----
 
