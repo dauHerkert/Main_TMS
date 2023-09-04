@@ -5,7 +5,7 @@
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyAMoVGExyvb89NEa-M3EMl647-_rUN4XP4",
+        apiKey: "AIzaSyAMoVGExyvb89NEa-M3EMl647-_rUN4XP4", 
         authDomain: "bho-copy.firebaseapp.com",
         projectId: "bho-copy",
         storageBucket: "bho-copy.appspot.com",

@@ -1,5 +1,5 @@
 import {signInWithEmailAndPassword,auth,doc,db,getDoc,updateDoc} from './a_firebaseConfig';
-import toastr from 'toastr';
+import toastr from 'toastr'; 
 
 // ============ Handle singin ===============
   /*=========================================================================================================================================================

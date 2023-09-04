@@ -1,7 +1,7 @@
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
-
+ 
 //Registration link email - DE
 const registration_link_de_email_subject = 'Akkreditierung Bad Homburg Open';
 const registration_link_de_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/registration_link_de_email.html';

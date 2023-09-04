@@ -8,4 +8,4 @@ import './components/accountPage';
 import './components/pressPage';
 import './components/supplierPage';
 import './components/adminPage';
-import './components/companiesPage';
+import './components/companiesPage'; 
