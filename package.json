@@ -19,7 +19,6 @@
   "homepage": "https://github.com/dauHerkert/Main_TMS#readme",
   "devDependencies": {
     "css-loader": "^6.8.1",
-    "firebase": "^9.23.0",
     "jquery": "^3.7.0",
     "mini-css-extract-plugin": "^2.7.6",
     "webpack": "^5.88.1",
@@ -29,6 +28,7 @@
     "@firebase/app": "^0.9.17",
     "air-datepicker": "^3.4.0",
     "cropperjs": "^1.6.0",
+    "firebase": "^10.3.1",
     "sass": "^1.66.1",
     "sass-loader": "^13.3.2",
     "toastr": "^2.1.4"
