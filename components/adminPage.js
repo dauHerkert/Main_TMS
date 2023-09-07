@@ -55,6 +55,8 @@ import 'tabulator-tables/dist/css/tabulator.min.css';
  * manipulated to show or hide elements based on the user's administrative role.
 ==============================================================================================================================================================*/
 
+let storedLang = localStorage.getItem("language");
+
 export async function pageAdmin(user) {
 
     $(document).on( 'click' , '#open_modal_btn' , function() {
