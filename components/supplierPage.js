@@ -1,6 +1,8 @@
 import { doc, setDoc, addDoc, collection, getDownloadURL, ref, user, storage } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeCompanyNameToID } from './ab_base';
-import toastr from 'toastr'; 
+import toastr from 'toastr';
+import 'select2';
+import 'select2/dist/css/select2.min.css';
 
 // ---- SUPPLIER FORM EMAILS ----
 

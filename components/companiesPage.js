@@ -3,6 +3,8 @@ import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
 import Tabulator from "tabulator-tables";
 import 'tabulator-tables/dist/css/tabulator.min.css';
+import 'select2';
+import 'select2/dist/css/select2.min.css';
  
 //Registration link email - DE
 const registration_link_de_email_subject = 'Akkreditierung Bad Homburg Open';
@@ -15,6 +17,9 @@ const registration_link_en_email_url = 'https://raw.githubusercontent.com/dauHer
  * This code snippet handles the functionality related to the companies table, including data retrieval, filtering, pagination, creation, updating,
  * and deletion of companies. It also includes the creation and updating of profiles and zones, as well as the display of selected company and zone information.
 =================================================================================================================================================================*/
+
+let storedLang = localStorage.getItem("language");
+
 export async function pageCompaniesTable(user){
     changeAdminTypeTitle(user);
 

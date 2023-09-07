@@ -5,6 +5,8 @@ import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
 import Tabulator from "tabulator-tables";
 import 'tabulator-tables/dist/css/tabulator.min.css';
+import 'select2';
+import 'select2/dist/css/select2.min.css';
 
 // ---- USERS TABLE EMAILS ----
 
