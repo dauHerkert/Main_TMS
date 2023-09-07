@@ -2,7 +2,8 @@ import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import { getUserInfo } from './ab_base';
-import 'air-datepicker';
+import 'air-datepicker/dist/js/datepicker.min.js';
+import 'air-datepicker/dist/css/datepicker.min.css';
 
 // This is a list of the default values
     // as well as of all the possible fields that a user doc can have
