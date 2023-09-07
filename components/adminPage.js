@@ -1,7 +1,10 @@
 import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeCompanyNameToID, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
-import toastr from 'toastr'; 
+import toastr from 'toastr';
+import Webcam from 'webcamjs'; 
+import Tabulator from "tabulator-tables";
+import 'tabulator-tables/dist/css/tabulator.min.css';
 
 // ---- USERS TABLE EMAILS ----
 

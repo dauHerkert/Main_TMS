@@ -1,6 +1,6 @@
   import { addDoc, collection, ref, uploadBytes, db, storage } from './a_firebaseConfig';
   import Cropper from 'cropperjs';
-  import toastr from 'toastr'; 
+  import toastr from 'toastr';
   
   // ---- PRESS FORM EMAILS ----
 
@@ -26,7 +26,7 @@
     const form_en_diverse_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/form_en_diverse_confirmation_form_to_admin.html';
     const press_en_diverse_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_diverse_application_received.html';
 
-
+    var storedLang = localStorage.getItem("language");
 
 
 /*==========================================================================================================================================================
