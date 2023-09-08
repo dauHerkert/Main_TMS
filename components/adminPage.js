@@ -1,5 +1,5 @@
 import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeCompanyNameToID, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
@@ -56,6 +56,22 @@ import 'select2/dist/css/select2.min.css';
  * the date pickers using the Air Datepicker library. Language and format options are adjusted based on the selected language. Lastly, the user interface is
  * manipulated to show or hide elements based on the user's administrative role.
 ==============================================================================================================================================================*/
+
+async function changeCompanyNameToID(user) {
+  const companiesRef = collection(db, "companies");
+  const companiesSnapshot = await getDocs(companiesRef);
+  let companyNames = [];
+  for (const company of companiesSnapshot.docs) {
+      if (user.user_company.includes(company.id)) {
+          companyNames.push(company.data().company_name);
+      }
+  }
+  if (companyNames.length > 0) {
+      return companyNames.join(", ");
+  } else {
+      console.log("No company found with that ID");
+  }
+}
 
 let storedLang = localStorage.getItem("language");
 

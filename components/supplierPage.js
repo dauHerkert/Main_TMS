@@ -1,5 +1,5 @@
-import { doc, setDoc, addDoc, collection, getDownloadURL, ref, user, storage } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeCompanyNameToID } from './ab_base';
+import { doc, setDoc, addDoc, collection, getDownloadURL, ref, user, storage, db, getDocs } from './a_firebaseConfig';
+import { getUserInfo, createOptions } from './ab_base';
 import toastr from 'toastr';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
@@ -24,6 +24,22 @@ import 'select2/dist/css/select2.min.css';
  * This asynchronous function initializes start and end date pickers on a webpage. It sets the minimum and maximum selectable dates, language settings,
  * and other configuration options based on the user's account type and the current URL path.
 ========================================================================================================================================================*/
+
+async function changeCompanyNameToID(user) {
+  const companiesRef = collection(db, "companies");
+  const companiesSnapshot = await getDocs(companiesRef);
+  let companyNames = [];
+  for (const company of companiesSnapshot.docs) {
+      if (user.user_company.includes(company.id)) {
+          companyNames.push(company.data().company_name);
+      }
+  }
+  if (companyNames.length > 0) {
+      return companyNames.join(", ");
+  } else {
+      console.log("No company found with that ID");
+  }
+}
 
 async function getMinDate(user) {
   var today = new Date();

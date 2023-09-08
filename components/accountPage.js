@@ -1,5 +1,5 @@
-import { doc, setDoc, deleteDoc, auth, updateEmail, updatePassword, deleteUser, ref, getDownloadURL, uploadBytes, user, storage, db } from './a_firebaseConfig';
-import { getUserInfo, changeCompanyNameToID } from './ab_base';
+import { doc, setDoc, deleteDoc, auth, updateEmail, updatePassword, deleteUser, ref, getDownloadURL, uploadBytes, user, storage, db, getDocs } from './a_firebaseConfig';
+import { getUserInfo } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 
@@ -24,6 +24,22 @@ function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
       .catch((error) => {
         toastr.error('There was a problem updating the username');
       });
+  }
+
+  async function changeCompanyNameToID(user) {
+    const companiesRef = collection(db, "companies");
+    const companiesSnapshot = await getDocs(companiesRef);
+    let companyNames = [];
+    for (const company of companiesSnapshot.docs) {
+        if (user.user_company.includes(company.id)) {
+            companyNames.push(company.data().company_name);
+        }
+    }
+    if (companyNames.length > 0) {
+        return companyNames.join(", ");
+    } else {
+        console.log("No company found with that ID");
+    }
   }
   
   /*=================================================================================================================================================================
