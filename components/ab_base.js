@@ -56,6 +56,36 @@ if (navLabel == 'Form') {
   }
 }
 
+/*======================================================================================================================================================
+ * This code snippet performs several tasks on the first page load. It handles a loading overlay by setting its display to "none" after a delay. It then
+ * dispatches a request, checks URL parameters, and defines an asynchronous function called changeCompanyNameToID.
+=======================================================================================================================================================*/
+
+const loadingOverlay = document.querySelector(".loading-overlay");
+if(loadingOverlay){
+setTimeout(function() {
+  loadingOverlay.style.display = "none";
+}, 2000);
+}
+dispatchRequest(false);
+checkUrlParameter();
+
+async function changeCompanyNameToID(user) {
+const companiesRef = collection(db, "companies");
+const companiesSnapshot = await getDocs(companiesRef);
+let companyNames = [];
+for (const company of companiesSnapshot.docs) {
+    if (user.user_company.includes(company.id)) {
+        companyNames.push(company.data().company_name);
+    }
+}
+if (companyNames.length > 0) {
+    return companyNames.join(", ");
+} else {
+    console.log("No company found with that ID");
+}
+}
+
 /*===============================================================================================================================================================
 * This function populates the forms and sets the appropriate links and display based on the user's information and the selected language (storedLang). It
 * retrieves the user information using the getUserInfo(user) function and updates the UI elements accordingly. It also handles specific scenarios for different
@@ -440,36 +470,6 @@ function showPublicElements() {
         }
         }
       }
-
-/*======================================================================================================================================================
- * This code snippet performs several tasks on the first page load. It handles a loading overlay by setting its display to "none" after a delay. It then
- * dispatches a request, checks URL parameters, and defines an asynchronous function called changeCompanyNameToID.
-=======================================================================================================================================================*/
-
-    const loadingOverlay = document.querySelector(".loading-overlay");
-    if(loadingOverlay){
-    setTimeout(function() {
-      loadingOverlay.style.display = "none";
-    }, 2000);
-  }
-    dispatchRequest(false);
-    checkUrlParameter();
-
-   async function changeCompanyNameToID(user) {
-    const companiesRef = collection(db, "companies");
-    const companiesSnapshot = await getDocs(companiesRef);
-    let companyNames = [];
-    for (const company of companiesSnapshot.docs) {
-        if (user.user_company.includes(company.id)) {
-            companyNames.push(company.data().company_name);
-        }
-    }
-    if (companyNames.length > 0) {
-        return companyNames.join(", ");
-    } else {
-        console.log("No company found with that ID");
-    }
-  }
 
 /*=====================================================================================================================================================
  *This code snippet listens for changes in the authentication state using the onAuthStateChanged function. When a user signs in, it logs the user's UID
