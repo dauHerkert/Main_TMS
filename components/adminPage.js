@@ -60,6 +60,7 @@ console.log('nalguitaaaaasss')
 ==============================================================================================================================================================*/
 
 async function changeCompanyNameToID(user) {
+  console.log(user)
   const companiesRef = collection(db, "companies");
   const companiesSnapshot = await getDocs(companiesRef);
   let companyNames = [];
