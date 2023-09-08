@@ -61,6 +61,8 @@ import 'select2/dist/css/select2.min.css';
       confirmed_email:'0',
     };
 
+    let storedLang = localStorage.getItem("language");
+
     /*
     * -----------------------------------------------------------------------------------------------------------
     * EMAILS TEMPLATES AND SUBJECTS
