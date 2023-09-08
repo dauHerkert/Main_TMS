@@ -1,4 +1,4 @@
-  import { addDoc, collection, ref, uploadBytes, db, storage } from './a_firebaseConfig';
+  import { addDoc, collection, ref, uploadBytes, db, storage, user } from './a_firebaseConfig';
   import Cropper from 'cropperjs';
   import toastr from 'toastr';
   

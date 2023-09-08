@@ -1,4 +1,4 @@
-import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage } from './a_firebaseConfig';
+import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
@@ -8,7 +8,7 @@ import 'tabulator-tables/dist/css/tabulator.min.css';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 
-console.log('nalguita')
+console.log('nalguitaaaaasss')
 
 // ---- USERS TABLE EMAILS ----
 

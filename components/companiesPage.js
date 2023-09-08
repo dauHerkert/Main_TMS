@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage } from './a_firebaseConfig';
+import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';

@@ -1,4 +1,4 @@
-import {signOut,auth} from './a_firebaseConfig';
+import {signOut,auth, user} from './a_firebaseConfig';
 import toastr from 'toastr'; 
 
 // Handle signOut

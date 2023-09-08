@@ -1,4 +1,4 @@
-import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL,uploadBytes,deleteObject,createUserWithEmailAndPassword,auth,storage,db} from './a_firebaseConfig';
+import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL,uploadBytes,deleteObject,createUserWithEmailAndPassword,auth,storage,db, user} from './a_firebaseConfig';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import { getUserInfo } from './ab_base';
