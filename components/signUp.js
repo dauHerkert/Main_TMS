@@ -2,8 +2,8 @@ import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import { getUserInfo } from './ab_base';
-import 'air-datepicker/dist/js/datepicker.min.js';
-import 'air-datepicker/dist/css/datepicker.min.css';
+import 'air-datepicker/air-datepicker.js';
+import 'air-datepicker/air-datepicker.css';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 

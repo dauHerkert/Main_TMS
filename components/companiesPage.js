@@ -1,7 +1,7 @@
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
-import Tabulator from "tabulator-tables";
+import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
