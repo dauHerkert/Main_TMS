@@ -8,6 +8,8 @@ import 'tabulator-tables/dist/css/tabulator.min.css';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 
+console.log('nalguita')
+
 // ---- USERS TABLE EMAILS ----
 
     // Application rejected - Subjects
