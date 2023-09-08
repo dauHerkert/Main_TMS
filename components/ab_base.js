@@ -71,7 +71,7 @@ dispatchRequest(false);
 checkUrlParameter();
 
 async function changeCompanyNameToID(user) {
-  console.log(user)
+  console.log("user.user_company:", user.user_company);
 const companiesRef = collection(db, "companies");
 const companiesSnapshot = await getDocs(companiesRef);
 let companyNames = [];

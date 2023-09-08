@@ -59,6 +59,7 @@ console.log('nalguitaaaaasss')
  * manipulated to show or hide elements based on the user's administrative role.
 ==============================================================================================================================================================*/
 
+
 async function changeCompanyNameToID(user) {
   console.log("user:", user)
   const companiesRef = collection(db, "companies");
