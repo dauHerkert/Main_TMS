@@ -455,6 +455,22 @@ function showPublicElements() {
     dispatchRequest(false);
     checkUrlParameter();
 
+   async function changeCompanyNameToID(user) {
+    const companiesRef = collection(db, "companies");
+    const companiesSnapshot = await getDocs(companiesRef);
+    let companyNames = [];
+    for (const company of companiesSnapshot.docs) {
+        if (user.user_company.includes(company.id)) {
+            companyNames.push(company.data().company_name);
+        }
+    }
+    if (companyNames.length > 0) {
+        return companyNames.join(", ");
+    } else {
+        console.log("No company found with that ID");
+    }
+  }
+
 /*=====================================================================================================================================================
  *This code snippet listens for changes in the authentication state using the onAuthStateChanged function. When a user signs in, it logs the user's UID
  * to the console, replaces the URL, dispatches a request, populates forms, and shows private elements. When a user signs out, it replaces the URL, shows
