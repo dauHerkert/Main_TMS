@@ -61,7 +61,7 @@ console.log('testing fetch')
 
 
 async function changeCompanyNameToID(user) {
-  console.log("user:", user, "user.user_company:", user.user_company);
+  console.log("user:", user, "user.user_company:", user.user_email);
   const companiesRef = collection(db, "companies");
   const companiesSnapshot = await getDocs(companiesRef);
   let companyNames = [];
