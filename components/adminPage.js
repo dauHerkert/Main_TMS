@@ -637,30 +637,28 @@ clearFilterButtonMobile.addEventListener("click", function() {
 const companyAdmin = userInfo.company_admin;
 const basicAdmin = userInfo.basic_admin;
 const adminCompanyName = userInfo.user_company;
-console.log('admin:', adminCompanyName)
+console.log('admin:', adminCompanyName);
 
 getDocs(q)
 .then((snapshot) => {
-  let data = [];
-  let promises = [];
-  snapshot.docs.forEach((doc) => {
-    let user = doc.data();
-
-    promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-      if (user.user_deleted !== '1') { // Agregar condición para excluir usuarios eliminados
-        data.push({id: doc.id, user_fullname: user.user_fullname, special_requests: user.supplier_special_request, user_itwa: user.user_itwa, press_id: user.press_card_number, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email: user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_start_date: user.supplier_start_date, user_end_date: user.supplier_end_date, language: user.language, name: user.user_firstname + ' ' + user.user_lastname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
-      }
-    }));
-  });
-  return Promise.all(promises).then(() => data);
+let data = [];
+let promises = [];
+snapshot.docs.forEach((doc) => {
+promises.push(changeCompanyNameToID([doc.data()]).then(userCompanyName => {
+if (userCompanyName.length > 0) {
+data.push({id: doc.id, user_fullname: doc.data().user_fullname, special_requests: doc.data().supplier_special_request, user_itwa: doc.data().user_itwa, press_id: doc.data().press_card_number, press_workspot: doc.data().press_workspot, press_form_user: doc.data().press_form_user, user_title: doc.data().user_title, press_media_type: doc.data().press_media_type, press_media: doc.data().press_media, email: doc.data().user_email, company_admin: doc.data().company_admin, basic_admin: doc.data().basic_admin, companyID: doc.data().user_company, user_type: doc.data().user_type, account_type: doc.data().account_type, user_zones: doc.data().user_zones, user_start_date: doc.data().supplier_start_date, user_end_date: doc.data().supplier_end_date, language: doc.data().language, name: doc.data().user_firstname + ' ' + doc.data().user_lastname, lastname: doc.data().user_lastname, company: userCompanyName, status: doc.data().user_status, user_admin: doc.data().user_is_admin, nationality: doc.data().user_nationality, address: doc.data().user_address, city: doc.data().user_city, zip: doc.data().user_zip_code, country: doc.data().user_country, phone: doc.data().user_phone});
+}
+}));
+});
+return Promise.all(promises).then(() => data);
 })
 .then(data => {
-  // Filter and set user data for the table based on admin privileges and company
-  console.log(data, 'admin', adminCompanyName);
-  table.setData((companyAdmin == '1' || basicAdmin == '1') ? data.filter(user => user.companyID && user.companyID != ' ' && user.companyID != '' && user.companyID.some(x => adminCompanyName.includes(x))) : data);
+// Filter and set user data for the table based on admin privileges and company
+console.log(data, 'admin', adminCompanyName);
+table.setData((companyAdmin == '1' || basicAdmin == '1') ? data.filter(user => user.companyID && user.companyID != ' ' && user.companyID != '' && user.companyID.some(x => adminCompanyName.includes(x))) : data);
 })
 .catch(err => {
-  console.log('error fetching users', err);
+console.log('error fetching users', err);
 });
 });
 
