@@ -7,6 +7,7 @@ import 'select2';
 import 'select2/dist/css/select2.min.css';
 import AirDatepicker from 'air-datepicker';
 import localeEn from 'air-datepicker/locale/en';
+import localeDe from 'air-datepicker/locale/de';
 
 // This is a list of the default values
     // as well as of all the possible fields that a user doc can have
