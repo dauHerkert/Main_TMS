@@ -8,7 +8,7 @@ import 'tabulator-tables/dist/css/tabulator.min.css';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 
-console.log('test fetching')
+console.log('test fetchee')
 
 // ---- USERS TABLE EMAILS ----
 
@@ -61,7 +61,14 @@ console.log('test fetching')
 
 
 async function changeCompanyNameToID(user) {
+  // Comprobar si user.user_company existe y no está vacío
+  if (!user.user_company || user.user_company.trim() === "") {
+    console.log("User does not have a user_company");
+    return "No company"; // Puedes devolver cualquier valor predeterminado que necesites aquí
+  }
+  
   console.log("user:", user, "user.user_company:", user.user_company);
+
   const companiesRef = collection(db, "companies");
   const companiesSnapshot = await getDocs(companiesRef);
   let companyNames = [];
@@ -76,6 +83,7 @@ async function changeCompanyNameToID(user) {
       console.log("No company found with that ID");
   }
 }
+
 
 let storedLang = localStorage.getItem("language");
 
