@@ -173,7 +173,7 @@ getDocs(company_colRef)
       });
   })
   .catch(err => {
-      console.log('error fetching users', err);
+      console.log('error fetching companies', err);
   });
 
     //Update company info
