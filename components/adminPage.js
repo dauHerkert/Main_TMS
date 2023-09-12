@@ -7,6 +7,10 @@ import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
+import AirDatepicker from 'air-datepicker';
+import localeEn from 'air-datepicker/locale/en';
+import localeDe from 'air-datepicker/locale/de';
+import 'air-datepicker/air-datepicker.css';
 
 console.log('test fetch')
 
@@ -160,59 +164,62 @@ $.fn.datepicker.language['en'] = {
 
 let datepickerLocaleToUse = 'en';
 if (storedLang == 'de') {
-  datepickerLocaleToUse = 'de';
+    datepickerLocaleToUse = 'de';
 }
-startDatePicker.datepicker({
-  defaultDate: defaultStartDate,
-  multipleDates: false,
-  multipleDatesSeparator: ', ',
-  dateFormat: 'mm-dd-yyyy',
-  minDate: minDate,
-  maxDate: maxDate,
-  language: datepickerLocaleToUse,
-  onHide: function(inst, animationCompleted) {
-    let selectedDates = inst.selectedDates;
-    console.log(selectedDates);
-  },
-  onSelect: function(formattedDate, date, inst) {
-    inst.hide();
-  }
-});
-endDatePicker.datepicker({
-  defaultDate: defaultEndDate,
-  multipleDates: false,
-  multipleDatesSeparator: ', ',
-  dateFormat: 'mm-dd-yyyy',
-  minDate: minDate,
-  maxDate: maxDate,
-  language: datepickerLocaleToUse,
-  onHide: function(inst, animationCompleted) {
-    let selectedDates = inst.selectedDates;
-    console.log(selectedDates);
-  },
-  onSelect: function(formattedDate, date, inst) {
-    inst.hide();
-  }
-});
-let startDatepickerInstance = startDatePicker.data('datepicker');
-let endDatepickerInstance = endDatePicker.data('datepicker');
+
+let startDatepickerOptions = {
+    defaultDate: defaultStartDate,
+    multipleDates: false,
+    multipleDatesSeparator: ', ',
+    dateFormat: 'mm-dd-yyyy',
+    minDate: minDate,
+    maxDate: maxDate,
+    language: datepickerLocaleToUse,
+    onHide: function(inst) {
+        let selectedDates = inst.selectedDates;
+        console.log(selectedDates);
+    },
+    onSelect: function({date, formattedDate, datepicker}) {
+        datepicker.hide();
+    }
+};
+
+let endDatepickerOptions = {
+    defaultDate: defaultEndDate,
+    multipleDates: false,
+    multipleDatesSeparator: ', ',
+    dateFormat: 'mm-dd-yyyy',
+    minDate: minDate,
+    maxDate: maxDate,
+    language: datepickerLocaleToUse,
+    onHide: function(inst) {
+        let selectedDates = inst.selectedDates;
+        console.log(selectedDates);
+    },
+    onSelect: function({date, formattedDate, datepicker}) {
+        datepicker.hide();
+    }
+};
+
+let startDatepickerInstance = new AirDatepicker(startDatePicker[0], startDatepickerOptions);
+let endDatepickerInstance = new AirDatepicker(endDatePicker[0], endDatepickerOptions);
 
 if(dateStartStr){
-let startDateArray = dateStartStr.split(',').map(function(dateString) {
-  return new Date(dateString);
-});
-startDatepickerInstance.selectDate(startDateArray);
+    let startDateArray = dateStartStr.split(',').map(function(dateString) {
+        return new Date(dateString);
+    });
+    startDatepickerInstance.selectDate(startDateArray);
 }
 
 if(dateEndStr){
-let endDateArray = dateEndStr.split(',').map(function(dateString) {
-  return new Date(dateString);
-});
-endDatepickerInstance.selectDate(endDateArray);
+    let endDateArray = dateEndStr.split(',').map(function(dateString) {
+        return new Date(dateString);
+    });
+    endDatepickerInstance.selectDate(endDateArray);
 }
 
 if (window.innerWidth < 768) {
-  $('[data-date-picker]').attr('readonly', 'readonly');
+    $('[data-date-picker]').attr('readonly', 'readonly');
 }
 }
 
