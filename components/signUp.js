@@ -572,14 +572,14 @@ async function getDateSignUp() {
   var minDate = new Date(today.getFullYear(), 5, 22);
   var maxDate = new Date(today.getFullYear(), 6, 1);
   var minDateEndPicker = new Date(today.getFullYear(), 5, 22);
-  var startDatePicker = document.querySelector('[data-date-picker="datepicker-start"]');
-  let endDatePicker = document.querySelector('[data-date-picker="datepicker-end"]');
+  var startDatePicker = document.querySelector('#Select-dates');
+  let endDatePicker = document.querySelector('#Select-dates-2');
 
   let datepickerLocaleToUse = (storedLang === 'de') ? localeDe : localeEn;
 
   let multiDates = false;
 
-  const startDp = new AirDatepicker(startDatePicker, {
+  new AirDatepicker(startDatePicker, {
     multipleDates: multiDates,
     multipleDatesSeparator: ', ',
     dateFormat: 'mm-dd-yyyy',
