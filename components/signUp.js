@@ -9,7 +9,7 @@ import localeEn from 'air-datepicker/locale/en';
 import localeDe from 'air-datepicker/locale/de';
 import 'air-datepicker/air-datepicker.css';
 
-console.log('testing datepicker1')
+console.log('testing datepicker2')
 
 // This is a list of the default values
     // as well as of all the possible fields that a user doc can have
@@ -581,7 +581,9 @@ async function getDateSignUp() {
 
   let multiDates = false;
 
-  new AirDatepicker(startDatePicker, {
+  new AirDatepicker('#Select-dates');
+
+  /*new AirDatepicker(startDatePicker, {
     multipleDates: multiDates,
     multipleDatesSeparator: ', ',
     dateFormat: 'mm-dd-yyyy',
@@ -602,7 +604,7 @@ async function getDateSignUp() {
     onSelect: function(formattedDate, date, inst) {
       inst.hide();
     }
-  });
+  });*/
 
   function initializeEndDatePicker() {
     new AirDatepicker(endDatePicker, {
