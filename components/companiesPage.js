@@ -166,8 +166,8 @@ getDocs(company_colRef)
       let data = [];
       snapshot.docs.forEach((doc) => {
           let company = doc.data();
-          let company_link_en = `https://tms-main.webflow.io/en/signup-bho?company=${doc.id}`;
-          let company_link_de = `https://tms-main.webflow.io/de/signup-bho?company=${doc.id}`;
+          let company_link_en = `https://tms-main.webflow.io/en/signup-ptgp?company=${doc.id}`;
+          let company_link_de = `https://tms-main.webflow.io/de/signup-ptgp?company=${doc.id}`; 
               data.push({companyLink: company_link_en,companyLinkDe: company_link_de, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
               companies_table.setData(data);
       });

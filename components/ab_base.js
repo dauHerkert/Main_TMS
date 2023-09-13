@@ -275,9 +275,9 @@ function showPublicElements() {
       // User is NOT signed in
       if ( user == false ) {
         document.getElementById('signout-button').style.display = 'none';
-        if ( url == '/en/signup-bho' || url == '/de/signup-bho' ) {
+        if ( url == '/en/signup-ptgp' || url == '/de/signup-ptgp' ) {
           signUpPage();
-        } else if ( url == '/en/signin-bho' || url == '/de/signin-bho' ) {
+        } else if ( url == '/en/signin-ptgp' || url == '/de/signin-ptgp' ) {
           signInPage();
         }else if ( url == '/en/press-form' || url == '/de/press-form' ) {
           pagePress();
@@ -364,35 +364,35 @@ function showPublicElements() {
       if(!user){
         if(storedLang){
           if(storedLang == "de"){
-            form_button.setAttribute('href', '/de/signin-bho');
-            account_button.setAttribute('href', '/de/signin-bho');
-            users_button.setAttribute('href', '/de/signin-pbho');
-            companies_button.setAttribute('href', '/de/signin-bho');
+            form_button.setAttribute('href', '/de/signin-ptgp');
+            account_button.setAttribute('href', '/de/signin-ptgp');
+            users_button.setAttribute('href', '/de/signin-ptgp');
+            companies_button.setAttribute('href', '/de/signin-ptgp');
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/' && userData.confirmed_email != '1'){
-              window.location.replace('https://tms-main.webflow.io/de/signin-bho');
-              }else if(window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-bho' && window.location.pathname !== '/de/signup-bho' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum'){
-                window.location.replace('https://tms-main.webflow.io/de/signin-bho');
+              window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
+              }else if(window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-ptgp' && window.location.pathname !== '/de/signup-ptgp' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum'){
+                window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
               }
           }else{
-            form_button.setAttribute('href', '/en/signin-bho');
-            account_button.setAttribute('href', '/en/signin-bho');
-            users_button.setAttribute('href', '/de/signin-bho');
-            companies_button.setAttribute('href', '/de/signin-bho');
+            form_button.setAttribute('href', '/en/signin-ptgp');
+            account_button.setAttribute('href', '/en/signin-ptgp');
+            users_button.setAttribute('href', '/de/signin-ptgp');
+            companies_button.setAttribute('href', '/de/signin-ptgp');
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/' && userData.confirmed_email != '1'){
-              window.location.replace('https://tms-main.webflow.io/en/signin-bho');
-              }else if(window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-bho' && window.location.pathname !== '/en/signup-bho' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum'){
-                window.location.replace('https://tms-main.webflow.io/en/signin-bho');
+              window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
+              }else if(window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-ptgp' && window.location.pathname !== '/en/signup-ptgp' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum'){
+                window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
               }
           }
         }else{
-          form_button.setAttribute('href', '/en/signin-bho');
-          account_button.setAttribute('href', '/en/signin-bho');
-          users_button.setAttribute('href', '/de/signin-bho');
-          companies_button.setAttribute('href', '/de/signin-bho');
+          form_button.setAttribute('href', '/en/signin-ptgp');
+          account_button.setAttribute('href', '/en/signin-ptgp');
+          users_button.setAttribute('href', '/de/signin-ptgp');
+          companies_button.setAttribute('href', '/de/signin-ptgp');
           document.getElementById('signIn_button').style.display = 'block';
           document.getElementById('signUp_button').style.display = 'block';
         }
@@ -448,24 +448,24 @@ function showPublicElements() {
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
-              window.location.replace('https://tms-main.webflow.io/de/signin-bho');
-              }else if(window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-bho' && window.location.pathname !== '/de/signup-bho' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum'){
-                window.location.replace('https://tms-main.webflow.io/de/signin-bho');
+              window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
+              }else if(window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-ptgp' && window.location.pathname !== '/de/signup-ptgp' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum'){
+                window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
               }
           }else{
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
             if(window.location.pathname == '/'){
-              window.location.replace('https://tms-main.webflow.io/en/signin-bho');
-              }else if(window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-bho' && window.location.pathname !== '/en/signup-bho' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum'){
-                window.location.replace('https://tms-main.webflow.io/en/signin-bho');
+              window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
+              }else if(window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-ptgp' && window.location.pathname !== '/en/signup-ptgp' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum'){
+                window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
               }
           }
         }else{
-          form_button.setAttribute('href', '/en/signin-bho');
-          account_button.setAttribute('href', '/en/signin-bho');
-          users_button.setAttribute('href', '/de/signin-bho');
-          companies_button.setAttribute('href', '/de/signin-bho');
+          form_button.setAttribute('href', '/en/signin-ptgp');
+          account_button.setAttribute('href', '/en/signin-ptgp');
+          users_button.setAttribute('href', '/de/signin-ptgp');
+          companies_button.setAttribute('href', '/de/signin-ptgp');
           document.getElementById('signIn_button').style.display = 'block';
           document.getElementById('signUp_button').style.display = 'block';
         }
@@ -695,5 +695,5 @@ if (storedLang == 'de') {
  ====================================================================================================================================*/
 
 if(window.location.href == 'https://tms-main.webflow.io/'){
-      window.location.href = 'https://tms-main.webflow.io/en/signin-bho'
+      window.location.href = 'https://tms-main.webflow.io/en/signin-ptgp' 
     }

@@ -207,11 +207,11 @@ if(deleteButton){
       deleteUser(user).then(() => {
         if(storedLang == "de"){
           setTimeout(function() {
-              window.location.pathname = "/de/signin-bho";
+              window.location.pathname = "/de/signin-ptgp"; 
             }, 1500);
         }else{
           setTimeout(function() {
-              window.location.pathname = "/en/signin-bho";
+              window.location.pathname = "/en/signin-ptgp";
             }, 1500);
         }
         toastr.success('User account deleted');

@@ -4,7 +4,7 @@ import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
 import 'tabulator-tables/dist/js/tabulator.min.js';
-import 'tabulator-tables/dist/css/tabulator.min.css';
+import 'tabulator-tables/dist/css/tabulator.min.css'; 
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 import AirDatepicker from 'air-datepicker';

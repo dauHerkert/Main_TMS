@@ -4,7 +4,7 @@ import toastr from 'toastr';
 // Handle signOut
   /*=======================================================================================================================================================
    * Manages the user sign-out action. It uses the signOut function from Firebase Authentication to sign out the current user. Redirects the user to the
-   * "/en/signin-bho" page after signing out.
+   * "/en/signin-ptgp" page after signing out.
   ========================================================================================================================================================*/
 
   function handleSignOut() {
@@ -15,13 +15,13 @@ import toastr from 'toastr';
       }, 1000);
       setTimeout(() => {
         if(storedLang){
-          if(storedLang == "de" && window.location.pathname != "/de/signin-bho"){
-            window.location = "/de/signin-bho";
+          if(storedLang == "de" && window.location.pathname != "/de/signin-ptgp"){
+            window.location = "/de/signin-ptgp";
           }else{
-            window.location = "/en/signin-bho";
+            window.location = "/en/signin-ptgp";
           }
         }else{
-          window.location = "/en/signin-bho";
+          window.location = "/en/signin-ptgp"; 
         }
 
       }, 1500);
