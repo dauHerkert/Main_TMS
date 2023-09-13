@@ -9,6 +9,8 @@ import localeEn from 'air-datepicker/locale/en';
 import localeDe from 'air-datepicker/locale/de';
 import 'air-datepicker/air-datepicker.css';
 
+console.log('testing datepicker1')
+
 // This is a list of the default values
     // as well as of all the possible fields that a user doc can have
     const userDefaultValues = {
