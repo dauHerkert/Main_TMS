@@ -9,7 +9,7 @@ import localeEn from 'air-datepicker/locale/en';
 import localeDe from 'air-datepicker/locale/de';
 import 'air-datepicker/air-datepicker.css';
 
-console.log('testing datepicker3')
+console.log('testing datepicker4')
 
 // This is a list of the default values
     // as well as of all the possible fields that a user doc can have
@@ -569,6 +569,8 @@ if(saveButton){
  initializeEndDatePicker function.
 ==========================================================================================================================================================*/
 
+let datepickerLocaleToUse = (storedLang === 'de') ? localeDe : localeEn;
+
 new AirDatepicker('#Select-dates', {
   selectedDates: [new Date()],
   locale: datepickerLocaleToUse
@@ -581,8 +583,6 @@ async function getDateSignUp() {
   var minDateEndPicker = new Date(today.getFullYear(), 5, 22);
   var startDatePicker = document.querySelector('#Select-dates');
   let endDatePicker = document.querySelector('#Select-dates-2');
-
-  let datepickerLocaleToUse = (storedLang === 'de') ? localeDe : localeEn;
 
   let multiDates = false;
 
