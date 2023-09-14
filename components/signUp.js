@@ -4,12 +4,9 @@ import toastr from 'toastr';
 import { getUserInfo } from './ab_base';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
-import AirDatepicker from 'air-datepicker';
-import localeEn from 'air-datepicker/locale/en';
-import localeDe from 'air-datepicker/locale/de';
-import 'air-datepicker/air-datepicker.css';
+import flatpickr from "flatpickr";
 
-console.log('testing datepicker4')
+console.log('testing flatpickr')
 
 // This is a list of the default values
     // as well as of all the possible fields that a user doc can have
@@ -571,10 +568,10 @@ if(saveButton){
 
 let datepickerLocaleToUse = (storedLang === 'de') ? localeDe : localeEn;
 
-new AirDatepicker('#Select-dates', {
+/*new AirDatepicker('#Select-dates', {
   selectedDates: [new Date()],
   locale: datepickerLocaleToUse
-})
+})*/
 
 async function getDateSignUp() {
   var today = new Date();
@@ -585,6 +582,8 @@ async function getDateSignUp() {
   let endDatePicker = document.querySelector('#Select-dates-2');
 
   let multiDates = false;
+
+  flatpickr("#Select-dates", {});
 
   /*new AirDatepicker(startDatePicker, {
     multipleDates: multiDates,
@@ -609,7 +608,7 @@ async function getDateSignUp() {
     }
   });*/
 
-  function initializeEndDatePicker() {
+  /*function initializeEndDatePicker() {
     new AirDatepicker(endDatePicker, {
       multipleDates: multiDates,
       multipleDatesSeparator: ', ',
@@ -632,7 +631,7 @@ async function getDateSignUp() {
   if (window.innerWidth < 768) {
     startDatePicker.setAttribute('readonly', 'readonly');
     endDatePicker.setAttribute('readonly', 'readonly');
-  }
+  }*/
 }
 
 /*================================================================================================================================================================
