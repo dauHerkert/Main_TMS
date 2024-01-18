@@ -566,9 +566,9 @@ if(saveButton){
  initializeEndDatePicker function.
 ==========================================================================================================================================================*/
 
-let datepickerLocaleToUse = (storedLang === 'de') ? localeDe : localeEn;
+/*let datepickerLocaleToUse = (storedLang === 'de') ? localeDe : localeEn;
 
-/*new AirDatepicker('#Select-dates', {
+new AirDatepicker('#Select-dates', {
   selectedDates: [new Date()],
   locale: datepickerLocaleToUse
 })*/
