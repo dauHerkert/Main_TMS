@@ -24,10 +24,12 @@ import toastr from 'toastr';
       const userID = params.get('user_id');
       const userData = docSnap.data();
 
+      console.log(userData.confirmed_email);
+
       if (userID || userData.confirmed_email == "1") {
       if (docSnap.exists) {
 
-        toastr.success('user logged in: ' + user.email);
+        toastr.success('user logged in: ' + user.email + '  - ' + userData.confirmed_email);
 
         if (userData.confirmed_email == "0") {
           await updateDoc(userRef, { confirmed_email: "1" });
