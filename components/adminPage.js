@@ -1475,7 +1475,7 @@ if (delete_user_id != null || delete_user_id != 0) {
 
   setDoc(userRef, {
     user_deleted: '1',
-    confirmed_email:"false"
+    confirmed_email: false
   }, { merge: true })
     .then(() => {
       toastr.success('User succesfully deleted');
@@ -2081,7 +2081,7 @@ console.log('Updating user zones:',selectedCreateUserZonesString);
           user_status: 'Pending',
           company_admin: '0',
           basic_admin: '0',
-          confirmed_email: 'true',
+          confirmed_email: true,
           language: storedLang,
           press_form_user: '0',
           press_media: '',

@@ -370,7 +370,7 @@ function showPublicElements() {
             companies_button.setAttribute('href', '/de/signin-ptgp');
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
-            if(window.location.pathname == '/' && userData.confirmed_email != '1'){
+            if(window.location.pathname == '/' && !userData.confirmed_email){
               window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
               }else if(window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-ptgp' && window.location.pathname !== '/de/signup-ptgp' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum'){
                 window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
@@ -382,7 +382,7 @@ function showPublicElements() {
             companies_button.setAttribute('href', '/de/signin-ptgp');
             document.getElementById('signIn_button').style.display = 'block';
             document.getElementById('signUp_button').style.display = 'block';
-            if(window.location.pathname == '/' && userData.confirmed_email != '1'){
+            if(window.location.pathname == '/' && !userData.confirmed_email){
               window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
               }else if(window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-ptgp' && window.location.pathname !== '/en/signup-ptgp' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum'){
                 window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
@@ -404,9 +404,9 @@ function showPublicElements() {
             companies_button.setAttribute('href', '/de/admin/companies-table');
             document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
-            if(window.location.pathname == '/' && userData.confirmed_email != '1'){
+            if(window.location.pathname == '/' && !userData.confirmed_email){
               window.location.replace('https://tms-main.webflow.io/de/signup-form-submitted');
-              }else if(window.location.pathname == '/' && userData.confirmed_email == '1'){
+              }else if(window.location.pathname == '/' && userData.confirmed_email){
               window.location.replace('https://tms-main.webflow.io/de/account');
               }
           }else{
@@ -415,9 +415,9 @@ function showPublicElements() {
             companies_button.setAttribute('href', '/en/admin/companies-table');
             document.getElementById('signIn_button').style.display = 'none';
             document.getElementById('signUp_button').style.display = 'none';
-            if(window.location.pathname == '/' && userData.confirmed_email != '1'){
+            if(window.location.pathname == '/' && !userData.confirmed_email){
               window.location.replace('https://tms-main.webflow.io/en/signup-form-submitted');
-              }else if(window.location.pathname == '/' && userData.confirmed_email == '1'){
+              }else if(window.location.pathname == '/' && userData.confirmed_email){
               window.location.replace('https://tms-main.webflow.io/en/account');
               }
           }
@@ -427,9 +427,9 @@ function showPublicElements() {
               companies_button.setAttribute('href', '/en/admin/companies-table');
               document.getElementById('signIn_button').style.display = 'none';
               document.getElementById('signUp_button').style.display = 'none';
-              if(window.location.pathname == '/' && userData.confirmed_email != '1'){
+              if(window.location.pathname == '/' && !userData.confirmed_email){
               window.location.replace('https://tms-main.webflow.io/en/signup-form-submitted');
-              }else if(window.location.pathname == '/' && userData.confirmed_email == '1'){
+              }else if(window.location.pathname == '/' && userData.confirmed_email){
               window.location.replace('https://tms-main.webflow.io/en/account');
               }
             }

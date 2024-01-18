@@ -59,7 +59,7 @@ console.log('testing flatpickr')
       // user_status: pending | ok
       user_status:'Pending',
       // confirmed_email: false | true
-      confirmed_email:'false',
+      confirmed_email:false,
     };
 
     let storedLang = localStorage.getItem("language");

@@ -90,7 +90,7 @@ function pressFormSubmit(e) {
         user_type: '',
         user_zones: '',
         user_status: 'Pending',
-        confirmed_email: 'true',
+        confirmed_email: true,
         language: language,
         user_deleted: '0'
       }, { merge: true })

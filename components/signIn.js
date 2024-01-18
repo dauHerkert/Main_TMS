@@ -30,7 +30,7 @@ import toastr from 'toastr';
         toastr.success('user logged in: ' + user.email);
 
         if (!userData.confirmed_email) {
-          await updateDoc(userRef, { confirmed_email: "true" });
+          await updateDoc(userRef, { confirmed_email: true });
         }
 
         setTimeout(() => {
