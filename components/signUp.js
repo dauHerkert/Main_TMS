@@ -58,8 +58,8 @@ console.log('testing flatpickr')
       user_type:'',
       // user_status: pending | ok
       user_status:'Pending',
-      // confirmed_email: 0 | 1
-      confirmed_email:'0',
+      // confirmed_email: false | true
+      confirmed_email:'false',
     };
 
     let storedLang = localStorage.getItem("language");
