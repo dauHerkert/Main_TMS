@@ -46,20 +46,19 @@ console.log('testing flatpickr')
       user_city:'',
       user_country:'',
       user_nationality:'',
-      // user_is_admin: 0 | 1
-      user_is_admin:'0',
       company_admin:'0',
       basic_admin:'0',
       user_zones:'',
-      user_deleted: '0',
       // account_type: supplier | press | RSW
       account_type:'Supplier',
       //User profile
       user_type:'',
       // user_status: pending | ok
       user_status:'Pending',
-      // confirmed_email: false | true
-      confirmed_email:false,
+      // Boolean: false | true
+      confirmed_email: false,
+      user_is_admin: false,
+      user_deleted: false,
     };
 
     let storedLang = localStorage.getItem("language");

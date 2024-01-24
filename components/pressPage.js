@@ -84,7 +84,7 @@ function pressFormSubmit(e) {
         press_form_user: '1',
         user_company: 'vc5dzk77h7lqwrUQm9Ku',
         company_admin: '0',
-        user_is_admin: '0',
+        user_is_admin: false,
         basic_admin: '0',
         account_type: 'Press',
         user_type: '',
@@ -92,7 +92,7 @@ function pressFormSubmit(e) {
         user_status: 'Pending',
         confirmed_email: true,
         language: language,
-        user_deleted: '0'
+        user_deleted: false
       }, { merge: true })
       .then((docRef) => {
         const press_image = document.getElementById('press_image');

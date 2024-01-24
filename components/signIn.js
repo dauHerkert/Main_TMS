@@ -36,52 +36,52 @@ import toastr from 'toastr';
         setTimeout(() => {
           if (storedLang) {
             if (storedLang === "de") {
-               if (userData.user_is_admin === "0" && userData.company_admin == '1' && userData.basic_admin == '0') {
+               if (!userData.user_is_admin && userData.company_admin == '1' && userData.basic_admin == '0') {
                 window.location = "/de/admin/users-table";
-              } else if (userData.user_is_admin === "0" && userData.company_admin == '0' && userData.basic_admin == '1') {
+              } else if (!userData.user_is_admin && userData.company_admin == '0' && userData.basic_admin == '1') {
                 window.location = "/de/admin/users-table";
-              } else if ( userData.user_is_admin === "0" && userData.account_type == 'No company' ) {
+              } else if (!userData.user_is_admin && userData.account_type == 'No company' ) {
                 window.location = '/de/account';
-              }else if (userData.user_is_admin === "0" && userData.account_type === "Press") {
+              }else if (!userData.user_is_admin && userData.account_type === "Press") {
                 window.location = "/de/account";
-              } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
+              } else if (!userData.user_is_admin && userData.account_type === "Supplier") {
                 window.location = "/de/account";
-              }else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
+              }else if (!userData.user_is_admin && userData.account_type === "RSW") {
                 window.location = "/de/account";
-              } else if (userData.user_is_admin === "1") {
+              } else if (userData.user_is_admin) {
                 window.location = "/de/admin/users-table";
               }
             } else {
-               if (userData.user_is_admin === "0" && userData.company_admin == '1' && userData.basic_admin == '0') {
+               if (!userData.user_is_admin && userData.company_admin == '1' && userData.basic_admin == '0') {
                 window.location = "/en/admin/users-table";
-              } else if (userData.user_is_admin === "0" && userData.company_admin == '0' && userData.basic_admin == '1') {
+              } else if (!userData.user_is_admin && userData.company_admin == '0' && userData.basic_admin == '1') {
                 window.location = "/en/admin/users-table";
-              }else if ( userData.user_is_admin === "0" && userData.account_type == 'No company' ) {
+              }else if (!userData.user_is_admin && userData.account_type == 'No company' ) {
                 window.location = '/en/account';
-              }else if (userData.user_is_admin === "0" && userData.account_type === "Press") {
+              }else if (!userData.user_is_admin && userData.account_type === "Press") {
                 window.location = "/en/account";
-              } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
+              } else if (!userData.user_is_admin && userData.account_type === "Supplier") {
                 window.location = "/en/account";
-              } else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
+              } else if (!userData.user_is_admin && userData.account_type === "RSW") {
                 window.location = "/en/account";
-              } else if (userData.user_is_admin === "1") {
+              } else if (userData.user_is_admin) {
                 window.location = "/en/admin/users-table";
               }
             }
           } else {
-            if (userData.user_is_admin === "0" && userData.company_admin == '0' && userData.basic_admin == '1') {
+            if (!userData.user_is_admin && userData.company_admin == '0' && userData.basic_admin == '1') {
                 window.location = "/en/admin/users-table";
-              }else if (userData.user_is_admin === "0" && userData.company_admin == '1' && userData.basic_admin == '0') {
+              }else if (!userData.user_is_admin && userData.company_admin == '1' && userData.basic_admin == '0') {
                 window.location = "/en/admin/users-table";
-              } else if ( userData.user_is_admin === "0" && userData.account_type == 'No company' ) {
+              } else if (!userData.user_is_admin && userData.account_type == 'No company' ) {
                 window.location = '/en/account';
-              }else if (userData.user_is_admin === "0" && userData.account_type === "Press") {
+              }else if (!userData.user_is_admin && userData.account_type === "Press") {
                 window.location = "/en/account";
-              } else if (userData.user_is_admin === "0" && userData.account_type === "Supplier") {
+              } else if (!userData.user_is_admin && userData.account_type === "Supplier") {
                 window.location = "/en/account";
-              } else if (userData.user_is_admin === "0" && userData.account_type === "RSW") {
+              } else if (!userData.user_is_admin && userData.account_type === "RSW") {
                 window.location = "/en/account";
-              } else if (userData.user_is_admin === "1") {
+              } else if (userData.user_is_admin) {
                 window.location = "/en/admin/users-table";
               }
           }
@@ -89,7 +89,7 @@ import toastr from 'toastr';
       } else {
         toastr.error('user does not exist');
       }
-    }else if (userData.user_deleted === "1") {
+    }else if (userData.user_deleted) {
       if (storedLang == 'en') {
         toastr.error('Your account has been deleted.');
       } else {

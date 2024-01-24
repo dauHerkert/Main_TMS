@@ -244,7 +244,7 @@ if (window.innerWidth < 768) {
           let update_user_profile = document.getElementById('update_user_profile');
           let head_user = document.getElementById('head_user');
 
-          if(userInfo.user_is_admin == '0' && userInfo.company_admin == '1' && userInfo.basic_admin == '0'){
+          if(!userInfo.user_is_admin && userInfo.company_admin == '1' && userInfo.basic_admin == '0'){
             select_type_id.style.display = 'none';
             user_profile_company_update.style.display = 'none';
             update_user_profile.style.display = 'none';
@@ -252,7 +252,7 @@ if (window.innerWidth < 768) {
             basic_admin.style.display = 'none';
             companies_table.style.display = 'block';
             companies_table_mob.style.display = 'block';
-          }else if(userInfo.user_is_admin == '0' && userInfo.basic_admin == '1' && userInfo.company_admin == '0'){
+          }else if(!userInfo.user_is_admin && userInfo.basic_admin == '1' && userInfo.company_admin == '0'){
             select_type_id.style.display = 'none';
             user_profile_company_update.style.display = 'none';
             update_user_profile.style.display = 'none';
@@ -1474,7 +1474,7 @@ if (delete_user_id != null || delete_user_id != 0) {
   const userRef = doc(db, 'users', delete_user_id.value);
 
   setDoc(userRef, {
-    user_deleted: '1',
+    user_deleted: true,
     confirmed_email: false
   }, { merge: true })
     .then(() => {
@@ -2091,7 +2091,7 @@ console.log('Updating user zones:',selectedCreateUserZonesString);
           user_city: '',
           user_country: '',
           user_email: '',
-          user_is_admin: '0',
+          user_is_admin: false,
           user_itwa:'',
           user_nationality:'',
           user_phone:'',
@@ -2101,7 +2101,7 @@ console.log('Updating user zones:',selectedCreateUserZonesString);
           user_zones: selectedCreateUserZonesString,
           supplier_start_date: '06-24-2023',
           supplier_end_date: '07-01-2023',
-          user_deleted:'0'
+          user_deleted: false
         })
         .then((companyRef) => {
           userUploadImage(companyRef.id);
