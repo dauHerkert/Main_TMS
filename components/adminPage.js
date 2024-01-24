@@ -244,7 +244,7 @@ if (window.innerWidth < 768) {
           let update_user_profile = document.getElementById('update_user_profile');
           let head_user = document.getElementById('head_user');
 
-          if(!userInfo.user_is_admin && userInfo.company_admin == '1' && userInfo.basic_admin == '0'){
+          if(!userInfo.user_is_admin && userInfo.company_admin && !userInfo.basic_admin){
             select_type_id.style.display = 'none';
             user_profile_company_update.style.display = 'none';
             update_user_profile.style.display = 'none';
@@ -252,7 +252,7 @@ if (window.innerWidth < 768) {
             basic_admin.style.display = 'none';
             companies_table.style.display = 'block';
             companies_table_mob.style.display = 'block';
-          }else if(!userInfo.user_is_admin && userInfo.basic_admin == '1' && userInfo.company_admin == '0'){
+          }else if(!userInfo.user_is_admin && userInfo.basic_admin && !userInfo.company_admin){
             select_type_id.style.display = 'none';
             user_profile_company_update.style.display = 'none';
             update_user_profile.style.display = 'none';
@@ -348,7 +348,7 @@ if (window.innerWidth < 768) {
 
       snapshot.forEach((doc) => {
         let company = doc.data().company_name;
-        if (userInfo.company_admin == '1') {
+        if (userInfo.company_admin) {
           if (!uniqueCompanies.includes(company) && companyNames.includes(company)) {
             uniqueCompanies.push(company);
           }
@@ -662,7 +662,7 @@ getDocs(q)
     let user = doc.data();
 
     promises.push(changeCompanyNameToID(user).then(userCompanyName => {
-      if (user.user_deleted !== '1') { 
+      if (!user.user_deleted) { 
         data.push({id: doc.id, user_fullname: user.user_fullname, special_requests: user.supplier_special_request, user_itwa: user.user_itwa, press_id: user.press_card_number, press_workspot: user.press_workspot, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email: user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_start_date: user.supplier_start_date, user_end_date: user.supplier_end_date, language: user.language, name: user.user_firstname + ' ' + user.user_lastname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
       }
     }));
@@ -672,7 +672,7 @@ getDocs(q)
 .then(data => {
   // Filter and set user data for the table based on admin privileges and company
   console.log(data, 'admin', adminCompanyName);
-  table.setData((companyAdmin == '1' || basicAdmin == '1') ? data.filter(user => user.companyID && user.companyID != ' ' && user.companyID != '' && user.companyID.some(x => adminCompanyName.includes(x))) : data);
+  table.setData((companyAdmin || basicAdmin) ? data.filter(user => user.companyID && user.companyID != ' ' && user.companyID != '' && user.companyID.some(x => adminCompanyName.includes(x))) : data);
 })
 .catch(err => {
   console.log('error fetching users', err);
@@ -1016,7 +1016,7 @@ if (user_specific_id != null || user_specific_id != 0) {
 
   // Check if basic admin value is undefined
   if ( typeof basic_admin_update.value === 'undefined' || basic_admin_update.value == false ) {
-    basic_admin_update.value = 0;
+    basic_admin_update.value = false;
   }
   console.log('basic admin variable', basic_admin_update);
   console.log('basic admin value', basic_admin_update.value);
@@ -1501,7 +1501,7 @@ console.log(selectedData);
               user_status: bulk_status_update.value,
           }, { merge: true })
               .then(() => {
-                if(userData.data().press_form_user == '1'){
+                if(userData.data().press_form_user){
                 if(userData.data().user_title == 'Mr'){
                 if(bulk_status_update.value == 'Declined'){
                   if(userData.data().language == 'en'){
@@ -2079,11 +2079,11 @@ console.log('Updating user zones:',selectedCreateUserZonesString);
           user_company: newUserCompaniesString,
           user_type: new_user_profile.value,
           user_status: 'Pending',
-          company_admin: '0',
-          basic_admin: '0',
+          company_admin: false,
+          basic_admin: false,
           confirmed_email: true,
           language: storedLang,
-          press_form_user: '0',
+          press_form_user: false,
           press_media: '',
           press_media_type: '',
           press_workspot: '',

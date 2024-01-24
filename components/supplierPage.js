@@ -159,7 +159,7 @@ function updateSelectedCompanyZonesString(supplierUserZones) {
       supplier_start_date: start_date.value,
       supplier_end_date: end_date.value,
       supplier_special_request: special_request.value,
-      supplier_has_form_submitted: "1",
+      supplier_has_form_submitted: true,
       user_zones: selectedSupplierZonesString
 
     }, { merge: true })
@@ -356,14 +356,14 @@ function updateSelectedCompanyZonesString(supplierUserZones) {
 
 /*==============================================================================================================================================================
 * This function, which processes user information and manipulates the user interface on a supplier page. If the user has already submitted the supplier form
-* (supplier_has_form_submitted equals "1"), certain elements are disabled and displayed accordingly. The function retrieves the supplier start date, end date,
+* (supplier_has_form_submitted equals true), certain elements are disabled and displayed accordingly. The function retrieves the supplier start date, end date,
 * special request, and zones from the user information and updates the corresponding form fields and select options.
 ===============================================================================================================================================================*/
 async function processUserInfo() {
 const user = auth.currentUser;
 let userInfo = await getUserInfo(user);
 if (window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier') {
-  if (userInfo.supplier_has_form_submitted == "1") {
+  if (userInfo.supplier_has_form_submitted) {
     document.getElementById("Select-dates").setAttribute('disabled', "");
     document.getElementById("Select-dates-2").setAttribute('disabled', "");
     document.getElementById("supplierUserZones").setAttribute('disabled', "");

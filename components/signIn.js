@@ -36,9 +36,9 @@ import toastr from 'toastr';
         setTimeout(() => {
           if (storedLang) {
             if (storedLang === "de") {
-               if (!userData.user_is_admin && userData.company_admin == '1' && userData.basic_admin == '0') {
+               if (!userData.user_is_admin && userData.company_admin && !userData.basic_admin) {
                 window.location = "/de/admin/users-table";
-              } else if (!userData.user_is_admin && userData.company_admin == '0' && userData.basic_admin == '1') {
+              } else if (!userData.user_is_admin && !userData.company_admin && userData.basic_admin) {
                 window.location = "/de/admin/users-table";
               } else if (!userData.user_is_admin && userData.account_type == 'No company' ) {
                 window.location = '/de/account';
@@ -52,9 +52,9 @@ import toastr from 'toastr';
                 window.location = "/de/admin/users-table";
               }
             } else {
-               if (!userData.user_is_admin && userData.company_admin == '1' && userData.basic_admin == '0') {
+               if (!userData.user_is_admin && userData.company_admin && !userData.basic_admin) {
                 window.location = "/en/admin/users-table";
-              } else if (!userData.user_is_admin && userData.company_admin == '0' && userData.basic_admin == '1') {
+              } else if (!userData.user_is_admin && !userData.company_admin && userData.basic_admin) {
                 window.location = "/en/admin/users-table";
               }else if (!userData.user_is_admin && userData.account_type == 'No company' ) {
                 window.location = '/en/account';
@@ -69,9 +69,9 @@ import toastr from 'toastr';
               }
             }
           } else {
-            if (!userData.user_is_admin && userData.company_admin == '0' && userData.basic_admin == '1') {
+            if (!userData.user_is_admin && !userData.company_admin && userData.basic_admin) {
                 window.location = "/en/admin/users-table";
-              }else if (!userData.user_is_admin && userData.company_admin == '1' && userData.basic_admin == '0') {
+              }else if (!userData.user_is_admin && userData.company_admin && !userData.basic_admin) {
                 window.location = "/en/admin/users-table";
               } else if (!userData.user_is_admin && userData.account_type == 'No company' ) {
                 window.location = '/en/account';

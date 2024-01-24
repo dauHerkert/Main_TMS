@@ -17,8 +17,8 @@ console.log('testing flatpickr')
       supplier_special_request:'',
       supplier_access_zone:'',
       company_admin_petition:'',
-      // supplier_has_form_submitted: 0 | 1
-      supplier_has_form_submitted:'0',
+      // Boolean: false | true
+      supplier_has_form_submitted: false,
 
       // Press fields
       press_workspot:'',
@@ -26,16 +26,15 @@ console.log('testing flatpickr')
       press_media_type:'',
       press_visit_dates:'',
       press_special_request:'',
-      // press_has_uploaded_id: 0 | 1
-      press_has_uploaded_id:'0',
-      // press_has_form_submitted: 0 | 1
-      press_has_form_submitted:'0',
+      // Boolean: false | true
+      press_has_uploaded_id: false,
+      press_has_form_submitted: false,
+      press_form_user: false,
       //Press form info
       press_media:'',
       press_media_type:'',
       user_itwa:'',
       press_workspot:'',
-      press_form_user:'0',
       press_issued_by:'',
       press_card_number:'',
 
@@ -46,8 +45,6 @@ console.log('testing flatpickr')
       user_city:'',
       user_country:'',
       user_nationality:'',
-      company_admin:'0',
-      basic_admin:'0',
       user_zones:'',
       // account_type: supplier | press | RSW
       account_type:'Supplier',
@@ -58,6 +55,8 @@ console.log('testing flatpickr')
       // Boolean: false | true
       confirmed_email: false,
       user_is_admin: false,
+      company_admin: false,
+      basic_admin: false,
       user_deleted: false,
     };
 
