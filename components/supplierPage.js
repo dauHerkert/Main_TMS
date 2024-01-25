@@ -1,5 +1,5 @@
 import { doc, setDoc, addDoc, collection, getDownloadURL, ref, storage, db, getDocs, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions } from './ab_base';
+import { getUserInfo, createOptions, DEVEMAIL } from './ab_base';
 import toastr from 'toastr';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
@@ -309,7 +309,7 @@ function updateSelectedCompanyZonesString(supplierUserZones) {
               .then(html => html.replace('${supplier_email.value}', supplierEmail))
               .then(html => html.replace('${supplier_text.value}', supplierText));
           const docRef = addDoc(collection(db, "mail"), {
-            to: 'andreas.salvermoser@ops.dauherkert.com',
+            to: DEVEMAIL,
             message: {
               subject: supplier_en_form_changes_subject,
               html: html,
@@ -335,7 +335,7 @@ function updateSelectedCompanyZonesString(supplierUserZones) {
               .then(html => html.replace('${supplier_email.value}', supplierEmail))
               .then(html => html.replace('${supplier_text.value}', supplierText));
           const docRef = addDoc(collection(db, "mail"), {
-            to: 'andreas.salvermoser@ops.dauherkert.com',
+            to: DEVEMAIL,
             message: {
               subject: supplier_de_form_changes_subject,
               html: html,

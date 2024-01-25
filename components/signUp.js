@@ -151,15 +151,15 @@ async function getCompanyType(user) {
     userDefaultValues.user_zones = companyZones;
     let storedLang = localStorage.getItem("language");
     const admin_checkbox = jQuery('#admin_checkbox').val();
-  var company_admin_petition;
-  if ( $("#admin_checkbox").is( ":checked" ) ){
-    company_admin_petition = admin_checkbox;
-  }else{
-    company_admin_petition = "No admin";
-  }
-  console.log("company admin:", company_admin_petition)
+    var company_admin_petition;
+    if ( $("#admin_checkbox").is( ":checked" ) ){
+      company_admin_petition = admin_checkbox;
+    }else{
+      company_admin_petition = "No admin";
+    }
+    console.log("company admin:", company_admin_petition)
 
-  userDefaultValues.company_admin_petition = company_admin_petition;
+    userDefaultValues.company_admin_petition = company_admin_petition;
 
     //Save the user info in case he wants to resend the email
     sessionStorage.setItem('user_firstname', user_firstname.value);
@@ -190,47 +190,47 @@ async function getCompanyType(user) {
             const userRef = doc(db, 'users', user.uid);
             await updateDoc(userRef, { profileImagePath: newImagePath });
 
-        // Sign up - DE
+            // Sign up - DE
             if(storedLang == 'de'){
-        (async () => {
-        try {
-          const fullName = `${user_firstname.value} ${user_lastname.value}`;
-          const stored_userID = `${userID}`;
-          const html = await fetch(register_de_email_url)
-                .then(response => response.text())
-                .then(html => html.replace('${userID}', stored_userID));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: `${user.email}`,
-            message: {
-              subject: register_de_email_subject,
-              html: html,
+              (async () => {
+                try {
+                  const fullName = `${user_firstname.value} ${user_lastname.value}`;
+                  const stored_userID = `${userID}`;
+                  const html = await fetch(register_de_email_url)
+                        .then(response => response.text())
+                        .then(html => html.replace('${userID}', stored_userID));
+                  const docRef = addDoc(collection(db, "mail"), {
+                    to: `${user.email}`,
+                    message: {
+                      subject: register_de_email_subject,
+                      html: html,
+                    }
+                  });
+                } catch (error) {
+                  console.error(error);
+                }
+              })();
+            }else{
+              // Sign up - EN
+              (async () => {
+                try {
+                  const fullName = `${user_firstname.value} ${user_lastname.value}`;
+                  const stored_userID = `${userID}`;
+                  const html = await fetch(register_en_email_url)
+                        .then(response => response.text())
+                        .then(html => html.replace('${userID}', stored_userID));
+                  const docRef = addDoc(collection(db, "mail"), {
+                    to: `${user.email}`,
+                    message: {
+                      subject: register_en_email_subject,
+                      html: html,
+                    }
+                  });
+                } catch (error) {
+                  console.error(error);
+                }
+              })();
             }
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      })();
-      }else{
-        // Sign up - EN
-        (async () => {
-        try {
-          const fullName = `${user_firstname.value} ${user_lastname.value}`;
-          const stored_userID = `${userID}`;
-          const html = await fetch(register_en_email_url)
-                .then(response => response.text())
-                .then(html => html.replace('${userID}', stored_userID));
-          const docRef = addDoc(collection(db, "mail"), {
-            to: `${user.email}`,
-            message: {
-              subject: register_en_email_subject,
-              html: html,
-            }
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      })();
-      }
             if (companyProfile == 'No company'){
                 toastr.success('You are signing up with no company set');
             } else {

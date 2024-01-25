@@ -697,3 +697,9 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://tms-main.webflow.io/'){
       window.location.href = 'https://tms-main.webflow.io/en/signin-ptgp' 
     }
+
+/*===================================================================================================================================
+ * Dev variables
+ ====================================================================================================================================*/
+
+export const DEVEMAIL = 'juan.torres@dauherkert.de';

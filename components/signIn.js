@@ -52,16 +52,16 @@ import toastr from 'toastr';
           toastr.error('user does not exist');
         }
       } else if (userData.user_deleted) {
-        if (storedLang && storedLang == 'en') {
-          toastr.error('Your account has been deleted.');
-        } else {
+        if (storedLang && storedLang == 'de') {
           toastr.error('Ihr Konto wurde gelöscht.');
+        } else {
+          toastr.error('Your account has been deleted.');
         }
       } else {
-        if (storedLang && storedLang == 'en') {
-          toastr.error('Please click on the link in your email first in order to sign in.');
-        } else {
+        if (storedLang && storedLang == 'de') {
           toastr.error('Bitte klicken Sie zuerst auf den Link den sie per email erhalten haben.')
+        } else {
+          toastr.error('Please click on the link in your email first in order to sign in.');
         }
       }
     } catch (error) {

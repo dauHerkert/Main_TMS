@@ -11,16 +11,16 @@ import toastr from 'toastr';
     var storedLang = localStorage.getItem("language");
       signOut(auth).then(() => {
         setTimeout(() => {
-          toastr.error('user signed out');
+          if (storedLang && storedLang == 'de') {
+            toastr.error('Benutzer abgemeldet');
+          } else {
+            toastr.error('User signed out');
+          }
       }, 1000);
       setTimeout(() => {
-        if(storedLang){
-          if(storedLang == "de" && window.location.pathname != "/de/signin-ptgp"){
-            window.location = "/de/signin-ptgp";
-          }else{
-            window.location = "/en/signin-ptgp";
-          }
-        }else{
+        if (storedLang && storedLang == "de") {
+          window.location = "/de/signin-ptgp";
+        } else {
           window.location = "/en/signin-ptgp"; 
         }
 
