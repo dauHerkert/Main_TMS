@@ -572,7 +572,7 @@ if(company_link_form){
             .then(html => html.replace('${company_link.value}', registrationLink))
             .then(html => html.replace('${company_link_de.value}', registrationLink_de))
           const docRef = addDoc(collection(db, "mail"), {
-            to: DEVEMAIL, //to: `${email_to_send.value}`,
+            to: `${DEVEMAIL}`, //to: `${email_to_send.value}`,
             message: {
               subject: registration_link_en_email_subject,
               html:  html,
