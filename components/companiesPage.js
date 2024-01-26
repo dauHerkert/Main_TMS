@@ -1,5 +1,5 @@
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, createOptions, changeAdminTypeTitle, DEVEMAIL } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
@@ -572,7 +572,7 @@ if(company_link_form){
             .then(html => html.replace('${company_link.value}', registrationLink))
             .then(html => html.replace('${company_link_de.value}', registrationLink_de))
           const docRef = addDoc(collection(db, "mail"), {
-            to: `${DEVEMAIL}`, //to: `${email_to_send.value}`,
+            to: DEVEMAIL, //to: `${email_to_send.value}`,
             message: {
               subject: registration_link_en_email_subject,
               html:  html,
