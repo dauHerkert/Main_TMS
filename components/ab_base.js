@@ -6,7 +6,20 @@ import { pageAccount } from './accountPage';
 import { pageSupplier } from './supplierPage';
 import { pageAdmin } from './adminPage';
 import { pageCompaniesTable } from './companiesPage';
-import toastr from 'toastr'; 
+import toastr from 'toastr';
+
+/*===================================================================================================================================
+ * Dev variables and constants
+ ====================================================================================================================================*/
+
+ const PSNAME = '-ptgp'; // Project slug name
+ export const DEVEMAIL = 'juan.torres@dauherkert.de';
+ export const URLACCOUNT = '/account';
+ export const URLADMIN = '/admin/users-table';
+ export const URLSIGNIN = '/signin' + PSNAME;
+ export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
+ export const URLREGISTERTEMPLATE_EN = 'register_en_email.html';
+ export const URLREGISTERTEMPLATE_DE = 'register_de_email.html';
 
 /*==================================================================================================================================================================
  * This function retrieves the user information from the Firestore database based on the provided user parameter, which is the user object. It queries the database
@@ -697,13 +710,3 @@ if (storedLang == 'de') {
 if(window.location.href == 'https://tms-main.webflow.io/'){
       window.location.href = 'https://tms-main.webflow.io/en/signin-ptgp' 
     }
-
-/*===================================================================================================================================
- * Dev variables
- ====================================================================================================================================*/
-
-const PSNAME = '-ptgp'; // Project slug name
-export const DEVEMAIL = 'juan.torres@dauherkert.de';
-export const URLACCOUNT = '/account';
-export const URLADMIN = '/admin/users-table';
-export const URLSIGNIN = '/signin' + PSNAME;
