@@ -702,6 +702,8 @@ if(window.location.href == 'https://tms-main.webflow.io/'){
  * Dev variables
  ====================================================================================================================================*/
 
+const PSNAME = '-ptgp'; // Project slug name
 export const DEVEMAIL = 'juan.torres@dauherkert.de';
 export const URLACCOUNT = '/account';
 export const URLADMIN = '/admin/users-table';
+export const URLSIGNIN = '/signin' + PSNAME;

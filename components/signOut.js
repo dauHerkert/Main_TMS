@@ -1,38 +1,40 @@
 import {signOut,auth, user} from './a_firebaseConfig';
+import { URLSIGNIN } from './ab_base';
 import toastr from 'toastr'; 
 
 // Handle signOut
-  /*=======================================================================================================================================================
-   * Manages the user sign-out action. It uses the signOut function from Firebase Authentication to sign out the current user. Redirects the user to the
-   * "/en/signin-ptgp" page after signing out.
-  ========================================================================================================================================================*/
+/*=======================================================================================================================================================
+  * Manages the user sign-out action. It uses the signOut function from Firebase Authentication to sign out the current user. Redirects the user to the
+  * "/en/signin-ptgp" page after signing out.
+========================================================================================================================================================*/
 
-  function handleSignOut() {
-    var storedLang = localStorage.getItem("language");
-      signOut(auth).then(() => {
-        setTimeout(() => {
-          if (storedLang && storedLang == 'de') {
-            toastr.error('Benutzer abgemeldet');
-          } else {
-            toastr.error('User signed out');
-          }
-      }, 1000);
-      setTimeout(() => {
-        if (storedLang && storedLang == "de") {
-          window.location = "/de/signin-ptgp";
-        } else {
-          window.location = "/en/signin-ptgp"; 
-        }
-
-      }, 1500);
-      }).catch((error) => {
-          const errorMessage = error.message;
-          console.log(errorMessage);
-      });
+function handleSignOut() {
+  let storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
   }
 
-  /*================================================================================================================================================================
- * These event listeners listen for clicks on the sign-out buttons (signout-button and signout-button2). When clicked, they call the handleSignOut function.
+  signOut(auth).then(() => {
+    setTimeout(() => {
+      if (urlLang == '/de') {
+        toastr.error('Benutzer abgemeldet');
+      } else {
+        toastr.error('User signed out');
+      }
+  }, 1000);
+  setTimeout(() => {
+    window.location = urlLang + URLSIGNIN;
+
+  }, 1500);
+  }).catch((error) => {
+      const errorMessage = error.message;
+      console.log(errorMessage);
+  });
+}
+
+/*================================================================================================================================================================
+* These event listeners listen for clicks on the sign-out buttons (signout-button and signout-button2). When clicked, they call the handleSignOut function.
 ================================================================================================================================================================*/
 let signOutButton = document.getElementById('signout-button');
 let signOutButton2 = document.getElementById('signout-button2');
