@@ -1,4 +1,5 @@
 import {signInWithEmailAndPassword,auth,doc,db,getDoc,updateDoc, user} from './a_firebaseConfig';
+import { URLACCOUNT, URLADMIN } from './ab_base';
 import toastr from 'toastr'; 
 
 // ============ Handle singin ===============
@@ -12,10 +13,10 @@ import toastr from 'toastr';
     e.preventDefault();
     e.stopPropagation();
 
-    let storedLang = localStorage.getItem("language");
-    let urlLang = "/en";
-    if (storedLang && storedLang === "de") {
-      urlLang = "/de";
+    let storedLang = localStorage.getItem('language');
+    let urlLang = '/en';
+    if (storedLang && storedLang === 'de') {
+      urlLang = '/de';
     }
 
     const email = document.getElementById('signin-email').value;
@@ -41,9 +42,9 @@ import toastr from 'toastr';
 
           setTimeout(() => {
             if (userData.user_is_admin || userData.company_admin || userData.basic_admin) {
-              window.location = urlLang + "/admin/users-table";
+              window.location = urlLang + URLADMIN;
             } else {
-              window.location = urlLang + "/account";
+              window.location = urlLang + URLACCOUNT;
             }
           }, 1000);
         } else {

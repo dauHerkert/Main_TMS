@@ -703,3 +703,5 @@ if(window.location.href == 'https://tms-main.webflow.io/'){
  ====================================================================================================================================*/
 
 export const DEVEMAIL = 'juan.torres@dauherkert.de';
+export const URLACCOUNT = '/account';
+export const URLADMIN = '/admin/users-table';
