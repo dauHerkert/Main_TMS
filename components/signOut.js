@@ -36,9 +36,10 @@ import toastr from 'toastr';
 ================================================================================================================================================================*/
 let signOutButton = document.getElementById('signout-button');
 let signOutButton2 = document.getElementById('signout-button2');
-if(signOutButton) {
-    signOutButton.addEventListener('click', handleSignOut);
-  }
-  if(signOutButton2) {
-    signOutButton2.addEventListener('click', handleSignOut);
-  }
+
+if (signOutButton) {
+  signOutButton.addEventListener('click', handleSignOut);
+}
+if (signOutButton2) {
+  signOutButton2.addEventListener('click', handleSignOut);
+}

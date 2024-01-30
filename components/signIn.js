@@ -11,7 +11,13 @@ import toastr from 'toastr';
   async function handleSignIn(e) {
     e.preventDefault();
     e.stopPropagation();
+
     let storedLang = localStorage.getItem("language");
+    let urlLang = "/en";
+    if (storedLang && storedLang === "de") {
+      urlLang = "/de";
+    }
+
     const email = document.getElementById('signin-email').value;
     const password = document.getElementById('signin-password').value;
 
@@ -34,31 +40,23 @@ import toastr from 'toastr';
           }
 
           setTimeout(() => {
-            if (storedLang && storedLang === "de") {
-              if (userData.user_is_admin || userData.company_admin || userData.basic_admin) {
-                window.location = "/de/admin/users-table";
-              } else {
-                window.location = "/de/account";
-              }
+            if (userData.user_is_admin || userData.company_admin || userData.basic_admin) {
+              window.location = urlLang + "/admin/users-table";
             } else {
-              if (userData.user_is_admin || userData.company_admin || userData.basic_admin) {
-                window.location = "/en/admin/users-table";
-              } else {
-                window.location = "/en/account";
-              }
+              window.location = urlLang + "/account";
             }
           }, 1000);
         } else {
           toastr.error('user does not exist');
         }
       } else if (userData.user_deleted) {
-        if (storedLang && storedLang == 'de') {
+        if (urlLang == '/de') {
           toastr.error('Ihr Konto wurde gelöscht.');
         } else {
           toastr.error('Your account has been deleted.');
         }
       } else {
-        if (storedLang && storedLang == 'de') {
+        if (urlLang == '/de') {
           toastr.error('Bitte klicken Sie zuerst auf den Link den sie per email erhalten haben.')
         } else {
           toastr.error('Please click on the link in your email first in order to sign in.');
