@@ -17,13 +17,13 @@ async function resendEmail() {
   // Subject for Register email - EN
   let register_email_subject = 'Thanks for Applicating';
   // Template for Register email - EN
-  let register_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/' + URLREGISTER_EN;
+  let register_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/' + 'register_en_email.html';
 
   if (storedLang && storedLang === 'de') {
     // Subject for Register email - DE
     register_email_subject = 'Vielen Dank für Ihre Anmeldung';
     // Template for Register email - DE
-    register_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/' + URLREGISTER_DE;
+    register_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/' + 'register_de_email.html';
   }
 
   try {
