@@ -1,5 +1,5 @@
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle, URLENV, default as URLEMAILTEMPLATES, URLREGISTRATIONLINK_EN, URLREGISTRATIONLINK_DE, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL } from './ab_base';
+import { getUserInfo, createOptions, changeAdminTypeTitle, URLENV, URLEMAILTEMPLATES, URLREGISTRATIONLINK_EN, URLREGISTRATIONLINK_DE, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';

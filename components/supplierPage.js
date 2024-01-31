@@ -1,24 +1,24 @@
 import { doc, setDoc, addDoc, collection, getDownloadURL, ref, storage, db, getDocs, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, DEVEMAIL, default as URLEMAILTEMPLATES, URLSUPPLIERFORMCONFIRM_EN, URLSUPPLIERFORMCONFIRM_DE, URLSUPPLIERFORMCHANGE_EN, URLSUPPLIERFORMCHANGE_DE } from './ab_base';
+import { getUserInfo, createOptions, DEVEMAIL, URLEMAILTEMPLATES, URLSUPPLIERFORMCONFIRM_EN, URLSUPPLIERFORMCONFIRM_DE, URLSUPPLIERFORMCHANGE_EN, URLSUPPLIERFORMCHANGE_DE } from './ab_base';
 import toastr from 'toastr';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 
 // ---- SUPPLIER FORM EMAILS ----
 
-    //Supplier form submited - DE
-    const supplier_de_form_confirmation_subject = 'Vielen Dank für Ihre Anmeldung';
-    const supplier_de_form_confirmation_url = URLEMAILTEMPLATES + URLSUPPLIERFORMCONFIRM_DE;
-    //Supplier form submited - EN
-    const supplier_en_form_confirmation_subject = 'Thanks for Applicating';
-    const supplier_en_form_confirmation_url = URLEMAILTEMPLATES + URLSUPPLIERFORMCONFIRM_EN;
+//Supplier form submited - DE
+const supplier_de_form_confirmation_subject = 'Vielen Dank für Ihre Anmeldung';
+const supplier_de_form_confirmation_url = URLEMAILTEMPLATES + URLSUPPLIERFORMCONFIRM_DE;
+//Supplier form submited - EN
+const supplier_en_form_confirmation_subject = 'Thanks for Applicating';
+const supplier_en_form_confirmation_url = URLEMAILTEMPLATES + URLSUPPLIERFORMCONFIRM_EN;
 
-    //Supplier form changes notification - EN
-    const supplier_en_form_changes_subject = 'Supplier Form Changes';
-    const supplier_en_form_changes_url = URLEMAILTEMPLATES + URLSUPPLIERFORMCHANGE_EN;
-    //Supplier form changes notification - DE
-    const supplier_de_form_changes_subject = 'Änderungen im Lieferantenformular';
-    const supplier_de_form_changes_url = URLEMAILTEMPLATES + URLSUPPLIERFORMCHANGE_DE;
+//Supplier form changes notification - EN
+const supplier_en_form_changes_subject = 'Supplier Form Changes';
+const supplier_en_form_changes_url = URLEMAILTEMPLATES + URLSUPPLIERFORMCHANGE_EN;
+//Supplier form changes notification - DE
+const supplier_de_form_changes_subject = 'Änderungen im Lieferantenformular';
+const supplier_de_form_changes_url = URLEMAILTEMPLATES + URLSUPPLIERFORMCHANGE_DE;
 
 /*=======================================================================================================================================================
  * This asynchronous function initializes start and end date pickers on a webpage. It sets the minimum and maximum selectable dates, language settings,

@@ -1,5 +1,5 @@
 import {addDoc,collection,db} from './a_firebaseConfig';
-import { default as URLEMAILTEMPLATES, URLREGISTER_EN, URLREGISTER_DE } from './ab_base';
+import { URLEMAILTEMPLATES, URLREGISTER_EN, URLREGISTER_DE } from './ab_base';
 import toastr from 'toastr';
 
 // ======== Resend Register email ==========
