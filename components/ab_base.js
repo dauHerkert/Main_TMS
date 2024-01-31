@@ -99,7 +99,11 @@ async function populateForms(user) {
   const press_info = document.getElementsByClassName('press_info');
   const supplier_info = document.getElementsByClassName('supplier_info');
   let form_button = document.getElementById('form_button');
-  var storedLang = localStorage.getItem("language");
+  let storedLang = localStorage.getItem('language');
+    let urlLang = '/en';
+    if (storedLang && storedLang === 'de') {
+      urlLang = '/de';
+    }
 
   if (userInfo) {
     console.log('populateForms() userInfo', userInfo);
@@ -109,71 +113,22 @@ async function populateForms(user) {
     const companyNames = await changeCompanyNameToID(userInfo);
     userInfo.user_company_name = companyNames;
 
-    if (storedLang) {
-      if (storedLang == "de") {
-        if (userInfo.user_is_admin || userInfo.company_admin || userInfo.basic_admin) {
-          form_button.setAttribute('href', '/de/supplier');
-          document.getElementById('admin_drop').style.display = 'block';
-          document.getElementById('admin_drop_mob').style.display = 'block';
-        } else if (userInfo.account_type == "No company" && !userInfo.user_is_admin) {
-          form_button.setAttribute('href', '/de/supplier');
-        } else if (userInfo.account_type == "Supplier" && !userInfo.user_is_admin) {
-          form_button.setAttribute('href', '/de/supplier');
-        } else if (userInfo.account_type == "RSW" && !userInfo.user_is_admin) {
-          form_button.setAttribute('href', '/de/supplier');
-        } else if (userInfo.account_type == "Press" && !userInfo.user_is_admin) {
-          form_button.setAttribute('href', '/de/press');
-        } else if (!userInfo.user_is_admin && (!userInfo.company_admin || !userInfo.basic_admin)) {
-          if (window.location.pathname == '/de/users-table' || window.location.pathname == '/de/companies-table') {
-            location.replace('/de/account');
-          }
-          document.getElementById('companies_table').style.display = 'none';
-          document.getElementById('admin_drop').style.display = 'none';
-          document.getElementById('admin_drop_mob').style.display = 'none !important';
-        } else {}
-      } else {
-        if (userInfo.user_is_admin || userInfo.company_admin || userInfo.basic_admin) {
-          form_button.setAttribute('href', '/en/supplier');
-          document.getElementById('admin_drop').style.display = 'block';
-          document.getElementById('admin_drop_mob').style.display = 'block';
-        } else if (userInfo.account_type == "No company" && !userInfo.user_is_admin) {
-          form_button.setAttribute('href', '/en/supplier');
-        } else if (userInfo.account_type == "Supplier" && !userInfo.user_is_admin) {
-          form_button.setAttribute('href', '/en/supplier');
-        } else if (userInfo.account_type == "RSW" && !userInfo.user_is_admin) {
-          form_button.setAttribute('href', '/en/supplier');
-        } else if (userInfo.account_type == "Press" && !userInfo.user_is_admin) {
-          form_button.setAttribute('href', '/en/press');
-        } else if (!userInfo.user_is_admin && (!userInfo.company_admin || !userInfo.basic_admin)) {
-          if (window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table') {
-            location.replace('/en/account');
-          }
-          document.getElementById('admin_drop').style.display = 'none';
-          document.getElementById('admin_drop_mob').style.display = 'none !important';
-        } else {}
-      }
+    if (userInfo.user_is_admin || userInfo.company_admin || userInfo.basic_admin) {
+      form_button.setAttribute('href', urlLang + '/supplier');
+      document.getElementById('admin_drop').style.display = 'block';
+      document.getElementById('admin_drop_mob').style.display = 'block';
     } else {
-      if (userInfo.account_type == "No company" && !userInfo.user_is_admin) {
-        form_button.setAttribute('href', '/en/supplier');
-      } else if (userInfo.account_type == "Supplier" && !userInfo.user_is_admin) {
-        form_button.setAttribute('href', '/en/supplier');
-      } else if (userInfo.account_type == "RSW" && !userInfo.user_is_admin) {
-        form_button.setAttribute('href', '/en/supplier');
-      } else if (userInfo.account_type == "Press" && !userInfo.user_is_admin) {
-        form_button.setAttribute('href', '/en/press');
-      } else if (!userInfo.user_is_admin && (!userInfo.company_admin || !userInfo.basic_admin)) {
-        if (window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && !userInfo.company_admin) {
-          location.replace('/en/account');
-        } else if (window.location.pathname == '/en/users-table' || window.location.pathname == '/en/companies-table' && !userInfo.basic_admin) {
-          location.replace('/en/account');
-        }
-        document.getElementById('admin_drop').style.display = 'none';
-        document.getElementById('admin_drop_mob').style.display = 'none';
-      } else if (userInfo.user_is_admin || userInfo.company_admin || userInfo.basic_admin) {
-        form_button.setAttribute('href', '/en/supplier');
-        document.getElementById('admin_drop').style.display = 'block';
-        document.getElementById('admin_drop_mob').style.display = 'block';
-      } else {}
+      if (userInfo.account_type == "No company" || userInfo.account_type == "Supplier" || userInfo.account_type == "RSW") {
+        form_button.setAttribute('href', urlLang + '/supplier');
+      } else if (userInfo.account_type == "Press") {
+        form_button.setAttribute('href', urlLang + '/press');
+      }
+      if (window.location.pathname.includes('users-table') || window.location.pathname.includes('companies-table')) {
+        location.replace(urlLang + '/account');
+      }
+      document.getElementById('companies_table').style.display = 'none';
+      document.getElementById('admin_drop').style.display = 'none';
+      document.getElementById('admin_drop_mob').style.display = 'none !important';
     }
 
     if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press') {
@@ -306,9 +261,13 @@ function dispatchRequest(user) {
 ===================================================================================================================================================*/
 
 if(window.location.pathname == '/en/forgoten-password' || window.location.pathname == '/de/forgoten-password'){
-  var storedLang = localStorage.getItem("language");
   let email = document.getElementById('email_address');
   let resetPasword = document.getElementById('forgot_password');
+  let storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+  }
 
   resetPasword.addEventListener('submit', function(e){
     e.preventDefault();
@@ -321,15 +280,8 @@ if(window.location.pathname == '/en/forgoten-password' || window.location.pathna
       toastr.success('Email has been sent!');
       setTimeout(function() {
 
-        if (storedLang) {
-          if (storedLang == "de") {
-            window.location.pathname = '/de/success-email-sent';
-          } else {
-            window.location.pathname = '/en/success-email-sent';
-          }
-        } else {
-          window.location.pathname = '/en/success-email-sent';
-        }
+        window.location.pathname = urlLang + '/success-email-sent';
+
       }, 2000);
     })
     .catch((error) => {
@@ -466,11 +418,11 @@ async function replaceUrlSignOut(user) {
       //account_button.setAttribute('href', '/en/signin-ptgp');
       //users_button.setAttribute('href', '/de/signin-ptgp');
       //companies_button.setAttribute('href', '/de/signin-ptgp');
+      document.getElementById('signIn_button').style.display = 'block';
+      document.getElementById('signUp_button').style.display = 'block';
       if (window.location.pathname == '/') {
         window.location.replace(URLENV + '/en/signin-ptgp');
       }
-      document.getElementById('signIn_button').style.display = 'block';
-      document.getElementById('signUp_button').style.display = 'block';
     }
   }
 }
