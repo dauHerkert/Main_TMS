@@ -1,4 +1,3 @@
-export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
 import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged, user } from './a_firebaseConfig';
 import { signInPage } from './signIn';
 import { signUpPage } from './signUp';
@@ -53,6 +52,7 @@ export const IMAGE_PROFILE = '6453e5fbbb9ef8507179b64c_profile%20picture.png'; /
 // export const PDF_SC_2_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
 
 /* Email Templates */
+export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
 export const URLREGISTER_EN = 'register_en_email.html';
 export const URLREGISTER_DE = 'register_de_email.html';
 export const URLREGISTRATIONLINK_EN = 'registration_link_en_email.html';

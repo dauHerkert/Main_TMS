@@ -72,11 +72,11 @@ console.log('testing flatpickr')
 
     //Subject for Register email - DE
     const register_de_email_subject = 'Vielen Dank für Ihre Anmeldung';
-    const register_de_email_url = URLEMAILTEMPLATES + URLREGISTER_DE;
+    const register_de_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/' + URLREGISTER_DE;
 
      //Subject for Register email - EN
      const register_en_email_subject = 'Thanks for Applicating';
-     const register_en_email_url = URLEMAILTEMPLATES + URLREGISTER_EN;
+     const register_en_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/' + URLREGISTER_EN;
 
 /*
     * -----------------------------------------------------------------------------------------------------------
