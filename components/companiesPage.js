@@ -1,5 +1,6 @@
+import { URLENV, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL } from './a_constants';
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle, URLENV, URLEMAILTEMPLATES, URLREGISTRATIONLINK_EN, URLREGISTRATIONLINK_DE, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL } from './ab_base';
+import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
@@ -8,10 +9,10 @@ import 'select2/dist/css/select2.min.css';
  
 //Registration link email - DE
 const registration_link_de_email_subject = 'Akkreditierung Bad Homburg Open';
-const registration_link_de_email_url = URLEMAILTEMPLATES + URLREGISTRATIONLINK_DE;
+const registration_link_de_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_DE;
 //Registration link email - EN
 const registration_link_en_email_subject = 'Accreditation Bad Homburg Open';
-const registration_link_en_email_url = URLEMAILTEMPLATES + URLREGISTRATIONLINK_EN;
+const registration_link_en_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_EN;
 
 /*================================================================================================================================================================
  * This code snippet handles the functionality related to the companies table, including data retrieval, filtering, pagination, creation, updating,

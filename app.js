@@ -1,4 +1,5 @@
-import './components/a_firebaseConfig'; 
+import './components/a_constants';
+import './components/a_firebaseConfig';
 import './components/ab_base';
 import './components/signUp';
 import './components/resendSignUpEmail';
