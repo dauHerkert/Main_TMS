@@ -14,7 +14,8 @@ import toastr from 'toastr';
 
 const PSNAME = '-ptgp'; // Project slug name
 export const DEVEMAIL = 'juan.torres@dauherkert.de'; // Dev admin email
-export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
+const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
+export default URLEMAILTEMPLATES;
 
 /* Environment Domain */
 /* needs to be changed manually on register_de_email.html & register_en_email.html & storage.cors.json */

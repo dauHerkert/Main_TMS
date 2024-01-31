@@ -1,5 +1,5 @@
 import { doc, setDoc, addDoc, collection, getDownloadURL, ref, storage, db, getDocs, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, DEVEMAIL, URLEMAILTEMPLATES, URLSUPPLIERFORMCONFIRM_EN, URLSUPPLIERFORMCONFIRM_DE, URLSUPPLIERFORMCHANGE_EN, URLSUPPLIERFORMCHANGE_DE } from './ab_base';
+import { getUserInfo, createOptions, DEVEMAIL, default as URLEMAILTEMPLATES, URLSUPPLIERFORMCONFIRM_EN, URLSUPPLIERFORMCONFIRM_DE, URLSUPPLIERFORMCHANGE_EN, URLSUPPLIERFORMCHANGE_DE } from './ab_base';
 import toastr from 'toastr';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
