@@ -466,7 +466,9 @@ async function replaceUrlSignOut(user) {
       //account_button.setAttribute('href', '/en/signin-ptgp');
       //users_button.setAttribute('href', '/de/signin-ptgp');
       //companies_button.setAttribute('href', '/de/signin-ptgp');
-      window.location.replace(URLENV + '/en/signin-ptgp');
+      if (window.location.pathname == '/') {
+        window.location.replace(URLENV + '/en/signin-ptgp');
+      }
       document.getElementById('signIn_button').style.display = 'block';
       document.getElementById('signUp_button').style.display = 'block';
     }
