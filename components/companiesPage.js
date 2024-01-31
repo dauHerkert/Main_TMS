@@ -1,5 +1,5 @@
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, createOptions, changeAdminTypeTitle, URLENV, URLEMAILTEMPLATES, URLREGISTRATIONLINK_EN, URLREGISTRATIONLINK_DE } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
@@ -8,10 +8,10 @@ import 'select2/dist/css/select2.min.css';
  
 //Registration link email - DE
 const registration_link_de_email_subject = 'Akkreditierung Bad Homburg Open';
-const registration_link_de_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/registration_link_de_email.html';
+const registration_link_de_email_url = URLEMAILTEMPLATES + URLREGISTRATIONLINK_DE;
 //Registration link email - EN
 const registration_link_en_email_subject = 'Accreditation Bad Homburg Open';
-const registration_link_en_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/registration_link_en_email.html';
+const registration_link_en_email_url = URLEMAILTEMPLATES + URLREGISTRATIONLINK_EN;
 
 /*================================================================================================================================================================
  * This code snippet handles the functionality related to the companies table, including data retrieval, filtering, pagination, creation, updating,
@@ -105,7 +105,7 @@ export async function pageCompaniesTable(user){
       {title: sendLinkLabel, width:195, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
         let value = cell.getValue();
         let button = document.createElement("button");
-        button.innerHTML = `<img class="button_img" src="https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6468108d231ed90e8f74b109_Vector.png">`;
+        button.innerHTML = "<img class='button_img' src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6468108d231ed90e8f74b109_Vector.png'>";
         button.setAttribute("onclick","openModal5()");
         button.setAttribute("id","open_link_modal");
         return button;
@@ -166,8 +166,8 @@ export async function pageCompaniesTable(user){
       let data = [];
       snapshot.docs.forEach((doc) => {
         let company = doc.data();
-        let company_link_en = `https://tms-main.webflow.io/en/signup-ptgp?company=${doc.id}`;
-        let company_link_de = `https://tms-main.webflow.io/de/signup-ptgp?company=${doc.id}`; 
+        let company_link_en = `${URLENV}/en/signup-ptgp?company=${doc.id}`;
+        let company_link_de = `${URLENV}/de/signup-ptgp?company=${doc.id}`; 
         data.push({companyLink: company_link_en,companyLinkDe: company_link_de, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
         companies_table.setData(data);
       });

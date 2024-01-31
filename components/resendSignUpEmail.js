@@ -1,5 +1,5 @@
 import {addDoc,collection,db} from './a_firebaseConfig';
-import { URLEMAILTEMPLATES, URLREGISTERTEMPLATE_EN, URLREGISTERTEMPLATE_DE } from './ab_base';
+import { URLEMAILTEMPLATES, URLREGISTER_EN, URLREGISTER_DE } from './ab_base';
 import toastr from 'toastr';
 
 // ======== Resend Register email ==========
@@ -17,13 +17,13 @@ async function resendEmail() {
   // Subject for Register email - EN
   let register_email_subject = 'Thanks for Applicating';
   // Template for Register email - EN
-  let register_email_url = URLEMAILTEMPLATES + URLREGISTERTEMPLATE_EN;
+  let register_email_url = URLEMAILTEMPLATES + URLREGISTER_EN;
 
   if (storedLang && storedLang === 'de') {
     // Subject for Register email - DE
     register_email_subject = 'Vielen Dank für Ihre Anmeldung';
     // Template for Register email - DE
-    register_email_url = URLEMAILTEMPLATES + URLREGISTERTEMPLATE_DE;
+    register_email_url = URLEMAILTEMPLATES + URLREGISTER_DE;
   }
 
   try {

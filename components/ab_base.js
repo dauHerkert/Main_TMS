@@ -12,14 +12,62 @@ import toastr from 'toastr';
  * Dev variables and constants
  ====================================================================================================================================*/
 
- const PSNAME = '-ptgp'; // Project slug name
- export const DEVEMAIL = 'juan.torres@dauherkert.de';
- export const URLACCOUNT = '/account';
- export const URLADMIN = '/admin/users-table';
- export const URLSIGNIN = '/signin' + PSNAME;
- export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
- export const URLREGISTERTEMPLATE_EN = 'register_en_email.html';
- export const URLREGISTERTEMPLATE_DE = 'register_de_email.html';
+const PSNAME = '-ptgp'; // Project slug name
+export const DEVEMAIL = 'juan.torres@dauherkert.de'; // Dev admin email
+
+/* Environment Domain */
+export const URLENV = 'https://tms-main.webflow.io'; // needs to be changed manually on register_de_email.html & register_en_email.html & storage.cors.json
+
+/* URL Pages */
+export const URLACCOUNT = '/account';
+export const URLADMIN = '/admin/users-table';
+export const URLSIGNIN = '/signin' + PSNAME;
+
+/* Email Templates */
+export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
+export const URLREGISTER_EN = 'register_en_email.html';
+export const URLREGISTER_DE = 'register_de_email.html';
+export const URLREGISTRATIONLINK_EN = 'registration_link_en_email.html';
+export const URLREGISTRATIONLINK_DE = 'registration_link_de_email.html';
+
+/* Email Templates  - Press */
+export const URLMRAPPLICATIONREJECT_EN = 'press_en_mr_application_rejected.html';
+export const URLMRAPPLICATIONREJECT_DE = 'press_de_mr_application_rejected.html';
+export const URLMSAPPLICATIONREJECT_EN = 'press_en_ms_application_rejected.html';
+export const URLMSAPPLICATIONREJECT_DE = 'press_de_ms_application_rejected.html';
+export const URLDIVERSEAPPLICATIONREJECT_EN = 'press_en_diverse_application_rejected.html';
+export const URLDIVERSEAPPLICATIONREJECT_DE = 'press_de_diverse_application_rejected.html';
+
+export const URLMRAPPLICATIONACCEPT_EN = 'press_en_mr_application_accepted.html';
+export const URLMRAPPLICATIONACCEPT_DE = 'press_de_mr_application_accepted.html';
+export const URLMSAPPLICATIONACCEPT_EN = 'press_en_ms_application_accepted.html';
+export const URLMSAPPLICATIONACCEPT_DE = 'press_de_ms_application_accepted.html';
+export const URLDIVERSEAPPLICATIONACCEPT_EN = 'press_en_diverse_application_accepted.html';
+export const URLDIVERSEAPPLICATIONACCEPT_DE = 'press_de_diverse_application_accepted.html';
+
+export const URLMRMSCONFIRMEMAIL_EN = 'form_en_mr_ms_confirmation_form_to_admin.html';
+export const URLMRCONFIRMEMAIL_DE = 'form_de_mr_confirmation_email_to_admin.html';
+export const URLMSCONFIRMEMAIL_DE = 'form_de_ms_confirmation_email_to_admin.html';
+export const URLDIVERSECONFIRMEMAIL_EN = 'form_en_diverse_confirmation_form_to_admin.html';
+export const URLDIVERSECONFIRMEMAIL_DE = 'form_de_diverse_confirmation_email_to_admin.html';
+
+export const URLMRMSAPPLICATIONRECEIVED_EN = 'press_en_mr_ms_application_received.html';
+export const URLMRAPPLICATIONRECEIVED_DE = 'press_de_mr_application_received.html';
+export const URLMSAPPLICATIONRECEIVED_DE = 'press_de_ms_application_received.html';
+export const URLDIVERSEAPPLICATIONRECEIVED_EN = 'press_en_diverse_application_received.html';
+export const URLDIVERSEAPPLICATIONRECEIVED_DE = 'press_de_diverse_application_received.html';
+
+/* Email Templates  - Supplier */
+export const URLSUPPLIERAPPLICATIONREJECT_EN = 'supplier_en_application_rejected.html';
+export const URLSUPPLIERAPPLICATIONREJECT_DE = 'supplier_de_application_rejected.html';
+
+export const URLSUPPLIERAPPLICATIONACCEPT_EN = 'supplier_en_application_accepted.html';
+export const URLSUPPLIERAPPLICATIONACCEPT_DE = 'supplier_de_application_accepted.html';
+
+export const URLSUPPLIERFORMCONFIRM_EN = 'supplier_en_form_confirmation.html';
+export const URLSUPPLIERFORMCONFIRM_DE = 'supplier_de_form_confirmation.html';
+export const URLSUPPLIERFORMCHANGE_EN = 'supplier_en_form_changes.html';
+export const URLSUPPLIERFORMCHANGE_DE = 'supplier_de_form_changes.html';
 
 /*==================================================================================================================================================================
  * This function retrieves the user information from the Firestore database based on the provided user parameter, which is the user object. It queries the database
@@ -342,7 +390,7 @@ if(window.location.pathname == '/en/forgoten-password' || window.location.pathna
         } else {
           window.location.pathname = '/en/success-email-sent';
         }
-            }, 2000);
+      }, 2000);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -383,9 +431,9 @@ async function replaceUrl(user) {
         document.getElementById('signIn_button').style.display = 'block';
         document.getElementById('signUp_button').style.display = 'block';
         if (window.location.pathname == '/' && !userData.confirmed_email) {
-          window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
+          window.location.replace(URLENV + '/de/signin-ptgp');
         } else if (window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-ptgp' && window.location.pathname !== '/de/signup-ptgp' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum') {
-          window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
+          window.location.replace(URLENV + '/de/signin-ptgp');
         }
       } else {
         form_button.setAttribute('href', '/en/signin-ptgp');
@@ -395,9 +443,9 @@ async function replaceUrl(user) {
         document.getElementById('signIn_button').style.display = 'block';
         document.getElementById('signUp_button').style.display = 'block';
         if (window.location.pathname == '/' && !userData.confirmed_email) {
-          window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
+          window.location.replace(URLENV + '/en/signin-ptgp');
         } else if (window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-ptgp' && window.location.pathname !== '/en/signup-ptgp' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum') {
-          window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
+          window.location.replace(URLENV + '/en/signin-ptgp');
         }
       }
     } else {
@@ -417,9 +465,9 @@ async function replaceUrl(user) {
         document.getElementById('signIn_button').style.display = 'none';
         document.getElementById('signUp_button').style.display = 'none';
         if (window.location.pathname == '/' && !userData.confirmed_email) {
-          window.location.replace('https://tms-main.webflow.io/de/signup-form-submitted');
+          window.location.replace(URLENV + '/de/signup-form-submitted');
         } else if (window.location.pathname == '/' && userData.confirmed_email) {
-          window.location.replace('https://tms-main.webflow.io/de/account');
+          window.location.replace(URLENV + '/de/account');
         }
       } else {
         account_button.setAttribute('href', '/en/account');
@@ -428,9 +476,9 @@ async function replaceUrl(user) {
         document.getElementById('signIn_button').style.display = 'none';
         document.getElementById('signUp_button').style.display = 'none';
         if (window.location.pathname == '/' && !userData.confirmed_email) {
-          window.location.replace('https://tms-main.webflow.io/en/signup-form-submitted');
+          window.location.replace(URLENV + '/en/signup-form-submitted');
         } else if (window.location.pathname == '/' && userData.confirmed_email) {
-          window.location.replace('https://tms-main.webflow.io/en/account');
+          window.location.replace(URLENV + '/en/account');
         }
       }
     } else {
@@ -440,9 +488,9 @@ async function replaceUrl(user) {
       document.getElementById('signIn_button').style.display = 'none';
       document.getElementById('signUp_button').style.display = 'none';
       if (window.location.pathname == '/' && !userData.confirmed_email) {
-        window.location.replace('https://tms-main.webflow.io/en/signup-form-submitted');
+        window.location.replace(URLENV + '/en/signup-form-submitted');
       } else if (window.location.pathname == '/' && userData.confirmed_email) {
-        window.location.replace('https://tms-main.webflow.io/en/account');
+        window.location.replace(URLENV + '/en/account');
       }
     }
   }
@@ -460,17 +508,17 @@ async function replaceUrlSignOut(user) {
         document.getElementById('signIn_button').style.display = 'block';
         document.getElementById('signUp_button').style.display = 'block';
         if (window.location.pathname == '/') {
-          window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
+          window.location.replace(URLENV + '/de/signin-ptgp');
         } else if (window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-ptgp' && window.location.pathname !== '/de/signup-ptgp' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum') {
-          window.location.replace('https://tms-main.webflow.io/de/signin-ptgp');
+          window.location.replace(URLENV + '/de/signin-ptgp');
         }
       } else {
         document.getElementById('signIn_button').style.display = 'block';
         document.getElementById('signUp_button').style.display = 'block';
         if (window.location.pathname == '/') {
-          window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
+          window.location.replace(URLENV + '/en/signin-ptgp');
         } else if (window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-ptgp' && window.location.pathname !== '/en/signup-ptgp' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum') {
-          window.location.replace('https://tms-main.webflow.io/en/signin-ptgp');
+          window.location.replace(URLENV + '/en/signin-ptgp');
         }
       }
     } else {
@@ -706,6 +754,6 @@ if (storedLang == 'de') {
  * This function redirects from the "Home page" to the "Sign-in page"
  ====================================================================================================================================*/
 
-if(window.location.href == 'https://tms-main.webflow.io/'){
-  window.location.href = 'https://tms-main.webflow.io/en/signin-ptgp' 
+if(window.location.href == URLENV){
+  window.location.href = URLENV + '/en/signin-ptgp' 
 }

@@ -1,5 +1,5 @@
 import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, createOptions, changeAdminTypeTitle, URLEMAILTEMPLATES, URLMRAPPLICATIONREJECT_EN, URLMRAPPLICATIONREJECT_DE, URLMSAPPLICATIONREJECT_EN, URLMSAPPLICATIONREJECT_DE, URLDIVERSEAPPLICATIONREJECT_EN, URLDIVERSEAPPLICATIONREJECT_DE, URLSUPPLIERAPPLICATIONREJECT_EN, URLSUPPLIERAPPLICATIONREJECT_DE, URLMRAPPLICATIONACCEPT_EN, URLMRAPPLICATIONACCEPT_DE, URLMSAPPLICATIONACCEPT_EN, URLMSAPPLICATIONACCEPT_DE, URLDIVERSEAPPLICATIONACCEPT_EN, URLDIVERSEAPPLICATIONACCEPT_DE, URLSUPPLIERAPPLICATIONACCEPT_EN, URLSUPPLIERAPPLICATIONACCEPT_DE } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
@@ -20,41 +20,41 @@ console.log('test fetch')
     const press_en_application_rejected_subject = 'Accreditation Rejection';
     const press_de_application_rejected_subject = 'Akkreditierungsabsage';
     // Press - EN - Mr - Application rejected
-    const press_en_mr_application_rejected_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_mr_application_rejected.html';
+    const press_en_mr_application_rejected_url = URLEMAILTEMPLATES + URLMRAPPLICATIONREJECT_EN;
     // Press - DE - Mr - Application rejected
-    const press_de_mr_application_rejected_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_mr_application_rejected.html';
+    const press_de_mr_application_rejected_url = URLEMAILTEMPLATES + URLMRAPPLICATIONREJECT_DE;
     // Press - EN - Ms - Application rejected
-    const press_en_ms_application_rejected_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_ms_application_rejected.html';
+    const press_en_ms_application_rejected_url = URLEMAILTEMPLATES + URLMSAPPLICATIONREJECT_EN;
     // Press - DE - Ms - Application rejected
-    const press_de_ms_application_rejected_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_ms_application_rejected.html';
+    const press_de_ms_application_rejected_url = URLEMAILTEMPLATES + URLMSAPPLICATIONREJECT_DE;
      // Press - EN - Diverse - Application rejected
-    const press_en_diverse_application_rejected_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_diverse_application_rejected.html';
+    const press_en_diverse_application_rejected_url = URLEMAILTEMPLATES + URLDIVERSEAPPLICATIONREJECT_EN;
     // Press - DE - Diverse - Application rejected
-    const press_de_diverse_application_rejected_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_diverse_application_rejected.html';
+    const press_de_diverse_application_rejected_url = URLEMAILTEMPLATES + URLDIVERSEAPPLICATIONREJECT_DE;
     // Supplier - EN - Application rejected
-    const supplier_en_application_rejected_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/supplier_en_application_rejected.html';
+    const supplier_en_application_rejected_url = URLEMAILTEMPLATES + URLSUPPLIERAPPLICATIONREJECT_EN;
     // Supplier - DE - Application rejected
-    const supplier_de_application_rejected_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/supplier_de_application_rejected.html';
+    const supplier_de_application_rejected_url = URLEMAILTEMPLATES + URLSUPPLIERAPPLICATIONREJECT_DE;
 
     // Application accepted - Subjects
     const press_en_application_accepted_subject = 'Accreditation Confirmation';
     const press_de_application_accepted_subject = 'Akkreditierungsbestätigung';
     // Press - EN - Mr - Application accepted
-    const press_en_mr_application_accepted_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_mr_application_accepted.html';
+    const press_en_mr_application_accepted_url = URLEMAILTEMPLATES + URLMRAPPLICATIONACCEPT_EN;
     // Press - DE - Mr - Application accepted
-    const press_de_mr_application_accepted_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_mr_application_accepted.html';
+    const press_de_mr_application_accepted_url = URLEMAILTEMPLATES + URLMRAPPLICATIONACCEPT_DE;
     // Press - EN - Ms - Application accepted
-    const press_en_ms_application_accepted_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_ms_application_accepted.html';
+    const press_en_ms_application_accepted_url = URLEMAILTEMPLATES + URLMSAPPLICATIONACCEPT_EN;
     // Press - DE - Ms - Application accepted
-    const press_de_ms_application_accepted_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_ms_application_accepted.html';
+    const press_de_ms_application_accepted_url = URLEMAILTEMPLATES + URLMSAPPLICATIONACCEPT_DE;
     // Press - EN - Diverse - Application accepted
-    const press_en_diverse_application_accepted_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_diverse_application_accepted.html';
+    const press_en_diverse_application_accepted_url = URLEMAILTEMPLATES + URLDIVERSEAPPLICATIONACCEPT_EN;
     // Press - DE - Diverse - Application accepted
-    const press_de_diverse_application_accepted_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_diverse_application_accepted.html';
+    const press_de_diverse_application_accepted_url = URLEMAILTEMPLATES + URLDIVERSEAPPLICATIONACCEPT_DE;
     // Supplier - EN - Application accepted
-    const supplier_en_application_accepted_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/supplier_en_application_accepted.html';
+    const supplier_en_application_accepted_url = URLEMAILTEMPLATES + URLSUPPLIERAPPLICATIONACCEPT_EN;
     // Supplier - DE - Application accepted
-    const supplier_de_application_accepted_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/supplier_de_application_accepted.html';
+    const supplier_de_application_accepted_url = URLEMAILTEMPLATES + URLSUPPLIERAPPLICATIONACCEPT_DE;
 
     /*=============================================================================================================================================================
  * The provided code is part of the pageAdmin function, which handles date selection and user interface manipulation on an admin page. The first block of

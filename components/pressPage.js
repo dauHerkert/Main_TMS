@@ -1,5 +1,5 @@
 import { addDoc, collection, ref, uploadBytes, db, storage, user } from './a_firebaseConfig';
-import { DEVEMAIL } from './ab_base';
+import { DEVEMAIL, URLEMAILTEMPLATES, URLMRCONFIRMEMAIL_DE, URLMSCONFIRMEMAIL_DE, URLDIVERSECONFIRMEMAIL_DE, URLMRAPPLICATIONRECEIVED_DE, URLMSAPPLICATIONRECEIVED_DE, URLDIVERSEAPPLICATIONRECEIVED_DE, URLMRMSCONFIRMEMAIL_EN, URLMRMSAPPLICATIONRECEIVED_EN, URLDIVERSECONFIRMEMAIL_EN, URLDIVERSEAPPLICATIONRECEIVED_EN } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 
@@ -8,24 +8,24 @@ import toastr from 'toastr';
 //Subject for press - DE - application received
 const press_de_application_received_subject = 'Antrag Eingegangen';
 //URLs for press - DE - Mr - application received
-const form_de_mr_confirmation_email_to_admin_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/form_de_mr_confirmation_email_to_admin.html';
-const press_de_mr_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_mr_application_received.html';
+const form_de_mr_confirmation_email_to_admin_url = URLEMAILTEMPLATES + URLMRCONFIRMEMAIL_DE;
+const press_de_mr_application_received_url = URLEMAILTEMPLATES + URLMRAPPLICATIONRECEIVED_DE;
 //URLs for press - DE - Ms - application received
-const form_de_ms_confirmation_email_to_admin_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/form_de_ms_confirmation_email_to_admin.html';
-const press_de_ms_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_ms_application_received.html';
+const form_de_ms_confirmation_email_to_admin_url = URLEMAILTEMPLATES + URLMSCONFIRMEMAIL_DE;
+const press_de_ms_application_received_url = URLEMAILTEMPLATES + URLMSAPPLICATIONRECEIVED_DE;
 //URLs for press - DE - Diverse - application received
-const form_de_diverse_confirmation_email_to_admin_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/form_de_diverse_confirmation_email_to_admin.html';
-const press_de_diverse_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_de_diverse_application_received.html';
+const form_de_diverse_confirmation_email_to_admin_url = URLEMAILTEMPLATES + URLDIVERSECONFIRMEMAIL_DE;
+const press_de_diverse_application_received_url = URLEMAILTEMPLATES + URLDIVERSEAPPLICATIONRECEIVED_DE;
 
 //Subject for press - EN - application received
 const press_en_application_received_subject_admin = 'New Press Form Submited';
 const press_en_application_received_subject = 'Application recieved'
 //URLs for press - EN - Mr - Ms - application received
-const form_en_mr_ms_confirmation_form_to_admin_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/form_en_mr_ms_confirmation_form_to_admin.html';
-const press_en_mr_ms_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_mr_ms_application_received.html';
+const form_en_mr_ms_confirmation_form_to_admin_url = URLEMAILTEMPLATES + URLMRMSCONFIRMEMAIL_EN;
+const press_en_mr_ms_application_received_url = URLEMAILTEMPLATES + URLMRMSAPPLICATIONRECEIVED_EN;
 //URLs for press - EN - Diverse - application received
-const form_en_diverse_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/form_en_diverse_confirmation_form_to_admin.html';
-const press_en_diverse_application_received_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/press_en_diverse_application_received.html';
+const form_en_diverse_application_received_url = URLEMAILTEMPLATES + URLDIVERSECONFIRMEMAIL_EN;
+const press_en_diverse_application_received_url = URLEMAILTEMPLATES + URLDIVERSEAPPLICATIONRECEIVED_EN;
 
 var storedLang = localStorage.getItem("language");
 

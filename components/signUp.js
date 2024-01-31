@@ -1,7 +1,7 @@
 import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL,uploadBytes,deleteObject,createUserWithEmailAndPassword,auth,storage,db, user} from './a_firebaseConfig';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
-import { getUserInfo } from './ab_base';
+import { getUserInfo, URLEMAILTEMPLATES, URLREGISTER_EN, URLREGISTER_DE } from './ab_base';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 import flatpickr from "flatpickr";
@@ -72,11 +72,11 @@ console.log('testing flatpickr')
 
     //Subject for Register email - DE
     const register_de_email_subject = 'Vielen Dank für Ihre Anmeldung';
-    const register_de_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/register_de_email.html';
+    const register_de_email_url = URLEMAILTEMPLATES + URLREGISTER_DE;
 
      //Subject for Register email - EN
      const register_en_email_subject = 'Thanks for Applicating';
-     const register_en_email_url = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/register_en_email.html';
+     const register_en_email_url = URLEMAILTEMPLATES + URLREGISTER_EN;
 
 /*
     * -----------------------------------------------------------------------------------------------------------
