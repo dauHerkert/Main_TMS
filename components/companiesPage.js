@@ -1,5 +1,5 @@
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle, URLENV, URLEMAILTEMPLATES, URLREGISTRATIONLINK_EN, URLREGISTRATIONLINK_DE } from './ab_base';
+import { getUserInfo, createOptions, changeAdminTypeTitle, URLENV, URLEMAILTEMPLATES, URLREGISTRATIONLINK_EN, URLREGISTRATIONLINK_DE, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
@@ -105,7 +105,7 @@ export async function pageCompaniesTable(user){
       {title: sendLinkLabel, width:195, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
         let value = cell.getValue();
         let button = document.createElement("button");
-        button.innerHTML = "<img class='button_img' src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6468108d231ed90e8f74b109_Vector.png'>";
+        button.innerHTML = "<img class='button_img' src='" + URLASSETS + ICON_SENDMAIL + "'>";
         button.setAttribute("onclick","openModal5()");
         button.setAttribute("id","open_link_modal");
         return button;
@@ -116,12 +116,12 @@ export async function pageCompaniesTable(user){
         buttonContainer.setAttribute("class","actionBtnContainer");
 
         let editButton = document.createElement("button");
-        editButton.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462983e76b4d1ee3ac14cd1_pencil-alt.png' alt='Edit'/>";
+        editButton.innerHTML = "<img src='" + URLASSETS + ICON_PENCIL + "' alt='Edit'/>";
         editButton.setAttribute("onclick", "openModal2()");
         editButton.setAttribute("id", "open_companies_modal");
 
         let deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462e184b518709fa4ff5fe6_trash.png' alt='Delete'/>";
+        deleteButton.innerHTML = "<img src='" + URLASSETS + ICON_TRASH + "' alt='Delete'/>";
         deleteButton.setAttribute("onclick", "deleteCompany()");
 
         buttonContainer.appendChild(editButton);

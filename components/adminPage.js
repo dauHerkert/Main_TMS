@@ -1,5 +1,5 @@
 import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle, URLEMAILTEMPLATES, URLMRAPPLICATIONREJECT_EN, URLMRAPPLICATIONREJECT_DE, URLMSAPPLICATIONREJECT_EN, URLMSAPPLICATIONREJECT_DE, URLDIVERSEAPPLICATIONREJECT_EN, URLDIVERSEAPPLICATIONREJECT_DE, URLSUPPLIERAPPLICATIONREJECT_EN, URLSUPPLIERAPPLICATIONREJECT_DE, URLMRAPPLICATIONACCEPT_EN, URLMRAPPLICATIONACCEPT_DE, URLMSAPPLICATIONACCEPT_EN, URLMSAPPLICATIONACCEPT_DE, URLDIVERSEAPPLICATIONACCEPT_EN, URLDIVERSEAPPLICATIONACCEPT_DE, URLSUPPLIERAPPLICATIONACCEPT_EN, URLSUPPLIERAPPLICATIONACCEPT_DE } from './ab_base';
+import { getUserInfo, createOptions, changeAdminTypeTitle, URLEMAILTEMPLATES, URLMRAPPLICATIONREJECT_EN, URLMRAPPLICATIONREJECT_DE, URLMSAPPLICATIONREJECT_EN, URLMSAPPLICATIONREJECT_DE, URLDIVERSEAPPLICATIONREJECT_EN, URLDIVERSEAPPLICATIONREJECT_DE, URLSUPPLIERAPPLICATIONREJECT_EN, URLSUPPLIERAPPLICATIONREJECT_DE, URLMRAPPLICATIONACCEPT_EN, URLMRAPPLICATIONACCEPT_DE, URLMSAPPLICATIONACCEPT_EN, URLMSAPPLICATIONACCEPT_DE, URLDIVERSEAPPLICATIONACCEPT_EN, URLDIVERSEAPPLICATIONACCEPT_DE, URLSUPPLIERAPPLICATIONACCEPT_EN, URLSUPPLIERAPPLICATIONACCEPT_DE, URLASSETS, ICON_PENCIL, ICON_TRAS, IMAGE_PROFILE } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
@@ -469,12 +469,12 @@ if (window.innerWidth < 768) {
               let button1 = document.createElement("button");
               button1.setAttribute("onclick","openModal()");
               button1.setAttribute("id","open_modal_btn");
-              button1.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462983e76b4d1ee3ac14cd1_pencil-alt.png' alt='Edit'/>";
+              button1.innerHTML = "<img src='" + URLASSETS + ICON_PENCIL + "' alt='Edit'/>";
               // Create second button
               let button2 = document.createElement("button");
               button2.setAttribute("onclick","openModal10()");
               button2.setAttribute("id","delete_btn");
-              button2.innerHTML = "<img src='https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6462e184b518709fa4ff5fe6_trash.png' alt='Delete'/>";
+              button2.innerHTML = "<img src='" + URLASSETS + ICON_TRASH + "' alt='Delete'/>";
               // Create a div to contain the buttons
               let buttonContainer = document.createElement("div");
               buttonContainer.appendChild(button1);
@@ -812,7 +812,7 @@ let row = event.target.closest('.tabulator-row');
 const img = document.getElementById('specific_user_img');
 let idCell = row.querySelector('div[tabulator-field="id"]');
 
-img.setAttribute('src', 'https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/6453e5fbbb9ef8507179b64c_profile%20picture.png');
+img.setAttribute('src', URLASSETS + IMAGE_PROFILE);
 
 getDownloadURL(ref(storage, `profiles/${idCell.textContent}`))
 .then((url) => {
