@@ -9,94 +9,6 @@ import { pageAdmin } from './adminPage';
 import { pageCompaniesTable } from './companiesPage';
 import toastr from 'toastr';
 
-/*===================================================================================================================================
- * Dev variables and constants
- ====================================================================================================================================*/
-
-//const PSNAME = '-ptgp'; // Project slug name
-//export const DEVEMAIL = 'juan.torres@dauherkert.de'; // Dev admin email
-
-/* Environment Domain */
-/* needs to be changed manually on register_de_email.html & register_en_email.html & storage.cors.json */
-/* TODO: Check if it can be centralized also in the above mentioned pages. */
-//export const URLENV = 'https://tms-main.webflow.io';
-
-/* URL Pages */
-//export const URLACCOUNT = '/account';
-//export const URLADMIN = '/admin/users-table';
-//export const URLSIGNIN = '/signin' + PSNAME;
-
-/* URL Webflow Assets for Images and Icons */
-/* must be changed manually in each email template, where the respective asset is used */
-/* TODO: Check if it can be centralized also in the above mentioned pages. */
-//export const URLASSETS = 'https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/';
-/* ASSETS - Icons */
-//export const ICON_LOGOUT = '6453e5fbbb9ef8cc1279b64a_logout_icon.svg';
-//export const ICON_PENCIL = '6462983e76b4d1ee3ac14cd1_pencil-alt.png';
-//export const ICON_TRASH = '6462e184b518709fa4ff5fe6_trash.png';
-//export const ICON_SENDMAIL = '6468108d231ed90e8f74b109_Vector.png'; // Send Email icon
-/* ASSETS - Images */
-//export const IMAGE_PROFILE = '6453e5fbbb9ef8507179b64c_profile%20picture.png'; // FallBack Profile Picture
-/* ASSETS - Images - used in email templates */
-/* TODO: Check if it can be centralized also in the above mentioned pages. */
-//export const IMAGE_LOGO_1 = '646cfb757ce45f61d4ce8927_Color%3DDefault.png';
-//export const IMAGE_LOGO_2 = '646cfb750cadf08ca3047b91_Color%3DDefault%20(1).png';
-
-/* ASSETS - PDF - used in email templates supplier_de_form_confirmation.html */
-/* TODO: Check if it can be centralized also in the above mentioned pages. */
-// export const PDF_SC_1_DE = 'https://assets.website-files.com/63388d26d610dba24046d36b/641188f76e881ce3c3ea9ffb_EWE_PTGP_2023_DE.pdf';
-// export const PDF_SC_2_DE = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
-
-/* ASSETS - PDF - used in email templates supplier_en_form_confirmation.html */
-/* TODO: Check if it can be centralized also in the above mentioned pages. */
-// export const PDF_SC_1_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641188f7675e5b11e5e0a934_EWE_PTGP_2023_EN.pdf';
-// export const PDF_SC_2_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
-
-/* Email Templates 
-export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
-export const URLREGISTER_EN = 'register_en_email.html';
-export const URLREGISTER_DE = 'register_de_email.html';
-export const URLREGISTRATIONLINK_EN = 'registration_link_en_email.html';
-export const URLREGISTRATIONLINK_DE = 'registration_link_de_email.html';
-
-export const URLMRAPPLICATIONREJECT_EN = 'press_en_mr_application_rejected.html';
-export const URLMRAPPLICATIONREJECT_DE = 'press_de_mr_application_rejected.html';
-export const URLMSAPPLICATIONREJECT_EN = 'press_en_ms_application_rejected.html';
-export const URLMSAPPLICATIONREJECT_DE = 'press_de_ms_application_rejected.html';
-export const URLDIVERSEAPPLICATIONREJECT_EN = 'press_en_diverse_application_rejected.html';
-export const URLDIVERSEAPPLICATIONREJECT_DE = 'press_de_diverse_application_rejected.html';
-
-export const URLMRAPPLICATIONACCEPT_EN = 'press_en_mr_application_accepted.html';
-export const URLMRAPPLICATIONACCEPT_DE = 'press_de_mr_application_accepted.html';
-export const URLMSAPPLICATIONACCEPT_EN = 'press_en_ms_application_accepted.html';
-export const URLMSAPPLICATIONACCEPT_DE = 'press_de_ms_application_accepted.html';
-export const URLDIVERSEAPPLICATIONACCEPT_EN = 'press_en_diverse_application_accepted.html';
-export const URLDIVERSEAPPLICATIONACCEPT_DE = 'press_de_diverse_application_accepted.html';
-
-export const URLMRMSCONFIRMEMAIL_EN = 'form_en_mr_ms_confirmation_form_to_admin.html';
-export const URLMRCONFIRMEMAIL_DE = 'form_de_mr_confirmation_email_to_admin.html';
-export const URLMSCONFIRMEMAIL_DE = 'form_de_ms_confirmation_email_to_admin.html';
-export const URLDIVERSECONFIRMEMAIL_EN = 'form_en_diverse_confirmation_form_to_admin.html';
-export const URLDIVERSECONFIRMEMAIL_DE = 'form_de_diverse_confirmation_email_to_admin.html';
-
-export const URLMRMSAPPLICATIONRECEIVED_EN = 'press_en_mr_ms_application_received.html';
-export const URLMRAPPLICATIONRECEIVED_DE = 'press_de_mr_application_received.html';
-export const URLMSAPPLICATIONRECEIVED_DE = 'press_de_ms_application_received.html';
-export const URLDIVERSEAPPLICATIONRECEIVED_EN = 'press_en_diverse_application_received.html';
-export const URLDIVERSEAPPLICATIONRECEIVED_DE = 'press_de_diverse_application_received.html';
-
-export const URLSUPPLIERAPPLICATIONREJECT_EN = 'supplier_en_application_rejected.html';
-export const URLSUPPLIERAPPLICATIONREJECT_DE = 'supplier_de_application_rejected.html';
-
-export const URLSUPPLIERAPPLICATIONACCEPT_EN = 'supplier_en_application_accepted.html';
-export const URLSUPPLIERAPPLICATIONACCEPT_DE = 'supplier_de_application_accepted.html';
-
-export const URLSUPPLIERFORMCONFIRM_EN = 'supplier_en_form_confirmation.html';
-export const URLSUPPLIERFORMCONFIRM_DE = 'supplier_de_form_confirmation.html';
-export const URLSUPPLIERFORMCHANGE_EN = 'supplier_en_form_changes.html';
-export const URLSUPPLIERFORMCHANGE_DE = 'supplier_de_form_changes.html';
-*/
-
 /*==================================================================================================================================================================
  * This function retrieves the user information from the Firestore database based on the provided user parameter, which is the user object. It queries the database
  * using the user's UID and returns the corresponding user data if it exists. Otherwise, it displays an error message using Toastr.
@@ -550,10 +462,11 @@ async function replaceUrlSignOut(user) {
         }
       }
     } else {
-      form_button.setAttribute('href', '/en/signin-ptgp');
-      account_button.setAttribute('href', '/en/signin-ptgp');
-      users_button.setAttribute('href', '/de/signin-ptgp');
-      companies_button.setAttribute('href', '/de/signin-ptgp');
+      //form_button.setAttribute('href', '/en/signin-ptgp');
+      //account_button.setAttribute('href', '/en/signin-ptgp');
+      //users_button.setAttribute('href', '/de/signin-ptgp');
+      //companies_button.setAttribute('href', '/de/signin-ptgp');
+      window.location.replace(URLENV + '/en/signin-ptgp');
       document.getElementById('signIn_button').style.display = 'block';
       document.getElementById('signUp_button').style.display = 'block';
     }
