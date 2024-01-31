@@ -14,6 +14,7 @@ import toastr from 'toastr';
 
 const PSNAME = '-ptgp'; // Project slug name
 export const DEVEMAIL = 'juan.torres@dauherkert.de'; // Dev admin email
+export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
 
 /* Environment Domain */
 /* needs to be changed manually on register_de_email.html & register_en_email.html & storage.cors.json */
@@ -38,24 +39,20 @@ export const ICON_SENDMAIL = '6468108d231ed90e8f74b109_Vector.png'; // Send Emai
 export const IMAGE_PROFILE = '6453e5fbbb9ef8507179b64c_profile%20picture.png'; // FallBack Profile Picture
 /* ASSETS - Images - used in email templates */
 /* TODO: Check if it can be centralized also in the above mentioned pages. */
-/* export const IMAGE_LOGO_1 = '646cfb757ce45f61d4ce8927_Color%3DDefault.png';
-export const IMAGE_LOGO_2 = '646cfb750cadf08ca3047b91_Color%3DDefault%20(1).png';
-*/
+//export const IMAGE_LOGO_1 = '646cfb757ce45f61d4ce8927_Color%3DDefault.png';
+//export const IMAGE_LOGO_2 = '646cfb750cadf08ca3047b91_Color%3DDefault%20(1).png';
 
 /* ASSETS - PDF - used in email templates supplier_de_form_confirmation.html */
 /* TODO: Check if it can be centralized also in the above mentioned pages. */
-/* export const PDF_SC_1_DE = 'https://assets.website-files.com/63388d26d610dba24046d36b/641188f76e881ce3c3ea9ffb_EWE_PTGP_2023_DE.pdf';
-export const PDF_SC_2_DE = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
-*/
+// export const PDF_SC_1_DE = 'https://assets.website-files.com/63388d26d610dba24046d36b/641188f76e881ce3c3ea9ffb_EWE_PTGP_2023_DE.pdf';
+// export const PDF_SC_2_DE = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
 
 /* ASSETS - PDF - used in email templates supplier_en_form_confirmation.html */
 /* TODO: Check if it can be centralized also in the above mentioned pages. */
-/* export const PDF_SC_1_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641188f7675e5b11e5e0a934_EWE_PTGP_2023_EN.pdf';
-export const PDF_SC_2_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
-*/
+// export const PDF_SC_1_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641188f7675e5b11e5e0a934_EWE_PTGP_2023_EN.pdf';
+// export const PDF_SC_2_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
 
 /* Email Templates */
-export const URLEMAILTEMPLATES = 'https://raw.githubusercontent.com/dauHerkert/bho/main/mails_templates/';
 export const URLREGISTER_EN = 'register_en_email.html';
 export const URLREGISTER_DE = 'register_de_email.html';
 export const URLREGISTRATIONLINK_EN = 'registration_link_en_email.html';
