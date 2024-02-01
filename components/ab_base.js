@@ -131,7 +131,7 @@ async function populateForms(user) {
       document.getElementById('admin_drop_mob').style.display = 'none !important';
     }
 
-    if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press') {
+    if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'press') {
       if (userInfo.press_has_form_submitted) {
         document.getElementById("workspot").setAttribute('disabled', "");
         document.getElementById("publisher").setAttribute('disabled', "");
@@ -226,15 +226,16 @@ function checkUrlParameter() {
 function dispatchRequest(user) {
   let url = window.location.pathname;
   console.log('url in dispatchRequest()', url);
+  console.log('url in dispatchRequest() - last segment', url.substring(url.lastIndexOf('/') + 1));
 
   // User is NOT signed in
-  if ( user == false ) {
+  if (user == false) {
     document.getElementById('signout-button').style.display = 'none';
-    if ( url == '/en/signup-ptgp' || url == '/de/signup-ptgp' ) {
+    if (url.substring(url.lastIndexOf('/') + 1) == 'signup-ptgp') {
       signUpPage();
-    } else if ( url == '/en/signin-ptgp' || url == '/de/signin-ptgp' ) {
+    } else if (url.substring(url.lastIndexOf('/') + 1) == 'signin-ptgp') {
       signInPage();
-    } else if ( url == '/en/press-form' || url == '/de/press-form' ) {
+    } else if (url.substring(url.lastIndexOf('/') + 1) == 'press-form') {
       pagePress();
     } else {
       // User does NOT have access to this page
@@ -243,13 +244,13 @@ function dispatchRequest(user) {
   } else {
     document.getElementById('signout-button').style.display = 'block';
     // User IS signed in
-      if ( url == '/en/account' || url == '/de/account' ) {
+    if (url.substring(url.lastIndexOf('/') + 1) == 'account') {
       pageAccount(user);
-    } else if ( url == '/en/supplier' || url == '/de/supplier' ) {
+    } else if (url.substring(url.lastIndexOf('/') + 1) == 'supplier') {
       pageSupplier(user);
-    } else if ( url == '/en/admin/users-table' || url == '/de/admin/users-table' ) {
+    } else if (url.substring(url.lastIndexOf('/') + 1) == 'users-table') {
       pageAdmin(user);
-    } else if ( url == '/en/admin/companies-table' || url == '/de/admin/companies-table' ) {
+    } else if (url.substring(url.lastIndexOf('/') + 1) == 'companies-table') {
       pageCompaniesTable(user);
     }
   }
@@ -293,7 +294,7 @@ if(window.location.pathname == '/en/forgoten-password' || window.location.pathna
   })
 };
 
-if (window.location.pathname == '/success-email-sent') {
+if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'success-email-sent') {
   let forgot_password_email = localStorage.getItem('email');
   document.getElementById('email_confirmation_text').innerHTML = `We sent a password reset link to ${forgot_password_email}`;
 }
@@ -308,81 +309,38 @@ async function replaceUrl(user) {
   let account_button = document.getElementById('account_user_profile');
   let users_button = document.getElementById('users_table');
   let companies_button = document.getElementById('companies_table');
-  var storedLang = localStorage.getItem("language");
   const userRef = doc(db, 'users', user.uid);
   const docSnap = await getDoc(userRef);
   const userData = docSnap.data();
+  let storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+  }
 
   if (!user) {
-    if (storedLang) {
-      if (storedLang == "de") {
-        form_button.setAttribute('href', '/de/signin-ptgp');
-        account_button.setAttribute('href', '/de/signin-ptgp');
-        users_button.setAttribute('href', '/de/signin-ptgp');
-        companies_button.setAttribute('href', '/de/signin-ptgp');
-        document.getElementById('signIn_button').style.display = 'block';
-        document.getElementById('signUp_button').style.display = 'block';
-        if (window.location.pathname == '/' && !userData.confirmed_email) {
-          window.location.replace(URLENV + '/de/signin-ptgp');
-        } else if (window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-ptgp' && window.location.pathname !== '/de/signup-ptgp' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum') {
-          window.location.replace(URLENV + '/de/signin-ptgp');
-        }
-      } else {
-        form_button.setAttribute('href', '/en/signin-ptgp');
-        account_button.setAttribute('href', '/en/signin-ptgp');
-        users_button.setAttribute('href', '/de/signin-ptgp');
-        companies_button.setAttribute('href', '/de/signin-ptgp');
-        document.getElementById('signIn_button').style.display = 'block';
-        document.getElementById('signUp_button').style.display = 'block';
-        if (window.location.pathname == '/' && !userData.confirmed_email) {
-          window.location.replace(URLENV + '/en/signin-ptgp');
-        } else if (window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-ptgp' && window.location.pathname !== '/en/signup-ptgp' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum') {
-          window.location.replace(URLENV + '/en/signin-ptgp');
-        }
-      }
-    } else {
-      form_button.setAttribute('href', '/en/signin-ptgp');
-      account_button.setAttribute('href', '/en/signin-ptgp');
-      users_button.setAttribute('href', '/de/signin-ptgp');
-      companies_button.setAttribute('href', '/de/signin-ptgp');
-      document.getElementById('signIn_button').style.display = 'block';
-      document.getElementById('signUp_button').style.display = 'block';
+    form_button.setAttribute('href', urlLang + '/signin-ptgp');
+    account_button.setAttribute('href', urlLang + '/signin-ptgp');
+    users_button.setAttribute('href', urlLang + '/signin-ptgp');
+    companies_button.setAttribute('href', urlLang + '/signin-ptgp');
+    document.getElementById('signIn_button').style.display = 'block';
+    document.getElementById('signUp_button').style.display = 'block';
+    if (window.location.pathname == '/' && !userData.confirmed_email) {
+      window.location.replace(URLENV + urlLang + '/signin-ptgp');
+    } else if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'success-email-sent' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'forgoten-password' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signin-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signup-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'press-form' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'data-protection' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'impressum') {
+      window.location.replace(URLENV + urlLang + '/signin-ptgp');
     }
   } else {
-    if (storedLang) {
-      if (storedLang == "de") {
-        account_button.setAttribute('href', '/de/account');
-        users_button.setAttribute('href', '/de/admin/users-table');
-        companies_button.setAttribute('href', '/de/admin/companies-table');
-        document.getElementById('signIn_button').style.display = 'none';
-        document.getElementById('signUp_button').style.display = 'none';
-        if (window.location.pathname == '/' && !userData.confirmed_email) {
-          window.location.replace(URLENV + '/de/signup-form-submitted');
-        } else if (window.location.pathname == '/' && userData.confirmed_email) {
-          window.location.replace(URLENV + '/de/account');
-        }
+    account_button.setAttribute('href', urlLang + '/account');
+    users_button.setAttribute('href', urlLang + '/admin/users-table');
+    companies_button.setAttribute('href', urlLang + '/admin/companies-table');
+    document.getElementById('signIn_button').style.display = 'none';
+    document.getElementById('signUp_button').style.display = 'none';
+    if (window.location.pathname == '/') {
+      if (userData.confirmed_email) {
+        window.location.replace(URLENV + urlLang + '/account');
       } else {
-        account_button.setAttribute('href', '/en/account');
-        users_button.setAttribute('href', '/en/admin/users-table');
-        companies_button.setAttribute('href', '/en/admin/companies-table');
-        document.getElementById('signIn_button').style.display = 'none';
-        document.getElementById('signUp_button').style.display = 'none';
-        if (window.location.pathname == '/' && !userData.confirmed_email) {
-          window.location.replace(URLENV + '/en/signup-form-submitted');
-        } else if (window.location.pathname == '/' && userData.confirmed_email) {
-          window.location.replace(URLENV + '/en/account');
-        }
-      }
-    } else {
-      account_button.setAttribute('href', '/en/account');
-      users_button.setAttribute('href', '/en/admin/users-table');
-      companies_button.setAttribute('href', '/en/admin/companies-table');
-      document.getElementById('signIn_button').style.display = 'none';
-      document.getElementById('signUp_button').style.display = 'none';
-      if (window.location.pathname == '/' && !userData.confirmed_email) {
-        window.location.replace(URLENV + '/en/signup-form-submitted');
-      } else if (window.location.pathname == '/' && userData.confirmed_email) {
-        window.location.replace(URLENV + '/en/account');
+        window.location.replace(URLENV + urlLang + '/signup-form-submitted');
       }
     }
   }
