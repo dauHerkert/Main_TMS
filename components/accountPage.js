@@ -87,7 +87,8 @@ function showProfilePic(user){
       img.setAttribute('src', url);
     })
     .catch((error) => {
-      toastr.error('There was a problem showing the profile picture', error);
+      console.log('Error showing the profile picture: ', error);
+      toastr.error('There was a problem showing the profile picture');
     });
 }
   

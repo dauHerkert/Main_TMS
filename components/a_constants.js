@@ -4,6 +4,14 @@
 
  const PSNAME = '-ptgp'; // Project slug name
  export const DEVEMAIL = 'juan.torres@dauherkert.de'; // Dev admin email
+
+ /* Authorized event dates */
+ export const EVENTDATES = {
+  MINDATE_DAY: 30,
+  MINDATE_MONTH: 1,
+  MAXDATE_DAY: 30,
+  MAXDATE_MONTH: 4
+ }
  
  /* Environment Domain */
  /* needs to be changed manually on register_de_email.html & register_en_email.html & storage.cors.json */
