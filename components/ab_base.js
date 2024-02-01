@@ -352,36 +352,24 @@ async function replaceUrl(user) {
 ===============================================================================================================================================================*/
 
 async function replaceUrlSignOut(user) {
+  let storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+  }
+
   if (!user) {
-    if (storedLang) {
-      if (storedLang == "de") {
-        document.getElementById('signIn_button').style.display = 'block';
-        document.getElementById('signUp_button').style.display = 'block';
-        if (window.location.pathname == '/') {
-          window.location.replace(URLENV + '/de/signin-ptgp');
-        } else if (window.location.pathname !== '/de/success-email-sent' && window.location.pathname !== '/de/forgoten-password' && window.location.pathname !== '/de/signin-ptgp' && window.location.pathname !== '/de/signup-ptgp' && window.location.pathname !== '/de/press-form' && window.location.pathname !== '/de/data-protection' && window.location.pathname !== '/de/impressum') {
-          window.location.replace(URLENV + '/de/signin-ptgp');
-        }
-      } else {
-        document.getElementById('signIn_button').style.display = 'block';
-        document.getElementById('signUp_button').style.display = 'block';
-        if (window.location.pathname == '/') {
-          window.location.replace(URLENV + '/en/signin-ptgp');
-        } else if (window.location.pathname !== '/en/success-email-sent' && window.location.pathname !== '/en/forgoten-password' && window.location.pathname !== '/en/signin-ptgp' && window.location.pathname !== '/en/signup-ptgp' && window.location.pathname !== '/en/press-form' && window.location.pathname !== '/en/data-protection' && window.location.pathname !== '/en/impressum') {
-          window.location.replace(URLENV + '/en/signin-ptgp');
-        }
-      }
-    } else {
-      //form_button.setAttribute('href', '/en/signin-ptgp');
-      //account_button.setAttribute('href', '/en/signin-ptgp');
-      //users_button.setAttribute('href', '/de/signin-ptgp');
-      //companies_button.setAttribute('href', '/de/signin-ptgp');
-      document.getElementById('signIn_button').style.display = 'block';
-      document.getElementById('signUp_button').style.display = 'block';
-      if (window.location.pathname == '/') {
-        window.location.replace(URLENV + '/en/signin-ptgp');
-      }
+    document.getElementById('signIn_button').style.display = 'block';
+    document.getElementById('signUp_button').style.display = 'block';
+    if (window.location.pathname == '/') {
+      window.location.replace(URLENV + urlLang + '/signin-ptgp');
+    } else if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'success-email-sent' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'forgoten-password' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signin-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signup-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'press-form' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'data-protection' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'impressum') {
+      window.location.replace(URLENV + urlLang + '/signin-ptgp');
     }
+    //form_button.setAttribute('href', '/en/signin-ptgp');
+    //account_button.setAttribute('href', '/en/signin-ptgp');
+    //users_button.setAttribute('href', '/de/signin-ptgp');
+    //companies_button.setAttribute('href', '/de/signin-ptgp');
   }
 }
 
@@ -472,34 +460,24 @@ function updateLinks() {
 var storedLang = localStorage.getItem("language");
 let sign_lang = document.getElementById('selected_lang2');
 let user_lang = document.getElementById('selected_lang');
-if (storedLang) {
-  if (storedLang == "de") {
-    if (user_lang) {
-      document.getElementById('englishBtn').classList.remove('selected');
-      document.getElementById('germanBtn').classList.add('selected');
-    }
-    if (sign_lang) {
-      document.getElementById('englishBtn2').classList.remove('selected');
-      document.getElementById('germanBtn2').classList.add('selected');
-    }
-  } else {
-    if (user_lang) {
-      document.getElementById('englishBtn').classList.add('selected');
-      document.getElementById('germanBtn').classList.remove('selected');
-    }
-    if (sign_lang) {
-      document.getElementById('englishBtn2').classList.add('selected');
-      document.getElementById('germanBtn2').classList.remove('selected');
-    }
-  }
-} else {
+
+if (user_lang) {
+  document.getElementById('englishBtn').classList.add('selected');
+  document.getElementById('germanBtn').classList.remove('selected');
+}
+if (sign_lang) {
+  document.getElementById('englishBtn2').classList.add('selected');
+  document.getElementById('germanBtn2').classList.remove('selected');
+}
+
+if (storedLang && storedLang === 'de') {
   if (user_lang) {
-    document.getElementById('englishBtn').classList.add('selected');
-    document.getElementById('germanBtn').classList.remove('selected');
+    document.getElementById('englishBtn').classList.remove('selected');
+    document.getElementById('germanBtn').classList.add('selected');
   }
   if (sign_lang) {
-    document.getElementById('englishBtn2').classList.add('selected');
-    document.getElementById('germanBtn2').classList.remove('selected');
+    document.getElementById('englishBtn2').classList.remove('selected');
+    document.getElementById('germanBtn2').classList.add('selected');
   }
 }
 
@@ -545,20 +523,20 @@ let form_button = document.getElementById('form_button');
 let admin_users_table = document.getElementById("users_table");
 let admin_companies_table = document.getElementById("companies_table");
 
-if (window.location.pathname == '/de/press' || window.location.pathname == '/en/press' || window.location.pathname == '/de/supplier' || window.location.pathname == '/en/supplier') {
+if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'press' || window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'supplier') {
   form_button.style.borderBottom = "2px solid #B11372";
 }
-if (window.location.pathname == '/en/admin/users-table' || window.location.pathname == '/de/admin/users-table') {
+if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'users-table') {
   admin_users_table.style.borderBottom = "2px solid #B11372";
 }
-if (window.location.pathname == '/en/admin/companies-table' || window.location.pathname == '/de/admin/companies-table') {
+if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'companies-table') {
   admin_companies_table.style.borderBottom = "2px solid #B11372";
 }
 
 let welcomeBanner = document.getElementById('welcomeBanner');
 if (welcomeBanner) {
   if (location.search.indexOf('?company=') !== -1) {
-  welcomeBanner.style.display = 'flex';
+    welcomeBanner.style.display = 'flex';
   } else {
     welcomeBanner.style.display = 'none';
   }
@@ -573,15 +551,15 @@ export async function changeAdminTypeTitle(user){
   let userInfo = await getUserInfo(user);
   let storedLang = localStorage.getItem("language");
 
-  if (storedLang == 'en') {
-    if (!userInfo.user_is_admin && !userInfo.company_admin && userInfo.basic_admin) {
-      document.getElementById('user_admin_type').innerHTML = 'Basic Admin';
-    } else if (!userInfo.user_is_admin && !userInfo.basic_admin && userInfo.company_admin) {
-      document.getElementById('user_admin_type').innerHTML = 'Multi Company Admin';
-    } else if (userInfo.user_is_admin) {
-      document.getElementById('user_admin_type').innerHTML = 'Super Admin';
-    }
-  } else {
+  if (!userInfo.user_is_admin && !userInfo.company_admin && userInfo.basic_admin) {
+    document.getElementById('user_admin_type').innerHTML = 'Basic Admin';
+  } else if (!userInfo.user_is_admin && !userInfo.basic_admin && userInfo.company_admin) {
+    document.getElementById('user_admin_type').innerHTML = 'Multi Company Admin';
+  } else if (userInfo.user_is_admin) {
+    document.getElementById('user_admin_type').innerHTML = 'Super Admin';
+  }
+
+  if (storedLang && storedLang === 'de') {
     if (!userInfo.user_is_admin && !userInfo.company_admin && userInfo.basic_admin) {
       document.getElementById('user_admin_type').innerHTML = 'Grundlegender Administrator';
     } else if (!userInfo.user_is_admin && userInfo.company_admin && !userInfo.basic_admin) {
@@ -596,7 +574,7 @@ export async function changeAdminTypeTitle(user){
  * This function changes the text and the url of the "Impressum" and "Data Protection" on the footer depending on the user's language
  ====================================================================================================================================*/
 
-if (storedLang == 'de') {
+if (storedLang && storedLang === 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
   document.getElementById('imprint').setAttribute('href', '/de/impressum');
   document.getElementById('data_protection').textContent = 'Datenschutz';
