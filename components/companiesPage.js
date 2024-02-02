@@ -6,13 +6,6 @@ import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
- 
-//Registration link email - DE
-const registration_link_de_email_subject = 'Akkreditierung Bad Homburg Open';
-const registration_link_de_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_DE;
-//Registration link email - EN
-const registration_link_en_email_subject = 'Accreditation Bad Homburg Open';
-const registration_link_en_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_EN;
 
 /*================================================================================================================================================================
  * This code snippet handles the functionality related to the companies table, including data retrieval, filtering, pagination, creation, updating,
@@ -67,7 +60,7 @@ export async function pageCompaniesTable(user){
   let link_lang = 'en';
   let userInfo = await getUserInfo(user);
 
-  if ( storedLang == 'de' ) {
+  if (storedLang && storedLang === 'de') {
     companyProfileLabel = 'FIRMA';
     companyZoneLabel = 'ZONEN';
     sendLinkLabel = 'EINLADUNG';
@@ -136,7 +129,7 @@ export async function pageCompaniesTable(user){
   $(document).ready(function() {
     $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
     $(".tabulator-paginator").find(".tabulator-page[data-page='next']").html("&gt;");
-    if(storedLang == 'de'){
+    if (storedLang && storedLang === 'de') {
       $(".tabulator-paginator").find(".tabulator-page[data-page='first']").html("Zurück");
       $(".tabulator-paginator").find(".tabulator-page[data-page='last']").html("Vor");
     }
@@ -290,7 +283,7 @@ export async function pageCompaniesTable(user){
   });
 
   //Create new zones
-  if (window.location.pathname == '/de/admin/users-table' || window.location.pathname == '/de/admin/companies-table' || window.location.pathname == '/en/admin/users-table' || window.location.pathname == '/en/admin/companies-table'){
+  if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'users-table' || window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'companies-table'){
     let create_zone_form = document.getElementById('create_zone_form');
     let new_zone_name = document.getElementById('newZoneName');
 
@@ -437,9 +430,9 @@ export async function pageCompaniesTable(user){
       }
     });
 
-    if(userInfo.user_company_name == undefined){
+    if (userInfo.user_company_name == undefined) {
       document.getElementById("company_name").innerHTML = 'No company';
-    }else{
+    } else {
       const companies = userInfo.user_company_name.split(",");
       const firstCompany = companies[0];
       document.getElementById("company_name").innerHTML = `${firstCompany}`;
@@ -458,7 +451,6 @@ export async function pageCompaniesTable(user){
 ====================================================================================================================================================*/
 
 $(document).on( 'click' , '#companyName' ,async function() {
-  let storedLang = localStorage.getItem("language");
   let companyValue = event.target.getAttribute('data-value');
   let companyNameValue = event.target.getAttribute('data-company-name');
   const q = query(collection(db, "users"), where("user_company", "==", companyValue));
@@ -467,6 +459,11 @@ $(document).on( 'click' , '#companyName' ,async function() {
   const querySnapshot = await getDocs(q);
   let users = [];
   let company = [];
+  let storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+  }
 
   querySnapshot.forEach((doc) => {
     let user = doc.data(q);
@@ -485,15 +482,7 @@ $(document).on( 'click' , '#companyName' ,async function() {
   //Save company name from the companies collection
   localStorage.setItem('company_collection', JSON.stringify(company));
 
-  if(storedLang){
-    if(storedLang == "de"){
-      window.location.replace('/de/company');
-    }else{
-      window.location.replace('/en/company');
-    }
-  }else{
-    window.location.replace('/en/company');
-  }
+  window.location.replace(urlLang + '/company');
 })
 
 if (window.location.pathname == '/de/company'){
@@ -517,10 +506,10 @@ if (window.location.pathname == '/de/company'){
 
   // Add company head
   parseCompany.forEach(function(company){
-  if(company.hasOwnProperty('user_head')){
+  if (company.hasOwnProperty('user_head')) {
       document.getElementById('user_head').innerHTML = `User head: ${company.user_head}`
     }
-    if(company.hasOwnProperty('company_name')){
+    if (company.hasOwnProperty('company_name')) {
       document.getElementById('company_table_name').innerHTML = `Company: ${company.company_name}`
     }
   })
@@ -533,61 +522,49 @@ if (window.location.pathname == '/de/company'){
 
 let company_link_form = document.getElementById('company_link_form');
 
-if(company_link_form){
+if (company_link_form) {
   company_link_form.addEventListener('submit', (e)=>{
     e.preventDefault();
     e.stopPropagation();
 
-    if(storedLang == 'de'){
-      (async () => {
-        try {
-          const registrationLink = `${company_link.value}`;
-          const registrationLink_de = `${company_link_de.value}`;
-          const html = await fetch(registration_link_de_email_url)
-            .then(response => response.text())
-            .then(html => html.replace('${company_link.value}', registrationLink))
-            .then(html => html.replace('${company_link_de.value}', registrationLink_de))
-          const docRef = addDoc(collection(db, "mail"), {
-            to: `${email_to_send.value}`,
-            message: {
-              subject: registration_link_de_email_subject,
-              html:  html,
-            }
-          });
-            toastr.success('E-Mail wurde erfolgreich versendet');
-            setTimeout(function() {
-              document.getElementById('company_link_modal').style.display = 'none';
-              $('body').removeClass('modal-open');
-            }, 500);
-        } catch (e) {
-          toastr.error("Error beim versenden der E-Mail: ", e);
-        }
-      })();
-    }else {
-      (async () => {
-        try {
-          const registrationLink = `${company_link.value}`;
-          const registrationLink_de = `${company_link_de.value}`;
-          const html = await fetch(registration_link_en_email_url)
-            .then(response => response.text())
-            .then(html => html.replace('${company_link.value}', registrationLink))
-            .then(html => html.replace('${company_link_de.value}', registrationLink_de))
-          const docRef = addDoc(collection(db, "mail"), {
-            to: `${email_to_send.value}`,
-            message: {
-              subject: registration_link_en_email_subject,
-              html:  html,
-            }
-          });
-          toastr.success('Email has been successfully sent');
+    let storedLang = localStorage.getItem('language');
+    //Supplier form submited - EN
+    let registration_link_email_subject = 'Accreditation Bad Homburg Open';
+    let registration_link_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_EN;
+    let notification_UI_correct = 'Email has been successfully sent';
+    let notification_UI_error = 'Error sending email: ';
+    
+    if (storedLang && storedLang === 'de') {
+      //Supplier form submited - DE
+      registration_link_email_subject = 'Akkreditierung Bad Homburg Open';
+      registration_link_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_DE;
+      notification_UI_correct = 'E-Mail wurde erfolgreich versendet';
+      notification_UI_error = 'Error beim versenden der E-Mail: ';
+    }
+
+    (async () => {
+      try {
+        const registrationLink = `${company_link.value}`;
+        const registrationLink_de = `${company_link_de.value}`;
+        const html = await fetch(registration_link_email_url)
+          .then(response => response.text())
+          .then(html => html.replace('${company_link.value}', registrationLink))
+          .then(html => html.replace('${company_link_de.value}', registrationLink_de))
+        const docRef = addDoc(collection(db, "mail"), {
+          to: `${email_to_send.value}`,
+          message: {
+            subject: registration_link_email_subject,
+            html: html,
+          }
+        });
+          toastr.success(notification_UI_correct);
           setTimeout(function() {
             document.getElementById('company_link_modal').style.display = 'none';
             $('body').removeClass('modal-open');
           }, 500);
-        } catch (e) {
-          toastr.error("Error sending email: ", e);
-        }
-      })();
-    }
+      } catch (e) {
+        toastr.error(notification_UI_error, e);
+      }
+    })();
   })
 }
