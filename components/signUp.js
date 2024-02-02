@@ -1,4 +1,4 @@
-import { URLEMAILTEMPLATES } from './a_constants';
+import { EVENTDATES, URLEMAILTEMPLATES } from './a_constants';
 import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL,uploadBytes,deleteObject,createUserWithEmailAndPassword,auth,storage,db, user} from './a_firebaseConfig';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
@@ -10,80 +10,56 @@ import flatpickr from "flatpickr";
 console.log('testing flatpickr')
 
 // This is a list of the default values
-    // as well as of all the possible fields that a user doc can have
-    const userDefaultValues = {
-      // Supplier fields
-      supplier_start_date:'',
-      supplier_end_date:'',
-      supplier_special_request:'',
-      supplier_access_zone:'',
-      company_admin_petition:'',
-      // Boolean: false | true
-      supplier_has_form_submitted: false,
+// as well as of all the possible fields that a user doc can have
+const userDefaultValues = {
+  // Supplier fields
+  supplier_start_date:'',
+  supplier_end_date:'',
+  supplier_special_request:'',
+  supplier_access_zone:'',
+  company_admin_petition:'',
+  // Boolean: false | true
+  supplier_has_form_submitted: false,
 
-      // Press fields
-      press_workspot:'',
-      press_publisher:'',
-      press_media_type:'',
-      press_visit_dates:'',
-      press_special_request:'',
-      // Boolean: false | true
-      press_has_uploaded_id: false,
-      press_has_form_submitted: false,
-      press_form_user: false,
-      //Press form info
-      press_media:'',
-      press_media_type:'',
-      user_itwa:'',
-      press_workspot:'',
-      press_issued_by:'',
-      press_card_number:'',
+  // Press fields
+  press_workspot:'',
+  press_publisher:'',
+  press_media_type:'',
+  press_visit_dates:'',
+  press_special_request:'',
+  // Boolean: false | true
+  press_has_uploaded_id: false,
+  press_has_form_submitted: false,
+  press_form_user: false,
+  //Press form info
+  press_media:'',
+  press_media_type:'',
+  user_itwa:'',
+  press_workspot:'',
+  press_issued_by:'',
+  press_card_number:'',
 
-      // User fields
-      user_email:'',
-      user_id:'',
-      user_title:'',
-      user_city:'',
-      user_country:'',
-      user_nationality:'',
-      user_zones:'',
-      // account_type: supplier | press | RSW
-      account_type:'Supplier',
-      //User profile
-      user_type:'',
-      // user_status: pending | ok
-      user_status:'Pending',
-      // Boolean: false | true
-      confirmed_email: false,
-      user_is_admin: false,
-      company_admin: false,
-      basic_admin: false,
-      user_deleted: false,
-    };
-
-    let storedLang = localStorage.getItem("language");
-
-    /*
-    * -----------------------------------------------------------------------------------------------------------
-    * EMAILS TEMPLATES AND SUBJECTS
-    * -----------------------------------------------------------------------------------------------------------
-    */
-
-    // ---- SIGN UP REGISTER EMAIL ----
-
-    //Subject for Register email - DE
-    const register_de_email_subject = 'Vielen Dank für Ihre Anmeldung';
-    const register_de_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTER_DE;
-
-     //Subject for Register email - EN
-     const register_en_email_subject = 'Thanks for Applicating';
-     const register_en_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTER_EN;
-
-/*
-    * -----------------------------------------------------------------------------------------------------------
-    * Auth functions
-    * -----------------------------------------------------------------------------------------------------------
-    */
+  // User fields
+  user_email:'',
+  user_id:'',
+  user_title:'',
+  user_city:'',
+  user_country:'',
+  user_nationality:'',
+  user_zones:'',
+  // account_type: supplier | press | RSW
+  account_type:'Supplier',
+  //User profile
+  user_type:'',
+  // user_status: pending | ok
+  user_status:'Pending',
+  // Boolean: false | true
+  confirmed_email: false,
+  user_is_admin: false,
+  company_admin: false,
+  basic_admin: false,
+  user_deleted: false,
+};
 
 /*========================================================================================================================================================
  * This asynchronous function retrieves user information and performs a database query to fetch company data. It checks if the user's company ID matches
@@ -111,164 +87,141 @@ async function getCompanyType(user) {
   return { companyProfile, companyZones };
 }
 
-    /*====================================================================================================================================================
-     *  Sets default fields for a user during sign-up process. It retrieves user information such as first name, last name, user ID, and profile image.
-     * The function updates the Firestore document with the user's default values and uploads the profile image to Firebase Storage. It also triggers the
-     * * sending of a registration confirmation email to the user based on their language preference. Displays success messages for default value setting
-     * * and email sending. Finally, redirects the user to the appropriate sign-up confirmation page based on language and account type.
-    =====================================================================================================================================================*/
+/*====================================================================================================================================================
+  *  Sets default fields for a user during sign-up process. It retrieves user information such as first name, last name, user ID, and profile image.
+  * The function updates the Firestore document with the user's default values and uploads the profile image to Firebase Storage. It also triggers the
+  * * sending of a registration confirmation email to the user based on their language preference. Displays success messages for default value setting
+  * * and email sending. Finally, redirects the user to the appropriate sign-up confirmation page based on language and account type.
+=====================================================================================================================================================*/
 
-    const signup_button = document.getElementById('signup_button');
-    if(signup_button){
-      signup_button.disabled = true;
-      signup_button.style.backgroundColor = '#f2a100';
-    }
-    const fileName = document.getElementById("fileName");
-    if(fileName){
-      fileName.style.display = 'none';
-    }
+const signup_button = document.getElementById('signup_button');
+if (signup_button) {
+  signup_button.disabled = true;
+  signup_button.style.backgroundColor = '#f2a100';
+}
+const fileName = document.getElementById("fileName");
+if (fileName) {
+  fileName.style.display = 'none';
+}
 
-    const uploading_image = document.getElementById('uploading_image');
+const uploading_image = document.getElementById('uploading_image');
 
-    function generateTempId() {
-      return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    }
+function generateTempId() {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
 
-    async function setDefaultFields(user) {
+async function setDefaultFields(user) {
+  const userRef = doc(db, 'users', user.uid);
+  // Use the `getCompanyType` function to get the company type and zones
+  const { companyProfile, companyZones } = await getCompanyType(user);
+  const userDoc = await getDoc(userRef);
+  const user_firstname = document.getElementById('first-name');
+  const user_lastname = document.getElementById('last-name');
+  const userID = sessionStorage.getItem('userID');
+  const tempImageId = sessionStorage.getItem("tempImageId");
+  const profile_img = document.getElementById('profile_img');
+  let fileItem = profile_img.files[0];
+  // Use the companyProfile variable to set the user_type field
+  userDefaultValues.user_email = user.email;
+  userDefaultValues.user_id = user.uid;
+  // Use the companyZones variable to set the user_zones field
+  userDefaultValues.user_zones = companyZones;
+  const admin_checkbox = jQuery('#admin_checkbox').val();
+  var company_admin_petition;
+  if ( $("#admin_checkbox").is( ":checked" ) ){
+    company_admin_petition = admin_checkbox;
+  } else {
+    company_admin_petition = "No admin";
+  }
+  console.log("company admin:", company_admin_petition)
+  
+  userDefaultValues.company_admin_petition = company_admin_petition;
+
+
+  let storedLang = localStorage.getItem("language");
+  let urlLang = '/en';
+  //Subject for Register email - EN
+  let register_email_subject = 'Thanks for Applicating';
+  let register_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTER_EN;
+  
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+    //Subject for Register email - DE
+    register_email_subject = 'Vielen Dank für Ihre Anmeldung';
+    register_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTER_DE;
+  }
+
+
+  //Save the user info in case he wants to resend the email
+  sessionStorage.setItem('user_firstname', user_firstname.value);
+  sessionStorage.setItem('user_lastname', user_lastname.value);
+  sessionStorage.setItem('user_email', user.email);
+  sessionStorage.setItem('userID', user.uid);
+  // Use the setDoc function to set the userDefaultValues object
+  setDoc(userRef, userDefaultValues, { merge: true })
+    .then(async () => {
+    await userUploadImage(user, tempImageId, hiddenProfileInput, fileItem);
+    const oldImagePath = `profiles/${tempImageId}`;
+    const newImagePath = `profiles/${user.uid}`;
+
+    // Download the old image
+    const oldImageRef = ref(storage, oldImagePath);
+    const oldImageUrl = await getDownloadURL(oldImageRef);
+
+    // Upload the image with the new name
+    const response = await fetch(oldImageUrl);
+    const blob = await response.blob();
+    const newImageRef = ref(storage, newImagePath);
+    await uploadBytes(newImageRef, blob, { contentType: 'image/png' });
+
+    // Delete the old image
+    await deleteObject(oldImageRef);
+
+    // Update the user's profile image path in Firestore
     const userRef = doc(db, 'users', user.uid);
-    // Use the `getCompanyType` function to get the company type and zones
-    const { companyProfile, companyZones } = await getCompanyType(user);
-    const userDoc = await getDoc(userRef);
-    const user_firstname = document.getElementById('first-name');
-    const user_lastname = document.getElementById('last-name');
-    const userID = sessionStorage.getItem('userID');
-    const tempImageId = sessionStorage.getItem("tempImageId");
-    const profile_img = document.getElementById('profile_img');
-    let fileItem = profile_img.files[0];
-    // Use the companyProfile variable to set the user_type field
-    userDefaultValues.user_email = user.email;
-    userDefaultValues.user_id = user.uid;
-    // Use the companyZones variable to set the user_zones field
-    userDefaultValues.user_zones = companyZones;
-    let storedLang = localStorage.getItem("language");
-    const admin_checkbox = jQuery('#admin_checkbox').val();
-    var company_admin_petition;
-    if ( $("#admin_checkbox").is( ":checked" ) ){
-      company_admin_petition = admin_checkbox;
-    }else{
-      company_admin_petition = "No admin";
-    }
-    console.log("company admin:", company_admin_petition)
+    await updateDoc(userRef, { profileImagePath: newImagePath });
 
-    userDefaultValues.company_admin_petition = company_admin_petition;
-
-    //Save the user info in case he wants to resend the email
-    sessionStorage.setItem('user_firstname', user_firstname.value);
-    sessionStorage.setItem('user_lastname', user_lastname.value);
-    sessionStorage.setItem('user_email', user.email);
-    sessionStorage.setItem('userID', user.uid);
-    // Use the setDoc function to set the userDefaultValues object
-    setDoc(userRef, userDefaultValues, { merge: true })
-        .then(async () => {
-          await userUploadImage(user, tempImageId, hiddenProfileInput, fileItem);
-            const oldImagePath = `profiles/${tempImageId}`;
-            const newImagePath = `profiles/${user.uid}`;
-
-            // Download the old image
-            const oldImageRef = ref(storage, oldImagePath);
-            const oldImageUrl = await getDownloadURL(oldImageRef);
-
-            // Upload the image with the new name
-            const response = await fetch(oldImageUrl);
-            const blob = await response.blob();
-            const newImageRef = ref(storage, newImagePath);
-            await uploadBytes(newImageRef, blob, { contentType: 'image/png' });
-
-            // Delete the old image
-            await deleteObject(oldImageRef);
-
-            // Update the user's profile image path in Firestore
-            const userRef = doc(db, 'users', user.uid);
-            await updateDoc(userRef, { profileImagePath: newImagePath });
-
-            // Sign up - DE
-            if(storedLang == 'de'){
-              (async () => {
-                try {
-                  const fullName = `${user_firstname.value} ${user_lastname.value}`;
-                  const stored_userID = `${userID}`;
-                  const html = await fetch(register_de_email_url)
-                        .then(response => response.text())
-                        .then(html => html.replace('${userID}', stored_userID));
-                  const docRef = addDoc(collection(db, "mail"), {
-                    to: `${user.email}`,
-                    message: {
-                      subject: register_de_email_subject,
-                      html: html,
-                    }
-                  });
-                } catch (error) {
-                  console.error(error);
-                }
-              })();
-            }else{
-              // Sign up - EN
-              (async () => {
-                try {
-                  const fullName = `${user_firstname.value} ${user_lastname.value}`;
-                  const stored_userID = `${userID}`;
-                  const html = await fetch(register_en_email_url)
-                        .then(response => response.text())
-                        .then(html => html.replace('${userID}', stored_userID));
-                  const docRef = addDoc(collection(db, "mail"), {
-                    to: `${user.email}`,
-                    message: {
-                      subject: register_en_email_subject,
-                      html: html,
-                    }
-                  });
-                } catch (error) {
-                  console.error(error);
-                }
-              })();
-            }
-            if (companyProfile == 'No company'){
-                toastr.success('You are signing up with no company set');
-            } else {
-                toastr.success('Default values successfully set');
-            }
-            setTimeout(function(user) {
-                if (storedLang) {
-                    if (storedLang == "de") {
-                     if (userDefaultValues.account_type == 'Supplier' || userDefaultValues.account_type == 'No company' || userDefaultValues.account_type == 'RSW'){
-                        window.location = "/de/signup-form-submitted";
-                      } else {
-                          window.location = "/de/signup-form-submitted";
-                      }
-                    } else {
-                      if (userDefaultValues.account_type == 'Supplier' || userDefaultValues.account_type == 'No company' || userDefaultValues.account_type == 'RSW'){
-                        window.location = "/en/signup-form-submitted";
-                      } else{
-                          window.location = "/en/signup-form-submitted";
-                      }
-                    }
-                } else {
-                    window.location = "/en/signup-form-submitted";
-                }
-            }, 1000);
-        })
-        .catch((err) => {
-            console.log('there was a problem updating the data', err);
-            toastr.error('There was an error updating your info');
+    // Sign up
+    (async () => {
+      try {
+        const stored_userID = `${userID}`;
+        const html = await fetch(register_email_url)
+              .then(response => response.text())
+              .then(html => html.replace('${userID}', stored_userID));
+        const docRef = addDoc(collection(db, "mail"), {
+          to: `${user.email}`,
+          message: {
+            subject: register_email_subject,
+            html: html,
+          }
         });
-    };
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+
+    if (companyProfile == 'No company') {
+      toastr.success('You are signing up with no company set');
+    } else {
+      toastr.success('Default values successfully set');
+    }
+
+    setTimeout(function(user) {
+      window.location = urlLang + "/signup-form-submitted";
+    }, 1000);
+  })
+  .catch((err) => {
+      console.log('there was a problem updating the data', err);
+      toastr.error('There was an error updating your info');
+  });
+};
 
 
-    // Sign Up
-  /*============================================================================================================================================================
-   * Handles the sign-up process by creating a new user with the provided email, password, and profile image. It sets default fields for the user and collects
-   * additional information.
-  =============================================================================================================================================================*/
+// Sign Up
+/*============================================================================================================================================================
+  * Handles the sign-up process by creating a new user with the provided email, password, and profile image. It sets default fields for the user and collects
+  * additional information.
+=============================================================================================================================================================*/
 function handleSignUp(e) {
   e.preventDefault();
   e.stopPropagation();
@@ -293,10 +246,10 @@ function handleSignUp(e) {
         })
         .catch((error) => {
           const errorMessage = error.message;
-          if(storedLang == 'en'){
-            toastr.error('The email has already been used. Please choose another email.');
-          }else{
+          if (storedLang && storedLang === 'de') {
             toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
+          } else {
+            toastr.error('The email has already been used. Please choose another email.');
           }
         });
     } else {
@@ -470,7 +423,6 @@ if (profile_img) {
 }
 
 async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
-  let storedLang = localStorage.getItem("language");
 
   // Check if it's a mobile device by screen width
   const isMobile = window.innerWidth <= 800;
@@ -547,16 +499,16 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
 ============================================================================================================================================================*/
 
 const saveButton = document.getElementById("close_button");
-if(saveButton){
-    saveButton.addEventListener("click", async function () {
-      const tempId = generateTempId();
-      uploading_image.style.display = 'block';
-      sessionStorage.setItem("tempImageId", tempId);
-      const hiddenProfileInput = document.getElementById('hidden_profile_img');
-      let fileItem = profile_img.files[0];
-      console.log(fileItem);
-      await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
-    });
+if (saveButton) {
+  saveButton.addEventListener("click", async function () {
+    const tempId = generateTempId();
+    uploading_image.style.display = 'block';
+    sessionStorage.setItem("tempImageId", tempId);
+    const hiddenProfileInput = document.getElementById('hidden_profile_img');
+    let fileItem = profile_img.files[0];
+    console.log(fileItem);
+    await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
+  });
 }
 
 /*========================================================================================================================================================
@@ -574,9 +526,9 @@ new AirDatepicker('#Select-dates', {
 
 async function getDateSignUp() {
   var today = new Date();
-  var minDate = new Date(today.getFullYear(), 5, 22);
-  var maxDate = new Date(today.getFullYear(), 6, 1);
-  var minDateEndPicker = new Date(today.getFullYear(), 5, 22);
+  var minDate = new Date(today.getFullYear(), EVENTDATES.MINDATE_MONTH, EVENTDATES.MINDATE_DAY);
+  var maxDate = new Date(today.getFullYear(), EVENTDATES.MAXDATE_MONTH, EVENTDATES.MAXDATE_DAY);
+  var minDateEndPicker = new Date(today.getFullYear(), EVENTDATES.MINDATE_MONTH, EVENTDATES.MINDATE_DAY);
   var startDatePicker = document.querySelector('#Select-dates');
   let endDatePicker = document.querySelector('#Select-dates-2');
 
