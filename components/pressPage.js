@@ -3,33 +3,6 @@ import { addDoc, collection, ref, uploadBytes, db, storage, user } from './a_fir
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 
-// ---- PRESS FORM EMAILS ----
-
-//Subject for press - DE - application received
-const press_de_application_received_subject = 'Antrag Eingegangen';
-//URLs for press - DE - Mr - application received
-const form_de_mr_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRCONFIRMEMAIL_DE;
-const press_de_mr_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONRECEIVED_DE;
-//URLs for press - DE - Ms - application received
-const form_de_ms_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSCONFIRMEMAIL_DE;
-const press_de_ms_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONRECEIVED_DE;
-//URLs for press - DE - Diverse - application received
-const form_de_diverse_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSECONFIRMEMAIL_DE;
-const press_de_diverse_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONRECEIVED_DE;
-
-//Subject for press - EN - application received
-const press_en_application_received_subject_admin = 'New Press Form Submited';
-const press_en_application_received_subject = 'Application recieved'
-//URLs for press - EN - Mr - Ms - application received
-const form_en_mr_ms_confirmation_form_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSCONFIRMEMAIL_EN;
-const press_en_mr_ms_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSAPPLICATIONRECEIVED_EN;
-//URLs for press - EN - Diverse - application received
-const form_en_diverse_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSECONFIRMEMAIL_EN;
-const press_en_diverse_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONRECEIVED_EN;
-
-var storedLang = localStorage.getItem("language");
-
-
 /*==========================================================================================================================================================
  * The code defines functions related to adding press information. It updates the press's start date, end date, special request, user zones, and form
  * submission status. It also triggers email notifications based on the language selected and reloads the page after a successful form submission.
@@ -142,7 +115,7 @@ function handlePressPic(e) {
     // Open the modal
     press_crop_modal.style.display = "block";
 
-    if(press_cropper){
+    if (press_cropper) {
       press_cropper.destroy();
     }
 
@@ -204,6 +177,48 @@ async function pressUploadImage(docId, storageRef) {
     contentType: contentType
   };
 
+
+  let storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
+
+  let press_application_received_subject_admin = 'New Press Form Submited';
+  // Subject for press - EN - application received
+  let press_application_received_subject = 'Application recieved';
+  let form_mr_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSCONFIRMEMAIL_EN;
+  let form_ms_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSCONFIRMEMAIL_EN;
+  let form_diverse_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSECONFIRMEMAIL_EN;
+  let press_mr_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSAPPLICATIONRECEIVED_EN;
+  let press_ms_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSAPPLICATIONRECEIVED_EN;
+  let press_diverse_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONRECEIVED_EN;
+
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+    // Subject for press - DE - application received
+    press_application_received_subject = 'Antrag Eingegangen';
+    form_mr_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRCONFIRMEMAIL_DE;
+    form_ms_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSCONFIRMEMAIL_DE;
+    form_diverse_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSECONFIRMEMAIL_DE;
+    press_mr_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONRECEIVED_DE;
+    press_ms_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONRECEIVED_DE;
+    press_diverse_application_received_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONRECEIVED_DE;
+  }
+
+  let genderAdminURL = form_mr_confirmation_email_to_admin_url;
+  let genderURL = press_mr_application_received_url;
+  let fullNameDisplay = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
+
+  if (press_title.value == 'Ms') {
+    genderAdminURL = form_ms_confirmation_email_to_admin_url;
+    genderURL = press_ms_application_received_url;
+  } else if (press_title.value == 'Diverse') {
+    genderAdminURL = form_diverse_confirmation_email_to_admin_url;
+    genderURL = press_diverse_application_received_url;
+    fullNameDisplay = `${press_firstname.value} ${press_lastname.value}`;
+  } else {
+    fullNameDisplay = `${press_firstname.value} ${press_lastname.value}`;
+  }
+
+
   if (press_cropper && press_cropper.getCroppedCanvas()) {
     const canvas = press_cropper.getCroppedCanvas();
     canvas.toBlob((blob) => {
@@ -224,216 +239,56 @@ async function pressUploadImage(docId, storageRef) {
 
       uploadBytes(storageRef, fileToUpload, metadata)
         .then((snapshot) => {
-        if (storedLang == 'de') {
-          toastr.success('Sie haben das Formular erfolgreich übermittelt');
-          if (press_title.value == 'Mr') {
-            // Form confirmation email to admin DE
+
+          if (storedLang && storedLang === 'de') {
+            toastr.success('Sie haben das Formular erfolgreich übermittelt');
+          } else {
+            toastr.success('You have submitted the form successfully');
+          }
+
+          // Form confirmation email to admin
+          (async () => {
             try {
+              const html = await fetch(genderAdminURL)
+                .then(response => response.text())
+                .then(html => html.replace('${fullName}', fullNameDisplay));
               const docRef = addDoc(collection(db, "mail"), {
                 to: DEVEMAIL,
                 message: {
-                  subject: press_de_application_received_subject,
+                  subject: press_application_received_subject_admin,
                   html: html,
                 }
               });
             } catch (error) {
               console.error(error);
             }
-            // Press - DE - Mr - Application received
-            (async () => {
-              try {
-                const fullName = `${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(press_de_mr_application_received_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: `${press_email.value}`,
-                  message: {
-                    subject: press_de_application_received_subject,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-              setTimeout(function () {
-                window.location.pathname = '/de/press-form-submitted';
-              }, 1500);
-            })();
+          })();
+          // Press - Application received - MR - MS - DIVERSE
+          (async () => {
+            try {
+              const html = await fetch(genderURL)
+                .then(response => response.text())
+                .then(html => html.replace('${fullName}', fullNameDisplay));
+              const docRef = addDoc(collection(db, "mail"), {
+                to: `${press_email.value}`,
+                message: {
+                  subject: press_application_received_subject,
+                  html: html,
+                }
+              });
+            } catch (error) {
+              console.error(error);
+            }
             setTimeout(function () {
-              window.location.pathname = '/de/press-form-submitted';
+              window.location.pathname = urlLang + '/press-form-submitted';
             }, 1500);
-          } else if (press_title.value == 'Ms') {
-            // Form confirmation email to admin
-            (async () => {
-              try {
-                const fullName = `${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(form_de_ms_confirmation_email_to_admin_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: DEVEMAIL,
-                  message: {
-                    subject: press_de_application_received_subject,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-            })();
-            // Press - DE - Ms - Application received
-            (async () => {
-              try {
-                const fullName = `${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(press_de_ms_application_received_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: `${press_email.value}`,
-                  message: {
-                    subject: press_de_application_received_subject,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-              setTimeout(function () {
-                window.location.pathname = '/de/press-form-submitted';
-              }, 1500);
-            })();
-          } else if (press_title.value == 'Diverse') {
-            // Form confirmation email to admin
-            (async () => {
-              try {
-                const fullName = `${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(form_de_diverse_confirmation_email_to_admin_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: DEVEMAIL,
-                  message: {
-                    subject: press_de_application_received_subject,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-            })();
-            // Press - DE - Diverse - Application received
-            (async () => {
-              try {
-                const fullName = `${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(press_de_diverse_application_received_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: `${press_email.value}`,
-                  message: {
-                    subject: press_de_application_received_subject,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-              setTimeout(function () {
-                window.location.pathname = '/de/press-form-submitted';
-              }, 1500);
-            })();
-          }
-        } else { // storedLang == 'en'
-          toastr.success('You have submitted the form successfully');
-          if (press_title.value == 'Mr' || press_title.value == 'Ms') {
-            // Form confirmation email to admin
-            (async () => {
-              try {
-                const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(form_en_mr_ms_confirmation_form_to_admin_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: DEVEMAIL,
-                  message: {
-                    subject: press_en_application_received_subject_admin,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-            })();
-            // Press - EN - Mr/Ms - Application received
-            (async () => {
-              try {
-                const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(press_en_mr_ms_application_received_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: `${press_email.value}`,
-                  message: {
-                    subject: press_en_application_received_subject,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-              setTimeout(function () {
-                window.location.pathname = '/en/press-form-submitted';
-              }, 1500);
-            })();
-          } else if (press_title.value == 'Diverse') {
-            // Form confirmation email to admin
-            (async () => {
-              try {
-                const fullName = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(press_en_mr_ms_application_received_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${press_title.value} ${press_firstname.value} ${press_lastname.value}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: DEVEMAIL,
-                  message: {
-                    subject: press_en_application_received_subject_admin,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-            })();
-            // Press - EN - Diverse - Application received
-            (async () => {
-              try {
-                const fullName = `${press_firstname.value} ${press_lastname.value}`;
-                const html = await fetch(press_en_diverse_application_received_url)
-                  .then(response => response.text())
-                  .then(html => html.replace('${press_firstname.value} ${press_lastname.value}', fullName));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: `${press_email.value}`,
-                  message: {
-                    subject: press_en_application_received_subject,
-                    html: html,
-                  }
-                });
-              } catch (error) {
-                console.error(error);
-              }
-              setTimeout(function () {
-                window.location.pathname = '/en/press-form-submitted';
-              }, 1500);
-            })();
-          }
-        }
+          })();
       })
       .catch((error) => {
         console.error(error);
       });
     }, contentType);
-  }else {
+  } else {
     console.error('Canvas is not available. The cropper might not be initialized properly or the image is not loaded.');
   }
 }
@@ -504,7 +359,7 @@ export async function pagePress() {
     // Display the error message only once for all unchecked checkboxes
     if (uncheckedCheckboxesCount > 0) {
       hasErrors = true;
-      if (storedLang == 'de') {
+      if (storedLang && storedLang === 'de') {
         toastr.error('Bitte stellen Sie sicher, dass alle rechtlichen Hinweise vor dem Absenden des Formulars angekreuzt sind.');
       } else {
         toastr.error('Please ensure that all legal notices are checked before submitting the form.');
@@ -513,23 +368,23 @@ export async function pagePress() {
 
     // Validate the press image file input
     if (press_image.files.length === 0) {
-      if (storedLang === 'de') {
+      hasErrors = true;
+      if (storedLang && storedLang === 'de') {
         toastr.error('Bitte laden Sie Ihr Profilbild hoch');
       } else {
         toastr.error('Please upload your profile image');
       }
-      hasErrors = true;
     }
 
     // Check for identical emails
     if ($('#press_email').length && $('#press_confirm_email').length) {
       if ($('#press_email').val() != $('#press_confirm_email').val()) {
-        if (storedLang === 'de') {
+        hasErrors = true;
+        if (storedLang && storedLang === 'de') {
           toastr.error('Bitte verwenden Sie die gleiche E-mail');
         } else {
           toastr.error('Please make sure to use the same E-mail');
         }
-        hasErrors = true;
       }
     }
 

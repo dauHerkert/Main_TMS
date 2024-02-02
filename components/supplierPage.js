@@ -5,22 +5,6 @@ import toastr from 'toastr';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 
-// ---- SUPPLIER FORM EMAILS ----
-
-//Supplier form submited - DE
-const supplier_de_form_confirmation_subject = 'Vielen Dank für Ihre Anmeldung';
-const supplier_de_form_confirmation_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERFORMCONFIRM_DE;
-//Supplier form submited - EN
-const supplier_en_form_confirmation_subject = 'Thanks for Applicating';
-const supplier_en_form_confirmation_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERFORMCONFIRM_EN;
-
-//Supplier form changes notification - EN
-const supplier_en_form_changes_subject = 'Supplier Form Changes';
-const supplier_en_form_changes_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERFORMCHANGE_EN;
-//Supplier form changes notification - DE
-const supplier_de_form_changes_subject = 'Änderungen im Lieferantenformular';
-const supplier_de_form_changes_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERFORMCHANGE_DE;
-
 /*=======================================================================================================================================================
  * This asynchronous function initializes start and end date pickers on a webpage. It sets the minimum and maximum selectable dates, language settings,
  * and other configuration options based on the user's account type and the current URL path.
@@ -289,12 +273,12 @@ let supplier_text = document.getElementById('supplier_notifier_text');
 let storedLang = localStorage.getItem('language');
 //Supplier form notification - DE
 let supplier_form_changes_subject = 'Änderungen im Lieferantenformular';
-let supplier_form_confirmation_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERFORMCONFIRM_DE;
+let supplier_form_changes_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERFORMCHANGE_DE;
 
 if (storedLang && storedLang === 'de') {
   //Supplier form notification - EN
   supplier_form_changes_subject = 'Supplier Form Changes';
-  supplier_form_confirmation_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERFORMCONFIRM_EN;
+  supplier_form_changes_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERFORMCHANGE_EN;
 }
 
 if (supplier_notify_form) {
@@ -306,7 +290,7 @@ if (supplier_notify_form) {
       try {
         const supplierEmail = `${supplier_email.value}`;
         const supplierText = `${supplier_text.value}`;
-        const html = await fetch(supplier_form_confirmation_url)
+        const html = await fetch(supplier_form_changes_url)
           .then(response => response.text())
           .then(html => html.replace('${supplier_email.value}', supplierEmail))
           .then(html => html.replace('${supplier_text.value}', supplierText));
