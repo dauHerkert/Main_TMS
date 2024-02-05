@@ -15,6 +15,8 @@ import 'air-datepicker/air-datepicker.css';
 
 // ---- USERS TABLE EMAILS ----
 
+let storedLang = localStorage.getItem("language");
+
 // Applications - EN - Subjects and UI message Label
 let application_rejected_subject = 'Accreditation Rejection';
 let application_rejected_label = 'User registration declined';
@@ -84,9 +86,6 @@ async function changeCompanyNameToID(user) {
     console.log("No company found with that ID");
   }
 }
-
-
-let storedLang = localStorage.getItem("language");
 
 export async function pageAdmin(user) {
 
