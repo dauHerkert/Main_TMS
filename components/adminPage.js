@@ -692,6 +692,7 @@ export async function pageAdmin(user) {
   let update_user_form = document.getElementById('update_user_type');
   let user_specific_id = document.getElementById('admin_user_id');
   let user_specific_email = document.getElementById('admin_user_email');
+  let user_specific_name = document.getElementById('user_specific_name');
   let admin_user_name = document.getElementById('admin_user_name');
   let basic_admin_update = document.getElementById('basic_admin');
   let admin_user_lastname = document.getElementById('admin_user_lastname');
@@ -1081,13 +1082,13 @@ export async function pageAdmin(user) {
             }
           }
 
-          // TODO: review user name and lastname to add in HTML email template
+          // TODO: review user_specific_name in the email sended
           // Application action email send
           (async () => {
             if (send_email.checked) {
               try {
-                //const fullName = `${user_firstname.value} ${user_lastname}`;
-                const fullName = `${admin_user_name.value}`;
+                //const fullName = `${admin_user_name.value}`;
+                const fullName = `${user_specific_name.value}`;
                 const html = await fetch(emailURL)
                   .then(response => response.text())
                   .then(html => html.replace('${fullName}', fullName))
