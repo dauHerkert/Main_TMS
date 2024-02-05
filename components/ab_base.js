@@ -225,12 +225,13 @@ function checkUrlParameter() {
 
 function dispatchRequest(user) {
   let url = window.location.pathname;
+  let signoutBtn = document.getElementById('signout-button');
   console.log('url in dispatchRequest()', url);
   console.log('url in dispatchRequest() - last segment', url.substring(url.lastIndexOf('/') + 1));
 
   // User is NOT signed in
   if (user == false) {
-    document.getElementById('signout-button').style.display = 'none';
+    if (signoutBtn) {signoutBtn.style.display = 'none';}
     if (url.substring(url.lastIndexOf('/') + 1) == 'signup-ptgp') {
       signUpPage();
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'signin-ptgp') {
@@ -242,7 +243,7 @@ function dispatchRequest(user) {
       console.log('user does NOT have access to this page');
     }
   } else {
-    document.getElementById('signout-button').style.display = 'block';
+    if (signoutBtn) {signoutBtn.style.display = 'block';}
     // User IS signed in
     if (url.substring(url.lastIndexOf('/') + 1) == 'account') {
       pageAccount(user);
