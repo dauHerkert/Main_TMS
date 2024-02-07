@@ -94,11 +94,6 @@ async function getCompanyType(user) {
   * * and email sending. Finally, redirects the user to the appropriate sign-up confirmation page based on language and account type.
 =====================================================================================================================================================*/
 
-const signup_button = document.getElementById('signup_button');
-if (signup_button) {
-  signup_button.disabled = true;
-  signup_button.style.backgroundColor = '#f2a100';
-}
 const fileName = document.getElementById("fileName");
 if (fileName) {
   fileName.style.display = 'none';
