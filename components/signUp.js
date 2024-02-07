@@ -5,9 +5,9 @@ import toastr from 'toastr';
 import { getUserInfo } from './ab_base';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
-import flatpickr from "flatpickr";
+//import flatpickr from "flatpickr";
 
-console.log('testing flatpickr')
+//console.log('testing flatpickr')
 
 // This is a list of the default values
 // as well as of all the possible fields that a user doc can have
@@ -534,7 +534,7 @@ async function getDateSignUp() {
 
   let multiDates = false;
 
-  flatpickr("#Select-dates", {});
+  //flatpickr("#Select-dates", {});
 
   /*new AirDatepicker(startDatePicker, {
     multipleDates: multiDates,
