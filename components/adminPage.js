@@ -444,7 +444,7 @@ export async function pageAdmin(user) {
                 color = "#0000FF";
               }
             }
-            return '<div style="display:flex;align-items:center;justify-content:center"><div style="width:12px;height:12px;border-radius:50%;background-color:' + color + ';margin-right:0px;"></div><div style="margin-left:6px;">' + label + '</div></div>';
+            return '<div style="display:flex;align-items:center;justify-content:flex-start"><div style="width:12px;height:12px;border-radius:50%;background-color:' + color + ';margin-right:0px;"></div><div style="margin-left:6px;">' + label + '</div></div>';
           },
           headerFilter: "list",
           headerFilterParams: {
