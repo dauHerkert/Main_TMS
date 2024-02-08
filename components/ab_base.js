@@ -305,9 +305,11 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
  * URLs for buttons, adjusts the display of buttons, and redirects the user to the appropriate pages based on the language and user status.
 =========================================================================================================================================================*/
 
+
+// TODO: review if can be removed
 async function replaceUrl(user) {
   let form_button = document.getElementById('form_button');
-  let account_button = document.getElementById('account_user_profile');
+  //let account_button = document.getElementById('account_user_profile');
   let users_button = document.getElementById('users_table');
   let companies_button = document.getElementById('companies_table');
   const userRef = doc(db, 'users', user.uid);
@@ -321,7 +323,7 @@ async function replaceUrl(user) {
 
   if (!user) {
     form_button.setAttribute('href', urlLang + '/signin-ptgp');
-    account_button.setAttribute('href', urlLang + '/signin-ptgp');
+    //account_button.setAttribute('href', urlLang + '/signin-ptgp');
     users_button.setAttribute('href', urlLang + '/signin-ptgp');
     companies_button.setAttribute('href', urlLang + '/signin-ptgp');
     document.getElementById('signIn_button').style.display = 'block';
@@ -332,7 +334,7 @@ async function replaceUrl(user) {
       window.location.replace(URLENV + urlLang + '/signin-ptgp');
     }
   } else {
-    account_button.setAttribute('href', urlLang + '/account');
+    //account_button.setAttribute('href', urlLang + '/account');
     users_button.setAttribute('href', urlLang + '/admin/users-table');
     companies_button.setAttribute('href', urlLang + '/admin/companies-table');
     document.getElementById('signIn_button').style.display = 'none';

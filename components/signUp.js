@@ -432,8 +432,8 @@ async function userUploadImage(user, imageId, hiddenProfileInput, fileItem) {
     return uploadBytes(storageRef, fileToUpload, metadata)
       .then((snapshot) => {
         toastr.success('You have updated the profile picture successfully');
-        signup_button.disabled = false;
-        signup_button.style.backgroundColor = '#2b2b2b';
+        //signup_button.disabled = false;
+        //signup_button.style.backgroundColor = '#2b2b2b';
         uploading_image.style.display = 'none';
         fileName.style.display = 'block';
         return `profiles/${imageId}`;
