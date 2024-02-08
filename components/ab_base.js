@@ -108,7 +108,7 @@ async function populateForms(user) {
   if (userInfo) {
     console.log('populateForms() userInfo', userInfo);
 
-    translateNavigation();
+    //translateNavigation();
     // Use the changeCompanyNameToID(user) function to get the company name
     const companyNames = await changeCompanyNameToID(userInfo);
     userInfo.user_company_name = companyNames;
@@ -387,14 +387,14 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // user is signed in
     console.log(`The current user's UID is equal to ${user.uid}`);
-    replaceUrl(user);
+    //replaceUrl(user);
     dispatchRequest(user);
     populateForms(user);
     showPrivateElements();
 
   } else {
     // user is signed out
-    replaceUrlSignOut(user)
+    //replaceUrlSignOut(user)
     showPublicElements();
     return;
   }
@@ -578,6 +578,7 @@ export async function changeAdminTypeTitle(user){
 /*===================================================================================================================================
  * This function changes the text and the url of the "Impressum" and "Data Protection" on the footer depending on the user's language
  ====================================================================================================================================*/
+let storedLang = localStorage.getItem('language');
 
 if (storedLang && storedLang === 'de') {
   document.getElementById('imprint').textContent = 'Impressum';
