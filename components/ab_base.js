@@ -243,7 +243,7 @@ function dispatchRequest(user) {
       console.log('user does NOT have access to this page');
     }
   } else {
-    if (signoutBtn) {signoutBtn.style.display = 'block';}
+    if (signoutBtn) {signoutBtn.style.display = 'flex';}
     // User IS signed in
     if (url.substring(url.lastIndexOf('/') + 1) == 'account') {
       pageAccount(user);
