@@ -95,7 +95,7 @@ async function changeCompanyNameToID(user) {
 
 async function populateForms(user) {
   let userInfo = await getUserInfo(user);
-  const accountType_button = document.getElementById('account_user_profile');
+  //const accountType_button = document.getElementById('account_user_profile');
   const press_info = document.getElementsByClassName('press_info');
   const supplier_info = document.getElementsByClassName('supplier_info');
   let form_button = document.getElementById('form_button');
@@ -326,8 +326,8 @@ async function replaceUrl(user) {
     //account_button.setAttribute('href', urlLang + '/signin-ptgp');
     users_button.setAttribute('href', urlLang + '/signin-ptgp');
     companies_button.setAttribute('href', urlLang + '/signin-ptgp');
-    document.getElementById('signIn_button').style.display = 'block';
-    document.getElementById('signUp_button').style.display = 'block';
+    //document.getElementById('signIn_button').style.display = 'block';
+    //document.getElementById('signUp_button').style.display = 'block';
     if (window.location.pathname == '/' && !userData.confirmed_email) {
       window.location.replace(URLENV + urlLang + '/signin-ptgp');
     } else if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'success-email-sent' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'forgoten-password' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signin-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signup-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'press-form' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'data-protection' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'impressum') {
@@ -337,8 +337,8 @@ async function replaceUrl(user) {
     //account_button.setAttribute('href', urlLang + '/account');
     users_button.setAttribute('href', urlLang + '/admin/users-table');
     companies_button.setAttribute('href', urlLang + '/admin/companies-table');
-    document.getElementById('signIn_button').style.display = 'none';
-    document.getElementById('signUp_button').style.display = 'none';
+    //document.getElementById('signIn_button').style.display = 'none';
+    //document.getElementById('signUp_button').style.display = 'none';
     if (window.location.pathname == '/') {
       if (userData.confirmed_email) {
         window.location.replace(URLENV + urlLang + '/account');
@@ -362,8 +362,8 @@ async function replaceUrlSignOut(user) {
   }
 
   if (!user) {
-    document.getElementById('signIn_button').style.display = 'block';
-    document.getElementById('signUp_button').style.display = 'block';
+    //document.getElementById('signIn_button').style.display = 'block';
+    //document.getElementById('signUp_button').style.display = 'block';
     if (window.location.pathname == '/') {
       window.location.replace(URLENV + urlLang + '/signin-ptgp');
     } else if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'success-email-sent' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'forgoten-password' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signin-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signup-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'press-form' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'data-protection' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'impressum') {
@@ -460,6 +460,7 @@ function updateLinks() {
  * These onClick events add/delete a class to the selected language and triggers the changeLanguage and updateLinks functions
 ====================================================================================================================================*/
 
+/*
 var storedLang = localStorage.getItem("language");
 let sign_lang = document.getElementById('selected_lang2');
 let user_lang = document.getElementById('selected_lang');
@@ -517,6 +518,7 @@ if (signDeBtn) {
     document.getElementById('englishBtn2').classList.remove('selected');
   });
 }
+*/
 
 /*===================================================================================================================================
  * This function adds a border bottom to the link on the navbar of the current page
