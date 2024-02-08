@@ -248,16 +248,16 @@ export async function pageAdmin(user) {
   head_user.style.display = 'none';
   user_dates.style.display = 'none';
   basic_admin.style.display = 'none';
-  companies_table.style.display = 'none';
-  companies_table_mob.style.display = 'none';
+  if (companies_table) {companies_table.style.display = 'none'};
+  if (companies_table_mob) {companies_table_mob.style.display = 'none'};
   document.getElementById('update_user_zones').style.display = 'none';
   document.getElementById('accepted_option').style.display = 'none';
   document.getElementById('accepted_option_bulk').style.display = 'none';
 
   // Admins > company_admin - user_is_admin
   if (userInfo.company_admin) {
-    companies_table.style.display = 'block';
-    companies_table_mob.style.display = 'block';
+    if (companies_table) {companies_table.style.display = 'block'};
+    if (companies_table_mob) {companies_table_mob.style.display = 'block'};
     document.getElementById('update_user_zones').style.display = 'block';
     document.getElementById('accepted_option').style.display = 'block';
     document.getElementById('accepted_option_bulk').style.display = 'block';
@@ -271,8 +271,8 @@ export async function pageAdmin(user) {
     head_user.style.display = 'block';
     user_dates.style.display = 'block';
     basic_admin.style.display = 'block';
-    companies_table.style.display = 'block';
-    companies_table_mob.style.display = 'block';
+    if (companies_table) {companies_table.style.display = 'block'};
+    if (companies_table_mob) {companies_table_mob.style.display = 'block'};
     document.getElementById('update_user_zones').style.display = 'block';
     document.getElementById('accepted_option').style.display = 'block';
     document.getElementById('accepted_option_bulk').style.display = 'block';
