@@ -638,6 +638,7 @@ export async function pageAdmin(user) {
         document.querySelector('input[placeholder="Status"]').value = "";
         document.querySelector('#company-filter').value = "clear";
         document.querySelector('#status-filter').value = "clear";
+        document.querySelector('#type-filter').value = "clear";
 
         table.clearHeaderFilter();
       });
@@ -650,6 +651,7 @@ export async function pageAdmin(user) {
         document.querySelector('input[placeholder="Status"]').value = "";
         document.querySelector('#company-filter-mob').value = "clear";
         document.querySelector('#status-filter-mob').value = "clear";
+        document.querySelector('#type-filter-mob').value = "clear";
 
         table.clearHeaderFilter();
       });
