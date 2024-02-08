@@ -418,30 +418,30 @@ export async function pageAdmin(user) {
             if (storedLang && storedLang === 'de') {
               if (value === "Ok") {
                 label = "Ok";
-                color = "#A3E11E";
+                color = "#27AE60";
               } else if (value === "Declined") {
                 label = "Declined";
-                color = "#DD4042";
+                color = "#E74C3C";
               } else if (value === "Pending") {
                 label = "Pending";
-                color = "#F29A2E";
+                color = "#F39C12";
               } else if (value === "Printed") {
                 label = "Printed";
-                color = "#0000FF";
+                color = "#2980B9";
               }
             } else {
               if (value === "Ok") {
                 label = "Ok";
-                color = "#A3E11E";
+                color = "#27AE60";
               } else if (value === "Declined") {
                 label = "Declined";
-                color = "#DD4042";
+                color = "#E74C3C";
               } else if (value === "Pending") {
                 label = "Pending";
-                color = "#F29A2E";
+                color = "#F39C12";
               } else if (value === "Printed") {
                 label = "Printed";
-                color = "#0000FF";
+                color = "#2980B9";
               }
             }
             return '<div style="display:flex;align-items:center;justify-content:flex-start"><div style="width:12px;height:12px;border-radius:50%;background-color:' + color + ';margin-right:0px;"></div><div style="margin-left:6px;">' + label + '</div></div>';
@@ -486,6 +486,9 @@ export async function pageAdmin(user) {
           }, align: "center", cssClass:"center_col other_columns edit_delete_col", width: 120},
         {title: userTableSelectLabel, cssClass:"center_col other_columns", width: 105, formatter:function(cell, formatterParams) {
           let checkbox = document.createElement("input");
+          checkbox.style.accentColor="#E85B0F";
+          checkbox.style.height="18px";
+          checkbox.style.width="18px";
           checkbox.type = "checkbox";
           checkbox.addEventListener("click", function() {
             let row = cell.getRow();
