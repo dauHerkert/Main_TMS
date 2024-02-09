@@ -1030,7 +1030,7 @@ export async function pageAdmin(user) {
         basic_admin_update.value = false;
       }
       console.log('basic admin variable', basic_admin_update);
-      console.log('basic admin value', basic_admin_update.value);
+      console.log('basic admin value', (String(basic_admin_update.value).toLowerCase() === 'true'));
 
       setDoc(userRef, {
         user_type: userTypeUpdate.value,
@@ -1038,9 +1038,9 @@ export async function pageAdmin(user) {
         user_status: user_status_update.value,
         user_company: selectedUserCompaniesString,
         user_zones: selectedUserZonesString,
-        company_admin: company_admin.value,
+        company_admin: (String(company_admin.value).toLowerCase() === 'true'),
         supplier_visit_dates: updated_dates.value,
-        basic_admin: basic_admin_update.value,
+        basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
         user_itwa: update_itwa.value,
         press_workspot: update_workspace.value,
         press_card_number: update_card_number.value,
