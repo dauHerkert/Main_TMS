@@ -409,7 +409,7 @@ export async function pageAdmin(user) {
             let value = cell.getValue();
             let name = value;
             if (value === (userInfo.user_firstname + ' ' + userInfo.user_lastname)) {
-              name = '(You) ' + value;
+              name = '<span style="color:#E85B0F;">' + value + '<span>';
             }
             return name;
           }
