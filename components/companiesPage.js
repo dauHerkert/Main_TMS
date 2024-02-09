@@ -215,7 +215,9 @@ export async function pageCompaniesTable(user){
 
   $('#companyZone').on('change', function () {
     var selectedValues = $(this).val();
+    console.log(selectedValues);
     selectedValuesString = selectedValues.join(', ');
+    console.log(selectedValuesString);
   });
 
   async function createCompany() {
@@ -255,7 +257,9 @@ export async function pageCompaniesTable(user){
 
   $('#profileZones').on('change', function () {
     var selectedValues = $(this).val();
+    console.log(selectedValues);
     selectedProfileZones = selectedValues.join(', ');
+    console.log(selectedProfileZones);
   });
 
   async function createProfile() {
@@ -268,7 +272,7 @@ export async function pageCompaniesTable(user){
       setTimeout(function() {
         document.getElementById('create_profile_modal').style.display = 'none';
       }, 500);
-      $('body').removeClass('modal-open')
+      $('body').css("overflow", "unset");
     })
     .catch((err) => {
       toastr.error('There was an error creating the profile');
@@ -295,7 +299,7 @@ export async function pageCompaniesTable(user){
         toastr.success('Zone has been successfully created');
         setTimeout(function() {
           document.getElementById('#zone_modal').style.display = 'none';
-          $('body').removeClass('modal-open')
+          $('body').css("overflow", "unset");
         }, 500);
       })
       .catch((err) => {
