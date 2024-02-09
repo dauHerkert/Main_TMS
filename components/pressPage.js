@@ -29,6 +29,8 @@ function pressFormSubmit(e) {
   let press_phone = document.getElementById('press_phone');
   let press_itwa = document.getElementById('press_itwa');
   let press_workspace = document.getElementById('press_workspace');
+  let press_locker = document.getElementById('press_locker');
+  let press_hotel_info = document.getElementById('press_hotel_info');
   let language = localStorage.getItem('language');
   let press_card_number = document.getElementById('press_card_number')
 
@@ -54,6 +56,8 @@ function pressFormSubmit(e) {
       user_phone: press_phone.value,
       user_itwa: press_itwa.value,
       press_workspot: press_workspace.value,
+      press_locker: press_locker.value,
+      press_hotel_info: press_hotel_info.value,
       press_card_number: press_card_number.value,
       press_form_user: true,
       user_company: 'vc5dzk77h7lqwrUQm9Ku',

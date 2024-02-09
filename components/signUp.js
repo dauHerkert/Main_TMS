@@ -23,6 +23,8 @@ const userDefaultValues = {
 
   // Press fields
   press_workspot:'',
+  press_locker:'',
+  press_hotel_info:'',
   press_publisher:'',
   press_media_type:'',
   press_visit_dates:'',
@@ -33,9 +35,7 @@ const userDefaultValues = {
   press_form_user: false,
   //Press form info
   press_media:'',
-  press_media_type:'',
   user_itwa:'',
-  press_workspot:'',
   press_issued_by:'',
   press_card_number:'',
 
