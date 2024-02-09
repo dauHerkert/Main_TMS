@@ -302,7 +302,7 @@ async function pressUploadImage(docId, storageRef) {
 export async function pagePress() {
   const press_form = document.getElementById('logout_press_form');
   const submit_button = document.getElementById('submit_button');
-  const requiredFields = document.querySelectorAll(".required");
+  const requiredFields = document.querySelectorAll("[required]");
   const press_image = document.getElementById('press_image');
   const storedLang = localStorage.getItem("language");
   let checkboxesChecked = false;
