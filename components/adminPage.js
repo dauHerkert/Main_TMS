@@ -409,7 +409,7 @@ export async function pageAdmin(user) {
             let value = cell.getValue();
             let name = value;
             if (value === (userInfo.user_firstname + ' ' + userInfo.user_lastname)) {
-              name = '<span style="color:#E85B0F;"> >' + value + '<span>';
+              name = '<span style="color:#E85B0F;"> > ' + value + '<span>';
             }
             return name;
           }
@@ -428,7 +428,7 @@ export async function pageAdmin(user) {
             let color = "";
             if (storedLang && storedLang === 'de') {
               if (value === "Ok") {
-                label = "Ok";
+                label = "Accepted";
                 color = "#27AE60";
               } else if (value === "Declined") {
                 label = "Declined";
@@ -442,7 +442,7 @@ export async function pageAdmin(user) {
               }
             } else {
               if (value === "Ok") {
-                label = "Ok";
+                label = "Accepted";
                 color = "#27AE60";
               } else if (value === "Declined") {
                 label = "Declined";
@@ -1446,15 +1446,15 @@ export async function pageAdmin(user) {
       press_form_user: false,
       press_media: '',
       press_media_type: '',
-      press_workspot: '',
-      press_locker: '',
-      press_hotel_info: '',
+      press_workspot: false,
+      press_locker: false,
+      press_hotel_info: false,
       user_address: '',
       user_city: '',
       user_country: '',
       user_email: '',
       user_is_admin: false,
-      user_itwa:'',
+      user_itwa: false,
       user_nationality:'',
       user_phone:'',
       user_title:'',
