@@ -409,7 +409,7 @@ export async function pageAdmin(user) {
             let value = cell.getValue();
             let name = value;
             if (value === (userInfo.user_firstname + ' ' + userInfo.user_lastname)) {
-              name = '<span style="color:#E85B0F;">' + value + '<span>';
+              name = '<span style="color:#E85B0F;"> >' + value + '<span>';
             }
             return name;
           }
@@ -465,7 +465,7 @@ export async function pageAdmin(user) {
             clearable: true,
           },
           headerFilterPlaceholder: "Status",
-          cssClass: "other_columns",
+          cssClass: "small_columns",
         },
         {title:"USER TYPE", field: "account_type", sorter: "string", cssClass:"hidden-column", width:0, headerFilter: "list",
           headerFilterParams: {
@@ -494,8 +494,8 @@ export async function pageAdmin(user) {
             buttonContainer.appendChild(button2);
             // Return the container with the buttons
             return buttonContainer;
-          }, align: "center", cssClass:"center_col other_columns edit_delete_col", width: 120},
-        {title: userTableSelectLabel, cssClass:"center_col other_columns", width: 105, formatter:function(cell, formatterParams) {
+          }, align: "center", cssClass:"center_col small_columns edit_delete_col", width: 120},
+        {title: userTableSelectLabel, cssClass:"center_col tiny_columns", width: 105, formatter:function(cell, formatterParams) {
           let checkbox = document.createElement("input");
           checkbox.style.accentColor="#E85B0F";
           checkbox.style.height="18px";
