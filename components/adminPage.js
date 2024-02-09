@@ -404,7 +404,16 @@ export async function pageAdmin(user) {
         {title:"Zip", field:"zip", sorter:"string", width:0, cssClass:"hidden-column"},
         {title:"Country", field:"country", sorter:"string", width:0, cssClass:"hidden-column"},
         {title:"Phone", field:"phone", sorter:"string", width:0, cssClass:"hidden-column"},
-        {title: userTableFirstnameLabel, field:"name", sorter:"string", width:180, cssClass:"first_column"},
+        {title: userTableFirstnameLabel, field:"name", sorter:"string", width:180, cssClass:"first_column",
+          formatter: function(cell) {
+            let value = cell.getValue();
+            let name = value;
+            if (value === (userInfo.user_firstname + ' ' + userInfo.user_lastname)) {
+              name = '(You) ' + value;
+            }
+            return name;
+          }
+        },
         {title:"EMAIL", field:"email", sorter:"string", width:220, cssClass:"other_columns"},
         {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:0, cssClass:"hidden-column"},
         {title: userTableCompanyLabel, field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{values: uniqueCompanies, clearable:true, headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {let selectedCompany = headerValue.toLowerCase();let userCompanies = rowData.company.toLowerCase().split(", ");return userCompanies.includes(selectedCompany);}}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
