@@ -206,7 +206,7 @@ async function setDefaultFields(user) {
     }
 
     setTimeout(function(user) {
-      window.location = urlLang + "/signup-form-submitted";
+      //window.location = urlLang + "/signup-form-submitted";
     }, 1000);
   })
   .catch((err) => {
