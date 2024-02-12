@@ -12,10 +12,15 @@ import toastr from 'toastr';
 // Update user info
 function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
   const userRef = doc(db, 'users', user.uid);
+  let user_fullname = '';
+  if (user_firstname.value && user_lastname.value) {
+    user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
+  }
 
   setDoc(userRef, {
     user_firstname: newUsername.value,
     user_lastname: newUserLastname.value,
+    user_fullname: user_fullname,
     user_address: newUserAddress.value
   }, { merge: true })
     .then(() => {
