@@ -114,21 +114,21 @@ async function populateForms(user) {
     userInfo.user_company_name = companyNames;
 
     if (userInfo.user_is_admin || userInfo.company_admin || userInfo.basic_admin) {
-      form_button.setAttribute('href', urlLang + '/supplier');
+      //form_button.setAttribute('href', urlLang + '/supplier');
       document.getElementById('admin_drop').style.display = 'block';
-      document.getElementById('admin_drop_mob').style.display = 'block';
+      //document.getElementById('admin_drop_mob').style.display = 'block';
     } else {
-      if (userInfo.account_type == "No company" || userInfo.account_type == "Supplier" || userInfo.account_type == "RSW") {
-        form_button.setAttribute('href', urlLang + '/supplier');
+      if (userInfo.account_type == "No company" || userInfo.account_type == "Supplier") {
+        //form_button.setAttribute('href', urlLang + '/supplier');
       } else if (userInfo.account_type == "Press") {
-        form_button.setAttribute('href', urlLang + '/press');
+        //form_button.setAttribute('href', urlLang + '/press');
       }
       if (window.location.pathname.includes('users-table') || window.location.pathname.includes('companies-table')) {
         location.replace(urlLang + '/account');
       }
       document.getElementById('companies_table').style.display = 'none';
       document.getElementById('admin_drop').style.display = 'none';
-      document.getElementById('admin_drop_mob').style.display = 'none !important';
+      //document.getElementById('admin_drop_mob').style.display = 'none !important';
     }
 
     if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'press') {
