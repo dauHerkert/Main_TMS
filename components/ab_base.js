@@ -99,11 +99,12 @@ async function populateForms(user) {
   const press_info = document.getElementsByClassName('press_info');
   const supplier_info = document.getElementsByClassName('supplier_info');
   let form_button = document.getElementById('form_button');
+  let navAdminDropdown = document.getElementById('admin_drop');
   let storedLang = localStorage.getItem('language');
-    let urlLang = '/en';
-    if (storedLang && storedLang === 'de') {
-      urlLang = '/de';
-    }
+  let urlLang = '/en';
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+  }
 
   if (userInfo) {
     console.log('populateForms() userInfo', userInfo);
@@ -115,20 +116,20 @@ async function populateForms(user) {
 
     if (userInfo.user_is_admin || userInfo.company_admin || userInfo.basic_admin) {
       //form_button.setAttribute('href', urlLang + '/supplier');
-      document.getElementById('admin_drop').style.display = 'flex';
-      //document.getElementById('admin_drop_mob').style.display = 'block';
+      if (navAdminDropdown) { navAdminDropdown.style.display = 'flex'; }
     } else {
+      /*
       if (userInfo.account_type == "No company" || userInfo.account_type == "Supplier") {
-        //form_button.setAttribute('href', urlLang + '/supplier');
+        form_button.setAttribute('href', urlLang + '/supplier');
       } else if (userInfo.account_type == "Press") {
-        //form_button.setAttribute('href', urlLang + '/press');
+        form_button.setAttribute('href', urlLang + '/press');
       }
+      */
       if (window.location.pathname.includes('users-table') || window.location.pathname.includes('companies-table')) {
         location.replace(urlLang + '/account');
       }
-      document.getElementById('companies_table').style.display = 'none';
-      document.getElementById('admin_drop').style.display = 'none';
-      //document.getElementById('admin_drop_mob').style.display = 'none !important';
+      //document.getElementById('companies_table').style.display = 'none';
+      if (navAdminDropdown) { navAdminDropdown.style.display = 'none'; }
     }
 
     if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'press') {
