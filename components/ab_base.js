@@ -115,7 +115,7 @@ async function populateForms(user) {
 
     if (userInfo.user_is_admin || userInfo.company_admin || userInfo.basic_admin) {
       //form_button.setAttribute('href', urlLang + '/supplier');
-      document.getElementById('admin_drop').style.display = 'block';
+      document.getElementById('admin_drop').style.display = 'flex';
       //document.getElementById('admin_drop_mob').style.display = 'block';
     } else {
       if (userInfo.account_type == "No company" || userInfo.account_type == "Supplier") {
