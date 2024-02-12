@@ -155,6 +155,10 @@ async function setDefaultFields(user) {
   // Use the setDoc function to set the userDefaultValues object
   setDoc(userRef, userDefaultValues, { merge: true })
     .then(async () => {
+    console.log('use >>>', user);
+    console.log('tempImageId >>>', tempImageId);
+    console.log('hiddenProfileInput >>>', hiddenProfileInput);
+    console.log('fileItem >>>', fileItem);
     await userUploadImage(user, tempImageId, hiddenProfileInput, fileItem);
     const oldImagePath = `profiles/${tempImageId}`;
     const newImagePath = `profiles/${user.uid}`;
@@ -162,6 +166,7 @@ async function setDefaultFields(user) {
     // Download the old image
     const oldImageRef = ref(storage, oldImagePath);
     const oldImageUrl = await getDownloadURL(oldImageRef);
+    console.log('oldImageUrl >>>', oldImageUrl);
 
     // Upload the image with the new name
     const response = await fetch(oldImageUrl);
@@ -270,7 +275,7 @@ if (select_company) {
     const companyName = currentUrl.searchParams.get('company');
     user_company.value = companyName;
     // Hide the select_company element
-    document.getElementById('company_select_cont').style.display = 'none';
+    document.getElementById('company_select_wrapper').style.display = 'none';
   } else {
     //Print companies select
     getDocs(company_colRef)
