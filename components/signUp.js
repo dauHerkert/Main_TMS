@@ -155,10 +155,6 @@ async function setDefaultFields(user) {
   // Use the setDoc function to set the userDefaultValues object
   setDoc(userRef, userDefaultValues, { merge: true })
     .then(async () => {
-    console.log('use >>>', user);
-    console.log('tempImageId >>>', tempImageId);
-    console.log('hiddenProfileInput >>>', hiddenProfileInput);
-    console.log('fileItem >>>', fileItem);
     await userUploadImage(user, tempImageId, hiddenProfileInput, fileItem);
     const oldImagePath = `profiles/${tempImageId}`;
     const newImagePath = `profiles/${user.uid}`;
@@ -168,6 +164,8 @@ async function setDefaultFields(user) {
     const oldImageUrl = await getDownloadURL(oldImageRef);
     console.log('oldImageUrl >>>', oldImageUrl);
 
+    /*
+    // TODO: review fetch CORS issue 
     // Upload the image with the new name
     const response = await fetch(oldImageUrl);
     const blob = await response.blob();
@@ -180,6 +178,7 @@ async function setDefaultFields(user) {
     // Update the user's profile image path in Firestore
     const userRef = doc(db, 'users', user.uid);
     await updateDoc(userRef, { profileImagePath: newImagePath });
+    */
 
     // Sign up
     (async () => {
