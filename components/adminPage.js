@@ -1184,6 +1184,9 @@ export async function pageAdmin(user) {
       }, { merge: true })
         .then(() => {
           toastr.success('User succesfully deleted');
+          setTimeout(function() {
+            window.location.reload();
+          }, 2000);
         })
         .catch((err) => {
           toastr.error('There was an error deleting the account');
