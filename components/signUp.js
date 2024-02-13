@@ -240,6 +240,7 @@ function handleSignUp(e) {
           const user = userCredential.user;
           sessionStorage.setItem('userID', user.uid);
           setDefaultFields(user);
+          console.log('Go to userExtraInfo()');
           userExtraInfo(e, user);
           toastr.success('user successfully created: ' + user.email);
         })
@@ -312,6 +313,7 @@ if (select_company) {
 ================================================================================================================================================================*/
 
 function userExtraInfo(e, user) {
+  console.log('Staring userExtraInfo()');
   e.preventDefault();
   e.stopPropagation();
   const userRef = doc(db, 'users', user.uid);
