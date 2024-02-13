@@ -329,6 +329,12 @@ function userExtraInfo(e, user) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
   }
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
+  console.log('user_firstname.value ', user_firstname.value);
+  console.log('user_lastname.value ', user_lastname.value);
+  console.log('userCompanyValue ', userCompanyValue);
+  console.log('start_date.value ', start_date.value);
+  console.log('end_date.value ', end_date.value);
+  console.log('special_requests.value ', special_requests.value);
 
   setDoc(userRef, {
     user_firstname: user_firstname.value,
