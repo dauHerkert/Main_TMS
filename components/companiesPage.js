@@ -40,17 +40,6 @@ export async function pageCompaniesTable(user){
   //Print zones select
   createOptions(zonesFilterSelect);
 
-  companyFilterSelect.addEventListener("change", function() {
-    let companyColumn = companies_table.getColumn("company_profile");
-    let selectedCompany = companyFilterSelect.value;
-    companies_table.setHeaderFilterValue(companyColumn, selectedCompany);
-  });
-  zonesFilterSelect.addEventListener("change", function() {
-    let zoneColumn = companies_table.getColumn("zone");
-    let selectedZone = zonesFilterSelect.value;
-    companies_table.setHeaderFilterValue(zoneColumn, selectedZone);
-  });
-
   let companyProfileLabel = 'COMPANY PROFILE';
   let companyLabel = 'COMPANY';
   let companyZoneLabel = 'COMPANY ZONE';
@@ -133,6 +122,17 @@ export async function pageCompaniesTable(user){
       $(".tabulator-paginator").find(".tabulator-page[data-page='first']").html("Zurück");
       $(".tabulator-paginator").find(".tabulator-page[data-page='last']").html("Vor");
     }
+  });
+
+  companyFilterSelect.addEventListener("change", function() {
+    let companyColumn = companies_table.getColumn("company_profile");
+    let selectedCompany = companyFilterSelect.value;
+    companies_table.setHeaderFilterValue(companyColumn, selectedCompany);
+  });
+  zonesFilterSelect.addEventListener("change", function() {
+    let zoneColumn = companies_table.getColumn("zone");
+    let selectedZone = zonesFilterSelect.value;
+    companies_table.setHeaderFilterValue(zoneColumn, selectedZone);
   });
 
   const company_input = document.getElementById("company_search");
