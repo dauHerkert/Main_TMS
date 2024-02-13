@@ -222,6 +222,7 @@ export async function pageAdmin(user) {
   let user_dates = document.getElementById('user_dates');
   let basic_admin = document.getElementById('basicaAdminCont');
   let companies_table = document.getElementById('companies_table_link');
+  let admin_create_user_form = document.getElementById('update_user_type');
   let userInfo = await getUserInfo(user);
   const userRef = doc(db, 'users', user.uid);
   const companyNames = await changeCompanyNameToID(userInfo);
@@ -249,6 +250,8 @@ export async function pageAdmin(user) {
   basic_admin.style.display = 'none';
   if (companies_table) {companies_table.style.display = 'none'};
   document.getElementById('update_user_zones').style.display = 'none';
+  admin_create_user_form.querySelector('#update_user_profile').querySelector('select').required = false;
+  admin_create_user_form.querySelector('#update_user_zones').querySelector('select').required = false;
   document.getElementById('accepted_option').style.display = 'none';
   document.getElementById('accepted_option_bulk').style.display = 'none';
 
