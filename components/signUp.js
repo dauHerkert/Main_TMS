@@ -54,7 +54,8 @@ const userDefaultValues = {
   // user_status: pending | ok
   user_status:'Pending',
   // Boolean: false | true
-  confirmed_email: false,
+  /* TODO: Change again to false */
+  confirmed_email: true,
   user_is_admin: false,
   company_admin: false,
   basic_admin: false,
@@ -164,7 +165,7 @@ async function setDefaultFields(user) {
     const oldImageUrl = await getDownloadURL(oldImageRef);
     console.log('oldImageUrl >>>', oldImageUrl);
 
-    
+    /*
     // TODO: review fetch CORS issue 
     // Upload the image with the new name
     const response = await fetch(oldImageUrl);
@@ -178,7 +179,7 @@ async function setDefaultFields(user) {
     // Update the user's profile image path in Firestore
     const userRef = doc(db, 'users', user.uid);
     await updateDoc(userRef, { profileImagePath: newImagePath });
-    
+    */
 
     // Sign up
     (async () => {
@@ -206,7 +207,9 @@ async function setDefaultFields(user) {
     }
 
     setTimeout(function(user) {
+      /* TODO: Change again to false - change url*/
       //window.location = urlLang + "/signup-form-submitted";
+      window.location = urlLang + "/signin-ptgp";
     }, 1000);
   })
   .catch((err) => {
