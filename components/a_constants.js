@@ -24,8 +24,8 @@
  export const URLSIGNIN = '/signin' + PSNAME;
 
  /* Admin create user default dates */
- export const SUPPLIERSTARTDATE = '06-24-2024';
- export const SUPPLIERENDDATE = '07-01-2024';
+ export const SUPPLIERSTARTDATE = '04-13-2024';
+ export const SUPPLIERENDDATE = '04-21-2024';
  
  /* URL Webflow Assets for Images and Icons */
  /* must be changed manually in each email template, where the respective asset is used */

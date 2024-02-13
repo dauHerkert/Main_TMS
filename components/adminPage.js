@@ -222,7 +222,6 @@ export async function pageAdmin(user) {
   let user_dates = document.getElementById('user_dates');
   let basic_admin = document.getElementById('basicaAdminCont');
   let companies_table = document.getElementById('companies_table_link');
-  let companies_table_mob = document.getElementById('companies_table_mob');
   let userInfo = await getUserInfo(user);
   const userRef = doc(db, 'users', user.uid);
   const companyNames = await changeCompanyNameToID(userInfo);
@@ -244,12 +243,11 @@ export async function pageAdmin(user) {
   // Admins > basic_admin - company_admin - user_is_admin
   select_type_id.style.display = 'none';
   user_profile_company_update.style.display = 'none';
-  update_user_profile.style.display = 'none';
+  //update_user_profile.style.display = 'none';
   head_user.style.display = 'none';
   user_dates.style.display = 'none';
   basic_admin.style.display = 'none';
   if (companies_table) {companies_table.style.display = 'none'};
-  if (companies_table_mob) {companies_table_mob.style.display = 'none'};
   document.getElementById('update_user_zones').style.display = 'none';
   document.getElementById('accepted_option').style.display = 'none';
   document.getElementById('accepted_option_bulk').style.display = 'none';
@@ -257,7 +255,6 @@ export async function pageAdmin(user) {
   // Admins > company_admin - user_is_admin
   if (userInfo.company_admin) {
     if (companies_table) {companies_table.style.display = 'block'};
-    if (companies_table_mob) {companies_table_mob.style.display = 'block'};
     document.getElementById('update_user_zones').style.display = 'block';
     document.getElementById('accepted_option').style.display = 'block';
     document.getElementById('accepted_option_bulk').style.display = 'block';
@@ -268,11 +265,10 @@ export async function pageAdmin(user) {
     //select_type_id.style.display = 'none';
     user_profile_company_update.style.display = 'block';
     update_user_profile.style.display = 'block';
-    head_user.style.display = 'block';
-    user_dates.style.display = 'block';
+    head_user.style.display = 'flex';
+    user_dates.style.display = 'flex';
     basic_admin.style.display = 'block';
     if (companies_table) {companies_table.style.display = 'block'};
-    if (companies_table_mob) {companies_table_mob.style.display = 'block'};
     document.getElementById('update_user_zones').style.display = 'block';
     document.getElementById('accepted_option').style.display = 'block';
     document.getElementById('accepted_option_bulk').style.display = 'block';
@@ -307,8 +303,7 @@ export async function pageAdmin(user) {
 
   let typeOptions = {
     "Press": "PRESS",
-    "Supplier": "SUPPLIER",
-    "RSW": "RSW"
+    "Supplier": "SUPPLIER"
   };
   if (storedLang && storedLang === 'de') {
     userTableFirstnameLabel = 'VORNAME';
@@ -329,8 +324,7 @@ export async function pageAdmin(user) {
 
     typeOptions = {
       "Press": "PRESSE",
-      "Supplier": "ANBIETER",
-      "RSW": "RSW"
+      "Supplier": "ANBIETER"
     };
   }
 
@@ -682,7 +676,40 @@ export async function pageAdmin(user) {
 
           promises.push(changeCompanyNameToID(user).then(userCompanyName => {
             if (!user.user_deleted) { 
-              data.push({id: doc.id, user_fullname: user.user_fullname, special_requests: user.supplier_special_request, user_itwa: user.user_itwa, press_id: user.press_card_number, press_workspot: user.press_workspot, press_locker: user.press_locker, press_hotel_info: user.press_hotel_info, press_form_user: user.press_form_user, user_title: user.user_title, press_media_type: user.press_media_type, press_media: user.press_media, email: user.user_email, company_admin: user.company_admin, basic_admin: user.basic_admin, companyID: [user.user_company], user_type: user.user_type, account_type: user.account_type, user_zones: user.user_zones, user_start_date: user.supplier_start_date, user_end_date: user.supplier_end_date, language: user.language, name: user.user_firstname + ' ' + user.user_lastname, lastname: user.user_lastname, company: userCompanyName, status: user.user_status, user_admin: user.user_is_admin, nationality: user.user_nationality, address: user.user_address, city: user.user_city, zip: user.user_zip_code, country: user.user_country, phone: user.user_phone});
+              data.push({
+                id: doc.id,
+                user_fullname: user.user_fullname,
+                special_requests: user.supplier_special_request,
+                user_itwa: user.user_itwa,
+                press_id: user.press_card_number,
+                press_workspot: user.press_workspot,
+                press_locker: user.press_locker,
+                press_hotel_info: user.press_hotel_info,
+                press_form_user: user.press_form_user,
+                user_title: user.user_title,
+                press_media_type: user.press_media_type,
+                press_media: user.press_media,
+                email: user.user_email,
+                company_admin: user.company_admin,
+                basic_admin: user.basic_admin,
+                companyID: [user.user_company],
+                user_type: user.user_type,
+                account_type: user.account_type,
+                user_zones: user.user_zones,
+                user_start_date: user.supplier_start_date,
+                user_end_date: user.supplier_end_date,
+                language: user.language,
+                name: user.user_firstname + ' ' + user.user_lastname,
+                lastname: user.user_lastname,
+                company: userCompanyName,
+                status: user.user_status,
+                user_admin: user.user_is_admin,
+                nationality: user.user_nationality,
+                address: user.user_address,
+                city: user.user_city,
+                zip: user.user_zip_code,
+                country: user.user_country,
+                phone: user.user_phone});
             }
           }));
         });
@@ -1461,8 +1488,8 @@ export async function pageAdmin(user) {
       user_zip_code:'',
       user_fullname: new_user_fullname,
       user_zones: selectedCreateUserZonesString,
-      supplier_start_date: SUPPLIERSTARTDATE, //'06-24-2023',
-      supplier_end_date: SUPPLIERENDDATE, // '07-01-2023',
+      supplier_start_date: SUPPLIERSTARTDATE,
+      supplier_end_date: SUPPLIERENDDATE,
       user_deleted: false
     })
       .then((companyRef) => {
@@ -1477,7 +1504,7 @@ export async function pageAdmin(user) {
         }, 2000);
       })
       .catch((err) => {
-        toastr.error('There was an error creating the company');
+        toastr.error('There was an error creating the user');
         console.log('error creating user', err);
       });
   }
