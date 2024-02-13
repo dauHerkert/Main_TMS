@@ -41,14 +41,14 @@ export async function pageCompaniesTable(user){
   createOptions(zonesFilterSelect);
 
   companyFilterSelect.addEventListener("change", function() {
-    let companyColumn = table.getColumn("company_profile");
+    let companyColumn = companies_table.getColumn("company_profile");
     let selectedCompany = companyFilterSelect.value;
-    table.setHeaderFilterValue(companyColumn, selectedCompany);
+    companies_table.setHeaderFilterValue(companyColumn, selectedCompany);
   });
   zonesFilterSelect.addEventListener("change", function() {
-    let zoneColumn = table.getColumn("zone");
+    let zoneColumn = companies_table.getColumn("zone");
     let selectedZone = zonesFilterSelect.value;
-    table.setHeaderFilterValue(zoneColumn, selectedZone);
+    companies_table.setHeaderFilterValue(zoneColumn, selectedZone);
   });
 
   let companyProfileLabel = 'COMPANY PROFILE';
