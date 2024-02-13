@@ -250,8 +250,7 @@ export async function pageAdmin(user) {
   basic_admin.style.display = 'none';
   if (companies_table) {companies_table.style.display = 'none'};
   document.getElementById('update_user_zones').style.display = 'none';
-  admin_create_user_form.querySelector('#update_user_profile').querySelector('select').required = false;
-  admin_create_user_form.querySelector('#update_user_zones').querySelector('select').required = false;
+  //document.getElementById('update_user_type').querySelector('#update_user_zones').querySelector('select').required = false;
   document.getElementById('accepted_option').style.display = 'none';
   document.getElementById('accepted_option_bulk').style.display = 'none';
 
@@ -1416,6 +1415,7 @@ export async function pageAdmin(user) {
   $('#new_user_company').on('change', function () {
     var selectedNewUserCompanies = $(this).val();
     newUserCompaniesString = selectedNewUserCompanies.join(', ');
+    console.log('company(s) selected', newUserCompaniesString);
   });
 
   //Print companies select
