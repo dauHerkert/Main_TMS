@@ -1460,6 +1460,10 @@ export async function pageAdmin(user) {
       new_user_fullname = (new_user_firstname.value + new_user_lastname.value).toLowerCase().replace(/\s/g, '');
     }
 
+    selectedNewUserCompanies = $('#new_user_company').val();
+    newUserCompaniesString = selectedNewUserCompanies.join(', ');
+    console.log('company(s) selected', newUserCompaniesString);
+
     let storedLang = localStorage.getItem("language");
     let companyRef;
     companyRef = await addDoc(collection(db, "users"), {
