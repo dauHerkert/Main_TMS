@@ -349,8 +349,8 @@ function userExtraInfo(e, user) {
     supplier_special_request: special_requests.value,
     language: language,
   }, { merge: true })
-  .then(() => {
-    // console.log('press data successfully updated');
+  .then((e) => {
+    console.log('User data successfully added ', e);
   })
   .catch((err) => {
     console.log('there was a problem updating the data', err);

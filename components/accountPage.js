@@ -261,7 +261,7 @@ export async function pageAccount(user) {
     last_signin_date: new Date()
   }, { merge: true })
   .then(() => {
-    console.log('press data successfully updated');
+    console.log('login date successfully updated');
   })
   .catch((err) => {
     console.log('there was a problem signin user', err);
