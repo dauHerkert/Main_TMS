@@ -251,8 +251,8 @@ export async function pageAdmin(user) {
 
   // Admins > basic_admin
   if (userInfo.basic_admin) {
-    document.getElementById('company-filter').style.display = 'none';
-    document.getElementById('type-filter').style.display = 'none';
+    document.getElementById('company-filter').parentElement.style.display = 'none';
+    document.getElementById('type-filter').parentElement.style.display = 'none';
     if (companies_table) {companies_table.style.display = 'none'};
     document.getElementById('update_user_zones').style.display = 'none';
     document.getElementById('accepted_option').style.display = 'none';
