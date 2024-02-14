@@ -273,6 +273,7 @@ export async function pageAdmin(user) {
         option.selected = false;
       }
     }
+    $(newUserCompany).trigger('change.select2');
 
     const adminCompanyRef = doc(db, 'companies', userInfo.user_company);
     const adminCompanySnapshot = await getDoc(adminCompanyRef);
