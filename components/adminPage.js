@@ -254,9 +254,27 @@ export async function pageAdmin(user) {
     document.getElementById('company-filter').parentElement.style.display = 'none';
     document.getElementById('type-filter').parentElement.style.display = 'none';
     if (companies_table) {companies_table.style.display = 'none'};
+    document.getElementById('new_user_company').style.display = 'none';
     document.getElementById('update_user_zones').style.display = 'none';
     document.getElementById('accepted_option').style.display = 'none';
     document.getElementById('accepted_option_bulk').style.display = 'none';
+
+    // Dafault Admin data to create users
+    document.getElementById('new_user_company').value = userInfo.user_company;
+
+    const adminCompanyRef = doc(db, 'companies', userInfo.user_company);
+    const adminCompanySnapshot = await getDoc(adminCompanyRef);
+    if (adminCompanySnapshot.exists()) {
+      const adminProfile = adminCompanySnapshot.data().company_profile;
+      document.getElementById('new_user_profile').value = adminProfile;
+
+      const adminProfileRef = doc(db, 'profiles', adminProfile);
+      const adminProfileSnapshot = await getDoc(adminProfileRef);
+      if (adminProfileSnapshot.exists()) {
+        const adminZone = adminProfileSnapshot.data().zones;
+        document.getElementById('createUserZones').value = adminZone.split(",")[0];
+      }
+    }
   }
 
   // Admins > company_admin
