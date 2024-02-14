@@ -244,22 +244,23 @@ export async function pageAdmin(user) {
   // Admins > basic_admin - company_admin - user_is_admin
   select_type_id.style.display = 'none';
   user_profile_company_update.style.display = 'none';
-  //update_user_profile.style.display = 'none';
+  update_user_profile.style.display = 'none';
   head_user.style.display = 'none';
   user_dates.style.display = 'none';
   basic_admin.style.display = 'none';
-  if (companies_table) {companies_table.style.display = 'none'};
-  document.getElementById('update_user_zones').style.display = 'none';
-  //document.getElementById('update_user_type').querySelector('#update_user_zones').querySelector('select').required = false;
-  document.getElementById('accepted_option').style.display = 'none';
-  document.getElementById('accepted_option_bulk').style.display = 'none';
 
-  // Admins > company_admin - user_is_admin
+  // Admins > basic_admin
+  if (userInfo.basic_admin) {
+    document.getElementById('company-filter').style.display = 'none';
+    document.getElementById('type-filter').style.display = 'none';
+    if (companies_table) {companies_table.style.display = 'none'};
+    document.getElementById('update_user_zones').style.display = 'none';
+    document.getElementById('accepted_option').style.display = 'none';
+    document.getElementById('accepted_option_bulk').style.display = 'none';
+  }
+
+  // Admins > company_admin
   if (userInfo.company_admin) {
-    if (companies_table) {companies_table.style.display = 'block'};
-    document.getElementById('update_user_zones').style.display = 'block';
-    document.getElementById('accepted_option').style.display = 'block';
-    document.getElementById('accepted_option_bulk').style.display = 'block';
   }
 
   // Admins > user_is_admin
@@ -270,10 +271,6 @@ export async function pageAdmin(user) {
     head_user.style.display = 'flex';
     user_dates.style.display = 'flex';
     basic_admin.style.display = 'block';
-    if (companies_table) {companies_table.style.display = 'block'};
-    document.getElementById('update_user_zones').style.display = 'block';
-    document.getElementById('accepted_option').style.display = 'block';
-    document.getElementById('accepted_option_bulk').style.display = 'block';
   }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------
