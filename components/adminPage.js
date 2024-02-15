@@ -1476,14 +1476,14 @@ export async function pageAdmin(user) {
         const adminZone = adminProfileSnapshot.data().zones;
         //document.getElementById('createUserZones').value = adminZone.split(",")[0];
         console.log('adminZone ', adminZone);
-        console.log('adminZone[0] ', adminZone.split(",")[0]);
+        console.log('adminZone ', adminZone.split(","));
 
         // Update the options for the zones select
         const allOptions = create_user_zone.options;
         for (let i = 0; i < allOptions.length; i++) {
           const option = allOptions[i];
           console.log('option ', option);
-          if (adminZone.includes(option.value)) {
+          if (adminZone.split(",").includes(option.value)) {
             option.selected = true;
           } else if (option.selected) {
             option.selected = false;
