@@ -1463,6 +1463,7 @@ export async function pageAdmin(user) {
     console.log('userInfo.user_company ', userInfo.user_company);
     //newUserCompany.value = userInfo.user_company;
 
+    const allCompanies = newUserCompany.options;
     for (var key in allCompanies) {
       console.log('allCompanies[key] >>>> ', allCompanies[key]);
     }
