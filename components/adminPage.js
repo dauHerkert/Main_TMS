@@ -1429,6 +1429,10 @@ export async function pageAdmin(user) {
         var opt = document.createElement('option');
         opt.value = company.company_id;
         opt.textContent = company.company_name;
+        // set admin company as default company 
+        if (userInfo.user_company != '' && company.company_id == userInfo.user_company) {
+          opt.selected = true;
+        }
         new_user_company.appendChild(opt);
       });
     })
@@ -1457,16 +1461,21 @@ export async function pageAdmin(user) {
   if (userInfo.basic_admin) {
     // Dafault Admin data to create users
     console.log('userInfo.user_company ', userInfo.user_company);
-    newUserCompany.value = userInfo.user_company;
+    //newUserCompany.value = userInfo.user_company;
+
+    for (var key in allCompanies) {
+      console.log('allCompanies[key] >>>> ', allCompanies[key]);
+    }
     
       // Update the options for the companies select
+      /*
     const allCompanies = newUserCompany.options;
     console.log('allCompanies >>>> ', allCompanies);
     for (var key in allCompanies) {
       console.log('allCompanies[key] >>>> ', allCompanies[key]);
     }
-    forEach((allCompanies) => {
-      console.log('allCompanies >>>> ', allCompanies);
+    allCompanies.forEach((company) => {
+      console.log('allCompanies company >>>> ', company);
     });
     for (let i = 0; i < allCompanies.length; i++) {
       console.log('allCompanies[i] >>>> ', allCompanies[i]);
@@ -1482,6 +1491,7 @@ export async function pageAdmin(user) {
       }
     }
     $(newUserCompany).trigger('change.select2');
+    */
     
 
     const adminCompanyRef = doc(db, 'companies', userInfo.user_company);
