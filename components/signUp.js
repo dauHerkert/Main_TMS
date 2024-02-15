@@ -54,8 +54,7 @@ const userDefaultValues = {
   // user_status: pending | ok
   user_status:'Pending',
   // Boolean: false | true
-  /* TODO: Change again to false */
-  confirmed_email: true,
+  confirmed_email: false,
   user_is_admin: false,
   company_admin: false,
   basic_admin: false,
@@ -215,9 +214,7 @@ async function setDefaultFields(user) {
     }
 
     setTimeout(function(user) {
-      /* TODO: Change again to false - change url*/
-      //window.location = urlLang + "/signup-form-submitted";
-      window.location = urlLang + "/signin-ptgp";
+      window.location = urlLang + "/signup-form-submitted";
     }, 1000);
   })
   .catch((err) => {

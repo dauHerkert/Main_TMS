@@ -107,7 +107,7 @@
 
  /* ASSETS - Images - used in email templates */
  export const firstImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65ce5060a1ea65c516b3a99a_PTGP-2024_Logo_Datum_black.png";
- export const firstImageStyle = "max-height: 100px;width: 80%;max-width: 100px;";
+ export const firstImageStyle = "max-height: 100px;width: 90%;max-width: 220px;";
 
  export const secondImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65ce506132780f0150f70fc7_WTA.png";
- export const secondImageStyle = "max-height: 100px;width: 55%;max-width: 150px;";
+ export const secondImageStyle = "max-height: 100px;width: 70%;max-width: 150px;";
