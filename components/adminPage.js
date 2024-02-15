@@ -1461,6 +1461,10 @@ export async function pageAdmin(user) {
     
       // Update the options for the companies select
     const allCompanies = newUserCompany.options;
+    console.log('allCompanies >>>> ', allCompanies);
+    console.log('allCompanies,value >>>> ', (allCompanies[1].value));
+    console.log('EQUAL? == >>>>> ', (allCompanies[1].value == userInfo.user_company));
+    console.log('EQUAL? === >>>>> ', (allCompanies[1].value === userInfo.user_company));
     for (let i = 0; i < allCompanies.length; i++) {
       let option = allCompanies[i];
       console.log('option ', option);
