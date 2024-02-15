@@ -1457,6 +1457,7 @@ export async function pageAdmin(user) {
   if (userInfo.basic_admin) {
     // Dafault Admin data to create users
     newUserCompany.value = userInfo.user_company;
+    /*
       // Update the options for the companies select
     const allCompanies = newUserCompany.options;
     for (let i = 0; i < allCompanies.length; i++) {
@@ -1470,6 +1471,7 @@ export async function pageAdmin(user) {
       }
     }
     $(newUserCompany).trigger('change.select2');
+    */
 
     const adminCompanyRef = doc(db, 'companies', userInfo.user_company);
     const adminCompanySnapshot = await getDoc(adminCompanyRef);
