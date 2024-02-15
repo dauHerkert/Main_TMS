@@ -17,7 +17,7 @@ secondImage.src = "https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5
 secondImage.style = "max-height: 100px;width: 55%;max-width: 150px;";
 
 
-import {URLENV} from './a_constants';
+import {URLENV} from '../components/a_constants';
 
 
 const url = URLENV
