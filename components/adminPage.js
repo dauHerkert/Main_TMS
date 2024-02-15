@@ -1105,8 +1105,8 @@ export async function pageAdmin(user) {
           let emailSubject = application_accepted_subject;
           let emailLabel = application_accepted_label;
           let emailURL = genderPressAcceptedURL;
-          let fullName = `${admin_user_name}`;
-          let lastName = `${admin_user_lastname}`;
+          let fullName = `${admin_user_name.value}`;
+          let lastName = `${admin_user_lastname.value}`;
           let nameToDisplay = lastName;
 
           // Final Email info - Application Rejected
@@ -1116,6 +1116,9 @@ export async function pageAdmin(user) {
           }
 
           // URL: Press or Supplier and Rejected or Accepted
+          console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
+          console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
+          console.log('press_user.textContent >>>>>> ', press_user.textContent);
           if (press_user.textContent) {
             if (user_status_update.value == 'Declined') {
               emailURL = genderPressRejectedURL;
