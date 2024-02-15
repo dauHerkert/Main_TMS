@@ -1488,11 +1488,6 @@ export async function pageAdmin(user) {
           } else if (option.selected) {
             option.selected = false;
           }
-
-          $(create_user_zone).trigger('change.select2');
-          selectedCreateUserZonesString = create_user_zones_container.textContent.trim();
-          // Update the selectedCreateUserZonesString variable based on the current selection
-          updateSelectedCreateUserZonesString();
         }
       }
     }
@@ -1512,6 +1507,7 @@ export async function pageAdmin(user) {
     console.log('company(s) selected', newUserCompaniesString);
 
     let storedLang = localStorage.getItem("language");
+    if (!storedLang) {storedLang = userInfo.language}
     let companyRef;
     companyRef = await addDoc(collection(db, "users"), {
       user_firstname: new_user_firstname.value,

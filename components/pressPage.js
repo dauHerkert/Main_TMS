@@ -1,4 +1,4 @@
-import { DEVEMAIL, URLEMAILTEMPLATES } from './a_constants';
+import { DEVEMAIL, URLEMAILTEMPLATES, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { addDoc, collection, ref, uploadBytes, db, storage, user } from './a_firebaseConfig';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
@@ -209,7 +209,8 @@ async function pressUploadImage(docId, storageRef) {
 
   let genderAdminURL = form_mr_confirmation_email_to_admin_url;
   let genderURL = press_mr_application_received_url;
-  let fullNameDisplay = `${press_title.value} ${press_firstname.value} ${press_lastname.value}`;
+  let fullNameDisplay = `${press_firstname.value} ${press_lastname.value}`;
+  let lastNameDisplay = `${press_lastname.value}`;
 
   if (press_title.value == 'Ms') {
     genderAdminURL = form_ms_confirmation_email_to_admin_url;
@@ -217,9 +218,6 @@ async function pressUploadImage(docId, storageRef) {
   } else if (press_title.value == 'Diverse') {
     genderAdminURL = form_diverse_confirmation_email_to_admin_url;
     genderURL = press_diverse_application_received_url;
-    fullNameDisplay = `${press_firstname.value} ${press_lastname.value}`;
-  } else {
-    fullNameDisplay = `${press_firstname.value} ${press_lastname.value}`;
   }
 
 
@@ -255,7 +253,11 @@ async function pressUploadImage(docId, storageRef) {
             try {
               const html = await fetch(genderAdminURL)
                 .then(response => response.text())
-                .then(html => html.replace('${fullName}', fullNameDisplay));
+                .then(html => html.replace('${fullName}', fullNameDisplay))
+                .then(html => html.replace('${firstImageURL}', firstImageURL))
+                .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+                .then(html => html.replace('${secondImageURL}', secondImageURL))
+                .then(html => html.replace('${secondImageStyle}', secondImageStyle));
               const docRef = addDoc(collection(db, "mail"), {
                 to: DEVEMAIL,
                 message: {
@@ -272,7 +274,11 @@ async function pressUploadImage(docId, storageRef) {
             try {
               const html = await fetch(genderURL)
                 .then(response => response.text())
-                .then(html => html.replace('${fullName}', fullNameDisplay));
+                .then(html => html.replace('${fullName}', lastNameDisplay))
+                .then(html => html.replace('${firstImageURL}', firstImageURL))
+                .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+                .then(html => html.replace('${secondImageURL}', secondImageURL))
+                .then(html => html.replace('${secondImageStyle}', secondImageStyle));
               const docRef = addDoc(collection(db, "mail"), {
                 to: `${press_email.value}`,
                 message: {

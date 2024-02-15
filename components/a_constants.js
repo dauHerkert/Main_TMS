@@ -3,7 +3,7 @@
  ====================================================================================================================================*/
 
  const PSNAME = '-ptgp'; // Project slug name
- export const DEVEMAIL = 'juan.torres@dauherkert.de'; // Dev admin email
+ export const DEVEMAIL = ['juan.torres@dauherkert.de', 'niklas.diet@dauherkert.de']; // Dev admin email ['juan.torres@dauherkert.de', 'niklas.diet@dauherkert.de']
 
  /* Authorized event dates */
  export const EVENTDATES = {
@@ -88,7 +88,7 @@
   };
 
 /*===================================================================================================================================
- * ASSETS inside HTML Email templates
+ * RESOURCES inside HTML Email templates
  ====================================================================================================================================*/
   /* ASSETS - Images - used in email templates */
   /* TODO: Check if it can be centralized also in the above mentioned pages. */
@@ -104,3 +104,10 @@
   /* TODO: Check if it can be centralized also in the above mentioned pages. */
   // export const PDF_SC_1_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641188f7675e5b11e5e0a934_EWE_PTGP_2023_EN.pdf';
   // export const PDF_SC_2_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
+
+ /* ASSETS - Images - used in email templates */
+ export const firstImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65c15ed322647b8e1f0bc3ef_PTGP-2024_Logo_Datum_black.svg";
+ export const firstImageStyle = "max-height: 100px;width: 80%;max-width: 100px;";
+
+ export const secondImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65c15fb65179ea95fd90bfab_WTA.svg";
+ export const secondImageStyle = "max-height: 100px;width: 55%;max-width: 150px;";
