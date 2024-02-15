@@ -166,7 +166,7 @@ async function setDefaultFields(user) {
     const oldImageUrl = await getDownloadURL(oldImageRef);
     console.log('oldImageUrl >>>', oldImageUrl);
 
-    /*
+    
     // TODO: review fetch CORS issue 
     // Upload the image with the new name
     const response = await fetch(oldImageUrl);
@@ -180,7 +180,7 @@ async function setDefaultFields(user) {
     // Update the user's profile image path in Firestore
     const userRef = doc(db, 'users', user.uid);
     await updateDoc(userRef, { profileImagePath: newImagePath });
-    */
+    
 
     // Sign up
     (async () => {
