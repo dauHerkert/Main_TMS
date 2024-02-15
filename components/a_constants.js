@@ -106,8 +106,8 @@
   // export const PDF_SC_2_EN = 'https://assets.website-files.com/63388d26d610dba24046d36b/641465fb036e3514624b5d8a_PTGP230317_Kurzhinweise%20Arbeitsschutz.pdf';
 
  /* ASSETS - Images - used in email templates */
- export const firstImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65c15ed322647b8e1f0bc3ef_PTGP-2024_Logo_Datum_black.svg";
+ export const firstImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65ce5060a1ea65c516b3a99a_PTGP-2024_Logo_Datum_black.png";
  export const firstImageStyle = "max-height: 100px;width: 80%;max-width: 100px;";
 
- export const secondImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65c15fb65179ea95fd90bfab_WTA.svg";
+ export const secondImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65ce506132780f0150f70fc7_WTA.png";
  export const secondImageStyle = "max-height: 100px;width: 55%;max-width: 150px;";

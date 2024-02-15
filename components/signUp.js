@@ -1,4 +1,4 @@
-import { EVENTDATES, URLEMAILTEMPLATES } from './a_constants';
+import { EVENTDATES, URLEMAILTEMPLATES, URLENV, URLSIGNIN, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL,uploadBytes,deleteObject,createUserWithEmailAndPassword,auth,storage,db, user} from './a_firebaseConfig';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
@@ -147,6 +147,8 @@ async function setDefaultFields(user) {
     register_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTER_DE;
   }
 
+  let fullNameDisplay = `${user_firstname.value} ${user_lastname.value}`;
+
 
   //Save the user info in case he wants to resend the email
   sessionStorage.setItem('user_firstname', user_firstname.value);
@@ -186,10 +188,16 @@ async function setDefaultFields(user) {
       try {
         const stored_userID = `${userID}`;
         const html = await fetch(register_email_url)
-              .then(response => response.text())
-              .then(html => html.replace('${userID}', stored_userID));
+          .then(response => response.text())
+          .then(html => html.replace('${fullName}', fullNameDisplay))
+          .then(html => html.replace('${firstImageURL}', firstImageURL))
+          .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+          .then(html => html.replace('${secondImageURL}', secondImageURL))
+          .then(html => html.replace('${secondImageStyle}', secondImageStyle))
+          .then(html => html.replace('${url}', (URLENV + urlLang + URLSIGNIN)))
+          .then(html => html.replace('${userID}', stored_userID));
         const docRef = addDoc(collection(db, "mail"), {
-          to: `${user.email}`,
+          to: ['juan.torres@dauherkert.de',`${user.email}`],
           message: {
             subject: register_email_subject,
             html: html,
