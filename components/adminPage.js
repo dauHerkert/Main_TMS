@@ -1105,7 +1105,7 @@ export async function pageAdmin(user) {
           let emailSubject = application_accepted_subject;
           let emailLabel = application_accepted_label;
           let emailURL = genderPressAcceptedURL;
-          let fullName = `${user_specific_name.innerText}`;
+          let fullName = `${admin_user_name}`;
           let lastName = `${admin_user_lastname}`;
           let nameToDisplay = lastName;
 
