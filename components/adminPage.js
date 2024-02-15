@@ -1463,38 +1463,6 @@ export async function pageAdmin(user) {
     console.log('userInfo.user_company ', userInfo.user_company);
     //newUserCompany.value = userInfo.user_company;
 
-    const allCompanies = newUserCompany.options;
-    for (var key in allCompanies) {
-      console.log('allCompanies[key] >>>> ', allCompanies[key]);
-    }
-    
-      // Update the options for the companies select
-      /*
-    const allCompanies = newUserCompany.options;
-    console.log('allCompanies >>>> ', allCompanies);
-    for (var key in allCompanies) {
-      console.log('allCompanies[key] >>>> ', allCompanies[key]);
-    }
-    allCompanies.forEach((company) => {
-      console.log('allCompanies company >>>> ', company);
-    });
-    for (let i = 0; i < allCompanies.length; i++) {
-      console.log('allCompanies[i] >>>> ', allCompanies[i]);
-      console.log('allCompanies,value >>>> ', allCompanies[i].value);
-      console.log('EQUAL? == >>>>> ', (allCompanies[i].value == userInfo.user_company));
-      console.log('EQUAL? === >>>>> ', (allCompanies[i].value === userInfo.user_company));
-      let option = allCompanies[i];
-      console.log('option ', option);
-      if (option.value == userInfo.user_company) {
-        option.selected = true;
-      } else if (option.selected) {
-        option.selected = false;
-      }
-    }
-    $(newUserCompany).trigger('change.select2');
-    */
-    
-
     const adminCompanyRef = doc(db, 'companies', userInfo.user_company);
     const adminCompanySnapshot = await getDoc(adminCompanyRef);
     if (adminCompanySnapshot.exists()) {
@@ -1506,9 +1474,21 @@ export async function pageAdmin(user) {
       const adminProfileSnapshot = await getDoc(adminProfileRef);
       if (adminProfileSnapshot.exists()) {
         const adminZone = adminProfileSnapshot.data().zones;
-        document.getElementById('createUserZones').value = adminZone.split(",")[0];
+        //document.getElementById('createUserZones').value = adminZone.split(",")[0];
         console.log('adminZone ', adminZone);
         console.log('adminZone[0] ', adminZone.split(",")[0]);
+
+        // Update the options for the zones select
+        const allOptions = create_user_zone.options;
+        for (let i = 0; i < allOptions.length; i++) {
+          const option = allOptions[i];
+          console.log('option ', option);
+          if (adminZone.includes(option.value)) {
+            option.selected = true;
+          } else if (option.selected) {
+            option.selected = false;
+          }
+        }
       }
     }
   }
