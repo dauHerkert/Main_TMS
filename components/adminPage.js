@@ -254,7 +254,7 @@ export async function pageAdmin(user) {
     document.getElementById('company-filter').parentElement.style.display = 'none';
     document.getElementById('type-filter').parentElement.style.display = 'none';
     if (companies_table) {companies_table.style.display = 'none'};
-    newUserCompany.parentElement.style.display = 'none';
+    document.getElementById('new_user_company').parentElement.style.display = 'none';
     document.getElementById('update_user_zones').style.display = 'none';
     document.getElementById('accepted_option').style.display = 'none';
     document.getElementById('accepted_option_bulk').style.display = 'none';
