@@ -8,12 +8,12 @@ document.querySelector('img').style = "max-height: 100px;width: 80%;max-width: 1
 
 
 const firstImage = document.querySelector('#firstImage'); // Replace 'firstImage' with the actual id or class of the first image
-firstImage.src = "https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png";
+firstImage.src = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65c15ed322647b8e1f0bc3ef_PTGP-2024_Logo_Datum_black.svg";
 firstImage.style = "max-height: 100px;width: 80%;max-width: 100px;";
 
 // Apply styles to the second image
 const secondImage = document.querySelector('#secondImage'); // Replace 'secondImage' with the actual id or class of the second image
-secondImage.src = "https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png";
+secondImage.src = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65c15fb65179ea95fd90bfab_WTA.svg";
 secondImage.style = "max-height: 100px;width: 55%;max-width: 150px;";
 
 
