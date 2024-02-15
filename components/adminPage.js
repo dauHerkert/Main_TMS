@@ -241,8 +241,6 @@ export async function pageAdmin(user) {
   let update_user_profile = document.getElementById('update_user_profile');
   let head_user = document.getElementById('head_user');
 
-  let newUserCompany = document.getElementById('new_user_company');
-
   // Admins > basic_admin - company_admin - user_is_admin
   select_type_id.style.display = 'none';
   user_profile_company_update.style.display = 'none';
@@ -260,34 +258,6 @@ export async function pageAdmin(user) {
     document.getElementById('update_user_zones').style.display = 'none';
     document.getElementById('accepted_option').style.display = 'none';
     document.getElementById('accepted_option_bulk').style.display = 'none';
-
-    // Dafault Admin data to create users
-    newUserCompany.value = userInfo.user_company;
-      // Update the options for the companies select
-    const allCompanies = newUserCompany.options;
-    for (let i = 0; i < allCompanies.length; i++) {
-      let option = allCompanies[i];
-      if (option.value == userInfo.user_company) {
-        option.selected = true;
-      } else if (option.selected) {
-        option.selected = false;
-      }
-    }
-    $(newUserCompany).trigger('change.select2');
-
-    const adminCompanyRef = doc(db, 'companies', userInfo.user_company);
-    const adminCompanySnapshot = await getDoc(adminCompanyRef);
-    if (adminCompanySnapshot.exists()) {
-      const adminProfile = adminCompanySnapshot.data().company_profile;
-      document.getElementById('new_user_profile').value = adminProfile;
-
-      const adminProfileRef = doc(db, 'profiles', adminProfile);
-      const adminProfileSnapshot = await getDoc(adminProfileRef);
-      if (adminProfileSnapshot.exists()) {
-        const adminZone = adminProfileSnapshot.data().zones;
-        document.getElementById('createUserZones').value = adminZone.split(",")[0];
-      }
-    }
   }
 
   // Admins > company_admin
@@ -1481,6 +1451,40 @@ export async function pageAdmin(user) {
     .catch(err => {
       console.log('error fetching companies', err);
     })
+
+  let newUserCompany = document.getElementById('new_user_company');
+  // Admins > basic_admin
+  if (userInfo.basic_admin) {
+    // Dafault Admin data to create users
+    newUserCompany.value = userInfo.user_company;
+      // Update the options for the companies select
+    const allCompanies = newUserCompany.options;
+    for (let i = 0; i < allCompanies.length; i++) {
+      let option = allCompanies[i];
+      console.log('option ', option);
+      console.log('userInfo.user_company ', userInfo.user_company);
+      if (option.value == userInfo.user_company) {
+        option.selected = true;
+      } else if (option.selected) {
+        option.selected = false;
+      }
+    }
+    $(newUserCompany).trigger('change.select2');
+
+    const adminCompanyRef = doc(db, 'companies', userInfo.user_company);
+    const adminCompanySnapshot = await getDoc(adminCompanyRef);
+    if (adminCompanySnapshot.exists()) {
+      const adminProfile = adminCompanySnapshot.data().company_profile;
+      document.getElementById('new_user_profile').value = adminProfile;
+
+      const adminProfileRef = doc(db, 'profiles', adminProfile);
+      const adminProfileSnapshot = await getDoc(adminProfileRef);
+      if (adminProfileSnapshot.exists()) {
+        const adminZone = adminProfileSnapshot.data().zones;
+        document.getElementById('createUserZones').value = adminZone.split(",")[0];
+      }
+    }
+  }
 
   async function createUser(user) {
     if (!upload_cropper) {
