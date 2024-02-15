@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Signup email EN</title>
-        </head>
-        <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
-          <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                        <tr>
-                          <td align="center" valign="middle">
-                            <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
-                              <tr>
-                                <td align="center" valign="middle">
-                                  <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449858ce5dabd4e6725_2023.png" alt="Porsche Tennis" style="max-height:100px;width:100%">
-                                </td>
-                                <td width="30"></td>
-                                <td align="center" valign="middle">
-                                  <img src="https://uploads-ssl.webflow.com/63388d26d610dba24046d36b/63c5b449527db5ad793bf849_WTA.png" alt="WTA Logo" style="max-height:100px;width:100%">
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-               </table>
-            <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Thanks for Registering</div>
-            <div style="padding: 20px;background-color: #ffffff;">
-              <p style="margin-bottom:30px">Hello ${user_firstname.value} ${user_lastname.value},</p>
-              <p style="margin-bottom:15px">Thanks for registering, please use the link below to log into the portal and complete your accreditation request.</p>
-              <a href="${URLENV}?user_id=${userID}" target="_blank" style="color:#f2a100">Click here to login</a>
-              <p style="margin-bottom:30px">Kind regards,</p>
-              <p>Porsche Tennis Grand Prix Team</p>
-            </div>
-          </div>
-        </body>
-        </html>
+<html>
+<head>
+  <title>Signup email EN</title>
+  <script src="mail_resources.js"></script>
+</head>
+<body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+  <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td align="center" valign="middle">
+                    <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
+                      <tr>
+                        <img id="firstImage" alt="Porsche Tennis Grand Prix">
+                        <td width="0"></td>
+                        <img id="secondImage" alt="WTA Logo">
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+        </table>
+    <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Thanks for Registering</div>
+    <div style="padding: 20px;background-color: #ffffff;">
+      <p style="margin-bottom:30px">Hello ${user_firstname.value} ${user_lastname.value},</p>
+      <p style="margin-bottom:15px">Thanks for registering, please use the link below to log into the portal and complete your accreditation request.</p>
+      <a href="${url}?user_id=${userID}" target="_blank" style="color:#f2a100">Click here to login</a>
+      <p style="margin-bottom:30px">Kind regards,</p>
+      <p>Porsche Tennis Grand Prix Team</p>
+    </div>
+  </div>
+</body>
+</html>

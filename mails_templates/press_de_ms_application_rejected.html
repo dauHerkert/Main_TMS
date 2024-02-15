@@ -1,35 +1,33 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <title>Declined user email DE</title>
-    </head>
-    <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
-      <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
-        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+<html>
+<head>
+  <title>Declined user email DE</title>
+  <script src="mail_resources.js"></script>
+</head>
+<body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
+  <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr>
             <td align="center" valign="middle">
               <table cellpadding="0" cellspacing="0" border="0" width="500" style="background-color: #ffffff; padding: 50px 30px;">
                 <tr>
-                  <td align="center" valign="middle">
-                    <img src="https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/646cfb757ce45f61d4ce8927_Color%3DDefault.png" alt="BHO" style="max-height:100px;width:80%;max-width:100px;">
-                  </td>
+                  <img id="firstImage" alt="Porsche Tennis Grand Prix">
                   <td width="0"></td>
-                  <td align="center" valign="middle">
-                    <img src="https://uploads-ssl.webflow.com/6453e5fbbb9ef87f5979b611/646cfb750cadf08ca3047b91_Color%3DDefault%20(1).png" alt="WTA Logo" style="max-height:100px;width:55%;max-width:150px;">
-                  </td>
+                  <img id="secondImage" alt="WTA Logo">
                 </tr>
               </table>
             </td>
           </tr>
         </table>
-        <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsabsage</div>
-        <div style="padding: 20px;background-color: #ffffff;">
-          <p style="margin-bottom:30px">Hallo Frau ${fullName},</p>
-          <p style="margin-bottom:15px">Vielen Dank für Ihr Interesse an einer Berichterstattung über die Bad Homburg Open presented by Engel & Völkers 2023. Leider müssen wir Ihre Anfrage in diesem Jahr ablehnen.</p>
-          <p style="margin-bottom:15px">Bei Rückfragen stehen wir Ihnen gerne zur Verfügung.</p>
-          <p style="margin-bottom:30px">Mit freundlichen Grüßen,</p>
-          <p>Ihr Bad Homburg Open-Team</p>
-        </div>
-      </div>
-    </body>
-  </html>
+    <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Akkreditierungsabsage</div>
+    <div style="padding: 20px;background-color: #ffffff;">
+      <p style="margin-bottom:30px">Sehr geehrter Frau ${admin_user_name.value} ${admin_user_lastname.value},</p>
+      <p style="margin-bottom:15px">vielen Dank für Ihr Interesse am Porsche Tennis Grand Prix 2023. Leider können wir Ihren Akkreditierungswunsch nicht erfüllen.</p>
+      <p style="margin-bottom:15px">Bei Ihrer Berichterstattung über den Porsche Tennis Grand Prix unterstützen wir Sie gerne mit unserer Presse-Datenbank sowie unserem Media Hub. Unter <a href="presse.porsche.de" target="_blank">presse.porsche.de</a>. finden Sie aktuelle Informationen und Fotos sowie umfassende Hintergrundberichte vom Turnier in der Porsche-Arena.</p>
+      <p style="margin-bottom:15px">Wenn wir Ihnen darüber hinaus behilflich sein können, lassen Sie es mich bitte wissen. Sie erreichen mich unter der Telefonnummer +49 (0) 1726911517 oder per E-Mail unter <a href="mailto:cpa.sports@t-online.de">cpa.sports@t-online.de</a></p>
+      <p style="margin-bottom:30px">Mit freundlichen Grüßen</p>
+      <p>Claus-Peter Andorka<br>Pressesprecher Porsche Tennis Grand Prix</p>
+    </div>
+  </div>
+</body>
+</html>
