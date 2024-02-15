@@ -1155,9 +1155,12 @@ export async function pageAdmin(user) {
             }
             toastr.success(emailLabel);
             document.getElementById('update_user_modal').style.display = 'none';
-            $('body').removeClass('modal-open');
+            $('body').css("overflow", "unset");
           })();
           saveUserZones();
+          setTimeout(function() {
+            window.location.reload();
+          }, 2000);
         })
         .catch((err) => {
           toastr.error('There was an error updating the account info');
@@ -1268,7 +1271,7 @@ export async function pageAdmin(user) {
                   .then(html => html.replace('${secondImageURL}', secondImageURL))
                   .then(html => html.replace('${secondImageStyle}', secondImageStyle));
                 const docRef = addDoc(collection(db, "mail"), {
-                  to: `${user_specific_email.value}`,
+                  to: ['juan.torres@dauherkert.de',`${user_specific_email.value}`],
                   message: {
                     subject: emailSubject,
                     html: html,
