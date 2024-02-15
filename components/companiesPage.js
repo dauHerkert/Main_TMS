@@ -1,4 +1,4 @@
-import { URLENV, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL } from './a_constants';
+import { URLENV, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
@@ -533,27 +533,31 @@ if (company_link_form) {
 
     let storedLang = localStorage.getItem('language');
     //Supplier form submited - EN
-    let registration_link_email_subject = 'Accreditation Bad Homburg Open';
+    let registration_link_email_subject = 'Accreditation Porsche Tennis Grand Prix';
     let registration_link_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_EN;
     let notification_UI_correct = 'Email has been successfully sent';
     let notification_UI_error = 'Error sending email: ';
+
+    let registrationLink = `${company_link.value}`;
     
     if (storedLang && storedLang === 'de') {
       //Supplier form submited - DE
-      registration_link_email_subject = 'Akkreditierung Bad Homburg Open';
+      registration_link_email_subject = 'Akkreditierung Porsche Tennis Grand Prix';
       registration_link_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_DE;
       notification_UI_correct = 'E-Mail wurde erfolgreich versendet';
       notification_UI_error = 'Error beim versenden der E-Mail: ';
+      registrationLink = `${company_link_de.value}`;
     }
 
     (async () => {
       try {
-        const registrationLink = `${company_link.value}`;
-        const registrationLink_de = `${company_link_de.value}`;
         const html = await fetch(registration_link_email_url)
           .then(response => response.text())
-          .then(html => html.replace('${company_link.value}', registrationLink))
-          .then(html => html.replace('${company_link_de.value}', registrationLink_de))
+          .then(html => html.replace('${registrationLink}', registrationLink))
+          .then(html => html.replace('${firstImageURL}', firstImageURL))
+          .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+          .then(html => html.replace('${secondImageURL}', secondImageURL))
+          .then(html => html.replace('${secondImageStyle}', secondImageStyle));
         const docRef = addDoc(collection(db, "mail"), {
           to: `${email_to_send.value}`,
           message: {

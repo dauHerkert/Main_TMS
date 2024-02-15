@@ -1,4 +1,4 @@
-import { SUPPLIERSTARTDATE, SUPPLIERENDDATE, EVENTDATES,  URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, IMAGE_PROFILE } from './a_constants';
+import { SUPPLIERSTARTDATE, SUPPLIERENDDATE, EVENTDATES,  URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, IMAGE_PROFILE, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
@@ -1105,6 +1105,9 @@ export async function pageAdmin(user) {
           let emailSubject = application_accepted_subject;
           let emailLabel = application_accepted_label;
           let emailURL = genderPressAcceptedURL;
+          let fullName = `${user_specific_name.value}`;
+          let lastName = `${admin_user_lastname}`;
+          let nameToDisplay = lastName;
 
           // Final Email info - Application Rejected
           if (user_status_update.value == 'Declined') {
@@ -1113,11 +1116,12 @@ export async function pageAdmin(user) {
           }
 
           // URL: Press or Supplier and Rejected or Accepted
-          if (press_user.textContent == '1') {
+          if (press_user.textContent) {
             if (user_status_update.value == 'Declined') {
               emailURL = genderPressRejectedURL;
             }
           } else {
+            nameToDisplay = fullName;
             if (user_status_update.value == 'Declined') {
               emailURL = supplier_application_rejected_url;
             } else {
@@ -1130,11 +1134,13 @@ export async function pageAdmin(user) {
           (async () => {
             if (send_email.checked) {
               try {
-                //const fullName = `${admin_user_name.value}`;
-                const fullName = `${user_specific_name.value}`;
                 const html = await fetch(emailURL)
                   .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName))
+                  .then(html => html.replace('${fullName}', nameToDisplay))
+                  .then(html => html.replace('${firstImageURL}', firstImageURL))
+                  .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+                  .then(html => html.replace('${secondImageURL}', secondImageURL))
+                  .then(html => html.replace('${secondImageStyle}', secondImageStyle));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
                   message: {
@@ -1226,6 +1232,9 @@ export async function pageAdmin(user) {
             let emailSubject = application_accepted_subject;
             let emailLabel = application_accepted_label;
             let emailURL = genderPressAcceptedURL;
+            let fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
+            let lastName = `${userData.data().user_lastname}`;
+            let nameToDisplay = lastName;
 
             // Final Email info - Application Rejected
             if (bulk_status_update.value == 'Declined') {
@@ -1239,6 +1248,7 @@ export async function pageAdmin(user) {
                 emailURL = genderPressRejectedURL;
               }
             } else {
+              nameToDisplay = fullName;
               if (bulk_status_update.value == 'Declined') {
                 emailURL = supplier_application_rejected_url;
               } else {
@@ -1250,10 +1260,13 @@ export async function pageAdmin(user) {
             // Application action email send
             (async () => {
               try {
-                const fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
                 const html = await fetch(emailURL)
                   .then(response => response.text())
-                  .then(html => html.replace('${fullName}', fullName))
+                  .then(html => html.replace('${fullName}', nameToDisplay))
+                  .then(html => html.replace('${firstImageURL}', firstImageURL))
+                  .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+                  .then(html => html.replace('${secondImageURL}', secondImageURL))
+                  .then(html => html.replace('${secondImageStyle}', secondImageStyle));
                 const docRef = addDoc(collection(db, "mail"), {
                   to: `${user_specific_email.value}`,
                   message: {
