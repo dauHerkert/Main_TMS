@@ -1488,6 +1488,11 @@ export async function pageAdmin(user) {
           } else if (option.selected) {
             option.selected = false;
           }
+
+          $(create_user_zone).trigger('change.select2');
+          selectedCreateUserZonesString = create_user_zones_container.textContent.trim();
+          // Update the selectedCreateUserZonesString variable based on the current selection
+          updateSelectedCreateUserZonesString();
         }
       }
     }
