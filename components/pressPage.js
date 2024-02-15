@@ -255,9 +255,9 @@ async function pressUploadImage(docId, storageRef) {
                 .then(response => response.text())
                 .then(html => html.replace('${fullName}', fullNameDisplay))
                 .then(html => html.replace('${firstImageURL}', firstImageURL))
-                //.then(html => html.replace('${firstImageStyle}', firstImageStyle))
+                .then(html => html.replace('${firstImageStyle}', firstImageStyle))
                 .then(html => html.replace('${secondImageURL}', secondImageURL))
-                //.then(html => html.replace('${secondImageStyle}', secondImageStyle));
+                .then(html => html.replace('${secondImageStyle}', secondImageStyle));
               const docRef = addDoc(collection(db, "mail"), {
                 to: DEVEMAIL,
                 message: {
