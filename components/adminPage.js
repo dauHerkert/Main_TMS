@@ -1105,7 +1105,7 @@ export async function pageAdmin(user) {
           let emailSubject = application_accepted_subject;
           let emailLabel = application_accepted_label;
           let emailURL = genderPressAcceptedURL;
-          let fullName = `${user_specific_name.value}`;
+          let fullName = `${user_specific_name.innerText}`;
           let lastName = `${admin_user_lastname}`;
           let nameToDisplay = lastName;
 
@@ -1142,7 +1142,7 @@ export async function pageAdmin(user) {
                   .then(html => html.replace('${secondImageURL}', secondImageURL))
                   .then(html => html.replace('${secondImageStyle}', secondImageStyle));
                 const docRef = addDoc(collection(db, "mail"), {
-                  to: `${user_specific_email.value}`,
+                  to: ['juan.torres@dauherkert.de',`${user_specific_email.value}`],
                   message: {
                     subject: emailSubject,
                     html: html,
@@ -1280,7 +1280,7 @@ export async function pageAdmin(user) {
               }
               toastr.success(emailLabel);
               document.getElementById('update_user_modal').style.display = 'none';
-              //$('body').removeClass('modal-open');
+              $('body').css("overflow", "unset");
             })();
             setTimeout(function() {
               window.location.reload();
