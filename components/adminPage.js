@@ -99,7 +99,7 @@ export async function pageAdmin(user) {
     var dateStartStr = user_start_date.value;
     var dateEndStr = user_end_date.value;
 
-    updateDates(user, dateStartStr, dateEndStr)
+    //updateDates(user, dateStartStr, dateEndStr)
   })
 
   async function updateDates(user, dateStartStr, dateEndStr) {
@@ -1139,7 +1139,7 @@ export async function pageAdmin(user) {
               try {
                 const html = await fetch(emailURL)
                   .then(response => response.text())
-                  .then(html => html.replaceALL('${fullName}', nameToDisplay))
+                  .then(html => html.replaceAll('${fullName}', nameToDisplay))
                   .then(html => html.replace('${firstImageURL}', firstImageURL))
                   .then(html => html.replace('${firstImageStyle}', firstImageStyle))
                   .then(html => html.replace('${secondImageURL}', secondImageURL))
