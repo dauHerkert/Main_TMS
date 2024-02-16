@@ -1,4 +1,4 @@
-import { URLEMAILTEMPLATES } from './a_constants';
+import { URLEMAILTEMPLATES, URLENV, URLSIGNIN, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import {addDoc,collection,db} from './a_firebaseConfig';
 import toastr from 'toastr';
 
@@ -10,16 +10,21 @@ import toastr from 'toastr';
 =============================================================================================================================================================*/
 
 async function resendEmail() {
+  const user_firstname = sessionStorage.getItem('user_firstname');
+  const user_lastname = sessionStorage.getItem('user_lastname');
   const user_email = sessionStorage.getItem('user_email');
   const stored_userID = sessionStorage.getItem('userID');
+  let fullNameDisplay = `${user_firstname} ${user_lastname}`;
 
   let storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
   // Subject for Register email - EN
   let register_email_subject = 'Thanks for Applicating';
   // Template for Register email - EN
   let register_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTER_EN;
 
   if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
     // Subject for Register email - DE
     register_email_subject = 'Vielen Dank für Ihre Anmeldung';
     // Template for Register email - DE
@@ -32,7 +37,13 @@ async function resendEmail() {
 
     html = await fetch(register_email_url)
       .then(response => response.text())
-      .then(html => html.replace('${userID}', stored_userID));
+      .then(html => html.replaceAll('${fullName}', fullNameDisplay))
+      .then(html => html.replace('${firstImageURL}', firstImageURL))
+      .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+      .then(html => html.replace('${secondImageURL}', secondImageURL))
+      .then(html => html.replace('${secondImageStyle}', secondImageStyle))
+      .then(html => html.replaceAll('${url}', (URLENV + urlLang + URLSIGNIN)))
+      .then(html => html.replaceAll('${userID}', stored_userID));
     subject = register_email_subject;
 
     const docRef = await addDoc(collection(db, "mail"), {

@@ -222,11 +222,13 @@ if (deleteButton) {
         toastr.success('User account deleted');
         return deleteDoc(doc(db, "users", user.uid));
       }).catch((error) => {
+        toastr.error('An error occurred while deleting the user account');
         console.error('An error occurred while deleting the user account', error);
       });
       console.log("User's data deleted from Firestore");
     } catch (error) {
-      toastr.error('An error occurred while deleting the user account', error);
+      toastr.error('An error occurred while deleting the user account');
+      console.error('An error occurred while deleting the user account', error);
     }
   });
 }
