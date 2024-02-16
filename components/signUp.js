@@ -256,7 +256,7 @@ function handleSignUp(e) {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);'Password should be at least 6 characters'
+          console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);
           if (storedLang && storedLang === 'de') {
             if (errorCode == 'auth/invalid-email') {
               toastr.error('Ungültiges E-Mail-Format, bitte überprüfen Sie, ob es ein @ und eine gültige Domänenerweiterung (z. B. .com, .net) enthält.'); 

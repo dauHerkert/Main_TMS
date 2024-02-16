@@ -290,6 +290,7 @@ if(window.location.pathname == '/en/forgoten-password' || window.location.pathna
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);
       toastr.error('There was an error');
       // ..
     });
