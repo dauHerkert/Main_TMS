@@ -256,7 +256,7 @@ function handleSignUp(e) {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log('errorCode - errorMessage ', errorCode, errorMessage);
+          console.log('errorCode: ', errorCode);
           if (storedLang && storedLang === 'de') {
             toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
           } else {
