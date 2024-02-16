@@ -404,7 +404,14 @@ if (profile_img) {
     let fileItem = profile_img.files[0];
 
     if (profile_img.files.length === 0) {
-      toastr.error('Please upload your profile picture');
+      /*
+      toastr.error('Please upload your profile picture')
+      if (storedLang && storedLang === 'de') {
+        toastr.error('Die Datei ist zu umfangreich');
+      } else {
+        toastr.error('The file size is too large');
+      }
+      */
     } else {
       // Check if the file is an image
       if (/^image\/\w+/.test(fileItem.type)) {
