@@ -259,9 +259,9 @@ function handleSignUp(e) {
           console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);'Password should be at least 6 characters'
           if (storedLang && storedLang === 'de') {
             if (errorCode == 'auth/invalid-email') {
-              toastr.error('Invalid email format, please verify that it contains an @ and a valid domain extension (e.g., .com, .net).'); 
+              toastr.error('Ungültiges E-Mail-Format, bitte überprüfen Sie, ob es ein @ und eine gültige Domänenerweiterung (z. B. .com, .net) enthält.'); 
             } else if (errorCode == 'auth/weak-password') {
-              toastr.error('The password must contain at least 6 characters.');
+              toastr.error('Das Passwort muss mindestens 6 Zeichen enthalten');
             } else {
               toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
             }
