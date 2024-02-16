@@ -291,7 +291,19 @@ if(window.location.pathname == '/en/forgoten-password' || window.location.pathna
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);
-      toastr.error('There was an error');
+      if (storedLang && storedLang === 'de') {
+        if (errorCode == 'auth/user-not-found') {
+          toastr.error('The e-mail address entered does not have an existing user in the system.');
+        } else {
+          toastr.error('There was an error');
+        }
+      } else {
+        if (errorCode == 'auth/user-not-found') {
+          toastr.error('Für die eingegebene E-Mail-Adresse gibt es keinen Benutzer im System.');
+        } else {
+          toastr.error('Es ist ein Fehler aufgetreten');
+        }
+      }
       // ..
     });
   })
