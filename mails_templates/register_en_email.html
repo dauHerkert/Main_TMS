@@ -1,7 +1,7 @@
 <!DOCTYPE html>
   <html>
     <head>
-      <title>Signup email EN</title>
+      <title> Danke für Ihre Registrierung / Thank you for your registration</title>
     </head>
     <body style="margin: 0;padding: 0;font-family: Arial, sans-serif;font-size: 16px;line-height: 1.4;color: #444444;background-color: #f2f2f2;">
       <div style="max-width: 500px;margin: 0 auto;background-color: #ffffff; padding: 50px 30px">
@@ -18,9 +18,17 @@
         </table>
         <div style="font-size: 24px;font-weight: 700;text-align: start;padding: 20px;background-color: #ffffff;margin-bottom:30px;border-bottom:2px solid #000;">Thanks for Registering</div>
         <div style="padding: 20px;background-color: #ffffff;">
+          <p style="margin-bottom:25px"; text-align: center>- Please scroll down for English version -</p>
+          <p style="margin-bottom:30px">Hallo ${fullName},</p>
+          <p style="margin-bottom:25px">Vielen Dank für Ihre Registrierung. Bitte bestätigen Sie als letzten Schritt die von Ihnen hinterlegte E-MailAdresse mit Klick auf den nachfolgenden Button. Ihre Registrierung wird anschließend von Ihrem Ansprechpartner geprüft.</p>
+          <a href="${url}?user_id=${userID}" target="_blank" style="color:#ff8000">Klicken Sie hier, um Ihre E-Mail zu bestätigen</a>
+          <p style="margin-bottom:25px">Über den obigen Link gelangen Sie zukünftig auch zum Log-In Bereich, falls Sie nachträglich Ihre Daten ändern wollen.</p>
+          <p style="margin-bottom:30px">Mit freundlichen Grüßen,</p>
+          <p style="margin-bottom:30px">Porsche Tennis Grand Prix Team</p>
           <p style="margin-bottom:30px">Hello ${fullName},</p>
-          <p style="margin-bottom:15px">Thanks for registering, please use the link below to log into the portal and complete your accreditation request.</p>
-          <a href="${url}?user_id=${userID}" target="_blank" style="color:#ff8000">Click here to login</a>
+          <p style="margin-bottom:25px">Thank you for your registration. As a final step, please confirm the e-mail address you have entered by clicking the button below. Your registration will then be reviewed by your contact person.</p>
+          <a href="${url}?user_id=${userID}" target="_blank" style="color:#ff8000">Click here to confirm your e-mail address</a>
+          <p style="margin-bottom:25px">The link above will also take you to the login area if you wish to update your information at a later date.</p>
           <p style="margin-bottom:30px">Kind regards,</p>
           <p>Porsche Tennis Grand Prix Team</p>
         </div>
