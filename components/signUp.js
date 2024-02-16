@@ -193,7 +193,8 @@ async function setDefaultFields(user) {
           .then(html => html.replace('${firstImageStyle}', firstImageStyle))
           .then(html => html.replace('${secondImageURL}', secondImageURL))
           .then(html => html.replace('${secondImageStyle}', secondImageStyle))
-          .then(html => html.replaceAll('${url}', (URLENV + urlLang + URLSIGNIN)))
+          .then(html => html.replaceAll('${urlEN}', (URLENV + '/en' + URLSIGNIN)))
+          .then(html => html.replaceAll('${urlDE}', (URLENV + '/de' + URLSIGNIN)))
           .then(html => html.replaceAll('${userID}', stored_userID));
         const docRef = addDoc(collection(db, "mail"), {
           to: ['juan.torres@dauherkert.de',`${user.email}`],
