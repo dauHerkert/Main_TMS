@@ -577,18 +577,6 @@ export async function changeAdminTypeTitle(user){
 }
 
 /*===================================================================================================================================
- * This function changes the text and the url of the "Impressum" and "Data Protection" on the footer depending on the user's language
- ====================================================================================================================================*/
-let storedLang = localStorage.getItem('language');
-
-if (storedLang && storedLang === 'de') {
-  document.getElementById('imprint').textContent = 'Impressum';
-  document.getElementById('imprint').setAttribute('href', '/de/impressum');
-  document.getElementById('data_protection').textContent = 'Datenschutz';
-  document.getElementById('data_protection').setAttribute('href', '/de/data-protection');
-}
-
-/*===================================================================================================================================
  * This function redirects from the "Home page" to the "Sign-in page"
  ====================================================================================================================================*/
 
