@@ -256,11 +256,23 @@ function handleSignUp(e) {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log('errorCode: ', errorCode);
+          console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);'Password should be at least 6 characters'
           if (storedLang && storedLang === 'de') {
-            toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
+            if (errorCode == 'auth/invalid-email') {
+              toastr.error('Invalid email format, please verify that it contains an @ and a valid domain extension (e.g., .com, .net).'); 
+            } else if (errorCode == 'auth/weak-password') {
+              toastr.error('The password must contain at least 6 characters.');
+            } else {
+              toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
+            }
           } else {
-            toastr.error('The email has already been used. Please choose another email.');
+            if (errorCode == 'auth/invalid-email') {
+              toastr.error('Invalid email format, please verify that it contains an @ and a valid domain extension (e.g., .com, .net).'); 
+            } else if (errorCode == 'auth/weak-password') {
+              toastr.error('The password must contain at least 6 characters.');
+            } else {
+              toastr.error('The email has already been used. Please choose another email.');
+            }
           }
         });
     } else {
