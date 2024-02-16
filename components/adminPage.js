@@ -1139,7 +1139,7 @@ export async function pageAdmin(user) {
               try {
                 const html = await fetch(emailURL)
                   .then(response => response.text())
-                  .then(html => html.replace('${fullName}', nameToDisplay))
+                  .then(html => html.replaceALL('${fullName}', nameToDisplay))
                   .then(html => html.replace('${firstImageURL}', firstImageURL))
                   .then(html => html.replace('${firstImageStyle}', firstImageStyle))
                   .then(html => html.replace('${secondImageURL}', secondImageURL))
@@ -1268,7 +1268,7 @@ export async function pageAdmin(user) {
               try {
                 const html = await fetch(emailURL)
                   .then(response => response.text())
-                  .then(html => html.replace('${fullName}', nameToDisplay))
+                  .then(html => html.replaceAll('${fullName}', nameToDisplay))
                   .then(html => html.replace('${firstImageURL}', firstImageURL))
                   .then(html => html.replace('${firstImageStyle}', firstImageStyle))
                   .then(html => html.replace('${secondImageURL}', secondImageURL))

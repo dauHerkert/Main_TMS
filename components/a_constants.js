@@ -111,3 +111,23 @@
 
  export const secondImageURL = "https://uploads-ssl.webflow.com/649471d58c4292fde7b0bd0a/65ce506132780f0150f70fc7_WTA.png";
  export const secondImageStyle = "max-height: 100px;width: 70%;max-width: 150px;";
+
+
+/*===================================================================================================================================
+ * CORS configuration to set on https://console.cloud.google.com/welcome?project=bho-copy&cloudshell=true
+ * Documentation https://cloud.google.com/storage/docs/gsutil/commands/cors - https://stackoverflow.com/questions/71193348/firebase-storage-access-to-fetch-at-has-been-blocked-by-cors-policy-no-ac
+ * Needed for storage image usage
+ * Set the correct domain
+ * Command to set CORS: gsutil cors set cors.json gs://<your-cloud-storage-bucket>
+ * Command to get CORS: gsutil cors get gs://<your-cloud-storage-bucket>
+ ====================================================================================================================================*/
+ /*
+ [
+  {
+    "origin": ["https://tms-main.webflow.io/"],
+    "responseHeader": ["Content-Type", "Content-Length", "Content-Encoding", "Content-Disposition", "Access-Control-Allow-Origin"],
+    "method": ["GET", "PUT", "POST", "DELETE"],
+    "maxAgeSeconds": 3600,
+  }
+ ]
+ */

@@ -188,13 +188,13 @@ async function setDefaultFields(user) {
         const stored_userID = `${userID}`;
         const html = await fetch(register_email_url)
           .then(response => response.text())
-          .then(html => html.replace('${fullName}', fullNameDisplay))
+          .then(html => html.replaceAll('${fullName}', fullNameDisplay))
           .then(html => html.replace('${firstImageURL}', firstImageURL))
           .then(html => html.replace('${firstImageStyle}', firstImageStyle))
           .then(html => html.replace('${secondImageURL}', secondImageURL))
           .then(html => html.replace('${secondImageStyle}', secondImageStyle))
-          .then(html => html.replace('${url}', (URLENV + urlLang + URLSIGNIN)))
-          .then(html => html.replace('${userID}', stored_userID));
+          .then(html => html.replaceAll('${url}', (URLENV + urlLang + URLSIGNIN)))
+          .then(html => html.replaceAll('${userID}', stored_userID));
         const docRef = addDoc(collection(db, "mail"), {
           to: ['juan.torres@dauherkert.de',`${user.email}`],
           message: {
