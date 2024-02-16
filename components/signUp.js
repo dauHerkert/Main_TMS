@@ -254,7 +254,9 @@ function handleSignUp(e) {
           toastr.success('user successfully created: ' + user.email);
         })
         .catch((error) => {
+          const errorCode = error.code;
           const errorMessage = error.message;
+          console.log('errorCode - errorMessage ', errorCode, errorMessage);
           if (storedLang && storedLang === 'de') {
             toastr.error('Die email wurde bereits benutzt. Bitte wählen Sie eine andere email.');
           } else {
