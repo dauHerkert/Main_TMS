@@ -751,7 +751,7 @@ export async function pageAdmin(user) {
   let selectedUserCompaniesString = '';
   let user_language = document.getElementById('user_language');
   let press_user_title = document.getElementById('press_user_title');
-  let user_type = document.getElementById('user_type');
+  let user_type = document.getElementById('account_type');
   let press_user = document.getElementById('press_user');
   const zonesSelect = document.getElementById('userZones');
   let user_zones_update = document.getElementById('select2-userZones-container');
