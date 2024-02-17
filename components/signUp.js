@@ -40,6 +40,7 @@ const userDefaultValues = {
   press_card_number:'',
 
   // User fields
+  user_company:'vbIh3G2eLIOVEvXmKDKf',
   user_email:'',
   user_id:'',
   user_title:'',
