@@ -1121,9 +1121,9 @@ export async function pageAdmin(user) {
           console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
           console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
           
-          if (userData.data().press_form_user == true) {
+          if (userData.data().press_form_user) {
             if (user_status_update.value == 'Declined') {
-              emailURL = genderPressRejectedURL;
+              emailURL = supplier_application_rejected_url;//genderPressRejectedURL;
             }
           } else {
             nameToDisplay = fullName;
@@ -1251,7 +1251,7 @@ export async function pageAdmin(user) {
             }
 
 
-            if (userData.data().press_form_user == true) {
+            if (userData.data().press_form_user) {
               if (bulk_status_update.value == 'Declined') {
                 emailURL = genderPressRejectedURL;
               }
