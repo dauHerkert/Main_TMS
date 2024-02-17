@@ -1119,7 +1119,7 @@ export async function pageAdmin(user) {
           // URL: Press or Supplier and Rejected or Accepted
           console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
           console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
-          console.log('user_status_update.value >>>>>> ', userData.data().account_type);
+          console.log('user_status_update.value >>>>>> ',press_user.account_type);
           console.log('press_user.textContent >>>>>> ', press_user.textContent);
           
           if (userData.data().account_type == "Press") {
