@@ -1252,7 +1252,7 @@ export async function pageAdmin(user) {
               emailLabel = application_rejected_label;
             }
 
-            console.log('>>>>>>>>>>>>>>>>>> ',userData.data().press_form_user);
+            console.log('>>>>>>>>>>>>>>>>>> ${userData.data().press_form_user}');
 
 
             if (userData.data().press_form_user) {
