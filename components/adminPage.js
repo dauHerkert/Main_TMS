@@ -1106,7 +1106,7 @@ export async function pageAdmin(user) {
           // Final Email info - Application Accepted
           let emailSubject = application_accepted_subject;
           let emailLabel = application_accepted_label;
-          var emailURL = genderPressAcceptedURL;
+          var emailURL = supplier_application_rejected_url;//genderPressAcceptedURL;
           let fullName = `${admin_user_name.value}`;
           let lastName = `${admin_user_lastname.value}`;
           let nameToDisplay = lastName;
@@ -1126,7 +1126,7 @@ export async function pageAdmin(user) {
           
           if (press_user.textContent == true) {
             if (user_status_update.value == 'Declined') {
-              emailURL = genderPressRejectedURL;
+              emailURL = supplier_application_accepted_url;//genderPressRejectedURL;
             }
           } else {
             nameToDisplay = fullName;
