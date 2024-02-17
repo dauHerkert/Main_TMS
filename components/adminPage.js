@@ -1241,7 +1241,7 @@ export async function pageAdmin(user) {
             // Final Email info - Application Accepted
             let emailSubject = application_accepted_subject;
             let emailLabel = application_accepted_label;
-            let emailURL = genderPressAcceptedURL;
+            var emailURL = genderPressAcceptedURL;
             let fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
             let lastName = `${userData.data().user_lastname}`;
             let nameToDisplay = lastName;
@@ -1251,6 +1251,9 @@ export async function pageAdmin(user) {
               emailSubject = application_rejected_subject;
               emailLabel = application_rejected_label;
             }
+
+            console.log('>>>>>>>>>>>>>>>>>> ',userData.data().press_form_user);
+
 
             if (userData.data().press_form_user) {
               if (bulk_status_update.value == 'Declined') {
