@@ -1121,7 +1121,6 @@ export async function pageAdmin(user) {
           console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
           console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
           console.log('>>>>>>>>>>>>>>>>>> ',user_type);
-          console.log('>>>>>>>>>>>>>>>>>> ${userData.data().press_form_user}');
           
           if (userData.data().press_form_user) {
             if (user_status_update.value == 'Declined') {
@@ -1251,8 +1250,6 @@ export async function pageAdmin(user) {
               emailSubject = application_rejected_subject;
               emailLabel = application_rejected_label;
             }
-
-            console.log('>>>>>>>>>>>>>>>>>> ${userData.data().press_form_user}');
 
 
             if (userData.data().press_form_user) {
