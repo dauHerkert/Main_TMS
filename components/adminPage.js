@@ -693,6 +693,7 @@ export async function pageAdmin(user) {
                 company_admin: user.company_admin,
                 basic_admin: user.basic_admin,
                 companyID: [user.user_company],
+                user_company: user.company,
                 user_type: user.user_type,
                 account_type: user.account_type,
                 user_zones: user.user_zones,
@@ -1119,7 +1120,7 @@ export async function pageAdmin(user) {
           console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
           console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
           console.log('press_user.textContent >>>>>> ', press_user.textContent);
-          if (press_user.textContent) {
+          if (userData.data().account_type == "Press") {
             if (user_status_update.value == 'Declined') {
               emailURL = genderPressRejectedURL;
             }
@@ -1249,7 +1250,7 @@ export async function pageAdmin(user) {
             }
 
             // URL: Press or Supplier and Rejected or Accepted
-            if (userData.data().press_form_user) {
+            if (userData.data().account_type == "Press") {
               if (bulk_status_update.value == 'Declined') {
                 emailURL = genderPressRejectedURL;
               }
