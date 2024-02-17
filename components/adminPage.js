@@ -1124,7 +1124,7 @@ export async function pageAdmin(user) {
           console.log('>>>>>>>>>>>>>>>>>> ',user_type.textContent);
           console.log('press_user.textContent >>>>>> ', press_user.textContent);
           
-          if (user_type == 'Press') {
+          if (press_user.textContent == "true") {
             if (user_status_update.value == 'Declined') {
               emailURL = genderPressRejectedURL;
             }
@@ -1253,10 +1253,8 @@ export async function pageAdmin(user) {
               emailLabel = application_rejected_label;
             }
 
-            console.log('>>>>>>>>>>>>>>>>>> ',user_type.textContent);
-            console.log('>>>>>>>>>>>>>>>>>>>>>> ', user_type);
           
-          if (user_type == 'Press') {
+            if ((press_user.textContent == "true")) {
               if (bulk_status_update.value == 'Declined') {
                 emailURL = genderPressRejectedURL;
               }
