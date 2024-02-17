@@ -1121,8 +1121,7 @@ export async function pageAdmin(user) {
           console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
           console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
           console.log('>>>>>>>>>>>>>>>>>> ',user_type);
-          console.log('>>>>>>>>>>>>>>>>>> ',user_type.textContent);
-          console.log('press_user.textContent >>>>>> ', press_user.textContent);
+          console.log('>>>>>>>>>>>>>>>>>> ',userData.data().press_form_user);
           
           if (userData.data().press_form_user) {
             if (user_status_update.value == 'Declined') {
