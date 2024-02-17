@@ -1252,7 +1252,6 @@ export async function pageAdmin(user) {
               emailLabel = application_rejected_label;
             }
 
-          
             if (userData.data().press_form_user) {
               if (bulk_status_update.value == 'Declined') {
                 emailURL = genderPressRejectedURL;
