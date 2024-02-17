@@ -1124,7 +1124,7 @@ export async function pageAdmin(user) {
           console.log('>>>>>>>>>>>>>>>>>> ',user_type.textContent);
           console.log('press_user.textContent >>>>>> ', press_user.textContent);
           
-          if (press_user.textContent == "true") {
+          if (press_user.textContent == true) {
             if (user_status_update.value == 'Declined') {
               emailURL = genderPressRejectedURL;
             }
@@ -1254,7 +1254,7 @@ export async function pageAdmin(user) {
             }
 
           
-            if ((press_user.textContent == "true")) {
+            if ((press_user.textContent == true)) {
               if (bulk_status_update.value == 'Declined') {
                 emailURL = genderPressRejectedURL;
               }
