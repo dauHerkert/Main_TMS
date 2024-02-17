@@ -48,7 +48,7 @@ const userDefaultValues = {
   user_country:'',
   user_nationality:'',
   user_zones:'',
-  // account_type: supplier | press | RSW
+  // account_type: supplier | press |
   account_type:'Supplier',
   //User profile
   user_type:'',

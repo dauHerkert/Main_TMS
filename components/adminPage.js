@@ -37,7 +37,7 @@ let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEM
 
 if (storedLang && storedLang === 'de') {
   // Applications - DE - Subjects and UI message Label
-  application_rejected_subject = 'Akkreditierungsabsage';
+  application_rejected_subject = 'Akkreditierung Ablehnung';
   application_rejected_label = 'Benutzerregistrierung abgelehnt';
   application_accepted_subject = 'Akkreditierungsbestätigung';
   application_accepted_label = 'Benutzerregistrierung akzeptiert';
