@@ -751,6 +751,7 @@ export async function pageAdmin(user) {
   let selectedUserCompaniesString = '';
   let user_language = document.getElementById('user_language');
   let press_user_title = document.getElementById('press_user_title');
+  let user_type = document.getElementById('user_type');
   let press_user = document.getElementById('press_user');
   const zonesSelect = document.getElementById('userZones');
   let user_zones_update = document.getElementById('select2-userZones-container');
@@ -1119,10 +1120,11 @@ export async function pageAdmin(user) {
           // URL: Press or Supplier and Rejected or Accepted
           console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
           console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
-          console.log('>>>>>>>>>>>>>>>>>> ',press_user.account_type);
+          console.log('>>>>>>>>>>>>>>>>>> ',user_type);
+          console.log('>>>>>>>>>>>>>>>>>> ',user_type.textContent);
           console.log('press_user.textContent >>>>>> ', press_user.textContent);
           
-          if (userData.data().account_type == "Press") {
+          if (user_type == 'Press') {
             if (user_status_update.value == 'Declined') {
               emailURL = genderPressRejectedURL;
             }
@@ -1251,8 +1253,10 @@ export async function pageAdmin(user) {
               emailLabel = application_rejected_label;
             }
 
-            // URL: Press or Supplier and Rejected or Accepted
-            if (userData.data().account_type == "Press") {
+            console.log('>>>>>>>>>>>>>>>>>> ',user_type.textContent);
+            console.log('>>>>>>>>>>>>>>>>>>>>>> ', user_type);
+          
+          if (user_type == 'Press') {
               if (bulk_status_update.value == 'Declined') {
                 emailURL = genderPressRejectedURL;
               }
