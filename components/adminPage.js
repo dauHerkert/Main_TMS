@@ -1121,7 +1121,7 @@ export async function pageAdmin(user) {
           console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
           console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
           
-          if (press_user_title.textContent != "") {
+          if (press_user.textContent.toLowerCase() === "true") {
             if (user_status_update.value == 'Declined') {
               emailURL = supplier_application_rejected_url;//genderPressRejectedURL;
             }
@@ -1164,7 +1164,7 @@ export async function pageAdmin(user) {
           })();
           saveUserZones();
           setTimeout(function() {
-            window.location.reload();
+            //window.location.reload();
           }, 2000);
         })
         .catch((err) => {
@@ -1250,8 +1250,9 @@ export async function pageAdmin(user) {
               emailLabel = application_rejected_label;
             }
 
-
-            if (userData.data().press_form_user) {
+            console.log('userData.data().press_form_user ', userData.data().press_form_user);
+            console.log('userData.data().account_type ', userData.data().account_type);
+            if (userData.data().account_type == "Press") {
               if (bulk_status_update.value == 'Declined') {
                 emailURL = genderPressRejectedURL;
               }
@@ -1291,7 +1292,7 @@ export async function pageAdmin(user) {
               $('body').css("overflow", "unset");
             })();
             setTimeout(function() {
-              window.location.reload();
+              //window.location.reload();
             }, 2000);
           })
           .catch((err) => {
