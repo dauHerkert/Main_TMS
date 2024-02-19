@@ -35,26 +35,6 @@ let press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + 
 let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
 let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
 
-if (storedLang && storedLang === 'de') {
-  // Applications - DE - Subjects and UI message Label
-  application_rejected_subject = 'Akkreditierung Ablehnung';
-  application_rejected_label = 'Benutzerregistrierung abgelehnt';
-  application_accepted_subject = 'Akkreditierungsbestätigung';
-  application_accepted_label = 'Benutzerregistrierung akzeptiert';
-  // Applications - DE - Press Mr - URL
-  press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
-  press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
-  // Applications - DE - Press Ms - URL
-  press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_DE;
-  press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_DE;
-  // Applications - DE - Press Diverse - URL
-  press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_DE;
-  press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_DE;
-  // Applications - DE - Supplier - URL
-  supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_DE;
-  supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_DE;
-}
-
 /*=============================================================================================================================================================
  * The provided code is part of the pageAdmin function, which handles date selection and user interface manipulation on an admin page. The first block of
  * code assigns a click event to an element with the ID "open_modal_btn" to open a modal and retrieve start and end dates. The updateDates function initializes
@@ -1090,6 +1070,27 @@ export async function pageAdmin(user) {
           console.log('sending email... status is ', user_status_update.value);
           console.log('stored lang for email is ', storedLang);
 
+          // URL By Language
+          if (user_language.textContent == 'de') {
+            // Applications - DE - Subjects and UI message Label
+            application_rejected_subject = 'Akkreditierung Ablehnung';
+            application_rejected_label = 'Benutzerregistrierung abgelehnt';
+            application_accepted_subject = 'Akkreditierungsbestätigung';
+            application_accepted_label = 'Benutzerregistrierung akzeptiert';
+            // Applications - DE - Press Mr - URL
+            press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
+            press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
+            // Applications - DE - Press Ms - URL
+            press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_DE;
+            press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_DE;
+            // Applications - DE - Press Diverse - URL
+            press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_DE;
+            press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_DE;
+            // Applications - DE - Supplier - URL
+            supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_DE;
+            supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_DE;
+          }
+
           // URL By Gender - Mr
           let genderPressRejectedURL = press_mr_application_rejected_url;
           let genderPressAcceptedURL = press_mr_application_accepted_url;
@@ -1130,6 +1131,7 @@ export async function pageAdmin(user) {
               emailURL = supplier_application_accepted_url;
             }
           }
+          console.log('user_language.textContent >>>>- ', user_language.textContent);
 
           // TODO: review user_specific_name in the email sended
           // Application action email send
@@ -1220,6 +1222,27 @@ export async function pageAdmin(user) {
         }, { merge: true })
           .then(() => {
 
+            // URL By Language
+            if (userData.data().language == 'de') {
+              // Applications - DE - Subjects and UI message Label
+              application_rejected_subject = 'Akkreditierung Ablehnung';
+              application_rejected_label = 'Benutzerregistrierung abgelehnt';
+              application_accepted_subject = 'Akkreditierungsbestätigung';
+              application_accepted_label = 'Benutzerregistrierung akzeptiert';
+              // Applications - DE - Press Mr - URL
+              press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
+              press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
+              // Applications - DE - Press Ms - URL
+              press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_DE;
+              press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_DE;
+              // Applications - DE - Press Diverse - URL
+              press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_DE;
+              press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_DE;
+              // Applications - DE - Supplier - URL
+              supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_DE;
+              supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_DE;
+            }
+
             // URL By Gender - Mr
             let genderPressRejectedURL = press_mr_application_rejected_url;
             let genderPressAcceptedURL = press_mr_application_accepted_url;
@@ -1259,7 +1282,7 @@ export async function pageAdmin(user) {
                 emailURL = supplier_application_accepted_url;
               }
             }
-            console.log('userData.data().user_email >>>>- ', userData.data().user_email);
+            console.log('userData.data().language >>>>- ', userData.data().language);
 
             // TODO: review body modal-open
             // Application action email send
