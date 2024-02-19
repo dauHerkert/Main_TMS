@@ -1072,13 +1072,17 @@ export async function pageAdmin(user) {
           let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
           let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
 
-          // URL By Language
+          // URL By Language - Admin
+          if (storedLang && storedLang === 'de') {
+            application_rejected_label = 'Benutzerregistrierung abgelehnt';
+            application_accepted_label = 'Benutzerregistrierung akzeptiert';
+          }
+
+          // URL By Language - User
           if (user_language.value == 'de') {
             // Applications - DE - Subjects and UI message Label
             application_rejected_subject = 'Akkreditierung Ablehnung';
-            application_rejected_label = 'Benutzerregistrierung abgelehnt';
             application_accepted_subject = 'Akkreditierungsbestätigung';
-            application_accepted_label = 'Benutzerregistrierung akzeptiert';
             // Applications - DE - Press Mr - URL
             press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
             press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
@@ -1242,13 +1246,17 @@ export async function pageAdmin(user) {
             let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
             let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
 
+            // URL By Language - Admin
+            if (storedLang && storedLang === 'de') {
+              application_rejected_label = 'Benutzerregistrierung abgelehnt';
+              application_accepted_label = 'Benutzerregistrierung akzeptiert';
+            }
+
             // URL By Language
             if (userData.data().language && userData.data().language == 'de') {
               // Applications - DE - Subjects and UI message Label
               application_rejected_subject = 'Akkreditierung Ablehnung';
-              application_rejected_label = 'Benutzerregistrierung abgelehnt';
               application_accepted_subject = 'Akkreditierungsbestätigung';
-              application_accepted_label = 'Benutzerregistrierung akzeptiert';
               // Applications - DE - Press Mr - URL
               press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
               press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
