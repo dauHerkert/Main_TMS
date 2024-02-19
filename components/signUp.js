@@ -421,14 +421,14 @@ if (profile_img) {
           profile_cropper.destroy();
         }
         // Open the modal
-        modal4.style.display = "block";
+        modal4.style.display = "flex";
         // Initialize the cropper
         const image = document.getElementById('profile_image_cropper');
         image.src = URL.createObjectURL(fileItem);
         profile_cropper = new Cropper(image, {
           aspectRatio: 3 / 4,
-          width: 200,
-          height: 200,
+          width: 256,
+          height: 341,
           viewMode: 1,
           autoCropArea: 0.7,
           responsive: true,
