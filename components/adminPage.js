@@ -1118,9 +1118,6 @@ export async function pageAdmin(user) {
           }
 
           // URL: Press or Supplier and Rejected or Accepted
-          console.log('press_user.textContent.toLowerCase() >>>>>> ', press_user.textContent.toLowerCase());
-          console.log('press_user? >>>>>> ', press_user.textContent.toLowerCase() === "true");
-          
           if (press_user.textContent.toLowerCase() === "true") {
             if (user_status_update.value == 'Declined') {
               emailURL = genderPressRejectedURL;
@@ -1164,7 +1161,7 @@ export async function pageAdmin(user) {
           })();
           saveUserZones();
           setTimeout(function() {
-            //window.location.reload();
+            window.location.reload();
           }, 2000);
         })
         .catch((err) => {
@@ -1250,8 +1247,6 @@ export async function pageAdmin(user) {
               emailLabel = application_rejected_label;
             }
 
-            console.log('userData.data().press_form_user ', userData.data().press_form_user);
-            console.log('userData.data().account_type ', userData.data().account_type);
             if (userData.data().account_type == "Press") {
               if (bulk_status_update.value == 'Declined') {
                 emailURL = genderPressRejectedURL;
@@ -1264,6 +1259,7 @@ export async function pageAdmin(user) {
                 emailURL = supplier_application_accepted_url;
               }
             }
+            console.log('userData.data().user_email >>>>- ', userData.data().user_email)
 
             // TODO: review body modal-open
             // Application action email send
@@ -1277,7 +1273,7 @@ export async function pageAdmin(user) {
                   .then(html => html.replace('${secondImageURL}', secondImageURL))
                   .then(html => html.replace('${secondImageStyle}', secondImageStyle));
                 const docRef = addDoc(collection(db, "mail"), {
-                  to: ['juan.torres@dauherkert.de',`${user_specific_email.value}`],
+                  to: ['juan.torres@dauherkert.de',`${userData.data().user_email}`],
                   message: {
                     subject: emailSubject,
                     html: html,
@@ -1292,7 +1288,7 @@ export async function pageAdmin(user) {
               $('body').css("overflow", "unset");
             })();
             setTimeout(function() {
-              //window.location.reload();
+              window.location.reload();
             }, 2000);
           })
           .catch((err) => {
