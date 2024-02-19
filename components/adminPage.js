@@ -1223,7 +1223,7 @@ export async function pageAdmin(user) {
           .then(() => {
 
             // URL By Language
-            if (userData.data().language == 'de') {
+            if (userData.data().language && userData.data().language == 'de') {
               // Applications - DE - Subjects and UI message Label
               application_rejected_subject = 'Akkreditierung Ablehnung';
               application_rejected_label = 'Benutzerregistrierung abgelehnt';
