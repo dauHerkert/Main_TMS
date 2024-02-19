@@ -187,7 +187,7 @@ async function pressUploadImage(docId, storageRef) {
 
   let press_application_received_subject_admin = 'New Press Form Submited';
   // Subject for press - EN - application received
-  let press_application_received_subject = 'Application recieved';
+  let press_application_received_subject = 'Application received';
   let form_mr_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSCONFIRMEMAIL_EN;
   let form_ms_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSCONFIRMEMAIL_EN;
   let form_diverse_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSECONFIRMEMAIL_EN;
