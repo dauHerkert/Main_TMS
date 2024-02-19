@@ -17,23 +17,7 @@ import 'air-datepicker/air-datepicker.css';
 
 let storedLang = localStorage.getItem("language");
 
-// Applications - EN - Subjects and UI message Label
-let application_rejected_subject = 'Accreditation Rejection';
-let application_rejected_label = 'User registration declined';
-let application_accepted_subject = 'Accreditation Confirmation';
-let application_accepted_label = 'User registration accepted';
-// Applications - EN - Press Mr - URL
-let press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_EN;
-let press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_EN;
-// Applications - EN - Press Ms - URL
-let press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_EN;
-let press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_EN;
-// Applications - EN - Press Diverse - URL
-let press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_EN;
-let press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_EN;
-// Applications - EN - Supplier - URL
-let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
-let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
+//TODO: Make a centralized function for the email templates, with which to receive depending on the action (Edit a user - Bulk editing) the necessary variables and return the correct values.
 
 /*=============================================================================================================================================================
  * The provided code is part of the pageAdmin function, which handles date selection and user interface manipulation on an admin page. The first block of
@@ -1070,8 +1054,26 @@ export async function pageAdmin(user) {
           console.log('sending email... status is ', user_status_update.value);
           console.log('stored lang for email is ', storedLang);
 
+          // Applications - EN - Subjects and UI message Label
+          let application_rejected_subject = 'Accreditation Rejection';
+          let application_rejected_label = 'User registration declined';
+          let application_accepted_subject = 'Accreditation Confirmation';
+          let application_accepted_label = 'User registration accepted';
+          // Applications - EN - Press Mr - URL
+          let press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_EN;
+          let press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_EN;
+          // Applications - EN - Press Ms - URL
+          let press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_EN;
+          let press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_EN;
+          // Applications - EN - Press Diverse - URL
+          let press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_EN;
+          let press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_EN;
+          // Applications - EN - Supplier - URL
+          let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
+          let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
+
           // URL By Language
-          if (user_language.textContent == 'de') {
+          if (user_language.value == 'de') {
             // Applications - DE - Subjects and UI message Label
             application_rejected_subject = 'Akkreditierung Ablehnung';
             application_rejected_label = 'Benutzerregistrierung abgelehnt';
@@ -1131,7 +1133,7 @@ export async function pageAdmin(user) {
               emailURL = supplier_application_accepted_url;
             }
           }
-          console.log('user_language.textContent >>>>- ', user_language.textContent);
+          console.log('user_language.value >>>>- ', user_language.value);
 
           // TODO: review user_specific_name in the email sended
           // Application action email send
@@ -1221,6 +1223,24 @@ export async function pageAdmin(user) {
           user_status: bulk_status_update.value,
         }, { merge: true })
           .then(() => {
+
+            // Applications - EN - Subjects and UI message Label
+            let application_rejected_subject = 'Accreditation Rejection';
+            let application_rejected_label = 'User registration declined';
+            let application_accepted_subject = 'Accreditation Confirmation';
+            let application_accepted_label = 'User registration accepted';
+            // Applications - EN - Press Mr - URL
+            let press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_EN;
+            let press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_EN;
+            // Applications - EN - Press Ms - URL
+            let press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_EN;
+            let press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_EN;
+            // Applications - EN - Press Diverse - URL
+            let press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_EN;
+            let press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_EN;
+            // Applications - EN - Supplier - URL
+            let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
+            let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
 
             // URL By Language
             if (userData.data().language && userData.data().language == 'de') {
