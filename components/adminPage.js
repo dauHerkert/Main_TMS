@@ -1121,7 +1121,7 @@ export async function pageAdmin(user) {
           console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
           console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
           
-          if (userData.data().press_form_user) {
+          if (press_user_title.textContent != "") {
             if (user_status_update.value == 'Declined') {
               emailURL = supplier_application_rejected_url;//genderPressRejectedURL;
             }
