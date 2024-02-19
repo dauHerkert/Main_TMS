@@ -1118,8 +1118,8 @@ export async function pageAdmin(user) {
           }
 
           // URL: Press or Supplier and Rejected or Accepted
-          console.log('admin_user_name.value >>>>>> ', admin_user_name.value);
-          console.log('press_user_title.textContent >>>>>> ', press_user_title.textContent);
+          console.log('press_user.textContent.toLowerCase() >>>>>> ', press_user.textContent.toLowerCase());
+          console.log('press_user? >>>>>> ', press_user.textContent.toLowerCase() === "true");
           
           if (press_user.textContent.toLowerCase() === "true") {
             if (user_status_update.value == 'Declined') {
