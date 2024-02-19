@@ -1259,7 +1259,7 @@ export async function pageAdmin(user) {
                 emailURL = supplier_application_accepted_url;
               }
             }
-            console.log('userData.data().user_email >>>>- ', userData.data().user_email)
+            console.log('userData.data().user_email >>>>- ', userData.data().user_email);
 
             // TODO: review body modal-open
             // Application action email send
