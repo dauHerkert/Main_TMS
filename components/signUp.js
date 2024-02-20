@@ -294,7 +294,7 @@ const company_select_cont = document.getElementById('company_select_cont');
 const company_colRef = collection(db, 'companies');
 
 if (select_company) {
-  if (currentUrl.searchParams.has('company')) {
+  if (currentUrl.searchParams.has('company') && currentUrl.searchParams.get('company') != "null") {
     // Use the user_company value when the URL has the ?company parameter
     const companyName = currentUrl.searchParams.get('company');
     user_company.value = companyName;
