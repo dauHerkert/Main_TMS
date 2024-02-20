@@ -130,8 +130,8 @@ function handlePressPic(e) {
       imageLoaded = true;
       press_cropper = new Cropper(image, {
         aspectRatio: 3 / 4,
-        width: 200,
-        height: 200,
+        width: 256,
+        height: 341,
         viewMode: 1,
         autoCropArea: 0.7,
         responsive: true,
