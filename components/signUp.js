@@ -137,13 +137,13 @@ async function setDefaultFields(user) {
   let storedLang = localStorage.getItem("language");
   let urlLang = '/en';
   //Subject for Register email - EN
-  let register_email_subject = 'Thanks for Applicating';
+  let register_email_subject = 'Vielen Dank für Ihre Anmeldung/Thanks for Registering';
   let register_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTER_EN;
   
   if (storedLang && storedLang === 'de') {
     urlLang = '/de';
     //Subject for Register email - DE
-    register_email_subject = 'Vielen Dank für Ihre Anmeldung';
+    register_email_subject = 'Vielen Dank für Ihre Anmeldung/Thanks for Registering';
     register_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTER_DE;
   }
 
@@ -198,7 +198,7 @@ async function setDefaultFields(user) {
           .then(html => html.replaceAll('${urlDE}', (URLENV + '/de' + URLSIGNIN)))
           .then(html => html.replaceAll('${userID}', stored_userID));
         const docRef = addDoc(collection(db, "mail"), {
-          to: ['juan.torres@dauherkert.de',`${user.email}`],
+          to: [`${user.email}`], // removed that due to teh porsche test for now: 'juan.torres@dauherkert.de',
           message: {
             subject: register_email_subject,
             html: html,
