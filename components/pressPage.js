@@ -117,7 +117,7 @@ function handlePressPic(e) {
     }
 
     // Open the modal
-    press_crop_modal.style.display = "block";
+    press_crop_modal.style.display = "flex";
 
     if (press_cropper) {
       press_cropper.destroy();
