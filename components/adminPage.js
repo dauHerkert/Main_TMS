@@ -981,7 +981,7 @@ export async function pageAdmin(user) {
   }
   //Close the take picture modal
   var webcam_modal = document.getElementById("take_picture_modal");
-  var webcam_close_button = document.getElementsByClassName("close7")[0];
+  var webcam_close_button = document.getElementById("webcam_close_modal_button");
 
   if (webcam_close_button || webcam_modal) {
     webcam_close_button.onclick=function() {
@@ -994,14 +994,14 @@ export async function pageAdmin(user) {
   document.getElementById('snapshotButton').addEventListener('click', function() {
     // Start the webcam
     startWebcam();
-      document.getElementById('take_picture_modal').style.display = 'flex';
+    webcam_modal.style.display = 'flex';
   });
 
   // Add the button to take a photo and open CropperJS.
   const snapshotBtn = document.getElementById('take_photo');
   snapshotBtn.addEventListener('click', function() {
     takeSnapshotAndOpenCropper();
-    document.getElementById('take_picture_modal').style.display = 'none';
+    webcam_modal.style.display = 'none';
   });
 
   if (update_picture_modal !== null) {
