@@ -1679,11 +1679,19 @@ export async function pageAdmin(user) {
     };
     canvas.toBlob(async (blob) => {
       const storageRef = ref(storage, 'profiles/' + userID);
-      const snapshot = await uploadBytes(storageRef, blob, metadata);
-      toastr.success('User and photo created successfully');
-      setTimeout(function () {
-        window.location.reload();
-      }, 2000);
+      //const snapshot = await uploadBytes(storageRef, blob, metadata);
+      uploadBytes(storageRef, blob, metadata)
+        .then((snapshot) => {
+          toastr.success('User and photo created successfully');
+          console.log('photo created successfully');
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+        })
+        .catch((err) => {
+          console.log('error adding file >>>>> ', err);
+          toastr.error('There was an error adding the photo');
+        });
     });
   }
 
