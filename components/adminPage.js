@@ -53,6 +53,7 @@ async function changeCompanyNameToID(user) {
 
 export async function pageAdmin(user) {
 
+  /*
   $(document).on( 'click' , '#open_modal_btn' , function() {
     let user_start_date = document.getElementById('Select-dates');
     let user_end_date = document.getElementById('Select-dates2');
@@ -65,6 +66,7 @@ export async function pageAdmin(user) {
 
     //updateDates(user, dateStartStr, dateEndStr)
   })
+  */
 
   async function updateDates(user, dateStartStr, dateEndStr) {
     var today = new Date();
