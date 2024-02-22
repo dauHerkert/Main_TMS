@@ -203,12 +203,14 @@ export async function pageAdmin(user) {
   let select_type_id = document.getElementById('select_type_id');
   let user_profile_company_update = document.getElementById('user_company_update');
   let update_user_profile = document.getElementById('update_user_profile');
+  let create_user_profile = document.getElementById('create_user_profile');
   let head_user = document.getElementById('head_user');
 
   // Admins > basic_admin - company_admin - user_is_admin
   select_type_id.style.display = 'none';
   user_profile_company_update.style.display = 'none';
   update_user_profile.style.display = 'none';
+  create_user_profile.style.display = 'none';
   head_user.style.display = 'none';
   user_dates.style.display = 'none';
   basic_admin.style.display = 'none';
@@ -219,6 +221,7 @@ export async function pageAdmin(user) {
     document.getElementById('type-filter').parentElement.style.display = 'none';
     if (companies_table) {companies_table.style.display = 'none'};
     document.getElementById('new_user_company').parentElement.style.display = 'none';
+    document.getElementById('create_user_zones').style.display = 'none';
     document.getElementById('update_user_zones').style.display = 'none';
     document.getElementById('accepted_option').style.display = 'none';
     document.getElementById('accepted_option_bulk').style.display = 'none';
@@ -233,6 +236,7 @@ export async function pageAdmin(user) {
     //select_type_id.style.display = 'none';
     user_profile_company_update.style.display = 'block';
     update_user_profile.style.display = 'block';
+    create_user_profile.style.display = 'block';
     head_user.style.display = 'grid';
     user_dates.style.display = 'grid';
     basic_admin.style.display = 'block';
