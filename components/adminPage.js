@@ -233,8 +233,8 @@ export async function pageAdmin(user) {
     //select_type_id.style.display = 'none';
     user_profile_company_update.style.display = 'block';
     update_user_profile.style.display = 'block';
-    head_user.style.display = 'flex';
-    user_dates.style.display = 'flex';
+    head_user.style.display = 'grid';
+    user_dates.style.display = 'grid';
     basic_admin.style.display = 'block';
   }
 
