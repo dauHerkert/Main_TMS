@@ -452,9 +452,9 @@ window.addEventListener('load', function(){
     e.preventDefault();
     e.stopPropagation();
     if (this.lastChild.innerHTML == 'EN') {
-      changeLanguage("en");
-    } else if (this.lastChild.innerHTML == 'DE') {
       changeLanguage("de");
+    } else if (this.lastChild.innerHTML == 'DE') {
+      changeLanguage("en");
     }
     window.location.href = this.href; 
   });
