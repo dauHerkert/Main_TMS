@@ -473,6 +473,14 @@ function updateLinks() {
  * These onClick events add/delete a class to the selected language and triggers the changeLanguage and updateLinks functions
 ====================================================================================================================================*/
 
+document.getElementById("englishBtn").addEventListener("click", function() {
+  changeLanguage("en");
+});
+
+document.getElementById("germanBtn").addEventListener("click", function() {
+  changeLanguage("de");
+});
+
 /*
 var storedLang = localStorage.getItem("language");
 let sign_lang = document.getElementById('selected_lang2');
