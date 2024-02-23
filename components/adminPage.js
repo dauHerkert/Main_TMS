@@ -740,6 +740,8 @@ export async function pageAdmin(user) {
   let update_media_type = document.getElementById("update_media_type");
   let update_user_address = document.getElementById('update_user_address');
 
+  console.log('selectedUserCompaniesString >>>> ', selectedUserCompaniesString);
+
   $('#userCompany').on('change', function () {
     var selectedUserCompanies = $(this).val();
     selectedUserCompaniesString = selectedUserCompanies.join(', ');
