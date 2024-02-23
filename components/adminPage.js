@@ -723,6 +723,8 @@ export async function pageAdmin(user) {
   let admin_cred = document.getElementById('is_admin');
   let company_admin = document.getElementById('headUser');
   let updated_dates = document.getElementById('Select-dates');
+  let update_start_date = document.getElementById('Select-dates');
+  let update_end_date = document.getElementById('Select-dates2');
   let selectedUserZonesString = '';
   let selectedUserCompaniesString = '';
   let user_language = document.getElementById('user_language');
@@ -1061,6 +1063,8 @@ export async function pageAdmin(user) {
         user_zones: selectedUserZonesString,
         company_admin: (String(company_admin.value).toLowerCase() === 'true'),
         supplier_visit_dates: updated_dates.value,
+        supplier_start_date: update_start_date.value,
+        supplier_end_date: update_end_date.value,
         basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
         user_itwa: (String(update_itwa.value).toLowerCase() === 'true'),
         press_workspot: (String(update_workspace.value).toLowerCase() === 'true'),
