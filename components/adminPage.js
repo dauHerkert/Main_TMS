@@ -1243,6 +1243,7 @@ export async function pageAdmin(user) {
   async function bulkUserUpdate(selectedData) {
     let bulk_user_form = document.getElementById('bulk_user_form');
     let bulk_status_update = document.getElementById('bulk_status');
+    const bulk_send_email = document.getElementById('bulk_send_email')
 
     for (let i = 0; i < selectedData.length; i++) {
       const userRef = doc(db, 'users', selectedData[i]);
@@ -1340,24 +1341,26 @@ export async function pageAdmin(user) {
             // TODO: review body modal-open
             // Application action email send
             (async () => {
-              try {
-                const html = await fetch(emailURL)
-                  .then(response => response.text())
-                  .then(html => html.replaceAll('${fullName}', nameToDisplay))
-                  .then(html => html.replace('${firstImageURL}', firstImageURL))
-                  .then(html => html.replace('${firstImageStyle}', firstImageStyle))
-                  .then(html => html.replace('${secondImageURL}', secondImageURL))
-                  .then(html => html.replace('${secondImageStyle}', secondImageStyle));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: ['juan.torres@dauherkert.de',`${userData.data().user_email}`],
-                  message: {
-                    subject: emailSubject,
-                    html: html,
-                  }
-                });
-                console.log("Document written with ID: ", docRef.id);
-              } catch (e) {
-                console.error("Error adding document: ", e);
+              if (bulk_send_email.checked) {
+                try {
+                  const html = await fetch(emailURL)
+                    .then(response => response.text())
+                    .then(html => html.replaceAll('${fullName}', nameToDisplay))
+                    .then(html => html.replace('${firstImageURL}', firstImageURL))
+                    .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+                    .then(html => html.replace('${secondImageURL}', secondImageURL))
+                    .then(html => html.replace('${secondImageStyle}', secondImageStyle));
+                  const docRef = addDoc(collection(db, "mail"), {
+                    to: ['juan.torres@dauherkert.de',`${userData.data().user_email}`],
+                    message: {
+                      subject: emailSubject,
+                      html: html,
+                    }
+                  });
+                  console.log("Document written with ID: ", docRef.id);
+                } catch (e) {
+                  console.error("Error adding document: ", e);
+                }
               }
               toastr.success(emailLabel);
               document.getElementById('update_user_modal').style.display = 'none';
