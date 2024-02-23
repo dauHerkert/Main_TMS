@@ -447,6 +447,20 @@ window.addEventListener('load', function(){
   if(storedLang){
     currentLang = storedLang;
   }
+
+  document.getElementById("englishBtn").addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    changeLanguage("en");
+    window.location.href = this.href; 
+  });
+  
+  document.getElementById("germanBtn").addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    changeLanguage("de");
+    window.location.href = this.href; 
+  });
   updateLinks();
 });
 
@@ -472,20 +486,6 @@ function updateLinks() {
 /*===================================================================================================================================
  * These onClick events add/delete a class to the selected language and triggers the changeLanguage and updateLinks functions
 ====================================================================================================================================*/
-
-document.getElementById("englishBtn").addEventListener("click", function(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  changeLanguage("en");
-  window.location.href = this.href; 
-});
-
-document.getElementById("germanBtn").addEventListener("click", function(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  changeLanguage("de");
-  window.location.href = this.href; 
-});
 
 /*
 var storedLang = localStorage.getItem("language");
