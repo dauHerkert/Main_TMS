@@ -400,16 +400,16 @@ export async function pageAdmin(user) {
             let color = "";
             if (storedLang && storedLang === 'de') {
               if (value === "Ok") {
-                label = "Accepted";
+                label = "Freigegeben";
                 color = "#27AE60";
               } else if (value === "Declined") {
-                label = "Declined";
+                label = "Abhelehnt";
                 color = "#E74C3C";
               } else if (value === "Pending") {
-                label = "Pending";
+                label = "Ausstehend";
                 color = "#F39C12";
               } else if (value === "Printed") {
-                label = "Printed";
+                label = "Gedruckt";
                 color = "#2980B9";
               }
             } else {
