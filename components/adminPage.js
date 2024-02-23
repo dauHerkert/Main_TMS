@@ -210,18 +210,20 @@ export async function pageAdmin(user) {
 
   // Admins > basic_admin - company_admin - user_is_admin
   select_type_id.style.display = 'none';
-  user_profile_company_update.style.display = 'none';
-  update_user_profile.style.display = 'none';
   create_user_profile.style.display = 'none';
   head_user.style.display = 'none';
   user_dates.style.display = 'none';
   basic_admin.style.display = 'none';
-
+  if (companies_table) {
+    companies_table.style.display = 'none';
+  }
+  
   // Admins > basic_admin
   if (userInfo.basic_admin) {
+    user_profile_company_update.style.display = 'none';
+    update_user_profile.style.display = 'none';
     document.getElementById('company-filter').parentElement.style.display = 'none';
     document.getElementById('type-filter').parentElement.style.display = 'none';
-    if (companies_table) {companies_table.style.display = 'none'};
     document.getElementById('new_user_company').parentElement.style.display = 'none';
     document.getElementById('create_user_zones').style.display = 'none';
     document.getElementById('update_user_zones').style.display = 'none';
@@ -231,13 +233,17 @@ export async function pageAdmin(user) {
 
   // Admins > company_admin
   if (userInfo.company_admin) {
+    document.getElementById('create_user_zones').style.display = 'none';
   }
 
   // Admins > user_is_admin
   if (userInfo.user_is_admin) {
     //select_type_id.style.display = 'none';
-    user_profile_company_update.style.display = 'block';
-    update_user_profile.style.display = 'block';
+    //user_profile_company_update.style.display = 'block';
+    //update_user_profile.style.display = 'block';
+    if (companies_table) {
+      companies_table.style.display = 'block';
+    }
     create_user_profile.style.display = 'block';
     head_user.style.display = 'grid';
     user_dates.style.display = 'grid';
@@ -727,6 +733,8 @@ export async function pageAdmin(user) {
   let user_zones_update = document.getElementById('select2-userZones-container');
   let update_itwa = document.getElementById('itwa');
   let update_workspace = document.getElementById('workspace');
+  let update_locker = document.getElementById('locker');
+  let update_hotel_info = document.getElementById('hotel_info');
   let update_card_number = document.getElementById('press-id');
   let update_special_request = document.getElementById('special_requests');
   let update_media_type = document.getElementById("update_media_type");
@@ -1048,8 +1056,10 @@ export async function pageAdmin(user) {
         company_admin: (String(company_admin.value).toLowerCase() === 'true'),
         supplier_visit_dates: updated_dates.value,
         basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
-        user_itwa: update_itwa.value,
-        press_workspot: update_workspace.value,
+        user_itwa: (String(update_itwa.value).toLowerCase() === 'true'),
+        press_workspot: (String(update_workspace.value).toLowerCase() === 'true'),
+        press_locker: (String(update_locker.value).toLowerCase() === 'true'),
+        press_hotel_info: (String(update_hotel_info.value).toLowerCase() === 'true'),
         press_card_number: update_card_number.value,
         press_media_type: update_media_type.value,
         user_address: update_user_address.value,
