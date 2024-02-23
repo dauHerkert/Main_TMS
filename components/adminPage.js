@@ -724,7 +724,7 @@ export async function pageAdmin(user) {
   let company_admin = document.getElementById('headUser');
   let updated_dates = document.getElementById('Select-dates');
   let selectedUserZonesString = '';
-  let selectedUserCompaniesString = $('#userCompany').val().join(', ');
+  let selectedUserCompaniesString = '';
   let user_language = document.getElementById('user_language');
   let press_user_title = document.getElementById('press_user_title');
   let user_type = document.getElementById('account_type');
@@ -739,8 +739,6 @@ export async function pageAdmin(user) {
   let update_special_request = document.getElementById('special_requests');
   let update_media_type = document.getElementById("update_media_type");
   let update_user_address = document.getElementById('update_user_address');
-
-  console.log('selectedUserCompaniesString >>>> ', selectedUserCompaniesString);
 
   $('#userCompany').on('change', function () {
     var selectedUserCompanies = $(this).val();
@@ -1048,6 +1046,12 @@ export async function pageAdmin(user) {
       }
       console.log('basic admin variable', basic_admin_update);
       console.log('basic admin value', (String(basic_admin_update.value).toLowerCase() === 'true'));
+
+      console.log('selectedUserCompaniesString >>>> ', selectedUserCompaniesString);
+      if (selectedUserCompaniesString == '') {
+        selectedUserCompaniesString = $('#userCompany').val().join(', ');
+      }
+      console.log('selectedUserCompaniesString >>>> ', selectedUserCompaniesString);
 
       setDoc(userRef, {
         user_type: userTypeUpdate.value,
