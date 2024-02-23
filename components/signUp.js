@@ -635,5 +635,5 @@ export function signUpPage() {
   if ( typeof(signUpForm) !== null ) {
     signUpForm.addEventListener('submit', handleSignUp, true);
   }
-  getDateSignUp()
+  //getDateSignUp()
 }
