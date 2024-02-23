@@ -448,19 +448,17 @@ window.addEventListener('load', function(){
     currentLang = storedLang;
   }
 
-  document.getElementById("englishBtn").addEventListener("click", function(e) {
+  document.getElementById("langBtn").addEventListener("click", function(e) {
     e.preventDefault();
     e.stopPropagation();
-    changeLanguage("en");
+    if (this.lastChild.innerHTML == 'EN') {
+      changeLanguage("en");
+    } else if (this.lastChild.innerHTML == 'DE') {
+      changeLanguage("de");
+    }
     window.location.href = this.href; 
   });
   
-  document.getElementById("germanBtn").addEventListener("click", function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    changeLanguage("de");
-    window.location.href = this.href; 
-  });
   updateLinks();
 });
 
