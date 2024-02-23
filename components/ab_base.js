@@ -549,20 +549,6 @@ if (signDeBtn) {
  * This function adds a border bottom to the link on the navbar of the current page
  ====================================================================================================================================*/
 
-let form_button = document.getElementById('form_button');
-let admin_users_table = document.getElementById("users_table");
-let admin_companies_table = document.getElementById("companies_table");
-
-if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'press' || window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'supplier') {
-  form_button.style.borderBottom = "2px solid #B11372";
-}
-if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'users-table') {
-  admin_users_table.style.borderBottom = "2px solid #B11372";
-}
-if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'companies-table') {
-  admin_companies_table.style.borderBottom = "2px solid #B11372";
-}
-
 let welcomeBanner = document.getElementById('welcomeBanner');
 if (welcomeBanner) {
   if (location.search.indexOf('?company=') !== -1) {
