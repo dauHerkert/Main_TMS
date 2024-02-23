@@ -724,7 +724,7 @@ export async function pageAdmin(user) {
   let company_admin = document.getElementById('headUser');
   let updated_dates = document.getElementById('Select-dates');
   let selectedUserZonesString = '';
-  let selectedUserCompaniesString = '';
+  let selectedUserCompaniesString = $('#userCompany').val().join(', ');
   let user_language = document.getElementById('user_language');
   let press_user_title = document.getElementById('press_user_title');
   let user_type = document.getElementById('account_type');
