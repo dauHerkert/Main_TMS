@@ -68,6 +68,7 @@ export async function pageAdmin(user) {
   })
   */
 
+  /*
   async function updateDates(user, dateStartStr, dateEndStr) {
     var today = new Date();
     var minDate;
@@ -183,6 +184,7 @@ export async function pageAdmin(user) {
       $('[data-date-picker]').attr('readonly', 'readonly');
     }
   }
+  */
 
   changeAdminTypeTitle(user);
   let user_dates = document.getElementById('user_dates');
