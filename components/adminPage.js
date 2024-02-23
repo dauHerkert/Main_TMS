@@ -403,7 +403,7 @@ export async function pageAdmin(user) {
                 label = "Freigegeben";
                 color = "#27AE60";
               } else if (value === "Declined") {
-                label = "Abhelehnt";
+                label = "Abgelehnt";
                 color = "#E74C3C";
               } else if (value === "Pending") {
                 label = "Ausstehend";
