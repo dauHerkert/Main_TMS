@@ -742,7 +742,6 @@ export async function pageAdmin(user) {
   let update_card_number = document.getElementById('press-id');
   let update_special_request = document.getElementById('special_requests');
   let update_media_type = document.getElementById("update_media_type");
-  let update_user_address = document.getElementById('update_user_address');
 
   $('#userCompany').on('change', function () {
     var selectedUserCompanies = $(this).val();
@@ -1074,7 +1073,6 @@ export async function pageAdmin(user) {
         press_hotel_info: (String(update_hotel_info.value).toLowerCase() === 'true'),
         press_card_number: update_card_number.value,
         press_media_type: update_media_type.value,
-        user_address: update_user_address.value,
         supplier_special_request: update_special_request.value
       }, { merge: true })
         .then(() => {
