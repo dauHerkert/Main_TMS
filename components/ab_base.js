@@ -227,8 +227,7 @@ function checkUrlParameter() {
 function dispatchRequest(user) {
   let url = window.location.pathname;
   let signoutBtn = document.getElementById('signout-button');
-  console.log('url in dispatchRequest()', url);
-  console.log('url in dispatchRequest() - last segment', url.substring(url.lastIndexOf('/') + 1));
+  //console.log('url in dispatchRequest() - last segment', url.substring(url.lastIndexOf('/') + 1));
 
   // User is NOT signed in
   if (user == false) {

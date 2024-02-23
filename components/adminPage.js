@@ -34,7 +34,7 @@ async function changeCompanyNameToID(user) {
     return "No company"; // Puedes devolver cualquier valor predeterminado que necesites aquí
   }
   
-  console.log("user:", user, "user.user_company:", user.user_company);
+  //console.log("user:", user, "user.user_company:", user.user_company);
 
   const companiesRef = collection(db, "companies");
   const companiesSnapshot = await getDocs(companiesRef);
