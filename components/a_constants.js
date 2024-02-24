@@ -22,6 +22,7 @@
  export const URLACCOUNT = '/account';
  export const URLADMIN = '/admin/users-table';
  export const URLSIGNIN = '/signin' + PSNAME;
+ export const URLSIGNUP = '/signup' + PSNAME;
 
  /* Admin create user default dates */
  export const SUPPLIERSTARTDATE = '04-13-2024';

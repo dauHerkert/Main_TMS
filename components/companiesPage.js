@@ -1,4 +1,4 @@
-import { URLENV, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
+import { URLENV, URLSIGNUP, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
@@ -160,8 +160,8 @@ export async function pageCompaniesTable(user){
       let data = [];
       snapshot.docs.forEach((doc) => {
         let company = doc.data();
-        let company_link_en = `${URLENV}/en/signup-ptgp?company=${doc.id}`;
-        let company_link_de = `${URLENV}/de/signup-ptgp?company=${doc.id}`; 
+        let company_link_en = `${URLENV}/en${URLSIGNUP}?company=${doc.id}`;
+        let company_link_de = `${URLENV}/de${URLSIGNUP}?company=${doc.id}`; 
         data.push({companyLink: company_link_en,companyLinkDe: company_link_de, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
         companies_table.setData(data);
       });
@@ -531,6 +531,8 @@ if (company_link_form) {
     e.preventDefault();
     e.stopPropagation();
 
+    let email_to_send = document.getElementById('email_to_send');
+
     let storedLang = localStorage.getItem('language');
     //Supplier form submited - EN
     let registration_link_email_subject = 'Accreditation Porsche Tennis Grand Prix';
@@ -538,7 +540,7 @@ if (company_link_form) {
     let notification_UI_correct = 'Email has been successfully sent';
     let notification_UI_error = 'Error sending email: ';
 
-    let registrationLink = `${company_link.value}`;
+    let registrationLink = `${company_link_en.value}`;
     
     if (storedLang && storedLang === 'de') {
       //Supplier form submited - DE
@@ -568,7 +570,7 @@ if (company_link_form) {
           toastr.success(notification_UI_correct);
           setTimeout(function() {
             document.getElementById('company_link_modal').style.display = 'none';
-            $('body').removeClass('modal-open');
+            $('body').css("overflow", "unset");
           }, 500);
       } catch (e) {
         toastr.error(notification_UI_error, e);
