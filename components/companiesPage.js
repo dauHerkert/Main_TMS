@@ -255,12 +255,29 @@ export async function pageCompaniesTable(user){
   let profileZones = document.getElementById('profileZones');
   let selectedProfileZones;
 
-  $('#profileZones').on('change', function () {
-    var selectedValues = $(this).val();
+  //$('#profileZones').on('change', function () {
+  profileZones.addEventListener('change', () => {
+    var selectedValues = this.value;
     console.log(selectedValues);
-    selectedProfileZones = selectedValues.join(', ');
+    //selectedProfileZones = selectedValues.join(', ');
     console.log(selectedProfileZones);
+
+    const selectedOptions = getAllSelectValues(this);
+    console.log(selectedOptions);
+    console.log(selectedOptions.join(', '));
   });
+
+  function getAllSelectValues(select) {
+    const selectedOptions = [];
+  
+    for (const option of select.options) {
+      if (option.selected) {
+        selectedOptions.push(option.value);
+      }
+    }
+  
+    return selectedOptions;
+  }
 
   async function createProfile() {
     const profileRef = await addDoc(collection(db, "profiles"), {
@@ -271,8 +288,8 @@ export async function pageCompaniesTable(user){
       toastr.success('Profile has been successfully created');
       setTimeout(function() {
         document.getElementById('create_profile_modal').style.display = 'none';
+        $('body').css("overflow", "unset");
       }, 500);
-      $('body').css("overflow", "unset");
     })
     .catch((err) => {
       toastr.error('There was an error creating the profile');
@@ -298,7 +315,7 @@ export async function pageCompaniesTable(user){
       .then(() => {
         toastr.success('Zone has been successfully created');
         setTimeout(function() {
-          document.getElementById('#zone_modal').style.display = 'none';
+          document.getElementById('zone_modal').style.display = 'none';
           $('body').css("overflow", "unset");
         }, 500);
       })
