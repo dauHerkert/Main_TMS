@@ -540,7 +540,7 @@ if (company_link_form) {
     let notification_UI_correct = 'Email has been successfully sent';
     let notification_UI_error = 'Error sending email: ';
 
-    let registrationLink = `${company_link_en.value}`;
+    let registrationLink = `${company_link.value}`;
     
     if (storedLang && storedLang === 'de') {
       //Supplier form submited - DE
