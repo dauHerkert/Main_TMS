@@ -214,7 +214,6 @@ export async function pageAdmin(user) {
   select_type_id.style.display = 'none';
   create_user_profile.style.display = 'none';
   head_user.style.display = 'none';
-  user_dates.style.display = 'none';
   basic_admin.style.display = 'none';
   if (companies_table) {
     companies_table.style.display = 'none';
@@ -224,6 +223,7 @@ export async function pageAdmin(user) {
   if (userInfo.basic_admin) {
     user_profile_company_update.style.display = 'none';
     update_user_profile.style.display = 'none';
+    user_dates.style.display = 'none';
     document.getElementById('company-filter').parentElement.style.display = 'none';
     document.getElementById('type-filter').parentElement.style.display = 'none';
     document.getElementById('new_user_company').parentElement.style.display = 'none';
@@ -248,7 +248,6 @@ export async function pageAdmin(user) {
     }
     create_user_profile.style.display = 'block';
     head_user.style.display = 'grid';
-    user_dates.style.display = 'grid';
     basic_admin.style.display = 'block';
   }
 
