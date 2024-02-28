@@ -12,6 +12,9 @@ import 'select2/dist/css/select2.min.css';
  * and deletion of companies. It also includes the creation and updating of profiles and zones, as well as the display of selected company and zone information.
 =================================================================================================================================================================*/
 
+// Initialize select2 for create company - update company - create profile
+$('#newCompanyZones, #companyZone, #profileZones').select2({closeOnSelect: false});
+
 let storedLang = localStorage.getItem("language");
 
 export async function pageCompaniesTable(user){
@@ -595,3 +598,20 @@ if (company_link_form) {
     })();
   })
 }
+
+/*==========================================================================================================================================================
+* This code snippet identifies when the user selects the edit company action by locating the selected row, thereby mapping the company's current zones and
+* pre-filling them in the editable company zones field.
+===========================================================================================================================================================*/
+$(document).on('click', '#open_companies_modal', function() {
+  let row = event.target.closest('.tabulator-row');
+  let companyZones =	row.querySelector('.companyZone');
+  let companyZonesArray = companyZones.textContent.split(',');
+
+  $("#newCompanyZones option").prop("selected", false);
+  for (let i = 0; i < companyZonesArray.length; i++) {
+    let option = $("#newCompanyZones option[value='" + companyZonesArray[i].trim() + "']");
+    option.prop("selected", true);
+  }
+  $("#newCompanyZones").trigger("change");
+});
