@@ -8,6 +8,7 @@ import 'select2/dist/css/select2.min.css';
 //import flatpickr from "flatpickr";
 
 //console.log('testing flatpickr')
+let newUserCompaniesString = '';
 //placeholder: 'Firma auswählen',
 $('#user_company').select2({
   placeholder: 'Select a company',
@@ -336,7 +337,6 @@ if (select_company) {
 
     // Use the select_company value when the URL doesn't have the ?company parameter
     select_company.value = select_company.value;
-    let newUserCompaniesString = '';
     // Show the select_company element
     document.getElementById('company_select_cont').style.display = 'block';
     $('#user_company').on('change', function () {
