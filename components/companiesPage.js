@@ -96,10 +96,10 @@ export async function pageCompaniesTable(user){
       }},
       {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
       {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
-      {title: companyProfileLabel, field:"company", sorter:"string", width:250, cssClass:"companyName first_column"},
-      {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone other_columns"},
+      {title: companyProfileLabel, field:"company", sorter:"string", width:250, cssClass:"companyName large_columns"},
+      {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone large_columns"},
       {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
-      {title: sendLinkLabel, width:195, cssClass:"other_columns center_column", formatter:function(cell, formatterParams){
+      {title: sendLinkLabel, width:195, cssClass:"center_col small_columns", formatter:function(cell, formatterParams){
         let value = cell.getValue();
         let button = document.createElement("button");
         button.innerHTML = "<img class='button_img' src='" + URLASSETS + ICON_SENDMAIL + "'>";
@@ -107,7 +107,7 @@ export async function pageCompaniesTable(user){
         button.setAttribute("id","open_link_modal");
         return button;
       }},
-      {title: updateLabel, width: 195, cssClass: "other_columns center_column", formatter: function(cell, formatterParams) {
+      {title: updateLabel, width: 195, cssClass: "center_col small_columns", formatter: function(cell, formatterParams) {
         let value = cell.getValue();
         let buttonContainer = document.createElement("div");
         buttonContainer.setAttribute("class","actionBtnContainer");
@@ -276,7 +276,8 @@ export async function pageCompaniesTable(user){
       setTimeout(function() {
         document.getElementById('create_profile_modal').style.display = 'none';
         $('body').css("overflow", "unset");
-      }, 500);
+        window.location.reload();
+      }, 1500);
     })
     .catch((err) => {
       toastr.error('There was an error creating the profile');
