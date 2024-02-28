@@ -54,8 +54,25 @@ async function changeCompanyNameToID(user) {
 
 export async function pageAdmin(user) {
 
-  /*
   $(document).on( 'click' , '#open_modal_btn' , function() {
+    let userCompaniesArray = row.querySelector('div[tabulator-field="companyID"]').textContent.split(',');
+    let userZonesArray = row.querySelector('div[tabulator-field="user_zones"]').textContent.split(',');
+
+    $("#userCompany option").prop("selected",false);
+    for (let i=0;i<userCompaniesArray.length;i++) {
+      let option=$("#userCompany option[value='" + userCompaniesArray[i].trim() + "']");
+      option.prop("selected", true);
+    }
+    $("#userCompany").trigger("change");
+
+    $("#userZones option").prop("selected", false);
+    for (let i=0; i<userZonesArray.length;i++) {
+      let option = $("#userZones option[value='" + userZonesArray[i].trim() + "']");
+      option.prop("selected", true);
+    }
+    $("#userZones").trigger("change");
+  })
+  /*
     let user_start_date = document.getElementById('Select-dates');
     let user_end_date = document.getElementById('Select-dates2');
     let startDateCell = $(this).closest('div').siblings('div[tabulator-field="user_start_date"]');
@@ -66,7 +83,6 @@ export async function pageAdmin(user) {
     var dateEndStr = user_end_date.value;
 
     //updateDates(user, dateStartStr, dateEndStr)
-  })
   */
 
   /*
