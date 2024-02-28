@@ -262,7 +262,7 @@ function handleSignUp(e) {
           sessionStorage.setItem('userID', user.uid);
           setDefaultFields(user);
           console.log('Go to userExtraInfo()');
-          //userExtraInfo(e, user);
+          userExtraInfo(e, user);
           toastr.success('user successfully created: ' + user.email);
         })
         .catch((error) => {
