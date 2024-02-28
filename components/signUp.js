@@ -40,7 +40,7 @@ const userDefaultValues = {
   press_card_number:'',
 
   // User fields
-  user_company:'vbIh3G2eLIOVEvXmKDKf',
+  user_company:'', //'vbIh3G2eLIOVEvXmKDKf',
   user_email:'',
   user_id:'',
   user_title:'',
@@ -113,10 +113,22 @@ async function setDefaultFields(user) {
   const userDoc = await getDoc(userRef);
   const user_firstname = document.getElementById('first-name');
   const user_lastname = document.getElementById('last-name');
+  const start_date = document.getElementById('Select-dates');
+  const end_date = document.getElementById('Select-dates-2');
   const userID = sessionStorage.getItem('userID');
   const tempImageId = sessionStorage.getItem("tempImageId");
   const profile_img = document.getElementById('profile_img');
   let fileItem = profile_img.files[0];
+  let storedLang = localStorage.getItem("language");
+  const special_requests = document.getElementById('special_requests');
+
+  if (user_firstname.value && user_lastname.value) {
+    userDefaultValues.user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
+  }
+  userDefaultValues.supplier_start_date = start_date;
+  userDefaultValues.supplier_end_date = end_date;
+  userDefaultValues.language = storedLang;
+  userDefaultValues.special_requests = special_requests;
   // Use the companyProfile variable to set the user_type field
   userDefaultValues.user_email = user.email;
   userDefaultValues.user_id = user.uid;
@@ -129,12 +141,11 @@ async function setDefaultFields(user) {
   } else {
     company_admin_petition = "No admin";
   }
-  console.log("company admin:", company_admin_petition)
+  console.log("company admin: ", company_admin_petition)
   
   userDefaultValues.company_admin_petition = company_admin_petition;
 
 
-  let storedLang = localStorage.getItem("language");
   let urlLang = '/en';
   //Subject for Register email - EN
   let register_email_subject = 'Vielen Dank für Ihre Anmeldung/Thanks for Registering';
@@ -251,7 +262,7 @@ function handleSignUp(e) {
           sessionStorage.setItem('userID', user.uid);
           setDefaultFields(user);
           console.log('Go to userExtraInfo()');
-          userExtraInfo(e, user);
+          //userExtraInfo(e, user);
           toastr.success('user successfully created: ' + user.email);
         })
         .catch((error) => {
