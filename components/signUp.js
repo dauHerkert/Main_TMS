@@ -8,6 +8,9 @@ import 'select2/dist/css/select2.min.css';
 //import flatpickr from "flatpickr";
 
 //console.log('testing flatpickr')
+$('#user_company').select2({
+  placeholder: 'Select a company',
+});
 
 // This is a list of the default values
 // as well as of all the possible fields that a user doc can have
@@ -333,13 +336,15 @@ if (select_company) {
     select_company.value = select_company.value;
     let newUserCompaniesString = '';
     // Show the select_company element
+    console.log($('#user_company'));
+    var $eventSelect = $(".js-example-events");
+    $eventSelect.on("select2:close", function (e) { log("select2:close", e); });
     document.getElementById('company_select_cont').style.display = 'block';
-    //$('#user_company').on('change', function () {
-    $('#user_company').on("select2:close", function (e) {
+    $('#user_company').on('change', function () {
+    //$('#user_company').on("select2:close", function (e) {
       var selectedNewUserCompanies = $(this).val();
       newUserCompaniesString = selectedNewUserCompanies.join(', ');
       console.log("Close ->> ", newUserCompaniesString);
-      console.log("e ->> ", e);
     });
   }
 }
