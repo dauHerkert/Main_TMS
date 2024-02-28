@@ -8,7 +8,6 @@ import 'select2/dist/css/select2.min.css';
 //import flatpickr from "flatpickr";
 
 //console.log('testing flatpickr')
-let newUserCompaniesString = '';
 //placeholder: 'Firma auswählen',
 $('#user_company').select2({
   placeholder: 'Select a company',
@@ -113,7 +112,7 @@ function generateTempId() {
 
 async function setDefaultFields(user) {
   const userRef = doc(db, 'users', user.uid);
-  await updateDoc(userRef, { user_company: newUserCompaniesString });
+  ///////await updateDoc(userRef, { user_company: newUserCompaniesString });
   // Use the `getCompanyType` function to get the company type and zones
   const { companyProfile, companyZones } = await getCompanyType(user);
   const userDoc = await getDoc(userRef);
@@ -337,11 +336,13 @@ if (select_company) {
 
     // Use the select_company value when the URL doesn't have the ?company parameter
     select_company.value = select_company.value;
+    let newUserCompaniesString = '';
     // Show the select_company element
     document.getElementById('company_select_cont').style.display = 'block';
     $('#user_company').on('change', function () {
       var selectedNewUserCompanies = $(this).val();
       newUserCompaniesString = selectedNewUserCompanies.join(', ');
+      userDefaultValues.user_company = newUserCompaniesString;
       console.log("Company(s) ID ->> ", newUserCompaniesString);
     });
   }
