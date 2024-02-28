@@ -259,7 +259,7 @@ export async function pageCompaniesTable(user){
   let selectedProfileZones;
 
   $('#profileZones').on('change', function () {
-    var selectedValues = this.value;
+    var selectedValues = $(this).val();
     console.log(selectedValues);
     selectedProfileZones = selectedValues.join(', ');
     console.log(selectedProfileZones);
