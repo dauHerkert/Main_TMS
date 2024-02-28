@@ -82,7 +82,7 @@ async function getCompanyType(user) {
 
   for (const company of companiesSnapshot.docs) {
     if (company.id === userInfo.user_company) {
-      companyProfile = company.data().company_type;
+      companyProfile = company.data().company_profile;
       companyZones = company.data().company_zones || [];
       break;
     }
@@ -135,6 +135,7 @@ async function setDefaultFields(user) {
   userDefaultValues.language = storedLang;
   userDefaultValues.supplier_special_request = special_requests.value;
   // Use the companyProfile variable to set the user_type field
+  userDefaultValues.user_type = companyProfile;
   userDefaultValues.user_email = user.email;
   userDefaultValues.user_id = user.uid;
   // Use the companyZones variable to set the user_zones field
