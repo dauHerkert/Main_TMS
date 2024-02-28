@@ -125,10 +125,10 @@ async function setDefaultFields(user) {
   if (user_firstname.value && user_lastname.value) {
     userDefaultValues.user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
   }
-  userDefaultValues.supplier_start_date = start_date;
-  userDefaultValues.supplier_end_date = end_date;
+  userDefaultValues.supplier_start_date = start_date.value;
+  userDefaultValues.supplier_end_date = end_date.value;
   userDefaultValues.language = storedLang;
-  userDefaultValues.special_requests = special_requests;
+  userDefaultValues.special_requests = special_requests.value;
   // Use the companyProfile variable to set the user_type field
   userDefaultValues.user_email = user.email;
   userDefaultValues.user_id = user.uid;
