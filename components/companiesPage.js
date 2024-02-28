@@ -258,31 +258,15 @@ export async function pageCompaniesTable(user){
   let profileZones = document.getElementById('profileZones');
   let selectedProfileZones;
 
-  //$('#profileZones').on('change', function () {
-  profileZones.addEventListener('change', () => {
+  $('#profileZones').on('change', function () {
     var selectedValues = this.value;
     console.log(selectedValues);
-    //selectedProfileZones = selectedValues.join(', ');
+    selectedProfileZones = selectedValues.join(', ');
     console.log(selectedProfileZones);
-
-    const selectedOptions = getAllSelectValues(this);
-    console.log(selectedOptions);
-    console.log(selectedOptions.join(', '));
   });
 
-  function getAllSelectValues(select) {
-    const selectedOptions = [];
-  
-    for (const option of select.options) {
-      if (option.selected) {
-        selectedOptions.push(option.value);
-      }
-    }
-  
-    return selectedOptions;
-  }
-
   async function createProfile() {
+    console.log('New Profile Name: ', new_profile_name.value, ' - Zones: ', selectedProfileZones);
     const profileRef = await addDoc(collection(db, "profiles"), {
       profile_name: new_profile_name.value,
       zones: selectedProfileZones,
