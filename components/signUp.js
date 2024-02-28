@@ -1,4 +1,4 @@
-import { EVENTDATES, URLEMAILTEMPLATES, URLENV, URLSIGNIN, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
+import { DEFAULTCOMPANYID, EVENTDATES, URLEMAILTEMPLATES, URLENV, URLSIGNIN, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL,uploadBytes,deleteObject,createUserWithEmailAndPassword,auth,storage,db, user} from './a_firebaseConfig';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
@@ -40,7 +40,7 @@ const userDefaultValues = {
   press_card_number:'',
 
   // User fields
-  user_company:'', //'vbIh3G2eLIOVEvXmKDKf',
+  user_company: DEFAULTCOMPANYID,
   user_email:'',
   user_id:'',
   user_title:'',
