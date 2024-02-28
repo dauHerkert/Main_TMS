@@ -112,6 +112,7 @@ function generateTempId() {
 
 async function setDefaultFields(user) {
   const userRef = doc(db, 'users', user.uid);
+  await updateDoc(userRef, { user_company: newUserCompaniesString });
   // Use the `getCompanyType` function to get the company type and zones
   const { companyProfile, companyZones } = await getCompanyType(user);
   const userDoc = await getDoc(userRef);
