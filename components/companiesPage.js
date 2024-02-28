@@ -379,7 +379,9 @@ export async function pageCompaniesTable(user){
     newCompanyProfile.addEventListener('change', async () => {
       const companyProfile = newCompanyProfile.value;
       if (companyProfile !== '') {
+        console.log(companyProfile);
         const profilesRef = doc(db, 'profiles', companyProfile);
+        console.log(profilesRef);
         try {
           const profilesSnapshot = await getDoc(profilesRef);
           if (profilesSnapshot.exists()) {
