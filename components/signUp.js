@@ -128,7 +128,7 @@ async function setDefaultFields(user) {
   userDefaultValues.supplier_start_date = start_date.value;
   userDefaultValues.supplier_end_date = end_date.value;
   userDefaultValues.language = storedLang;
-  userDefaultValues.special_requests = special_requests.value;
+  userDefaultValues.supplier_special_request = special_requests.value;
   // Use the companyProfile variable to set the user_type field
   userDefaultValues.user_email = user.email;
   userDefaultValues.user_id = user.uid;
@@ -334,9 +334,12 @@ if (select_company) {
     let newUserCompaniesString = '';
     // Show the select_company element
     document.getElementById('company_select_cont').style.display = 'block';
-    $('#user_company').on('change', function () {
+    //$('#user_company').on('change', function () {
+    $('#user_company').on("select2:close", function (e) {
       var selectedNewUserCompanies = $(this).val();
       newUserCompaniesString = selectedNewUserCompanies.join(', ');
+      console.log("Close ->> ", newUserCompaniesString);
+      console.log("e ->> ", e);
     });
   }
 }
