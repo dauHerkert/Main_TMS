@@ -55,6 +55,7 @@ async function changeCompanyNameToID(user) {
 export async function pageAdmin(user) {
 
   $(document).on( 'click' , '#open_modal_btn' , function() {
+    let row = event.target.closest('.tabulator-row');
     let userCompaniesArray = row.querySelector('div[tabulator-field="companyID"]').textContent.split(',');
     let userZonesArray = row.querySelector('div[tabulator-field="user_zones"]').textContent.split(',');
 
