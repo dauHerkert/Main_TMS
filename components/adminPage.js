@@ -1444,6 +1444,8 @@ export async function pageAdmin(user) {
       toastr.error('There was an error signin user');
     })
 
+  let selectedValuesString = '';
+
   $('#createUserZones').on('change', function () {
     var selectedValues = $(this).val();
     selectedValuesString = selectedValues.join(', ');
