@@ -13,9 +13,8 @@ import localeEn from 'air-datepicker/locale/en';
 import localeDe from 'air-datepicker/locale/de';
 import 'air-datepicker/air-datepicker.css';
 
-// Initialize select2 for create user - company and zones
-$('#user_company').select2({});
-$('#createUserZones').select2({});
+// Initialize select2 for create user: company and zones - update user: company and zones
+$('#new_user_company, #createUserZones, #userCompany, #userZones').select2({closeOnSelect: false});
 
 let storedLang = localStorage.getItem("language");
 
