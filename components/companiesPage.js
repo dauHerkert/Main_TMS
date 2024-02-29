@@ -85,7 +85,6 @@ export async function pageCompaniesTable(user){
     paginationSize:10,
     paginationSizeSelector:[10, 25, 50],
     paginationCounter:"rows",
-    headerFilterElement: document.querySelector('#tryany'),
     columns:[
       {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy_en", formatter: function(cell, formatterParams, onRendered){
         let companyLink_en = cell.getValue();
@@ -99,8 +98,8 @@ export async function pageCompaniesTable(user){
       }},
       {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
       {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
-      {title: companyProfileLabel, field:"company", sorter:"string", width:250, cssClass:"companyName first_column"},
-      {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone large_columns"},
+      {title: companyProfileLabel, field:"company", sorter:"string", width:250, cssClass:"companyName first_column", headerFilter: "list"},
+      {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone large_columns", headerFilter: "list"},
       {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
       {title: sendLinkLabel, width:195, cssClass:"center_col small_columns", formatter:function(cell, formatterParams){
         let value = cell.getValue();
