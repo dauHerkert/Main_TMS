@@ -1188,7 +1188,8 @@ export async function pageAdmin(user) {
           // Application action email send
           (async () => {
             console.log("USER CURRENT STATUS ", userCurrentStatus);
-            console.log("USER NEW STATUS ", user_status_update.innerText);
+            console.log("USER NEW STATUS ", user_status_update.value);
+            console.log("Different? ", (user_status_update.value != userCurrentStatus));
             if (send_email.checked && (user_status_update.value != userCurrentStatus)) {
               try {
                 const html = await fetch(emailURL)
@@ -1216,7 +1217,7 @@ export async function pageAdmin(user) {
           })();
           saveUserZones();
           setTimeout(function() {
-            window.location.reload();
+            //window.location.reload();
           }, 2000);
         })
         .catch((err) => {
