@@ -47,11 +47,13 @@ export async function pageCompaniesTable(user){
     let companyColumn = companies_table.getColumn("company_profile");
     let selectedCompany = companyFilterSelect.value;
     companies_table.setHeaderFilterValue(companyColumn, selectedCompany);
+    console.log('Company filter: ', companyColumn);
   });
   zonesFilterSelect.addEventListener("change", function() {
     let zoneColumn = companies_table.getColumn("zone");
     let selectedZone = zonesFilterSelect.value;
     companies_table.setHeaderFilterValue(zoneColumn, selectedZone);
+    console.log('Zone filter: ', zoneColumn);
   });
 
   let companyProfileLabel = 'COMPANY PROFILE';
@@ -83,6 +85,7 @@ export async function pageCompaniesTable(user){
     paginationSize:10,
     paginationSizeSelector:[10, 25, 50],
     paginationCounter:"rows",
+    headerFilterElement: document.querySelector('#tryany'),
     columns:[
       {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy_en", formatter: function(cell, formatterParams, onRendered){
         let companyLink_en = cell.getValue();
