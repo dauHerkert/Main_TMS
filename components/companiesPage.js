@@ -107,7 +107,7 @@ export async function pageCompaniesTable(user){
         button.setAttribute("id","open_link_modal");
         return button;
       }},
-      {title: updateLabel, width: 195, cssClass: "center_col small_columns", formatter: function(cell, formatterParams) {
+      {title: updateLabel, width: 195, cssClass: "center_col tiny_columns", formatter: function(cell, formatterParams) {
         let value = cell.getValue();
         let buttonContainer = document.createElement("div");
         buttonContainer.setAttribute("class","actionBtnContainer");
