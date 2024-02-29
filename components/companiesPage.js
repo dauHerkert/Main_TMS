@@ -96,7 +96,7 @@ export async function pageCompaniesTable(user){
       }},
       {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
       {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
-      {title: companyProfileLabel, field:"company", sorter:"string", width:250, cssClass:"companyName large_columns"},
+      {title: companyProfileLabel, field:"company", sorter:"string", width:250, cssClass:"companyName first_column"},
       {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone large_columns"},
       {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
       {title: sendLinkLabel, width:195, cssClass:"center_col small_columns", formatter:function(cell, formatterParams){
