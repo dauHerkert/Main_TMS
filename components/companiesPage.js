@@ -44,7 +44,7 @@ export async function pageCompaniesTable(user){
   createOptions(zonesFilterSelect);
 
   companyFilterSelect.addEventListener("change", function() {
-    let companyColumn = companies_table.getColumn("company_profile");
+    let companyColumn = companies_table.getColumn("company");
     let selectedCompany = companyFilterSelect.value;
     companies_table.setHeaderFilterValue(companyColumn, selectedCompany);
     console.log('Company filter: ', companyColumn);
@@ -55,6 +55,19 @@ export async function pageCompaniesTable(user){
     companies_table.setHeaderFilterValue(zoneColumn, selectedZone);
     console.log('Zone filter: ', zoneColumn);
   });
+
+  // Event listener for clear filter button
+  let clearFilterButton = document.getElementById('clear_button');
+
+  if (clearFilterButton) {
+    clearFilterButton.addEventListener("click", function() {
+      // Clear filter values and header filters
+      companyFilterSelect.value = "clear";
+      zonesFilterSelect.value = "clear";
+
+      companies_table.clearHeaderFilter();
+    });
+  }
 
   let companyProfileLabel = 'COMPANY PROFILE';
   let companyLabel = 'COMPANY';
