@@ -747,6 +747,7 @@ export async function pageAdmin(user) {
   let selectedUserZonesString = '';
   let selectedUserCompaniesString = '';
   let user_language = document.getElementById('user_language');
+  let user_status = document.getElementById('user_status');
   let press_user_title = document.getElementById('press_user_title');
   let user_type = document.getElementById('account_type');
   let press_user = document.getElementById('press_user');
@@ -1059,6 +1060,7 @@ export async function pageAdmin(user) {
 
     if (user_specific_id != null || user_specific_id != 0) {
       const userRef = doc(db, 'users', user_specific_id.value);
+      const userCurrentStatus = user_status.value;
 
       // Check if basic admin value is undefined
       if ( typeof basic_admin_update.value === 'undefined' || basic_admin_update.value == false ) {
@@ -1184,7 +1186,9 @@ export async function pageAdmin(user) {
           // TODO: review user_specific_name in the email sended
           // Application action email send
           (async () => {
-            if (send_email.checked) {
+            console.log("USER CURRENT STATUS ", userCurrentStatus);
+            console.log("USER NEW STATUS ", user_status_update.value);
+            if (send_email.checked && (user_status_update.value != userCurrentStatus)) {
               try {
                 const html = await fetch(emailURL)
                   .then(response => response.text())
