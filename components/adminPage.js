@@ -1061,6 +1061,7 @@ export async function pageAdmin(user) {
     if (user_specific_id != null || user_specific_id != 0) {
       const userRef = doc(db, 'users', user_specific_id.value);
       const userCurrentStatus = user_status.value;
+      if (userCurrentStatus == "Accepted"){userCurrentStatus="Ok"}
 
       // Check if basic admin value is undefined
       if ( typeof basic_admin_update.value === 'undefined' || basic_admin_update.value == false ) {
