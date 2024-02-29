@@ -1186,7 +1186,6 @@ export async function pageAdmin(user) {
               emailURL = supplier_application_accepted_url;
             }
           }
-          console.log('user_language.value >>>>- ', user_language.value);
 
           // TODO: review user_specific_name in the email sended
           // Application action email send
@@ -1194,7 +1193,7 @@ export async function pageAdmin(user) {
             console.log("USER CURRENT STATUS ", userCurrentStatus);
             console.log("USER NEW STATUS ", user_status_update.value);
             console.log("Different? ", (user_status_update.value != userCurrentStatus));
-            if (send_email.checked && (user_status_update.value != userCurrentStatus)) {
+            if (send_email.checked && user_status_update.value != userCurrentStatus && user_status_update.value != 'Pending') {
               try {
                 const html = await fetch(emailURL)
                   .then(response => response.text())
@@ -1221,7 +1220,7 @@ export async function pageAdmin(user) {
           })();
           saveUserZones();
           setTimeout(function() {
-            //window.location.reload();
+            window.location.reload();
           }, 2000);
         })
         .catch((err) => {
