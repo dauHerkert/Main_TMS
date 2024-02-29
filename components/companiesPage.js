@@ -62,8 +62,8 @@ export async function pageCompaniesTable(user){
   if (clearFilterButton) {
     clearFilterButton.addEventListener("click", function() {
       // Clear filter values and header filters
-      companyFilterSelect.value = "clear";
-      zonesFilterSelect.value = "clear";
+      companyFilterSelect.value = "";
+      zonesFilterSelect.value = "";
 
       companies_table.clearHeaderFilter();
     });
