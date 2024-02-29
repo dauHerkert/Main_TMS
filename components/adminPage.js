@@ -1076,7 +1076,7 @@ export async function pageAdmin(user) {
       console.log('selectedUserCompaniesString >>>> ', selectedUserCompaniesString);
 
       setDoc(userRef, {
-        user_type: userTypeUpdate.value,
+        //user_type: userTypeUpdate.value,
         account_type: accountTypeUpdate.value,
         user_status: user_status_update.value,
         user_company: selectedUserCompaniesString,
