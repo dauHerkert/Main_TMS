@@ -117,12 +117,7 @@ export async function pageCompaniesTable(user){
         editButton.setAttribute("onclick", "openModal2()");
         editButton.setAttribute("id", "open_companies_modal");
 
-        let deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "<img src='" + URLASSETS + ICON_TRASH + "' alt='Delete'/>";
-        deleteButton.setAttribute("onclick", "deleteCompany()");
-
         buttonContainer.appendChild(editButton);
-        buttonContainer.appendChild(deleteButton);
 
         return buttonContainer;
       }}
