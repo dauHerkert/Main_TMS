@@ -379,7 +379,8 @@ export async function pageCompaniesTable(user){
         const profilesRef = doc(db, 'profiles', companyProfile);
         console.log(profilesRef);
         try {
-          const profilesSnapshot = await getDoc(profilesRef);
+          //const profilesSnapshot = await getDoc(profilesRef);
+          const profilesSnapshot = await getDoc("NGdEpUZlZx1lXLYfwZe5");
           if (profilesSnapshot.exists()) {
             const zones = profilesSnapshot.data().zones;
             // Update the options for the zones select
