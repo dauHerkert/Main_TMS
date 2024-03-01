@@ -135,10 +135,6 @@ function handlePressPic(e) {
         viewMode: 1,
         autoCropArea: 0.7,
         responsive: true,
-        movable: false,
-        zoomable: false,
-        rotatable: false,
-        scalable: false,
         crop(event) {
           const canvas = press_cropper.getCroppedCanvas();
           canvas.toBlob((blob) => {
