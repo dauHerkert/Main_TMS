@@ -376,11 +376,17 @@ export async function pageCompaniesTable(user){
       const companyProfile = newCompanyProfile.value;
       if (companyProfile !== '') {
         console.log(companyProfile);
-        const profilesRef = doc(db, 'profiles', companyProfile);
+        const profilesRef = doc(db, 'profiles', companyProfile.toString());
         console.log(profilesRef);
         try {
-          //const profilesSnapshot = await getDoc(profilesRef);
-          const profilesSnapshot = await getDoc("NGdEpUZlZx1lXLYfwZe5");
+          const profilesSnapshot = await getDoc(profilesRef);
+          //const profilesSnapshot = await getDoc("NGdEpUZlZx1lXLYfwZe5");
+
+          const testRef = doc(db, 'profiles', "NGdEpUZlZx1lXLYfwZe5");
+          const testSnapshot = await getDoc(testRef);
+          console.log("testing -->>>> ", profile_name.data().profile_name);
+
+
           if (profilesSnapshot.exists()) {
             const zones = profilesSnapshot.data().zones;
             // Update the options for the zones select
