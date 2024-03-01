@@ -367,7 +367,7 @@ export async function pageCompaniesTable(user){
     // Update the selectedUserZonesString variable based on the current selection
     function updateSelectedCompanyZonesString() {
       const selectedOptions = Array.from(newCompanyZones.selectedOptions).map(option => option.value);
-      selectedNewZonesString = selectedOptions.join(',');
+      selectedNewZonesString = selectedOptions.join(', ');
     }
 
     let newCompanyZones = document.getElementById('newCompanyZones');
@@ -413,7 +413,7 @@ export async function pageCompaniesTable(user){
     // Update the selectedUserZonesString variable based on the current selection
     function updateCompanyZonesString() {
       const selectedOptions = Array.from(companyZones.selectedOptions).map(option => option.value);
-      selectedValuesString = selectedOptions.join(',');
+      selectedValuesString = selectedOptions.join(', ');
     }
 
     let companyZones = document.getElementById('companyZone');
