@@ -1,5 +1,5 @@
 import { URLENV, URLSIGNUP, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
-import { collection, doc, getDocs, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
+import { collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
 import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
@@ -377,7 +377,7 @@ export async function pageCompaniesTable(user){
       if (companyProfile !== '') {
         const profilesRef = doc(db, 'profiles', companyProfile);
         try {
-          const profilesSnapshot = await getDocFromServer(profilesRef);
+          const profilesSnapshot = await getDoc(profilesRef);
 
           if (profilesSnapshot.exists()) {
             const zones = profilesSnapshot.data().zones;
