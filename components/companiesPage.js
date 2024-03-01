@@ -376,8 +376,8 @@ export async function pageCompaniesTable(user){
       const companyProfile = newCompanyProfile.value;
       if (companyProfile !== '') {
         const profilesRef = doc(db, 'profiles', companyProfile);
-        try {          
-          const profilesSnapshot = await getDoc(profilesRef);
+        try {
+          const profilesSnapshot = await getDocFromServer(profilesRef);
 
           if (profilesSnapshot.exists()) {
             const zones = profilesSnapshot.data().zones;
