@@ -316,7 +316,8 @@ export async function pageCompaniesTable(user){
         setTimeout(function() {
           document.getElementById('zone_modal').style.display = 'none';
           $('body').css("overflow", "unset");
-        }, 500);
+          window.location.reload();
+        }, 1500);
       })
       .catch((err) => {
         toastr.error('There was an error creating the zone');
