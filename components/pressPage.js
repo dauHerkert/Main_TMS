@@ -129,12 +129,16 @@ function handlePressPic(e) {
     image.onload = function () {
       imageLoaded = true;
       press_cropper = new Cropper(image, {
-        aspectRatio: 1 / 1,
+        aspectRatio: 3 / 4,
         width: 256,
         height: 341,
-        viewMode: 2,
+        viewMode: 1,
         autoCropArea: 0.7,
         responsive: true,
+        movable: false,
+        zoomable: false,
+        rotatable: false,
+        scalable: false,
         crop(event) {
           const canvas = press_cropper.getCroppedCanvas();
           canvas.toBlob((blob) => {
