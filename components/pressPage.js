@@ -135,6 +135,7 @@ function handlePressPic(e) {
         viewMode: 1,
         autoCropArea: 0.7,
         responsive: true,
+        viewMode: 2,
         crop(event) {
           const canvas = press_cropper.getCroppedCanvas();
           canvas.toBlob((blob) => {

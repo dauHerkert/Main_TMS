@@ -1060,6 +1060,7 @@ export async function pageAdmin(user) {
 
     if (user_specific_id != null || user_specific_id != 0) {
       const userRef = doc(db, 'users', user_specific_id.value);
+      // variable to validate if user state change on the edition of the user
       let userCurrentStatus = user_status.value;
       if (userCurrentStatus == "Accepted"){userCurrentStatus="Ok"}
       else if (userCurrentStatus == "Freigegeben"){userCurrentStatus="Ok"}
@@ -1190,9 +1191,6 @@ export async function pageAdmin(user) {
           // TODO: review user_specific_name in the email sended
           // Application action email send
           (async () => {
-            console.log("USER CURRENT STATUS ", userCurrentStatus);
-            console.log("USER NEW STATUS ", user_status_update.value);
-            console.log("Different? ", (user_status_update.value != userCurrentStatus));
             if (send_email.checked && user_status_update.value != userCurrentStatus && user_status_update.value != 'Pending') {
               try {
                 const html = await fetch(emailURL)
