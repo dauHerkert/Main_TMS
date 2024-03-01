@@ -772,7 +772,7 @@ export async function pageAdmin(user) {
       selectedUserZonesString = user_zones_update.textContent.trim();
     }
     const selectedOptions = Array.from(zonesSelect.selectedOptions).map(option => option.value);
-    selectedUserZonesString = selectedOptions.join(',');
+    selectedUserZonesString = selectedOptions.join(', ');
     console.log('Selected zones:', selectedUserZonesString);
     saveUserZones();
   }
@@ -1517,7 +1517,7 @@ export async function pageAdmin(user) {
       selectedCreateUserZonesString = user_zones_update.textContent.trim();
     }
     const selectedOptions = Array.from(create_user_zone.selectedOptions).map(option => option.value);
-    selectedCreateUserZonesString = selectedOptions.join(',');
+    selectedCreateUserZonesString = selectedOptions.join(', ');
     console.log('Selected zones:', selectedCreateUserZonesString);
   }
 
