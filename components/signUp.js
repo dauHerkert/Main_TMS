@@ -343,7 +343,7 @@ if (select_company) {
     $('#user_company').on('change', function () {
       var selectedNewUserCompanies = $(this).val();
       //newUserCompaniesString = selectedNewUserCompanies.join(', ');
-      newUserCompaniesString = selectedNewUserCompanies.value;
+      newUserCompaniesString = selectedNewUserCompanies;
       userDefaultValues.user_company = newUserCompaniesString;
       console.log("Company(s) ID ->> ", newUserCompaniesString);
     });
