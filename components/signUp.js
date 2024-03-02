@@ -342,7 +342,8 @@ if (select_company) {
     document.getElementById('company_select_cont').style.display = 'block';
     $('#user_company').on('change', function () {
       var selectedNewUserCompanies = $(this).val();
-      newUserCompaniesString = selectedNewUserCompanies.join(', ');
+      //newUserCompaniesString = selectedNewUserCompanies.join(', ');
+      newUserCompaniesString = selectedNewUserCompanies.value;
       userDefaultValues.user_company = newUserCompaniesString;
       console.log("Company(s) ID ->> ", newUserCompaniesString);
     });
