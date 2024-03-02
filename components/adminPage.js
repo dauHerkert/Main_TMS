@@ -1365,7 +1365,7 @@ export async function pageAdmin(user) {
             // TODO: review body modal-open
             // Application action email send
             (async () => {
-              if (bulk_send_email.checked) {
+              if (bulk_send_email.checked && bulk_status_update.value != 'Pending') {
                 try {
                   const html = await fetch(emailURL)
                     .then(response => response.text())
