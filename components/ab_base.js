@@ -1,4 +1,4 @@
-import { URLENV, URLASSETS, ICON_LOGOUT } from './a_constants';
+import { URLENV, URLSIGNIN, URLASSETS, ICON_LOGOUT } from './a_constants';
 import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged, user } from './a_firebaseConfig';
 import { signInPage } from './signIn';
 import { signUpPage } from './signUp';
@@ -238,6 +238,8 @@ function dispatchRequest(user) {
       signInPage();
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'press-form') {
       pagePress();
+    } else if (url.substring(url.lastIndexOf('/') + 1) == 'account' || url.substring(url.lastIndexOf('/') + 1) == 'users-table' || url.substring(url.lastIndexOf('/') + 1) == 'companies-table') {
+      window.location.pathname = urlLang + URLSIGNIN;
     } else {
       // User does NOT have access to this page
       console.log('user does NOT have access to this page');
