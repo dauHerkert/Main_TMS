@@ -228,11 +228,6 @@ function dispatchRequest(user) {
   let url = window.location.pathname;
   let signoutBtn = document.getElementById('signout-button');
   //console.log('url in dispatchRequest() - last segment', url.substring(url.lastIndexOf('/') + 1));
-  let storedLang = localStorage.getItem('language');
-  let urlLang = '/en';
-  if (storedLang && storedLang === 'de') {
-    urlLang = '/de';
-  }
 
   // User is NOT signed in
   if (user == false) {
@@ -243,8 +238,6 @@ function dispatchRequest(user) {
       signInPage();
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'press-form') {
       pagePress();
-    } else if (url.substring(url.lastIndexOf('/') + 1) == 'account' || url.substring(url.lastIndexOf('/') + 1) == 'users-table' || url.substring(url.lastIndexOf('/') + 1) == 'companies-table') {
-      window.location.pathname = urlLang + URLSIGNIN;
     } else {
       // User does NOT have access to this page
       console.log('user does NOT have access to this page');
@@ -403,6 +396,12 @@ async function replaceUrlSignOut(user) {
 =======================================================================================================================================================*/
 
 onAuthStateChanged(auth, (user) => {
+  let url = window.location.pathname;
+  let storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+  }
 
   if (user) {
     // user is signed in
@@ -413,6 +412,9 @@ onAuthStateChanged(auth, (user) => {
     showPrivateElements();
 
   } else {
+    if (url.substring(url.lastIndexOf('/') + 1) == 'account' || url.substring(url.lastIndexOf('/') + 1) == 'users-table' || url.substring(url.lastIndexOf('/') + 1) == 'companies-table') {
+      window.location.pathname = urlLang + URLSIGNIN;
+    }
     // user is signed out
     //replaceUrlSignOut(user)
     showPublicElements();
