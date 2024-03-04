@@ -518,8 +518,6 @@ export async function pageAdmin(user) {
     let companyFilterSelect = document.getElementById("company-filter");
     let statusFilterSelect = document.getElementById("status-filter");
     let typeFilterSelect = document.getElementById("type-filter");
-    let companyFilterSelectMobile = document.getElementById("company-filter-mob");
-    let statusFilterSelectMobile = document.getElementById("status-filter-mob");
 
     //Print companies select
     getDocs(company_colRef)
@@ -534,25 +532,6 @@ export async function pageAdmin(user) {
           opt.value = company.company_name;
           opt.textContent = company.company_name;
           companyFilterSelect.appendChild(opt);
-        });
-      })
-      .catch((err) => {
-        console.log('error fetching companies', err);
-      });
-
-    //Print companies select Mobile
-    getDocs(company_colRef)
-      .then((snapshot) => {
-        // Retrieve company data from Firestore
-        const companies = snapshot.docs.map((doc) => doc.data());
-        const sortedCompanies = companies.sort((a, b) => a.company_name.localeCompare(b.company_name));
-
-        // Populate the mobile company filter dropdown with company names
-        sortedCompanies.forEach((company) => {
-          var opt = document.createElement('option');
-          opt.value = company.company_name;
-          opt.textContent = company.company_name;
-          companyFilterSelectMobile.appendChild(opt);
         });
       })
       .catch((err) => {
@@ -578,20 +557,6 @@ export async function pageAdmin(user) {
       let typeColumn = table.getColumn("account_type");
       let selectedStatus = typeFilterSelect.value;
       table.setHeaderFilterValue(typeColumn, selectedStatus);
-    });
-
-    // Event listener for mobile company filter select
-    companyFilterSelectMobile.addEventListener("change", function() {
-      let companyColumn = table.getColumn("company");
-      let selectedCompany = companyFilterSelectMobile.value;
-      table.setHeaderFilterValue(companyColumn, selectedCompany);
-    });
-
-    // Event listener for mobile status filter select
-    statusFilterSelectMobile.addEventListener("change", function() {
-      let statusColumn = table.getColumn("status");
-      let selectedStatus = statusFilterSelectMobile.value;
-      table.setHeaderFilterValue(statusColumn, selectedStatus);
     });
 
     $(document).ready(function() {
@@ -629,7 +594,6 @@ export async function pageAdmin(user) {
 
     // Event listener for clear filter button
     let clearFilterButton = document.getElementById('clear_button');
-    let clearFilterButtonMobile = document.getElementById('clear_button_mob');
 
     if (clearFilterButton) {
       clearFilterButton.addEventListener("click", function() {
@@ -639,19 +603,6 @@ export async function pageAdmin(user) {
         document.querySelector('#company-filter').value = "clear";
         document.querySelector('#status-filter').value = "clear";
         document.querySelector('#type-filter').value = "clear";
-
-        table.clearHeaderFilter();
-      });
-    }
-
-    if (clearFilterButtonMobile) {
-      clearFilterButtonMobile.addEventListener("click", function() {
-        // Clear filter values and header filters
-        document.querySelector('input[placeholder="Company"]').value = "";
-        document.querySelector('input[placeholder="Status"]').value = "";
-        document.querySelector('#company-filter-mob').value = "clear";
-        document.querySelector('#status-filter-mob').value = "clear";
-        document.querySelector('#type-filter-mob').value = "clear";
 
         table.clearHeaderFilter();
       });
