@@ -228,6 +228,7 @@ function dispatchRequest(user) {
   let url = window.location.pathname;
   let signoutBtn = document.getElementById('signout-button');
   //console.log('url in dispatchRequest() - last segment', url.substring(url.lastIndexOf('/') + 1));
+  let storedLang = localStorage.getItem('language');
   let urlLang = '/en';
   if (storedLang && storedLang === 'de') {
     urlLang = '/de';
