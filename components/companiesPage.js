@@ -90,56 +90,58 @@ export async function pageCompaniesTable(user){
   }
 
   // Print companies table
-  let searchCompanyInput = document.getElementById("search-input");
-  let companies_table = new Tabulator("#admin-companies-list", {
-    //options here
-    layout:"fitData",
-    addRowPos:"top",
-    history:true,
-    pagination:"local",
-    paginationSize:10,
-    paginationSizeSelector:[10, 25, 50],
-    paginationCounter:"rows",
-    columns:[
-      {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy_en", formatter: function(cell, formatterParams, onRendered){
-        let companyLink_en = cell.getValue();
-        cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
-        return companyLink_en;
-      }},
-      {title:"Company Link De", field:"companyLinkDe", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy_de", formatter: function(cell, formatterParams, onRendered){
-        let companyLink_de = cell.getValue();
-        cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
-        return companyLink_de;
-      }},
-      {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
-      {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
-      {title: companyLabel, field:"company", sorter:"string", width:250, cssClass:"companyName first_column", headerFilter: "list"},
-      {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone large_columns", headerFilter: "list"},
-      {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
-      {title: sendLinkLabel, width:195, cssClass:"center_col small_columns", formatter:function(cell, formatterParams){
-        let value = cell.getValue();
-        let button = document.createElement("button");
-        button.innerHTML = "<img class='button_img' src='" + URLASSETS + ICON_SENDMAIL + "'>";
-        button.setAttribute("onclick","openModal5()");
-        button.setAttribute("id","open_link_modal");
-        return button;
-      }},
-      {title: updateLabel, width: 195, cssClass: "center_col tiny_columns", formatter: function(cell, formatterParams) {
-        let value = cell.getValue();
-        let buttonContainer = document.createElement("div");
-        buttonContainer.setAttribute("class","actionBtnContainer");
+  if (adminInfo.super_admin) {
+    let searchCompanyInput = document.getElementById("search-input");
+    let companies_table = new Tabulator("#admin-companies-list", {
+      //options here
+      layout:"fitData",
+      addRowPos:"top",
+      history:true,
+      pagination:"local",
+      paginationSize:10,
+      paginationSizeSelector:[10, 25, 50],
+      paginationCounter:"rows",
+      columns:[
+        {title:"Company Link", field:"companyLink", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy_en", formatter: function(cell, formatterParams, onRendered){
+          let companyLink_en = cell.getValue();
+          cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
+          return companyLink_en;
+        }},
+        {title:"Company Link De", field:"companyLinkDe", sorter:"string", width:0, cssClass:"hidden-column companyLinkToCopy_de", formatter: function(cell, formatterParams, onRendered){
+          let companyLink_de = cell.getValue();
+          cell.getElement().setAttribute("id", "companyLink"+cell.getRow().getData().id);
+          return companyLink_de;
+        }},
+        {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
+        {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
+        {title: companyLabel, field:"company", sorter:"string", width:250, cssClass:"companyName first_column", headerFilter: "list"},
+        {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone large_columns", headerFilter: "list"},
+        {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
+        {title: sendLinkLabel, width:195, cssClass:"center_col small_columns", formatter:function(cell, formatterParams){
+          let value = cell.getValue();
+          let button = document.createElement("button");
+          button.innerHTML = "<img class='button_img' src='" + URLASSETS + ICON_SENDMAIL + "'>";
+          button.setAttribute("onclick","openModal5()");
+          button.setAttribute("id","open_link_modal");
+          return button;
+        }},
+        {title: updateLabel, width: 195, cssClass: "center_col tiny_columns", formatter: function(cell, formatterParams) {
+          let value = cell.getValue();
+          let buttonContainer = document.createElement("div");
+          buttonContainer.setAttribute("class","actionBtnContainer");
 
-        let editButton = document.createElement("button");
-        editButton.innerHTML = "<img src='" + URLASSETS + ICON_PENCIL + "' alt='Edit'/>";
-        editButton.setAttribute("onclick", "openModal2()");
-        editButton.setAttribute("id", "open_companies_modal");
+          let editButton = document.createElement("button");
+          editButton.innerHTML = "<img src='" + URLASSETS + ICON_PENCIL + "' alt='Edit'/>";
+          editButton.setAttribute("onclick", "openModal2()");
+          editButton.setAttribute("id", "open_companies_modal");
 
-        buttonContainer.appendChild(editButton);
+          buttonContainer.appendChild(editButton);
 
-        return buttonContainer;
-      }}
-    ],
-  });
+          return buttonContainer;
+        }}
+      ],
+    });
+  }
 
   $(document).ready(function() {
     $(".tabulator-paginator").find(".tabulator-page[data-page='prev']").html("&lt;");
