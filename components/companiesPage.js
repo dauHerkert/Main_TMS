@@ -471,6 +471,66 @@ export async function pageCompaniesTable(user){
       updateCompanyZonesString();
     });
   }
+
+  /*==========================================================================================================================================================
+  * This code snippet sends an email with the user's registration link when a form is submitted. It retrieves the necessary values, fetches the appropriate
+  * HTML template for the email body based on the stored language value, and sends the email. Success or error messages are displayed accordingly.
+  ===========================================================================================================================================================*/
+
+  let company_link_form = document.getElementById('company_link_form');
+
+  if (userInfo.user_is_admin && company_link_form) {
+    company_link_form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+
+      let email_to_send = document.getElementById('email_to_send');
+
+      let storedLang = localStorage.getItem('language');
+      //Supplier form submited - EN
+      let registration_link_email_subject = 'Accreditation Porsche Tennis Grand Prix';
+      let registration_link_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_EN;
+      let notification_UI_correct = 'Email has been successfully sent';
+      let notification_UI_error = 'Error sending email: ';
+
+      let registrationLink = `${company_link.value}`;
+      
+      if (storedLang && storedLang === 'de') {
+        //Supplier form submited - DE
+        registration_link_email_subject = 'Akkreditierung Porsche Tennis Grand Prix';
+        registration_link_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_DE;
+        notification_UI_correct = 'E-Mail wurde erfolgreich versendet';
+        notification_UI_error = 'Error beim versenden der E-Mail: ';
+        registrationLink = `${company_link_de.value}`;
+      }
+
+      (async () => {
+        try {
+          const html = await fetch(registration_link_email_url)
+            .then(response => response.text())
+            .then(html => html.replace('${registrationLink}', registrationLink))
+            .then(html => html.replace('${firstImageURL}', firstImageURL))
+            .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+            .then(html => html.replace('${secondImageURL}', secondImageURL))
+            .then(html => html.replace('${secondImageStyle}', secondImageStyle));
+          const docRef = addDoc(collection(db, "mail"), {
+            to: `${email_to_send.value}`,
+            message: {
+              subject: registration_link_email_subject,
+              html: html,
+            }
+          });
+            toastr.success(notification_UI_correct);
+            setTimeout(function() {
+              document.getElementById('company_link_modal').style.display = 'none';
+              $('body').css("overflow", "unset");
+            }, 500);
+        } catch (e) {
+          toastr.error(notification_UI_error, e);
+        }
+      })();
+    })
+  }
 }
 
 /*===================================================================================================================================================
@@ -540,67 +600,6 @@ if (window.location.pathname == '/de/company'){
     if (company.hasOwnProperty('company_name')) {
       document.getElementById('company_table_name').innerHTML = `Company: ${company.company_name}`
     }
-  })
-}
-
-/*==========================================================================================================================================================
-* This code snippet sends an email with the user's registration link when a form is submitted. It retrieves the necessary values, fetches the appropriate
-* HTML template for the email body based on the stored language value, and sends the email. Success or error messages are displayed accordingly.
-===========================================================================================================================================================*/
-
-let company_link_form = document.getElementById('company_link_form');
-let userInfo = await getUserInfo(user);
-
-if (userInfo.user_is_admin && company_link_form) {
-  company_link_form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    e.stopPropagation();
-
-    let email_to_send = document.getElementById('email_to_send');
-
-    let storedLang = localStorage.getItem('language');
-    //Supplier form submited - EN
-    let registration_link_email_subject = 'Accreditation Porsche Tennis Grand Prix';
-    let registration_link_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_EN;
-    let notification_UI_correct = 'Email has been successfully sent';
-    let notification_UI_error = 'Error sending email: ';
-
-    let registrationLink = `${company_link.value}`;
-    
-    if (storedLang && storedLang === 'de') {
-      //Supplier form submited - DE
-      registration_link_email_subject = 'Akkreditierung Porsche Tennis Grand Prix';
-      registration_link_email_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLREGISTRATIONLINK_DE;
-      notification_UI_correct = 'E-Mail wurde erfolgreich versendet';
-      notification_UI_error = 'Error beim versenden der E-Mail: ';
-      registrationLink = `${company_link_de.value}`;
-    }
-
-    (async () => {
-      try {
-        const html = await fetch(registration_link_email_url)
-          .then(response => response.text())
-          .then(html => html.replace('${registrationLink}', registrationLink))
-          .then(html => html.replace('${firstImageURL}', firstImageURL))
-          .then(html => html.replace('${firstImageStyle}', firstImageStyle))
-          .then(html => html.replace('${secondImageURL}', secondImageURL))
-          .then(html => html.replace('${secondImageStyle}', secondImageStyle));
-        const docRef = addDoc(collection(db, "mail"), {
-          to: `${email_to_send.value}`,
-          message: {
-            subject: registration_link_email_subject,
-            html: html,
-          }
-        });
-          toastr.success(notification_UI_correct);
-          setTimeout(function() {
-            document.getElementById('company_link_modal').style.display = 'none';
-            $('body').css("overflow", "unset");
-          }, 500);
-      } catch (e) {
-        toastr.error(notification_UI_error, e);
-      }
-    })();
   })
 }
 
