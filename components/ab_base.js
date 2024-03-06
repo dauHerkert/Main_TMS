@@ -224,7 +224,8 @@ function checkUrlParameter() {
  * This function handles different actions based on the user's sign-in status and the current URL path, determining which page or functionality to display.
 ==========================================================================================================================================================*/
 
-function dispatchRequest(user) {
+async function dispatchRequest(user) {
+  let userInfo = await getUserInfo(user);
   let url = window.location.pathname;
   let signoutBtn = document.getElementById('signout-button');
   let storedLang = localStorage.getItem('language');
@@ -250,17 +251,16 @@ function dispatchRequest(user) {
   } else {
     if (signoutBtn) {signoutBtn.style.display = 'flex';}
     // User IS signed in
+    if (!userInfo.confirmed_email && (url.substring(url.lastIndexOf('/') + 1) == 'account' || url.substring(url.lastIndexOf('/') + 1) == 'users-table' || url.substring(url.lastIndexOf('/') + 1) == 'companies-table')) {
+      window.location.pathname = urlLang + URLSIGNIN;
+    }
     if (url.substring(url.lastIndexOf('/') + 1) == 'account') {
-      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + URLSIGNIN);}
       pageAccount(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'supplier') {
-      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + URLSIGNIN);}
       pageSupplier(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'users-table') {
-      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + URLSIGNIN);}
       pageAdmin(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'companies-table') {
-      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + URLSIGNIN);}
       pageCompaniesTable(user);
     }
   }
