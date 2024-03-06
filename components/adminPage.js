@@ -1023,159 +1023,195 @@ export async function pageAdmin(user) {
       if ( typeof basic_admin_update.value === 'undefined' || basic_admin_update.value == false ) {
         basic_admin_update.value = false;
       }
-      console.log('basic admin variable', basic_admin_update);
-      console.log('basic admin value', (String(basic_admin_update.value).toLowerCase() === 'true'));
 
-      console.log('selectedUserCompaniesString >>>> ', selectedUserCompaniesString);
       if (selectedUserCompaniesString == '') {
         selectedUserCompaniesString = $('#userCompany').val().join(', ');
       }
-      console.log('selectedUserCompaniesString >>>> ', selectedUserCompaniesString);
 
-      setDoc(userRef, {
-        //user_type: userTypeUpdate.value,
-        account_type: accountTypeUpdate.value,
-        user_status: user_status_update.value,
-        user_company: selectedUserCompaniesString,
-        user_zones: selectedUserZonesString,
-        company_admin: (String(company_admin.value).toLowerCase() === 'true'),
-        supplier_visit_dates: updated_dates.value,
-        supplier_start_date: update_start_date.value,
-        supplier_end_date: update_end_date.value,
-        basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
-        user_itwa: (String(update_itwa.value).toLowerCase() === 'true'),
-        press_workspot: (String(update_workspace.value).toLowerCase() === 'true'),
-        press_locker: (String(update_locker.value).toLowerCase() === 'true'),
-        press_hotel_info: (String(update_hotel_info.value).toLowerCase() === 'true'),
-        press_card_number: update_card_number.value,
-        press_media_type: update_media_type.value,
-        supplier_special_request: update_special_request.value
-      }, { merge: true })
-        .then(() => {
-          console.log('sending email... status is ', user_status_update.value);
-          console.log('stored lang for email is ', storedLang);
+      if (userInfo.basic_admin || userInfo.company_admin || userInfo.user_is_admin) {
+        setDoc(userRef, {
+          //account_type: accountTypeUpdate.value,
+            user_status: user_status_update.value,
+          //user_company: selectedUserCompaniesString,
+          //user_zones: selectedUserZonesString,
+          //company_admin: (String(company_admin.value).toLowerCase() === 'true'),
+          //supplier_visit_dates: updated_dates.value,
+          //supplier_start_date: update_start_date.value,
+          //supplier_end_date: update_end_date.value,
+          //basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
+            user_itwa: (String(update_itwa.value).toLowerCase() === 'true'),
+            press_workspot: (String(update_workspace.value).toLowerCase() === 'true'),
+            press_locker: (String(update_locker.value).toLowerCase() === 'true'),
+            press_hotel_info: (String(update_hotel_info.value).toLowerCase() === 'true'),
+            press_card_number: update_card_number.value,
+            press_media_type: update_media_type.value,
+            supplier_special_request: update_special_request.value
+        }, { merge: true })
+          .then(() => {
 
-          // Applications - EN - Subjects and UI message Label
-          let application_rejected_subject = 'Accreditation Rejection';
-          let application_rejected_label = 'User registration declined';
-          let application_accepted_subject = 'Accreditation Confirmation';
-          let application_accepted_label = 'User registration accepted';
-          // Applications - EN - Press Mr - URL
-          let press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_EN;
-          let press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_EN;
-          // Applications - EN - Press Ms - URL
-          let press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_EN;
-          let press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_EN;
-          // Applications - EN - Press Diverse - URL
-          let press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_EN;
-          let press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_EN;
-          // Applications - EN - Supplier - URL
-          let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
-          let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
+            // Applications - EN - Subjects and UI message Label
+            let application_rejected_subject = 'Accreditation Rejection';
+            let application_rejected_label = 'User registration declined';
+            let application_accepted_subject = 'Accreditation Confirmation';
+            let application_accepted_label = 'User registration accepted';
+            // Applications - EN - Press Mr - URL
+            let press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_EN;
+            let press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_EN;
+            // Applications - EN - Press Ms - URL
+            let press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_EN;
+            let press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_EN;
+            // Applications - EN - Press Diverse - URL
+            let press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_EN;
+            let press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_EN;
+            // Applications - EN - Supplier - URL
+            let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
+            let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
 
-          // URL By Language - Admin
-          if (storedLang && storedLang === 'de') {
-            application_rejected_label = 'Benutzerregistrierung abgelehnt';
-            application_accepted_label = 'Benutzerregistrierung akzeptiert';
-          }
-
-          // URL By Language - User
-          if (user_language.value == 'de') {
-            // Applications - DE - Subjects and UI message Label
-            application_rejected_subject = 'Akkreditierung Ablehnung';
-            application_accepted_subject = 'Akkreditierungsbestätigung';
-            // Applications - DE - Press Mr - URL
-            press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
-            press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
-            // Applications - DE - Press Ms - URL
-            press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_DE;
-            press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_DE;
-            // Applications - DE - Press Diverse - URL
-            press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_DE;
-            press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_DE;
-            // Applications - DE - Supplier - URL
-            supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_DE;
-            supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_DE;
-          }
-
-          // URL By Gender - Mr
-          let genderPressRejectedURL = press_mr_application_rejected_url;
-          let genderPressAcceptedURL = press_mr_application_accepted_url;
-          if (press_user_title.textContent == 'Ms') {
-            // URL By Gender - Ms
-            genderPressRejectedURL = press_ms_application_rejected_url;
-            genderPressAcceptedURL = press_ms_application_accepted_url;
-          } else if (press_user_title.textContent == 'Diverse') {
-            // URL By Gender - Diverse
-            genderPressRejectedURL = press_diverse_application_rejected_url;
-            genderPressAcceptedURL = press_diverse_application_accepted_url;
-          }
-
-          // Final Email info - Application Accepted
-          let emailSubject = application_accepted_subject;
-          let emailLabel = application_accepted_label;
-          var emailURL = genderPressAcceptedURL;
-          let fullName = `${admin_user_name.value}`;
-          let lastName = `${admin_user_lastname.value}`;
-          let nameToDisplay = lastName;
-
-          // Final Email info - Application Rejected
-          if (user_status_update.value == 'Declined') {
-            emailSubject = application_rejected_subject;
-            emailLabel = application_rejected_label;
-          }
-
-          // URL: Press or Supplier and Rejected or Accepted
-          if (press_user.textContent.toLowerCase() === "true") {
-            if (user_status_update.value == 'Declined') {
-              emailURL = genderPressRejectedURL;
+            // URL By Language - Admin
+            if (storedLang && storedLang === 'de') {
+              application_rejected_label = 'Benutzerregistrierung abgelehnt';
+              application_accepted_label = 'Benutzerregistrierung akzeptiert';
             }
-          } else {
-            nameToDisplay = fullName;
+
+            // URL By Language - User
+            if (user_language.value == 'de') {
+              // Applications - DE - Subjects and UI message Label
+              application_rejected_subject = 'Akkreditierung Ablehnung';
+              application_accepted_subject = 'Akkreditierungsbestätigung';
+              // Applications - DE - Press Mr - URL
+              press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
+              press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
+              // Applications - DE - Press Ms - URL
+              press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_DE;
+              press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_DE;
+              // Applications - DE - Press Diverse - URL
+              press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_DE;
+              press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_DE;
+              // Applications - DE - Supplier - URL
+              supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_DE;
+              supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_DE;
+            }
+
+            // URL By Gender - Mr
+            let genderPressRejectedURL = press_mr_application_rejected_url;
+            let genderPressAcceptedURL = press_mr_application_accepted_url;
+            if (press_user_title.textContent == 'Ms') {
+              // URL By Gender - Ms
+              genderPressRejectedURL = press_ms_application_rejected_url;
+              genderPressAcceptedURL = press_ms_application_accepted_url;
+            } else if (press_user_title.textContent == 'Diverse') {
+              // URL By Gender - Diverse
+              genderPressRejectedURL = press_diverse_application_rejected_url;
+              genderPressAcceptedURL = press_diverse_application_accepted_url;
+            }
+
+            // Final Email info - Application Accepted
+            let emailSubject = application_accepted_subject;
+            let emailLabel = application_accepted_label;
+            var emailURL = genderPressAcceptedURL;
+            let fullName = `${admin_user_name.value}`;
+            let lastName = `${admin_user_lastname.value}`;
+            let nameToDisplay = lastName;
+
+            // Final Email info - Application Rejected
             if (user_status_update.value == 'Declined') {
-              emailURL = supplier_application_rejected_url;
+              emailSubject = application_rejected_subject;
+              emailLabel = application_rejected_label;
+            }
+
+            // URL: Press or Supplier and Rejected or Accepted
+            if (press_user.textContent.toLowerCase() === "true") {
+              if (user_status_update.value == 'Declined') {
+                emailURL = genderPressRejectedURL;
+              }
             } else {
-              emailURL = supplier_application_accepted_url;
-            }
-          }
-
-          // TODO: review user_specific_name in the email sended
-          // Application action email send
-          (async () => {
-            if (send_email.checked && user_status_update.value != userCurrentStatus && user_status_update.value != 'Pending') {
-              try {
-                const html = await fetch(emailURL)
-                  .then(response => response.text())
-                  .then(html => html.replaceAll('${fullName}', nameToDisplay))
-                  .then(html => html.replace('${firstImageURL}', firstImageURL))
-                  .then(html => html.replace('${firstImageStyle}', firstImageStyle))
-                  .then(html => html.replace('${secondImageURL}', secondImageURL))
-                  .then(html => html.replace('${secondImageStyle}', secondImageStyle));
-                const docRef = addDoc(collection(db, "mail"), {
-                  to: ['juan.torres@dauherkert.de',`${user_specific_email.value}`],
-                  message: {
-                    subject: emailSubject,
-                    html: html,
-                  }
-                });
-                console.log("Document written with ID: ", docRef.id);
-              } catch (e) {
-                console.error("Error adding document: ", e);
+              nameToDisplay = fullName;
+              if (user_status_update.value == 'Declined') {
+                emailURL = supplier_application_rejected_url;
+              } else {
+                emailURL = supplier_application_accepted_url;
               }
             }
-            toastr.success(emailLabel);
-            document.getElementById('update_user_modal').style.display = 'none';
-            $('body').css("overflow", "unset");
-          })();
-          saveUserZones();
-          setTimeout(function() {
-            window.location.reload();
-          }, 2000);
-        })
-        .catch((err) => {
-          toastr.error('There was an error updating the account info');
-          console.log('error updating account info', err);
-        });
+
+            // TODO: review user_specific_name in the email sended
+            // Application action email send
+            (async () => {
+              if (send_email.checked && user_status_update.value != userCurrentStatus && user_status_update.value != 'Pending') {
+                try {
+                  const html = await fetch(emailURL)
+                    .then(response => response.text())
+                    .then(html => html.replaceAll('${fullName}', nameToDisplay))
+                    .then(html => html.replace('${firstImageURL}', firstImageURL))
+                    .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+                    .then(html => html.replace('${secondImageURL}', secondImageURL))
+                    .then(html => html.replace('${secondImageStyle}', secondImageStyle));
+                  const docRef = addDoc(collection(db, "mail"), {
+                    to: ['juan.torres@dauherkert.de',`${user_specific_email.value}`],
+                    message: {
+                      subject: emailSubject,
+                      html: html,
+                    }
+                  });
+                  console.log("Document written with ID: ", docRef.id);
+                } catch (e) {
+                  console.error("Error adding document: ", e);
+                }
+              }
+              toastr.success(emailLabel);
+              document.getElementById('update_user_modal').style.display = 'none';
+              $('body').css("overflow", "unset");
+            })();
+            /*
+            saveUserZones();
+            setTimeout(function() {
+              window.location.reload();
+            }, 2000);
+            */
+          })
+          .catch((err) => {
+            toastr.error('There was an error updating the account info');
+            console.log('error updating account info', err);
+          });
+      }
+
+      if (userInfo.company_admin || userInfo.user_is_admin) {
+
+        setDoc(userRef, {
+          user_company: selectedUserCompaniesString,
+          user_type: userTypeUpdate.value,
+          user_zones: selectedUserZonesString,
+          supplier_visit_dates: updated_dates.value,
+          supplier_start_date: update_start_date.value,
+          supplier_end_date: update_end_date.value,
+        }, { merge: true })
+          .then(() => {
+            toastr.success('User updated correctly');
+            saveUserZones();
+          })
+          .catch((err) => {
+            toastr.error('There was an error updating the account info');
+            console.log('error updating account info', err);
+          });
+      }
+
+      if (userInfo.user_is_admin) {
+
+        setDoc(userRef, {
+          company_admin: (String(company_admin.value).toLowerCase() === 'true'),
+          basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
+        }, { merge: true })
+          .then(() => {
+            toastr.success('Additional user updates added');
+            setTimeout(function() {
+              window.location.reload();
+            }, 2000);
+          })
+          .catch((err) => {
+            toastr.error('There was an error updating the account info');
+            console.log('error updating account info', err);
+          });
+      }
+
     }
   });
 
