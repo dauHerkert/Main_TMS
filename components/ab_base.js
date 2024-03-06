@@ -225,14 +225,8 @@ function checkUrlParameter() {
 ==========================================================================================================================================================*/
 
  function dispatchRequest(user) {
-  let verifiedEmail = false;
   let url = window.location.pathname;
   let signoutBtn = document.getElementById('signout-button');
-  let storedLang = localStorage.getItem('language');
-  let urlLang = '/en';
-  if (storedLang && storedLang === 'de') {
-    urlLang = '/de';
-  }
   //console.log('url in dispatchRequest() - last segment', url.substring(url.lastIndexOf('/') + 1));
 
   // User is NOT signed in
@@ -249,17 +243,8 @@ function checkUrlParameter() {
       console.log('user does NOT have access to this page');
     }
   } else {
-    db.ref('/users/' + user.uid).on('value').
-      then(function(snapshot){
-        var snapVal = snapshot.val();
-        verifiedEmail = snapVal.confirmed_email;
-        console.log(">>>>>>>>>>>>>>> ", verifiedEmail);
-      });
     if (signoutBtn) {signoutBtn.style.display = 'flex';}
     // User IS signed in
-    if (verifiedEmail && (url.substring(url.lastIndexOf('/') + 1) == 'account' || url.substring(url.lastIndexOf('/') + 1) == 'users-table' || url.substring(url.lastIndexOf('/') + 1) == 'companies-table')) {
-      window.location.pathname = urlLang + URLSIGNIN;
-    }
     if (url.substring(url.lastIndexOf('/') + 1) == 'account') {
       pageAccount(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'supplier') {
