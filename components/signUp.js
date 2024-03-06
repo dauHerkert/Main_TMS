@@ -185,7 +185,6 @@ async function setDefaultFields(user) {
     console.log('oldImageUrl >>>', oldImageUrl);
 
     
-    // TODO: review fetch CORS issue 
     // Upload the image with the new name
     const response = await fetch(oldImageUrl);
     const blob = await response.blob();

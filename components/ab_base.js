@@ -246,12 +246,16 @@ function dispatchRequest(user) {
     if (signoutBtn) {signoutBtn.style.display = 'flex';}
     // User IS signed in
     if (url.substring(url.lastIndexOf('/') + 1) == 'account') {
+      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + '/signin-ptgp');}
       pageAccount(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'supplier') {
+      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + '/signin-ptgp');}
       pageSupplier(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'users-table') {
+      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + '/signin-ptgp');}
       pageAdmin(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'companies-table') {
+      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + '/signin-ptgp');}
       pageCompaniesTable(user);
     }
   }
