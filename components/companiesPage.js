@@ -549,6 +549,7 @@ if (window.location.pathname == '/de/company'){
 ===========================================================================================================================================================*/
 
 let company_link_form = document.getElementById('company_link_form');
+let userInfo = await getUserInfo(user);
 
 if (userInfo.user_is_admin && company_link_form) {
   company_link_form.addEventListener('submit', (e)=>{
