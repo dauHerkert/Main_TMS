@@ -199,7 +199,7 @@ export async function pageCompaniesTable(user){
     e.preventDefault();
     e.stopPropagation()
 
-    if ( company_id != null) {
+    if (userInfo.user_is_admin && company_id != null) {
       const companyRef = doc(db, 'companies', company_id.value);
       setDoc(companyRef, {
         company_name: update_company.value,
@@ -260,7 +260,9 @@ export async function pageCompaniesTable(user){
   create_company_form.addEventListener('submit', async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    await createCompany();
+    if (userInfo.user_is_admin) {
+      await createCompany();
+    }
   });
 
   //Create Profiles
@@ -299,7 +301,9 @@ export async function pageCompaniesTable(user){
     e.preventDefault();
     e.stopPropagation();
 
-    createProfile();
+    if (userInfo.user_is_admin) {
+      createProfile();
+    }
   });
 
   //Create new zones
@@ -329,7 +333,9 @@ export async function pageCompaniesTable(user){
       e.preventDefault();
       e.stopPropagation();
 
-      createZone()
+      if (userInfo.user_is_admin) {
+        createZone();
+      }
     });
 
     //Print zones select
@@ -544,7 +550,7 @@ if (window.location.pathname == '/de/company'){
 
 let company_link_form = document.getElementById('company_link_form');
 
-if (company_link_form) {
+if (userInfo.user_is_admin && company_link_form) {
   company_link_form.addEventListener('submit', (e)=>{
     e.preventDefault();
     e.stopPropagation();
