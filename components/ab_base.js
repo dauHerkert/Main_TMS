@@ -110,10 +110,8 @@ async function changeCompanyNameToID(user) {
 
 async function populateForms(user) {
   let userInfo = await getUserInfo(user);
+  let adminInfo = await getAdminInfo(user);
   //const accountType_button = document.getElementById('account_user_profile');
-  const press_info = document.getElementsByClassName('press_info');
-  const supplier_info = document.getElementsByClassName('supplier_info');
-  let form_button = document.getElementById('form_button');
   let navAdminDropdown = document.getElementById('admin_drop');
   let storedLang = localStorage.getItem('language');
   let urlLang = '/en';
@@ -122,40 +120,18 @@ async function populateForms(user) {
   }
 
   if (userInfo) {
-    console.log('populateForms() userInfo', userInfo);
-
-    //translateNavigation();
     // Use the changeCompanyNameToID(user) function to get the company name
     const companyNames = await changeCompanyNameToID(userInfo);
     userInfo.user_company_name = companyNames;
 
-    if (userInfo.user_is_admin || userInfo.company_admin || userInfo.basic_admin) {
-      //form_button.setAttribute('href', urlLang + '/supplier');
-      if (navAdminDropdown) { navAdminDropdown.style.display = 'flex'; }
-    } else {
-      /*
-      if (userInfo.account_type == "No company" || userInfo.account_type == "Supplier") {
-        form_button.setAttribute('href', urlLang + '/supplier');
-      } else if (userInfo.account_type == "Press") {
-        form_button.setAttribute('href', urlLang + '/press');
-      }
-      */
-      if (window.location.pathname.includes('users-table') || window.location.pathname.includes('companies-table')) {
-        location.replace(urlLang + '/account');
-      }
-      //document.getElementById('companies_table').style.display = 'none';
-      if (navAdminDropdown) { navAdminDropdown.style.display = 'none'; }
-    }
-
-    if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'press') {
-      if (userInfo.press_has_form_submitted) {
-        document.getElementById("workspot").setAttribute('disabled', "");
-        document.getElementById("publisher").setAttribute('disabled', "");
-        document.getElementById("media_type").setAttribute('disabled', "");
-        document.getElementById("Select-dates").setAttribute('disabled', "");
-        document.getElementById("special_press_request").setAttribute('disabled', "");
-        document.getElementById("fileInp").setAttribute('disabled', "");
-        document.getElementById("press_submmited_form").style.display = 'flex';
+    if (adminInfo) {
+      if (adminInfo.super_admin || adminInfo.company_admin || adminInfo.basic_admin) {
+        if (navAdminDropdown) { navAdminDropdown.style.display = 'flex'; }
+      } else {
+        if (window.location.pathname.includes('users-table') || window.location.pathname.includes('companies-table')) {
+          location.replace(urlLang + '/account');
+        }
+        if (navAdminDropdown) { navAdminDropdown.style.display = 'none'; }
       }
     }
   }
@@ -449,29 +425,29 @@ if (welcomeBanner) {
 export async function changeAdminTypeTitle(user) {
   let adminInfo = await getAdminInfo(user);
   let storedLang = localStorage.getItem("language");
-  let adminLabel = '';
+  let adminLabel = 'No Admin';
 
-  if (!adminInfo) {return;}
-
-  if (adminInfo.basic_admin) {
-    adminLabel = 'Basic Admin';
-  } else if (adminInfo.company_admin) {
-    adminLabel = 'Multi Company Admin';
-  } else if (adminInfo.super_admin) {
-    adminLabel = 'Super Admin';
-  }
-
-  if (storedLang && storedLang === 'de') {
+  if (adminInfo) {
     if (adminInfo.basic_admin) {
-      adminLabel = 'Grundlegender Administrator';
+      adminLabel = 'Basic Admin';
     } else if (adminInfo.company_admin) {
-      adminLabel = 'MEHRFIRMENADMIN';
+      adminLabel = 'Multi Company Admin';
     } else if (adminInfo.super_admin) {
-      adminLabel = 'Superadministrator';
+      adminLabel = 'Super Admin';
     }
-  }
 
-  document.getElementById('user_admin_type').innerText = adminLabel;
+    if (storedLang && storedLang === 'de') {
+      if (adminInfo.basic_admin) {
+        adminLabel = 'Grundlegender Administrator';
+      } else if (adminInfo.company_admin) {
+        adminLabel = 'MEHRFIRMENADMIN';
+      } else if (adminInfo.super_admin) {
+        adminLabel = 'Superadministrator';
+      }
+    }
+
+    document.getElementById('user_admin_type').innerText = adminLabel;
+  }
 }
 
 /*===================================================================================================================================

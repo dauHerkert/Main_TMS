@@ -26,10 +26,13 @@ import toastr from 'toastr';
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const userRef = doc(db, 'users', user.uid);
+      const adminRef = doc(db, 'admin', user.uid);
       const docSnap = await getDoc(userRef);
+      const adminDocSnap = await getDoc(adminRef);
       const params = new URLSearchParams(window.location.search);
       const userID = params.get('user_id');
       const userData = docSnap.data();
+      const adminData = adminDocSnap.data();
 
       if (userID || userData.confirmed_email) {
         
@@ -41,7 +44,7 @@ import toastr from 'toastr';
           }
 
           setTimeout(() => {
-            if (userData.user_is_admin || userData.company_admin || userData.basic_admin) {
+            if (adminDocSnap.exists && (adminData.super_admin || adminData.company_admin || adminData.basic_admin)) {
               window.location = urlLang + URLADMIN;
             } else {
               window.location = urlLang + URLACCOUNT;

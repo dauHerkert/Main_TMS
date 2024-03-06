@@ -60,9 +60,6 @@ const userDefaultValues = {
   user_status:'Pending',
   // Boolean: false | true
   confirmed_email: false,
-  user_is_admin: false,
-  company_admin: false,
-  basic_admin: false,
   user_deleted: false,
 };
 
