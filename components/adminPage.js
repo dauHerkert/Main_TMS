@@ -1008,6 +1008,7 @@ export async function pageAdmin(user) {
     e.preventDefault();
     e.stopPropagation();
     const send_email = document.getElementById('send_email')
+    let updatesSuccess = true;
 
     if (user_specific_id != null || user_specific_id != 0) {
       const userRef = doc(db, 'users', user_specific_id.value);
@@ -1171,6 +1172,7 @@ export async function pageAdmin(user) {
           .catch((err) => {
             toastr.error('There was an error updating the account info');
             console.log('error updating account info', err);
+            updatesSuccess = false;
           });
       }
 
@@ -1191,6 +1193,7 @@ export async function pageAdmin(user) {
           .catch((err) => {
             toastr.error('There was an error updating the account info');
             console.log('error updating account info', err);
+            updatesSuccess = false;
           });
       }
 
@@ -1202,14 +1205,18 @@ export async function pageAdmin(user) {
         }, { merge: true })
           .then(() => {
             toastr.success('Additional user updates added');
-            setTimeout(function() {
-              window.location.reload();
-            }, 2000);
           })
           .catch((err) => {
             toastr.error('There was an error updating the account info');
             console.log('error updating account info', err);
+            updatesSuccess = false;
           });
+      }
+
+      if (updatesSuccess) {
+        setTimeout(function() {
+          window.location.reload();
+        }, 2000);
       }
 
     }
