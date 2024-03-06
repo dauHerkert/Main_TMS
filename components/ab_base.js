@@ -24,6 +24,21 @@ export async function getUserInfo(user) {
   }
 }
 
+/*==================================================================================================================================================================
+ * This function retrieves the admin information from the Firestore database based on the provided user parameter, which is the user object. It queries the database
+ * using the user's UID and returns the corresponding admin data if it exists. Otherwise, it displays an error message using Toastr.
+===================================================================================================================================================================*/
+
+export async function getAdminInfo(user) {
+  const typeRef = doc(db, 'admin', user.uid);
+  const typeSnap = await getDoc(typeRef);
+  if ( typeSnap.exists() ) {
+    return typeSnap.data();
+  } else {
+    toastr.error('No administrator permissions');
+  }
+}
+
 /*=================================================================================================================================================================
 * This function translates the navigation menu items based on the selected language (storedLang). It selects the navigation links on the page and iterates over
 * each link, checking its text content. If the text matches specific labels (e.g., "Form," "Account," or "Sign Out"), it replaces the text with the corresponding
@@ -431,27 +446,32 @@ if (welcomeBanner) {
 * if it's a "Company Admin" will print "Multi Company Admin" and if it's a Super Admin will print "Super Admin".
 =================================================================================================================================================================*/
 
-export async function changeAdminTypeTitle(user){
-  let userInfo = await getUserInfo(user);
+export async function changeAdminTypeTitle(user) {
+  let adminInfo = await getAdminInfo(user);
   let storedLang = localStorage.getItem("language");
+  let adminLabel = '';
 
-  if (!userInfo.user_is_admin && !userInfo.company_admin && userInfo.basic_admin) {
-    document.getElementById('user_admin_type').innerHTML = 'Basic Admin';
-  } else if (!userInfo.user_is_admin && !userInfo.basic_admin && userInfo.company_admin) {
-    document.getElementById('user_admin_type').innerHTML = 'Multi Company Admin';
-  } else if (userInfo.user_is_admin) {
-    document.getElementById('user_admin_type').innerHTML = 'Super Admin';
+  if (!adminInfo) {return;}
+
+  if (adminInfo.basic_admin) {
+    adminLabel = 'Basic Admin';
+  } else if (adminInfo.company_admin) {
+    adminLabel = 'Multi Company Admin';
+  } else if (adminInfo.super_admin) {
+    adminLabel = 'Super Admin';
   }
 
   if (storedLang && storedLang === 'de') {
-    if (!userInfo.user_is_admin && !userInfo.company_admin && userInfo.basic_admin) {
-      document.getElementById('user_admin_type').innerHTML = 'Grundlegender Administrator';
-    } else if (!userInfo.user_is_admin && userInfo.company_admin && !userInfo.basic_admin) {
-      document.getElementById('user_admin_type').innerHTML = 'MEHRFIRMENADMIN';
-    } else if (userInfo.user_is_admin) {
-      document.getElementById('user_admin_type').innerHTML = 'Superadministrator';
+    if (adminInfo.basic_admin) {
+      adminLabel = 'Grundlegender Administrator';
+    } else if (adminInfo.company_admin) {
+      adminLabel = 'MEHRFIRMENADMIN';
+    } else if (adminInfo.super_admin) {
+      adminLabel = 'Superadministrator';
     }
   }
+
+  document.getElementById('user_admin_type').innerText = adminLabel;
 }
 
 /*===================================================================================================================================
