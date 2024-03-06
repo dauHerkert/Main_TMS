@@ -227,6 +227,10 @@ function checkUrlParameter() {
 function dispatchRequest(user) {
   let url = window.location.pathname;
   let signoutBtn = document.getElementById('signout-button');
+  let urlLang = '/en';
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+  }
   //console.log('url in dispatchRequest() - last segment', url.substring(url.lastIndexOf('/') + 1));
 
   // User is NOT signed in
@@ -246,16 +250,16 @@ function dispatchRequest(user) {
     if (signoutBtn) {signoutBtn.style.display = 'flex';}
     // User IS signed in
     if (url.substring(url.lastIndexOf('/') + 1) == 'account') {
-      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + '/signin-ptgp');}
+      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + URLSIGNIN);}
       pageAccount(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'supplier') {
-      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + '/signin-ptgp');}
+      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + URLSIGNIN);}
       pageSupplier(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'users-table') {
-      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + '/signin-ptgp');}
+      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + URLSIGNIN);}
       pageAdmin(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'companies-table') {
-      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + '/signin-ptgp');}
+      if (!user.confirmed_email){window.location.replace(URLENV + urlLang + URLSIGNIN);}
       pageCompaniesTable(user);
     }
   }
@@ -317,82 +321,6 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
   document.getElementById('email_confirmation_text').innerHTML = `We sent a password reset link to <strong>${forgot_password_email}</strong>`;
 }
 
-/*=======================================================================================================================================================
- * This function handles URL replacement and redirection based on the user's sign-in or sign-out status and language settings. It sets the appropriate
- * URLs for buttons, adjusts the display of buttons, and redirects the user to the appropriate pages based on the language and user status.
-=========================================================================================================================================================*/
-
-
-// TODO: review if can be removed
-async function replaceUrl(user) {
-  let form_button = document.getElementById('form_button');
-  //let account_button = document.getElementById('account_user_profile');
-  let users_button = document.getElementById('users_table');
-  let companies_button = document.getElementById('companies_table');
-  const userRef = doc(db, 'users', user.uid);
-  const docSnap = await getDoc(userRef);
-  const userData = docSnap.data();
-  let storedLang = localStorage.getItem('language');
-  let urlLang = '/en';
-  if (storedLang && storedLang === 'de') {
-    urlLang = '/de';
-  }
-
-  if (!user) {
-    form_button.setAttribute('href', urlLang + '/signin-ptgp');
-    //account_button.setAttribute('href', urlLang + '/signin-ptgp');
-    users_button.setAttribute('href', urlLang + '/signin-ptgp');
-    companies_button.setAttribute('href', urlLang + '/signin-ptgp');
-    //document.getElementById('signIn_button').style.display = 'block';
-    //document.getElementById('signUp_button').style.display = 'block';
-    if (window.location.pathname == '/' && !userData.confirmed_email) {
-      window.location.replace(URLENV + urlLang + '/signin-ptgp');
-    } else if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'success-email-sent' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'forgoten-password' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signin-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signup-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'press-form' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'data-protection' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'impressum') {
-      window.location.replace(URLENV + urlLang + '/signin-ptgp');
-    }
-  } else {
-    //account_button.setAttribute('href', urlLang + '/account');
-    users_button.setAttribute('href', urlLang + '/admin/users-table');
-    companies_button.setAttribute('href', urlLang + '/admin/companies-table');
-    //document.getElementById('signIn_button').style.display = 'none';
-    //document.getElementById('signUp_button').style.display = 'none';
-    if (window.location.pathname == '/') {
-      if (userData.confirmed_email) {
-        window.location.replace(URLENV + urlLang + '/account');
-      } else {
-        window.location.replace(URLENV + urlLang + '/signup-form-submitted');
-      }
-    }
-  }
-}
-
-/*============================================================================================================================================================
- * This function handles URL replacement and redirection based on the sign-out status and language settings. It redirects the user to the appropriate sign-in
- * page based on the language or displays the sign-in and sign-up buttons accordingly.
-===============================================================================================================================================================*/
-
-async function replaceUrlSignOut(user) {
-  let storedLang = localStorage.getItem('language');
-  let urlLang = '/en';
-  if (storedLang && storedLang === 'de') {
-    urlLang = '/de';
-  }
-
-  if (!user) {
-    //document.getElementById('signIn_button').style.display = 'block';
-    //document.getElementById('signUp_button').style.display = 'block';
-    if (window.location.pathname == '/') {
-      window.location.replace(URLENV + urlLang + '/signin-ptgp');
-    } else if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'success-email-sent' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'forgoten-password' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signin-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'signup-ptgp' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'press-form' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'data-protection' && window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) !== 'impressum') {
-      window.location.replace(URLENV + urlLang + '/signin-ptgp');
-    }
-    //form_button.setAttribute('href', '/en/signin-ptgp');
-    //account_button.setAttribute('href', '/en/signin-ptgp');
-    //users_button.setAttribute('href', '/de/signin-ptgp');
-    //companies_button.setAttribute('href', '/de/signin-ptgp');
-  }
-}
-
 /*=====================================================================================================================================================
  *This code snippet listens for changes in the authentication state using the onAuthStateChanged function. When a user signs in, it logs the user's UID
  * to the console, replaces the URL, dispatches a request, populates forms, and shows private elements. When a user signs out, it replaces the URL, shows
@@ -410,7 +338,6 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // user is signed in
     console.log(`The current user's UID is equal to ${user.uid}`);
-    //replaceUrl(user);
     dispatchRequest(user);
     populateForms(user);
     showPrivateElements();
@@ -420,7 +347,6 @@ onAuthStateChanged(auth, (user) => {
       window.location.pathname = urlLang + URLSIGNIN;
     }
     // user is signed out
-    //replaceUrlSignOut(user)
     showPublicElements();
     return;
   }
