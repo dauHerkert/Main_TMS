@@ -1,6 +1,6 @@
 import { URLENV, URLSIGNUP, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
@@ -77,6 +77,7 @@ export async function pageCompaniesTable(user){
   let sendLinkButtonLabel = 'SEND LINK';
   let link_lang = 'en';
   let userInfo = await getUserInfo(user);
+  let adminInfo = await getAdminInfo(user);
 
   if (storedLang && storedLang === 'de') {
     companyProfileLabel = 'FIRMA';
@@ -199,7 +200,7 @@ export async function pageCompaniesTable(user){
     e.preventDefault();
     e.stopPropagation()
 
-    if (userInfo.user_is_admin && company_id != null) {
+    if (adminInfo.super_admin && company_id != null) {
       const companyRef = doc(db, 'companies', company_id.value);
       setDoc(companyRef, {
         company_name: update_company.value,
@@ -260,7 +261,7 @@ export async function pageCompaniesTable(user){
   create_company_form.addEventListener('submit', async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (userInfo.user_is_admin) {
+    if (adminInfo.super_admin) {
       await createCompany();
     }
   });
@@ -301,7 +302,7 @@ export async function pageCompaniesTable(user){
     e.preventDefault();
     e.stopPropagation();
 
-    if (userInfo.user_is_admin) {
+    if (adminInfo.super_admin) {
       createProfile();
     }
   });
@@ -333,7 +334,7 @@ export async function pageCompaniesTable(user){
       e.preventDefault();
       e.stopPropagation();
 
-      if (userInfo.user_is_admin) {
+      if (adminInfo.super_admin) {
         createZone();
       }
     });
@@ -479,7 +480,7 @@ export async function pageCompaniesTable(user){
 
   let company_link_form = document.getElementById('company_link_form');
 
-  if (userInfo.user_is_admin && company_link_form) {
+  if (adminInfo.super_admin && company_link_form) {
     company_link_form.addEventListener('submit', (e)=>{
       e.preventDefault();
       e.stopPropagation();
