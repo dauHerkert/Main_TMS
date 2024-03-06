@@ -1,5 +1,5 @@
 import { URLENV, URLSIGNIN, URLASSETS, ICON_LOGOUT } from './a_constants';
-import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged, user } from './a_firebaseConfig';
+import { collection, getDocs, sendPasswordResetEmail, db, auth, doc, getDoc, onAuthStateChanged, user, getAuth } from './a_firebaseConfig';
 import { signInPage } from './signIn';
 import { signUpPage } from './signUp';
 import { pagePress } from './pressPage';
@@ -224,8 +224,7 @@ function checkUrlParameter() {
  * This function handles different actions based on the user's sign-in status and the current URL path, determining which page or functionality to display.
 ==========================================================================================================================================================*/
 
-async function dispatchRequest(user) {
-  let userInfo = await getUserInfo(user);
+ function dispatchRequest(user) {
   let url = window.location.pathname;
   let signoutBtn = document.getElementById('signout-button');
   let storedLang = localStorage.getItem('language');
@@ -251,7 +250,7 @@ async function dispatchRequest(user) {
   } else {
     if (signoutBtn) {signoutBtn.style.display = 'flex';}
     // User IS signed in
-    if (!userInfo.confirmed_email && (url.substring(url.lastIndexOf('/') + 1) == 'account' || url.substring(url.lastIndexOf('/') + 1) == 'users-table' || url.substring(url.lastIndexOf('/') + 1) == 'companies-table')) {
+    if (!getAuth().currentUser.confirmed_email && (url.substring(url.lastIndexOf('/') + 1) == 'account' || url.substring(url.lastIndexOf('/') + 1) == 'users-table' || url.substring(url.lastIndexOf('/') + 1) == 'companies-table')) {
       window.location.pathname = urlLang + URLSIGNIN;
     }
     if (url.substring(url.lastIndexOf('/') + 1) == 'account') {
