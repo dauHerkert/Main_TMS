@@ -129,7 +129,8 @@ async function populateForms(user) {
         if (navAdminDropdown) { navAdminDropdown.style.display = 'flex'; }
       } else {
         if (window.location.pathname.includes('users-table') || window.location.pathname.includes('companies-table')) {
-          location.replace(urlLang + '/account');
+          //TODO remove comment
+          //location.replace(urlLang + '/account');
         }
         if (navAdminDropdown) { navAdminDropdown.style.display = 'none'; }
       }

@@ -1,6 +1,6 @@
 import { SUPPLIERSTARTDATE, SUPPLIERENDDATE, EVENTDATES,  URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, IMAGE_PROFILE, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
-import { getUserInfo, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
@@ -73,153 +73,23 @@ export async function pageAdmin(user) {
     }
     $("#userZones").trigger("change");
   })
-  /*
-    let user_start_date = document.getElementById('Select-dates');
-    let user_end_date = document.getElementById('Select-dates2');
-    let startDateCell = $(this).closest('div').siblings('div[tabulator-field="user_start_date"]');
-    let endDateCell = $(this).closest('div').siblings('div[tabulator-field="user_end_date"]');
-    user_start_date.value = startDateCell.text();
-    user_end_date.value = endDateCell.text();
-    var dateStartStr = user_start_date.value;
-    var dateEndStr = user_end_date.value;
 
-    //updateDates(user, dateStartStr, dateEndStr)
-  */
-
-  /*
-  async function updateDates(user, dateStartStr, dateEndStr) {
-    var today = new Date();
-    var minDate;
-    var maxDate = new Date(today.getFullYear(), EVENTDATES.MAXDATE_MONTH, EVENTDATES.MAXDATE_DAY);
-    var startDatePicker = $('[data-date-picker="datepicker-start"]');
-    var endDatePicker = $('[data-date-picker="datepicker-end"]');
-    let userInfo = await getUserInfo(user);
-
-    //Change minDate depending the user type
-    if(userInfo.account_type == 'Press'){
-      minDate = new Date(today.getFullYear(), EVENTDATES.MINDATE_MONTH, EVENTDATES.MINDATE_DAY);
-    } else {
-      minDate =  new Date(today.getFullYear(), EVENTDATES.MINDATE_MONTH, EVENTDATES.MINDATE_DAY);
-    }
-
-    // Parse the date string into an array of Date objects
-    var startDateArray = dateStartStr.split(',').map(function(dateString) {
-      return new Date(Date.parse(dateString.replace(/-/g, '/')));
-    });
-    var defaultStartDate = startDateArray.length > 0 ? startDateArray : null;
-
-    // Parse the date string into an array of Date objects
-    var endDateArray = dateEndStr.split(',').map(function(dateString) {
-      return new Date(Date.parse(dateString.replace(/-/g, '/')));
-    });
-    var defaultEndDate = endDateArray.length > 0 ? endDateArray : null;
-
-    // Copied from https://www.npmjs.com/package/air-datepicker?activeTab=explore
-    // and from http://t1m0n.name/air-datepicker/docs/
-    $.fn.datepicker.language['de'] = {
-      days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-      daysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-      daysMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-      months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-      monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-      today: 'Heute',
-      clear: 'Zurücksetzen',
-      dateFormat: 'dd.MM.yyyy',
-      timeFormat: 'HH:mm',
-      firstDay: 1
-    };
-
-    $.fn.datepicker.language['en'] = {
-      days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-      months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
-      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      today: 'Today',
-      clear: 'Clear',
-      dateFormat: 'mm/dd/yyyy',
-      timeFormat: 'hh:ii aa',
-      firstDay: 0,
-    };
-
-    let datepickerLocaleToUse = 'en';
-    if (storedLang && storedLang === 'de') {
-        datepickerLocaleToUse = 'de';
-    }
-
-    let startDatepickerOptions = {
-      defaultDate: defaultStartDate,
-      multipleDates: false,
-      multipleDatesSeparator: ', ',
-      dateFormat: 'mm-dd-yyyy',
-      minDate: minDate,
-      maxDate: maxDate,
-      language: datepickerLocaleToUse,
-      onHide: function(inst) {
-        let selectedDates = inst.selectedDates;
-        console.log(selectedDates);
-      },
-      onSelect: function({date, formattedDate, datepicker}) {
-        datepicker.hide();
-      }
-    };
-
-    let endDatepickerOptions = {
-      defaultDate: defaultEndDate,
-      multipleDates: false,
-      multipleDatesSeparator: ', ',
-      dateFormat: 'mm-dd-yyyy',
-      minDate: minDate,
-      maxDate: maxDate,
-      language: datepickerLocaleToUse,
-      onHide: function(inst) {
-        let selectedDates = inst.selectedDates;
-        console.log(selectedDates);
-      },
-      onSelect: function({date, formattedDate, datepicker}) {
-        datepicker.hide();
-      }
-    };
-
-    let startDatepickerInstance = new AirDatepicker(startDatePicker[0], startDatepickerOptions);
-    let endDatepickerInstance = new AirDatepicker(endDatePicker[0], endDatepickerOptions);
-
-    if (dateStartStr) {
-      let startDateArray = dateStartStr.split(',').map(function(dateString) {
-        return new Date(dateString);
-      });
-      startDatepickerInstance.selectDate(startDateArray);
-    }
-
-    if (dateEndStr) {
-      let endDateArray = dateEndStr.split(',').map(function(dateString) {
-        return new Date(dateString);
-      });
-      endDatepickerInstance.selectDate(endDateArray);
-    }
-
-    if (window.innerWidth < 768) {
-      $('[data-date-picker]').attr('readonly', 'readonly');
-    }
-  }
-  */
 
   changeAdminTypeTitle(user);
   let user_dates = document.getElementById('user_dates');
-  let basic_admin = document.getElementById('basicaAdminCont');
   let companies_table = document.getElementById('companies_table_link');
-  let admin_create_user_form = document.getElementById('update_user_type');
   let userInfo = await getUserInfo(user);
+  let adminInfo = await getAdminInfo(user);
   const userRef = doc(db, 'users', user.uid);
   const companyNames = await changeCompanyNameToID(userInfo);
   userInfo.user_company_name = companyNames;
   
   if (userInfo.user_company_name == undefined) {
-    document.getElementById("company_name").innerHTML = 'No company';
+    document.getElementById("company_name").innerText = 'No company';
   } else {
     const companies = userInfo.user_company_name.split(",");
     const firstCompany = companies[0];
-    document.getElementById("company_name").innerHTML = `${firstCompany}`;
+    document.getElementById("company_name").innerText = `${firstCompany}`;
   }
 
   let select_type_id = document.getElementById('select_type_id');
@@ -228,17 +98,16 @@ export async function pageAdmin(user) {
   let create_user_profile = document.getElementById('create_user_profile');
   let head_user = document.getElementById('head_user');
 
-  // Admins > basic_admin - company_admin - user_is_admin
+  // Admins > basic_admin - company_admin - super_admin
   select_type_id.style.display = 'none';
   create_user_profile.style.display = 'none';
   head_user.style.display = 'none';
-  basic_admin.style.display = 'none';
   if (companies_table) {
     companies_table.style.display = 'none';
   }
   
   // Admins > basic_admin
-  if (userInfo.basic_admin) {
+  if (adminInfo.basic_admin) {
     user_profile_company_update.style.display = 'none';
     update_user_profile.style.display = 'none';
     user_dates.style.display = 'none';
@@ -252,21 +121,18 @@ export async function pageAdmin(user) {
   }
 
   // Admins > company_admin
-  if (userInfo.company_admin) {
+  if (adminInfo.company_admin) {
     document.getElementById('create_user_zones').style.display = 'none';
   }
 
-  // Admins > user_is_admin
-  if (userInfo.user_is_admin) {
+  // Admins > super_admin
+  if (adminInfo.super_admin) {
     //select_type_id.style.display = 'none';
-    //user_profile_company_update.style.display = 'block';
-    //update_user_profile.style.display = 'block';
     if (companies_table) {
       companies_table.style.display = 'block';
     }
     create_user_profile.style.display = 'block';
     head_user.style.display = 'grid';
-    basic_admin.style.display = 'block';
   }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------
@@ -328,7 +194,7 @@ export async function pageAdmin(user) {
   const q = query(collection(db, "users"));
 
   // Function to fetch unique company names
-  async function fetchUniqueCompanies(userInfo) {
+  async function fetchUniqueCompanies(userInfo, adminInfo) {
     const snapshot = await getDocs(company_colRef);
     const adminCompanyName = userInfo.user_company;
     const adminCompanyIds = adminCompanyName.split(',');
@@ -339,7 +205,7 @@ export async function pageAdmin(user) {
 
     snapshot.forEach((doc) => {
       let company = doc.data().company_name;
-      if (userInfo.company_admin) {
+      if (adminInfo.company_admin) {
         if (!uniqueCompanies.includes(company) && companyNames.includes(company)) {
           uniqueCompanies.push(company);
         }
@@ -355,7 +221,7 @@ export async function pageAdmin(user) {
     return uniqueCompanies;
   }
 
-  fetchUniqueCompanies(userInfo).then((uniqueCompanies) => {
+  fetchUniqueCompanies(userInfo, adminInfo).then((uniqueCompanies) => {
     let table = new Tabulator("#admin-user-list", {
       //options here
       layout:"fitData",
@@ -608,8 +474,8 @@ export async function pageAdmin(user) {
       });
     }
 
-    const companyAdmin = userInfo.company_admin;
-    const basicAdmin = userInfo.basic_admin;
+    const companyAdmin = adminInfo.company_admin;
+    const basicAdmin = adminInfo.basic_admin;
     const adminCompanyName = userInfo.user_company;
     console.log('admin:', adminCompanyName);
 
@@ -1012,6 +878,7 @@ export async function pageAdmin(user) {
 
     if (user_specific_id != null || user_specific_id != 0) {
       const userRef = doc(db, 'users', user_specific_id.value);
+      const adminRef = doc(db, 'admin', user_specific_id.value);
       // variable to validate if user state change on the edition of the user
       let userCurrentStatus = user_status.value;
       if (userCurrentStatus == "Accepted"){userCurrentStatus="Ok"}
@@ -1029,7 +896,7 @@ export async function pageAdmin(user) {
         selectedUserCompaniesString = $('#userCompany').val().join(', ');
       }
 
-      if (userInfo.basic_admin || userInfo.company_admin || userInfo.user_is_admin) {
+      if (adminInfo.basic_admin || adminInfo.company_admin || adminInfo.super_admin) {
         setDoc(userRef, {
           //account_type: accountTypeUpdate.value,
             user_status: user_status_update.value,
@@ -1176,7 +1043,7 @@ export async function pageAdmin(user) {
           });
       }
 
-      if (userInfo.company_admin || userInfo.user_is_admin) {
+      if (adminInfo.company_admin || adminInfo.super_admin) {
 
         setDoc(userRef, {
           user_company: selectedUserCompaniesString,
@@ -1197,11 +1064,11 @@ export async function pageAdmin(user) {
           });
       }
 
-      if (userInfo.user_is_admin) {
+      if (adminInfo.super_admin) {
 
-        setDoc(userRef, {
-          company_admin: (String(company_admin.value).toLowerCase() === 'true'),
+        setDoc(adminRef, {
           basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
+          company_admin: (String(company_admin.value).toLowerCase() === 'true'),
         }, { merge: true })
           .then(() => {
             toastr.success('Additional user updates added');
@@ -1238,7 +1105,7 @@ export async function pageAdmin(user) {
     if (delete_user_id != null || delete_user_id != 0) {
       const userRef = doc(db, 'users', delete_user_id.value);
 
-      if (userInfo.basic_admin || userInfo.company_admin || userInfo.user_is_admin) {
+      if (adminInfo.basic_admin || adminInfo.company_admin || adminInfo.super_admin) {
         setDoc(userRef, {
           user_deleted: true,
           confirmed_email: false
@@ -1400,7 +1267,7 @@ export async function pageAdmin(user) {
   document.getElementById("bulk_user_form").addEventListener("submit", function(e){
     e.preventDefault();
     e.stopPropagation();
-    if (userInfo.basic_admin || userInfo.company_admin || userInfo.user_is_admin) {
+    if (adminInfo.basic_admin || adminInfo.company_admin || adminInfo.super_admin) {
       bulkUserUpdate(selectedData);
     }
   });
@@ -1579,7 +1446,7 @@ export async function pageAdmin(user) {
 
   let newUserCompany = document.getElementById('new_user_company');
   // Admins > basic_admin
-  if (userInfo.basic_admin) {
+  if (adminInfo.basic_admin) {
     // Dafault Admin data to create users
     console.log('userInfo.user_company ', userInfo.user_company);
     //newUserCompany.value = userInfo.user_company;
@@ -1631,7 +1498,7 @@ export async function pageAdmin(user) {
     if (!storedLang) {storedLang = userInfo.language}
     let companyRef;
 
-    if (userInfo.basic_admin || userInfo.company_admin || userInfo.user_is_admin) {
+    if (adminInfo.basic_admin || adminInfo.company_admin || adminInfo.super_admin) {
       companyRef = await addDoc(collection(db, "users"), {
         user_firstname: new_user_firstname.value,
         user_lastname: new_user_lastname.value,
@@ -1639,8 +1506,6 @@ export async function pageAdmin(user) {
         user_company: newUserCompaniesString,
         user_type: new_user_profile.value,
         user_status: 'Pending',
-        company_admin: false,
-        basic_admin: false,
         confirmed_email: true,
         language: storedLang,
         press_form_user: false,
@@ -1653,7 +1518,6 @@ export async function pageAdmin(user) {
         user_city: '',
         user_country: '',
         user_email: '',
-        user_is_admin: false,
         user_itwa: false,
         user_nationality:'',
         user_phone:'',
