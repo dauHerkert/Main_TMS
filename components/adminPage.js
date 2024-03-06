@@ -1231,20 +1231,22 @@ export async function pageAdmin(user) {
     if (delete_user_id != null || delete_user_id != 0) {
       const userRef = doc(db, 'users', delete_user_id.value);
 
-      setDoc(userRef, {
-        user_deleted: true,
-        confirmed_email: false
-      }, { merge: true })
-        .then(() => {
-          toastr.success('User succesfully deleted');
-          setTimeout(function() {
-            window.location.reload();
-          }, 2000);
-        })
-        .catch((err) => {
-          toastr.error('There was an error deleting the account');
-          console.log('error deleting account', err);
-        });
+      if (userInfo.basic_admin || userInfo.company_admin || userInfo.user_is_admin) {
+        setDoc(userRef, {
+          user_deleted: true,
+          confirmed_email: false
+        }, { merge: true })
+          .then(() => {
+            toastr.success('User succesfully deleted');
+            setTimeout(function() {
+              window.location.reload();
+            }, 2000);
+          })
+          .catch((err) => {
+            toastr.error('There was an error deleting the account');
+            console.log('error deleting account', err);
+          });
+      }
     }
   });
 
@@ -1391,7 +1393,9 @@ export async function pageAdmin(user) {
   document.getElementById("bulk_user_form").addEventListener("submit", function(e){
     e.preventDefault();
     e.stopPropagation();
-    bulkUserUpdate(selectedData);
+    if (userInfo.basic_admin || userInfo.company_admin || userInfo.user_is_admin) {
+      bulkUserUpdate(selectedData);
+    }
   });
 
 /*=================================================================================================================================================================
@@ -1619,54 +1623,57 @@ export async function pageAdmin(user) {
     let storedLang = localStorage.getItem("language");
     if (!storedLang) {storedLang = userInfo.language}
     let companyRef;
-    companyRef = await addDoc(collection(db, "users"), {
-      user_firstname: new_user_firstname.value,
-      user_lastname: new_user_lastname.value,
-      account_type: new_user_account_type.value,
-      user_company: newUserCompaniesString,
-      user_type: new_user_profile.value,
-      user_status: 'Pending',
-      company_admin: false,
-      basic_admin: false,
-      confirmed_email: true,
-      language: storedLang,
-      press_form_user: false,
-      press_media: '',
-      press_media_type: '',
-      press_workspot: false,
-      press_locker: false,
-      press_hotel_info: false,
-      user_address: '',
-      user_city: '',
-      user_country: '',
-      user_email: '',
-      user_is_admin: false,
-      user_itwa: false,
-      user_nationality:'',
-      user_phone:'',
-      user_title:'',
-      user_zip_code:'',
-      user_fullname: new_user_fullname,
-      user_zones: selectedCreateUserZonesString,
-      supplier_start_date: SUPPLIERSTARTDATE,
-      supplier_end_date: SUPPLIERENDDATE,
-      user_deleted: false
-    })
-      .then((companyRef) => {
-        userUploadImage(companyRef.id);
-        if (storedLang && storedLang === 'de') {
-          toastr.success('Benutzer wurde erfolgreich erstellt');
-        } else {
-          toastr.success('User has been successfully created');
-        }
-        setTimeout(function() {
-          window.location.reload();
-        }, 2000);
+
+    if (userInfo.basic_admin || userInfo.company_admin || userInfo.user_is_admin) {
+      companyRef = await addDoc(collection(db, "users"), {
+        user_firstname: new_user_firstname.value,
+        user_lastname: new_user_lastname.value,
+        account_type: new_user_account_type.value,
+        user_company: newUserCompaniesString,
+        user_type: new_user_profile.value,
+        user_status: 'Pending',
+        company_admin: false,
+        basic_admin: false,
+        confirmed_email: true,
+        language: storedLang,
+        press_form_user: false,
+        press_media: '',
+        press_media_type: '',
+        press_workspot: false,
+        press_locker: false,
+        press_hotel_info: false,
+        user_address: '',
+        user_city: '',
+        user_country: '',
+        user_email: '',
+        user_is_admin: false,
+        user_itwa: false,
+        user_nationality:'',
+        user_phone:'',
+        user_title:'',
+        user_zip_code:'',
+        user_fullname: new_user_fullname,
+        user_zones: selectedCreateUserZonesString,
+        supplier_start_date: SUPPLIERSTARTDATE,
+        supplier_end_date: SUPPLIERENDDATE,
+        user_deleted: false
       })
-      .catch((err) => {
-        toastr.error('There was an error creating the user');
-        console.log('error creating user', err);
-      });
+        .then((companyRef) => {
+          userUploadImage(companyRef.id);
+          if (storedLang && storedLang === 'de') {
+            toastr.success('Benutzer wurde erfolgreich erstellt');
+          } else {
+            toastr.success('User has been successfully created');
+          }
+          setTimeout(function() {
+            window.location.reload();
+          }, 2000);
+        })
+        .catch((err) => {
+          toastr.error('There was an error creating the user');
+          console.log('error creating user', err);
+        });
+    }
   }
 
   // Upload profile picture
