@@ -227,6 +227,7 @@ function checkUrlParameter() {
 function dispatchRequest(user) {
   let url = window.location.pathname;
   let signoutBtn = document.getElementById('signout-button');
+  let storedLang = localStorage.getItem('language');
   let urlLang = '/en';
   if (storedLang && storedLang === 'de') {
     urlLang = '/de';
@@ -420,69 +421,6 @@ function updateLinks() {
   }
 }
 
-/*===================================================================================================================================
- * These onClick events add/delete a class to the selected language and triggers the changeLanguage and updateLinks functions
-====================================================================================================================================*/
-
-/*
-var storedLang = localStorage.getItem("language");
-let sign_lang = document.getElementById('selected_lang2');
-let user_lang = document.getElementById('selected_lang');
-
-if (user_lang) {
-  document.getElementById('englishBtn').classList.add('selected');
-  document.getElementById('germanBtn').classList.remove('selected');
-}
-if (sign_lang) {
-  document.getElementById('englishBtn2').classList.add('selected');
-  document.getElementById('germanBtn2').classList.remove('selected');
-}
-
-if (storedLang && storedLang === 'de') {
-  if (user_lang) {
-    document.getElementById('englishBtn').classList.remove('selected');
-    document.getElementById('germanBtn').classList.add('selected');
-  }
-  if (sign_lang) {
-    document.getElementById('englishBtn2').classList.remove('selected');
-    document.getElementById('germanBtn2').classList.add('selected');
-  }
-}
-
-document.getElementById("englishBtn").addEventListener("click", function() {
-  changeLanguage("en");
-  updateLinks();
-  document.getElementById('englishBtn').classList.add('selected');
-  document.getElementById('germanBtn').classList.remove('selected');
-});
-
-document.getElementById("germanBtn").addEventListener("click", function() {
-  changeLanguage("de");
-  updateLinks();
-  document.getElementById('englishBtn').classList.remove('selected');
-  document.getElementById('germanBtn').classList.add('selected');
-});
-
-let signEnBtn = document.getElementById("englishBtn2")
-if (signEnBtn) {
-  signEnBtn.addEventListener("click", function() {
-    changeLanguage("en");
-    updateLinks();
-    document.getElementById('germanBtn2').classList.remove('selected');
-    document.getElementById('englishBtn2').classList.add('selected');
-  });
-}
-
-let signDeBtn = document.getElementById("germanBtn2")
-if (signDeBtn) {
-  signDeBtn.addEventListener("click", function() {
-    changeLanguage("de");
-    updateLinks();
-    document.getElementById('germanBtn2').classList.add('selected');
-    document.getElementById('englishBtn2').classList.remove('selected');
-  });
-}
-*/
 
 /*===================================================================================================================================
  * This function adds a border bottom to the link on the navbar of the current page
