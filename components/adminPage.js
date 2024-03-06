@@ -222,159 +222,157 @@ export async function pageAdmin(user) {
   }
 
   fetchUniqueCompanies(userInfo, adminInfo).then((uniqueCompanies) => {
-    if (adminInfo.basic_admin || adminInfo.company_admin || adminInfo.super_admin) {
-      let table = new Tabulator("#admin-user-list", {
-        //options here
-        layout:"fitData",
-        addRowPos:"top",
-        history:true,
-        pagination:"local",
-        paginationSize:10,
-        paginationSizeSelector:[10, 25, 50],
-        paginationCounter:"rows",
-        headerFilterElement: document.querySelector('#tryany'),
-        columns:[
-          {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Fullname", field:"user_fullname", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"ITWA", field:"user_itwa", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Press ID", field:"press_id", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Special requests", field:"special_requests", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Workspot", field:"press_workspot", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Press locker", field:"press_locker", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Press hotel info", field:"press_hotel_info", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"User title", field:"user_title", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"User type", field:"user_type", sorter: "string", width: 0, headerFilter:"list", cssClass: "hidden-column"},
-          {title:"Press media type", field:"press_media_type", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Press media", field:"press_media", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Basic Admin", field:"basic_admin", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"User Start Date", field:"user_start_date", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"User End Date", field:"user_end_date", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"User Language", field:"language", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Nationality", field:"nationality", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Address", field:"address", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"City", field:"city", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Zip", field:"zip", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Country", field:"country", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title:"Phone", field:"phone", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title: userTableFirstnameLabel, field:"name", sorter:"string", width:180, cssClass:"first_column",
-            formatter: function(cell) {
-              let value = cell.getValue();
-              let name = value;
-              if (value === (userInfo.user_firstname + ' ' + userInfo.user_lastname)) {
-                name = '<span style="color:#E85B0F;"> > ' + value + '<span>';
-              }
-              return name;
+    let table = new Tabulator("#admin-user-list", {
+      //options here
+      layout:"fitData",
+      addRowPos:"top",
+      history:true,
+      pagination:"local",
+      paginationSize:10,
+      paginationSizeSelector:[10, 25, 50],
+      paginationCounter:"rows",
+      headerFilterElement: document.querySelector('#tryany'),
+      columns:[
+        {title:"ID", field:"id", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Fullname", field:"user_fullname", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"ITWA", field:"user_itwa", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Press ID", field:"press_id", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Special requests", field:"special_requests", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Workspot", field:"press_workspot", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Press locker", field:"press_locker", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Press hotel info", field:"press_hotel_info", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Press form user", field:"press_form_user", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"User title", field:"user_title", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"User type", field:"user_type", sorter: "string", width: 0, headerFilter:"list", cssClass: "hidden-column"},
+        {title:"Press media type", field:"press_media_type", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Press media", field:"press_media", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Basic Admin", field:"basic_admin", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"User Start Date", field:"user_start_date", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"User End Date", field:"user_end_date", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"User Language", field:"language", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Nationality", field:"nationality", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Address", field:"address", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"City", field:"city", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Zip", field:"zip", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Country", field:"country", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"Phone", field:"phone", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title: userTableFirstnameLabel, field:"name", sorter:"string", width:180, cssClass:"first_column",
+          formatter: function(cell) {
+            let value = cell.getValue();
+            let name = value;
+            if (value === (userInfo.user_firstname + ' ' + userInfo.user_lastname)) {
+              name = '<span style="color:#E85B0F;"> > ' + value + '<span>';
             }
-          },
-          {title:"EMAIL", field:"email", sorter:"string", width:220, cssClass:"other_columns"},
-          {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:0, cssClass:"hidden-column"},
-          {title: userTableCompanyLabel, field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{values: uniqueCompanies, clearable:true, headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {let selectedCompany = headerValue.toLowerCase();let userCompanies = rowData.company.toLowerCase().split(", ");return userCompanies.includes(selectedCompany);}}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
-          {
-            title: userTableStatusLabel,
-            field: "status",
-            sorter: "string",
-            width: 105,
-            formatter: function(cell) {
-              let value = cell.getValue();
-              let label = "";
-              let color = "";
-              if (storedLang && storedLang === 'de') {
-                if (value === "Ok") {
-                  label = "Freigegeben";
-                  color = "#27AE60";
-                } else if (value === "Declined") {
-                  label = "Abgelehnt";
-                  color = "#E74C3C";
-                } else if (value === "Pending") {
-                  label = "Ausstehend";
-                  color = "#F39C12";
-                } else if (value === "Printed") {
-                  label = "Gedruckt";
-                  color = "#2980B9";
-                }
-              } else {
-                if (value === "Ok") {
-                  label = "Accepted";
-                  color = "#27AE60";
-                } else if (value === "Declined") {
-                  label = "Declined";
-                  color = "#E74C3C";
-                } else if (value === "Pending") {
-                  label = "Pending";
-                  color = "#F39C12";
-                } else if (value === "Printed") {
-                  label = "Printed";
-                  color = "#2980B9";
-                }
+            return name;
+          }
+        },
+        {title:"EMAIL", field:"email", sorter:"string", width:220, cssClass:"other_columns"},
+        {title: userTableLastnameLabel, field:"lastname", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title: userTableCompanyLabel, field:"company", sorter:"string", width:150, headerFilter:"list", headerFilterParams:{values: uniqueCompanies, clearable:true, headerFilterFunc: function(headerValue, rowValue, rowData, filterParams) {let selectedCompany = headerValue.toLowerCase();let userCompanies = rowData.company.toLowerCase().split(", ");return userCompanies.includes(selectedCompany);}}, headerFilterPlaceholder: "Company", cssClass:"other_columns"},
+        {
+          title: userTableStatusLabel,
+          field: "status",
+          sorter: "string",
+          width: 105,
+          formatter: function(cell) {
+            let value = cell.getValue();
+            let label = "";
+            let color = "";
+            if (storedLang && storedLang === 'de') {
+              if (value === "Ok") {
+                label = "Freigegeben";
+                color = "#27AE60";
+              } else if (value === "Declined") {
+                label = "Abgelehnt";
+                color = "#E74C3C";
+              } else if (value === "Pending") {
+                label = "Ausstehend";
+                color = "#F39C12";
+              } else if (value === "Printed") {
+                label = "Gedruckt";
+                color = "#2980B9";
               }
-              return '<div style="display:flex;align-items:center;justify-content:flex-start"><div style="width:12px;height:12px;border-radius:50%;background-color:' + color + ';margin-right:0px;"></div><div style="margin-left:6px;">' + label + '</div></div>';
-            },
-            headerFilter: "list",
-            headerFilterParams: {
-              values: true,
-              valuesSort: "asc",
-              values: statusOptions,
-              clearable: true,
-            },
-            headerFilterPlaceholder: "Status",
-            cssClass: "small_columns",
-          },
-          {title:"USER TYPE", field: "account_type", sorter: "string", cssClass:"hidden-column", width:0, headerFilter: "list",
-            headerFilterParams: {
-              values: true,
-              valuesSort: "asc",
-              values: typeOptions,
-              clearable: true,
-            }},
-          {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered) {
-              return cell.getValue() == 1 ? "Admin" : "";
-            }},
-          {title: userTableUpdateLabel, formatter:function(cell, formatterParams) {
-              // Create first button
-              let button1 = document.createElement("button");
-              button1.setAttribute("onclick","openModal()");
-              button1.setAttribute("id","open_modal_btn");
-              button1.innerHTML = "<img src='" + URLASSETS + ICON_PENCIL + "' alt='Edit'/>";
-              // Create second button
-              let button2 = document.createElement("button");
-              button2.setAttribute("onclick","openModal10()");
-              button2.setAttribute("id","delete_btn");
-              button2.innerHTML = "<img src='" + URLASSETS + ICON_TRASH + "' alt='Delete'/>";
-              // Create a div to contain the buttons
-              let buttonContainer = document.createElement("div");
-              buttonContainer.appendChild(button1);
-              buttonContainer.appendChild(button2);
-              // Return the container with the buttons
-              return buttonContainer;
-            }, align: "center", cssClass:"center_col small_columns edit_delete_col", width: 120},
-          {title: userTableSelectLabel, cssClass:"center_col tiny_columns", width: 105, formatter:function(cell, formatterParams) {
-            let checkbox = document.createElement("input");
-            checkbox.style.accentColor="#E85B0F";
-            checkbox.style.height="18px";
-            checkbox.style.width="18px";
-            checkbox.type = "checkbox";
-            checkbox.addEventListener("click", function() {
-              let row = cell.getRow();
-              let rowData = row.getData();
-              let rowId = rowData.id;
-              if (checkbox.checked) {
-                  selectedData.push(rowId);
-              } else {
-                selectedData = selectedData.filter(function(value) {
-                  return value != rowId;
-                });
+            } else {
+              if (value === "Ok") {
+                label = "Accepted";
+                color = "#27AE60";
+              } else if (value === "Declined") {
+                label = "Declined";
+                color = "#E74C3C";
+              } else if (value === "Pending") {
+                label = "Pending";
+                color = "#F39C12";
+              } else if (value === "Printed") {
+                label = "Printed";
+                color = "#2980B9";
               }
-              console.log(selectedData);
-            });
-            return checkbox;
-            }, align: "center"},
-        ],
-      });
-    }
+            }
+            return '<div style="display:flex;align-items:center;justify-content:flex-start"><div style="width:12px;height:12px;border-radius:50%;background-color:' + color + ';margin-right:0px;"></div><div style="margin-left:6px;">' + label + '</div></div>';
+          },
+          headerFilter: "list",
+          headerFilterParams: {
+            values: true,
+            valuesSort: "asc",
+            values: statusOptions,
+            clearable: true,
+          },
+          headerFilterPlaceholder: "Status",
+          cssClass: "small_columns",
+        },
+        {title:"USER TYPE", field: "account_type", sorter: "string", cssClass:"hidden-column", width:0, headerFilter: "list",
+          headerFilterParams: {
+            values: true,
+            valuesSort: "asc",
+            values: typeOptions,
+            clearable: true,
+          }},
+        {title: userTableAdminLabel, field:"user_admin", width:0, cssClass:"hidden-column", formatter:function(cell, formatterParams, onRendered) {
+            return cell.getValue() == 1 ? "Admin" : "";
+          }},
+        {title: userTableUpdateLabel, formatter:function(cell, formatterParams) {
+            // Create first button
+            let button1 = document.createElement("button");
+            button1.setAttribute("onclick","openModal()");
+            button1.setAttribute("id","open_modal_btn");
+            button1.innerHTML = "<img src='" + URLASSETS + ICON_PENCIL + "' alt='Edit'/>";
+            // Create second button
+            let button2 = document.createElement("button");
+            button2.setAttribute("onclick","openModal10()");
+            button2.setAttribute("id","delete_btn");
+            button2.innerHTML = "<img src='" + URLASSETS + ICON_TRASH + "' alt='Delete'/>";
+            // Create a div to contain the buttons
+            let buttonContainer = document.createElement("div");
+            buttonContainer.appendChild(button1);
+            buttonContainer.appendChild(button2);
+            // Return the container with the buttons
+            return buttonContainer;
+          }, align: "center", cssClass:"center_col small_columns edit_delete_col", width: 120},
+        {title: userTableSelectLabel, cssClass:"center_col tiny_columns", width: 105, formatter:function(cell, formatterParams) {
+          let checkbox = document.createElement("input");
+          checkbox.style.accentColor="#E85B0F";
+          checkbox.style.height="18px";
+          checkbox.style.width="18px";
+          checkbox.type = "checkbox";
+          checkbox.addEventListener("click", function() {
+            let row = cell.getRow();
+            let rowData = row.getData();
+            let rowId = rowData.id;
+            if (checkbox.checked) {
+                selectedData.push(rowId);
+            } else {
+              selectedData = selectedData.filter(function(value) {
+                return value != rowId;
+              });
+            }
+            console.log(selectedData);
+          });
+          return checkbox;
+          }, align: "center"},
+      ],
+    });
 
 /*=================================================================================================================================================================
 * This code snippet sets up event listeners and filters for the users table. It fetches company data from Firestore and populates the company filter dropdowns.
