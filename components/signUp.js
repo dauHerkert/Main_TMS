@@ -5,9 +5,7 @@ import toastr from 'toastr';
 import { getUserInfo } from './ab_base';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
-//import flatpickr from "flatpickr";
 
-//console.log('testing flatpickr')
 //placeholder: 'Firma auswählen',
 $('#user_company').select2({
   placeholder: 'Select a company',
@@ -563,80 +561,6 @@ if (saveButton) {
     console.log(fileItem);
     await userUploadImage(null, tempId, hiddenProfileInput, fileItem);
   });
-}
-
-/*========================================================================================================================================================
- *This asynchronous function initializes a start date picker and an end date picker. It sets the minimum and maximum selectable dates, language
- settings, and other configuration options. The end date picker is dependent on the selected start date, and it is initialized separately through the
- initializeEndDatePicker function.
-==========================================================================================================================================================*/
-
-/*let datepickerLocaleToUse = (storedLang === 'de') ? localeDe : localeEn;
-
-new AirDatepicker('#Select-dates', {
-  selectedDates: [new Date()],
-  locale: datepickerLocaleToUse
-})*/
-
-async function getDateSignUp() {
-  var today = new Date();
-  var minDate = new Date(today.getFullYear(), EVENTDATES.MINDATE_MONTH, EVENTDATES.MINDATE_DAY);
-  var maxDate = new Date(today.getFullYear(), EVENTDATES.MAXDATE_MONTH, EVENTDATES.MAXDATE_DAY);
-  var minDateEndPicker = new Date(today.getFullYear(), EVENTDATES.MINDATE_MONTH, EVENTDATES.MINDATE_DAY);
-  var startDatePicker = document.querySelector('#Select-dates');
-  let endDatePicker = document.querySelector('#Select-dates-2');
-
-  let multiDates = false;
-
-  //flatpickr("#Select-dates", {});
-
-  /*new AirDatepicker(startDatePicker, {
-    multipleDates: multiDates,
-    multipleDatesSeparator: ', ',
-    dateFormat: 'mm-dd-yyyy',
-    minDate: minDate,
-    maxDate: maxDate,
-    language: datepickerLocaleToUse,
-    onHide: function(inst) {
-      var selectedDates = inst.selectedDates;
-      console.log(selectedDates);
-      if (selectedDates.length > 0) {
-        var selectedDate = startDatePicker.value;
-        var parsedDate = new Date(selectedDates[0]);
-        minDateEndPicker = parsedDate;
-        endDatePicker.value = '';
-        initializeEndDatePicker();
-      }
-    },
-    onSelect: function(formattedDate, date, inst) {
-      inst.hide();
-    }
-  });*/
-
-  /*function initializeEndDatePicker() {
-    new AirDatepicker(endDatePicker, {
-      multipleDates: multiDates,
-      multipleDatesSeparator: ', ',
-      dateFormat: 'mm-dd-yyyy',
-      minDate: minDateEndPicker,
-      maxDate: maxDate,
-      language: datepickerLocaleToUse,
-      onHide: function(inst) {
-        var selectedDates = inst.selectedDates;
-        console.log(selectedDates);
-      },
-      onSelect: function(formattedDate, date, inst) {
-        inst.hide();
-      }
-    });
-  }
-
-  initializeEndDatePicker();
-
-  if (window.innerWidth < 768) {
-    startDatePicker.setAttribute('readonly', 'readonly');
-    endDatePicker.setAttribute('readonly', 'readonly');
-  }*/
 }
 
 /*================================================================================================================================================================
