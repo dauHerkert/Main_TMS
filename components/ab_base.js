@@ -40,9 +40,11 @@ export async function getAdminInfo(user) {
 }
 
 export async function getAdminData(userID) {
+  console.log("userID ", userID)
   const typeRef = doc(db, 'admin', userID);
   const typeSnap = await getDoc(typeRef);
   if ( typeSnap.exists() ) {
+    console.log("typeSnap.data().basic_admin ", typeSnap.data().basic_admin)
     return [typeSnap.data().basic_admin, typeSnap.data().company_admin, typeSnap.data().super_admin];
   } else {
     return [false, false, false];
