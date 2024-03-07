@@ -1,5 +1,5 @@
 import { SUPPLIERSTARTDATE, SUPPLIERENDDATE, EVENTDATES,  URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, IMAGE_PROFILE, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
-import {doc, db, collection, query, getDocs, getDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
+import {doc, db, collection, query, getDocs, getDoc, deleteDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
 import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
@@ -96,12 +96,14 @@ export async function pageAdmin(user) {
   let user_profile_company_update = document.getElementById('user_company_update');
   let update_user_profile = document.getElementById('update_user_profile');
   let create_user_profile = document.getElementById('create_user_profile');
-  let head_user = document.getElementById('head_user');
+  let head_user = document.getElementById('head_user'); // TODO: Remove
+  let select_user = document.getElementById('select_user');
 
   // Admins > basic_admin - company_admin - super_admin
   select_type_id.style.display = 'none';
   create_user_profile.style.display = 'none';
-  head_user.style.display = 'none';
+  head_user.style.display = 'none'; // TODO: Remove
+  select_user.style.display = 'none';
   if (companies_table) {
     companies_table.style.display = 'none';
   }
@@ -132,7 +134,8 @@ export async function pageAdmin(user) {
       companies_table.style.display = 'block';
     }
     create_user_profile.style.display = 'block';
-    head_user.style.display = 'grid';
+    head_user.style.display = 'grid'; // TODO: Remove
+    select_user.style.display = 'flex';
   }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------
@@ -485,6 +488,13 @@ export async function pageAdmin(user) {
         let promises = [];
         snapshot.docs.forEach((doc) => {
           let user = doc.data();
+          let admin = getAdminInfo(user);
+          let basicAdm = '', companyAdm = '', superAdm = '';
+          if (admin) {
+            basicAdm = admin.basic_admin;
+            companyAdm = admin.company_admin;
+            superAdm = admin.super_admin;
+          }
 
           promises.push(changeCompanyNameToID(user).then(userCompanyName => {
             if (!user.user_deleted) { 
@@ -502,8 +512,8 @@ export async function pageAdmin(user) {
                 press_media_type: user.press_media_type,
                 press_media: user.press_media,
                 email: user.user_email,
-                company_admin: user.company_admin,
-                basic_admin: user.basic_admin,
+                company_admin: companyAdm,
+                basic_admin: basicAdm,
                 companyID: [user.user_company],
                 user_company: user.company,
                 user_type: user.user_type,
@@ -516,7 +526,7 @@ export async function pageAdmin(user) {
                 lastname: user.user_lastname,
                 company: userCompanyName,
                 status: user.user_status,
-                user_admin: user.user_is_admin,
+                user_admin: superAdm,
                 nationality: user.user_nationality,
                 address: user.user_address,
                 city: user.user_city,
@@ -558,6 +568,7 @@ export async function pageAdmin(user) {
   let user_company_update = document.getElementById('userCompany');
   let admin_cred = document.getElementById('is_admin');
   let company_admin = document.getElementById('headUser');
+  let admin_selector = documment.getElementById('adminSelector');
   let updated_dates = document.getElementById('Select-dates');
   let update_start_date = document.getElementById('Select-dates');
   let update_end_date = document.getElementById('Select-dates2');
@@ -1065,6 +1076,18 @@ export async function pageAdmin(user) {
       }
 
       if (adminInfo.super_admin) {
+        let updateBasicAdmin = false;
+        let updateCompanyAdmin = false;
+        let updateSuperAdmin = false;
+        if (admin_selector.value == 'basicAdmin') {
+          updateBasicAdmin = true;
+        } else if (admin_selector.value == 'companyAdmin') { 
+          updateCompanyAdmin = true;
+        }
+        
+        if(admin_selector.value != 'noAdmin') {
+          //deleteDoc(doc(db, "admin", user_specific_id.value));
+        }
 
         setDoc(adminRef, {
           basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
@@ -1072,6 +1095,7 @@ export async function pageAdmin(user) {
         }, { merge: true })
           .then(() => {
             toastr.success('Additional user updates added');
+            updatesSuccess = false;
           })
           .catch((err) => {
             toastr.error('There was an error updating the account info');
