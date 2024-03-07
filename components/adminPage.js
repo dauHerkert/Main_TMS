@@ -8,10 +8,6 @@ import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css'; 
 import 'select2';
 import 'select2/dist/css/select2.min.css';
-import AirDatepicker from 'air-datepicker';
-import localeEn from 'air-datepicker/locale/en';
-import localeDe from 'air-datepicker/locale/de';
-import 'air-datepicker/air-datepicker.css';
 
 // Initialize select2 for create user: company and zones - update user: company and zones
 $('#new_user_company, #createUserZones, #userCompany, #userZones').select2({closeOnSelect: false});
