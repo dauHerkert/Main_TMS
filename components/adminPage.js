@@ -1,6 +1,6 @@
 import { SUPPLIERSTARTDATE, SUPPLIERENDDATE, EVENTDATES,  URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, IMAGE_PROFILE, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
-import {doc, db, collection, query, getDocs, getDoc, deleteDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
-import { getUserInfo, getAdminInfo, getAdminInfo2, createOptions, changeAdminTypeTitle } from './ab_base';
+import { doc, db, collection, query, getDocs, getDoc, deleteDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
+import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
@@ -489,7 +489,7 @@ export async function pageAdmin(user) {
         snapshot.docs.forEach((document) => {
           let user = document.data();
           let basicAdm = false, companyAdm = false, superAdm = false;
-          let admin = db.collection('admin').doc(document.id);
+          let admin = collection(db, 'admin').doc(document.id);
           admin.get().then((doc) => {
             if (doc.exists) {
               basicAdm = admin.basic_admin;
