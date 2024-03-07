@@ -486,22 +486,22 @@ export async function pageAdmin(user) {
       .then((snapshot) => {
         let data = [];
         let promises = [];
-        snapshot.docs.forEach((doc) => {
-          let user = doc.data();
+        snapshot.docs.forEach((document) => {
+          let user = document.data();
           let basicAdm = false, companyAdm = false, superAdm = false;
-          let admin = getDoc(doc(db, 'admin', doc.id));
+          let admin = getDoc(doc(db, 'admin', document.id));
           if ( admin.exists() ) {
             basicAdm = admin.basic_admin;
             companyAdm = admin.company_admin;
             superAdm = admin.super_admin;
             console.log("!!!!!!YES");
           }
-          console.log("!!!!!No ", doc.id);
+          console.log("!!!!!No ", document.id);
 
           promises.push(changeCompanyNameToID(user).then(userCompanyName => {
             if (!user.user_deleted) { 
               data.push({
-                id: doc.id,
+                id: document.id,
                 user_fullname: user.user_fullname,
                 special_requests: user.supplier_special_request,
                 user_itwa: user.user_itwa,
