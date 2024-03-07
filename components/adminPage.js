@@ -341,12 +341,18 @@ export async function pageAdmin(user) {
             let button1 = document.createElement("button");
             button1.setAttribute("onclick","openModal()");
             button1.setAttribute("id","open_modal_btn");
-            button1.innerHTML = "<img src='" + URLASSETS + ICON_PENCIL + "' alt='Edit'/>";
+            let image1 = document.createElement("img");
+            image1.setAttribute("alt","Edit");
+            image1.setAttribute("src",URLASSETS + ICON_PENCIL);
+            button1.appendChild(image1);
             // Create second button
             let button2 = document.createElement("button");
             button2.setAttribute("onclick","openModal10()");
             button2.setAttribute("id","delete_btn");
-            button2.innerHTML = "<img src='" + URLASSETS + ICON_TRASH + "' alt='Delete'/>";
+            let image2 = document.createElement("img");
+            image2.setAttribute("alt","Delete");
+            image2.setAttribute("src",URLASSETS + ICON_TRASH);
+            button2.appendChild(image2);
             // Create a div to contain the buttons
             let buttonContainer = document.createElement("div");
             buttonContainer.appendChild(button1);
