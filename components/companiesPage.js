@@ -460,11 +460,11 @@ export async function pageCompaniesTable(user){
     });
 
     if (userInfo.user_company_name == undefined) {
-      document.getElementById("company_name").innerHTML = 'No company';
+      document.getElementById("company_name").innerText = 'No company';
     } else {
       const companies = userInfo.user_company_name.split(",");
       const firstCompany = companies[0];
-      document.getElementById("company_name").innerHTML = `${firstCompany}`;
+      document.getElementById("company_name").innerText = `${firstCompany}`;
     }
 
     // Update the selectedUserZonesString variable whenever the zones select element changes
@@ -588,18 +588,18 @@ if (window.location.pathname == '/de/company'){
     let idCell = newRow.insertCell(0);
     let emailCell = newRow.insertCell(1);
     let userTypeCell = newRow.insertCell(2);
-    idCell.innerHTML = `${user.user_id}`;
-    emailCell.innerHTML = `${user.user_email}`;
-    userTypeCell.innerHTML = `${user.account_type}`;
+    idCell.innerText = `${user.user_id}`;
+    emailCell.innerText = `${user.user_email}`;
+    userTypeCell.innerText = `${user.account_type}`;
   });
 
   // Add company head
   parseCompany.forEach(function(company){
   if (company.hasOwnProperty('user_head')) {
-      document.getElementById('user_head').innerHTML = `User head: ${company.user_head}`
+      document.getElementById('user_head').innerText = `User head: ${company.user_head}`
     }
     if (company.hasOwnProperty('company_name')) {
-      document.getElementById('company_table_name').innerHTML = `Company: ${company.company_name}`
+      document.getElementById('company_table_name').innerText = `Company: ${company.company_name}`
     }
   })
 }

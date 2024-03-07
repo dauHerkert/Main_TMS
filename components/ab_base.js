@@ -313,7 +313,7 @@ if(window.location.pathname == '/en/forgoten-password' || window.location.pathna
 
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'success-email-sent') {
   let forgot_password_email = localStorage.getItem('email');
-  document.getElementById('email_confirmation_text').innerHTML = `We sent a password reset link to <strong>${forgot_password_email}</strong>`;
+  document.getElementById('email_confirmation_text').innerText = `We sent a password reset link to <strong>${forgot_password_email}</strong>`;
 }
 
 /*=====================================================================================================================================================
@@ -385,9 +385,9 @@ window.addEventListener('load', function(){
   document.getElementById("langBtn").addEventListener("click", function(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (this.lastChild.innerHTML == 'EN') {
+    if (this.lastChild.innerText == 'EN') {
       changeLanguage("de");
-    } else if (this.lastChild.innerHTML == 'DE') {
+    } else if (this.lastChild.innerText == 'DE') {
       changeLanguage("en");
     }
     window.location.href = this.href; 

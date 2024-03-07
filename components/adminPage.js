@@ -819,7 +819,7 @@ export async function pageAdmin(user) {
 
   function updateFileLabel() {
     const fileName = document.getElementById('fileName');
-    fileName.innerHTML = updatedPicture.files[0].name;
+    fileName.innerText = updatedPicture.files[0].name;
   }
 
   // Start the webcam with WebcamJS

@@ -186,7 +186,7 @@ function updateProfilePic(e, user) {
 
 function updateFileLabel() {
   const fileName = document.getElementById("fileName");
-  fileName.innerHTML = updatedPicture.files[0].name;
+  fileName.innerText = updatedPicture.files[0].name;
 }
 
 if (update_picture_modal !== null) {
@@ -250,11 +250,11 @@ export async function pageAccount(user) {
   document.getElementById("new_user_lastname").value = `${userInfo.user_lastname}`;
   document.getElementById("new_user_address").value = `${userInfo.user_address}`;
   if (userInfo.user_company_name == undefined) {
-    document.getElementById("company_name").innerHTML = 'No company';
+    document.getElementById("company_name").innerText = 'No company';
   } else {
     const companies = userInfo.user_company_name.split(",");
     const firstCompany = companies[0];
-    document.getElementById("company_name").innerHTML = `${firstCompany}`;
+    document.getElementById("company_name").innerText = `${firstCompany}`;
   }
   if (userInfo.user_address == undefined) {
     document.getElementById("new_user_address").value = "No Address"

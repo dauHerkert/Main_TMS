@@ -203,17 +203,17 @@ export async function pageSupplier(user) {
     userInfo.user_company_name = companyNames;
   // Show displayName
   if (storedLang && storedLang === 'de') {
-    document.getElementById("supplier_user").innerHTML = `Willkommen ${userInfo.user_firstname} ${userInfo.user_lastname}`;
+    document.getElementById("supplier_user").innerText = `Willkommen ${userInfo.user_firstname} ${userInfo.user_lastname}`;
   } else {
-    document.getElementById("supplier_user").innerHTML = `Hello ${userInfo.user_firstname} ${userInfo.user_lastname}`;
+    document.getElementById("supplier_user").innerText = `Hello ${userInfo.user_firstname} ${userInfo.user_lastname}`;
   }
 
   if (userInfo.user_company_name == undefined) {
-    document.getElementById("company_name").innerHTML = 'No company';
+    document.getElementById("company_name").innerText = 'No company';
   } else {
     const companies = userInfo.user_company_name.split(",");
     const firstCompany = companies[0];
-    document.getElementById("company_name").innerHTML = `${firstCompany}`;
+    document.getElementById("company_name").innerText = `${firstCompany}`;
   }
   showProfilePic(user);
   getMinDate(user);
