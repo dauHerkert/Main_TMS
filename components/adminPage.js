@@ -488,7 +488,7 @@ export async function pageAdmin(user) {
         let promises = [];
         snapshot.docs.forEach((doc) => {
           let user = doc.data();
-          let admin = getAdminInfo(user);
+          let admin = getAdminInfo(doc);
           let basicAdm = '', companyAdm = '', superAdm = '';
           if (admin) {
             basicAdm = admin.basic_admin;
