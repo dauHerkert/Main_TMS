@@ -569,7 +569,7 @@ export async function pageAdmin(user) {
   let user_company_update = document.getElementById('userCompany');
   let admin_cred = document.getElementById('is_admin');
   let company_admin = document.getElementById('headUser');
-  let admin_selector = documment.getElementById('adminSelector');
+  let admin_selector = document.getElementById('adminSelector');
   let updated_dates = document.getElementById('Select-dates');
   let update_start_date = document.getElementById('Select-dates');
   let update_end_date = document.getElementById('Select-dates2');
