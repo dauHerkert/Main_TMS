@@ -1,6 +1,6 @@
 import { SUPPLIERSTARTDATE, SUPPLIERENDDATE, EVENTDATES,  URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, IMAGE_PROFILE, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { doc, db, collection, query, getDocs, getDoc, deleteDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
-import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, getAdminInfo, getAdminData, createOptions, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
@@ -489,6 +489,7 @@ export async function pageAdmin(user) {
         snapshot.docs.forEach((document) => {
           let user = document.data();
           let basicAdm = false, companyAdm = false, superAdm = false;
+          /*
           let admin = getDoc(doc(db, 'admin', document.id));
           if ( admin.exists ) {
             basicAdm = admin.basic_admin;
@@ -496,6 +497,12 @@ export async function pageAdmin(user) {
             superAdm = admin.super_admin;
             console.log("!!!!!!YES");
           }
+          */
+         let admin = getAdminData(document.id);
+         basicAdm = admin[0];
+         companyAdm = admin[1];
+         superAdm = admin[2];
+         console.log("user.user_fullname ", user.user_fullname)
 
           promises.push(changeCompanyNameToID(user).then(userCompanyName => {
             if (!user.user_deleted) { 
@@ -1091,8 +1098,8 @@ export async function pageAdmin(user) {
         }
 
         setDoc(adminRef, {
-          basic_admin: (String(basic_admin_update.value).toLowerCase() === 'true'),
-          company_admin: (String(company_admin.value).toLowerCase() === 'true'),
+          basic_admin: updateBasicAdmin,
+          company_admin: updateCompanyAdmin,
         }, { merge: true })
           .then(() => {
             toastr.success('Additional user updates added');
@@ -1248,7 +1255,6 @@ export async function pageAdmin(user) {
                 emailURL = supplier_application_accepted_url;
               }
             }
-            console.log('userData.data().language >>>>- ', userData.data().language);
 
             // TODO: review body modal-open
             // Application action email send
@@ -1634,7 +1640,7 @@ export async function pageAdmin(user) {
           }, 2000);
         })
         .catch((err) => {
-          console.log('error adding file >>>>> ', err);
+          console.log('error adding file ', err);
           toastr.error('There was an error adding the photo');
         });
     });

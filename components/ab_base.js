@@ -39,6 +39,15 @@ export async function getAdminInfo(user) {
   }
 }
 
+export async function getAdminData(userID) {
+  const typeRef = doc(db, 'admin', userID);
+  const typeSnap = await getDoc(typeRef);
+  if ( typeSnap.exists() ) {
+    return [typeSnap.data().basic_admin, typeSnap.data().company_admin, typeSnap.data().super_admin];
+  } else {
+    return [false, false, false];
+  }
+}
 /*=================================================================================================================================================================
 * This function translates the navigation menu items based on the selected language (storedLang). It selects the navigation links on the page and iterates over
 * each link, checking its text content. If the text matches specific labels (e.g., "Form," "Account," or "Sign Out"), it replaces the text with the corresponding
