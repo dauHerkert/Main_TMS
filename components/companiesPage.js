@@ -119,9 +119,13 @@ export async function pageCompaniesTable(user){
       {title: sendLinkLabel, width:195, cssClass:"center_col small_columns", formatter:function(cell, formatterParams){
         let value = cell.getValue();
         let button = document.createElement("button");
-        button.innerHTML = "<img class='button_img' src='" + URLASSETS + ICON_SENDMAIL + "'>";
         button.setAttribute("onclick","openModal5()");
         button.setAttribute("id","open_link_modal");
+        let image = document.createElement("img");
+        image.setAttribute("alt","Send Email");
+        image.setAttribute("class","button_img");
+        image.setAttribute("src",URLASSETS + ICON_SENDMAIL);
+        button.appendChild(image);
         return button;
       }},
       {title: updateLabel, width: 195, cssClass: "center_col tiny_columns", formatter: function(cell, formatterParams) {
@@ -130,9 +134,12 @@ export async function pageCompaniesTable(user){
         buttonContainer.setAttribute("class","actionBtnContainer");
 
         let editButton = document.createElement("button");
-        editButton.innerHTML = "<img src='" + URLASSETS + ICON_PENCIL + "' alt='Edit'/>";
         editButton.setAttribute("onclick", "openModal2()");
         editButton.setAttribute("id", "open_companies_modal");
+        let icon = document.createElement("img");
+        icon.setAttribute("alt","Edit");
+        icon.setAttribute("src",URLASSETS + ICON_PENCIL);
+        editButton.appendChild(icon);
 
         buttonContainer.appendChild(editButton);
 
