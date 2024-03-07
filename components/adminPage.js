@@ -1,6 +1,6 @@
 import { SUPPLIERSTARTDATE, SUPPLIERENDDATE, EVENTDATES,  URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, IMAGE_PROFILE, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import {doc, db, collection, query, getDocs, getDoc, deleteDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
-import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, getAdminInfo, getAdminInfo2, createOptions, changeAdminTypeTitle } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
@@ -488,7 +488,7 @@ export async function pageAdmin(user) {
         let promises = [];
         snapshot.docs.forEach((doc) => {
           let user = doc.data();
-          let admin = getAdminInfo(doc);
+          let admin = getAdminInfo2(doc.id);
           let basicAdm = '', companyAdm = '', superAdm = '';
           if (admin) {
             basicAdm = admin.basic_admin;
