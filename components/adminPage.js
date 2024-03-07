@@ -195,6 +195,7 @@ export async function pageAdmin(user) {
   const company_colRef = collection(db, 'companies');
   let searchInput = document.getElementById("search-input");
   const q = query(collection(db, "users"));
+  const adminTable = query(collection(db, "users"));
 
   // Function to fetch unique company names
   async function fetchUniqueCompanies(userInfo, adminInfo) {
@@ -481,6 +482,22 @@ export async function pageAdmin(user) {
     const basicAdmin = adminInfo.basic_admin;
     const adminCompanyName = userInfo.user_company;
     console.log('admin:', adminCompanyName);
+    let adminUsers = [];
+
+    getDocs(adminTable)
+      .then((snapshot) => {
+        snapshot.docs.forEach((document) => {
+          let user = document.data();
+          adminUsers.push({
+            id: document.id,
+            basic_admin: user.basic_admin,
+            company_admin: user.company_admin,
+            super_admin: user.super_admin
+          });
+        })
+      })
+
+      console.log("adminUsers ", adminUsers);
 
     getDocs(q)
       .then((snapshot) => {
@@ -497,12 +514,13 @@ export async function pageAdmin(user) {
             superAdm = admin.super_admin;
             console.log("!!!!!!YES");
           }
-          */
+          
          let admin = getAdminData(document.id);
          basicAdm = admin[0];
          companyAdm = admin[1];
          superAdm = admin[2];
          console.log("user.user_fullname ", user.user_fullname)
+         */
 
           promises.push(changeCompanyNameToID(user).then(userCompanyName => {
             if (!user.user_deleted) { 
