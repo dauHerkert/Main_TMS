@@ -490,7 +490,8 @@ export async function pageAdmin(user) {
           let user = document.data();
           let basicAdm = false, companyAdm = false, superAdm = false;
           let admin = getDoc(doc(db, 'admin', document.id));
-          if ( admin.exists() ) {
+          console.log("----->>>>>", admin);
+          if ( admin ) {
             basicAdm = admin.basic_admin;
             companyAdm = admin.company_admin;
             superAdm = admin.super_admin;
