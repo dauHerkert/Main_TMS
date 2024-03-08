@@ -1,5 +1,5 @@
 import { doc, setDoc, deleteDoc, auth, updateEmail, updatePassword, deleteUser, ref, getDownloadURL, uploadBytes, storage, db, getDocs, user, collection } from './a_firebaseConfig';
-import { getUserInfo } from './ab_base';
+import { getUserInfo, escapeHtml } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 
@@ -18,10 +18,10 @@ function updateUsername(user, newUsername, newUserLastname, newUserAddress) {
   }
 
   setDoc(userRef, {
-    user_firstname: newUsername.value,
-    user_lastname: newUserLastname.value,
-    user_fullname: user_fullname,
-    user_address: newUserAddress.value
+    user_firstname: escapeHtml(newUsername.value),
+    user_lastname: escapeHtml(newUserLastname.value),
+    user_fullname: escapeHtml(user_fullname),
+    user_address: escapeHtml(newUserAddress.value)
   }, { merge: true })
     .then(() => {
       toastr.success('Username has been successfully updated');
