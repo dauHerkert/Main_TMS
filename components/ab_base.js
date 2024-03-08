@@ -467,10 +467,11 @@ export async function changeAdminTypeTitle(user) {
 /*===================================================================================================================================
  * This function redirects from the "Home page" to the "Sign-in page"
  ====================================================================================================================================*/
-
+/*
 if(window.location.href == URLENV){
   window.location.href = URLENV + '/en/signin-ptgp' 
 }
+*/
 
 /*===================================================================================================================================
  * This function sanitize and escape HTML on strings to use for inputs
