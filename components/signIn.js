@@ -44,11 +44,12 @@ import toastr from 'toastr';
           }
 
           setTimeout(() => {
-            if (adminDocSnap.exists && (adminData.super_admin || adminData.company_admin || adminData.basic_admin)) {
-              window.location = urlLang + URLADMIN;
-            } else {
-              window.location = urlLang + URLACCOUNT;
+            if (adminDocSnap.exists) {
+              if (adminData.super_admin || adminData.company_admin || adminData.basic_admin) {
+                window.location = urlLang + URLADMIN;
+              }
             }
+            window.location = urlLang + URLACCOUNT;
           }, 1000);
         } else {
           toastr.error('user does not exist');
