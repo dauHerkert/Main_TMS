@@ -1,6 +1,6 @@
 import { URLENV, URLSIGNUP, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
-import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle, escapeHtml } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
@@ -210,9 +210,9 @@ export async function pageCompaniesTable(user){
     if (adminInfo.super_admin && company_id != null) {
       const companyRef = doc(db, 'companies', company_id.value);
       setDoc(companyRef, {
-        company_name: update_company.value,
-        company_zones: selectedNewZonesString,
-        company_profile: newCompanyProfile.value
+        company_name: escapeHtml(update_company.value),
+        company_profile: newCompanyProfile.value,
+        company_zones: selectedNewZonesString
       }, { merge: true })
       .then(() => {
         toastr.success('Company info has been successfully updated');
@@ -245,7 +245,7 @@ export async function pageCompaniesTable(user){
   async function createCompany() {
     try {
       const docRef = await addDoc(collection(db, "companies"), {
-        company_name: new_company_name.value,
+        company_name: escapeHtml(new_company_name.value),
         company_zones: selectedValuesString,
         company_profile: new_company_profile.value,
         company_type: '',
@@ -289,7 +289,7 @@ export async function pageCompaniesTable(user){
   async function createProfile() {
     console.log('New Profile Name: ', new_profile_name.value, ' - Zones: ', selectedProfileZones);
     const profileRef = await addDoc(collection(db, "profiles"), {
-      profile_name: new_profile_name.value,
+      profile_name: escapeHtml(new_profile_name.value),
       zones: selectedProfileZones,
     })
     .then(() => {
@@ -321,7 +321,7 @@ export async function pageCompaniesTable(user){
 
     async function createZone(){
       const zoneRef = await addDoc(collection(db, "zones"), {
-        zone: new_zone_name.value,
+        zone: escapeHtml(new_zone_name.value),
       })
       .then(() => {
         toastr.success('Zone has been successfully created');
