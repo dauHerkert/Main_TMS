@@ -1,6 +1,6 @@
 import { SUPPLIERSTARTDATE, SUPPLIERENDDATE, EVENTDATES,  URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, IMAGE_PROFILE, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { doc, db, collection, query, getDocs, getDoc, deleteDoc, setDoc, ref, getDownloadURL, addDoc, uploadBytes, storage, user } from './a_firebaseConfig';
-import { getUserInfo, getAdminInfo, getAdminData, createOptions, changeAdminTypeTitle } from './ab_base';
+import { getUserInfo, getAdminInfo, getAdminData, createOptions, changeAdminTypeTitle, escapeHtml } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 import Webcam from 'webcamjs'; 
@@ -950,9 +950,9 @@ export async function pageAdmin(user) {
             press_workspot: (String(update_workspace.value).toLowerCase() === 'true'),
             press_locker: (String(update_locker.value).toLowerCase() === 'true'),
             press_hotel_info: (String(update_hotel_info.value).toLowerCase() === 'true'),
-            press_card_number: update_card_number.value,
+            press_card_number: escapeHtml(update_card_number.value),
             press_media_type: update_media_type.value,
-            supplier_special_request: update_special_request.value
+            supplier_special_request: escapeHtml(update_special_request.value)
         }, { merge: true })
           .then(() => {
 
@@ -1088,9 +1088,9 @@ export async function pageAdmin(user) {
           user_company: selectedUserCompaniesString,
           user_type: userTypeUpdate.value,
           user_zones: selectedUserZonesString,
-          supplier_visit_dates: updated_dates.value,
-          supplier_start_date: update_start_date.value,
-          supplier_end_date: update_end_date.value,
+          supplier_visit_dates: escapeHtml(updated_dates.value),
+          supplier_start_date: escapeHtml(update_start_date.value),
+          supplier_end_date: escapeHtml(update_end_date.value),
         }, { merge: true })
           .then(() => {
             toastr.success('User updated correctly');
@@ -1551,11 +1551,13 @@ export async function pageAdmin(user) {
 
     if (adminInfo.basic_admin || adminInfo.company_admin || adminInfo.super_admin) {
       companyRef = await addDoc(collection(db, "users"), {
-        user_firstname: new_user_firstname.value,
-        user_lastname: new_user_lastname.value,
+        user_firstname: escapeHtml(new_user_firstname.value),
+        user_lastname: escapeHtml(new_user_lastname.value),
+        user_fullname: escapeHtml(new_user_fullname),
         account_type: new_user_account_type.value,
         user_company: newUserCompaniesString,
         user_type: new_user_profile.value,
+        user_zones: selectedCreateUserZonesString,
         user_status: 'Pending',
         confirmed_email: true,
         language: storedLang,
@@ -1574,8 +1576,6 @@ export async function pageAdmin(user) {
         user_phone:'',
         user_title:'',
         user_zip_code:'',
-        user_fullname: new_user_fullname,
-        user_zones: selectedCreateUserZonesString,
         supplier_start_date: SUPPLIERSTARTDATE,
         supplier_end_date: SUPPLIERENDDATE,
         user_deleted: false
