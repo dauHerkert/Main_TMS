@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://tms-main.webflow.io"],
+    "origin": ["https://credentials.porsche-tennis.com/"],
     "method": ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
     "maxAgeSeconds": 3600,
     "responseHeader": ["Content-Type", "Content-Length", "Content-Encoding", "Content-Disposition", "Access-Control-Allow-Origin"]
