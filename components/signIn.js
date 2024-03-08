@@ -44,10 +44,7 @@ import toastr from 'toastr';
             await updateDoc(userRef, { confirmed_email: true });
           }
 
-          console.log(">>>>> ", adminDocSnap);
-          console.log(">>>>> ", adminDocSnap);
-
-          if (adminDocSnap.exists) {
+          if (adminDocSnap.exists()) {
             if (adminData.super_admin || adminData.company_admin || adminData.basic_admin) {
               locationURL = urlLang + URLADMIN;
             }
