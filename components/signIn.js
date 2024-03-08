@@ -33,6 +33,7 @@ import toastr from 'toastr';
       const userID = params.get('user_id');
       const userData = docSnap.data();
       const adminData = adminDocSnap.data();
+      let locationURL = urlLang + URLACCOUNT;
 
       if (userID || userData.confirmed_email) {
         
@@ -43,13 +44,13 @@ import toastr from 'toastr';
             await updateDoc(userRef, { confirmed_email: true });
           }
 
-          setTimeout(() => {
-            if (adminDocSnap.exists) {
-              if (adminData.super_admin || adminData.company_admin || adminData.basic_admin) {
-                window.location = urlLang + URLADMIN;
-              }
+          if (adminDocSnap.exists) {
+            if (adminData.super_admin || adminData.company_admin || adminData.basic_admin) {
+              locationURL = urlLang + URLADMIN;
             }
-            window.location = urlLang + URLACCOUNT;
+          }
+          setTimeout(() => {
+            window.location = locationURL;
           }, 1000);
         } else {
           toastr.error('user does not exist');
