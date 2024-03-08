@@ -1,5 +1,6 @@
-import { DEVEMAIL, URLEMAILTEMPLATES, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
+import { PRESSCOMPANYID, DEVEMAIL, URLEMAILTEMPLATES, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { addDoc, collection, ref, uploadBytes, db, storage, user } from './a_firebaseConfig';
+import { escapeHtml } from './ab_base';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
 
@@ -42,25 +43,25 @@ function pressFormSubmit(e) {
   } else {
     const docRef = addDoc(pressFormRef, {
       user_title: press_title.value,
-      user_lastname: press_lastname.value,
-      user_firstname: press_firstname.value,
-      user_fullname: user_fullname,
+      user_lastname: escapeHtml(press_lastname.value),
+      user_firstname: escapeHtml(press_firstname.value),
+      user_fullname: escapeHtml(user_fullname),
       user_nationality: press_nationality.value,
       press_media_type: press_media_type.value,
-      press_media: press_media.value,
-      user_email: press_email.value,
-      user_address: press_address.value,
-      user_city: press_city.value,
-      user_zip_code: press_zip_code.value,
+      press_media: escapeHtml(press_media.value),
+      user_email: escapeHtml(press_email.value),
+      user_address: escapeHtml(press_address.value),
+      user_city: escapeHtml(press_city.value),
+      user_zip_code: escapeHtml(press_zip_code.valu),
       user_country: press_country.value,
-      user_phone: press_phone.value,
+      user_phone: escapeHtml(press_phone.value),
       user_itwa: press_itwa.value,
       press_workspot: press_workspace.value,
       press_locker: press_locker.value,
       press_hotel_info: press_hotel_info.value,
-      press_card_number: press_card_number.value,
+      press_card_number: escapeHtml(press_card_number.value),
       press_form_user: true,
-      user_company: 'vc5dzk77h7lqwrUQm9Ku',
+      user_company: PRESSCOMPANYID,
       account_type: 'Press',
       user_type: '',
       user_zones: '',
