@@ -355,12 +355,13 @@ let reloaded = false;
 
 function changeLanguage(lang) {
   const currentPath = window.location.pathname;
-  const isWelcomePage = currentPath.startsWith("/en/welcome") || currentPath.startsWith("/de/welcome");
+  const isWelcomePage = currentPath.startsWith("/en/welcome") || currentPath.startsWith("/");
   const isSignupPage = currentPath.startsWith("/en/signup") || currentPath.startsWith("/de/signup");
   const urlParams = new URLSearchParams(window.location.search);
   const companyId = urlParams.get("company");
 
   localStorage.setItem("language", lang);
+  /*
   let newPath = currentPath.replace(/^\/[a-z]{2}/, `/${lang}`);
 
   if (companyId && (isWelcomePage || isSignupPage)) {
@@ -372,6 +373,7 @@ function changeLanguage(lang) {
     reloaded = true;
     location.reload();
   }
+  */
 }
 
 let currentLang = 'en';
