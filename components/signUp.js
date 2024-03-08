@@ -2,7 +2,7 @@ import { DEFAULTCOMPANYID, EVENTDATES, URLEMAILTEMPLATES, URLENV, URLSIGNIN, fir
 import {doc,getDoc,setDoc,updateDoc,addDoc,collection,getDocs,ref,getDownloadURL,uploadBytes,deleteObject,createUserWithEmailAndPassword,auth,storage,db, user} from './a_firebaseConfig';
 import Cropper from 'cropperjs';
 import toastr from 'toastr';
-import { getUserInfo } from './ab_base';
+import { getUserInfo, escapeHtml } from './ab_base';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 
@@ -123,15 +123,15 @@ async function setDefaultFields(user) {
   const special_requests = document.getElementById('special_requests');
 
   if (user_firstname.value && user_lastname.value) {
-    userDefaultValues.user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
+    userDefaultValues.user_fullname = (escapeHtml(user_firstname.value) + escapeHtml(user_lastname.value)).toLowerCase().replace(/\s/g, '');
   }
-  userDefaultValues.supplier_start_date = start_date.value;
-  userDefaultValues.supplier_end_date = end_date.value;
+  userDefaultValues.supplier_start_date = escapeHtml(start_date.value);
+  userDefaultValues.supplier_end_date = escapeHtml(end_date.value);
   userDefaultValues.language = storedLang;
-  userDefaultValues.supplier_special_request = special_requests.value;
+  userDefaultValues.supplier_special_request = escapeHtml(special_requests.value);
   // Use the companyProfile variable to set the user_type field
   userDefaultValues.user_type = companyProfile;
-  userDefaultValues.user_email = user.email;
+  userDefaultValues.user_email = escapeHtml(user.email);
   userDefaultValues.user_id = user.uid;
   // Use the companyZones variable to set the user_zones field
   userDefaultValues.user_zones = companyZones;
@@ -255,7 +255,7 @@ function handleSignUp(e) {
     toastr.error('Please upload your profile picture')
   } else {
     if (password == confirm_password) {
-      createUserWithEmailAndPassword(auth, email, password)
+      createUserWithEmailAndPassword(auth, escapeHtml(email), password)
         .then(userCredential => {
           // Signed in
           const user = userCredential.user;
@@ -377,14 +377,14 @@ function userExtraInfo(e, user) {
   console.log('special_requests.value ', special_requests.value);
 
   setDoc(userRef, {
-    user_firstname: user_firstname.value,
-    user_lastname: user_lastname.value,
-    user_fullname: user_fullname,
+    user_firstname: escapeHtml(user_firstname.value),
+    user_lastname: escapeHtml(user_lastname.value),
+    user_fullname: escapeHtml(user_fullname),
     user_company: userCompanyValue,
     last_signin_date: new Date(),
-    supplier_start_date: start_date.value,
-    supplier_end_date: end_date.value,
-    supplier_special_request: special_requests.value,
+    supplier_start_date: escapeHtml(start_date.value),
+    supplier_end_date: escapeHtml(end_date.value),
+    supplier_special_request: escapeHtml(special_requests.value),
     language: language,
   }, { merge: true })
   .then((e) => {

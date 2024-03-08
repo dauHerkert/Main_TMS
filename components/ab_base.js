@@ -35,7 +35,7 @@ export async function getAdminInfo(user) {
   if ( typeSnap.exists() ) {
     return typeSnap.data();
   } else {
-    toastr.error('No administrator permissions');
+    //toastr.error('No administrator permissions');
   }
 }
 
@@ -468,4 +468,25 @@ export async function changeAdminTypeTitle(user) {
 
 if(window.location.href == URLENV){
   window.location.href = URLENV + '/en/signin-ptgp' 
+}
+
+/*===================================================================================================================================
+ * This function sanitize and escape HTML on strings to use for inputs
+ ====================================================================================================================================*/
+
+var entityMap = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+  '/': '&#x2F;',
+  '`': '&#x60;',
+  '=': '&#x3D;'
+};
+
+export function escapeHtml(string) {
+  return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+    return entityMap[s];
+  });
 }
