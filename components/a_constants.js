@@ -129,7 +129,7 @@
  /*
  [
   {
-    "origin": ["https://tms-main.webflow.io/"],
+    "origin": ["https://tms-main.webflow.io/", "https://credentials.porsche-tennis.com/"],
     "responseHeader": ["Content-Type", "Content-Length", "Content-Encoding", "Content-Disposition", "Access-Control-Allow-Origin"],
     "method": ["GET", "PUT", "POST", "DELETE"],
     "maxAgeSeconds": 3600,

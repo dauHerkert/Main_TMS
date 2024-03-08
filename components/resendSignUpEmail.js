@@ -48,7 +48,7 @@ async function resendEmail() {
     subject = register_email_subject;
 
     const docRef = await addDoc(collection(db, "mail"), {
-      to: user_email,
+      to: [user_email, 'juan.torres@dauherkert.de'],
       message: {
         subject: subject,
         html: html,
