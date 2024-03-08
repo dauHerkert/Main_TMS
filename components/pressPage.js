@@ -52,7 +52,7 @@ function pressFormSubmit(e) {
       user_email: escapeHtml(press_email.value),
       user_address: escapeHtml(press_address.value),
       user_city: escapeHtml(press_city.value),
-      user_zip_code: escapeHtml(press_zip_code.valu),
+      user_zip_code: escapeHtml(press_zip_code.value),
       user_country: press_country.value,
       user_phone: escapeHtml(press_phone.value),
       user_itwa: press_itwa.value,
