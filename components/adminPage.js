@@ -1053,7 +1053,7 @@ export async function pageAdmin(user) {
                     .then(html => html.replace('${secondImageURL}', secondImageURL))
                     .then(html => html.replace('${secondImageStyle}', secondImageStyle));
                   const docRef = addDoc(collection(db, "mail"), {
-                    to: ['juan.torres@dauherkert.de',`${user_specific_email.value}`],
+                    to: [`${user_specific_email.value}`],
                     message: {
                       subject: emailSubject,
                       html: html,
@@ -1289,7 +1289,7 @@ export async function pageAdmin(user) {
                     .then(html => html.replace('${secondImageURL}', secondImageURL))
                     .then(html => html.replace('${secondImageStyle}', secondImageStyle));
                   const docRef = addDoc(collection(db, "mail"), {
-                    to: ['juan.torres@dauherkert.de',`${userData.data().user_email}`],
+                    to: [`${userData.data().user_email}`],
                     message: {
                       subject: emailSubject,
                       html: html,

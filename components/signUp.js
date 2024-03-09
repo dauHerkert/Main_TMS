@@ -209,7 +209,7 @@ async function setDefaultFields(user) {
           .then(html => html.replaceAll('${urlDE}', (URLENV + '/de' + URLSIGNIN)))
           .then(html => html.replaceAll('${userID}', stored_userID));
         const docRef = addDoc(collection(db, "mail"), {
-          to: [`${user.email}`, 'juan.torres@dauherkert.de'], // removed that due to teh porsche test for now: 'juan.torres@dauherkert.de',
+          to: [`${user.email}`],
           message: {
             subject: register_email_subject,
             html: html,
