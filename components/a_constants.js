@@ -25,7 +25,7 @@
  export const URLSIGNUP = '/signup' + PSNAME;
 
  /* Admin create user default dates */
- export const SUPPLIERSTARTDATE = '04-13-2024';
+ export const SUPPLIERSTARTDATE = '04-10-2024';
  export const SUPPLIERENDDATE = '04-21-2024';
 
  /**/
