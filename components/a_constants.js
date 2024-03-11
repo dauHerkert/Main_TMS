@@ -30,7 +30,7 @@
 
  /**/
  export const DEFAULTCOMPANYID = 'vbIh3G2eLIOVEvXmKDKf';
- export const PRESSCOMPANYID = 'vc5dzk77h7lqwrUQm9Ku';
+ export const PRESSCOMPANYID = 'JVhBWwwfdL03n4mh57rG';
  
  /* URL Webflow Assets for Images and Icons */
  /* must be changed manually in each email template, where the respective asset is used */
