@@ -102,7 +102,6 @@ async function changeCompanyNameToID(user) {
   const companiesSnapshot = await getDocs(companiesRef);
   let companyNames = [];
   for (const company of companiesSnapshot.docs) {
-    console.log("company.id: ", company.id);
     if (user.user_company.includes(company.id)) {
       companyNames.push(company.data().company_name);
     }

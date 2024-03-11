@@ -160,6 +160,10 @@ async function setDefaultFields(user) {
   }
 
   let fullNameDisplay = `${user_firstname.value} ${user_lastname.value}`;
+  let urlCompany = new URL(window.location.href);
+  if (urlCompany.searchParams.has('company')){
+    userDefaultValues.user_company = currentUrl.searchParams.get('company');
+  }
 
 
   //Save the user info in case he wants to resend the email
