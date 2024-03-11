@@ -516,7 +516,7 @@ export async function pageCompaniesTable(user){
         try {
           const html = await fetch(registration_link_email_url)
             .then(response => response.text())
-            .then(html => html.replace('${registrationLink}', registrationLink))
+            .then(html => html.replaceAll('${registrationLink}', registrationLink))
             .then(html => html.replace('${firstImageURL}', firstImageURL))
             .then(html => html.replace('${firstImageStyle}', firstImageStyle))
             .then(html => html.replace('${secondImageURL}', secondImageURL))
