@@ -42,7 +42,7 @@ const userDefaultValues = {
   press_card_number:'',
 
   // User fields
-  user_company: DEFAULTCOMPANYID,
+  user_company:'',// DEFAULTCOMPANYID,
   user_email:'',
   user_id:'',
   user_title:'',
@@ -107,7 +107,7 @@ function generateTempId() {
 
 async function setDefaultFields(user) {
   const userRef = doc(db, 'users', user.uid);
-  ///////await updateDoc(userRef, { user_company: newUserCompaniesString });
+  await updateDoc(userRef, { user_company: newUserCompaniesString });
   // Use the `getCompanyType` function to get the company type and zones
   const { companyProfile, companyZones } = await getCompanyType(user);
   const userDoc = await getDoc(userRef);
@@ -371,6 +371,7 @@ function userExtraInfo(e, user) {
   const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
   console.log('user_firstname.value ', user_firstname.value);
   console.log('user_lastname.value ', user_lastname.value);
+  console.log('HAS COMPANY? ', currentUrl.searchParams.has('company'));
   console.log('userCompanyValue ', userCompanyValue);
   console.log('start_date.value ', start_date.value);
   console.log('end_date.value ', end_date.value);
