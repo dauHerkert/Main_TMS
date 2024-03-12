@@ -222,6 +222,12 @@ if (deleteButton) {
         toastr.success('User account deleted');
         return deleteDoc(doc(db, "users", user.uid));
       }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);
+        if (errorCode == 'auth/requires-recent-login') {
+          toastr.error('Please Sign Out and Sign back in to delete your user.');
+        }
         toastr.error('An error occurred while deleting the user account');
         console.error('An error occurred while deleting the user account', error);
       });
