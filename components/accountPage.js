@@ -225,11 +225,13 @@ if (deleteButton) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);
+
         if (errorCode == 'auth/requires-recent-login') {
           toastr.error('Please Sign Out and Sign back in to delete your user.');
+        } else {
+          toastr.error('An error occurred while deleting the user account');
+          console.error('An error occurred while deleting the user account', error);
         }
-        toastr.error('An error occurred while deleting the user account');
-        console.error('An error occurred while deleting the user account', error);
       });
       console.log("User's data deleted from Firestore");
     } catch (error) {
