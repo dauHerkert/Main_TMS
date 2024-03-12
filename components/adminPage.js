@@ -1521,7 +1521,6 @@ export async function pageAdmin(user) {
         const allOptions = create_user_zone.options;
         for (let i = 0; i < allOptions.length; i++) {
           const option = allOptions[i];
-          console.log('option ', option);
           if (adminZone.split(",").includes(option.value)) {
             option.selected = true;
           } else if (option.selected) {
