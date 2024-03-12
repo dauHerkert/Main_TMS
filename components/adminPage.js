@@ -130,8 +130,8 @@ export async function pageAdmin(user) {
       companies_table.style.display = 'block';
     }
     create_user_profile.style.display = 'block';
-    head_user.style.display = 'grid'; // TODO: Remove
-    select_user.style.display = 'flex';
+    //head_user.style.display = 'grid'; // TODO: Remove
+    //select_user.style.display = 'flex';
   }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------
