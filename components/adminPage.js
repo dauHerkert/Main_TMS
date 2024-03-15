@@ -1545,7 +1545,10 @@ export async function pageAdmin(user) {
         document.getElementById('new_user_profile').value = adminProfile;
         console.log('adminProfile ', adminProfile);
 
-        $('#new_user_profile').trigger('change'); 
+        // Create event
+        const changeEvent = new Event('change');
+        // Dispatch on input 
+        document.getElementById('new_user_profile').dispatchEvent(changeEvent);
 
         /*
         const adminProfileRef = doc(db, 'profiles', adminProfile);
