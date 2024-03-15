@@ -1529,6 +1529,36 @@ export async function pageAdmin(user) {
         }
       }
     }
+  } else if (adminInfo.company_admin) {
+    console.log(newUserCompaniesString);
+
+    const adminCompanyRef = doc(db, 'companies', newUserCompaniesString);
+    const adminCompanySnapshot = await getDoc(adminCompanyRef);
+    if (adminCompanySnapshot.exists()) {
+      const adminProfile = adminCompanySnapshot.data().company_profile;
+      document.getElementById('new_user_profile').value = adminProfile;
+      console.log('adminProfile ', adminProfile);
+
+      const adminProfileRef = doc(db, 'profiles', adminProfile);
+      const adminProfileSnapshot = await getDoc(adminProfileRef);
+      if (adminProfileSnapshot.exists()) {
+        const adminZone = adminProfileSnapshot.data().zones;
+        //document.getElementById('createUserZones').value = adminZone.split(",")[0];
+        console.log('adminZone ', adminZone);
+        console.log('adminZone ', adminZone.split(","));
+
+        // Update the options for the zones select
+        const allOptions = create_user_zone.options;
+        for (let i = 0; i < allOptions.length; i++) {
+          const option = allOptions[i];
+          if (adminZone.split(",").includes(option.value)) {
+            option.selected = true;
+          } else if (option.selected) {
+            option.selected = false;
+          }
+        }
+      }
+    }
   }
 
   async function createUser(user) {
