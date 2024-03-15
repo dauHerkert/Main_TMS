@@ -1456,49 +1456,51 @@ export async function pageAdmin(user) {
     var selectedNewUserCompanies = $(this).val();
     newUserCompaniesString = selectedNewUserCompanies.join(', ');
     console.log('company(s) selected', newUserCompaniesString);
-    companyAdminFields(newUserCompaniesString);
+    if (newUserCompaniesString && newUserCompaniesString != '') {
+      companyAdminFields(newUserCompaniesString);
+    }
   });
 
-  //Print companies select
-  getDocs(company_colRef)
-    .then((snapshot) => {
-      const companies = snapshot.docs.map((doc) => doc.data());
-      const sortedCompanies = companies.sort((a, b) => a.company_name.localeCompare(b.company_name));
-
-      sortedCompanies.forEach((company) => {
-        var opt = document.createElement('option');
-        opt.value = company.company_id;
-        opt.textContent = company.company_name;
-        // set admin company as default company 
-        if (userInfo.user_company != '' && company.company_id == userInfo.user_company) {
-          opt.selected = true;
-        }
-        new_user_company.appendChild(opt);
-      });
-    })
-    .catch((err) => {
-      console.log('error fetching companies', err);
-    });
-
-  //Print profiles select
-  getDocs(profilesRef)
-    .then((snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        let profile = doc.data();
-
-        var opt = document.createElement('option');
-        opt.value = doc.id;
-        opt.textContent = profile.profile_name;
-        new_user_profile.appendChild(opt);
-      });
-    })
-    .catch(err => {
-      console.log('error fetching companies', err);
-    })
-
-  let newUserCompany = document.getElementById('new_user_company');
   // Admins > basic_admin
   if (adminInfo.basic_admin) {
+    //Print companies select
+    getDocs(company_colRef)
+      .then((snapshot) => {
+        const companies = snapshot.docs.map((doc) => doc.data());
+        const sortedCompanies = companies.sort((a, b) => a.company_name.localeCompare(b.company_name));
+
+        sortedCompanies.forEach((company) => {
+          var opt = document.createElement('option');
+          opt.value = company.company_id;
+          opt.textContent = company.company_name;
+          // set admin company as default company 
+          if (userInfo.user_company != '' && company.company_id == userInfo.user_company) {
+            opt.selected = true;
+          }
+          new_user_company.appendChild(opt);
+        });
+      })
+      .catch((err) => {
+        console.log('error fetching companies', err);
+      });
+
+    //Print profiles select
+    getDocs(profilesRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          let profile = doc.data();
+
+          var opt = document.createElement('option');
+          opt.value = doc.id;
+          opt.textContent = profile.profile_name;
+          new_user_profile.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.log('error fetching companies', err);
+      })
+
+  
     // Dafault Admin data to create users
     console.log('userInfo.user_company ', userInfo.user_company);
     //newUserCompany.value = userInfo.user_company;
@@ -1543,6 +1545,9 @@ export async function pageAdmin(user) {
         document.getElementById('new_user_profile').value = adminProfile;
         console.log('adminProfile ', adminProfile);
 
+        $('#new_user_profile').trigger('change'); 
+
+        /*
         const adminProfileRef = doc(db, 'profiles', adminProfile);
         const adminProfileSnapshot = await getDoc(adminProfileRef);
         if (adminProfileSnapshot.exists()) {
@@ -1562,6 +1567,7 @@ export async function pageAdmin(user) {
             }
           }
         }
+        */
       }
     }
   }
