@@ -1520,7 +1520,7 @@ export async function pageAdmin(user) {
   }
   
   async function companyAdminFields(companySelected) {
-    if (adminInfo.company_admin) {
+    if (adminInfo.company_admin && adminInfo.super_admin) {
       console.log(companySelected);
 
       const adminCompanyRef = doc(db, 'companies', companySelected);
