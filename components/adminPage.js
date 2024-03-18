@@ -957,9 +957,9 @@ export async function pageAdmin(user) {
           .then(() => {
 
             // Applications - EN - Subjects and UI message Label
-            let application_rejected_subject = 'Accreditation Rejection';
+            let application_rejected_subject = 'Application rejected';
             let application_rejected_label = 'User registration declined';
-            let application_accepted_subject = 'Accreditation Confirmation';
+            let application_accepted_subject = 'Application accepted';
             let application_accepted_label = 'User registration accepted';
             // Applications - EN - Press Mr - URL
             let press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_EN;

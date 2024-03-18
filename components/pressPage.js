@@ -185,7 +185,7 @@ async function pressUploadImage(docId, storageRef) {
 
   let press_application_received_subject_admin = 'New Press Form Submited';
   // Subject for press - EN - application received
-  let press_application_received_subject = 'Application received';
+  let press_application_received_subject = 'Application credentials received';
   let form_mr_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSCONFIRMEMAIL_EN;
   let form_ms_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRMSCONFIRMEMAIL_EN;
   let form_diverse_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSECONFIRMEMAIL_EN;
@@ -196,7 +196,7 @@ async function pressUploadImage(docId, storageRef) {
   if (storedLang && storedLang === 'de') {
     urlLang = '/de';
     // Subject for press - DE - application received
-    press_application_received_subject = 'Antrag Eingegangen';
+    press_application_received_subject = 'Antrag zur Akkreditierung eingegangen';
     form_mr_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRCONFIRMEMAIL_DE;
     form_ms_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSCONFIRMEMAIL_DE;
     form_diverse_confirmation_email_to_admin_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSECONFIRMEMAIL_DE;
