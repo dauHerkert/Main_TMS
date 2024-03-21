@@ -18,6 +18,7 @@ $('#newCompanyZones, #companyZone, #profileZones').select2({closeOnSelect: false
 let storedLang = localStorage.getItem("language");
 
 export async function pageCompaniesTable(user){
+  let adminInfo = await getAdminInfo(user);
   changeAdminTypeTitle(user);
 
   const companyFilterSelect = document.getElementById("companies_profile");
@@ -77,7 +78,6 @@ export async function pageCompaniesTable(user){
   let sendLinkButtonLabel = 'SEND LINK';
   let link_lang = 'en';
   let userInfo = await getUserInfo(user);
-  let adminInfo = await getAdminInfo(user);
 
   if (storedLang && storedLang === 'de') {
     companyProfileLabel = 'FIRMA';

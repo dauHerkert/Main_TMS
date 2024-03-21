@@ -335,7 +335,7 @@ onAuthStateChanged(auth, (user) => {
 
   if (user) {
     // user is signed in
-    console.log(`The current user's UID is equal to ${user.uid}`);
+    //console.log(`The current user's UID is equal to ${user.uid}`);
     dispatchRequest(user);
     populateForms(user);
     showPrivateElements();
