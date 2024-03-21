@@ -568,7 +568,7 @@ export async function pageAdmin(user) {
       })
       .then(data => {
         // Filter and set user data for the table based on admin privileges and company
-        console.log(data, 'admin', adminCompanyName);
+        //console.log(data, 'admin', adminCompanyName);
         table.setData((companyAdmin || basicAdmin) ? data.filter(user => user.companyID && user.companyID != ' ' && user.companyID != '' && user.companyID.some(x => adminCompanyName.includes(x))) : data);
       })
       .catch(err => {
