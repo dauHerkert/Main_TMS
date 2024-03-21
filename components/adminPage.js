@@ -1117,6 +1117,7 @@ export async function pageAdmin(user) {
           //deleteDoc(doc(db, "admin", user_specific_id.value));
         }
 
+        /*
         setDoc(adminRef, {
           basic_admin: updateBasicAdmin,
           company_admin: updateCompanyAdmin,
@@ -1130,6 +1131,7 @@ export async function pageAdmin(user) {
             console.log('error updating account info', err);
             updatesSuccess = false;
           });
+          */
       }
 
       if (updatesSuccess) {
