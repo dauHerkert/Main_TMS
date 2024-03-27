@@ -13,6 +13,14 @@ function pressFormSubmit(e) {
   e.preventDefault();
   e.stopPropagation();
 
+  const submit_button = document.getElementById('submit_button');
+  const submit_loader = document.getElementById('submit_loader');
+  if (submit_button && submit_loader) {
+    submit_button.disabled = true;
+    submit_button.classList.add("disabled");
+    submit_loader.style.display = "block";
+  }
+
   const pressFormRef = collection(db, 'users');
   let press_title = document.getElementById('press_title');
   let press_lastname = document.getElementById('press_lastname');
@@ -77,11 +85,21 @@ function pressFormSubmit(e) {
         pressUploadImage(docRef.id, storageRef, press_image);
       } else {
         toastr.error('Please upload your press ID');
+        if (submit_button && submit_loader) {
+          submit_button.disabled = false;
+          submit_button.classList.remove("disabled");
+          submit_loader.style.display = "none";
+        }
       }
     })
     .catch((err) => {
       console.log('there was a problem updating the data', err);
       toastr.error('There was an error updating your info');
+      if (submit_button && submit_loader) {
+        submit_button.disabled = false;
+        submit_button.classList.remove("disabled");
+        submit_loader.style.display = "none";
+      }
     });
   }
 }
