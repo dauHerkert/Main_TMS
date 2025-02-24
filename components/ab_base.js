@@ -124,6 +124,7 @@ async function populateForms(user) {
   let adminInfo = await getAdminInfo(user);
   //const accountType_button = document.getElementById('account_user_profile');
   let navAdminDropdown = document.getElementById('admin_drop');
+  let navAdminDropdownCompanyLink = document.getElementById('companies_table_link');
   let storedLang = localStorage.getItem('language');
   let urlLang = '/en';
   if (storedLang && storedLang === 'de') {
@@ -138,9 +139,16 @@ async function populateForms(user) {
     if (adminInfo) {
       if (adminInfo.super_admin || adminInfo.company_admin || adminInfo.basic_admin) {
         if (navAdminDropdown) { navAdminDropdown.style.display = 'flex'; }
+        if (adminInfo.super_admin) {
+          if (navAdminDropdownCompanyLink) { navAdminDropdownCompanyLink.style.display = 'block'; }
+        } else {
+          if (navAdminDropdownCompanyLink) { navAdminDropdownCompanyLink.style.display = 'none'; }
+          if (window.location.pathname.includes('companies-table')) {
+            location.replace(urlLang + '/account');
+          }
+        }
       } else {
         if (window.location.pathname.includes('users-table') || window.location.pathname.includes('companies-table')) {
-          //TODO remove comment
           location.replace(urlLang + '/account');
         }
         if (navAdminDropdown) { navAdminDropdown.style.display = 'none'; }
@@ -387,6 +395,7 @@ window.addEventListener('load', function(){
     currentLang = storedLang;
   }
 
+  /*
   document.getElementById("langBtn").addEventListener("click", function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -397,6 +406,7 @@ window.addEventListener('load', function(){
     }
     window.location.href = this.href; 
   });
+  */
   
   updateLinks();
 });
@@ -491,8 +501,24 @@ var entityMap = {
   '=': '&#x3D;'
 };
 
+var entityMapLess = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+  '`': '&#x60;',
+  '=': '&#x3D;'
+};
+
 export function escapeHtml(string) {
   return String(string).replace(/[&<>"'`=\/]/g, function (s) {
     return entityMap[s];
+  });
+}
+
+export function escapeHtmlLess(string) {
+  return String(string).replace(/[&<>"'`=]/g, function (s) {
+    return entityMapLess[s];
   });
 }
