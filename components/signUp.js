@@ -43,6 +43,7 @@ const userDefaultValues = {
 
   // User fields
   user_company:'',// DEFAULTCOMPANYID,
+  user_firstcompany:'',
   user_email:'',
   user_id:'',
   user_title:'',
@@ -163,6 +164,7 @@ async function setDefaultFields(user) {
   let urlCompany = new URL(window.location.href);
   if (urlCompany.searchParams.has('company')){
     userDefaultValues.user_company = currentUrl.searchParams.get('company');
+    userDefaultValues.user_firstcompany = currentUrl.searchParams.get('company');
   }
 
 
@@ -343,6 +345,7 @@ if (select_company) {
       //newUserCompaniesString = selectedNewUserCompanies.join(', ');
       newUserCompaniesString = selectedNewUserCompanies;
       userDefaultValues.user_company = newUserCompaniesString;
+      userDefaultValues.user_firstcompany = newUserCompaniesString;
       console.log("Company(s) ID ->> ", newUserCompaniesString);
     });
   }
@@ -386,6 +389,7 @@ function userExtraInfo(e, user) {
     user_lastname: escapeHtml(user_lastname.value),
     user_fullname: escapeHtml(user_fullname),
     user_company: userCompanyValue,
+    user_firstcompany: userCompanyValue,
     last_signin_date: new Date(),
     supplier_start_date: escapeHtml(start_date.value),
     supplier_end_date: escapeHtml(end_date.value),

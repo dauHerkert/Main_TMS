@@ -44,6 +44,10 @@ import toastr from 'toastr';
             await updateDoc(userRef, { confirmed_email: true });
           }
 
+          if (userData.user_status === 'OldData') {
+            await updateDoc(userRef, { user_status: 'Pending' });
+          }
+
           if (adminDocSnap.exists()) {
             if (adminData.super_admin || adminData.company_admin || adminData.basic_admin) {
               locationURL = urlLang + URLADMIN;

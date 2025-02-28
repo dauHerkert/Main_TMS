@@ -70,6 +70,7 @@ function pressFormSubmit(e) {
       press_card_number: escapeHtml(press_card_number.value),
       press_form_user: true,
       user_company: PRESSCOMPANYID,
+      user_firstcompany: PRESSCOMPANYID,
       account_type: 'Press',
       user_type: '',
       user_zones: '',
@@ -338,7 +339,8 @@ export async function pagePress() {
       if (!this.value) {
         this.style.border = "2px solid red";
       } else {
-        this.style.border = "1px solid #cccccc";
+        this.style.border = "none";
+        this.style.borderBottom = "1px solid #cccccc";
       }
     });
   });
