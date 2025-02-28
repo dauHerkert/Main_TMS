@@ -392,7 +392,7 @@ export async function pageAdmin(user) {
     
     table.on("dataFiltering", function(filters){
       if(firstTableInitDone) {
-        currentFilters = {
+        let currentFilters = {
             company: table.getColumn("company").getHeaderFilterValue(),
             status: table.getColumn("status").getHeaderFilterValue(),
             account_type: table.getColumn("account_type").getHeaderFilterValue(),
