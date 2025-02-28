@@ -1,6 +1,6 @@
-import { URLENV, URLSIGNUP, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
+import { URLENV, URLSIGNUP, URLSIGNIN, URLEMAILTEMPLATES, URLASSETS, ICON_PENCIL, ICON_TRASH, ICON_SENDMAIL, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, query, where, db, storage, user } from './a_firebaseConfig';
-import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle, escapeHtml } from './ab_base';
+import { getUserInfo, getAdminInfo, createOptions, changeAdminTypeTitle, escapeHtml, escapeHtmlLess } from './ab_base';
 import toastr from 'toastr';
 import 'tabulator-tables/dist/js/tabulator.min.js';
 import 'tabulator-tables/dist/css/tabulator.min.css';
@@ -113,6 +113,7 @@ export async function pageCompaniesTable(user){
       }},
       {title:"ID", field:"id", sorter:"string", width:0, cssClass:"companyID hidden-column"},
       {title:"Company Profile", field:"company_profile", sorter:"string", width:0, cssClass:"companyProfile hidden-column"},
+      {title:"Company Meal", field:"company_meals", sorter:"string", width:0, cssClass:"companyMeals hidden-column"},
       {title: companyLabel, field:"company", sorter:"string", width:250, cssClass:"companyName first_column", headerFilter: "list"},
       {title: companyZoneLabel, field:"zone", sorter:"string", width:250, cssClass:"companyZone large_columns", headerFilter: "list"},
       {title:"User Head", field:"userHead", sorter:"string", width:0, cssClass:"userHead hidden-column"},
@@ -184,7 +185,7 @@ export async function pageCompaniesTable(user){
         let company = doc.data();
         let company_link_en = `${URLENV}en${URLSIGNUP}?company=${doc.id}`;
         let company_link_de = `${URLENV}de${URLSIGNUP}?company=${doc.id}`; 
-        data.push({companyLink: company_link_en,companyLinkDe: company_link_de, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
+        data.push({companyLink: company_link_en,companyLinkDe: company_link_de, company_meals: company.company_meals, company_profile: company.company_profile,  id:doc.id, userHead: company.user_head, company: company.company_name, zone: company.company_zones});
         if (adminInfo.super_admin) {
           companies_table.setData(data);
         } else {
@@ -201,6 +202,7 @@ export async function pageCompaniesTable(user){
   let company_id = document.getElementById('company_id');
   let update_company = document.getElementById('update_company');
   let newCompanyProfile = document.getElementById('newCompanyProfile');
+  let newCompanyMeals = document.getElementById('newCompanyMeals');
   let selectedNewZonesString;
 
   $('#newCompanyZones').on('change', function () {
@@ -214,9 +216,10 @@ export async function pageCompaniesTable(user){
     if (adminInfo.super_admin && company_id != null) {
       const companyRef = doc(db, 'companies', company_id.value);
       setDoc(companyRef, {
-        company_name: escapeHtml(update_company.value),
+        company_name: escapeHtmlLess(update_company.value),
         company_profile: newCompanyProfile.value,
-        company_zones: selectedNewZonesString
+        company_zones: selectedNewZonesString,
+        company_meals: (String(newCompanyMeals.value).toLowerCase() === 'true')
       }, { merge: true })
       .then(() => {
         toastr.success('Company info has been successfully updated');
@@ -235,6 +238,7 @@ export async function pageCompaniesTable(user){
   let create_company_form = document.getElementById('create_company_form');
   let new_company_name = document.getElementById('newCompanyName');
   let new_company_profile = document.getElementById('companyProfile');
+  let new_company_meals = document.getElementById('companyMeals');
   let new_company_type = document.getElementById('company_type');
   let companyZone = document.getElementById('companyZone');
   let selectedValuesString;
@@ -249,9 +253,10 @@ export async function pageCompaniesTable(user){
   async function createCompany() {
     try {
       const docRef = await addDoc(collection(db, "companies"), {
-        company_name: escapeHtml(new_company_name.value),
+        company_name: escapeHtmlLess(new_company_name.value),
         company_zones: selectedValuesString,
         company_profile: new_company_profile.value,
+        company_meals: (String(new_company_meals.value).toLowerCase() === 'true'),
         company_type: '',
         user_head: ''
       });
@@ -506,6 +511,8 @@ export async function pageCompaniesTable(user){
       let notification_UI_error = 'Error sending email: ';
 
       let registrationLink = `${company_link.value}`;
+      let login_link_en = `${URLENV}en${URLSIGNIN}`;
+      let login_link_de = `${URLENV}de${URLSIGNIN}`;
       
       if (storedLang && storedLang === 'de') {
         //Supplier form submited - DE
@@ -520,6 +527,8 @@ export async function pageCompaniesTable(user){
         try {
           const html = await fetch(registration_link_email_url)
             .then(response => response.text())
+            .then(html => html.replace('${loginLinkEn}', login_link_en))
+            .then(html => html.replace('${loginLinkDe}', login_link_de))
             .then(html => html.replace('${registrationLinkEn}', company_link.value))
             .then(html => html.replace('${registrationLinkDe}', company_link_de.value))
             .then(html => html.replace('${firstImageURL}', firstImageURL))

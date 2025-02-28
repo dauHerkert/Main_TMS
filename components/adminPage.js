@@ -14,6 +14,8 @@ $('#new_user_company, #createUserZones, #userCompany, #userZones').select2({clos
 
 let storedLang = localStorage.getItem("language");
 
+let picSource = '';
+
 //TODO: Make a centralized function for the email templates, with which to receive depending on the action (Edit a user - Bulk editing) the necessary variables and return the correct values.
 
 /*=============================================================================================================================================================
@@ -45,6 +47,29 @@ async function changeCompanyNameToID(user) {
     return companyNames.join(", ");
   } else {
     console.log("No company found with that ID");
+  }
+}
+
+async function changeCompanyNameToIDFromCompanyId(companyId) {
+  // Comprobar si companyId existe y no está vacío
+  if (companyId === "") {
+    return ""; // Puedes devolver cualquier valor predeterminado que necesites aquí
+  }
+  
+  //console.log("user:", user, "user.user_company:", user.user_company);
+
+  const companiesRef = collection(db, "companies");
+  const companiesSnapshot = await getDocs(companiesRef);
+  let companyNames = [];
+  for (const company of companiesSnapshot.docs) {
+    if (companyId === company.id) {
+      companyNames.push(company.data().company_name);
+    }
+  }
+  if (companyNames.length > 0) {
+    return companyNames[0];
+  } else {
+    return "";
   }
 }
 
@@ -112,6 +137,7 @@ export async function pageAdmin(user) {
     document.getElementById('company-filter').parentElement.style.display = 'none';
     document.getElementById('type-filter').parentElement.style.display = 'none';
     document.getElementById('new_user_company').parentElement.style.display = 'none';
+      //document.getElementById('new_user_company').parentElement.classList.add('input-field-hidden');
     document.getElementById('create_user_zones').style.display = 'none';
     document.getElementById('update_user_zones').style.display = 'none';
     document.getElementById('accepted_option').style.display = 'none';
@@ -158,7 +184,9 @@ export async function pageAdmin(user) {
     "Ok": "OK",
     "Declined": "DECLINED",
     "Pending": "PENDING",
-    "Printed": "PRINTED"
+    "Printed": "PRINTED",
+    "NoStatus": "NoStatus",
+    "OldData": "OldData"
   };
 
   let typeOptions = {
@@ -179,7 +207,9 @@ export async function pageAdmin(user) {
       "Ok": "OK",
       "Declined": "DECLINED",
       "Pending": "PENDING",
-      "Printed": "PRINTED"
+      "Printed": "PRINTED",
+      "NoStatus": "NoStatus",
+      "OldData": "OldData"
     };
 
     typeOptions = {
@@ -249,6 +279,8 @@ export async function pageAdmin(user) {
         {title:"Company Admin", field:"company_admin", sorter:"string", width:0, cssClass:"hidden-column"},
         {title:"Basic Admin", field:"basic_admin", sorter:"string", width:0, cssClass:"hidden-column"},
         {title:"companyID", field:"companyID", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"First company", field:"user_firstcompany", sorter:"string", width:0, cssClass:"hidden-column"},
+        {title:"First company Name", field:"user_firstcompany_name", sorter:"string", width:0, cssClass:"hidden-column"},
         {title:"User Zones", field:"user_zones", sorter:"string", width:0, cssClass:"hidden-column"},
         {title:"User Start Date", field:"user_start_date", sorter:"string", width:0, cssClass:"hidden-column"},
         {title:"User End Date", field:"user_end_date", sorter:"string", width:0, cssClass:"hidden-column"},
@@ -294,6 +326,12 @@ export async function pageAdmin(user) {
               } else if (value === "Printed") {
                 label = "Gedruckt";
                 color = "#2980B9";
+              } else if (value === "NoStatus" || value === "") {
+                label = "No Status";
+                color = "#808080";
+              } else if (value === "OldData") {
+                label = "Old Data";
+                color = "#2B2B2B";
               }
             } else {
               if (value === "Ok") {
@@ -308,6 +346,12 @@ export async function pageAdmin(user) {
               } else if (value === "Printed") {
                 label = "Printed";
                 color = "#2980B9";
+              } else if (value === "NoStatus" || value === "") {
+                label = "No Status";
+                color = "#808080";
+              } else if (value === "OldData") {
+                label = "Old Data";
+                color = "#2B2B2B";
               }
             }
             return '<div style="display:flex;align-items:center;justify-content:flex-start"><div style="width:12px;height:12px;border-radius:50%;background-color:' + color + ';margin-right:0px;"></div><div style="margin-left:6px;">' + label + '</div></div>';
@@ -544,6 +588,7 @@ export async function pageAdmin(user) {
                 basic_admin: basicAdm,
                 companyID: [user.user_company],
                 user_company: user.company,
+                user_firstcompany: user.user_firstcompany,
                 user_type: user.user_type,
                 account_type: user.account_type,
                 user_zones: user.user_zones,
@@ -561,6 +606,11 @@ export async function pageAdmin(user) {
                 zip: user.user_zip_code,
                 country: user.user_country,
                 phone: user.user_phone});
+            }
+          }),
+          changeCompanyNameToIDFromCompanyId(user.user_firstcompany).then(userCompanyName => {
+            if (!user.user_deleted) {
+              data[data.length - 1].user_firstcompany_name = userCompanyName
             }
           }));
         });
@@ -737,9 +787,14 @@ export async function pageAdmin(user) {
 
   const updatedPicture = document.getElementById('updated_picture');
   const hidden_input = document.getElementById('hidden_input2');
+  const create_hidden_input = document.getElementById('create_hidden_input2');
+  const update_picture_modal = document.getElementById('update_picture_modal');
+  const create_picture_modal = document.getElementById('create_picture_modal');
   const update_photo_modal = document.getElementById('update_photo_modal');
   let cropper = null;
+  let cropperCreate = null;
   let isPhotoUploaded = false;
+  let isPhotoUploadedCreate = false;
 
   if (updatedPicture) {
     updatedPicture.addEventListener('change', function handleProfilePic(e) {
@@ -902,6 +957,103 @@ export async function pageAdmin(user) {
       updateProfilePic2(ev, user);
     }, true);
   }
+
+  // -------------------------- Create User
+  
+  // Start the webcam with WebcamJS
+  function startWebcamCreate() {
+    // Destroy Cropper if exists
+    if (cropperCreate) {
+      cropperCreate.destroy();
+      cropperCreate = null;
+    }
+    Webcam.set({
+      width: 320,
+      height: 240,
+      dest_width: 640,
+      dest_height: 480,
+      image_format: 'png',
+    });
+
+    // Start camera
+    Webcam.attach('#camera_create');
+  }
+
+  // Take a picture with the webcam and open CropperJS
+  function takeSnapshotAndOpenCropperCreate() {
+    Webcam.snap(function(dataURL) {
+      // Initialize CropperJS with the captured image
+      const image = document.getElementById('create_image_cropper2');
+      image.src = dataURL;
+      cropperCreate = new Cropper(image, {
+        aspectRatio: 3 / 4,
+        width: 200,
+        height: 200,
+        viewMode: 1,
+        autoCropArea: 0.7,
+        responsive: true,
+        crop(event) {
+          // Get the cropped canvas data as a data URL
+          const canvas = cropperCreate.getCroppedCanvas();
+          const dataURL = canvas.toDataURL();
+          // Set the data URL as the value of the hidden input field
+          create_hidden_input.value = dataURL;
+        },
+      });
+      // Set the flag for successful photo upload
+      isPhotoUploadedCreate = true;
+      // Turn off the camera
+      Webcam.reset();
+    });
+  }
+
+  //Close the take picture modal. Create User
+  var webcam_modal_create = document.getElementById("take_picture_modal_create");
+  var webcam_create_close_button = document.getElementById("webcam_create_close_modal_button");
+
+  if (webcam_create_close_button || webcam_modal_create) {
+    webcam_create_close_button.onclick=function() {
+      webcam_modal_create.style.display="none";
+      Webcam.reset();
+    }
+  }
+
+  // Add the event listener to the button to start the webcam and take the photo. Create User
+  document.getElementById('create_snapshotButton').addEventListener('click', function() {
+    // Start the webcam
+    startWebcamCreate();
+    webcam_modal_create.style.display = 'flex';
+  });
+
+  // Add the button to take a photo and open CropperJS.
+  const snapshotBtnCreate = document.getElementById('take_photo_create');
+  snapshotBtnCreate.addEventListener('click', function() {
+    //takeSnapshotAndOpenCropperCreate();
+    webcam_modal_create.style.display = 'none';
+
+    Webcam.snap(function(dataURL) {
+      // Initialize CropperJS with the captured image
+      const image = document.getElementById('image_cropper_webcam');
+      image.src = dataURL;
+      cropperCreate = new Cropper(image, {
+        aspectRatio: 3 / 4,
+        width: 200,
+        height: 200,
+        viewMode: 1,
+        autoCropArea: 0.7,
+        responsive: true,
+        crop(event) {
+          // Get the cropped canvas data as a data URL
+          const canvas = cropperCreate.getCroppedCanvas();
+          const dataURL = canvas.toDataURL();
+          // Set the data URL as the value of the hidden input field
+          document.getElementById('hidden_input').value = dataURL;
+        },
+      });
+      // Turn off the camera
+      Webcam.reset();
+    });
+  });
 
 /*==================================================================================================================================================================
 * This function handles the form submission event for updating a user's information. It prevents the default form submission behavior and stops event propagation.
@@ -1084,8 +1236,21 @@ export async function pageAdmin(user) {
 
       if (adminInfo.company_admin || adminInfo.super_admin) {
 
+        let firstcompany;
+        let currentFirstCompany = document.getElementById('user_firstcompany_id').innerText;
+
+        if (selectedUserCompaniesString === '') {
+          firstcompany = currentFirstCompany;
+        } else if (selectedUserCompaniesString.includes(currentFirstCompany)) {
+          firstcompany = currentFirstCompany;
+        } else {
+          firstcompany = selectedUserCompaniesString.split(',');
+          firstcompany = firstcompany[0];
+        }
+
         setDoc(userRef, {
           user_company: selectedUserCompaniesString,
+          user_firstcompany: firstcompany,
           user_type: userTypeUpdate.value,
           user_zones: selectedUserZonesString,
           supplier_visit_dates: escapeHtml(updated_dates.value),
@@ -1541,7 +1706,11 @@ export async function pageAdmin(user) {
   }
 
   async function createUser(user) {
-    if (!upload_cropper) {
+    if (upload_cropper) { picSource = 'upload'}
+    if (cropperCreate) { picSource = 'webcam'}
+    console.log('>>>> ', picSource);
+
+    if (!upload_cropper && !cropperCreate) {
       toastr.error('Please select an image to upload');
       return;
     }
@@ -1551,6 +1720,8 @@ export async function pageAdmin(user) {
 
     let selectedNewUserCompanies = $('#new_user_company').val();
     newUserCompaniesString = selectedNewUserCompanies.join(', ');
+    let newUserFirstCompanyString = newUserCompaniesString.split(',');
+    newUserFirstCompanyString = newUserFirstCompanyString[0];
     console.log('company(s) selected', newUserCompaniesString);
 
     let storedLang = localStorage.getItem("language");
@@ -1564,6 +1735,7 @@ export async function pageAdmin(user) {
         user_fullname: escapeHtml(new_user_fullname),
         account_type: new_user_account_type.value,
         user_company: newUserCompaniesString,
+        user_firstcompany: newUserFirstCompanyString,
         user_type: new_user_profile.value,
         user_zones: selectedCreateUserZonesString,
         user_status: 'Pending',
@@ -1589,7 +1761,7 @@ export async function pageAdmin(user) {
         user_deleted: false
       })
         .then((companyRef) => {
-          userUploadImage(companyRef.id);
+          userUploadImage(companyRef.id, picSource);
           if (storedLang && storedLang === 'de') {
             toastr.success('Benutzer wurde erfolgreich erstellt');
           } else {
@@ -1651,8 +1823,14 @@ export async function pageAdmin(user) {
     });
   }
 
-  function userUploadImage(userID) {
-    const canvas = upload_cropper.getCroppedCanvas();
+  function userUploadImage(userID, picSource) {
+    let canvas;
+    if (picSource === 'upload') {
+      canvas = upload_cropper.getCroppedCanvas();
+    } else if (picSource === 'webcam') {
+      canvas = cropperCreate.getCroppedCanvas();
+    }
+
     const metadata = {
       contentType: 'image/png'
     };

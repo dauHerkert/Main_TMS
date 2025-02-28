@@ -75,7 +75,18 @@ function updateUserPassword(user, newPassword) {
       toastr.success('Password has been successfully updated');
     })
     .catch((error) => {
-      toastr.error('There was a problem updating the password', error);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('errorCode: errorMessage', errorCode, ': ', errorMessage);
+
+      if (errorCode == 'auth/requires-recent-login') {
+        toastr.error('Please Sign Out and Sign back in to update your password.');
+      } else if (errorCode == 'auth/weak-password') {
+        toastr.error('The password must contain at least 6 characters.');
+      } else {
+        toastr.error('There was a problem updating the password');
+        console.error('An error occurred while deleting the user account', error);
+      }
     });
 }
   
@@ -298,7 +309,12 @@ export async function pageAccount(user) {
         // Promesas de actualización
         var promises = [];
 
-        updateUsername(user, newUsername, newUserLastname, newUserAddress);
+        console.log('firstname ', userInfo.user_firstname !== newUsername.value, ' userInfo ', userInfo.user_firstname, ' new ', newUsername.value);
+        console.log('lastname ', userInfo.user_lastname !== newUserLastname.value, ' userInfo ', userInfo.user_lastname, ' new ', newUserLastname.value);
+
+        if (userInfo.user_firstname !== newUsername.value || userInfo.user_lastname !== newUserLastname.value) {
+          updateUsername(user, newUsername, newUserLastname, newUserAddress);
+        }
 
         // Esperar a que todas las promesas se resuelvan
         Promise.all(promises)
