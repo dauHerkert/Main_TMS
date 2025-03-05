@@ -375,10 +375,10 @@ function userExtraInfo(e, user) {
   if (user_firstname.value && user_lastname.value) {
     user_fullname = (user_firstname.value + user_lastname.value).toLowerCase().replace(/\s/g, '');
   }
-  const userCompanyValue = currentUrl.searchParams.has('company') ? currentUrl.searchParams.get('company') : select_company.value;
+  const userCompanyValue = (currentUrl.searchParams.has('company') && currentUrl.searchParams.get('company') != "null") ? currentUrl.searchParams.get('company') : select_company.value;
   console.log('user_firstname.value ', user_firstname.value);
   console.log('user_lastname.value ', user_lastname.value);
-  console.log('HAS COMPANY? ', currentUrl.searchParams.has('company'));
+  console.log('HAS COMPANY? ', (currentUrl.searchParams.has('company') && currentUrl.searchParams.get('company') != "null"));
   console.log('userCompanyValue ', userCompanyValue);
   console.log('start_date.value ', start_date.value);
   console.log('end_date.value ', end_date.value);
