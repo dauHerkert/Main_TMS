@@ -46,6 +46,22 @@ async function changeCompanyNameToID(user) {
     console.log("No company found with that ID");
   }
 }
+
+async function changefirstCompanyNameToID(user) {
+  const companiesRef = collection(db, "companies");
+  const companiesSnapshot = await getDocs(companiesRef);
+  let companyNames = [];
+  for (const company of companiesSnapshot.docs) {
+    if (user.user_firstcompany.includes(company.id)) {
+      companyNames.push(company.data().company_name);
+    }
+  }
+  if (companyNames.length > 0) {
+    return companyNames.join(", ");
+  } else {
+    console.log("No company found with that ID");
+  }
+}
   
 /*=================================================================================================================================================================
   * This function updates the user's email address. It uses the provided user object and the newEmail parameter, which contains the new email address. It uses the
@@ -260,7 +276,7 @@ if (deleteButton) {
 
 export async function pageAccount(user) {
   let userInfo = await getUserInfo(user);
-  const companyNames = await changeCompanyNameToID(userInfo);
+  const companyNames = await changefirstCompanyNameToID(userInfo);
   userInfo.user_company_name = companyNames;
   const userRef = doc(db, 'users', user.uid);
   // Populate form fields with values
