@@ -50,6 +50,27 @@ async function changeCompanyNameToID(user) {
   }
 }
 
+async function changefirstCompanyNameToID(user) {
+  if (!user.user_firstcompany || user.user_firstcompany.trim() === "") {
+    console.log("User does not have a user_company");
+    return "No company"; // Puedes devolver cualquier valor predeterminado que necesites aquí
+  }
+
+  const companiesRef = collection(db, "companies");
+  const companiesSnapshot = await getDocs(companiesRef);
+  let companyNames = [];
+  for (const company of companiesSnapshot.docs) {
+    if (user.user_firstcompany.includes(company.id)) {
+      companyNames.push(company.data().company_name);
+    }
+  }
+  if (companyNames.length > 0) {
+    return companyNames.join(", ");
+  } else {
+    console.log("No company found with that ID");
+  }
+}
+
 async function changeCompanyNameToIDFromCompanyId(companyId) {
   // Comprobar si companyId existe y no está vacío
   if (companyId === "") {
@@ -102,7 +123,7 @@ export async function pageAdmin(user) {
   let userInfo = await getUserInfo(user);
   let adminInfo = await getAdminInfo(user);
   const userRef = doc(db, 'users', user.uid);
-  const companyNames = await changeCompanyNameToID(userInfo);
+  const companyNames = await changefirstCompanyNameToID(userInfo);
   userInfo.user_company_name = companyNames;
   
   if (userInfo.user_company_name == undefined) {
