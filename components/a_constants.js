@@ -26,12 +26,14 @@
  export const URLSIGNUP = '/signup' + PSNAME;
 
  /* Admin create user default dates */
- export const SUPPLIERSTARTDATE = '04-09-2025';
- export const SUPPLIERENDDATE = '04-21-2025';
+ export const SUPPLIERSTARTDATE = '04-08-2026';
+ export const SUPPLIERENDDATE = '04-19-2026';
 
  /**/
  export const DEFAULTCOMPANYID = 'vbIh3G2eLIOVEvXmKDKf';
  export const PRESSCOMPANYID = 'JVhBWwwfdL03n4mh57rG';
+ export const PRESSCOMPANYPROFILE = ''; // Pr2 - Press TODO define 2026 Press profiles
+ export const PRESSCOMPANYZONES = ''; // 'Offices, Technician, Press' - TODO define 2026 Press zones
  
  /* URL Webflow Assets for Images and Icons */
  /* must be changed manually in each email template, where the respective asset is used */

@@ -1,4 +1,4 @@
-import { PRESSCOMPANYID, DEVEMAIL, URLEMAILTEMPLATES, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
+import { PRESSCOMPANYID, PRESSCOMPANYPROFILE, PRESSCOMPANYZONES, DEVEMAIL, URLEMAILTEMPLATES, firstImageURL, firstImageStyle, secondImageURL, secondImageStyle } from './a_constants';
 import { addDoc, collection, ref, uploadBytes, db, storage, user } from './a_firebaseConfig';
 import { escapeHtml } from './ab_base';
 import Cropper from 'cropperjs';
@@ -68,12 +68,13 @@ function pressFormSubmit(e) {
       press_locker: press_locker.value,
       press_hotel_info: press_hotel_info.value,
       press_card_number: escapeHtml(press_card_number.value),
+      press_user_created: new Date(),
       press_form_user: true,
       user_company: PRESSCOMPANYID,
       user_firstcompany: PRESSCOMPANYID,
       account_type: 'Press',
-      user_type: '',
-      user_zones: '',
+      user_type: PRESSCOMPANYPROFILE,
+      user_zones: PRESSCOMPANYZONES,
       user_status: 'Pending',
       confirmed_email: true,
       language: language,
@@ -81,6 +82,8 @@ function pressFormSubmit(e) {
     }, { merge: true })
       .then((docRef) => {
       const press_image = document.getElementById('press_image');
+      console.log('file init cropper ' + press_image.files[0]);
+      console.log('file size init cropper ' + press_image.files[0].size);
       if (press_image.files.length > 0) {
         const storageRef = ref(storage, `profiles/${docRef.id}`);
         pressUploadImage(docRef.id, storageRef, press_image);
@@ -115,6 +118,7 @@ const hiddenPressInput = document.getElementById('hidden_press_img');
 const press_crop_modal = document.getElementById("crop_modal");
 let press_cropper;
 let imageLoaded = false;
+let imageFile;
 
 function handlePressPic(e) {
   e.preventDefault();
@@ -166,10 +170,14 @@ function handlePressPic(e) {
       });
     };
 
+    console.log('file after cropper ' + press_image.files[0]);
+    console.log('file size after cropper ' + press_image.files[0].size);
+    imageFile = press_image.files[0];
+
     // Auto close the cropper
     const isMobile = window.innerWidth <= 800;
     if (isMobile) {
-      press_crop_modal.style.display = "none";
+      //press_crop_modal.style.display = "none";
     }
   } else {
     toastr.error('Please choose an image file.');
@@ -245,10 +253,11 @@ async function pressUploadImage(docId, storageRef) {
       if (!blob) {
         console.error('Failed to generate Blob object.');
         console.log('Using raw file instead');
-        fileToUpload = file;
+        fileToUpload = imageFile;// file;
       } else {
         fileToUpload = blob;
         console.log('Using blob to upload');
+        console.log('Image Size:', blob.size);
       }
 
       console.log('fileToUpload', fileToUpload);
