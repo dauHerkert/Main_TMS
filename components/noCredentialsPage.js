@@ -9,6 +9,7 @@ export async function pageNoCredentials(user) {
 
   let userInfo = await getUserInfo(user);
   let adminInfo = await getAdminInfo(user);
+  let storedLang = localStorage.getItem("language");
 
   /*==================================================================================================================================================================
    * Page context labels
