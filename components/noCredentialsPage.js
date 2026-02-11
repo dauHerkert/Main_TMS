@@ -40,6 +40,7 @@ export async function pageNoCredentials(user) {
   let blocked_user_role = document.getElementById('blocked_user_role');
   let blocked_user_department = document.getElementById('blocked_user_department');
   let blocked_user_reason = document.getElementById('blocked_user_reason');
+  let blocked_user_date_added = document.getElementById('blocked_user_date_added');
 
   async function createBlockedUser(user) {
     if (blocked_user_firstname.value && blocked_user_lastname.value) {
@@ -58,6 +59,7 @@ export async function pageNoCredentials(user) {
         user_role: escapeHtml(blocked_user_role),
         user_department: escapeHtml(blocked_user_department),
         blocking_reason: escapeHtml(blocked_user_reason),
+        date_added: escapeHtml(blocked_user_date_added),
         user_ids: '',
         account_types: '',
         user_statuses: '',
@@ -93,11 +95,15 @@ export async function pageNoCredentials(user) {
 
   let tableFirstnameLabel = 'NAME';
   let tableLastnameLabel = 'LAST NAME';
+  let tableDateAddedLabel = 'DATE ADDED';
+  let tableTimesFoundLabel = 'TIMES FOUND';
   let updateLabel = 'ACTION';
 
   if (storedLang && storedLang === 'de') {
     tableFirstnameLabel = 'VORNAME';
     tableLastnameLabel = 'NACHNAME';
+    tableDateAddedLabel = 'DATE ADDED'; // TODO translate
+    tableTimesFoundLabel = 'TIMES FOUND'; // TODO translate
     updateLabel = 'AKTION';
   }
 
@@ -112,7 +118,9 @@ export async function pageNoCredentials(user) {
     paginationCounter:"rows",
     columns:[
       {title: tableFirstnameLabel, field:"firstname", sorter:"string", width:250, cssClass:"first_column", headerFilter: "list"},
-      {title: tableLastnameLabel, field:"lastname", sorter:"string", width:250, cssClass:"other_columns", headerFilter: "list"}
+      {title: tableLastnameLabel, field:"lastname", sorter:"string", width:250, cssClass:"other_columns", headerFilter: "list"},
+      {title: tableDateAddedLabel, field:"dateAdded", width:250, cssClass:"other_columns"},
+      {title: tableTimesFoundLabel, field:"timesFound", width:250, cssClass:"other_columns"}
       /*
       {title: updateLabel, width: 195, cssClass: "center_col tiny_columns", formatter: function(cell, formatterParams) {
         let value = cell.getValue();
@@ -149,7 +157,7 @@ export async function pageNoCredentials(user) {
       let data = [];
       snapshot.docs.forEach((doc) => {
         let blockedUser = doc.data();
-        data.push({firstname: blockedUser.user_firstname, lastname: blockedUser.user_lastname});
+        data.push({firstname: blockedUser.user_firstname, lastname: blockedUser.user_lastname, dateAdded: blockedUser.date_added, timesFound: blockedUser.times_found});
         if (adminInfo.super_admin) {
           blocked_users_table.setData(data);
         } else {
@@ -212,7 +220,7 @@ export async function pageNoCredentials(user) {
    * Trigger Blocked user creation
   ===================================================================================================================================================================*/
 
-  create_user_form.addEventListener('submit', async (e) => {
+  create_blocked_user_form.addEventListener('submit', async (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (adminInfo.super_admin) {
