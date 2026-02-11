@@ -3,7 +3,7 @@
  ====================================================================================================================================*/
 
  const PSNAME = '-ptgp'; // Project slug name
- export const DEVEMAIL = ['juan.torres@dauherkert.de', 'niklas.diet@dauherkert.de']; // Dev admin email ['juan.torres@dauherkert.de', 'niklas.diet@dauherkert.de']
+ export const DEVEMAIL = ['juan.torres@dauherkert.de']; // Dev admin email ['juan.torres@dauherkert.de']
 
  /* Authorized event dates */
  export const EVENTDATES = {

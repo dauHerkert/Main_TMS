@@ -7,6 +7,7 @@ import { pageAccount } from './accountPage';
 import { pageSupplier } from './supplierPage';
 import { pageAdmin } from './adminPage';
 import { pageCompaniesTable } from './companiesPage';
+import { pageNoCredentials } from './noCredentialsPage';
 import toastr from 'toastr';
 
 /*==================================================================================================================================================================
@@ -264,6 +265,8 @@ function checkUrlParameter() {
       pageAdmin(user);
     } else if (url.substring(url.lastIndexOf('/') + 1) == 'companies-table') {
       pageCompaniesTable(user);
+    } else if (url.substring(url.lastIndexOf('/') + 1) == 'blocked-users-table') {
+      pageNoCredentials(user);
     }
   }
 }
