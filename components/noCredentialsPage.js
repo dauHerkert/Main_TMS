@@ -112,7 +112,7 @@ export async function pageNoCredentials(user) {
     paginationCounter:"rows",
     columns:[
       {title: tableFirstnameLabel, field:"firstname", sorter:"string", width:250, cssClass:"first_column", headerFilter: "list"},
-      {title: companyZoneLabel, field:"lastname", sorter:"string", width:250, cssClass:"other_columns", headerFilter: "list"}
+      {title: tableLastnameLabel, field:"lastname", sorter:"string", width:250, cssClass:"other_columns", headerFilter: "list"}
       /*
       {title: updateLabel, width: 195, cssClass: "center_col tiny_columns", formatter: function(cell, formatterParams) {
         let value = cell.getValue();
