@@ -3,9 +3,9 @@
  ====================================================================================================================================*/
 
  const PSNAME = '-ptgp'; // Project slug name
- export const DEVEMAIL = ['juan.torres@dauherkert.de']; // Dev admin email ['juan.torres@dauherkert.de']
+ export const DEVEMAIL = ['juan.torres@dauherkert.de', 'mugnestoficial@gmail.com']; // Dev admin email ['juan.torres@dauherkert.de']
 
- /* Authorized event dates */
+ /* Authorized event dates - Deprecated */
  export const EVENTDATES = {
   MINDATE_DAY: 30,
   MINDATE_MONTH: 4,
@@ -31,8 +31,8 @@
  /**/
  export const DEFAULTCOMPANYID = 'vbIh3G2eLIOVEvXmKDKf';
  export const PRESSCOMPANYID = 'JVhBWwwfdL03n4mh57rG';
- export const PRESSCOMPANYPROFILE = ''; // Pr2 - Press TODO define 2026 Press profiles
- export const PRESSCOMPANYZONES = ''; // 'Offices, Technician, Press' - TODO define 2026 Press zones
+ export const PRESSCOMPANYPROFILE = '7Vfl3ShUrYg7ZLomDUwZ'; // Pr2 - Press TODO define 2026 Press profiles
+ export const PRESSCOMPANYZONES = 'General Accesspoint / Village Accesspoint, Pressstands, Level 3'; // 'Offices, Technician, Press' - TODO define 2026 Press zones
  
  /* URL Webflow Assets for Images and Icons */
  /* must be changed manually in each email template, where the respective asset is used */
