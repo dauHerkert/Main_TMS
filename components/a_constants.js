@@ -15,8 +15,8 @@
  
  /* Environment Domain */
  /* needs to be changed manually on storage.cors.json */
- //export const URLENV = 'https://credentials.porsche-tennis.com/';
- export const URLENV = 'https://tms-main.webflow.io/';
+ export const URLENV = 'https://credentials.porsche-tennis.com/';
+ //export const URLENV = 'https://tms-main.webflow.io/';
  
  /* URL Pages */
  export const URLACCOUNT = '/account';
