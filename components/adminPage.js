@@ -1418,11 +1418,46 @@ export async function pageAdmin(user) {
 
   let selectedData = [];
   console.log(selectedData);
+  const BULK_DELETE_VALUE = 'Delete';
+  const bulk_status_select = document.getElementById('bulk_status');
+  if (bulk_status_select) {
+    const hasBulkDeleteOption = Array.from(bulk_status_select.options).some((option) => option.value === BULK_DELETE_VALUE);
+    if (!hasBulkDeleteOption) {
+      const bulkDeleteOption = document.createElement('option');
+      bulkDeleteOption.value = BULK_DELETE_VALUE;
+      bulkDeleteOption.textContent = (storedLang && storedLang === 'de') ? 'LÖSCHEN' : 'DELETE';
+      bulk_status_select.appendChild(bulkDeleteOption);
+    }
+  }
   //Bulk users update
   async function bulkUserUpdate(selectedData) {
     let bulk_user_form = document.getElementById('bulk_user_form');
     let bulk_status_update = document.getElementById('bulk_status');
     const bulk_send_email = document.getElementById('bulk_send_email')
+
+    if (bulk_status_update.value === BULK_DELETE_VALUE) {
+      try {
+        for (let i = 0; i < selectedData.length; i++) {
+          const userRef = doc(db, 'users', selectedData[i]);
+          await setDoc(userRef, {
+            user_deleted: true,
+            confirmed_email: false
+          }, { merge: true });
+        }
+        if (storedLang && storedLang === 'de') {
+          toastr.success('Benutzer erfolgreich gelöscht');
+        } else {
+          toastr.success('Users successfully deleted');
+        }
+        setTimeout(function() {
+          window.location.reload();
+        }, 2000);
+      } catch (err) {
+        toastr.error('There was an error deleting the users');
+        console.log('error deleting users', err);
+      }
+      return;
+    }
 
     for (let i = 0; i < selectedData.length; i++) {
       const userRef = doc(db, 'users', selectedData[i]);
