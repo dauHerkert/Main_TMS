@@ -1419,14 +1419,17 @@ export async function pageAdmin(user) {
   let selectedData = [];
   console.log(selectedData);
   const BULK_DELETE_VALUE = 'Delete';
+  const ENABLE_BULK_DELETE_OPTION = false;
   const bulk_status_select = document.getElementById('bulk_status');
   if (bulk_status_select) {
-    const hasBulkDeleteOption = Array.from(bulk_status_select.options).some((option) => option.value === BULK_DELETE_VALUE);
-    if (!hasBulkDeleteOption) {
-      const bulkDeleteOption = document.createElement('option');
-      bulkDeleteOption.value = BULK_DELETE_VALUE;
-      bulkDeleteOption.textContent = (storedLang && storedLang === 'de') ? 'LÖSCHEN' : 'DELETE';
-      bulk_status_select.appendChild(bulkDeleteOption);
+    const bulkDeleteOption = Array.from(bulk_status_select.options).find((option) => option.value === BULK_DELETE_VALUE);
+    if (ENABLE_BULK_DELETE_OPTION && !bulkDeleteOption) {
+      const bulkDeleteOptionEl = document.createElement('option');
+      bulkDeleteOptionEl.value = BULK_DELETE_VALUE;
+      bulkDeleteOptionEl.textContent = (storedLang && storedLang === 'de') ? 'LÖSCHEN' : 'DELETE';
+      bulk_status_select.appendChild(bulkDeleteOptionEl);
+    } else if (!ENABLE_BULK_DELETE_OPTION && bulkDeleteOption) {
+      bulkDeleteOption.remove();
     }
   }
   //Bulk users update
