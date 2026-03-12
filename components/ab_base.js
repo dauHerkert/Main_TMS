@@ -322,6 +322,69 @@ if(window.location.pathname == '/en/forgoten-password' || window.location.pathna
   })
 };
 
+if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'forgoten-password-copy') {
+  const email = document.getElementById('email_address-copy') || document.querySelector('#forgot_password-copy input[type="email"]');
+  const resetPasswordCopy = document.getElementById('forgot_password-copy');
+  const submitEmailCopy = document.getElementById('submit_email_copy');
+  const storedLang = localStorage.getItem('language');
+  let urlLang = '/en';
+
+  if (storedLang && storedLang === 'de') {
+    urlLang = '/de';
+  }
+
+  if (resetPasswordCopy && email) {
+    resetPasswordCopy.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const endpoint = resetPasswordCopy.dataset.resetEndpoint || '/.netlify/functions/send-reset-password';
+      localStorage.setItem('email', JSON.stringify(email.value));
+
+      if (submitEmailCopy) {
+        submitEmailCopy.setAttribute('disabled', 'disabled');
+      }
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email.value,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Reset request failed with status ${response.status}`);
+        }
+
+        const payload = await response.json().catch(() => ({}));
+        if (payload && payload.ok === false) {
+          throw new Error(payload.error || 'Reset request failed');
+        }
+
+        toastr.success('Email has been sent!');
+        setTimeout(function() {
+          window.location.pathname = urlLang + '/success-email-sent';
+        }, 2000);
+      } catch (error) {
+        console.log('send-reset-password failed:', error);
+        if (storedLang && storedLang === 'de') {
+          toastr.error('Es ist ein Fehler aufgetreten');
+        } else {
+          toastr.error('There was an error');
+        }
+      } finally {
+        if (submitEmailCopy) {
+          submitEmailCopy.removeAttribute('disabled');
+        }
+      }
+    });
+  }
+}
+
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == 'success-email-sent') {
   let forgot_password_email = localStorage.getItem('email');
   document.getElementById('email_confirmation_text').innerText = 'We sent a password reset link to ';
