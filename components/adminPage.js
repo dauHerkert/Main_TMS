@@ -1466,8 +1466,9 @@ export async function pageAdmin(user) {
       return;
     }
 
-    const statusValue = bulk_status_update.value;
-    const applyStatus = (statusValue !== '' && statusValue !== BULK_STATUS_NO_CHANGE_VALUE);
+    const statusValue = (bulk_status_update.value || '').trim();
+    const validBulkStatusValues = new Set(['Ok', 'Declined', 'Pending', 'Printed', 'NoStatus', 'OldData', BULK_DELETE_VALUE]);
+    const applyStatus = (statusValue !== '' && statusValue !== BULK_STATUS_NO_CHANGE_VALUE && validBulkStatusValues.has(statusValue));
     const bulkStartDateValue = bulk_start_date ? bulk_start_date.value.trim() : '';
     const bulkEndDateValue = bulk_end_date ? bulk_end_date.value.trim() : '';
     const hasAnyDateValue = (bulkStartDateValue !== '' || bulkEndDateValue !== '');
@@ -1518,7 +1519,7 @@ export async function pageAdmin(user) {
     const updates = {};
 
     if (applyStatus) {
-      if (statusValue === '' || statusValue === BULK_STATUS_NO_CHANGE_VALUE) {
+      if (statusValue === '' || statusValue === BULK_STATUS_NO_CHANGE_VALUE || !validBulkStatusValues.has(statusValue)) {
         if (storedLang && storedLang === 'de') {
           toastr.error('Bitte waehle einen gueltigen Status aus');
         } else {
