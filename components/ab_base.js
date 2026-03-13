@@ -356,13 +356,10 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
           }),
         });
 
-        if (!response.ok) {
-          throw new Error(`Reset request failed with status ${response.status}`);
-        }
-
         const payload = await response.json().catch(() => ({}));
-        if (payload && payload.ok === false) {
-          throw new Error(payload.error || 'Reset request failed');
+        if (!response.ok || (payload && payload.ok === false)) {
+          const details = payload && payload.code ? ` (${payload.code})` : '';
+          throw new Error((payload.error || `Reset request failed with status ${response.status}`) + details);
         }
 
         toastr.success('Email has been sent!');

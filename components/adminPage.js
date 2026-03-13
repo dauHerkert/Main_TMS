@@ -1419,9 +1419,21 @@ export async function pageAdmin(user) {
   let selectedData = [];
   console.log(selectedData);
   const BULK_DELETE_VALUE = 'Delete';
+  const BULK_STATUS_NO_CHANGE_VALUE = '__NO_CHANGE__';
   const ENABLE_BULK_DELETE_OPTION = false;
   const bulk_status_select = document.getElementById('bulk_status');
   if (bulk_status_select) {
+    const bulkNoChangeOption = Array.from(bulk_status_select.options).find((option) => option.value === BULK_STATUS_NO_CHANGE_VALUE);
+    if (!bulkNoChangeOption) {
+      const bulkNoChangeOptionEl = document.createElement('option');
+      bulkNoChangeOptionEl.value = BULK_STATUS_NO_CHANGE_VALUE;
+      bulkNoChangeOptionEl.textContent = (storedLang && storedLang === 'de') ? 'Keine Aenderung' : 'No change';
+      bulk_status_select.insertBefore(bulkNoChangeOptionEl, bulk_status_select.firstChild);
+    }
+    if (!bulk_status_select.value) {
+      bulk_status_select.value = BULK_STATUS_NO_CHANGE_VALUE;
+    }
+
     const bulkDeleteOption = Array.from(bulk_status_select.options).find((option) => option.value === BULK_DELETE_VALUE);
     if (ENABLE_BULK_DELETE_OPTION && !bulkDeleteOption) {
       const bulkDeleteOptionEl = document.createElement('option');
@@ -1434,14 +1446,37 @@ export async function pageAdmin(user) {
   }
   //Bulk users update
   async function bulkUserUpdate(selectedData) {
-    let bulk_user_form = document.getElementById('bulk_user_form');
-    let bulk_status_update = document.getElementById('bulk_status');
-    const bulk_send_email = document.getElementById('bulk_send_email')
+    const bulk_status_update = document.getElementById('bulk_status');
+    const bulk_send_email = document.getElementById('bulk_send_email');
+    const bulk_start_date = document.getElementById('bulk-Select-dates');
+    const bulk_end_date = document.getElementById('bulk-Select-dates2');
+    const selectedUsers = [...new Set(selectedData.filter((id) => id))];
 
-    if (bulk_status_update.value === BULK_DELETE_VALUE) {
+    if (!bulk_status_update) {
+      toastr.error('Bulk status input not found');
+      return;
+    }
+
+    if (selectedUsers.length === 0) {
+      if (storedLang && storedLang === 'de') {
+        toastr.error('Bitte waehle mindestens einen Benutzer aus');
+      } else {
+        toastr.error('Please select at least one user');
+      }
+      return;
+    }
+
+    const statusValue = bulk_status_update.value;
+    const applyStatus = (statusValue !== '' && statusValue !== BULK_STATUS_NO_CHANGE_VALUE);
+    const bulkStartDateValue = bulk_start_date ? bulk_start_date.value.trim() : '';
+    const bulkEndDateValue = bulk_end_date ? bulk_end_date.value.trim() : '';
+    const hasAnyDateValue = (bulkStartDateValue !== '' || bulkEndDateValue !== '');
+    const hasBothDateValues = (bulkStartDateValue !== '' && bulkEndDateValue !== '');
+
+    if (applyStatus && statusValue === BULK_DELETE_VALUE) {
       try {
-        for (let i = 0; i < selectedData.length; i++) {
-          const userRef = doc(db, 'users', selectedData[i]);
+        for (let i = 0; i < selectedUsers.length; i++) {
+          const userRef = doc(db, 'users', selectedUsers[i]);
           await setDoc(userRef, {
             user_deleted: true,
             confirmed_email: false
@@ -1462,135 +1497,194 @@ export async function pageAdmin(user) {
       return;
     }
 
-    for (let i = 0; i < selectedData.length; i++) {
-      const userRef = doc(db, 'users', selectedData[i]);
-      const userData = await getDoc(userRef);
-      if (userData.exists) {
-        setDoc(userRef, {
-          user_status: bulk_status_update.value,
-        }, { merge: true })
-          .then(() => {
-
-            // Applications - EN - Subjects and UI message Label
-            let application_rejected_subject = 'Application rejected';
-            let application_rejected_label = 'User registration declined';
-            let application_accepted_subject = 'Application accepted';
-            let application_accepted_label = 'User registration accepted';
-            // Applications - EN - Press Mr - URL
-            let press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_EN;
-            let press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_EN;
-            // Applications - EN - Press Ms - URL
-            let press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_EN;
-            let press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_EN;
-            // Applications - EN - Press Diverse - URL
-            let press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_EN;
-            let press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_EN;
-            // Applications - EN - Supplier - URL
-            let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
-            let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
-
-            // URL By Language - Admin
-            if (storedLang && storedLang === 'de') {
-              application_rejected_label = 'Benutzerregistrierung abgelehnt';
-              application_accepted_label = 'Benutzerregistrierung akzeptiert';
-            }
-
-            // URL By Language
-            if (userData.data().language && userData.data().language == 'de') {
-              // Applications - DE - Subjects and UI message Label
-              application_rejected_subject = 'Akkreditierung Ablehnung';
-              application_accepted_subject = 'Akkreditierungsbestätigung';
-              // Applications - DE - Press Mr - URL
-              press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
-              press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
-              // Applications - DE - Press Ms - URL
-              press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_DE;
-              press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_DE;
-              // Applications - DE - Press Diverse - URL
-              press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_DE;
-              press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_DE;
-              // Applications - DE - Supplier - URL
-              supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_DE;
-              supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_DE;
-            }
-
-            // URL By Gender - Mr
-            let genderPressRejectedURL = press_mr_application_rejected_url;
-            let genderPressAcceptedURL = press_mr_application_accepted_url;
-            if (userData.data().user_title == 'Ms') {
-              // URL By Gender - Ms
-              genderPressRejectedURL = press_ms_application_rejected_url;
-              genderPressAcceptedURL = press_ms_application_accepted_url;
-            } else if (userData.data().user_title == 'Diverse') {
-              // URL By Gender - Diverse
-              genderPressRejectedURL = press_diverse_application_rejected_url;
-              genderPressAcceptedURL = press_diverse_application_accepted_url;
-            }
-
-            // Final Email info - Application Accepted
-            let emailSubject = application_accepted_subject;
-            let emailLabel = application_accepted_label;
-            var emailURL = genderPressAcceptedURL;
-            let fullName = `${userData.data().user_firstname} ${userData.data().user_lastname}`;
-            let lastName = `${userData.data().user_lastname}`;
-            let nameToDisplay = lastName;
-
-            // Final Email info - Application Rejected
-            if (bulk_status_update.value == 'Declined') {
-              emailSubject = application_rejected_subject;
-              emailLabel = application_rejected_label;
-            }
-
-            if (userData.data().account_type == "Press") {
-              if (bulk_status_update.value == 'Declined') {
-                emailURL = genderPressRejectedURL;
-              }
-            } else {
-              nameToDisplay = fullName;
-              if (bulk_status_update.value == 'Declined') {
-                emailURL = supplier_application_rejected_url;
-              } else {
-                emailURL = supplier_application_accepted_url;
-              }
-            }
-
-            // TODO: review body modal-open
-            // Application action email send
-            (async () => {
-              if (bulk_send_email.checked && bulk_status_update.value != 'Pending') {
-                try {
-                  const html = await fetch(emailURL)
-                    .then(response => response.text())
-                    .then(html => html.replaceAll('${fullName}', nameToDisplay))
-                    .then(html => html.replace('${firstImageURL}', firstImageURL))
-                    .then(html => html.replace('${firstImageStyle}', firstImageStyle))
-                    .then(html => html.replace('${secondImageURL}', secondImageURL))
-                    .then(html => html.replace('${secondImageStyle}', secondImageStyle));
-                  const docRef = addDoc(collection(db, "mail"), {
-                    to: [`${userData.data().user_email}`],
-                    message: {
-                      subject: emailSubject,
-                      html: html,
-                    }
-                  });
-                  console.log("Document written with ID: ", docRef.id);
-                } catch (e) {
-                  console.error("Error adding document: ", e);
-                }
-              }
-              toastr.success(emailLabel);
-              document.getElementById('update_user_modal').style.display = 'none';
-              $('body').css("overflow", "unset");
-            })();
-            setTimeout(function() {
-              window.location.reload();
-            }, 2000);
-          })
-          .catch((err) => {
-              toastr.error('There was an error updating the users info');
-              console.log('error updating users info', err);
-          });
+    const parseMMDDYYYY = (value) => {
+      const dateParts = value.split('-');
+      if (dateParts.length !== 3) {
+        return null;
       }
+      const month = parseInt(dateParts[0], 10);
+      const day = parseInt(dateParts[1], 10);
+      const year = parseInt(dateParts[2], 10);
+      if (Number.isNaN(month) || Number.isNaN(day) || Number.isNaN(year)) {
+        return null;
+      }
+      const parsedDate = new Date(year, month - 1, day);
+      if (parsedDate.getFullYear() !== year || parsedDate.getMonth() !== month - 1 || parsedDate.getDate() !== day) {
+        return null;
+      }
+      return parsedDate;
+    };
+
+    const updates = {};
+
+    if (applyStatus) {
+      if (statusValue === '' || statusValue === BULK_STATUS_NO_CHANGE_VALUE) {
+        if (storedLang && storedLang === 'de') {
+          toastr.error('Bitte waehle einen gueltigen Status aus');
+        } else {
+          toastr.error('Please select a valid status');
+        }
+        return;
+      }
+      updates.user_status = statusValue;
+    }
+
+    if (hasAnyDateValue && !hasBothDateValues) {
+      if (storedLang && storedLang === 'de') {
+        toastr.error('Bitte waehle Start- und Enddatum fuer das Bulk-Update');
+      } else {
+        toastr.error('Please select start and end dates for the bulk update');
+      }
+      return;
+    }
+
+    if (hasBothDateValues) {
+      const startDateParsed = parseMMDDYYYY(bulkStartDateValue);
+      const endDateParsed = parseMMDDYYYY(bulkEndDateValue);
+      if (!startDateParsed || !endDateParsed || endDateParsed < startDateParsed) {
+        if (storedLang && storedLang === 'de') {
+          toastr.error('Bitte gib einen gueltigen Datumsbereich ein');
+        } else {
+          toastr.error('Please provide a valid date range');
+        }
+        return;
+      }
+      updates.supplier_start_date = bulkStartDateValue;
+      updates.supplier_end_date = bulkEndDateValue;
+    }
+
+    if (Object.keys(updates).length === 0) {
+      if (storedLang && storedLang === 'de') {
+        toastr.info('Keine Aenderungen zum Anwenden ausgewaehlt');
+      } else {
+        toastr.info('No changes selected to apply');
+      }
+      return;
+    }
+
+    let hasUpdateErrors = false;
+
+    for (let i = 0; i < selectedUsers.length; i++) {
+      const userRef = doc(db, 'users', selectedUsers[i]);
+      const userData = await getDoc(userRef);
+      if (!userData.exists()) {
+        continue;
+      }
+
+      try {
+        const userDataValues = userData.data();
+        await setDoc(userRef, updates, { merge: true });
+
+        if (updates.user_status && bulk_send_email && bulk_send_email.checked && updates.user_status !== 'Pending' && userDataValues.user_status !== updates.user_status) {
+          // Applications - EN - Subjects and UI message Label
+          let application_rejected_subject = 'Application rejected';
+          let application_accepted_subject = 'Application accepted';
+          // Applications - EN - Press Mr - URL
+          let press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_EN;
+          let press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_EN;
+          // Applications - EN - Press Ms - URL
+          let press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_EN;
+          let press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_EN;
+          // Applications - EN - Press Diverse - URL
+          let press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_EN;
+          let press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_EN;
+          // Applications - EN - Supplier - URL
+          let supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_EN;
+          let supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_EN;
+
+          // URL By Language
+          if (userDataValues.language && userDataValues.language == 'de') {
+            // Applications - DE - Subjects and UI message Label
+            application_rejected_subject = 'Akkreditierung Ablehnung';
+            application_accepted_subject = 'Akkreditierungsbestätigung';
+            // Applications - DE - Press Mr - URL
+            press_mr_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONREJECT_DE;
+            press_mr_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMRAPPLICATIONACCEPT_DE;
+            // Applications - DE - Press Ms - URL
+            press_ms_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONREJECT_DE;
+            press_ms_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLMSAPPLICATIONACCEPT_DE;
+            // Applications - DE - Press Diverse - URL
+            press_diverse_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONREJECT_DE;
+            press_diverse_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLDIVERSEAPPLICATIONACCEPT_DE;
+            // Applications - DE - Supplier - URL
+            supplier_application_rejected_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONREJECT_DE;
+            supplier_application_accepted_url = URLEMAILTEMPLATES.URLEMAILFOLDER + URLEMAILTEMPLATES.URLSUPPLIERAPPLICATIONACCEPT_DE;
+          }
+
+          // URL By Gender - Mr
+          let genderPressRejectedURL = press_mr_application_rejected_url;
+          let genderPressAcceptedURL = press_mr_application_accepted_url;
+          if (userDataValues.user_title == 'Ms') {
+            // URL By Gender - Ms
+            genderPressRejectedURL = press_ms_application_rejected_url;
+            genderPressAcceptedURL = press_ms_application_accepted_url;
+          } else if (userDataValues.user_title == 'Diverse') {
+            // URL By Gender - Diverse
+            genderPressRejectedURL = press_diverse_application_rejected_url;
+            genderPressAcceptedURL = press_diverse_application_accepted_url;
+          }
+
+          // Final Email info - Application Accepted
+          let emailSubject = application_accepted_subject;
+          let emailURL = genderPressAcceptedURL;
+          let fullName = `${userDataValues.user_firstname} ${userDataValues.user_lastname}`;
+          let lastName = `${userDataValues.user_lastname}`;
+          let nameToDisplay = lastName;
+
+          // Final Email info - Application Rejected
+          if (updates.user_status == 'Declined') {
+            emailSubject = application_rejected_subject;
+          }
+
+          if (userDataValues.account_type == "Press") {
+            if (updates.user_status == 'Declined') {
+              emailURL = genderPressRejectedURL;
+            }
+          } else {
+            nameToDisplay = fullName;
+            if (updates.user_status == 'Declined') {
+              emailURL = supplier_application_rejected_url;
+            } else {
+              emailURL = supplier_application_accepted_url;
+            }
+          }
+
+          try {
+            const html = await fetch(emailURL)
+              .then(response => response.text())
+              .then(html => html.replaceAll('${fullName}', nameToDisplay))
+              .then(html => html.replace('${firstImageURL}', firstImageURL))
+              .then(html => html.replace('${firstImageStyle}', firstImageStyle))
+              .then(html => html.replace('${secondImageURL}', secondImageURL))
+              .then(html => html.replace('${secondImageStyle}', secondImageStyle));
+            const docRef = await addDoc(collection(db, "mail"), {
+              to: [`${userDataValues.user_email}`],
+              message: {
+                subject: emailSubject,
+                html: html,
+              }
+            });
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+        }
+      } catch (err) {
+        hasUpdateErrors = true;
+        toastr.error('There was an error updating the users info');
+        console.log('error updating users info', err);
+      }
+    }
+
+    if (!hasUpdateErrors) {
+      if (storedLang && storedLang === 'de') {
+        toastr.success('Benutzer erfolgreich aktualisiert');
+      } else {
+        toastr.success('Users successfully updated');
+      }
+      setTimeout(function() {
+        window.location.reload();
+      }, 2000);
     }
   }
   document.getElementById("bulk_user_form").addEventListener("submit", function(e){

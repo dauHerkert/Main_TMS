@@ -42,8 +42,9 @@ exports.handler = async (event) => {
     }
 
     const { email } = JSON.parse(event.body || '{}');
+    const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : '';
 
-    if (!email || typeof email !== 'string') {
+    if (!normalizedEmail) {
       return {
         statusCode: 400,
         headers: CORS_HEADERS,
@@ -58,10 +59,10 @@ exports.handler = async (event) => {
 
     const resetLink = await admin
       .auth()
-      .generatePasswordResetLink(email, actionCodeSettings);
+      .generatePasswordResetLink(normalizedEmail, actionCodeSettings);
 
     await sgMail.send({
-      to: email,
+      to: normalizedEmail,
       from: {
         email: process.env.RESET_FROM_EMAIL,
         name: process.env.RESET_FROM_NAME,
@@ -82,12 +83,18 @@ exports.handler = async (event) => {
       body: JSON.stringify({ ok: true }),
     };
   } catch (error) {
-    console.error('send-reset-password error:', error);
+    const errorCode = error?.code || error?.response?.body?.errors?.[0]?.message || 'unknown_error';
+    const errorMessage = error?.message || 'Unexpected error';
+    console.error('send-reset-password error:', { errorCode, errorMessage });
 
     return {
-      statusCode: 200,
+      statusCode: 500,
       headers: CORS_HEADERS,
-      body: JSON.stringify({ ok: true }),
+      body: JSON.stringify({
+        ok: false,
+        error: 'Reset email could not be sent',
+        code: errorCode,
+      }),
     };
   }
 };
