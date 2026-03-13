@@ -1421,6 +1421,36 @@ export async function pageAdmin(user) {
   const BULK_DELETE_VALUE = 'Delete';
   const BULK_STATUS_NO_CHANGE_VALUE = '__NO_CHANGE__';
   const ENABLE_BULK_DELETE_OPTION = false;
+  let isBulkUpdating = false;
+  const bulk_user_form = document.getElementById('bulk_user_form');
+  const bulk_submit_button = bulk_user_form
+    ? bulk_user_form.querySelector('button[type="submit"], input[type="submit"]')
+    : null;
+
+  function setBulkUpdateLoadingState(isLoading) {
+    if (!bulk_submit_button) {
+      return;
+    }
+
+    const isInputSubmit = bulk_submit_button.tagName.toLowerCase() === 'input';
+    const currentLabel = isInputSubmit ? bulk_submit_button.value : bulk_submit_button.textContent;
+    if (!bulk_submit_button.dataset.defaultLabel && currentLabel) {
+      bulk_submit_button.dataset.defaultLabel = currentLabel;
+    }
+
+    bulk_submit_button.disabled = isLoading;
+    bulk_submit_button.style.opacity = isLoading ? '0.7' : '';
+    bulk_submit_button.style.cursor = isLoading ? 'not-allowed' : '';
+
+    const loadingLabel = (storedLang && storedLang === 'de') ? 'Aktualisiere...' : 'Updating...';
+    const defaultLabel = bulk_submit_button.dataset.defaultLabel || currentLabel || '';
+    if (isInputSubmit) {
+      bulk_submit_button.value = isLoading ? loadingLabel : defaultLabel;
+    } else {
+      bulk_submit_button.textContent = isLoading ? loadingLabel : defaultLabel;
+    }
+  }
+
   const bulk_status_select = document.getElementById('bulk_status');
   if (bulk_status_select) {
     const bulkNoChangeOption = Array.from(bulk_status_select.options).find((option) => option.value === BULK_STATUS_NO_CHANGE_VALUE);
@@ -1446,6 +1476,7 @@ export async function pageAdmin(user) {
   }
   //Bulk users update
   async function bulkUserUpdate(selectedData) {
+    let reloadScheduled = false;
     const bulk_status_update = document.getElementById('bulk_status');
     const bulk_send_email = document.getElementById('bulk_send_email');
     const bulk_start_date = document.getElementById('bulk-Select-dates');
@@ -1454,7 +1485,7 @@ export async function pageAdmin(user) {
 
     if (!bulk_status_update) {
       toastr.error('Bulk status input not found');
-      return;
+      return false;
     }
 
     if (selectedUsers.length === 0) {
@@ -1463,7 +1494,7 @@ export async function pageAdmin(user) {
       } else {
         toastr.error('Please select at least one user');
       }
-      return;
+      return false;
     }
 
     const statusValue = (bulk_status_update.value || '').trim();
@@ -1491,11 +1522,12 @@ export async function pageAdmin(user) {
         setTimeout(function() {
           window.location.reload();
         }, 2000);
+        reloadScheduled = true;
       } catch (err) {
         toastr.error('There was an error deleting the users');
         console.log('error deleting users', err);
       }
-      return;
+      return reloadScheduled;
     }
 
     const parseMMDDYYYY = (value) => {
@@ -1522,11 +1554,11 @@ export async function pageAdmin(user) {
       if (statusValue === '' || statusValue === BULK_STATUS_NO_CHANGE_VALUE || !validBulkStatusValues.has(statusValue)) {
         if (storedLang && storedLang === 'de') {
           toastr.error('Bitte waehle einen gueltigen Status aus');
-        } else {
-          toastr.error('Please select a valid status');
-        }
-        return;
+      } else {
+        toastr.error('Please select a valid status');
       }
+      return false;
+    }
       updates.user_status = statusValue;
     }
 
@@ -1536,7 +1568,7 @@ export async function pageAdmin(user) {
       } else {
         toastr.error('Please select start and end dates for the bulk update');
       }
-      return;
+      return false;
     }
 
     if (hasBothDateValues) {
@@ -1548,7 +1580,7 @@ export async function pageAdmin(user) {
         } else {
           toastr.error('Please provide a valid date range');
         }
-        return;
+        return false;
       }
       updates.supplier_start_date = bulkStartDateValue;
       updates.supplier_end_date = bulkEndDateValue;
@@ -1560,7 +1592,7 @@ export async function pageAdmin(user) {
       } else {
         toastr.info('No changes selected to apply');
       }
-      return;
+      return false;
     }
 
     let hasUpdateErrors = false;
@@ -1686,13 +1718,28 @@ export async function pageAdmin(user) {
       setTimeout(function() {
         window.location.reload();
       }, 2000);
+      reloadScheduled = true;
     }
+    return reloadScheduled;
   }
-  document.getElementById("bulk_user_form").addEventListener("submit", function(e){
+  document.getElementById("bulk_user_form").addEventListener("submit", async function(e){
     e.preventDefault();
     e.stopPropagation();
+    if (isBulkUpdating) {
+      return;
+    }
     if (adminInfo.basic_admin || adminInfo.company_admin || adminInfo.super_admin) {
-      bulkUserUpdate(selectedData);
+      isBulkUpdating = true;
+      setBulkUpdateLoadingState(true);
+      let keepDisabled = false;
+      try {
+        keepDisabled = await bulkUserUpdate(selectedData);
+      } finally {
+        isBulkUpdating = !!keepDisabled;
+        if (!keepDisabled) {
+          setBulkUpdateLoadingState(false);
+        }
+      }
     }
   });
 
